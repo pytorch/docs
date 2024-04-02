@@ -227,7 +227,6 @@ div.body {
 }
 
 div.body p, div.body dd, div.body li, div.body blockquote {
-    -moz-hyphens: auto;
     -ms-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
@@ -488,7 +487,6 @@ table.field-list td, table.field-list th {
 }
 
 .field-name {
-    -moz-hyphens: manual;
     -ms-hyphens: manual;
     -webkit-hyphens: manual;
     hyphens: manual;
@@ -777,7 +775,6 @@ pre, div[class*="highlight-"] {
 }
 
 span.pre {
-    -moz-hyphens: none;
     -ms-hyphens: none;
     -webkit-hyphens: none;
     hyphens: none;

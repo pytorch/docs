@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -477,7 +482,9 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.distributed.fsdp.fully_sharded_data_parallel</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">contextlib</span>
+<span></span><span class="c1"># mypy: ignore-errors</span>
+
+<span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">math</span>
@@ -607,6 +614,8 @@
 <span class="sd">    .. _`Xu et al.`: https://arxiv.org/abs/2004.13336</span>
 <span class="sd">    .. _DeepSpeed: https://www.deepspeed.ai/</span>
 
+<span class="sd">    For advanced notes please refer to :ref:`fsdp_notes`.</span>
+
 <span class="sd">    Example::</span>
 
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(&quot;undefined variables&quot;)</span>
@@ -721,6 +730,10 @@
 <span class="sd">        group being inter-node, setting ``NCCL_CROSS_NIC=1`` can help improve</span>
 <span class="sd">        the all-reduce times over the replication process group for some</span>
 <span class="sd">        cluster setups.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        FSDP does not work with double backwards due to how it registers</span>
+<span class="sd">        backward hooks.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        module (nn.Module):</span>
@@ -947,7 +960,7 @@
                 <span class="s2">&quot;ignored_states&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignored_params</span><span class="p">,</span>
                 <span class="s2">&quot;device_mesh&quot;</span><span class="p">:</span> <span class="n">device_mesh</span><span class="p">,</span>
             <span class="p">}</span>
-            <span class="k">if</span> <span class="n">sharding_strategy</span> <span class="ow">in</span> <span class="n">HYBRID_SHARDING_STRATEGIES</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sharding_strategy</span> <span class="ow">in</span> <span class="n">HYBRID_SHARDING_STRATEGIES</span> <span class="ow">and</span> <span class="n">device_mesh</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># Share root process groups with children to maintain</span>
                 <span class="c1"># the invariant that all FSDP modules will have the same</span>
                 <span class="c1"># process groups.</span>
@@ -1620,12 +1633,18 @@
         <span class="n">local_sharded_norm</span> <span class="o">=</span> <span class="n">_get_grad_norm</span><span class="p">(</span><span class="n">sharded_params</span><span class="p">,</span> <span class="n">norm_type</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compute_device</span>
         <span class="p">)</span>
-        <span class="n">local_nonsharded_norm</span> <span class="o">=</span> <span class="n">_get_grad_norm</span><span class="p">(</span><span class="n">nonsharded_params</span><span class="p">,</span> <span class="n">norm_type</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">compute_device</span>
+        <span class="n">local_nonsharded_norm</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">_get_grad_norm</span><span class="p">(</span><span class="n">nonsharded_params</span><span class="p">,</span> <span class="n">norm_type</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compute_device</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">nonsharded_params</span>
+            <span class="k">else</span> <span class="kc">None</span>
         <span class="p">)</span>
         <span class="c1"># Reconstruct the total gradient norm depending on the norm type</span>
         <span class="k">if</span> <span class="n">norm_type</span> <span class="o">==</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
-            <span class="n">total_norm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">local_sharded_norm</span><span class="p">,</span> <span class="n">local_nonsharded_norm</span><span class="p">)</span>
+            <span class="n">total_norm</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">local_sharded_norm</span><span class="p">,</span> <span class="n">local_nonsharded_norm</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">local_nonsharded_norm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="k">else</span> <span class="n">local_sharded_norm</span>
+            <span class="p">)</span>
             <span class="n">dist</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span>
                 <span class="n">total_norm</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">MAX</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_group</span>
             <span class="p">)</span>
@@ -1634,7 +1653,8 @@
             <span class="n">dist</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">total_norm</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_group</span><span class="p">)</span>
             <span class="c1"># All-reducing the local non-sharded norm would count it an extra</span>
             <span class="c1"># world-size-many times</span>
-            <span class="n">total_norm</span> <span class="o">+=</span> <span class="n">local_nonsharded_norm</span><span class="o">**</span><span class="n">norm_type</span>
+            <span class="k">if</span> <span class="n">local_nonsharded_norm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">total_norm</span> <span class="o">+=</span> <span class="n">local_nonsharded_norm</span><span class="o">**</span><span class="n">norm_type</span>
             <span class="n">total_norm</span> <span class="o">=</span> <span class="n">total_norm</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">norm_type</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span><span class="o">.</span><span class="n">offload_params</span><span class="p">:</span>
             <span class="n">total_norm</span> <span class="o">=</span> <span class="n">total_norm</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
@@ -1645,7 +1665,7 @@
         <span class="c1"># `if clip_coef &lt; 1`</span>
         <span class="n">clip_coef_clamped</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">clip_coef</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">grad</span> <span class="ow">in</span> <span class="n">grads</span><span class="p">:</span>
-            <span class="n">grad</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">clip_coef_clamped</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">grad</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
+            <span class="n">grad</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">clip_coef_clamped</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">grad</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
         <span class="c1"># Use the &quot;largest&quot; dtype by type promotion semantics to use the same</span>
         <span class="c1"># dtype as if we did not force local norm computation to be in FP32</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">grads</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -2283,7 +2303,7 @@
 <span class="sd">            &gt;&gt;&gt; )</span>
 <span class="sd">            &gt;&gt;&gt; model.load_state_dict(state_dict)</span>
 <span class="sd">            &gt;&gt;&gt; optim_state_dict = FSDP.optim_state_dict_to_load(</span>
-<span class="sd">            &gt;&gt;&gt;     optim_state_dict, model, optim</span>
+<span class="sd">            &gt;&gt;&gt;     model, optim, optim_state_dict</span>
 <span class="sd">            &gt;&gt;&gt; )</span>
 <span class="sd">            &gt;&gt;&gt; optim.load_state_dict(optim_state_dict)</span>
 

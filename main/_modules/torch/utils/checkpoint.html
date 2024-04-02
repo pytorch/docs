@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -611,24 +616,27 @@
 
 
 <span class="k">def</span> <span class="nf">_infer_device_type</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-    <span class="n">device_types</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="n">arg</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span>
-            <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">arg</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cpu&quot;</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">device_types</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">device_types</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">add_device_types</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+        <span class="k">nonlocal</span> <span class="n">device_types</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">arg</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cpu&quot;</span><span class="p">:</span>
+            <span class="n">device_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+    <span class="n">tree_map</span><span class="p">(</span><span class="n">add_device_types</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+    <span class="n">device_types_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">device_types</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">device_types_set</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="s2">&quot;Tensor arguments, excluding CPU tensors, are detected on at least two types of devices. &quot;</span>
             <span class="s2">&quot;Device state will only be saved for devices of a single device type, and the remaining &quot;</span>
             <span class="s2">&quot;devices will be ignored. Consequently, if any checkpointed functions involve randomness, &quot;</span>
             <span class="s2">&quot;this may result in incorrect gradients. (Note that if CUDA devices are among the devices &quot;</span>
             <span class="s2">&quot;detected, it will be prioritized; otherwise, the first device encountered will be selected.)&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Device types: </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">device_types_set</span><span class="p">)</span><span class="si">}</span><span class="s2"> first device type: </span><span class="si">{</span><span class="n">device_types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">device_types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">DefaultDeviceType</span><span class="o">.</span><span class="n">get_device_type</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="s2">&quot;cuda&quot;</span> <span class="ow">in</span> <span class="n">device_types</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="s2">&quot;cuda&quot;</span> <span class="ow">in</span> <span class="n">device_types_set</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;cuda&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">device_types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -644,13 +652,13 @@
 <span class="k">def</span> <span class="nf">get_device_states</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]:</span>
     <span class="c1"># This will not error out if &quot;arg&quot; is a CPU tensor or a non-tensor type because</span>
     <span class="c1"># the conditionals short-circuit.</span>
-    <span class="n">fwd_device_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="n">arg</span><span class="o">.</span><span class="n">get_device</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">arg</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cpu&quot;</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
+    <span class="n">fwd_device_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">add_device_ids</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+        <span class="k">nonlocal</span> <span class="n">fwd_device_ids</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">arg</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cpu&quot;</span><span class="p">:</span>
+            <span class="n">fwd_device_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">get_device</span><span class="p">())</span>
+    <span class="n">tree_map</span><span class="p">(</span><span class="n">add_device_ids</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
 
     <span class="n">fwd_device_states</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">device_module</span> <span class="o">=</span> <span class="n">_get_device_module</span><span class="p">(</span><span class="n">_infer_device_type</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span>
@@ -1906,7 +1914,7 @@
     <span class="n">new_frame</span><span class="o">.</span><span class="n">forward_completed</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">device_module</span><span class="p">,</span> <span class="s2">&quot;_initialized&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> \
-       <span class="n">preserve_rng_state</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">had_device_in_fwd</span><span class="p">:</span>
+       <span class="n">preserve_rng_state</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">had_device_in_fwd</span><span class="p">:</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
         <span class="c1"># Device was not initialized before running the forward, so we didn&#39;t</span>
         <span class="c1"># stash the device state.</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>

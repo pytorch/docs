@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -485,12 +490,14 @@
 <span class="kn">import</span> <span class="nn">queue</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Callable</span><span class="p">,</span>
     <span class="n">cast</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Generator</span><span class="p">,</span>
     <span class="n">IO</span><span class="p">,</span>
     <span class="n">Iterable</span><span class="p">,</span>
     <span class="n">Iterator</span><span class="p">,</span>
@@ -501,11 +508,9 @@
 <span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
-<span class="kn">from</span> <span class="nn">torch._utils</span> <span class="kn">import</span> <span class="n">_get_device_module</span>
+<span class="kn">from</span> <span class="nn">torch._utils</span> <span class="kn">import</span> <span class="n">_get_available_device_type</span><span class="p">,</span> <span class="n">_get_device_module</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._shard._utils</span> <span class="kn">import</span> <span class="n">narrow_tensor_by_index</span>
-<span class="kn">from</span> <span class="nn">torch.distributed.checkpoint._checkpointer</span> <span class="kn">import</span> <span class="n">_Checkpointer</span>
 <span class="kn">from</span> <span class="nn">torch.futures</span> <span class="kn">import</span> <span class="n">Future</span>
 
 <span class="kn">from</span> <span class="nn">.metadata</span> <span class="kn">import</span> <span class="n">Metadata</span><span class="p">,</span> <span class="n">MetadataIndex</span>
@@ -593,7 +598,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">current_items</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">device_type</span> <span class="k">if</span> <span class="n">stream</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">stream</span><span class="o">.</span><span class="n">device_type</span> <span class="k">if</span> <span class="n">stream</span> <span class="k">else</span> <span class="n">_get_available_device_type</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device_module</span> <span class="o">=</span> <span class="n">_get_device_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">Stream</span><span class="p">,</span> <span class="n">stream</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_module</span><span class="o">.</span><span class="n">current_stream</span><span class="p">()</span>
@@ -624,7 +631,10 @@
                 <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span><span class="p">:</span>
                     <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">tensor</span><span class="o">.</span><span class="n">device</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">storage</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">numel</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">tensor</span><span class="o">.</span><span class="n">untyped_storage</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+                        <span class="o">!=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">*</span> <span class="n">tensor</span><span class="o">.</span><span class="n">itemsize</span>
+                    <span class="p">):</span>
                         <span class="c1"># this forces the tensor to be both contiguous and with minimal storage</span>
                         <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
 
@@ -724,18 +734,33 @@
 
 
 <span class="k">def</span> <span class="nf">_write_files_from_queue</span><span class="p">(</span>
+    <span class="n">create_stream</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
     <span class="n">file_queue</span><span class="p">:</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">,</span>
     <span class="n">result_queue</span><span class="p">:</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">,</span>
     <span class="n">planner</span><span class="p">:</span> <span class="n">SavePlanner</span><span class="p">,</span>
     <span class="n">inflight_threshhold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">use_fsync</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">thread_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">file_name</span><span class="p">,</span> <span class="n">storage_key</span><span class="p">,</span> <span class="n">write_items</span> <span class="o">=</span> <span class="n">file_queue</span><span class="o">.</span><span class="n">get_nowait</span><span class="p">()</span>
             <span class="n">loader</span><span class="p">:</span> <span class="n">_TensorLoader</span>
 
-            <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="ow">and</span> <span class="n">inflight_threshhold</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">custom_backend_name</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_get_privateuse1_backend_name</span><span class="p">()</span>
+            <span class="n">custom_device_mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="p">,</span> <span class="n">custom_backend_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+            <span class="c1"># TODO: Using the OverlappingCpuLoader with multiple threads creates significant</span>
+            <span class="c1"># performance degredation, observed as being related to cuda stream syncs. We</span>
+            <span class="c1"># should try to fix this and use _OverlappingCpuLoader for all threaded cases</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">thread_count</span> <span class="o">==</span> <span class="mi">1</span>
+                <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">custom_device_mod</span> <span class="ow">and</span> <span class="n">custom_device_mod</span><span class="o">.</span><span class="n">is_available</span><span class="p">())</span>
+                <span class="p">)</span>
+                <span class="ow">and</span> <span class="n">inflight_threshhold</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="p">):</span>
                 <span class="n">loader</span> <span class="o">=</span> <span class="n">_OverlappingCpuLoader</span><span class="p">(</span>
                     <span class="n">planner</span><span class="o">.</span><span class="n">resolve_data</span><span class="p">,</span>
                     <span class="n">inflight_threshhold</span><span class="o">=</span><span class="n">inflight_threshhold</span><span class="p">,</span>
@@ -753,7 +778,7 @@
             <span class="n">bytes_w</span> <span class="o">=</span> <span class="p">[</span><span class="n">wi</span> <span class="k">for</span> <span class="n">wi</span> <span class="ow">in</span> <span class="n">write_items</span> <span class="k">if</span> <span class="n">wi</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">WriteItemType</span><span class="o">.</span><span class="n">BYTE_IO</span><span class="p">]</span>
             <span class="n">write_results</span> <span class="o">=</span> <span class="p">[]</span>
 
-            <span class="k">with</span> <span class="n">file_name</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">create_stream</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">write_item</span> <span class="ow">in</span> <span class="n">bytes_w</span><span class="p">:</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">planner</span><span class="o">.</span><span class="n">resolve_data</span><span class="p">(</span><span class="n">write_item</span><span class="p">)</span>
                     <span class="n">write_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -767,10 +792,88 @@
                     <span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">use_fsync</span><span class="p">:</span>
-                    <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+                    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
             <span class="n">result_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">write_results</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
         <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">FileSystemBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="nd">@contextmanager</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">create_stream</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">concat_path</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">new_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">init_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">validate_checkpoint_id</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="o">...</span>
+
+
+<span class="k">class</span> <span class="nc">FileSystem</span><span class="p">(</span><span class="n">FileSystemBase</span><span class="p">):</span>
+    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">create_stream</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">with</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">cast</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">concat_path</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="o">/</span> <span class="n">suffix</span>
+
+    <span class="k">def</span> <span class="nf">init_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span>
+
+    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">new_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="n">new_path</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">validate_checkpoint_id</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="s2">&quot;://&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span><span class="o">.</span><span class="n">parents</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">W_OK</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
 
 
 <div class="viewcode-block" id="FileSystemWriter"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemWriter">[docs]</a><span class="k">class</span> <span class="nc">FileSystemWriter</span><span class="p">(</span><span class="n">StorageWriter</span><span class="p">):</span>
@@ -808,19 +911,22 @@
 <span class="sd">        N. B. If sync_files is disabled, there&#39;s no guarantee that the checkpoint will be consistent in the case of a failure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystem</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">init_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">single_file_per_rank</span> <span class="o">=</span> <span class="n">single_file_per_rank</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sync_files</span> <span class="o">=</span> <span class="n">sync_files</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thread_count</span> <span class="o">=</span> <span class="n">thread_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">per_thread_copy_ahead</span> <span class="o">=</span> <span class="n">per_thread_copy_ahead</span>
 
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">checkpoint_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">init_path</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">set_up_storage_writer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">prepare_local_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan</span><span class="p">:</span> <span class="n">SavePlan</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SavePlan</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">plan</span>
 
     <span class="k">def</span> <span class="nf">prepare_global_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_plan</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">]:</span>
@@ -848,11 +954,13 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">single_file_per_rank</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">bucket</span> <span class="ow">in</span> <span class="n">_split_by_size_and_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thread_count</span><span class="p">,</span> <span class="n">plan</span><span class="o">.</span><span class="n">items</span><span class="p">):</span>
                 <span class="n">file_name</span> <span class="o">=</span> <span class="n">gen_file</span><span class="p">()</span>
-                <span class="n">file_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">bucket</span><span class="p">))</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+                <span class="n">file_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="n">path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">bucket</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">plan</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
                 <span class="n">file_name</span> <span class="o">=</span> <span class="n">gen_file</span><span class="p">()</span>
-                <span class="n">file_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="p">[</span><span class="n">item</span><span class="p">]))</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+                <span class="n">file_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="n">path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="p">[</span><span class="n">item</span><span class="p">]))</span>
 
         <span class="n">result_queue</span><span class="p">:</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
 
@@ -861,22 +969,26 @@
             <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
                 <span class="n">target</span><span class="o">=</span><span class="n">_write_files_from_queue</span><span class="p">,</span>
                 <span class="n">args</span><span class="o">=</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">create_stream</span><span class="p">,</span>
                     <span class="n">file_queue</span><span class="p">,</span>
                     <span class="n">result_queue</span><span class="p">,</span>
                     <span class="n">planner</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">per_thread_copy_ahead</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">sync_files</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">thread_count</span><span class="p">,</span>
                 <span class="p">),</span>
             <span class="p">)</span>
             <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
             <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
         <span class="n">_write_files_from_queue</span><span class="p">(</span>
+            <span class="n">create_stream</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">create_stream</span><span class="p">,</span>
             <span class="n">file_queue</span><span class="o">=</span><span class="n">file_queue</span><span class="p">,</span>
             <span class="n">result_queue</span><span class="o">=</span><span class="n">result_queue</span><span class="p">,</span>
             <span class="n">planner</span><span class="o">=</span><span class="n">planner</span><span class="p">,</span>
             <span class="n">inflight_threshhold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">per_thread_copy_ahead</span><span class="p">,</span>
             <span class="n">use_fsync</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sync_files</span><span class="p">,</span>
+            <span class="n">thread_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">thread_count</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
@@ -898,24 +1010,37 @@
         <span class="k">for</span> <span class="n">wr_list</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
             <span class="n">storage_md</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">wr</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> <span class="n">wr</span><span class="o">.</span><span class="n">storage_data</span> <span class="k">for</span> <span class="n">wr</span> <span class="ow">in</span> <span class="n">wr_list</span><span class="p">})</span>
         <span class="n">metadata</span><span class="o">.</span><span class="n">storage_data</span> <span class="o">=</span> <span class="n">storage_md</span>
-        <span class="k">with</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;.metadata.tmp&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">metadata_file</span><span class="p">:</span>
+        <span class="n">tmp_path</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;.metadata.tmp&quot;</span><span class="p">))</span>
+        <span class="n">meta_path</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;.metadata&quot;</span><span class="p">))</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">create_stream</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">metadata_file</span><span class="p">:</span>
             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">metadata_file</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sync_files</span><span class="p">:</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">metadata_file</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">metadata_file</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
 
-        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;.metadata.tmp&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;.metadata&quot;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="n">meta_path</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">validate_checkpoint_id</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">FileSystem</span><span class="o">.</span><span class="n">validate_checkpoint_id</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FileSystemReader"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemReader">[docs]</a><span class="k">class</span> <span class="nc">FileSystemReader</span><span class="p">(</span><span class="n">StorageReader</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystem</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">init_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">storage_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">MetadataIndex</span><span class="p">,</span> <span class="n">_StorageInfo</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_slice_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">sinfo</span><span class="p">:</span> <span class="n">_StorageInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_create_file_view</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">checkpoint_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">init_path</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan</span><span class="p">:</span> <span class="n">LoadPlan</span><span class="p">,</span> <span class="n">planner</span><span class="p">:</span> <span class="n">LoadPlanner</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Future</span><span class="p">[</span><span class="kc">None</span><span class="p">]:</span>
         <span class="c1"># group requests by file</span>
@@ -926,11 +1051,12 @@
             <span class="n">per_file</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_item</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">relative_path</span><span class="p">,</span> <span class="n">reqs</span> <span class="ow">in</span> <span class="n">per_file</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">with</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="n">relative_path</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">new_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">relative_path</span><span class="p">)</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">create_stream</span><span class="p">(</span><span class="n">new_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
                 <span class="c1"># TODO sort by offset and cache the reading</span>
                 <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs</span><span class="p">:</span>
                     <span class="n">item_md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_data</span><span class="p">[</span><span class="n">req</span><span class="o">.</span><span class="n">storage_index</span><span class="p">]</span>
-                    <span class="n">file_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_file</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">item_md</span><span class="p">)</span>
+                    <span class="n">file_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_file</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">item_md</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">LoadItemType</span><span class="o">.</span><span class="n">BYTE_IO</span><span class="p">:</span>
                         <span class="n">read_bytes</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">file_slice</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">item_md</span><span class="o">.</span><span class="n">length</span><span class="p">))</span>
                         <span class="n">read_bytes</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -957,7 +1083,8 @@
 
     <span class="c1"># Implementing the abstract function in StorageReader</span>
     <span class="k">def</span> <span class="nf">read_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Metadata</span><span class="p">:</span>
-        <span class="k">with</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;.metadata&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">metadata_file</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;.metadata&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">create_stream</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">metadata_file</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">metadata_file</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">set_up_storage_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -968,61 +1095,11 @@
         <span class="k">return</span> <span class="n">plan</span>
 
     <span class="k">def</span> <span class="nf">prepare_global_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_plan</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">LoadPlan</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LoadPlan</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">global_plan</span></div>
+        <span class="k">return</span> <span class="n">global_plan</span>
 
-
-<span class="k">class</span> <span class="nc">_FileSystemCheckpointer</span><span class="p">(</span><span class="n">_Checkpointer</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An implementation of :py:class:`torch.distributed.checkpoint.checkpointer.Checkpointer`</span>
-<span class="sd">    for the file system. Wraps the creation and usage of ``FileSystemWriter`` and ``FileSystemReader``.</span>
-
-<span class="sd">    .. warning::</span>
-<span class="sd">        This feature is experimental and subject to removal/change.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">single_file_per_rank</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">sync_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">thread_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">per_thread_copy_ahead</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span><span class="p">,</span>
-        <span class="n">process_group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">coordinator_rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">no_dist</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">load_planner</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LoadPlanner</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">save_planner</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SavePlanner</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes Checkpointing defualts, including ``FileSystemWriter`` and ``FileSystemReader``</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            path: The directory to store/load checkpoints.</span>
-<span class="sd">            single_file_per_rank: Produce one file per rank instead of one file per tensor/blob. Default to True.</span>
-<span class="sd">            sync_files: force files to be synced to permanent storage. Default to True.</span>
-<span class="sd">            thread_count: Number of IO threads to use to write. Default to 1.</span>
-<span class="sd">            per_thread_copy_ahead: How many bytes to copy from the GPU ahead of saving then. Default 10Mb.</span>
-<span class="sd">            process_group: ProcessGroup to be used for cross-rank synchronization.</span>
-<span class="sd">            coordinator_rank: Rank to use to coordinate the checkpoint. rank0 is used by default.</span>
-<span class="sd">            no_dist: If ``True``, distributed checkpoint will not load in SPMD style. (Default: ``False``)</span>
-<span class="sd">            loader_planner: Instance of LoadPlanner to use when loading.</span>
-<span class="sd">            save_planner: Instance of SavePlanner to use when saving.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">storage_writer</span> <span class="o">=</span> <span class="n">FileSystemWriter</span><span class="p">(</span>
-            <span class="n">path</span><span class="p">,</span> <span class="n">single_file_per_rank</span><span class="p">,</span> <span class="n">sync_files</span><span class="p">,</span> <span class="n">thread_count</span><span class="p">,</span> <span class="n">per_thread_copy_ahead</span>
-        <span class="p">)</span>
-        <span class="n">storage_reader</span> <span class="o">=</span> <span class="n">FileSystemReader</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">storage_writer</span><span class="p">,</span>
-            <span class="n">storage_reader</span><span class="p">,</span>
-            <span class="n">process_group</span><span class="o">=</span><span class="n">process_group</span><span class="p">,</span>
-            <span class="n">coordinator_rank</span><span class="o">=</span><span class="n">coordinator_rank</span><span class="p">,</span>
-            <span class="n">no_dist</span><span class="o">=</span><span class="n">no_dist</span><span class="p">,</span>
-            <span class="n">load_planner</span><span class="o">=</span><span class="n">load_planner</span><span class="p">,</span>
-            <span class="n">save_planner</span><span class="o">=</span><span class="n">save_planner</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">validate_checkpoint_id</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">FileSystem</span><span class="o">.</span><span class="n">validate_checkpoint_id</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span></div>
 </pre></div>
 
              </article>

@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -482,6 +487,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 
+<span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._tensor</span> <span class="kn">import</span> <span class="n">DeviceMesh</span><span class="p">,</span> <span class="n">DTensor</span><span class="p">,</span> <span class="n">Placement</span><span class="p">,</span> <span class="n">Replicate</span><span class="p">,</span> <span class="n">Shard</span><span class="p">,</span> <span class="n">distribute_tensor</span><span class="p">,</span> <span class="n">distribute_module</span>
 
@@ -489,6 +495,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;ParallelStyle&quot;</span><span class="p">,</span>
     <span class="s2">&quot;RowwiseParallel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SequenceParallel&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ColwiseParallel&quot;</span><span class="p">,</span>
     <span class="s2">&quot;PrepareModuleInput&quot;</span><span class="p">,</span>
     <span class="s2">&quot;PrepareModuleOutput&quot;</span><span class="p">,</span>
@@ -529,15 +536,15 @@
 <span class="sd">    Example::</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(failing)</span>
 <span class="sd">        &gt;&gt;&gt; from torch.distributed.tensor.parallel import parallelize_module, ColwiseParallel</span>
+<span class="sd">        &gt;&gt;&gt; from torch.distributed.device_mesh import init_device_mesh</span>
 <span class="sd">        &gt;&gt;&gt; ...</span>
-<span class="sd">        &gt;&gt;&gt; # By default, the input of the &quot;w1&quot; Linear will be annotated to Replicated DTensor</span>
+<span class="sd">        &gt;&gt;&gt; m = Model(...)  # m is a nn.Module that contains a &quot;w1&quot; nn.Linear submodule</span>
+<span class="sd">        &gt;&gt;&gt; tp_mesh = init_device_mesh(&quot;cuda&quot;, (8,))</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # By default, the input of the &quot;w1&quot; Linear will be converted to Replicated DTensor</span>
 <span class="sd">        &gt;&gt;&gt; # and the output of &quot;w1&quot; will return :class:`torch.Tensor` that shards on the last dim.</span>
-<span class="sd">        &gt;&gt;&gt;&gt;</span>
-<span class="sd">        &gt;&gt;&gt; parallelize_module(</span>
-<span class="sd">        &gt;&gt;&gt;     module=block, # this can be a submodule or module</span>
-<span class="sd">        &gt;&gt;&gt;     ...,</span>
-<span class="sd">        &gt;&gt;&gt;     parallelize_plan={&quot;w1&quot;: ColwiseParallel()},</span>
-<span class="sd">        &gt;&gt;&gt; )</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; sharded_mod = parallelize_module(m, tp_mesh, {&quot;w1&quot;: ColwiseParallel()})</span>
 <span class="sd">        &gt;&gt;&gt; ...</span>
 
 <span class="sd">    .. note:: By default ``ColwiseParallel`` output is sharded on the last dimension if the ``output_layouts`` not</span>
@@ -562,7 +569,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span> <span class="o">=</span> <span class="n">use_local_output</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_prepare_input_fn</span><span class="p">(</span><span class="n">input_layouts</span><span class="p">,</span> <span class="n">desired_input_layouts</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_prepare_input_fn</span><span class="p">(</span><span class="n">input_layouts</span><span class="p">,</span> <span class="n">desired_input_layouts</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
         <span class="c1"># TODO: figure out dynamo support for instance method and switch this to instance method</span>
 
         <span class="c1"># annotate module input placements/sharding with input_layouts</span>
@@ -572,44 +579,47 @@
 
         <span class="c1"># transform the input layouts to the desired layouts of ColwiseParallel</span>
         <span class="k">if</span> <span class="n">input_layouts</span> <span class="o">!=</span> <span class="n">desired_input_layouts</span><span class="p">:</span>
-            <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="n">desired_input_layouts</span><span class="p">)</span>
+            <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="n">desired_input_layouts</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">input_tensor</span>
 
-    <span class="k">def</span> <span class="nf">_partition_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span>
-            <span class="c1"># colwise shard weight/bias to Shard(0), weight be Shard(0)</span>
-            <span class="c1"># means Colwise as Linear is input * weight^T + bias, where</span>
-            <span class="c1"># weight would become Shard(1)</span>
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
-                <span class="n">dist_param</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
-                    <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">0</span><span class="p">)])</span>
-                <span class="p">)</span>
-                <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dist_param</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">):</span>
-            <span class="c1"># colwise shard embedding.weight is straight forward as Shard(1)</span>
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
-                <span class="n">dist_param</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
-                    <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">1</span><span class="p">)])</span>
-                <span class="p">)</span>
-                <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dist_param</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-                <span class="s2">&quot;ColwiseParallel only supports nn.Linear&quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;and nn.Embedding for now, but found </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="si">}</span><span class="s2">!&quot;</span>
+    <span class="k">def</span> <span class="nf">_partition_linear_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+        <span class="c1"># colwise shard weight/bias to Shard(0), weight be Shard(0)</span>
+        <span class="c1"># means Colwise as Linear is input * weight^T + bias, where</span>
+        <span class="c1"># weight would become Shard(1)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+            <span class="n">dist_param</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+                <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">0</span><span class="p">)])</span>
             <span class="p">)</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dist_param</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_partition_embedding_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+        <span class="c1"># colwise shard embedding.weight is straight forward as Shard(1)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+            <span class="n">dist_param</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+                <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">1</span><span class="p">)])</span>
+            <span class="p">)</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dist_param</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_prepare_output_fn</span><span class="p">(</span><span class="n">output_layouts</span><span class="p">,</span> <span class="n">use_local_output</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_prepare_output_fn</span><span class="p">(</span><span class="n">output_layouts</span><span class="p">,</span> <span class="n">use_local_output</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
         <span class="c1"># outputs is a shard on last dimension DTensor, i.e. Shard(-1)</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="n">output_layouts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">outputs</span><span class="o">.</span><span class="n">placements</span> <span class="o">!=</span> <span class="n">output_layouts</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="n">output_layouts</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># back to local tensor</span>
         <span class="k">return</span> <span class="n">outputs</span><span class="o">.</span><span class="n">to_local</span><span class="p">()</span> <span class="k">if</span> <span class="n">use_local_output</span> <span class="k">else</span> <span class="n">outputs</span>
 
     <span class="k">def</span> <span class="nf">_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span>
+            <span class="n">partition_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partition_linear_fn</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">):</span>
+            <span class="n">partition_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partition_embedding_fn</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;ColwiseParallel currently only support nn.Linear and nn.Embedding!&quot;</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">distribute_module</span><span class="p">(</span>
             <span class="n">module</span><span class="p">,</span>
             <span class="n">device_mesh</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_partition_fn</span><span class="p">,</span>
+            <span class="n">partition_fn</span><span class="p">,</span>
             <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">),</span>
             <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_output_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="p">),</span>
         <span class="p">)</span></div>
@@ -617,7 +627,7 @@
 
 <div class="viewcode-block" id="RowwiseParallel"><a class="viewcode-back" href="../../../../../distributed.tensor.parallel.html#torch.distributed.tensor.parallel.RowwiseParallel">[docs]</a><span class="k">class</span> <span class="nc">RowwiseParallel</span><span class="p">(</span><span class="n">ParallelStyle</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Partition a compatible nn.Module in a row-wise fashion. Currently supports nn.Linear only.</span>
+<span class="sd">    Partition a compatible nn.Module in a row-wise fashion. Currently supports nn.Linear and nn.Embedding.</span>
 <span class="sd">    Users can compose it with ColwiseParallel to achieve the sharding of more complicated modules.</span>
 <span class="sd">    (i.e. MLP, Attention)</span>
 
@@ -636,15 +646,15 @@
 <span class="sd">    Example::</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(failing)</span>
 <span class="sd">        &gt;&gt;&gt; from torch.distributed.tensor.parallel import parallelize_module, RowwiseParallel</span>
+<span class="sd">        &gt;&gt;&gt; from torch.distributed.device_mesh import init_device_mesh</span>
 <span class="sd">        &gt;&gt;&gt; ...</span>
-<span class="sd">        &gt;&gt;&gt; # By default, the input of the &quot;w2&quot; Linear will be annotated to DTensor that shards on the last dim</span>
+<span class="sd">        &gt;&gt;&gt; m = Model(...)  # m is a nn.Module that contains a &quot;w2&quot; nn.Linear submodule</span>
+<span class="sd">        &gt;&gt;&gt; tp_mesh = init_device_mesh(&quot;cuda&quot;, (8,))</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # By default, the input of the &quot;w2&quot; Linear will be converted to DTensor that shards on the last dim</span>
 <span class="sd">        &gt;&gt;&gt; # and the output of &quot;w2&quot; will return a replicated :class:`torch.Tensor`.</span>
 <span class="sd">        &gt;&gt;&gt;</span>
-<span class="sd">        &gt;&gt;&gt; parallelize_module(</span>
-<span class="sd">        &gt;&gt;&gt;     module=block, # this can be a submodule or module</span>
-<span class="sd">        &gt;&gt;&gt;     ...,</span>
-<span class="sd">        &gt;&gt;&gt;     parallelize_plan={&quot;w2&quot;: RowwiseParallel()},</span>
-<span class="sd">        &gt;&gt;&gt; )</span>
+<span class="sd">        &gt;&gt;&gt; sharded_mod = parallelize_module(m, tp_mesh, {&quot;w2&quot;: RowwiseParallel()}),</span>
 <span class="sd">        &gt;&gt;&gt; ...</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -658,50 +668,148 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_layouts</span> <span class="ow">or</span> <span class="n">Shard</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span> <span class="o">=</span> <span class="p">(</span><span class="n">output_layouts</span> <span class="ow">or</span> <span class="n">Replicate</span><span class="p">(),</span> <span class="p">)</span>
-        <span class="c1"># rowwise linear runtime sharding:</span>
-        <span class="c1"># 1. shard input on last dim</span>
-        <span class="c1"># 2. partial output, to replicate -&gt; allreduce, to shard -&gt; reduce_scatter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span> <span class="o">=</span> <span class="p">(</span><span class="n">Shard</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span> <span class="o">=</span> <span class="n">use_local_output</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_prepare_input_fn</span><span class="p">(</span><span class="n">input_layouts</span><span class="p">,</span> <span class="n">desired_input_layouts</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_prepare_input_fn</span><span class="p">(</span><span class="n">input_layouts</span><span class="p">,</span> <span class="n">desired_input_layouts</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
         <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">DTensor</span><span class="p">):</span>
             <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">DTensor</span><span class="o">.</span><span class="n">from_local</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">input_layouts</span><span class="p">,</span> <span class="n">run_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">input_layouts</span> <span class="o">!=</span> <span class="n">desired_input_layouts</span><span class="p">:</span>
-            <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="n">desired_input_layouts</span><span class="p">)</span>
+            <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="n">desired_input_layouts</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">input_tensor</span>
 
-    <span class="k">def</span> <span class="nf">_partition_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span>
-            <span class="c1"># Rowwise shard weight to Shard(1), bias to Replicate(), weight be Shard(1)</span>
-            <span class="c1"># means Rowwise as Linear is input * weight^T + bias, where</span>
-            <span class="c1"># weight would become Shard(0)</span>
-            <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
-                <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">1</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">_partition_linear_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+        <span class="c1"># Rowwise shard weight to Shard(1), bias to Replicate(), weight be Shard(1)</span>
+        <span class="c1"># means Rowwise as nn.Linear is input * weight^T + bias, where</span>
+        <span class="c1"># weight would become Shard(0)</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+            <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">1</span><span class="p">)])</span>
+        <span class="p">))</span>
+        <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;bias&quot;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+                <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Replicate</span><span class="p">()])</span>
             <span class="p">))</span>
-            <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;bias&quot;</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
-                    <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Replicate</span><span class="p">()])</span>
-                <span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;RowwiseParallel currently only support nn.Linear!&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_partition_embedding_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+        <span class="c1"># rowwise shard embedding.weight is Shard(0)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+            <span class="n">dist_param</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+                <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">0</span><span class="p">)])</span>
+            <span class="p">)</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dist_param</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_prepare_output_fn</span><span class="p">(</span><span class="n">output_layouts</span><span class="p">,</span> <span class="n">use_local_output</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="n">output_layouts</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_prepare_output_fn</span><span class="p">(</span><span class="n">output_layouts</span><span class="p">,</span> <span class="n">use_local_output</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+        <span class="c1"># Rowwise sharding produces partial output, depending on output layouts:</span>
+        <span class="c1"># 1. to replicate -&gt; allreduce</span>
+        <span class="c1"># 2. to shard -&gt; reduce_scatter</span>
+        <span class="k">if</span> <span class="n">outputs</span><span class="o">.</span><span class="n">placements</span> <span class="o">!=</span> <span class="n">output_layouts</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="n">output_layouts</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># back to local tensor if use_local_output is True</span>
+        <span class="k">return</span> <span class="n">outputs</span><span class="o">.</span><span class="n">to_local</span><span class="p">()</span> <span class="k">if</span> <span class="n">use_local_output</span> <span class="k">else</span> <span class="n">outputs</span>
+
+    <span class="k">def</span> <span class="nf">_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span>
+            <span class="n">partition_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partition_linear_fn</span>
+            <span class="c1"># rowwise linear runtime sharding requires input tensor shard on last dim</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Shard</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">):</span>
+            <span class="n">partition_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partition_embedding_fn</span>
+            <span class="c1"># rowwise embedding runtime sharding requires input tensor replicated</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span> <span class="o">=</span> <span class="p">(</span><span class="n">Replicate</span><span class="p">(),</span> <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;RowwiseParallel currently only support nn.Linear and nn.Embedding!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">distribute_module</span><span class="p">(</span>
+            <span class="n">module</span><span class="p">,</span>
+            <span class="n">device_mesh</span><span class="p">,</span>
+            <span class="n">partition_fn</span><span class="p">,</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">),</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_output_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SequenceParallel"><a class="viewcode-back" href="../../../../../distributed.tensor.parallel.html#torch.distributed.tensor.parallel.SequenceParallel">[docs]</a><span class="k">class</span> <span class="nc">SequenceParallel</span><span class="p">(</span><span class="n">ParallelStyle</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SequenceParallel replicates a compatible ``nn.Module`` parameters and runs the sharded computation with</span>
+<span class="sd">    input sharded on the sequence dimension. This currently supports ``nn.LayerNorm``, ``nn.Dropout``, and the</span>
+<span class="sd">    `RMSNorm python implementation &lt;https://github.com/facebookresearch/llama/blob/main/llama/model.py#L34&gt;`__</span>
+
+<span class="sd">    This style implements the operation that is described in the paper</span>
+<span class="sd">    `Reducing Activation Recomputation in Large Transformer Models &lt;https://arxiv.org/abs/2205.05198&gt;`__</span>
+
+<span class="sd">    Both the input and output of the ``nn.Module`` will be sharded on the sequence dimension.</span>
+
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        sequence_dim (int, optional):</span>
+<span class="sd">            The sequence dimension of the input tensor for the ``nn.Module``, this is used to annotate the input tensor to</span>
+<span class="sd">            become a DTensor that is sharded on the sequence dimension, default: 1.</span>
+<span class="sd">        use_local_output (bool, optional):</span>
+<span class="sd">            Whether to use local :class:`torch.Tensor` instead of :class:`DTensor` for the module output, default: False.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`ParallelStyle` object that represents Sequence Parallel of the ``nn.Module``.</span>
+
+<span class="sd">    Example::</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(failing)</span>
+<span class="sd">        &gt;&gt;&gt; from torch.distributed.tensor.parallel import parallelize_module, SequenceParallel</span>
+<span class="sd">        &gt;&gt;&gt; from torch.distributed.device_mesh import init_device_mesh</span>
+<span class="sd">        &gt;&gt;&gt; ...</span>
+<span class="sd">        &gt;&gt;&gt; m = Model(...)  # m is a nn.Module that contains a &quot;norm&quot; nn.LayerNorm submodule</span>
+<span class="sd">        &gt;&gt;&gt; tp_mesh = init_device_mesh(&quot;cuda&quot;, (8,))</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # By default, the input of the &quot;norm&quot; will be converted to DTensor that shards on the sequence dim</span>
+<span class="sd">        &gt;&gt;&gt; # and the output of &quot;norm&quot; will return a sharded on sequence dimension :class:`DTensor`.</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; sharded_mod = parallelize_module(m, tp_mesh, {&quot;norm&quot;: SequenceParallel()}),</span>
+<span class="sd">        &gt;&gt;&gt; ...</span>
+
+<span class="sd">    .. note:: SequenceParallel style assumes ones initialization if there are weights in the nn.Module (i.e.</span>
+<span class="sd">        ``nn.LayerNorm`` or ``RMSNorm``, and they by default have ones initialization). If you have custom</span>
+<span class="sd">        inits for the weights on those modules, you need to broadcast the weights before/after parallelizing</span>
+<span class="sd">        to ensure that they are replicated.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">sequence_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">use_local_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sequence_dim</span> <span class="o">=</span> <span class="n">sequence_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span> <span class="o">=</span> <span class="n">use_local_output</span>
+
+    <span class="k">def</span> <span class="nf">_replicate_module_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">p_name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+            <span class="c1"># simple replication with fixed ones_ init from LayerNorm/RMSNorm, which allow</span>
+            <span class="c1"># us to simply just use from_local</span>
+            <span class="n">replicated_param</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+                <span class="n">DTensor</span><span class="o">.</span><span class="n">from_local</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Replicate</span><span class="p">()],</span> <span class="n">run_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">p_name</span><span class="p">,</span> <span class="n">replicated_param</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_prepare_input_fn</span><span class="p">(</span><span class="n">sequence_dim</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+        <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">DTensor</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">inputs</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">DTensor</span><span class="o">.</span><span class="n">from_local</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="n">sequence_dim</span><span class="p">)],</span> <span class="n">run_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expecting input of </span><span class="si">{</span><span class="n">mod</span><span class="si">}</span><span class="s2"> to be a torch.Tensor or DTensor, but got </span><span class="si">{</span><span class="n">input_tensor</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_prepare_output_fn</span><span class="p">(</span><span class="n">use_local_output</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">outputs</span><span class="o">.</span><span class="n">to_local</span><span class="p">()</span> <span class="k">if</span> <span class="n">use_local_output</span> <span class="k">else</span> <span class="n">outputs</span>
 
     <span class="k">def</span> <span class="nf">_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">distribute_module</span><span class="p">(</span>
             <span class="n">module</span><span class="p">,</span>
             <span class="n">device_mesh</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_partition_fn</span><span class="p">,</span>
-            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">),</span>
-            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_output_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_replicate_module_fn</span><span class="p">,</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_dim</span><span class="p">),</span>
+            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_output_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span><span class="p">),</span>
         <span class="p">)</span></div>
 
 
@@ -726,12 +834,16 @@
 <span class="sd">    Example::</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(failing)</span>
 <span class="sd">        &gt;&gt;&gt; from torch.distributed.tensor.parallel import parallelize_module, PrepareModuleInput</span>
+<span class="sd">        &gt;&gt;&gt; from torch.distributed.device_mesh import init_device_mesh</span>
 <span class="sd">        &gt;&gt;&gt; ...</span>
+<span class="sd">        &gt;&gt;&gt; block = TransformerBlock(...)  # block is a nn.Module that contains an &quot;attn&quot; Attention submodule</span>
+<span class="sd">        &gt;&gt;&gt; tp_mesh = init_device_mesh(&quot;cuda&quot;, (8,))</span>
+<span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; # According to the style specified below, the first input of attn will be annotated to Sharded DTensor</span>
 <span class="sd">        &gt;&gt;&gt; # and then redistributed to Replicated DTensor.</span>
 <span class="sd">        &gt;&gt;&gt; parallelize_module(</span>
-<span class="sd">        &gt;&gt;&gt;     module=block, # this can be a submodule or module</span>
-<span class="sd">        &gt;&gt;&gt;     ...,</span>
+<span class="sd">        &gt;&gt;&gt;     block, # this can be a submodule or module</span>
+<span class="sd">        &gt;&gt;&gt;     tp_mesh,</span>
 <span class="sd">        &gt;&gt;&gt;     parallelize_plan={</span>
 <span class="sd">        &gt;&gt;&gt;         &quot;attn&quot;: PrepareModuleInput(</span>
 <span class="sd">        &gt;&gt;&gt;             input_layouts=(Shard(0), None, None, ...),</span>
@@ -796,25 +908,27 @@
 <span class="sd">            The desired DTensor layouts of output tensors for the nn.Module, this is used to ensure the outputs of the nn.Module</span>
 <span class="sd">            have the desired DTensor layouts.</span>
 <span class="sd">        use_local_output (bool, optional):</span>
-<span class="sd">            Whether to use local :class:`torch.Tensor` instead of :class:`DTensor` for the module outputs, default: False.</span>
+<span class="sd">            Whether to use local :class:`torch.Tensor` instead of :class:`DTensor` for the module outputs, default: True.</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        A ParallelStyle object that prepares the sharding layouts of the nn.Module&#39;s outputs.</span>
 
 <span class="sd">    Example::</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(failing)</span>
 <span class="sd">        &gt;&gt;&gt; from torch.distributed.tensor.parallel import parallelize_module, PrepareModuleOutput</span>
+<span class="sd">        &gt;&gt;&gt; from torch.distributed.device_mesh import init_device_mesh</span>
 <span class="sd">        &gt;&gt;&gt; ...</span>
-<span class="sd">        &gt;&gt;&gt; # According to the style specified below, the first input of attn will be annotated to Sharded DTensor</span>
-<span class="sd">        &gt;&gt;&gt; # and then redistributed to Replicated DTensor.</span>
+<span class="sd">        &gt;&gt;&gt; block = TransformerBlock(...)  # block is a nn.Module that contains an &quot;attn&quot; Attention submodule</span>
+<span class="sd">        &gt;&gt;&gt; tp_mesh = init_device_mesh(&quot;cuda&quot;, (8,))</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # According to the style specified below, the output of the TransformerBlock will be converted to Replicated DTensor</span>
+<span class="sd">        &gt;&gt;&gt; # and then redistributed to Sharded DTensor.</span>
 <span class="sd">        &gt;&gt;&gt; parallelize_module(</span>
-<span class="sd">        &gt;&gt;&gt;     module=block, # this can be a submodule or module</span>
-<span class="sd">        &gt;&gt;&gt;     ...,</span>
-<span class="sd">        &gt;&gt;&gt;     parallelize_plan={</span>
-<span class="sd">        &gt;&gt;&gt;         &quot;submodule&quot;: PrepareModuleOutput(</span>
-<span class="sd">        &gt;&gt;&gt;             output_layouts=Replicate(),</span>
-<span class="sd">        &gt;&gt;&gt;             desired_output_layouts=Shard(0)</span>
-<span class="sd">        &gt;&gt;&gt;         ),</span>
-<span class="sd">        &gt;&gt;&gt;     }</span>
+<span class="sd">        &gt;&gt;&gt;     block, # this can be a submodule or module</span>
+<span class="sd">        &gt;&gt;&gt;     tp_mesh,</span>
+<span class="sd">        &gt;&gt;&gt;     parallelize_plan = PrepareModuleOutput(</span>
+<span class="sd">        &gt;&gt;&gt;         output_layouts=Replicate(),</span>
+<span class="sd">        &gt;&gt;&gt;         desired_output_layouts=Shard(0)</span>
+<span class="sd">        &gt;&gt;&gt;     )</span>
 <span class="sd">        &gt;&gt;&gt; )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>

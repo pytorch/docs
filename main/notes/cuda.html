@@ -6,7 +6,9 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta content="A guide to torch.cuda, a PyTorch module to run CUDA operations" name="description" />
+<meta content="memory management, PYTORCH_CUDA_ALLOC_CONF, optimize PyTorch, CUDA" name="keywords" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>CUDA semantics &mdash; PyTorch main documentation</title>
@@ -243,7 +245,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -295,6 +297,7 @@
 <li class="toctree-l1"><a class="reference internal" href="extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -330,6 +333,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
@@ -345,6 +350,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linalg.html">torch.linalg</a></li>
@@ -355,8 +361,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../complex_numbers.html">Complex Numbers</a></li>
@@ -386,7 +391,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -832,8 +839,8 @@ be freed so it can not increase the amount of GPU memory available for PyTorch.<
 complete snapshot of the memory allocator state via
 <a class="reference internal" href="../generated/torch.cuda.memory_snapshot.html#torch.cuda.memory_snapshot" title="torch.cuda.memory_snapshot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">memory_snapshot()</span></code></a>, which can help you understand the
 underlying allocation patterns produced by your code.</p>
-<div class="section" id="environment-variables">
-<span id="cuda-memory-envvars"></span><h3>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="optimizing-memory-usage-with-pytorch-cuda-alloc-conf">
+<span id="cuda-memory-envvars"></span><h3>Optimizing memory usage  with <code class="docutils literal notranslate"><span class="pre">PYTORCH_CUDA_ALLOC_CONF</span></code><a class="headerlink" href="#optimizing-memory-usage-with-pytorch-cuda-alloc-conf" title="Permalink to this heading">¶</a></h3>
 <p>Use of a caching allocator can interfere with memory checking tools such as
 <code class="docutils literal notranslate"><span class="pre">cuda-memcheck</span></code>.  To debug memory errors using <code class="docutils literal notranslate"><span class="pre">cuda-memcheck</span></code>, set
 <code class="docutils literal notranslate"><span class="pre">PYTORCH_NO_CUDA_MEMORY_CACHING=1</span></code> in your environment to disable caching.</p>
@@ -1296,9 +1303,11 @@ of any callable you pass to <a class="reference internal" href="../generated/tor
 <a class="reference internal" href="../generated/torch.cuda.graph.html#torch.cuda.graph" title="torch.cuda.graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">graph</span></code></a> and
 <a class="reference internal" href="../generated/torch.cuda.make_graphed_callables.html#torch.cuda.make_graphed_callables" title="torch.cuda.make_graphed_callables"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_graphed_callables()</span></code></a> set a side stream for you.)</p></li>
 <li><p>Ops that synchronize the CPU with the GPU (e.g., <code class="docutils literal notranslate"><span class="pre">.item()</span></code> calls) are prohibited.</p></li>
-<li><p>CUDA RNG ops are allowed, but must use default generators. For example, explicitly constructing a
-new <a class="reference internal" href="../generated/torch.Generator.html#torch.Generator" title="torch.Generator"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Generator</span></code></a> instance and passing it as the <code class="docutils literal notranslate"><span class="pre">generator</span></code> argument to an RNG function
-is prohibited.</p></li>
+<li><p>CUDA RNG operations are permitted, and when using multiple <a class="reference internal" href="../generated/torch.Generator.html#torch.Generator" title="torch.Generator"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Generator</span></code></a> instances within a graph,
+they must be registered using <code class="xref py py-meth docutils literal notranslate"><span class="pre">CUDAGraph.register_generator_state</span></code> before graph capture.
+Avoid using <code class="xref py py-meth docutils literal notranslate"><span class="pre">Generator.get_state</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">Generator.set_state</span></code> during capture;
+instead, utilize <a class="reference internal" href="../generated/torch.Generator.html#torch.Generator.graphsafe_set_state" title="torch.Generator.graphsafe_set_state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Generator.graphsafe_set_state</span></code></a> and <a class="reference internal" href="../generated/torch.Generator.html#torch.Generator.graphsafe_get_state" title="torch.Generator.graphsafe_get_state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Generator.graphsafe_get_state</span></code></a>
+for managing generator states safely within the graph context. This ensures proper RNG operation and generator management within CUDA graphs.</p></li>
 </ul>
 <p>Violating any of these will likely cause silent numerical errors or undefined behavior:</p>
 <ul class="simple">
@@ -1438,7 +1447,7 @@ lets us capture and run graph-safe sections as graphs regardless:</p>
 </div>
 <div class="section" id="usage-with-torch-cuda-amp">
 <span id="graphs-with-amp"></span><h3>Usage with torch.cuda.amp<a class="headerlink" href="#usage-with-torch-cuda-amp" title="Permalink to this heading">¶</a></h3>
-<p>For typical optimizers, <a class="reference internal" href="../amp.html#torch.cuda.amp.GradScaler.step" title="torch.cuda.amp.GradScaler.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GradScaler.step</span></code></a> syncs
+<p>For typical optimizers, <code class="xref py py-meth docutils literal notranslate"><span class="pre">GradScaler.step</span></code> syncs
 the CPU with the GPU, which is prohibited during capture. To avoid errors, either use
 <a class="reference internal" href="#partial-network-capture"><span class="std std-ref">partial-network capture</span></a>, or (if forward, loss,
 and backward are capture-safe) capture forward, loss, and backward but not the
@@ -1671,7 +1680,7 @@ if (url)
 </ul>
 </li>
 <li><a class="reference internal" href="#memory-management">Memory management</a><ul>
-<li><a class="reference internal" href="#environment-variables">Environment variables</a></li>
+<li><a class="reference internal" href="#optimizing-memory-usage-with-pytorch-cuda-alloc-conf">Optimizing memory usage  with <code class="docutils literal notranslate"><span class="pre">PYTORCH_CUDA_ALLOC_CONF</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#using-custom-memory-allocators-for-cuda">Using custom memory allocators for CUDA</a></li>

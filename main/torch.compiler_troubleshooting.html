@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -295,6 +295,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -330,6 +331,8 @@
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
@@ -345,6 +348,7 @@
 <li class="toctree-l1"><a class="reference internal" href="func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linalg.html">torch.linalg</a></li>
@@ -355,8 +359,7 @@
 <li class="toctree-l1"><a class="reference internal" href="package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
@@ -386,7 +389,9 @@
 <li class="toctree-l1"><a class="reference internal" href="named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -666,9 +671,9 @@ which will generate an error.</p>
 <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.verbose=True</span></code> to get a full stack trace to both
 the error in TorchDynamo and the user code. In addition to this flag,
 you can also set the <code class="docutils literal notranslate"><span class="pre">log_level</span></code> of TorchDynamo through
-<code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.log_level</span></code>. These levels include:</p>
+<code class="docutils literal notranslate"><span class="pre">torch._logging.set_logs(dynamo</span> <span class="pre">=</span> <span class="pre">logging.INFO)</span></code> or <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=&quot;dynamo&quot;</span></code>. These levels include:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">logging.DEBUG</span></code>: Print every instruction that is
+<li><p><code class="docutils literal notranslate"><span class="pre">logging.DEBUG</span></code> or <code class="docutils literal notranslate"><span class="pre">TORCH_LOGS=&quot;+dynamo&quot;</span></code>: Print every instruction that is
 encountered in addition to all the log levels listed below.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">logging.INFO</span></code>:
 Print each function that is compiled (original and modified bytecode)
@@ -1062,21 +1067,26 @@ that are encountered. Here is an example usage:</p>
     <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">b</span>
-<span class="n">explanation</span><span class="p">,</span> <span class="n">out_guards</span><span class="p">,</span> <span class="n">graphs</span><span class="p">,</span> <span class="n">ops_per_graph</span><span class="p">,</span> <span class="n">break_reasons</span><span class="p">,</span> <span class="n">explanation_verbose</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">dynamo</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">toy_example</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="p">)</span>
+<span class="n">explanation</span> <span class="o">=</span> <span class="n">dynamo</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">toy_example</span><span class="p">)(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">explanation_verbose</span><span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Dynamo produced 3 graphs, with 2 graph breaks and 6 ops.</span>
-<span class="sd"> Break reasons:</span>
-<span class="sd">1. call_function BuiltinVariable(print) [ConstantVariable(str)] {}</span>
-<span class="sd">   File &quot;t2.py&quot;, line 16, in toy_example</span>
-<span class="sd">    print(&quot;woo&quot;)</span>
-
-<span class="sd">2. generic_jump</span>
-<span class="sd">   File &quot;t2.py&quot;, line 17, in toy_example</span>
-<span class="sd">    if b.sum() &lt; 0:</span>
-<span class="sd"> &quot;&quot;&quot;</span>
+<span class="sd">Graph Count: 3</span>
+<span class="sd">Graph Break Count: 2</span>
+<span class="sd">Op Count: 5</span>
+<span class="sd">Break Reasons:</span>
+<span class="sd">  Break Reason 1:</span>
+<span class="sd">    Reason: builtin: print [&lt;class &#39;torch._dynamo.variables.constant.ConstantVariable&#39;&gt;] False</span>
+<span class="sd">    User Stack:</span>
+<span class="sd">      &lt;FrameSummary file foo.py, line 5 in toy_example&gt;</span>
+<span class="sd">  Break Reason 2:</span>
+<span class="sd">    Reason: generic_jump TensorVariable()</span>
+<span class="sd">    User Stack:</span>
+<span class="sd">      &lt;FrameSummary file foo.py, line 6 in torch_dynamo_resume_in_toy_example_at_5&gt;</span>
+<span class="sd">Ops per Graph:</span>
+<span class="sd">  ...</span>
+<span class="sd">Out Guards:</span>
+<span class="sd">  ...</span>
+<span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
 <p>Outputs include:</p>
@@ -1085,14 +1095,14 @@ that are encountered. Here is an example usage:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">graphs</span></code> - a list of graph modules which were successfully traced.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ops_per_graph</span></code> - a list of lists where each sublist contains the ops that are run in the graph.</p></li>
 </ul>
-<p>To throw an error on the first graph break encountered, use the <code class="docutils literal notranslate"><span class="pre">nopython</span></code>
+<p>To throw an error on the first graph break encountered, use the <code class="docutils literal notranslate"><span class="pre">fullgraph</span></code>
 mode. This mode disables TorchDynamo’s Python fallback, and only
 succeeds if the entire program is convertible into a single graph. Example
 usage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">toy_example</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
    <span class="o">...</span>
 
-<span class="n">compiled_toy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">toy_example</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">backend</span><span class="o">=&lt;</span><span class="n">compiler</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">compiled_toy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">toy_example</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">backend</span><span class="o">=&lt;</span><span class="n">compiler</span><span class="o">&gt;</span><span class="p">)(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="excessive-recompilation">
@@ -1149,6 +1159,19 @@ your training stability. So the accuracy debugger is very useful for us
 to detect bugs in our codegen or with a backend compiler.</p>
 <p>If you’d like to ensure that random number generation is the same across both torch
 and triton then you can enable <code class="docutils literal notranslate"><span class="pre">torch._inductor.config.fallback_random</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
+</div>
+<div class="section" id="extended-debugging">
+<h2>Extended Debugging<a class="headerlink" href="#extended-debugging" title="Permalink to this heading">¶</a></h2>
+<p>Extended debugging can be enabled by using the following experimental flags.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TORCHDYNAMO_EXTENDED_DEBUG_GUARD_ADDED</span></code> - provides extended debug information if the
+string representation of a guard matches this flag value. For example, set it to
+“Ne(s0, 10)” to generate full Python and C++ backtrace whenever guard was issued.
+<code class="docutils literal notranslate"><span class="pre">TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL</span></code> - provides extended debug information when
+a particular symbol is allocated. For example, set this to “u2” to generate full Python
+and C++ backtrace whenever this symbol was created.
+<code class="docutils literal notranslate"><span class="pre">TORCHDYNAMO_EXTENDED_DEBUG_CPP</span></code> - provides extended debug information (C++ backtrace)
+for all extended debug settings as well as errors. For example, set this to “1”. The C++
+backtrace is slow and very spammy so it is not included by default with extended debugging.</p>
 </div>
 </div>
 
@@ -1225,6 +1248,7 @@ if (url)
 </ul>
 </li>
 <li><a class="reference internal" href="#accuracy-debugging">Accuracy Debugging</a></li>
+<li><a class="reference internal" href="#extended-debugging">Extended Debugging</a></li>
 </ul>
 </li>
 </ul>

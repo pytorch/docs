@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -475,7 +480,8 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.fx.graph_module</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span></span><span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">linecache</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -671,9 +677,8 @@
     <span class="c1"># Manually set Tracer class on the reconstructed Graph, to avoid</span>
     <span class="c1"># referencing the private local subclass KeepModules.</span>
     <span class="n">graph</span><span class="o">.</span><span class="n">_tracer_cls</span> <span class="o">=</span> <span class="n">tracer_cls</span>
-    <span class="k">if</span> <span class="n">graph_module_cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">graph_module_cls</span> <span class="o">=</span> <span class="n">GraphModule</span>
-    <span class="n">gm</span> <span class="o">=</span> <span class="n">graph_module_cls</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="n">graphmodule_cls_name</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">._lazy_graph_module</span> <span class="kn">import</span> <span class="n">_make_graph_module</span>
+    <span class="n">gm</span> <span class="o">=</span> <span class="n">_make_graph_module</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="n">graphmodule_cls_name</span><span class="p">,</span> <span class="n">graph_module_cls</span><span class="o">=</span><span class="n">graph_module_cls</span><span class="p">)</span>
 
     <span class="c1"># The GraphModule constructor only retains attributes referenced by the graph.</span>
     <span class="c1"># In this case, our goal is return a GraphModule as close to identical as the one</span>
@@ -760,7 +765,7 @@
         <span class="n">all_src_lines</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getlines</span><span class="p">(</span><span class="n">frame_summary</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
 
         <span class="c1"># constituent substrings of the error message</span>
-        <span class="n">tb_repr</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+        <span class="n">tb_repr</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">disable</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">)()</span>
         <span class="n">custom_msg</span> <span class="o">=</span> <span class="p">(</span>
             <span class="s2">&quot;Call using an FX-traced Module, &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;line </span><span class="si">{</span><span class="n">err_lineno</span><span class="si">}</span><span class="s2"> of the traced Module&#39;s &quot;</span>
@@ -792,7 +797,6 @@
                 <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># noqa: TRY200</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">e</span>
-
 
 <div class="viewcode-block" id="GraphModule"><a class="viewcode-back" href="../../../fx.html#torch.fx.GraphModule">[docs]</a><span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -921,7 +925,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_tracer_extras</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">_tracer_extras</span>
 
         <span class="c1"># Dictionary to store metadata</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="c1"># TorchScript breaks trying to compile the graph setter because of the</span>
     <span class="c1"># continued string literal. Issue here: https://github.com/pytorch/pytorch/issues/44842</span>
@@ -1252,6 +1257,7 @@
 <span class="sd">        code to regenerate the underlying ``Graph``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dict_without_graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
         <span class="n">python_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recompile</span><span class="p">()</span>
         <span class="n">import_block</span> <span class="o">=</span> <span class="n">_format_import_block</span><span class="p">(</span><span class="n">python_code</span><span class="o">.</span><span class="n">globals</span><span class="p">,</span> <span class="n">sys_importer</span><span class="p">)</span>
         <span class="k">del</span> <span class="n">dict_without_graph</span><span class="p">[</span><span class="s2">&quot;_graph&quot;</span><span class="p">]</span>
@@ -1276,6 +1282,7 @@
             <span class="s2">&quot;_state_dict_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_load_state_dict_pre_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_load_state_dict_post_hooks&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_replace_hook&quot;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">extra_preserved_attrs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
@@ -1287,7 +1294,8 @@
         <span class="k">return</span> <span class="n">res</span>
 
     <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">GraphModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">._lazy_graph_module</span> <span class="kn">import</span> <span class="n">_make_graph_module</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">_make_graph_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
         <span class="n">res</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="k">return</span> <span class="n">res</span>
 
@@ -1324,7 +1332,22 @@
     <span class="k">def</span> <span class="nf">_replicate_for_data_parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">new_gm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__copy__</span><span class="p">()</span>
         <span class="n">new_gm</span><span class="o">.</span><span class="n">_is_replica</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="n">new_gm</span></div>
+        <span class="k">return</span> <span class="n">new_gm</span>
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">_set_replace_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes a callable which will be called everytime when we replace a node</span>
+<span class="sd">        to a new node, or change the node&#39;s name. Callable takes three arguments:</span>
+<span class="sd">        the old node we&#39;re changing, and NAME of the new node, followed by the</span>
+<span class="sd">        user node which consumes the old node to be replaced.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;Replace hook must be a callable.&quot;</span>
+        <span class="n">prev</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span><span class="p">,</span> <span class="n">f</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="n">prev</span></div>
 
 
 <span class="c1"># workarounds for issues in __torch_function__</span>

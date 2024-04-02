@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -475,7 +480,9 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.fx.node</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Nodes represent a definition of a value in our graph of operators.</span>
+<span></span><span class="c1"># mypy: ignore-errors</span>
+
+<span class="c1"># Nodes represent a definition of a value in our graph of operators.</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span>
 <span class="kn">from</span> <span class="nn">._compatibility</span> <span class="kn">import</span> <span class="n">compatibility</span>
 <span class="kn">from</span> <span class="nn">.immutable_collections</span> <span class="kn">import</span> <span class="n">immutable_dict</span><span class="p">,</span> <span class="n">immutable_list</span>
@@ -514,18 +521,22 @@
     <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">_exit_autocast</span><span class="p">,</span>
 <span class="p">}</span>
 
+<span class="c1"># TODO: Either refactor this into 2 functions 1 dce for functional graphs and 1 dce for all graphs,</span>
+<span class="c1"># or add logic to correctly mark all inplace ops as side effectful.</span>
 <span class="n">_side_effectful_functions</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_assert</span><span class="p">,</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_assert_async</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">_assert_async</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">_assert_scalar</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">copy_</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
+    <span class="n">_ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">index_put_</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">sym_constrain_range</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">sym_constrain_range_for_size</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">_record_function_enter</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">_record_function_enter_new</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">_record_function_exit</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">inductor</span><span class="o">.</span><span class="n">accumulate_grad_</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
+    <span class="n">_ops</span><span class="o">.</span><span class="n">inductor</span><span class="o">.</span><span class="n">resize_storage_bytes_</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
 <span class="p">}</span> <span class="o">|</span> <span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span>
 
 
@@ -708,6 +719,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_next</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_erased</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">=</span> <span class="p">()</span>
 
         <span class="c1"># If set, use this fn to print this node</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_repr_fn</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Node</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -758,7 +770,31 @@
         <span class="n">x</span><span class="o">.</span><span class="n">_remove_from_list</span><span class="p">()</span>
         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span>
         <span class="n">p</span><span class="o">.</span><span class="n">_next</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">_next</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="p">,</span> <span class="n">x</span></div>
+        <span class="n">x</span><span class="o">.</span><span class="n">_next</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="p">,</span> <span class="n">x</span>
+
+        <span class="c1"># compute x._sort_key</span>
+        <span class="n">psk</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">_prev</span><span class="o">.</span><span class="n">_sort_key</span>
+        <span class="n">nsk</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">_next</span><span class="o">.</span><span class="n">_sort_key</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">psk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nsk</span><span class="p">):</span>
+            <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">psk</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">nsk</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">psk</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nsk</span><span class="p">):</span>
+            <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">nsk</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">psk</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># same length, increase length by 1</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">psk</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">_sort_key</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">_sort_key</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">&gt;</span> <span class="n">other</span> <span class="ow">or</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">&lt;</span> <span class="n">other</span> <span class="ow">or</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span>
 
 <div class="viewcode-block" id="Node.append"><a class="viewcode-back" href="../../../fx.html#torch.fx.Node.append">[docs]</a>    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1039,6 +1075,7 @@
                 <span class="n">replace_with</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
         <span class="n">to_process</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">)</span>
         <span class="n">skipped</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">owning_module</span>
         <span class="k">for</span> <span class="n">use_node</span> <span class="ow">in</span> <span class="n">to_process</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">delete_user_cb</span><span class="p">(</span><span class="n">use_node</span><span class="p">):</span>
                 <span class="n">skipped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">use_node</span><span class="p">)</span>
@@ -1049,6 +1086,9 @@
                     <span class="k">return</span> <span class="n">replace_with</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">n</span>
+
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;_replace_hook&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">_replace_hook</span><span class="p">(</span><span class="n">old</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="n">replace_with</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">use_node</span><span class="p">)</span>
 
             <span class="n">new_args</span> <span class="o">=</span> <span class="n">map_arg</span><span class="p">(</span><span class="n">use_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
             <span class="n">new_kwargs</span> <span class="o">=</span> <span class="n">map_arg</span><span class="p">(</span><span class="n">use_node</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
@@ -1139,6 +1179,10 @@
         <span class="k">def</span> <span class="nf">maybe_replace_node</span><span class="p">(</span><span class="n">n</span> <span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">new_input</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">old_input</span> <span class="k">else</span> <span class="n">n</span>
 
+        <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">owning_module</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;_replace_hook&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">_replace_hook</span><span class="p">(</span><span class="n">old</span><span class="o">=</span><span class="n">old_input</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="n">new_input</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
         <span class="n">new_args</span> <span class="o">=</span> <span class="n">map_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
         <span class="n">new_kwargs</span> <span class="o">=</span> <span class="n">map_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_args</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
@@ -1150,7 +1194,16 @@
             <span class="k">return</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">_graph_namespace</span><span class="o">.</span><span class="n">create_name</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">_graph_namespace</span><span class="o">.</span><span class="n">_rename_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">_graph_namespace</span><span class="o">.</span><span class="n">_rename_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;name&#39;</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">):</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">owning_module</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;_replace_hook&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">:</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">_replace_hook</span><span class="p">(</span><span class="n">old</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

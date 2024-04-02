@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -481,11 +486,14 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx._pytree</span> <span class="k">as</span> <span class="nn">fx_pytree</span>
 <span class="kn">import</span> <span class="nn">torch.utils._pytree</span> <span class="k">as</span> <span class="nn">pytree</span>
+<span class="kn">from</span> <span class="nn">torch.export._tree_utils</span> <span class="kn">import</span> <span class="n">reorder_kwargs</span>
 <span class="kn">from</span> <span class="nn">torch.export.exported_program</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ConstantArgument</span><span class="p">,</span>
     <span class="n">ExportedProgram</span><span class="p">,</span>
@@ -494,17 +502,25 @@
     <span class="n">TensorArgument</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.fx._symbolic_trace</span> <span class="kn">import</span> <span class="n">is_fx_tracing</span>
+<span class="kn">from</span> <span class="nn">torch.utils._pytree</span> <span class="kn">import</span> <span class="n">GetAttrKey</span><span class="p">,</span> <span class="n">SequenceKey</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;InterpreterModule&quot;</span><span class="p">,</span> <span class="s2">&quot;UnflattenedModule&quot;</span><span class="p">,</span> <span class="s2">&quot;unflatten&quot;</span><span class="p">,</span> <span class="s2">&quot;FlatArgsAdapter&quot;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">_AttrKind</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">PARAMETER</span> <span class="o">=</span> <span class="s2">&quot;parameter&quot;</span>
+    <span class="n">BUFFER</span> <span class="o">=</span> <span class="s2">&quot;buffer&quot;</span>
+    <span class="n">CONSTANT</span> <span class="o">=</span> <span class="s2">&quot;constant&quot;</span>
 
 
 <span class="c1"># Assign attribute &#39;from_obj&#39; to the qualified name &#39;target&#39; on &#39;to_module</span>
 <span class="c1"># This installs empty Modules where none exist yet if they are subpaths of target</span>
 <span class="k">def</span> <span class="nf">_assign_attr</span><span class="p">(</span>
-    <span class="n">from_obj</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">from_obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ScriptObject</span><span class="p">],</span>
     <span class="n">to_module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">is_parameter</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">attr_kind</span><span class="p">:</span> <span class="n">_AttrKind</span><span class="p">,</span>
+    <span class="n">persistent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">field</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
@@ -515,15 +531,15 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
         <span class="n">to_module</span> <span class="o">=</span> <span class="n">t</span>
 
-    <span class="c1"># If it is a tensor and not a parameter attribute of a module, it should be a named buffer.</span>
-    <span class="c1"># So, we register it as a named buffer in the target module.</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Expected only parameters or buffers, got:&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">from_obj</span><span class="p">))</span>
-
-    <span class="k">if</span> <span class="n">is_parameter</span><span class="p">:</span>
-        <span class="n">to_module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">from_obj</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">to_module</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">PARAMETER</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
+        <span class="n">to_module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">BUFFER</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+        <span class="n">to_module</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="n">persistent</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">CONSTANT</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ScriptObject</span><span class="p">))</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="InterpreterModule"><a class="viewcode-back" href="../../../export.html#torch.export.unflatten.InterpreterModule">[docs]</a><span class="k">class</span> <span class="nc">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -535,16 +551,14 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
-        <span class="n">module_call_signature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ModuleCallSignature</span><span class="p">],</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">owning_module</span> <span class="o">=</span> <span class="bp">self</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">module_call_signature</span> <span class="o">=</span> <span class="n">module_call_signature</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Didn&#39;t finalize this InterpreterModule&quot;</span>
-        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">is_dynamo_compiling</span><span class="p">():</span>
             <span class="c1"># Dynamo cannot trace through torch.fx.Interpreter, so fall back to</span>
             <span class="c1"># GraphModule codegen in this instance.</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_module</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -601,7 +615,7 @@
         <span class="n">input_spec</span><span class="p">:</span> <span class="n">pytree</span><span class="o">.</span><span class="n">TreeSpec</span><span class="p">,</span>
         <span class="n">input_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;NOTE: This adapter may mutate given ``flat_args``.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;NOTE: This adapter may mutate given ``input_args_with_path``.&quot;&quot;&quot;</span>
         <span class="o">...</span></div></div>
 
 
@@ -615,6 +629,8 @@
         <span class="k">if</span> <span class="n">export_module</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">backward_signature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unflattening on JointExportModule NYI&quot;</span><span class="p">)</span>
 
+        <span class="n">fqn_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">fqn</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">export_module</span><span class="o">.</span><span class="n">module_call_graph</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">fqn_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
         <span class="n">export_graph</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">export_module</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">export_module</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
@@ -631,25 +647,50 @@
 
         <span class="n">state_dict</span> <span class="o">=</span> <span class="n">export_module</span><span class="o">.</span><span class="n">state_dict</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
-            <span class="n">cloned</span> <span class="o">=</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+            <span class="n">cloned</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">state_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">())</span>
             <span class="n">_assign_attr</span><span class="p">(</span>
                 <span class="n">cloned</span><span class="p">,</span>
                 <span class="bp">self</span><span class="p">,</span>
                 <span class="n">name</span><span class="p">,</span>
-                <span class="n">is_parameter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">attr_kind</span><span class="o">=</span><span class="n">_AttrKind</span><span class="o">.</span><span class="n">PARAMETER</span><span class="p">,</span>
             <span class="p">)</span>
+
+        <span class="n">non_persistent_buffers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">non_persistent_buffers</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">buffers</span><span class="p">:</span>
-            <span class="n">cloned</span> <span class="o">=</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">non_persistent_buffers</span><span class="p">:</span>
+                <span class="n">persistent</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">cloned</span> <span class="o">=</span> <span class="n">export_module</span><span class="o">.</span><span class="n">constants</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">persistent</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">cloned</span> <span class="o">=</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
             <span class="n">_assign_attr</span><span class="p">(</span>
                 <span class="n">cloned</span><span class="p">,</span>
                 <span class="bp">self</span><span class="p">,</span>
                 <span class="n">name</span><span class="p">,</span>
-                <span class="n">is_parameter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">attr_kind</span><span class="o">=</span><span class="n">_AttrKind</span><span class="o">.</span><span class="n">BUFFER</span><span class="p">,</span>
+                <span class="n">persistent</span><span class="o">=</span><span class="n">persistent</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">lifted_tensor_constants</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">lifted_custom_objs</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">constant</span> <span class="o">=</span> <span class="n">export_module</span><span class="o">.</span><span class="n">constants</span><span class="p">[</span><span class="n">fqn</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constant</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                <span class="n">constant</span> <span class="o">=</span> <span class="n">constant</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+            <span class="n">_assign_attr</span><span class="p">(</span>
+                <span class="n">constant</span><span class="p">,</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="n">fqn</span><span class="p">,</span>
+                <span class="n">attr_kind</span><span class="o">=</span><span class="n">_AttrKind</span><span class="o">.</span><span class="n">CONSTANT</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">inputs_to_parameters</span><span class="p">,</span>
             <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">inputs_to_buffers</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">inputs_to_lifted_tensor_constants</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">inputs_to_lifted_custom_objs</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="n">_sink_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs_to_state</span><span class="p">,</span> <span class="p">[])</span>
@@ -669,9 +710,21 @@
             <span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span>
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_input_constraints</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># TODO(zhxchen17) We can register modules ahead of time instead of reorder later.</span>
+        <span class="n">_reorder_submodules</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="n">fqn</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fqn_list</span><span class="p">)})</span>
+        <span class="k">assert</span> <span class="p">[</span>
+            <span class="n">fqn</span> <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">named_modules</span><span class="p">(</span><span class="n">remove_duplicate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">]</span> <span class="o">==</span> <span class="n">fqn_list</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">flat_args</span><span class="p">,</span> <span class="n">in_spec</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_flatten</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_call_graph</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signature</span>
+
+        <span class="n">reordered_kwargs</span> <span class="o">=</span> <span class="n">reorder_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">signature</span><span class="o">.</span><span class="n">in_spec</span><span class="p">)</span>
+
+        <span class="n">flat_args_with_path</span><span class="p">,</span> <span class="n">in_spec</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_flatten_with_path</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">reordered_kwargs</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">flat_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">flat_args_with_path</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">is_fx_tracing</span><span class="p">():</span>
             <span class="n">return_val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Interpreter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
                 <span class="o">*</span><span class="n">flat_args</span><span class="p">,</span> <span class="n">enable_io_processing</span><span class="o">=</span><span class="kc">False</span>
@@ -681,8 +734,6 @@
                 <span class="k">return</span> <span class="n">return_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">return_val</span>
 
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_call_graph</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fqn</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_call_graph</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signature</span>
         <span class="k">if</span> <span class="n">in_spec</span> <span class="o">!=</span> <span class="n">signature</span><span class="o">.</span><span class="n">in_spec</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapted</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span>
@@ -716,8 +767,19 @@
             <span class="c1"># TODO(suo): untangle this.</span>
             <span class="kn">from</span> <span class="nn">torch._export.utils</span> <span class="kn">import</span> <span class="n">_check_input_constraints_for_graph</span>
 
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapted</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="c1"># TODO(suo): The FlatArgsAdapter returns a list of flat args,</span>
+                <span class="c1"># which we don&#39;t have keypaths for. For now, just create a dummy</span>
+                <span class="c1"># keypath to associate with the arg.</span>
+                <span class="n">new_flat_args_with_path</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># type: ignore[var-annotated]</span>
+                    <span class="p">((</span><span class="n">SequenceKey</span><span class="p">(</span><span class="n">idx</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">GetAttrKey</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;&lt;unknown location&gt;&quot;</span><span class="p">)),</span> <span class="n">arg</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">flat_args</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_flat_args_with_path</span> <span class="o">=</span> <span class="n">flat_args_with_path</span>  <span class="c1"># type: ignore[assignment]</span>
+
             <span class="n">_check_input_constraints_for_graph</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">input_placeholders</span><span class="p">,</span> <span class="n">flat_args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">range_constraints</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_placeholders</span><span class="p">,</span> <span class="n">new_flat_args_with_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">range_constraints</span>
             <span class="p">)</span>
         <span class="n">tree_out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Interpreter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
             <span class="o">*</span><span class="n">flat_args</span><span class="p">,</span> <span class="n">enable_io_processing</span><span class="o">=</span><span class="kc">False</span>
@@ -870,6 +932,23 @@
     <span class="k">return</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">call_function</span><span class="p">(</span><span class="n">pytree</span><span class="o">.</span><span class="n">tree_unflatten</span><span class="p">,</span> <span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">spec_node</span><span class="p">))</span>
 
 
+<span class="k">def</span> <span class="nf">_get_submodule</span><span class="p">(</span><span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">field</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
+        <span class="n">submod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">submod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">mod</span> <span class="o">=</span> <span class="n">submod</span>
+
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_add_submodule</span><span class="p">(</span><span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">module_to_add</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">field</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 
@@ -916,9 +995,7 @@
         <span class="k">if</span> <span class="n">module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">InterpreterModule</span><span class="p">(</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">(),</span> <span class="n">module_call_graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cached_graph_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1084,12 +1161,19 @@
         <span class="k">if</span> <span class="n">parent_out</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
+        <span class="n">parent_out</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">graph_outputs</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;val&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph_outputs</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;val&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">graph_outputs</span><span class="p">]</span>
+        <span class="p">)</span>
+
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">orig_outputs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">signature</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">orig_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">parent_out</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">orig_output</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">orig_outputs</span><span class="p">):</span>
                 <span class="c1"># Use Proxy to record getitem access.</span>
                 <span class="n">proxy_out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Proxy</span><span class="p">(</span><span class="n">parent_out</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">node</span>  <span class="c1"># type: ignore[index]</span>
+                <span class="n">proxy_out</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_output</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;val&quot;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">orig_output</span><span class="p">]</span> <span class="o">=</span> <span class="n">proxy_out</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cached_graph_module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1211,12 +1295,34 @@
     <span class="p">)</span><span class="o">.</span><span class="n">run_outer</span><span class="p">()</span>
 
 
+<span class="k">def</span> <span class="nf">_reorder_submodules</span><span class="p">(</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">fqn_order</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="p">):</span>
+    <span class="c1"># TODO Can be optimized by adding submodules ahead of time.</span>
+    <span class="k">if</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">fqn_order</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="k">if</span> <span class="n">_get_submodule</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">fqn</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">_add_submodule</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">())</span>
+
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="n">child</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">fqn</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="n">_reorder_submodules</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">fqn_order</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">fqn</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="nb">delattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">fqn_order</span><span class="p">[</span><span class="n">fqn</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">))</span>
+    <span class="n">children</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_sink_params</span><span class="p">(</span>
     <span class="n">module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="n">scope</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sink params and buffers from graph inputs into get_attr nodes.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sink params, buffers, and constants from graph inputs into get_attr nodes.</span>
 
 <span class="sd">    Exported modules are purely functional, so they pass their parameters and</span>
 <span class="sd">    buffers in as inputs to the graph.</span>
@@ -1264,7 +1370,7 @@
                 <span class="k">continue</span>
             <span class="n">attr_path</span> <span class="o">=</span> <span class="n">state_name</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span> <span class="p">:]</span>
             <span class="n">state_attr</span> <span class="o">=</span> <span class="n">_recursive_getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">attr_path</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state_attr</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state_attr</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ScriptObject</span><span class="p">))</span>
 
             <span class="c1"># Make sure the newly created get_attr node is placed after the last placeholder node</span>
             <span class="k">with</span> <span class="n">graph</span><span class="o">.</span><span class="n">inserting_after</span><span class="p">(</span><span class="n">the_last_input</span><span class="p">):</span>

@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -491,7 +496,7 @@
 <span class="kn">from</span> <span class="nn">torch._sources</span> <span class="kn">import</span> <span class="n">get_source_lines_and_file</span>
 <span class="kn">from</span> <span class="nn">torch.types</span> <span class="kn">import</span> <span class="n">Storage</span>
 <span class="kn">from</span> <span class="nn">torch.storage</span> <span class="kn">import</span> <span class="n">_get_dtype_from_pickle_storage_type</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">IO</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">IO</span><span class="p">,</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeAlias</span><span class="p">,</span> <span class="n">TypeGuard</span>  <span class="c1"># Python 3.10+</span>
 <span class="kn">import</span> <span class="nn">copyreg</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
@@ -544,7 +549,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
 
-<span class="n">_package_registry</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">_package_registry</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">STORAGE</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">STORAGE</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">STORAGE</span><span class="p">]]]]</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">class</span> <span class="nc">LoadEndianness</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">NATIVE</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1336,7 +1341,7 @@
             <span class="n">storage</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
         <span class="c1"># Now that it is on the CPU we can directly copy it into the zip file</span>
         <span class="n">num_bytes</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">nbytes</span><span class="p">()</span>
-        <span class="n">zip_file</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">storage</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">(),</span> <span class="n">num_bytes</span><span class="p">)</span>
+        <span class="n">zip_file</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">storage</span><span class="p">,</span> <span class="n">num_bytes</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="load"><a class="viewcode-back" href="../../generated/torch.load.html#torch.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
@@ -1505,8 +1510,9 @@
                              <span class="n">overall_storage</span><span class="o">=</span><span class="n">overall_storage</span><span class="p">,</span>
                              <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mmap</span><span class="p">:</span>
+            <span class="n">f_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;mmap can only be used with files saved with &quot;</span>
-                               <span class="s2">&quot;`torch.save(_use_new_zipfile_serialization=True), &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;`torch.save(</span><span class="si">{</span><span class="n">f_name</span><span class="si">}</span><span class="s2">_use_new_zipfile_serialization=True), &quot;</span>
                                <span class="s2">&quot;please torch.save your checkpoint with this option in order to use mmap.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">weights_only</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -1643,7 +1649,7 @@
                     <span class="n">numel</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1">q&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">ndim</span><span class="p">))</span>
                     <span class="n">stride</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s1">q&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">ndim</span><span class="p">))</span>
                     <span class="n">storage_offset</span><span class="p">,</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&lt;q&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
-                    <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">storage</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span>
+                    <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">storage</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span>
                         <span class="n">storage</span><span class="o">.</span><span class="n">_untyped_storage</span><span class="p">,</span> <span class="n">storage_offset</span><span class="p">,</span> <span class="n">numel</span><span class="p">,</span> <span class="n">stride</span><span class="p">)</span>
                     <span class="n">deserialized_objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">tensor</span>
 
@@ -1673,12 +1679,16 @@
             <span class="n">nbytes</span> <span class="o">=</span> <span class="n">numel</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_element_size</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">root_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deserialized_objects</span><span class="p">:</span>
-                <span class="n">obj</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Storage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">))</span>
-                <span class="n">obj</span><span class="o">.</span><span class="n">_torch_load_uninitialized</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_guards</span><span class="o">.</span><span class="n">active_fake_mode</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">obj</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Storage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;meta&#39;</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">obj</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Storage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">))</span>
+                    <span class="n">obj</span><span class="o">.</span><span class="n">_torch_load_uninitialized</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">obj</span> <span class="o">=</span> <span class="n">restore_location</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
                 <span class="c1"># TODO: Once we decide to break serialization FC, we can</span>
                 <span class="c1"># stop wrapping with TypedStorage</span>
                 <span class="n">typed_storage</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">TypedStorage</span><span class="p">(</span>
-                    <span class="n">wrap_storage</span><span class="o">=</span><span class="n">restore_location</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">location</span><span class="p">),</span>
+                    <span class="n">wrap_storage</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span>
                     <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
                     <span class="n">_internal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="n">deserialized_objects</span><span class="p">[</span><span class="n">root_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">typed_storage</span>
@@ -1745,15 +1755,16 @@
 
     <span class="n">deserialized_storage_keys</span> <span class="o">=</span> <span class="n">pickle_module</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">)</span>
 
-    <span class="n">offset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="k">if</span> <span class="n">f_should_read_directly</span> <span class="k">else</span> <span class="kc">None</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">deserialized_storage_keys</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">deserialized_objects</span>
-        <span class="n">typed_storage</span> <span class="o">=</span> <span class="n">deserialized_objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="n">typed_storage</span><span class="o">.</span><span class="n">_untyped_storage</span><span class="o">.</span><span class="n">_set_from_file</span><span class="p">(</span>
-            <span class="n">f</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">f_should_read_directly</span><span class="p">,</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_element_size</span><span class="p">(</span><span class="n">typed_storage</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_guards</span><span class="o">.</span><span class="n">active_fake_mode</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="k">if</span> <span class="n">f_should_read_directly</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">deserialized_storage_keys</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">deserialized_objects</span>
+            <span class="n">typed_storage</span> <span class="o">=</span> <span class="n">deserialized_objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="n">typed_storage</span><span class="o">.</span><span class="n">_untyped_storage</span><span class="o">.</span><span class="n">_set_from_file</span><span class="p">(</span>
+                <span class="n">f</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">f_should_read_directly</span><span class="p">,</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_element_size</span><span class="p">(</span><span class="n">typed_storage</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
 
     <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_validate_loaded_sparse_tensors</span><span class="p">()</span>
 
@@ -1842,7 +1853,10 @@
 
     <span class="k">def</span> <span class="nf">load_tensor</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">numel</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;data/</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="k">if</span> <span class="n">overall_storage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_guards</span><span class="o">.</span><span class="n">detect_fake_mode</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">nbytes</span> <span class="o">=</span> <span class="n">numel</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_element_size</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="n">storage</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;meta&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">overall_storage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">storage_offset</span> <span class="o">=</span> <span class="n">zip_file</span><span class="o">.</span><span class="n">get_record_offset</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="n">storage</span> <span class="o">=</span> <span class="n">overall_storage</span><span class="p">[</span><span class="n">storage_offset</span><span class="p">:</span><span class="n">storage_offset</span> <span class="o">+</span> <span class="n">numel</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>

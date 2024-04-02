@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -497,7 +502,6 @@
     <span class="s2">&quot;FunctionMeta&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Function&quot;</span><span class="p">,</span>
     <span class="s2">&quot;once_differentiable&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;traceable&quot;</span><span class="p">,</span>
     <span class="s2">&quot;InplaceFunction&quot;</span><span class="p">,</span>
     <span class="s2">&quot;NestedIOFunction&quot;</span><span class="p">,</span>
 <span class="p">]</span>
@@ -757,8 +761,15 @@
         <span class="k">return</span> <span class="n">backward_hooks</span><span class="p">,</span> <span class="n">handle</span>
 
 
-<span class="k">class</span> <span class="nc">BackwardCFunction</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">_FunctionBase</span><span class="p">,</span> <span class="n">FunctionCtx</span><span class="p">,</span> <span class="n">_HookMixin</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="BackwardCFunction"><a class="viewcode-back" href="../../../generated/torch.autograd.function.BackwardCFunction.html#torch.autograd.BackwardCFunction">[docs]</a><span class="k">class</span> <span class="nc">BackwardCFunction</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">_FunctionBase</span><span class="p">,</span> <span class="n">FunctionCtx</span><span class="p">,</span> <span class="n">_HookMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is used for internal autograd work. Do not use.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BackwardCFunction.apply"><a class="viewcode-back" href="../../../generated/torch.autograd.function.BackwardCFunction.html#torch.autograd.BackwardCFunction.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply method used when executing this Node during the backward</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># _forward_cls is defined by derived class</span>
         <span class="c1"># The user should define either backward or vjp but never both.</span>
         <span class="n">backward_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_cls</span><span class="o">.</span><span class="n">backward</span>  <span class="c1"># type: ignore[attr-defined]</span>
@@ -770,14 +781,17 @@
                 <span class="s2">&quot;of them.&quot;</span>
             <span class="p">)</span>
         <span class="n">user_fn</span> <span class="o">=</span> <span class="n">vjp_fn</span> <span class="k">if</span> <span class="n">vjp_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Function</span><span class="o">.</span><span class="n">vjp</span> <span class="k">else</span> <span class="n">backward_fn</span>
-        <span class="k">return</span> <span class="n">user_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">user_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">apply_jvp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="BackwardCFunction.apply_jvp"><a class="viewcode-back" href="../../../generated/torch.autograd.function.BackwardCFunction.html#torch.autograd.BackwardCFunction.apply_jvp">[docs]</a>    <span class="k">def</span> <span class="nf">apply_jvp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply method used when executing forward mode AD during the forward</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># _forward_cls is defined by derived class</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_cls</span><span class="o">.</span><span class="n">jvp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_cls</span><span class="o">.</span><span class="n">jvp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
     <span class="k">def</span> <span class="nf">_compiled_autograd_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_cls</span><span class="o">.</span><span class="n">_compiled_autograd_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_cls</span><span class="o">.</span><span class="n">_compiled_autograd_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <span class="k">class</span> <span class="nc">FunctionMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
@@ -806,7 +820,7 @@
     <span class="n">_C</span><span class="o">.</span><span class="n">_FunctionBase</span><span class="p">,</span> <span class="n">FunctionCtx</span><span class="p">,</span> <span class="n">_HookMixin</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">FunctionMeta</span>
 <span class="p">):</span>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Define the forward of the custom autograd Function.</span>
 
 <span class="sd">        This function is to be overridden by all subclasses.</span>
@@ -857,10 +871,10 @@
 
 <span class="sd">        Either:</span>
 
-<span class="sd">        1. Override forward with the signature forward(ctx, *args, **kwargs).</span>
+<span class="sd">        1. Override forward with the signature ``forward(ctx, *args, **kwargs)``.</span>
 <span class="sd">           ``setup_context`` is not overridden. Setting up the ctx for backward</span>
 <span class="sd">           happens inside the ``forward``.</span>
-<span class="sd">        2. Override forward with the signature forward(*args, **kwargs) and</span>
+<span class="sd">        2. Override forward with the signature ``forward(*args, **kwargs)`` and</span>
 <span class="sd">           override ``setup_context``. Setting up the ctx for backward happens</span>
 <span class="sd">           inside ``setup_context`` (as opposed to inside the ``forward``)</span>
 
@@ -966,6 +980,7 @@
             <span class="s2">&quot;Instantiating an autograd function will raise an &quot;</span>
             <span class="s2">&quot;error in a future version of PyTorch.&quot;</span><span class="p">,</span>
             <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -974,9 +989,6 @@
             <span class="s2">&quot;Please use new-style autograd function with static forward method. &quot;</span>
             <span class="s2">&quot;(Example: https://pytorch.org/docs/stable/autograd.html#torch.autograd.Function)&quot;</span>
         <span class="p">)</span>
-
-    <span class="c1"># for the tracer</span>
-    <span class="n">is_traceable</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Bool that specifies if PyTorch should attempt to autogenerate</span>
@@ -1045,7 +1057,7 @@
                 <span class="s2">&quot;In order to use an autograd.Function with functorch transforms &quot;</span>
                 <span class="s2">&quot;(vmap, grad, jvp, jacrev, ...), it must override the setup_context &quot;</span>
                 <span class="s2">&quot;staticmethod. For more details, please see &quot;</span>
-                <span class="s2">&quot;https://pytorch.org/docs/master/notes/extending.func.html&quot;</span>
+                <span class="s2">&quot;https://pytorch.org/docs/main/notes/extending.func.html&quot;</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">custom_function_call</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1055,7 +1067,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">_autograd_function_id</span><span class="p">,)</span></div>
 
 
-<span class="k">def</span> <span class="nf">once_differentiable</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+<div class="viewcode-block" id="once_differentiable"><a class="viewcode-back" href="../../../generated/torch.autograd.function.once_differentiable.html#torch.autograd.once_differentiable">[docs]</a><span class="k">def</span> <span class="nf">once_differentiable</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
     <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -1099,28 +1111,18 @@
 
         <span class="k">return</span> <span class="n">err_fn</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">fake_requires_grad</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">])</span>
 
-    <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">wrapper</span></div>
 
 
-<span class="k">def</span> <span class="nf">traceable</span><span class="p">(</span><span class="n">fn_cls</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Mark Function as traceable for the JIT.</span>
-
-<span class="sd">    Traceable functions have additional restrictions - they can&#39;t pass any</span>
-<span class="sd">    data-dependent values to backward (e.g. Prod passes the output, which makes</span>
-<span class="sd">    it non-traceable), and their backward should be implemented entirely in terms</span>
-<span class="sd">    of operations on autograd Tensors in all cases.</span>
-
-<span class="sd">    DON&#39;T USE THIS DECORATOR. IT IS FOR INTERNAL USE ONLY AND SHOULD BE HANDLED WITH</span>
-<span class="sd">    CARE (or can give incorrect results otherwise).</span>
+<div class="viewcode-block" id="InplaceFunction"><a class="viewcode-back" href="../../../generated/torch.autograd.function.InplaceFunction.html#torch.autograd.InplaceFunction">[docs]</a><span class="k">class</span> <span class="nc">InplaceFunction</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is here only for backward compatibility reasons.</span>
+<span class="sd">    Use :class:`Function` instead of this for any new use case.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fn_cls</span><span class="o">.</span><span class="n">is_traceable</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="n">fn_cls</span>
 
-
-<span class="k">class</span> <span class="nc">InplaceFunction</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inplace</span> <span class="o">=</span> <span class="n">inplace</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inplace</span> <span class="o">=</span> <span class="n">inplace</span></div>
 
 
 <span class="k">def</span> <span class="nf">_nested_map</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">condition_msg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1232,7 +1234,11 @@
 <span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">NestedIOFunction</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<div class="viewcode-block" id="NestedIOFunction"><a class="viewcode-back" href="../../../generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.NestedIOFunction">[docs]</a><span class="k">class</span> <span class="nc">NestedIOFunction</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is here only for backward compatibility reasons.</span>
+<span class="sd">    Use :class:`Function` instead of this for any new use case.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># The &#39;type: ignore&#39; statements are needed here because these functions are declared as &#39;@staticmethod&#39; in the</span>
     <span class="c1"># superclass (Function) but are instance methods here, which mypy reports as incompatible.</span>
 
@@ -1252,40 +1258,64 @@
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_save_nested</span>
         <span class="k">return</span> <span class="n">result</span>
 
-    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">gradients</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># type: ignore[override]</span>
+<div class="viewcode-block" id="NestedIOFunction.backward"><a class="viewcode-back" href="../../../generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.NestedIOFunction.backward">[docs]</a>    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">gradients</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># type: ignore[override]</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shared backward utility.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">nested_gradients</span> <span class="o">=</span> <span class="n">_unflatten</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nested_output</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_extended</span><span class="p">(</span><span class="o">*</span><span class="n">nested_gradients</span><span class="p">)</span>  <span class="c1"># type: ignore[func-returns-value]</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_None_tensors</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_None_tensors</span><span class="p">(</span><span class="n">result</span><span class="p">))</span></div>
 
     <span class="fm">__call__</span> <span class="o">=</span> <span class="n">_do_forward</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># type: ignore[override]</span>
+<div class="viewcode-block" id="NestedIOFunction.forward"><a class="viewcode-back" href="../../../generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.NestedIOFunction.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># type: ignore[override]</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shared forward utility.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">nested_tensors</span> <span class="o">=</span> <span class="n">_map_tensor_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nested_input</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_extended</span><span class="p">(</span><span class="o">*</span><span class="n">nested_tensors</span><span class="p">)</span>  <span class="c1"># type: ignore[func-returns-value]</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nested_input</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nested_output</span> <span class="o">=</span> <span class="n">result</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">(</span><span class="n">result</span><span class="p">))</span></div>
 
-    <span class="k">def</span> <span class="nf">save_for_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="NestedIOFunction.save_for_backward"><a class="viewcode-back" href="../../../generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.NestedIOFunction.save_for_backward">[docs]</a>    <span class="k">def</span> <span class="nf">save_for_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        See :meth:`Function.save_for_backward`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">to_save</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_to_save_nested</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_to_save_nested</span> <span class="o">=</span> <span class="n">args</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">saved_tensors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        See :meth:`Function.saved_tensors`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">flat_tensors</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">saved_tensors</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="k">return</span> <span class="n">_unflatten</span><span class="p">(</span><span class="n">flat_tensors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_save_nested</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">mark_dirty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dirty_tensors</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)))</span>
+<div class="viewcode-block" id="NestedIOFunction.mark_dirty"><a class="viewcode-back" href="../../../generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.NestedIOFunction.mark_dirty">[docs]</a>    <span class="k">def</span> <span class="nf">mark_dirty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        See :meth:`Function.mark_dirty`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirty_tensors</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)))</span></div>
 
-    <span class="k">def</span> <span class="nf">mark_non_differentiable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">non_differentiable</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)))</span>
+<div class="viewcode-block" id="NestedIOFunction.mark_non_differentiable"><a class="viewcode-back" href="../../../generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.NestedIOFunction.mark_non_differentiable">[docs]</a>    <span class="k">def</span> <span class="nf">mark_non_differentiable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        See :meth:`Function.mark_non_differentiable`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">non_differentiable</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)))</span></div>
 
-    <span class="k">def</span> <span class="nf">forward_extended</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="nb">input</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+<div class="viewcode-block" id="NestedIOFunction.forward_extended"><a class="viewcode-back" href="../../../generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.NestedIOFunction.forward_extended">[docs]</a>    <span class="k">def</span> <span class="nf">forward_extended</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="nb">input</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        User defined forward.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-    <span class="k">def</span> <span class="nf">backward_extended</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">grad_output</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+<div class="viewcode-block" id="NestedIOFunction.backward_extended"><a class="viewcode-back" href="../../../generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.NestedIOFunction.backward_extended">[docs]</a>    <span class="k">def</span> <span class="nf">backward_extended</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">grad_output</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        User defined backward.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
 </pre></div>
 
              </article>

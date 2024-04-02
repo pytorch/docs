@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -505,6 +510,9 @@
     <span class="n">_offload_state_dict_to_cpu</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._tensor</span> <span class="kn">import</span> <span class="n">DTensor</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.algorithms._checkpoint.checkpoint_wrapper</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_CHECKPOINT_PREFIX</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.fsdp</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">FullOptimStateDictConfig</span><span class="p">,</span>
     <span class="n">FullStateDictConfig</span><span class="p">,</span>
@@ -608,7 +616,12 @@
     <span class="n">fsdp_modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">skip_ddp_prefix</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FQNS_T</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_get_fqns</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">skip_ddp_prefix</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">skip_compiler_prefix</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FQNS_T</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This API is used to convert the name of a parameter to the FQNs. For FSDP</span>
 <span class="sd">    without `use_orig_params`, the name of FlatParameter can be mapped to</span>
@@ -624,7 +637,7 @@
 <span class="sd">        The canonical FQNs based on the model traversal.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">_CHECKPOINT_PREFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)}</span>
 
     <span class="n">obj_names</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="n">fqn_obj_names</span> <span class="o">=</span> <span class="p">[]</span>
@@ -641,16 +654,23 @@
                 <span class="n">flat_param</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">FLAT_PARAM</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">prefix</span><span class="p">:</span>
                     <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="c1"># FSDP already handles removal of checkpoint prefix, so we can return</span>
+                <span class="c1"># directly</span>
                 <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">fqn</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">flat_param</span><span class="o">.</span><span class="n">_fqns</span><span class="p">}</span>
             <span class="n">curr_obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">FSDP_WRAPPED_MODULE</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">curr_obj_name</span> <span class="o">!=</span> <span class="n">FSDP_WRAPPED_MODULE</span><span class="p">:</span>
                 <span class="n">fqn_obj_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_obj_name</span><span class="p">)</span>
                 <span class="n">curr_obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">curr_obj_name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">eval_frame</span><span class="o">.</span><span class="n">OptimizedModule</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">curr_obj_name</span> <span class="o">==</span> <span class="s2">&quot;_orig_mod&quot;</span>
+            <span class="n">curr_obj</span> <span class="o">=</span> <span class="n">curr_obj</span><span class="o">.</span><span class="n">_orig_mod</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">skip_compiler_prefix</span><span class="p">:</span>
+                <span class="n">fqn_obj_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_obj_name</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fqn_obj_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_obj_name</span><span class="p">)</span>
             <span class="n">curr_obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">curr_obj_name</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fqn_obj_names</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fqn_obj_names</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">_CHECKPOINT_PREFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)}</span>
 
 
 <span class="k">def</span> <span class="nf">_verify_options</span><span class="p">(</span>
@@ -675,7 +695,7 @@
         <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span>
     <span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">all_fqns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">(),</span> <span class="n">model</span><span class="o">.</span><span class="n">named_buffers</span><span class="p">()):</span>
         <span class="n">fqns</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="n">fqn_param_mapping</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">fqns</span>
         <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">fqns</span><span class="p">:</span>
@@ -743,16 +763,9 @@
     <span class="n">optim_state_dict</span><span class="p">:</span> <span class="n">OptimizerStateType</span><span class="p">,</span>
     <span class="n">info</span><span class="p">:</span> <span class="n">_StateDictInfo</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># FSDP root must exist otherwise FSDP state_dict will be incorrect.</span>
-    <span class="n">has_fsdp_root</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_modules</span><span class="p">:</span>
         <span class="n">fsdp_state</span> <span class="o">=</span> <span class="n">_get_module_fsdp_state_if_fully_sharded_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">fsdp_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Expected a fsdp_state with a fsdp module.&quot;</span>
-        <span class="k">if</span> <span class="n">fsdp_state</span><span class="o">.</span><span class="n">_is_root</span><span class="p">:</span>
-            <span class="n">has_fsdp_root</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">break</span>
-    <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_modules</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_fsdp_root</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;The model has FSDP modules but no FSDP root module exists.&quot;</span><span class="p">)</span>
 
     <span class="c1"># Verify if the model_state_dict and optim_state_dict are valid. This API</span>
     <span class="c1"># should give the users an explicit error message to debug or report.</span>
@@ -808,8 +821,9 @@
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">fqns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
         <span class="n">fqn</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">fqns</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">fqn</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span>
-            <span class="c1"># As we only support FSDP, DDP, and TP, the only case is</span>
-            <span class="c1"># wrapper-based DDP. Verify the assumption is correct.</span>
+            <span class="c1"># As we only support FSDP, DDP, and TP, the only cases are</span>
+            <span class="c1"># wrapper-based DDP and compiler. Verify if the assumption</span>
+            <span class="c1"># is correct.</span>
             <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">fqn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
                     <span class="k">return</span> <span class="kc">False</span>
@@ -821,7 +835,7 @@
                         <span class="n">fqn_idx</span> <span class="o">+=</span> <span class="mi">1</span>
                         <span class="k">if</span> <span class="n">fqn_idx</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">fqn_split</span><span class="p">):</span>
                             <span class="k">return</span> <span class="n">key_idx</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_split</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-                    <span class="k">elif</span> <span class="n">key_name</span> <span class="o">==</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span>
+                    <span class="k">elif</span> <span class="n">key_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;module&quot;</span><span class="p">,</span> <span class="s2">&quot;_orig_mod&quot;</span><span class="p">):</span>
                         <span class="k">continue</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">return</span> <span class="kc">False</span>
@@ -876,12 +890,14 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">handle_model</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">state_dict</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_IncompatibleKeys</span><span class="p">({},</span> <span class="p">{})</span>
 
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">(),</span> <span class="n">model</span><span class="o">.</span><span class="n">named_buffers</span><span class="p">()):</span>
         <span class="n">fqns</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-        <span class="n">fqns_with_ddp_prefix</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">skip_ddp_prefix</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">fqn_with_ddp_prefix</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fqns</span><span class="p">,</span> <span class="n">fqns_with_ddp_prefix</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">fqn</span> <span class="o">!=</span> <span class="n">fqn_with_ddp_prefix</span><span class="p">:</span>
-                <span class="n">state_dict</span><span class="p">[</span><span class="n">fqn_with_ddp_prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
+        <span class="n">fqns_with_prefix</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">skip_ddp_prefix</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_compiler_prefix</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">fqn_with_prefix</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fqns</span><span class="p">,</span> <span class="n">fqns_with_prefix</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">fqn</span> <span class="o">!=</span> <span class="n">fqn_with_prefix</span><span class="p">:</span>
+                <span class="n">state_dict</span><span class="p">[</span><span class="n">fqn_with_prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_context</span><span class="p">():</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
@@ -932,6 +948,19 @@
         <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_modules</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_context</span><span class="p">():</span>
                 <span class="n">osd</span> <span class="o">=</span> <span class="n">FSDP</span><span class="o">.</span><span class="n">optim_state_dict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">osd</span><span class="p">)</span>
+
+            <span class="c1"># We need to specially handle FlatParameter FSDP as</span>
+            <span class="c1"># FlatParameter FSDP converts the FQNs.</span>
+            <span class="c1"># There are no easy ways to do this conversion systematically.</span>
+            <span class="c1"># We can only use a string replacment without correctness check.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">osd</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">osd</span><span class="p">[</span><span class="n">STATE</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="s2">&quot;_orig_mod&quot;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="n">osd</span><span class="p">[</span><span class="n">STATE</span><span class="p">][</span><span class="n">k</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_orig_mod.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">osd</span><span class="p">[</span><span class="n">STATE</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">osd</span><span class="p">[</span><span class="n">PG</span><span class="p">]:</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_orig_mod.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">g</span><span class="p">[</span><span class="n">PARAMS</span><span class="p">]]</span>
+                <span class="n">g</span><span class="p">[</span><span class="n">PARAMS</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">PARAMS</span><span class="p">]</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">optim</span><span class="o">.</span><span class="n">param_groups</span><span class="p">))</span>
             <span class="n">param_pid_mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">))))</span>
@@ -1036,6 +1065,30 @@
     <span class="k">for</span> <span class="n">optim</span> <span class="ow">in</span> <span class="n">optimizers</span><span class="p">:</span>
         <span class="n">optim_state_dict</span> <span class="o">=</span> <span class="n">_split_optim_state_dict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_modules</span><span class="p">:</span>
+            <span class="c1"># We need to specially handle FlatParameter FSDP as</span>
+            <span class="c1"># FlatParameter FSDP converts the FQNs.</span>
+            <span class="k">for</span> <span class="n">original_fqn</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+                <span class="n">fqns</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">original_fqn</span><span class="p">)</span>
+                <span class="n">fqns_with_compiler</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span>
+                    <span class="n">model</span><span class="p">,</span> <span class="n">original_fqn</span><span class="p">,</span> <span class="n">skip_compiler_prefix</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">fqns</span> <span class="o">==</span> <span class="n">fqns_with_compiler</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">fqns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+                <span class="n">fqn</span> <span class="o">=</span> <span class="n">fqns</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="n">fqn_with_compiler</span> <span class="o">=</span> <span class="n">fqns_with_compiler</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">optim_state_dict</span><span class="p">[</span><span class="n">PG</span><span class="p">]:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">g</span><span class="p">)</span>
+                    <span class="n">params</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="n">fqn_with_compiler</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">val</span><span class="p">[</span><span class="n">PARAMS</span><span class="p">]</span>
+                    <span class="p">]</span>
+                    <span class="n">val</span><span class="p">[</span><span class="n">PARAMS</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span>
+                <span class="n">osd_state</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">DictValueType</span><span class="p">,</span> <span class="n">optim_state_dict</span><span class="p">[</span><span class="n">STATE</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">osd_state</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                        <span class="n">osd_state</span><span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="n">fqn_with_compiler</span><span class="p">)]</span> <span class="o">=</span> <span class="n">osd_state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
             <span class="k">with</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_context</span><span class="p">():</span>
                 <span class="n">optim_state_dict</span> <span class="o">=</span> <span class="n">FSDP</span><span class="o">.</span><span class="n">optim_state_dict_to_load</span><span class="p">(</span>
                     <span class="n">model</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">optim_state_dict</span>
@@ -1069,6 +1122,8 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The state_dict for ``model``.</span>
+
+<span class="sd">    :rtype: typing.Dict[str, ValueType]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">gc_context</span><span class="p">():</span>
         <span class="n">info</span> <span class="o">=</span> <span class="n">_verify_options</span><span class="p">(</span>
@@ -1107,6 +1162,8 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The state_dict for ``optimizers``.</span>
+
+<span class="sd">    :rtype: OptimizerStateType</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">gc_context</span><span class="p">():</span>
         <span class="n">optimizers</span> <span class="o">=</span> <span class="p">(</span>
@@ -1159,25 +1216,25 @@
 <span class="sd">    optimizer parameter IDs to the canonical FQNs.</span>
 
 <span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; import torch</span>
+<span class="sd">        &gt;&gt;&gt; from torch.distributed.fsdp import FullyShardedDataParallel as FSDP</span>
+<span class="sd">        &gt;&gt;&gt; from torch.nn.parallel import DistributedDataParallel as DDP</span>
+<span class="sd">        &gt;&gt;&gt; from torch.distributed.checkpoint.state_dict import get_state_dict</span>
 
-<span class="sd">        import torch</span>
-<span class="sd">        from torch.distributed.fsdp import FullyShardedDataParallel as FSDP</span>
-<span class="sd">        from torch.nn.parallel import DistributedDataParallel as DDP</span>
-<span class="sd">        from torch.distributed.checkpoint.state_dict import get_state_dict</span>
-
-<span class="sd">        fsdp_model = FSDP(copy.deepcopy(model))</span>
-<span class="sd">        fsdp_optim = torch.optim.Adam(model.parameters(), lr=1e-3)</span>
-<span class="sd">        ddp_model = DDP(copy.deepcopy(model))</span>
-<span class="sd">        ddp_optim = torch.optim.Adam(model.parameters(), lr=1e-3)</span>
+<span class="sd">        &gt;&gt;&gt; fsdp_model = FSDP(copy.deepcopy(model))</span>
+<span class="sd">        &gt;&gt;&gt; fsdp_optim = torch.optim.Adam(model.parameters(), lr=1e-3)</span>
+<span class="sd">        &gt;&gt;&gt; ddp_model = DDP(copy.deepcopy(model))</span>
+<span class="sd">        &gt;&gt;&gt; ddp_optim = torch.optim.Adam(model.parameters(), lr=1e-3)</span>
 
 
-<span class="sd">        ddp_state_dict, ddp_optim_state_dict = get_state_dict(ddp_model, ddp_optim)</span>
-<span class="sd">        fsdp_state_dict, fsdp_optim_state_dict = get_state_dict(fsdp_model, fsdp_optim)</span>
+<span class="sd">        &gt;&gt;&gt; ddp_state_dict, ddp_optim_state_dict = get_state_dict(ddp_model, ddp_optim)</span>
+<span class="sd">        &gt;&gt;&gt; fsdp_state_dict, fsdp_optim_state_dict = get_state_dict(fsdp_model, fsdp_optim)</span>
 
-<span class="sd">        # if we simply call ddp_model.state_dict() and fsdp_model.state_dict(),</span>
-<span class="sd">        # the asserts will fail.</span>
-<span class="sd">        assert ddp_state_dict == fsdp_state_dict</span>
-<span class="sd">        assert ddp_optim_state == fsdp_optim_state_dict</span>
+<span class="sd">        &gt;&gt;&gt; # if we simply call ddp_model.state_dict() and fsdp_model.state_dict(),</span>
+<span class="sd">        &gt;&gt;&gt; # the asserts will fail.</span>
+<span class="sd">        &gt;&gt;&gt; assert ddp_state_dict == fsdp_state_dict</span>
+<span class="sd">        &gt;&gt;&gt; assert ddp_optim_state == fsdp_optim_state_dict</span>
 
 
 <span class="sd">    Args:</span>
@@ -1192,6 +1249,8 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        ``Tuple`` that contain model state_dict and optimizer state_dict.</span>
+
+<span class="sd">    :rtype: typing.Tuple[typing.Dict[str, ValueType], OptimizerStateType]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">with</span> <span class="n">gc_context</span><span class="p">():</span>
@@ -1241,9 +1300,7 @@
 
 <div class="viewcode-block" id="set_model_state_dict"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.set_model_state_dict">[docs]</a><span class="k">def</span> <span class="nf">set_model_state_dict</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-    <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
-        <span class="n">Dict</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]</span>
-    <span class="p">],</span>
+    <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StateDictOptions</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_IncompatibleKeys</span><span class="p">:</span>
@@ -1254,7 +1311,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        model (nn.Module): the nn.Module to the model.</span>
-<span class="sd">        model_state_dict: (Union[Dict[nn.Module, Dict[str, ValueType]], Dict[str, ValueType]]):</span>
+<span class="sd">        model_state_dict: (Dict[str, ValueType]):</span>
 <span class="sd">           the model state_dict to load. If the key of the ``model_state_dict``</span>
 <span class="sd">           is nn.Module, the key is a submodule of ``model`` and the value should</span>
 <span class="sd">           be the state_dict of the submodule. When loading the state_dict,</span>
@@ -1267,6 +1324,8 @@
 <span class="sd">        ``NamedTuple`` with ``missing_keys`` and ``unexpected_keys`` fields:</span>
 <span class="sd">            * **missing_keys** is a list of str containing the missing keys</span>
 <span class="sd">            * **unexpected_keys** is a list of str containing the unexpected keys</span>
+
+<span class="sd">    :type model_state_dict: typing.Dict[str, ValueType]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unflatten_model_state_dict</span><span class="p">(</span>
         <span class="n">model</span><span class="p">,</span> <span class="n">model_state_dict</span>
@@ -1302,6 +1361,8 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
+
+<span class="sd">    :type optim_state_dict: typing.OptimizerStateType</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">gc_context</span><span class="p">():</span>
         <span class="n">optimizers</span> <span class="o">=</span> <span class="p">(</span>
@@ -1319,9 +1380,7 @@
     <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">optimizers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">]],</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
-        <span class="n">Dict</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]</span>
-    <span class="p">],</span>
+    <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">],</span>
     <span class="n">optim_state_dict</span><span class="p">:</span> <span class="n">OptimizerStateType</span><span class="p">,</span>
     <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StateDictOptions</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_IncompatibleKeys</span><span class="p">:</span>
@@ -1354,6 +1413,9 @@
 <span class="sd">        ``NamedTuple`` with ``missing_keys`` and ``unexpected_keys`` fields:</span>
 <span class="sd">            * **missing_keys** is a list of str containing the missing keys of the model state_dict.</span>
 <span class="sd">            * **unexpected_keys** is a list of str containing the unexpected keys of the model state_dict.</span>
+
+<span class="sd">    :type model_state_dict: typing.Dict[str, ValueType]</span>
+<span class="sd">    :type optim_state_dict: typing.OptimizerStateType</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unflatten_model_state_dict</span><span class="p">(</span>

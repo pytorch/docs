@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -481,12 +486,18 @@
 <span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">auto</span><span class="p">,</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.distributed._shard.sharded_tensor.metadata</span> <span class="kn">import</span> <span class="n">TensorProperties</span>
 
-<span class="kn">from</span> <span class="nn">.metadata</span> <span class="kn">import</span> <span class="n">ChunkStorageMetadata</span><span class="p">,</span> <span class="n">Metadata</span><span class="p">,</span> <span class="n">MetadataIndex</span><span class="p">,</span> <span class="n">STATE_DICT_TYPE</span>
+<span class="kn">from</span> <span class="nn">.metadata</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ChunkStorageMetadata</span><span class="p">,</span>
+    <span class="n">Metadata</span><span class="p">,</span>
+    <span class="n">MetadataIndex</span><span class="p">,</span>
+    <span class="n">STATE_DICT_TYPE</span><span class="p">,</span>
+    <span class="n">TensorProperties</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
@@ -522,11 +533,27 @@
 
 <div class="viewcode-block" id="WriteItem"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.WriteItem">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">WriteItem</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass which holds information about what needs to be written to storage.&quot;&quot;&quot;</span>
+
     <span class="n">index</span><span class="p">:</span> <span class="n">MetadataIndex</span>
     <span class="nb">type</span><span class="p">:</span> <span class="n">WriteItemType</span>
 
     <span class="c1"># Value present if it&#39;s a tensor write</span>
-    <span class="n">tensor_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TensorWriteData</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+    <span class="n">tensor_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TensorWriteData</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="WriteItem.tensor_storage_size"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.WriteItem.tensor_storage_size">[docs]</a>    <span class="k">def</span> <span class="nf">tensor_storage_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the storage size of the underlying tensor, or None if this is not a tensor write.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Optional[int] storage size, in bytes of underlying tensor if any.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensor_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">numels</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensor_data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dtype_size</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_element_size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensor_data</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">numels</span> <span class="o">*</span> <span class="n">dtype_size</span></div></div>
 
 
 <div class="viewcode-block" id="ReadItem"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.ReadItem">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -834,6 +861,14 @@
 <span class="sd">        the checkpoint being loaded.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="LoadPlanner.resolve_bytes"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.resolve_bytes">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">read_item</span><span class="p">:</span> <span class="n">ReadItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the BytesIO to be used by the StorageReader to load `read_item`.</span>
+
+<span class="sd">        The BytesIO should alias with one on the underlying state_dict as StorageReader will replace its contents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;LoadPlanner.resolve_bytes is not implemented&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LoadPlanner.resolve_tensor"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.resolve_tensor">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">resolve_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">read_item</span><span class="p">:</span> <span class="n">ReadItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>

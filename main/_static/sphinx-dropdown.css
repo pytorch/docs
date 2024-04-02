@@ -76,12 +76,28 @@ details.dropdown.fade-in-slide-down[open] summary ~ * {
     -moz-animation: fade-in .5s ease-in-out, slide-down .5s ease-in-out ;
     -webkit-animation: fade-in .5s ease-in-out, slide-down .5s ease-in-out
 }
+@-webkit-keyframes fade-in {
+    0%    {
+        opacity: 0;
+    }
+    100%  {
+        opacity: 1;
+    }
+}
 @keyframes fade-in {
     0%    {
         opacity: 0;
     }
     100%  {
         opacity: 1;
+    }
+}
+@-webkit-keyframes slide-down {
+    0%    {
+        transform: translate(0px, -10px)
+    }
+    100%  {
+        transform: translate(0px, 0px)
     }
 }
 @keyframes slide-down {

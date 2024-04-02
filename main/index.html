@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.3.0a0+gita468b9f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
     </div>
     
 
@@ -294,6 +294,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -329,6 +330,8 @@
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
@@ -344,6 +347,7 @@
 <li class="toctree-l1"><a class="reference internal" href="func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linalg.html">torch.linalg</a></li>
@@ -354,8 +358,7 @@
 <li class="toctree-l1"><a class="reference internal" href="package.html">torch.package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiler.html">torch.profiler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.attention.bias.html#causalbias">CausalBias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.attention.html">torch.nn.attention</a></li>
 <li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
@@ -385,7 +388,9 @@
 <li class="toctree-l1"><a class="reference internal" href="named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="name_inference.html">Named Tensors operator coverage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future_mod.html">torch.__future__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -520,6 +525,7 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/fsdp.html">FSDP Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -631,9 +637,10 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="autograd.html#tensor-autograd-functions">Tensor autograd functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autograd.html#function"><span class="hidden-section">Function</span></a></li>
 <li class="toctree-l2"><a class="reference internal" href="autograd.html#context-method-mixins">Context method mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autograd.html#custom-function-utilities">Custom Function utilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autograd.html#module-torch.autograd.gradcheck">Numerical gradient checking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autograd.html#profiler">Profiler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autograd.html#anomaly-detection">Anomaly detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autograd.html#debugging-and-anomaly-detection">Debugging and anomaly detection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autograd.html#autograd-graph">Autograd graph</a></li>
 </ul>
 </li>
@@ -725,6 +732,32 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="mps.html#mps-event">MPS Event</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.StreamContext.html">StreamContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.current_device.html">torch.xpu.current_device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.current_stream.html">torch.xpu.current_stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.device.html">device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.device_count.html">torch.xpu.device_count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.device_of.html">device_of</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.empty_cache.html">torch.xpu.empty_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_device_capability.html">torch.xpu.get_device_capability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_device_name.html">torch.xpu.get_device_name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.get_device_properties.html">torch.xpu.get_device_properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.init.html">torch.xpu.init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_available.html">torch.xpu.is_available</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.is_initialized.html">torch.xpu.is_initialized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_device.html">torch.xpu.set_device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.set_stream.html">torch.xpu.set_stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.stream.html">torch.xpu.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.xpu.synchronize.html">torch.xpu.synchronize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xpu.html#random-number-generator">Random Number Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xpu.html#streams-and-events">Streams and events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="meta.html#idioms-for-working-with-meta-tensors">Idioms for working with meta tensors</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="backends.html#module-torch.backends.cpu">torch.backends.cpu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="backends.html#module-torch.backends.cuda">torch.backends.cuda</a></li>
@@ -805,15 +838,18 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.parallelize_module"><code class="docutils literal notranslate"><span class="pre">parallelize_module()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.ColwiseParallel"><code class="docutils literal notranslate"><span class="pre">ColwiseParallel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.RowwiseParallel"><code class="docutils literal notranslate"><span class="pre">RowwiseParallel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.SequenceParallel"><code class="docutils literal notranslate"><span class="pre">SequenceParallel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.PrepareModuleInput"><code class="docutils literal notranslate"><span class="pre">PrepareModuleInput</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.PrepareModuleOutput"><code class="docutils literal notranslate"><span class="pre">PrepareModuleOutput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.tensor.parallel.html#torch.distributed.tensor.parallel.loss_parallel"><code class="docutils literal notranslate"><span class="pre">loss_parallel()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.load_state_dict"><code class="docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.save_state_dict"><code class="docutils literal notranslate"><span class="pre">save_state_dict()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.async_save"><code class="docutils literal notranslate"><span class="pre">async_save()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.save_state_dict"><code class="docutils literal notranslate"><span class="pre">save_state_dict()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_loader.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_loader.load_state_dict"><code class="docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.stateful.Stateful"><code class="docutils literal notranslate"><span class="pre">Stateful</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.StorageReader"><code class="docutils literal notranslate"><span class="pre">StorageReader</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.StorageWriter"><code class="docutils literal notranslate"><span class="pre">StorageWriter</span></code></a></li>
@@ -822,7 +858,7 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.ReadItem"><code class="docutils literal notranslate"><span class="pre">ReadItem</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.SavePlanner"><code class="docutils literal notranslate"><span class="pre">SavePlanner</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.SavePlan"><code class="docutils literal notranslate"><span class="pre">SavePlan</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.WriteItem"><code class="docutils literal notranslate"><span class="pre">WriteItem</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.planner.WriteItem"><code class="docutils literal notranslate"><span class="pre">WriteItem</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemReader"><code class="docutils literal notranslate"><span class="pre">FileSystemReader</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemWriter"><code class="docutils literal notranslate"><span class="pre">FileSystemWriter</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.DefaultSavePlanner"><code class="docutils literal notranslate"><span class="pre">DefaultSavePlanner</span></code></a></li>
@@ -834,6 +870,10 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.set_model_state_dict"><code class="docutils literal notranslate"><span class="pre">set_model_state_dict()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.set_optimizer_state_dict"><code class="docutils literal notranslate"><span class="pre">set_optimizer_state_dict()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.StateDictOptions"><code class="docutils literal notranslate"><span class="pre">StateDictOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.dcp_to_torch_save"><code class="docutils literal notranslate"><span class="pre">dcp_to_torch_save()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.torch_save_to_dcp"><code class="docutils literal notranslate"><span class="pre">torch_save_to_dcp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.BroadcastingTorchSaveReader"><code class="docutils literal notranslate"><span class="pre">BroadcastingTorchSaveReader</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner"><code class="docutils literal notranslate"><span class="pre">DynamicMetaLoadPlanner</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a><ul>
@@ -915,6 +955,10 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="fx.html#api-reference">API Reference</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fx.experimental.html#module-torch.fx.experimental.symbolic_shapes">torch.fx.experimental.symbolic_shapes</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="hub.html#publishing-models">Publishing models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hub.html#loading-models-from-hub">Loading models from Hub</a></li>
@@ -991,12 +1035,9 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="nn.init.html#torch.nn.init.sparse_"><code class="docutils literal notranslate"><span class="pre">sparse_()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="nn.attention.bias.html">torch.nn.attention.bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.attention.bias.html#causalbias">CausalBias</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="nn.attention.bias.html#torch.nn.attention.bias.CausalBias"><code class="docutils literal notranslate"><span class="pre">CausalBias</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.bias.causal_lower_right.html">torch.nn.attention.bias.causal_lower_right</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.bias.causal_upper_left.html">torch.nn.attention.bias.causal_upper_left</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.bias.CausalVariant.html">CausalVariant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.attention.html">torch.nn.attention</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nn.attention.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nn.attention.html#submodules">Submodules</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a><ul>
@@ -1022,6 +1063,7 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="complex_numbers.html#linear-algebra">Linear Algebra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="complex_numbers.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="complex_numbers.html#autograd">Autograd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="complex_numbers.html#optimizers">Optimizers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a><ul>
@@ -1223,8 +1265,23 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="config_mod.html#torch.__config__.parallel_info"><code class="docutils literal notranslate"><span class="pre">parallel_info()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="future_mod.html">torch.__future__</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="future_mod.html#torch.__future__.set_overwrite_module_params_on_conversion"><code class="docutils literal notranslate"><span class="pre">set_overwrite_module_params_on_conversion()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="future_mod.html#torch.__future__.get_overwrite_module_params_on_conversion"><code class="docutils literal notranslate"><span class="pre">get_overwrite_module_params_on_conversion()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="future_mod.html#torch.__future__.set_swap_module_params_on_conversion"><code class="docutils literal notranslate"><span class="pre">set_swap_module_params_on_conversion()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="future_mod.html#torch.__future__.get_swap_module_params_on_conversion"><code class="docutils literal notranslate"><span class="pre">get_swap_module_params_on_conversion()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">torch._logging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="torch_environment_variables.html">Torch Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="threading_environment_variables.html">Threading Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cuda_environment_variables.html">CUDA Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging_environment_variables.html">Debugging Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous_environment_variables.html">Miscellaneous Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">torch._logging</a></li>
 </ul>
 </li>
 </ul>
