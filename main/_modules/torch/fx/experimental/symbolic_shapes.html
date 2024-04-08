@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+giteff1e48 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git07cecf4 ) &#x25BC</a>
     </div>
     
 
@@ -4097,7 +4097,16 @@
             <span class="c1"># variables have to have their value range bounds adjusted as</span>
             <span class="c1"># well)</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;shape_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="n">lower</span> <span class="o">-</span> <span class="mi">1</span>
+
+            <span class="c1"># Note:</span>
+            <span class="c1">#   Offset might be a fraction(e.g. aten.split.Tensor), but shapes are always integers.</span>
+            <span class="c1">#   Sympy might give unexepected results when comparing an integer with a non-integer</span>
+            <span class="c1">#   Therefore, we cast offset to int here.</span>
+            <span class="c1">#   For example:</span>
+            <span class="c1">#       shape_0 = sympy.Symbol(&quot;shape_0&quot;, positive=True, integer=True)</span>
+            <span class="c1">#       expr = sympy.Eq(shape_0 - 1/3, 4)</span>
+            <span class="c1">#       expr.xreplace({}) # False</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lower</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">new_shape_env</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">offset</span>
             <span class="n">new_range_env</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">SymPyValueRangeAnalysis</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vr</span><span class="p">,</span> <span class="o">-</span><span class="n">offset</span><span class="p">)</span>
 
