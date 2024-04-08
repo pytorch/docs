@@ -59,10 +59,10 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[3]"):
+            def forward(self, x: "f32[3]"):
                     true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                conditional = torch.ops.higher_order.cond(False, true_graph_0, false_graph_0, [arg0_1]);  true_graph_0 = false_graph_0 = arg0_1 = None
+                conditional = torch.ops.higher_order.cond(False, true_graph_0, false_graph_0, [x]);  true_graph_0 = false_graph_0 = x = None
                 getitem: "f32[3]" = conditional[0];  conditional = None
                 return (getitem,)
                 
@@ -76,7 +76,7 @@ Result:
                             sin: "f32[3]" = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
                     return (sin,)
                     
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {}
     
 
@@ -138,10 +138,10 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[3]"):
+            def forward(self, x: "f32[3]"):
                     true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                conditional = torch.ops.higher_order.cond(True, true_graph_0, false_graph_0, [arg0_1]);  true_graph_0 = false_graph_0 = arg0_1 = None
+                conditional = torch.ops.higher_order.cond(True, true_graph_0, false_graph_0, [x]);  true_graph_0 = false_graph_0 = x = None
                 getitem: "f32[3]" = conditional[0];  conditional = None
                 return (getitem,)
                 
@@ -155,7 +155,7 @@ Result:
                             sub: "f32[3]" = torch.ops.aten.sub.Tensor(arg0_1, arg0_1);  arg0_1 = None
                     return (sub,)
                     
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {}
     
 
@@ -236,14 +236,14 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, _lifted_tensor_constant0: "f32[]", arg0_1: "f32[6]"):
-                    add: "f32[6]" = torch.ops.aten.add.Tensor(arg0_1, 100)
+            def forward(self, c_lifted_tensor_0: "f32[]", x: "f32[6]"):
+                    add: "f32[6]" = torch.ops.aten.add.Tensor(x, 100)
                 
-                    lift_fresh_copy: "f32[]" = torch.ops.aten.lift_fresh_copy.default(_lifted_tensor_constant0);  _lifted_tensor_constant0 = None
+                    lift_fresh_copy: "f32[]" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  c_lifted_tensor_0 = None
                 
                     true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                conditional = torch.ops.higher_order.cond(True, true_graph_0, false_graph_0, [arg0_1, add, lift_fresh_copy]);  true_graph_0 = false_graph_0 = arg0_1 = add = lift_fresh_copy = None
+                conditional = torch.ops.higher_order.cond(True, true_graph_0, false_graph_0, [x, add, lift_fresh_copy]);  true_graph_0 = false_graph_0 = x = add = lift_fresh_copy = None
                 getitem: "f32[6]" = conditional[0];  conditional = None
                 return (getitem,)
                 
@@ -259,7 +259,7 @@ Result:
                     sub_1: "f32[6]" = torch.ops.aten.sub.Tensor(sub, arg2_1);  sub = arg2_1 = None
                     return (sub_1,)
                     
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.CONSTANT_TENSOR: 4>, arg=TensorArgument(name='_lifted_tensor_constant0'), target='_lifted_tensor_constant0', persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.CONSTANT_TENSOR: 4>, arg=TensorArgument(name='c_lifted_tensor_0'), target='lifted_tensor_0', persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {}
     
 
@@ -314,12 +314,12 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[s0, 2]", arg1_1: "f32[2]"):
-                    sym_size_int: "Sym(s0)" = torch.ops.aten.sym_size.int(arg0_1, 0)
+            def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
+                    sym_size_int: "Sym(s0)" = torch.ops.aten.sym_size.int(x, 0)
                 gt: "Sym(s0 > 2)" = sym_size_int > 2;  sym_size_int = None
                 true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                conditional = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [arg0_1, arg1_1]);  gt = true_graph_0 = false_graph_0 = arg0_1 = arg1_1 = None
+                conditional = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [x, y]);  gt = true_graph_0 = false_graph_0 = x = y = None
                 getitem: "f32[s0, 2]" = conditional[0];  conditional = None
                 return (getitem,)
                 
@@ -333,7 +333,7 @@ Result:
                             sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
                     return (sub,)
                     
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg1_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {s0: ValueRanges(lower=0, upper=oo, is_bool=False)}
     
 
@@ -380,10 +380,10 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[6, 4, 3]"):
+            def forward(self, x: "f32[6, 4, 3]"):
                     true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                conditional = torch.ops.higher_order.cond(False, true_graph_0, false_graph_0, [arg0_1]);  true_graph_0 = false_graph_0 = arg0_1 = None
+                conditional = torch.ops.higher_order.cond(False, true_graph_0, false_graph_0, [x]);  true_graph_0 = false_graph_0 = x = None
                 getitem: "f32[6, 4, 3]" = conditional[0];  conditional = None
                 return (getitem,)
                 
@@ -397,7 +397,7 @@ Result:
                             sin: "f32[6, 4, 3]" = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
                     return (sin,)
                     
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {}
     
 
@@ -437,11 +437,11 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[3, 2]"):
+            def forward(self, x: "f32[3, 2]"):
                     zeros: "f32[6]" = torch.ops.aten.zeros.default([6], device = device(type='cpu'), pin_memory = False)
                 return (zeros,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='zeros'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='zeros'), target=None)])
     Range constraints: {}
     
 
@@ -451,7 +451,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -483,11 +483,11 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[3, 2, 2]"):
-                    cos: "f32[3, 2, 2]" = torch.ops.aten.cos.default(arg0_1);  arg0_1 = None
+            def forward(self, x: "f32[3, 2, 2]"):
+                    cos: "f32[3, 2, 2]" = torch.ops.aten.cos.default(x);  x = None
                 return (cos,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='cos'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='cos'), target=None)])
     Range constraints: {}
     
 
@@ -531,9 +531,9 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[3, 2]", arg1_1: "f32[2]"):
+            def forward(self, xs: "f32[3, 2]", y: "f32[2]"):
                     body_graph_0 = self.body_graph_0
-                map_impl = torch.ops.higher_order.map_impl(body_graph_0, [arg0_1], [arg1_1]);  body_graph_0 = arg0_1 = arg1_1 = None
+                map_impl = torch.ops.higher_order.map_impl(body_graph_0, [xs], [y]);  body_graph_0 = xs = y = None
                 getitem: "f32[3, 2]" = map_impl[0];  map_impl = None
                 return (getitem,)
                 
@@ -542,7 +542,7 @@ Result:
                             add: "f32[2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
                     return (add,)
                     
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg1_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='xs'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {}
     
 
@@ -552,7 +552,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -622,12 +622,12 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[3, 2]"):
-                    slice_1: "f32[1, 2]" = torch.ops.aten.slice.Tensor(arg0_1, 0, 0, 1);  arg0_1 = None
+            def forward(self, x: "f32[3, 2]"):
+                    slice_1: "f32[1, 2]" = torch.ops.aten.slice.Tensor(x, 0, 0, 1);  x = None
                 slice_2: "f32[1, 1]" = torch.ops.aten.slice.Tensor(slice_1, 1, 1, 9223372036854775807, 2);  slice_1 = None
                 return (slice_2,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='slice_2'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='slice_2'), target=None)])
     Range constraints: {}
     
 
@@ -670,13 +670,13 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[10, 10]"):
-                    view: "f32[10, 2, 5]" = torch.ops.aten.view.default(arg0_1, [10, 2, 5]);  arg0_1 = None
+            def forward(self, x: "f32[10, 10]"):
+                    view: "f32[10, 2, 5]" = torch.ops.aten.view.default(x, [10, 2, 5]);  x = None
                 
                     permute: "f32[10, 5, 2]" = torch.ops.aten.permute.default(view, [0, 2, 1]);  view = None
                 return (permute,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='permute'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='permute'), target=None)])
     Range constraints: {}
     
 
@@ -686,7 +686,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -718,11 +718,11 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[3, 2]"):
-                    add: "f32[3, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg0_1);  arg0_1 = None
+            def forward(self, x: "f32[3, 2]"):
+                    add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
     Range constraints: {}
     
 
@@ -765,12 +765,12 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, arg0_1: "f32[3, s0]"):
+            def forward(self, x: "f32[3, s0]"):
                 # No stacktrace found for following nodes
-                sym_size_int: "Sym(s0)" = torch.ops.aten.sym_size.int(arg0_1, 1);  arg0_1 = None
+                sym_size_int: "Sym(s0)" = torch.ops.aten.sym_size.int(x, 1);  x = None
                 add: "Sym(s0 + 1)" = sym_size_int + 1;  sym_size_int = None
                 return (add,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='arg0_1'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=SymIntArgument(name='add'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=SymIntArgument(name='add'), target=None)])
     Range constraints: {s0: ValueRanges(lower=0, upper=oo, is_bool=False)}
     

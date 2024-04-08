@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git781e8d2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+giteff1e48 ) &#x25BC</a>
     </div>
     
 
@@ -1436,6 +1436,12 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">FileSystemReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/filesystem.html#FileSystemReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemReader" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 </dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.FileSystemReader.checkpoint_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkpoint_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemReader.checkpoint_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the checkpoint_id that will be used to save the checkpoint.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -1451,6 +1457,12 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 a <cite>.metadata</cite> file with the serialized metadata.</p>
 <dl class="field-list simple">
 </dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.FileSystemWriter.checkpoint_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkpoint_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemWriter.checkpoint_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the checkpoint_id that will be used to save the checkpoint.</p>
+</dd></dl>
+
 </dd></dl>
 
 <p>We provide default implementations of <cite>LoadPlanner</cite> and <cite>SavePlanner</cite> that
@@ -1932,7 +1944,8 @@ metadata file, like Torch Save files.</p>
 
 </dd></dl>
 
-</div>
+<p>The following experimental interfaces are provided for improved observability in production environments:</p>
+<span class="target" id="module-torch.distributed.checkpoint.logger"></span><span class="target" id="module-torch.distributed.checkpoint.logging_handlers"></span></div>
 
 
              </article>
@@ -2045,8 +2058,14 @@ if (url)
 <li><a class="reference internal" href="#torch.distributed.checkpoint.planner.WriteItem.tensor_storage_size"><code class="docutils literal notranslate"><span class="pre">WriteItem.tensor_storage_size()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemReader"><code class="docutils literal notranslate"><span class="pre">FileSystemReader</span></code></a></li>
-<li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemWriter"><code class="docutils literal notranslate"><span class="pre">FileSystemWriter</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemReader"><code class="docutils literal notranslate"><span class="pre">FileSystemReader</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemReader.checkpoint_id"><code class="docutils literal notranslate"><span class="pre">FileSystemReader.checkpoint_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemWriter"><code class="docutils literal notranslate"><span class="pre">FileSystemWriter</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemWriter.checkpoint_id"><code class="docutils literal notranslate"><span class="pre">FileSystemWriter.checkpoint_id</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.DefaultSavePlanner"><code class="docutils literal notranslate"><span class="pre">DefaultSavePlanner</span></code></a><ul>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.DefaultSavePlanner.lookup_object"><code class="docutils literal notranslate"><span class="pre">DefaultSavePlanner.lookup_object()</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.DefaultSavePlanner.transform_object"><code class="docutils literal notranslate"><span class="pre">DefaultSavePlanner.transform_object()</span></code></a></li>
