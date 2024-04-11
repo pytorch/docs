@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git0288fa7 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4d1d71e ) &#x25BC</a>
     </div>
     
 
@@ -1416,10 +1416,12 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            mat (torch.Tensor or numpy.ndarray): A matrix which each row is the feature vector of the data point</span>
-<span class="sd">            metadata (list): A list of labels, each element will be convert to string</span>
+<span class="sd">            metadata (list): A list of labels, each element will be converted to string</span>
 <span class="sd">            label_img (torch.Tensor): Images correspond to each data point</span>
 <span class="sd">            global_step (int): Global step value to record</span>
 <span class="sd">            tag (str): Name for the embedding</span>
+<span class="sd">            metadata_header (list): A list of headers for multi-column metadata. If given, each metadata must be</span>
+<span class="sd">                a list with values corresponding to headers.</span>
 <span class="sd">        Shape:</span>
 <span class="sd">            mat: :math:`(N, D)`, where N is number of data and D is feature dimension</span>
 
@@ -1444,6 +1446,11 @@
 <span class="sd">            writer.add_embedding(torch.randn(100, 5), metadata=meta, label_img=label_img)</span>
 <span class="sd">            writer.add_embedding(torch.randn(100, 5), label_img=label_img)</span>
 <span class="sd">            writer.add_embedding(torch.randn(100, 5), metadata=meta)</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            Categorical (i.e. non-numeric) metadata cannot have more than 50 unique values if they are to be used for</span>
+<span class="sd">            coloring in the embedding projector.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;tensorboard.logging.add_embedding&quot;</span><span class="p">)</span>
         <span class="n">mat</span> <span class="o">=</span> <span class="n">make_np</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
