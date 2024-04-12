@@ -47,13 +47,13 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[3, 2]"):
-                            mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(arg0_1, 2);  arg0_1 = None
+                def forward(self, x: "f32[3, 2]"):
+                            mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[3, 2]"):
-                            sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(arg0_1, 2);  arg0_1 = None
+                def forward(self, x: "f32[3, 2]"):
+                            sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='pred'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])

@@ -36,7 +36,7 @@ Result:
 
 .. code-block::
 
-    AssertionError: 
+    AssertionError: Round(dim0_x/2) <= dim0_x
 
 
 tensor_setattr

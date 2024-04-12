@@ -265,13 +265,13 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[3]"):
-                            cos: "f32[3]" = torch.ops.aten.cos.default(arg0_1);  arg0_1 = None
+                def forward(self, x: "f32[3]"):
+                            cos: "f32[3]" = torch.ops.aten.cos.default(x);  x = None
                     return (cos,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[3]"):
-                            sin: "f32[3]" = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+                def forward(self, x: "f32[3]"):
+                            sin: "f32[3]" = torch.ops.aten.sin.default(x);  x = None
                     return (sin,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -344,13 +344,13 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[3]"):
-                            add: "f32[3]" = torch.ops.aten.add.Tensor(arg0_1, arg0_1);  arg0_1 = None
+                def forward(self, x: "f32[3]"):
+                            add: "f32[3]" = torch.ops.aten.add.Tensor(x, x);  x = None
                     return (add,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[3]"):
-                            sub: "f32[3]" = torch.ops.aten.sub.Tensor(arg0_1, arg0_1);  arg0_1 = None
+                def forward(self, x: "f32[3]"):
+                            sub: "f32[3]" = torch.ops.aten.sub.Tensor(x, x);  x = None
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -446,15 +446,15 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[6]", arg1_1: "f32[6]", arg2_1: "f32[]"):
-                            add: "f32[6]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
-                    add_1: "f32[6]" = torch.ops.aten.add.Tensor(add, arg2_1);  add = arg2_1 = None
-                    return (add_1,)
+                def forward(self, x: "f32[6]", add: "f32[6]", lift_fresh_copy: "f32[]"):
+                            add_1: "f32[6]" = torch.ops.aten.add.Tensor(x, add);  x = add = None
+                    add_2: "f32[6]" = torch.ops.aten.add.Tensor(add_1, lift_fresh_copy);  add_1 = lift_fresh_copy = None
+                    return (add_2,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[6]", arg1_1: "f32[6]", arg2_1: "f32[]"):
-                            sub: "f32[6]" = torch.ops.aten.sub.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
-                    sub_1: "f32[6]" = torch.ops.aten.sub.Tensor(sub, arg2_1);  sub = arg2_1 = None
+                def forward(self, x: "f32[6]", add: "f32[6]", lift_fresh_copy: "f32[]"):
+                            sub: "f32[6]" = torch.ops.aten.sub.Tensor(x, add);  x = add = None
+                    sub_1: "f32[6]" = torch.ops.aten.sub.Tensor(sub, lift_fresh_copy);  sub = lift_fresh_copy = None
                     return (sub_1,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.CONSTANT_TENSOR: 4>, arg=TensorArgument(name='c_lifted_tensor_0'), target='lifted_tensor_0', persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -509,13 +509,13 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[3, 2]"):
-                            mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(arg0_1, 2);  arg0_1 = None
+                def forward(self, x: "f32[3, 2]"):
+                            mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[3, 2]"):
-                            sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(arg0_1, 2);  arg0_1 = None
+                def forward(self, x: "f32[3, 2]"):
+                            sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='pred'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -583,13 +583,13 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[s0, 2]", arg1_1: "f32[2]"):
-                            add: "f32[s0, 2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+                def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
+                            add: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
                     return (add,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[s0, 2]", arg1_1: "f32[2]"):
-                            sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+                def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
+                            sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -647,13 +647,13 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[6, 4, 3]"):
-                            cos: "f32[6, 4, 3]" = torch.ops.aten.cos.default(arg0_1);  arg0_1 = None
+                def forward(self, x: "f32[6, 4, 3]"):
+                            cos: "f32[6, 4, 3]" = torch.ops.aten.cos.default(x);  x = None
                     return (cos,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[6, 4, 3]"):
-                            sin: "f32[6, 4, 3]" = torch.ops.aten.sin.default(arg0_1);  arg0_1 = None
+                def forward(self, x: "f32[6, 4, 3]"):
+                            sin: "f32[6, 4, 3]" = torch.ops.aten.sin.default(x);  x = None
                     return (sin,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -981,7 +981,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -1068,8 +1068,8 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[2]", arg1_1: "f32[2]"):
-                            add: "f32[2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+                def forward(self, xs: "f32[2]", y: "f32[2]"):
+                            add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='xs'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -1240,7 +1240,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1896,7 +1896,7 @@ Result:
 
 .. code-block::
 
-    AssertionError: 
+    AssertionError: Round(dim0_x/2) <= dim0_x
 
 
 model_attr_mutation
@@ -2005,6 +2005,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7faa69b9a160>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7ff132fda0d0>
 
 
