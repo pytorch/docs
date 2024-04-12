@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4d1d71e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git22ba180 ) &#x25BC</a>
     </div>
     
 
@@ -506,7 +506,7 @@
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
+<span class="kn">import</span> <span class="nn">atexit</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">cast</span><span class="p">,</span>
@@ -582,6 +582,47 @@
 <span class="c1"># FX node metadata keys for symbolic shape FX graph.</span>
 <span class="n">SHAPEENV_EVENT_KEY</span> <span class="o">=</span> <span class="s2">&quot;shapeenv_event&quot;</span>
 <span class="n">CURRENT_NODE_KEY</span> <span class="o">=</span> <span class="s2">&quot;current_node&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">log_lru_cache_stats</span><span class="p">(</span><span class="n">wrapped_f</span><span class="p">):</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;lru_cache_stats </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">wrapped_f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">wrapped_f</span><span class="o">.</span><span class="n">cumulative_cache_info</span><span class="p">())</span>
+
+
+<span class="c1"># Wrapper on lru_cache that reports statistics at process end</span>
+<div class="viewcode-block" id="lru_cache"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.lru_cache.html#torch.fx.experimental.symbolic_shapes.lru_cache">[docs]</a><span class="k">def</span> <span class="nf">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="n">wrapped_f</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="p">)(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">old_cache_clear</span> <span class="o">=</span> <span class="n">wrapped_f</span><span class="o">.</span><span class="n">cache_clear</span>
+        <span class="n">prev_hits</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">prev_misses</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># TODO: There&#39;s a ref-cycle here (wrapped_f -&gt; cumulative_cache_info</span>
+        <span class="c1"># -&gt; wrapped_f) but cannot be solved with weakref as wrapped_f is not</span>
+        <span class="c1"># weakref&#39;able on some versions of Python</span>
+
+        <span class="k">def</span> <span class="nf">cumulative_cache_info</span><span class="p">():</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">wrapped_f</span><span class="o">.</span><span class="n">cache_info</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">functools</span><span class="o">.</span><span class="n">_CacheInfo</span><span class="p">(</span>
+                <span class="n">prev_hits</span> <span class="o">+</span> <span class="n">cur</span><span class="o">.</span><span class="n">hits</span><span class="p">,</span>
+                <span class="n">prev_misses</span> <span class="o">+</span> <span class="n">cur</span><span class="o">.</span><span class="n">misses</span><span class="p">,</span>
+                <span class="n">cur</span><span class="o">.</span><span class="n">maxsize</span><span class="p">,</span>
+                <span class="n">cur</span><span class="o">.</span><span class="n">currsize</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">new_cache_clear</span><span class="p">():</span>
+            <span class="k">nonlocal</span> <span class="n">prev_hits</span><span class="p">,</span> <span class="n">prev_misses</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">wrapped_f</span><span class="o">.</span><span class="n">cache_info</span><span class="p">()</span>
+            <span class="n">prev_hits</span> <span class="o">+=</span> <span class="n">cur</span><span class="o">.</span><span class="n">hits</span>
+            <span class="n">prev_misses</span> <span class="o">+=</span> <span class="n">cur</span><span class="o">.</span><span class="n">misses</span>
+            <span class="n">old_cache_clear</span><span class="p">()</span>
+
+        <span class="n">wrapped_f</span><span class="o">.</span><span class="n">cache_clear</span> <span class="o">=</span> <span class="n">new_cache_clear</span>
+        <span class="n">wrapped_f</span><span class="o">.</span><span class="n">cumulative_cache_info</span> <span class="o">=</span> <span class="n">cumulative_cache_info</span>
+        <span class="k">if</span> <span class="n">log</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">log_lru_cache_stats</span><span class="p">,</span> <span class="n">wrapped_f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapped_f</span>
+
+    <span class="k">return</span> <span class="n">inner</span></div>
 
 <span class="c1"># These are modules that contain generic code for interacting with ShapeEnv</span>
 <span class="c1"># which are unlikely to identify a particular interesting guard statement</span>
@@ -2158,7 +2199,7 @@
                 <span class="k">elif</span> <span class="n">left</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
                     <span class="n">relation_with_digit</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">flip</span><span class="p">(</span><span class="n">op</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">left</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">assert</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;==&quot;</span>
+                    <span class="k">assert</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="n">t</span>
                     <span class="n">results</span><span class="p">[</span><span class="n">left</span><span class="p">][</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
 
             <span class="n">buf</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -4625,7 +4666,8 @@
 
         <span class="c1"># TODO: split conjunctions and evaluate them separately</span>
 
-        <span class="nd">@lru_cache</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Don&#39;t track this one</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">compute_concrete_val</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">hint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_hint</span><span class="p">(</span><span class="n">orig_expr</span><span class="p">)</span>

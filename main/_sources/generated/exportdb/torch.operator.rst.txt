@@ -30,4 +30,4 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7faa69b9a160>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7ff132fda0d0>

@@ -46,8 +46,8 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, arg0_1: "f32[2]", arg1_1: "f32[2]"):
-                            add: "f32[2]" = torch.ops.aten.add.Tensor(arg0_1, arg1_1);  arg0_1 = arg1_1 = None
+                def forward(self, xs: "f32[2]", y: "f32[2]"):
+                            add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='xs'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])

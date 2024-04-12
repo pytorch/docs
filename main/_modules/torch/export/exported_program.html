@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4d1d71e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git22ba180 ) &#x25BC</a>
     </div>
     
 
@@ -623,6 +623,48 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">name_map</span><span class="p">[</span><span class="n">orig_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
     <span class="k">return</span> <span class="n">name_map</span><span class="p">[</span><span class="n">orig_name</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_name_hoo_subgraph_placeholders</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Propagate placeholder names from the top-level graph into HigherOrderOp subgraphs,</span>
+<span class="sd">    and handle collisions with non-placeholders by count suffixing.</span>
+<span class="sd">    Different HOO subgraph types have different input schemas, so we first enumerate them</span>
+<span class="sd">    and gather the top-level named placeholder nodes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># gather all HOO subgraphs and their top-level named placeholder nodes</span>
+    <span class="n">subgraph_ph_tuples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">HigherOrderOperator</span>
+        <span class="p">):</span>
+            <span class="c1"># HOO subgraphs have varying input schemas, so we enumerate them there</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">_name</span> <span class="o">==</span> <span class="s2">&quot;cond&quot;</span><span class="p">:</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">true_graph</span><span class="p">,</span> <span class="n">false_graph</span><span class="p">,</span> <span class="n">cond_args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_args</span>
+                <span class="n">subgraph_ph_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">true_graph</span><span class="o">.</span><span class="n">target</span><span class="p">),</span> <span class="n">cond_args</span><span class="p">))</span>
+                <span class="n">subgraph_ph_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">false_graph</span><span class="o">.</span><span class="n">target</span><span class="p">),</span> <span class="n">cond_args</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">_name</span> <span class="o">==</span> <span class="s2">&quot;wrap_with_set_grad_enabled&quot;</span><span class="p">:</span>
+                <span class="n">subgraph</span><span class="p">,</span> <span class="n">phs</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">node</span><span class="o">.</span><span class="n">_args</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+                <span class="n">subgraph_ph_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">target</span><span class="p">),</span> <span class="n">phs</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">_name</span> <span class="o">==</span> <span class="s2">&quot;map_impl&quot;</span><span class="p">:</span>
+                <span class="n">body_graph</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_args</span>
+                <span class="n">subgraph_ph_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">body_graph</span><span class="o">.</span><span class="n">target</span><span class="p">),</span> <span class="n">array</span> <span class="o">+</span> <span class="n">args</span><span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="c1"># propagate names</span>
+    <span class="k">for</span> <span class="n">subgraph</span><span class="p">,</span> <span class="n">hoo_phs</span> <span class="ow">in</span> <span class="n">subgraph_ph_tuples</span><span class="p">:</span>
+        <span class="n">name_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subgraph</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">hoo_phs</span><span class="p">):</span>  <span class="c1"># placeholder, retain name</span>
+                <span class="n">name_map</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">hoo_phs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">hoo_phs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># non-placeholder, check for collisions</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">_rename_without_collisions</span><span class="p">(</span><span class="n">name_map</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># recurse and recompile</span>
+        <span class="n">_name_hoo_subgraph_placeholders</span><span class="p">(</span><span class="n">subgraph</span><span class="p">)</span>
+        <span class="n">subgraph</span><span class="o">.</span><span class="n">recompile</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="ExportedProgram"><a class="viewcode-back" href="../../../export.html#torch.export.ExportedProgram">[docs]</a><span class="k">class</span> <span class="nc">ExportedProgram</span><span class="p">:</span>
@@ -1026,6 +1068,9 @@
             <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">_rename_without_collisions</span><span class="p">(</span><span class="n">name_map</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># propagate names to higher order op subgraphs</span>
+        <span class="n">_name_hoo_subgraph_placeholders</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span>
 
         <span class="c1"># To match the output target with correct input for input mutations</span>
         <span class="c1"># need to find the old to new placeholder map</span>
