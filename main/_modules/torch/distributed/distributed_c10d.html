@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git22ba180 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1d6c597 ) &#x25BC</a>
     </div>
     
 
@@ -1780,7 +1780,7 @@
             <span class="p">)</span>
 
         <span class="n">default_pg</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_new_process_group_helper</span><span class="p">(</span>
-            <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[],</span> <span class="n">backend</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[],</span> <span class="n">backend</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">group_desc</span><span class="o">=</span><span class="s2">&quot;default_pg&quot;</span>
         <span class="p">)</span>
         <span class="n">_update_default_pg</span><span class="p">(</span><span class="n">default_pg</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1806,6 +1806,7 @@
             <span class="n">pg_options</span><span class="o">=</span><span class="n">pg_options</span><span class="p">,</span>
             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
             <span class="n">device_id</span><span class="o">=</span><span class="n">device_id</span><span class="p">,</span>
+            <span class="n">group_desc</span><span class="o">=</span><span class="s2">&quot;default_pg&quot;</span>
         <span class="p">)</span>
         <span class="n">_update_default_pg</span><span class="p">(</span><span class="n">default_pg</span><span class="p">)</span>
 
@@ -1898,6 +1899,7 @@
     <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">pg_tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">device_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_desc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a new distributed process group.</span>
@@ -1929,6 +1931,8 @@
         <span class="k">if</span> <span class="n">existing_group</span><span class="p">:</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">prefix_store</span> <span class="o">=</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_map</span><span class="p">[</span><span class="n">existing_group</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">existing_group</span><span class="p">,</span> <span class="n">prefix_store</span>
+
+    <span class="n">group_desc</span> <span class="o">=</span> <span class="s2">&quot;undefined&quot;</span> <span class="k">if</span> <span class="n">group_desc</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">group_desc</span>
 
     <span class="c1"># The list of group ranks is empty if we&#39;re creating the default group.</span>
     <span class="n">is_default_group</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">global_ranks_in_group</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
@@ -2104,9 +2108,11 @@
 
     <span class="c1"># update global state</span>
     <span class="k">assert</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">group_desc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
     <span class="n">_world</span><span class="o">.</span><span class="n">pg_map</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">prefix_store</span><span class="p">)</span>
     <span class="n">_world</span><span class="o">.</span><span class="n">pg_names</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_name</span>
     <span class="n">pg</span><span class="o">.</span><span class="n">_set_group_name</span><span class="p">(</span><span class="n">group_name</span><span class="p">)</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">_set_group_desc</span><span class="p">(</span><span class="n">group_desc</span><span class="p">)</span>
     <span class="n">_register_process_group</span><span class="p">(</span><span class="n">group_name</span><span class="p">,</span> <span class="n">pg</span><span class="p">)</span>
 
     <span class="n">_world</span><span class="o">.</span><span class="n">pg_backend_config</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">backend_config</span><span class="p">)</span>
@@ -4298,7 +4304,7 @@
 
 
 <div class="viewcode-block" id="new_group"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.new_group">[docs]</a><span class="nd">@_time_logger</span>
-<span class="k">def</span> <span class="nf">new_group</span><span class="p">(</span><span class="n">ranks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pg_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_local_synchronization</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">new_group</span><span class="p">(</span><span class="n">ranks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pg_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_local_synchronization</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">group_desc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a new distributed group.</span>
 
@@ -4339,6 +4345,7 @@
 <span class="sd">            barrier at the end of the process group creation. This is different</span>
 <span class="sd">            in that non-member ranks don&#39;t need to call into API and don&#39;t</span>
 <span class="sd">            join the barrier.</span>
+<span class="sd">        group_desc (str, optional): a string to describe the process group.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A handle of distributed group that can be given to collective calls or None if the rank is not part of ``ranks``.</span>
@@ -4353,7 +4360,15 @@
 <span class="sd">    multiple overlaping process groups. To avoid that, make sure all ranks follow the</span>
 <span class="sd">    same global creation order.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_new_group_with_tag</span><span class="p">(</span><span class="n">ranks</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">pg_options</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">use_local_synchronization</span><span class="o">=</span><span class="n">use_local_synchronization</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_new_group_with_tag</span><span class="p">(</span>
+        <span class="n">ranks</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">,</span>
+        <span class="n">backend</span><span class="p">,</span>
+        <span class="n">pg_options</span><span class="p">,</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_local_synchronization</span><span class="o">=</span><span class="n">use_local_synchronization</span><span class="p">,</span>
+        <span class="n">group_desc</span><span class="o">=</span><span class="n">group_desc</span><span class="p">,</span>
+    <span class="p">)</span></div>
 
 <span class="k">def</span> <span class="nf">_new_group_with_tag</span><span class="p">(</span>
     <span class="n">ranks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -4361,7 +4376,8 @@
     <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">pg_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">pg_tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">use_local_synchronization</span><span class="o">=</span><span class="kc">False</span>
+    <span class="n">use_local_synchronization</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">group_desc</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Variant of ``new_group`` that exposes tag creation.</span>
@@ -4433,7 +4449,8 @@
         <span class="n">group_name</span><span class="p">,</span>
         <span class="n">pg_options</span><span class="o">=</span><span class="n">pg_options</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
-        <span class="n">pg_tag</span><span class="o">=</span><span class="n">pg_tag</span>
+        <span class="n">pg_tag</span><span class="o">=</span><span class="n">pg_tag</span><span class="p">,</span>
+        <span class="n">group_desc</span><span class="o">=</span><span class="n">group_desc</span>
     <span class="p">)</span>
 
     <span class="c1"># Create the global rank to group rank mapping</span>
@@ -4473,6 +4490,7 @@
     <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">pg_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_desc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create subgroups of equal size.</span>
@@ -4525,6 +4543,8 @@
 <span class="sd">            the construction of specific process groups. i.e. for the ``nccl``</span>
 <span class="sd">            backend, ``is_high_priority_stream`` can be specified so that</span>
 <span class="sd">            process group can pick up high priority cuda streams.</span>
+<span class="sd">        group_desc (str, optional): A string describing the group. Each subgroup will</span>
+<span class="sd">            inherit its group_desc</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The subgroup containing the current rank, and all the subgroups used for cleanup.</span>
@@ -4570,6 +4590,7 @@
             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
             <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span>
             <span class="n">pg_options</span><span class="o">=</span><span class="n">pg_options</span><span class="p">,</span>
+            <span class="n">group_desc</span><span class="o">=</span><span class="n">group_desc</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">subgroups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span>
 
@@ -4589,6 +4610,7 @@
     <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">pg_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_desc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create subgroups by dividing the global world.</span>
@@ -4629,6 +4651,8 @@
 <span class="sd">            the construction of specific process groups. i.e. for the ``nccl``</span>
 <span class="sd">            backend, ``is_high_priority_stream`` can be specified so that</span>
 <span class="sd">            process group can pick up high priority cuda streams.</span>
+<span class="sd">        group_desc (str, optional): A string describing the group. Each subgroup will</span>
+<span class="sd">            inherit its group_desc.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The subgroup containing the current rank, and all the subgroups used for cleanup.</span>
@@ -4657,6 +4681,7 @@
             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
             <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span>
             <span class="n">pg_options</span><span class="o">=</span><span class="n">pg_options</span><span class="p">,</span>
+            <span class="n">group_desc</span><span class="o">=</span><span class="n">group_desc</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">subgroups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span>
         <span class="n">my_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>

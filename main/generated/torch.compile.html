@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git22ba180 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1d6c597 ) &#x25BC</a>
     </div>
     
 
@@ -487,7 +487,9 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compile">
 <span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullgraph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inductor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch.html#compile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optimizes given model/function using TorchDynamo and specified backend.</p>
+<dd><p>Optimizes given model/function using TorchDynamo and specified backend.
+If you are compiling an <a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>, you can also use <a class="reference internal" href="torch.nn.Module.html#torch.nn.Module.compile" title="torch.nn.Module.compile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.nn.Module.compile()</span></code></a>
+to compile the module inplace without changing its structure.</p>
 <p>Concretely, for every frame executed within the compiled region, we will attempt
 to compile it and cache the compiled result on the code object for future
 use.  A single frame may be compiled multiple times if previous compiled
