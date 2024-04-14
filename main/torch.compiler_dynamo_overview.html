@@ -9,14 +9,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TorchDynamo Deep Dive &mdash; PyTorch main documentation</title>
+  <title>TorchDynamo Overview &mdash; PyTorch main documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://pytorch.org/docs/stable/torch.compiler_deepdive.html"/>
+    <link rel="canonical" href="https://pytorch.org/docs/stable/torch.compiler_dynamo_overview.html"/>
   
 
   
@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="_static/css/jit.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Dynamic shapes" href="torch.compiler_dynamic_shapes.html" />
+    <link rel="next" title="Dynamo Deep-Dive" href="torch.compiler_dynamo_deepdive.html" />
     <link rel="prev" title="Control Flow - Cond" href="cond.html" />
 
 <!--
@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1d6c597 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git88a7159 ) &#x25BC</a>
     </div>
     
 
@@ -264,7 +264,7 @@
           
 
 <div>
-  <a style="color:#F05732" href="https://pytorch.org/docs/stable/torch.compiler_deepdive.html">
+  <a style="color:#F05732" href="https://pytorch.org/docs/stable/torch.compiler_dynamo_overview.html">
     You are viewing unstable developer preview docs.
     Click here to view docs for latest stable release.
   </a>
@@ -445,13 +445,13 @@
         
           <li><a href="export.html">torch.export</a> &gt;</li>
         
-      <li>TorchDynamo Deep Dive</li>
+      <li>TorchDynamo Overview</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/torch.compiler_deepdive.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="_sources/torch.compiler_dynamo_overview.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -482,8 +482,8 @@
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
-  <div class="section" id="torchdynamo-deep-dive">
-<h1>TorchDynamo Deep Dive<a class="headerlink" href="#torchdynamo-deep-dive" title="Permalink to this heading">¶</a></h1>
+  <div class="section" id="torchdynamo-overview">
+<h1>TorchDynamo Overview<a class="headerlink" href="#torchdynamo-overview" title="Permalink to this heading">¶</a></h1>
 <p>Before you read this section, read <a class="reference internal" href="torch.compiler.html#torch-compiler-overview"><span class="std std-ref">torch.compiler</span></a>.</p>
 <p><strong>TorchDynamo</strong> is a Python-level Just-In-Time (JIT) compiler designed to make
 unmodified PyTorch programs faster. TorchDynamo hooks into the frame evaluation
@@ -784,6 +784,7 @@ point for the first time.</p>
 </div>
 <p>The following diagram demonstrates how <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> transforms and optimizes user-written code: it first extracts computation graphs from the user-written function, and compiles these graphs into optimized functions, then assembles them into a new function, which is functionally equivalent to the user-written code but optimized to have a good computation speed.</p>
 <img alt="_images/flowchart.jpg" src="_images/flowchart.jpg" />
+<p>To learn more about how all this is implemented internally, see <a class="reference internal" href="torch.compiler_dynamo_deepdive.html#torch-compiler-dynamo-deepdive"><span class="std std-ref">Dynamo Deep-Dive</span></a>.</p>
 </div>
 </div>
 </div>
@@ -796,7 +797,7 @@ point for the first time.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="torch.compiler_dynamic_shapes.html" class="btn btn-neutral float-right" title="Dynamic shapes" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="torch.compiler_dynamo_deepdive.html" class="btn btn-neutral float-right" title="Dynamo Deep-Dive" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
         <a href="cond.html" class="btn btn-neutral" title="Control Flow - Cond" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
@@ -842,7 +843,7 @@ if (url)
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">TorchDynamo Deep Dive</a><ul>
+<li><a class="reference internal" href="#">TorchDynamo Overview</a><ul>
 <li><a class="reference internal" href="#torchdynamo-internals">TorchDynamo Internals</a><ul>
 <li><a class="reference internal" href="#what-is-a-guard">What is a guard?</a></li>
 <li><a class="reference internal" href="#what-is-dynamo-doing">What is Dynamo doing?</a></li>
