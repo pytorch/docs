@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git03a05e7 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1885c39 ) &#x25BC</a>
     </div>
     
 
@@ -516,8 +516,8 @@
 <div class="viewcode-block" id="FunctionCtx.save_for_backward"><a class="viewcode-back" href="../../../generated/torch.autograd.function.FunctionCtx.save_for_backward.html#torch.autograd.FunctionCtx.save_for_backward">[docs]</a>    <span class="k">def</span> <span class="nf">save_for_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">tensors</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Save given tensors for a future call to :func:`~Function.backward`.</span>
 
-<span class="sd">        ``save_for_backward`` should be called at most once, only from inside the</span>
-<span class="sd">        :func:`forward` method, and only with tensors.</span>
+<span class="sd">        ``save_for_backward`` should be called at most once, in either the</span>
+<span class="sd">        :func:`setup_context` or :func:`forward` methods, and only with tensors.</span>
 
 <span class="sd">        All tensors intended to be used in the backward pass should be saved</span>
 <span class="sd">        with ``save_for_backward`` (as opposed to directly on ``ctx``) to prevent</span>
@@ -575,8 +575,9 @@
     <span class="k">def</span> <span class="nf">save_for_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">tensors</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Save given tensors for a future call to :func:`~Function.jvp`.</span>
 
-<span class="sd">        ``save_for_forward`` should be only called once, from inside the :func:`forward`</span>
-<span class="sd">        method, and only be called with tensors.</span>
+<span class="sd">        ``save_for_forward`` should be called at most once, in either the</span>
+<span class="sd">        :func:`setup_context` or :func:`forward` methods, and all arguments</span>
+<span class="sd">        should be tensors.</span>
 
 <span class="sd">        In :func:`jvp`, saved objects can be accessed through the :attr:`saved_tensors`</span>
 <span class="sd">        attribute.</span>
@@ -628,8 +629,8 @@
 <div class="viewcode-block" id="FunctionCtx.mark_dirty"><a class="viewcode-back" href="../../../generated/torch.autograd.function.FunctionCtx.mark_dirty.html#torch.autograd.FunctionCtx.mark_dirty">[docs]</a>    <span class="k">def</span> <span class="nf">mark_dirty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Mark given tensors as modified in an in-place operation.</span>
 
-<span class="sd">        **This should be called at most once, only from inside the**</span>
-<span class="sd">        :func:`forward` **method, and all arguments should be inputs.**</span>
+<span class="sd">        This should be called at most once, in either the :func:`setup_context`</span>
+<span class="sd">        or :func:`forward` methods, and all arguments should be inputs.</span>
 
 <span class="sd">        Every tensor that&#39;s been modified in-place in a call to :func:`forward`</span>
 <span class="sd">        should be given to this function, to ensure correctness of our checks.</span>
@@ -672,8 +673,8 @@
 <div class="viewcode-block" id="FunctionCtx.mark_non_differentiable"><a class="viewcode-back" href="../../../generated/torch.autograd.function.FunctionCtx.mark_non_differentiable.html#torch.autograd.FunctionCtx.mark_non_differentiable">[docs]</a>    <span class="k">def</span> <span class="nf">mark_non_differentiable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Mark outputs as non-differentiable.</span>
 
-<span class="sd">        **This should be called at most once, only from inside the**</span>
-<span class="sd">        :func:`forward` **method, and all arguments should be tensor outputs.**</span>
+<span class="sd">        This should be called at most once, in either the :func:`setup_context`</span>
+<span class="sd">        or :func:`forward` methods, and all arguments should be tensor outputs.</span>
 
 <span class="sd">        This will mark outputs as not requiring gradients, increasing the</span>
 <span class="sd">        efficiency of backward computation. You still need to accept a gradient</span>
@@ -704,7 +705,8 @@
 <div class="viewcode-block" id="FunctionCtx.set_materialize_grads"><a class="viewcode-back" href="../../../generated/torch.autograd.function.FunctionCtx.set_materialize_grads.html#torch.autograd.FunctionCtx.set_materialize_grads">[docs]</a>    <span class="k">def</span> <span class="nf">set_materialize_grads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Set whether to materialize grad tensors. Default is ``True``.</span>
 
-<span class="sd">        **This should be called only from inside the** :func:`forward` **method**</span>
+<span class="sd">        This should be called only from either the :func:`setup_context` or</span>
+<span class="sd">        :func:`forward` methods.</span>
 
 <span class="sd">        If ``True``, undefined grad tensors will be expanded to tensors full of zeros</span>
 <span class="sd">        prior to calling the :func:`backward` and :func:`jvp` methods.</span>
