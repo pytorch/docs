@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git03a05e7 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1885c39 ) &#x25BC</a>
     </div>
     
 
@@ -578,8 +578,9 @@ functions.</p>
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.save_for_forward">
 <span class="sig-name descname"><span class="pre">save_for_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tensors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.save_for_forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save given tensors for a future call to <code class="xref py py-func docutils literal notranslate"><span class="pre">jvp()</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">save_for_forward</span></code> should be only called once, from inside the <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.forward" title="torch.autograd.function.NestedIOFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a>
-method, and only be called with tensors.</p>
+<p><code class="docutils literal notranslate"><span class="pre">save_for_forward</span></code> should be called at most once, in either the
+<a class="reference internal" href="#torch.autograd.function.NestedIOFunction.setup_context" title="torch.autograd.function.NestedIOFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a> or <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.forward" title="torch.autograd.function.NestedIOFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods, and all arguments
+should be tensors.</p>
 <p>In <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.jvp" title="torch.autograd.function.NestedIOFunction.jvp"><code class="xref py py-func docutils literal notranslate"><span class="pre">jvp()</span></code></a>, saved objects can be accessed through the <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.saved_tensors" title="torch.autograd.function.NestedIOFunction.saved_tensors"><code class="xref py py-attr docutils literal notranslate"><span class="pre">saved_tensors</span></code></a>
 attribute.</p>
 <p>Arguments can also be <code class="docutils literal notranslate"><span class="pre">None</span></code>. This is a no-op.</p>
@@ -631,7 +632,8 @@ attribute.</p>
 <dt class="sig sig-object py" id="torch.autograd.function.NestedIOFunction.set_materialize_grads">
 <span class="sig-name descname"><span class="pre">set_materialize_grads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.autograd.function.NestedIOFunction.set_materialize_grads" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set whether to materialize grad tensors. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
-<p><strong>This should be called only from inside the</strong> <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.forward" title="torch.autograd.function.NestedIOFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> <strong>method</strong></p>
+<p>This should be called only from either the <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.setup_context" title="torch.autograd.function.NestedIOFunction.setup_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_context()</span></code></a> or
+<a class="reference internal" href="#torch.autograd.function.NestedIOFunction.forward" title="torch.autograd.function.NestedIOFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> methods.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, undefined grad tensors will be expanded to tensors full of zeros
 prior to calling the <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.backward" title="torch.autograd.function.NestedIOFunction.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> and <a class="reference internal" href="#torch.autograd.function.NestedIOFunction.jvp" title="torch.autograd.function.NestedIOFunction.jvp"><code class="xref py py-func docutils literal notranslate"><span class="pre">jvp()</span></code></a> methods.</p>
 <dl>
