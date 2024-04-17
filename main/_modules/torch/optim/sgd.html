@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1885c39 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gite7cf6f8 ) &#x25BC</a>
     </div>
     
 
@@ -480,19 +480,38 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.optim.sgd</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
-<span class="kn">from</span> <span class="nn">.optimizer</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Optimizer</span><span class="p">,</span> <span class="n">_use_grad_for_differentiable</span><span class="p">,</span> <span class="n">_default_to_fused_or_foreach</span><span class="p">,</span>
-                        <span class="n">_differentiable_doc</span><span class="p">,</span> <span class="n">_foreach_doc</span><span class="p">,</span> <span class="n">_maximize_doc</span><span class="p">,</span> <span class="n">_fused_doc</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SGD&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd&#39;</span><span class="p">]</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">.optimizer</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_default_to_fused_or_foreach</span><span class="p">,</span>
+    <span class="n">_differentiable_doc</span><span class="p">,</span>
+    <span class="n">_foreach_doc</span><span class="p">,</span>
+    <span class="n">_fused_doc</span><span class="p">,</span>
+    <span class="n">_maximize_doc</span><span class="p">,</span>
+    <span class="n">_use_grad_for_differentiable</span><span class="p">,</span>
+    <span class="n">Optimizer</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SGD&quot;</span><span class="p">,</span> <span class="s2">&quot;sgd&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="SGD"><a class="viewcode-back" href="../../../generated/torch.optim.SGD.html#torch.optim.SGD">[docs]</a><span class="k">class</span> <span class="nc">SGD</span><span class="p">(</span><span class="n">Optimizer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dampening</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                 <span class="n">weight_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">maximize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">foreach</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">differentiable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">fused</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+        <span class="n">momentum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">dampening</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">weight_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">nesterov</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">maximize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">foreach</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">differentiable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">fused</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="k">if</span> <span class="n">lr</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid learning rate: </span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">momentum</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
@@ -500,10 +519,17 @@
         <span class="k">if</span> <span class="n">weight_decay</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid weight_decay value: </span><span class="si">{</span><span class="n">weight_decay</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="n">momentum</span><span class="p">,</span> <span class="n">dampening</span><span class="o">=</span><span class="n">dampening</span><span class="p">,</span>
-                        <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="n">nesterov</span><span class="p">,</span>
-                        <span class="n">maximize</span><span class="o">=</span><span class="n">maximize</span><span class="p">,</span> <span class="n">foreach</span><span class="o">=</span><span class="n">foreach</span><span class="p">,</span>
-                        <span class="n">differentiable</span><span class="o">=</span><span class="n">differentiable</span><span class="p">,</span> <span class="n">fused</span><span class="o">=</span><span class="n">fused</span><span class="p">)</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+            <span class="n">momentum</span><span class="o">=</span><span class="n">momentum</span><span class="p">,</span>
+            <span class="n">dampening</span><span class="o">=</span><span class="n">dampening</span><span class="p">,</span>
+            <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span>
+            <span class="n">nesterov</span><span class="o">=</span><span class="n">nesterov</span><span class="p">,</span>
+            <span class="n">maximize</span><span class="o">=</span><span class="n">maximize</span><span class="p">,</span>
+            <span class="n">foreach</span><span class="o">=</span><span class="n">foreach</span><span class="p">,</span>
+            <span class="n">differentiable</span><span class="o">=</span><span class="n">differentiable</span><span class="p">,</span>
+            <span class="n">fused</span><span class="o">=</span><span class="n">fused</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">nesterov</span> <span class="ow">and</span> <span class="p">(</span><span class="n">momentum</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">dampening</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Nesterov momentum requires a momentum and zero dampening&quot;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">defaults</span><span class="p">)</span>
@@ -518,16 +544,16 @@
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
-            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;nesterov&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;maximize&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;foreach&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;differentiable&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;fused&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;nesterov&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;maximize&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;foreach&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;differentiable&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;fused&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_init_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">params_with_grad</span><span class="p">,</span> <span class="n">d_p_list</span><span class="p">,</span> <span class="n">momentum_buffer_list</span><span class="p">):</span>
         <span class="n">has_sparse_grad</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">params_with_grad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
                 <span class="n">d_p_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
@@ -536,7 +562,7 @@
 
                 <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;momentum&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
-                    <span class="n">momentum_buffer_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;momentum_buffer&#39;</span><span class="p">))</span>
+                    <span class="n">momentum_buffer_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;momentum_buffer&quot;</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">has_sparse_grad</span>
 
@@ -558,67 +584,73 @@
             <span class="n">d_p_list</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">momentum_buffer_list</span> <span class="o">=</span> <span class="p">[]</span>
 
-            <span class="n">has_sparse_grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_group</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">params_with_grad</span><span class="p">,</span> <span class="n">d_p_list</span><span class="p">,</span> <span class="n">momentum_buffer_list</span><span class="p">)</span>
+            <span class="n">has_sparse_grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_group</span><span class="p">(</span>
+                <span class="n">group</span><span class="p">,</span> <span class="n">params_with_grad</span><span class="p">,</span> <span class="n">d_p_list</span><span class="p">,</span> <span class="n">momentum_buffer_list</span>
+            <span class="p">)</span>
 
-            <span class="n">sgd</span><span class="p">(</span><span class="n">params_with_grad</span><span class="p">,</span>
+            <span class="n">sgd</span><span class="p">(</span>
+                <span class="n">params_with_grad</span><span class="p">,</span>
                 <span class="n">d_p_list</span><span class="p">,</span>
                 <span class="n">momentum_buffer_list</span><span class="p">,</span>
-                <span class="n">weight_decay</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;weight_decay&#39;</span><span class="p">],</span>
-                <span class="n">momentum</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;momentum&#39;</span><span class="p">],</span>
-                <span class="n">lr</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">],</span>
-                <span class="n">dampening</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;dampening&#39;</span><span class="p">],</span>
-                <span class="n">nesterov</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;nesterov&#39;</span><span class="p">],</span>
-                <span class="n">maximize</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;maximize&#39;</span><span class="p">],</span>
+                <span class="n">weight_decay</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;weight_decay&quot;</span><span class="p">],</span>
+                <span class="n">momentum</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;momentum&quot;</span><span class="p">],</span>
+                <span class="n">lr</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">],</span>
+                <span class="n">dampening</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;dampening&quot;</span><span class="p">],</span>
+                <span class="n">nesterov</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;nesterov&quot;</span><span class="p">],</span>
+                <span class="n">maximize</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;maximize&quot;</span><span class="p">],</span>
                 <span class="n">has_sparse_grad</span><span class="o">=</span><span class="n">has_sparse_grad</span><span class="p">,</span>
-                <span class="n">foreach</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;foreach&#39;</span><span class="p">],</span>
-                <span class="n">fused</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;fused&#39;</span><span class="p">],</span>
+                <span class="n">foreach</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;foreach&quot;</span><span class="p">],</span>
+                <span class="n">fused</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;fused&quot;</span><span class="p">],</span>
                 <span class="n">grad_scale</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;grad_scale&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-                <span class="n">found_inf</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;found_inf&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+                <span class="n">found_inf</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;found_inf&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;momentum&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="c1"># update momentum_buffers in state</span>
                 <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">momentum_buffer</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">params_with_grad</span><span class="p">,</span> <span class="n">momentum_buffer_list</span><span class="p">):</span>
                     <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
-                    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;momentum_buffer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">momentum_buffer</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;momentum_buffer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">momentum_buffer</span>
 
         <span class="k">return</span> <span class="n">loss</span></div></div>
 
 
-<span class="n">SGD</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;Implements stochastic gradient descent (optionally with momentum).</span>
+<span class="n">SGD</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Implements stochastic gradient descent (optionally with momentum).</span>
 
-<span class="s2">    .. math::</span>
-<span class="s2">       \begin</span><span class="si">{aligned}</span>
-<span class="s2">            &amp;\rule</span><span class="si">{110mm}{0.4pt}</span><span class="s2">                                                                 \\</span>
-<span class="s2">            &amp;\textbf</span><span class="si">{input}</span><span class="s2">      : \gamma \text{ (lr)}, \: \theta_0 \text{ (params)}, \: f(\theta)</span>
-<span class="s2">                \text{ (objective)}, \: \lambda \text{ (weight decay)},                          \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{13mm}</span><span class="s2"> \:\mu \text{ (momentum)}, \:\tau \text{ (dampening)},</span>
-<span class="s2">            \:\textit{ nesterov,}\:\textit{ maximize}                                     \\[-1.ex]</span>
-<span class="s2">            &amp;\rule</span><span class="si">{110mm}{0.4pt}</span><span class="s2">                                                                 \\</span>
-<span class="s2">            &amp;\textbf</span><span class="si">{for}</span><span class="s2"> \: t=1 \: \textbf</span><span class="si">{to}</span><span class="s2"> \: \ldots \: \textbf</span><span class="si">{do}</span><span class="s2">                         \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2">g_t           \leftarrow   \nabla_{\theta} f_t (\theta_{t-1})           \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2">\textbf</span><span class="si">{if}</span><span class="s2"> \: \lambda \neq 0                                           \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2"> g_t \leftarrow g_t + \lambda  \theta_{t-1}                            \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2">\textbf</span><span class="si">{if}</span><span class="s2"> \: \mu \neq 0                                               \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">\textbf</span><span class="si">{if}</span><span class="s2"> \: t &gt; 1                                                   \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{15mm}</span><span class="s2"> \textbf</span><span class="si">{b}</span><span class="s2">_t \leftarrow \mu \textbf</span><span class="si">{b}</span><span class="s2">_{t-1} + (1-\tau) g_t           \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">\textbf</span><span class="si">{else}</span><span class="s2">                                                          \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{15mm}</span><span class="s2"> \textbf</span><span class="si">{b}</span><span class="s2">_t \leftarrow g_t                                           \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">\textbf</span><span class="si">{if}</span><span class="s2"> \: \textit</span><span class="si">{nesterov}</span><span class="s2">                                       \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{15mm}</span><span class="s2"> g_t \leftarrow g_</span><span class="si">{t}</span><span class="s2"> + \mu \textbf</span><span class="si">{b}</span><span class="s2">_t                             \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">\textbf</span><span class="si">{else}</span><span class="s2">                                                   \\[-1.ex]</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{15mm}</span><span class="s2"> g_t  \leftarrow  \textbf</span><span class="si">{b}</span><span class="s2">_t                                         \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2">\textbf</span><span class="si">{if}</span><span class="s2"> \: \textit</span><span class="si">{maximize}</span><span class="s2">                                          \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">\theta_t \leftarrow \theta_{t-1} + \gamma g_t                   \\[-1.ex]</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2">\textbf</span><span class="si">{else}</span><span class="s2">                                                    \\[-1.ex]</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">\theta_t \leftarrow \theta_{t-1} - \gamma g_t                   \\[-1.ex]</span>
-<span class="s2">            &amp;\rule</span><span class="si">{110mm}{0.4pt}</span><span class="s2">                                                          \\[-1.ex]</span>
-<span class="s2">            &amp;\bf</span><span class="si">{return}</span><span class="s2"> \:  \theta_t                                                     \\[-1.ex]</span>
-<span class="s2">            &amp;\rule</span><span class="si">{110mm}{0.4pt}</span><span class="s2">                                                          \\[-1.ex]</span>
-<span class="s2">       \end</span><span class="si">{aligned}</span>
+<span class="sd">    .. math::</span>
+<span class="sd">       \begin{aligned}</span>
+<span class="sd">            &amp;\rule{110mm}{0.4pt}                                                                 \\</span>
+<span class="sd">            &amp;\textbf{input}      : \gamma \text{ (lr)}, \: \theta_0 \text{ (params)}, \: f(\theta)</span>
+<span class="sd">                \text{ (objective)}, \: \lambda \text{ (weight decay)},                          \\</span>
+<span class="sd">            &amp;\hspace{13mm} \:\mu \text{ (momentum)}, \:\tau \text{ (dampening)},</span>
+<span class="sd">            \:\textit{ nesterov,}\:\textit{ maximize}                                     \\[-1.ex]</span>
+<span class="sd">            &amp;\rule{110mm}{0.4pt}                                                                 \\</span>
+<span class="sd">            &amp;\textbf{for} \: t=1 \: \textbf{to} \: \ldots \: \textbf{do}                         \\</span>
+<span class="sd">            &amp;\hspace{5mm}g_t           \leftarrow   \nabla_{\theta} f_t (\theta_{t-1})           \\</span>
+<span class="sd">            &amp;\hspace{5mm}\textbf{if} \: \lambda \neq 0                                           \\</span>
+<span class="sd">            &amp;\hspace{10mm} g_t \leftarrow g_t + \lambda  \theta_{t-1}                            \\</span>
+<span class="sd">            &amp;\hspace{5mm}\textbf{if} \: \mu \neq 0                                               \\</span>
+<span class="sd">            &amp;\hspace{10mm}\textbf{if} \: t &gt; 1                                                   \\</span>
+<span class="sd">            &amp;\hspace{15mm} \textbf{b}_t \leftarrow \mu \textbf{b}_{t-1} + (1-\tau) g_t           \\</span>
+<span class="sd">            &amp;\hspace{10mm}\textbf{else}                                                          \\</span>
+<span class="sd">            &amp;\hspace{15mm} \textbf{b}_t \leftarrow g_t                                           \\</span>
+<span class="sd">            &amp;\hspace{10mm}\textbf{if} \: \textit{nesterov}                                       \\</span>
+<span class="sd">            &amp;\hspace{15mm} g_t \leftarrow g_{t} + \mu \textbf{b}_t                             \\</span>
+<span class="sd">            &amp;\hspace{10mm}\textbf{else}                                                   \\[-1.ex]</span>
+<span class="sd">            &amp;\hspace{15mm} g_t  \leftarrow  \textbf{b}_t                                         \\</span>
+<span class="sd">            &amp;\hspace{5mm}\textbf{if} \: \textit{maximize}                                          \\</span>
+<span class="sd">            &amp;\hspace{10mm}\theta_t \leftarrow \theta_{t-1} + \gamma g_t                   \\[-1.ex]</span>
+<span class="sd">            &amp;\hspace{5mm}\textbf{else}                                                    \\[-1.ex]</span>
+<span class="sd">            &amp;\hspace{10mm}\theta_t \leftarrow \theta_{t-1} - \gamma g_t                   \\[-1.ex]</span>
+<span class="sd">            &amp;\rule{110mm}{0.4pt}                                                          \\[-1.ex]</span>
+<span class="sd">            &amp;\bf{return} \:  \theta_t                                                     \\[-1.ex]</span>
+<span class="sd">            &amp;\rule{110mm}{0.4pt}                                                          \\[-1.ex]</span>
+<span class="sd">       \end{aligned}</span>
 
-<span class="s2">    Nesterov momentum is based on the formula from</span>
-<span class="s2">    `On the importance of initialization and momentum in deep learning`__.</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="o">+</span> <span class="sa">fr</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="sd">    Nesterov momentum is based on the formula from</span>
+<span class="sd">    `On the importance of initialization and momentum in deep learning`__.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">+</span> <span class="sa">rf</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    Args:</span>
 <span class="s2">        params (iterable): iterable of parameters to optimize or dicts defining</span>
 <span class="s2">            parameter groups</span>
@@ -631,7 +663,8 @@
 <span class="s2">        </span><span class="si">{</span><span class="n">_foreach_doc</span><span class="si">}</span>
 <span class="s2">        </span><span class="si">{</span><span class="n">_differentiable_doc</span><span class="si">}</span>
 <span class="s2">        </span><span class="si">{</span><span class="n">_fused_doc</span><span class="si">}</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    Example:</span>
 <span class="s2">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
@@ -673,25 +706,28 @@
 <span class="s2">        frameworks that initialize it to all zeros.</span>
 
 <span class="s2">    &quot;&quot;&quot;</span>
+<span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">sgd</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-        <span class="n">d_p_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-        <span class="n">momentum_buffer_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
-        <span class="c1"># kwonly args with defaults are not supported by functions compiled with torchscript issue #70627</span>
-        <span class="c1"># setting this as kwarg for now as functional API is compiled by torch/distributed/optim</span>
-        <span class="n">has_sparse_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">foreach</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">fused</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">grad_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">found_inf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">momentum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">dampening</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">nesterov</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-        <span class="n">maximize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">sgd</span><span class="p">(</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">d_p_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">momentum_buffer_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
+    <span class="c1"># kwonly args with defaults are not supported by functions compiled with torchscript issue #70627</span>
+    <span class="c1"># setting this as kwarg for now as functional API is compiled by torch/distributed/optim</span>
+    <span class="n">has_sparse_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">foreach</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fused</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grad_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">found_inf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">momentum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">dampening</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">nesterov</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">maximize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Functional API that performs SGD algorithm computation.</span>
 
 <span class="sd">    See :class:`~torch.optim.SGD` for details.</span>
@@ -705,7 +741,9 @@
         <span class="c1"># why must we be explicit about an if statement for torch.jit.is_scripting here?</span>
         <span class="c1"># because JIT can&#39;t handle Optionals nor fancy conditionals when scripting</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
-            <span class="n">fused</span><span class="p">,</span> <span class="n">foreach</span> <span class="o">=</span> <span class="n">_default_to_fused_or_foreach</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">differentiable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_fused</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">fused</span><span class="p">,</span> <span class="n">foreach</span> <span class="o">=</span> <span class="n">_default_to_fused_or_foreach</span><span class="p">(</span>
+                <span class="n">params</span><span class="p">,</span> <span class="n">differentiable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_fused</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">foreach</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="n">fused</span> <span class="o">=</span> <span class="kc">False</span>
@@ -715,9 +753,9 @@
         <span class="n">fused</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">if</span> <span class="n">foreach</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;torch.jit.script not supported with foreach optimizers&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;torch.jit.script not supported with foreach optimizers&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">fused</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;torch.jit.script not supported with fused optimizers&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;torch.jit.script not supported with fused optimizers&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">foreach</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
         <span class="n">func</span> <span class="o">=</span> <span class="n">_multi_tensor_sgd</span>
@@ -726,32 +764,37 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">func</span> <span class="o">=</span> <span class="n">_single_tensor_sgd</span>
 
-    <span class="n">func</span><span class="p">(</span><span class="n">params</span><span class="p">,</span>
-         <span class="n">d_p_list</span><span class="p">,</span>
-         <span class="n">momentum_buffer_list</span><span class="p">,</span>
-         <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span>
-         <span class="n">momentum</span><span class="o">=</span><span class="n">momentum</span><span class="p">,</span>
-         <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
-         <span class="n">dampening</span><span class="o">=</span><span class="n">dampening</span><span class="p">,</span>
-         <span class="n">nesterov</span><span class="o">=</span><span class="n">nesterov</span><span class="p">,</span>
-         <span class="n">has_sparse_grad</span><span class="o">=</span><span class="n">has_sparse_grad</span><span class="p">,</span>
-         <span class="n">maximize</span><span class="o">=</span><span class="n">maximize</span><span class="p">,</span>
-         <span class="n">grad_scale</span><span class="o">=</span><span class="n">grad_scale</span><span class="p">,</span>
-         <span class="n">found_inf</span><span class="o">=</span><span class="n">found_inf</span><span class="p">)</span>
+    <span class="n">func</span><span class="p">(</span>
+        <span class="n">params</span><span class="p">,</span>
+        <span class="n">d_p_list</span><span class="p">,</span>
+        <span class="n">momentum_buffer_list</span><span class="p">,</span>
+        <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span>
+        <span class="n">momentum</span><span class="o">=</span><span class="n">momentum</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+        <span class="n">dampening</span><span class="o">=</span><span class="n">dampening</span><span class="p">,</span>
+        <span class="n">nesterov</span><span class="o">=</span><span class="n">nesterov</span><span class="p">,</span>
+        <span class="n">has_sparse_grad</span><span class="o">=</span><span class="n">has_sparse_grad</span><span class="p">,</span>
+        <span class="n">maximize</span><span class="o">=</span><span class="n">maximize</span><span class="p">,</span>
+        <span class="n">grad_scale</span><span class="o">=</span><span class="n">grad_scale</span><span class="p">,</span>
+        <span class="n">found_inf</span><span class="o">=</span><span class="n">found_inf</span><span class="p">,</span>
+    <span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">_single_tensor_sgd</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                       <span class="n">d_p_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                       <span class="n">momentum_buffer_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
-                       <span class="n">grad_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                       <span class="n">found_inf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                       <span class="o">*</span><span class="p">,</span>
-                       <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                       <span class="n">momentum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                       <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                       <span class="n">dampening</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                       <span class="n">nesterov</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                       <span class="n">maximize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                       <span class="n">has_sparse_grad</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">_single_tensor_sgd</span><span class="p">(</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">d_p_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">momentum_buffer_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
+    <span class="n">grad_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">found_inf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">momentum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">dampening</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">nesterov</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">maximize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">has_sparse_grad</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="k">assert</span> <span class="n">grad_scale</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">found_inf</span> <span class="ow">is</span> <span class="kc">None</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
@@ -777,27 +820,37 @@
         <span class="n">param</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">d_p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=-</span><span class="n">lr</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_multi_tensor_sgd</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                      <span class="n">grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                      <span class="n">momentum_buffer_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
-                      <span class="n">grad_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                      <span class="n">found_inf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                      <span class="o">*</span><span class="p">,</span>
-                      <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                      <span class="n">momentum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                      <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                      <span class="n">dampening</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                      <span class="n">nesterov</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                      <span class="n">maximize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                      <span class="n">has_sparse_grad</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_multi_tensor_sgd</span><span class="p">(</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">momentum_buffer_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
+    <span class="n">grad_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">found_inf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">momentum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">dampening</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">nesterov</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">maximize</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">has_sparse_grad</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="k">assert</span> <span class="n">grad_scale</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">found_inf</span> <span class="ow">is</span> <span class="kc">None</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span>
 
-    <span class="n">grouped_tensors</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="o">.</span><span class="n">_group_tensors_by_device_and_dtype</span><span class="p">([</span><span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">momentum_buffer_list</span><span class="p">],</span> <span class="n">with_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">for</span> <span class="p">((</span><span class="n">device_params</span><span class="p">,</span> <span class="n">device_grads</span><span class="p">,</span> <span class="n">device_momentum_buffer_list</span><span class="p">),</span> <span class="n">indices</span><span class="p">)</span> <span class="ow">in</span> <span class="n">grouped_tensors</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">device_has_sparse_grad</span> <span class="o">=</span> <span class="n">has_sparse_grad</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">is_sparse</span> <span class="k">for</span> <span class="n">grad</span> <span class="ow">in</span> <span class="n">device_grads</span><span class="p">)</span>
+    <span class="n">grouped_tensors</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="o">.</span><span class="n">_group_tensors_by_device_and_dtype</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">momentum_buffer_list</span><span class="p">],</span> <span class="n">with_indices</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span>
+        <span class="n">device_params</span><span class="p">,</span>
+        <span class="n">device_grads</span><span class="p">,</span>
+        <span class="n">device_momentum_buffer_list</span><span class="p">,</span>
+    <span class="p">),</span> <span class="n">indices</span> <span class="ow">in</span> <span class="n">grouped_tensors</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">device_has_sparse_grad</span> <span class="o">=</span> <span class="n">has_sparse_grad</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">grad</span><span class="o">.</span><span class="n">is_sparse</span> <span class="k">for</span> <span class="n">grad</span> <span class="ow">in</span> <span class="n">device_grads</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">maximize</span><span class="p">:</span>
             <span class="n">device_grads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_neg</span><span class="p">(</span><span class="n">device_grads</span><span class="p">)</span>
@@ -807,7 +860,9 @@
             <span class="k">if</span> <span class="n">maximize</span><span class="p">:</span>
                 <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add_</span><span class="p">(</span><span class="n">device_grads</span><span class="p">,</span> <span class="n">device_params</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">device_grads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add</span><span class="p">(</span><span class="n">device_grads</span><span class="p">,</span> <span class="n">device_params</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">)</span>
+                <span class="n">device_grads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add</span><span class="p">(</span>
+                    <span class="n">device_grads</span><span class="p">,</span> <span class="n">device_params</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">weight_decay</span>
+                <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">momentum</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">bufs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -827,8 +882,9 @@
                 <span class="n">bufs</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">device_momentum_buffer_list</span><span class="p">)):</span>
                     <span class="k">if</span> <span class="n">device_momentum_buffer_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">buf</span> <span class="o">=</span> <span class="n">device_momentum_buffer_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">momentum_buffer_list</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> \
-                            <span class="n">torch</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">device_grads</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+                        <span class="n">buf</span> <span class="o">=</span> <span class="n">device_momentum_buffer_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">momentum_buffer_list</span><span class="p">[</span>
+                            <span class="n">indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">device_grads</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">buf</span> <span class="o">=</span> <span class="n">device_momentum_buffer_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
                         <span class="n">buf</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">momentum</span><span class="p">)</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">device_grads</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">dampening</span><span class="p">)</span>
@@ -867,17 +923,25 @@
         <span class="k">return</span>
     <span class="k">if</span> <span class="n">has_sparse_grad</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;`_fused_sgd` does not support sparse gradients&quot;</span><span class="p">)</span>
-    <span class="n">grad_scale_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">grad_scale</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="n">grad_scale</span><span class="p">}</span> <span class="k">if</span> <span class="n">grad_scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">grad_scale_dict</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">{</span><span class="n">grad_scale</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="n">grad_scale</span><span class="p">}</span> <span class="k">if</span> <span class="n">grad_scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="p">)</span>
     <span class="n">found_inf_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">found_inf</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="n">found_inf</span><span class="p">}</span> <span class="k">if</span> <span class="n">found_inf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="n">no_momentum_buffer</span> <span class="o">=</span> <span class="n">momentum</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="n">is_first_step</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">t</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">momentum_buffer_list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">no_momentum_buffer</span>
+    <span class="n">is_first_step</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">all</span><span class="p">(</span><span class="n">t</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">momentum_buffer_list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">no_momentum_buffer</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="n">is_first_step</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grads</span><span class="p">):</span>
             <span class="n">momentum_buffer_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
     <span class="n">grouped_tensors</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="o">.</span><span class="n">_group_tensors_by_device_and_dtype</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">momentum_buffer_list</span><span class="p">],</span> <span class="n">with_indices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="p">),</span> <span class="p">((</span><span class="n">device_params</span><span class="p">,</span> <span class="n">device_grads</span><span class="p">,</span> <span class="n">device_momentum_buffer_list</span><span class="p">),</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">grouped_tensors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="p">[</span><span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">momentum_buffer_list</span><span class="p">],</span> <span class="n">with_indices</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="p">),</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">device_params</span><span class="p">,</span> <span class="n">device_grads</span><span class="p">,</span> <span class="n">device_momentum_buffer_list</span><span class="p">),</span>
+        <span class="n">_</span><span class="p">,</span>
+    <span class="p">)</span> <span class="ow">in</span> <span class="n">grouped_tensors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">device_grad_scale</span><span class="p">,</span> <span class="n">device_found_inf</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">grad_scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">device</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">grad_scale_dict</span><span class="p">:</span>

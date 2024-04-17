@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1885c39 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gite7cf6f8 ) &#x25BC</a>
     </div>
     
 
@@ -483,7 +483,8 @@
 <span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">.optimizer</span> <span class="kn">import</span> <span class="n">Optimizer</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LBFGS&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;LBFGS&quot;</span><span class="p">]</span>
+
 
 <span class="k">def</span> <span class="nf">_cubic_interpolate</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># ported from https://github.com/torch/optim/blob/master/polyinterp.lua</span>
@@ -510,20 +511,12 @@
             <span class="n">min_pos</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">g1</span> <span class="o">+</span> <span class="n">d2</span> <span class="o">-</span> <span class="n">d1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">g1</span> <span class="o">-</span> <span class="n">g2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d2</span><span class="p">))</span>
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">min_pos</span><span class="p">,</span> <span class="n">xmin_bound</span><span class="p">),</span> <span class="n">xmax_bound</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">xmin_bound</span> <span class="o">+</span> <span class="n">xmax_bound</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">xmin_bound</span> <span class="o">+</span> <span class="n">xmax_bound</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
 
 
-<span class="k">def</span> <span class="nf">_strong_wolfe</span><span class="p">(</span><span class="n">obj_func</span><span class="p">,</span>
-                  <span class="n">x</span><span class="p">,</span>
-                  <span class="n">t</span><span class="p">,</span>
-                  <span class="n">d</span><span class="p">,</span>
-                  <span class="n">f</span><span class="p">,</span>
-                  <span class="n">g</span><span class="p">,</span>
-                  <span class="n">gtd</span><span class="p">,</span>
-                  <span class="n">c1</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
-                  <span class="n">c2</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
-                  <span class="n">tolerance_change</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span>
-                  <span class="n">max_ls</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_strong_wolfe</span><span class="p">(</span>
+    <span class="n">obj_func</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">gtd</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">tolerance_change</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span> <span class="n">max_ls</span><span class="o">=</span><span class="mi">25</span>
+<span class="p">):</span>
     <span class="c1"># ported from https://github.com/torch/optim/blob/master/lswolfe.lua</span>
     <span class="n">d_norm</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">memory_format</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">contiguous_format</span><span class="p">)</span>
@@ -564,13 +557,8 @@
         <span class="n">max_step</span> <span class="o">=</span> <span class="n">t</span> <span class="o">*</span> <span class="mi">10</span>
         <span class="n">tmp</span> <span class="o">=</span> <span class="n">t</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">_cubic_interpolate</span><span class="p">(</span>
-            <span class="n">t_prev</span><span class="p">,</span>
-            <span class="n">f_prev</span><span class="p">,</span>
-            <span class="n">gtd_prev</span><span class="p">,</span>
-            <span class="n">t</span><span class="p">,</span>
-            <span class="n">f_new</span><span class="p">,</span>
-            <span class="n">gtd_new</span><span class="p">,</span>
-            <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="n">min_step</span><span class="p">,</span> <span class="n">max_step</span><span class="p">))</span>
+            <span class="n">t_prev</span><span class="p">,</span> <span class="n">f_prev</span><span class="p">,</span> <span class="n">gtd_prev</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">f_new</span><span class="p">,</span> <span class="n">gtd_new</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="n">min_step</span><span class="p">,</span> <span class="n">max_step</span><span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="c1"># next step</span>
         <span class="n">t_prev</span> <span class="o">=</span> <span class="n">tmp</span>
@@ -600,8 +588,14 @@
             <span class="k">break</span>
 
         <span class="c1"># compute new trial value</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">_cubic_interpolate</span><span class="p">(</span><span class="n">bracket</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bracket_f</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bracket_gtd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                               <span class="n">bracket</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bracket_f</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bracket_gtd</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">_cubic_interpolate</span><span class="p">(</span>
+            <span class="n">bracket</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">bracket_f</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">bracket_gtd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">bracket</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">bracket_f</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">bracket_gtd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
 
         <span class="c1"># test that we are making sufficient progress:</span>
         <span class="c1"># in case `t` is so close to boundary, we mark that we are making</span>
@@ -696,15 +690,17 @@
 <span class="sd">        line_search_fn (str): either &#39;strong_wolfe&#39; or None (default: None).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">params</span><span class="p">,</span>
-                 <span class="n">lr</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                 <span class="n">max_eval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">tolerance_grad</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
-                 <span class="n">tolerance_change</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span>
-                 <span class="n">history_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                 <span class="n">line_search_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">max_eval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">tolerance_grad</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
+        <span class="n">tolerance_change</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span>
+        <span class="n">history_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">line_search_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="k">if</span> <span class="n">max_eval</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">max_eval</span> <span class="o">=</span> <span class="n">max_iter</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">//</span> <span class="mi">4</span>
         <span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
@@ -714,19 +710,24 @@
             <span class="n">tolerance_grad</span><span class="o">=</span><span class="n">tolerance_grad</span><span class="p">,</span>
             <span class="n">tolerance_change</span><span class="o">=</span><span class="n">tolerance_change</span><span class="p">,</span>
             <span class="n">history_size</span><span class="o">=</span><span class="n">history_size</span><span class="p">,</span>
-            <span class="n">line_search_fn</span><span class="o">=</span><span class="n">line_search_fn</span><span class="p">)</span>
+            <span class="n">line_search_fn</span><span class="o">=</span><span class="n">line_search_fn</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">defaults</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;LBFGS doesn&#39;t support per-parameter options &quot;</span>
-                             <span class="s2">&quot;(parameter groups)&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;LBFGS doesn&#39;t support per-parameter options &quot;</span> <span class="s2">&quot;(parameter groups)&quot;</span>
+            <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;params&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_numel_cache</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_numel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numel_cache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_numel_cache</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_complex</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">else</span> <span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_numel_cache</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_complex</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">else</span> <span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span>
+            <span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numel_cache</span>
 
@@ -751,7 +752,7 @@
                 <span class="n">p</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
             <span class="n">numel</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
             <span class="c1"># view as to avoid deprecated pointwise semantics</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">update</span><span class="p">[</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span> <span class="o">+</span> <span class="n">numel</span><span class="p">]</span><span class="o">.</span><span class="n">view_as</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="n">step_size</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">update</span><span class="p">[</span><span class="n">offset</span> <span class="p">:</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">numel</span><span class="p">]</span><span class="o">.</span><span class="n">view_as</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="n">step_size</span><span class="p">)</span>
             <span class="n">offset</span> <span class="o">+=</span> <span class="n">numel</span>
         <span class="k">assert</span> <span class="n">offset</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numel</span><span class="p">()</span>
 
@@ -783,25 +784,25 @@
         <span class="n">closure</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">enable_grad</span><span class="p">()(</span><span class="n">closure</span><span class="p">)</span>
 
         <span class="n">group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">lr</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span>
-        <span class="n">max_iter</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;max_iter&#39;</span><span class="p">]</span>
-        <span class="n">max_eval</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;max_eval&#39;</span><span class="p">]</span>
-        <span class="n">tolerance_grad</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;tolerance_grad&#39;</span><span class="p">]</span>
-        <span class="n">tolerance_change</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;tolerance_change&#39;</span><span class="p">]</span>
-        <span class="n">line_search_fn</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;line_search_fn&#39;</span><span class="p">]</span>
-        <span class="n">history_size</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;history_size&#39;</span><span class="p">]</span>
+        <span class="n">lr</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span>
+        <span class="n">max_iter</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;max_iter&quot;</span><span class="p">]</span>
+        <span class="n">max_eval</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;max_eval&quot;</span><span class="p">]</span>
+        <span class="n">tolerance_grad</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;tolerance_grad&quot;</span><span class="p">]</span>
+        <span class="n">tolerance_change</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;tolerance_change&quot;</span><span class="p">]</span>
+        <span class="n">line_search_fn</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;line_search_fn&quot;</span><span class="p">]</span>
+        <span class="n">history_size</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;history_size&quot;</span><span class="p">]</span>
 
         <span class="c1"># NOTE: LBFGS has only global state, but we register it as state for</span>
         <span class="c1"># the first param, because this helps with casting in load_state_dict</span>
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-        <span class="n">state</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;func_evals&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">state</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;n_iter&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;func_evals&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;n_iter&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># evaluate initial f(x) and df/dx</span>
         <span class="n">orig_loss</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">orig_loss</span><span class="p">)</span>
         <span class="n">current_evals</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;func_evals&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;func_evals&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="n">flat_grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gather_flat_grad</span><span class="p">()</span>
         <span class="n">opt_cond</span> <span class="o">=</span> <span class="n">flat_grad</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">tolerance_grad</span>
@@ -811,26 +812,26 @@
             <span class="k">return</span> <span class="n">orig_loss</span>
 
         <span class="c1"># tensors cached in state (for tracing)</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
-        <span class="n">old_dirs</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;old_dirs&#39;</span><span class="p">)</span>
-        <span class="n">old_stps</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;old_stps&#39;</span><span class="p">)</span>
-        <span class="n">ro</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ro&#39;</span><span class="p">)</span>
-        <span class="n">H_diag</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;H_diag&#39;</span><span class="p">)</span>
-        <span class="n">prev_flat_grad</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prev_flat_grad&#39;</span><span class="p">)</span>
-        <span class="n">prev_loss</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prev_loss&#39;</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+        <span class="n">old_dirs</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;old_dirs&quot;</span><span class="p">)</span>
+        <span class="n">old_stps</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;old_stps&quot;</span><span class="p">)</span>
+        <span class="n">ro</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ro&quot;</span><span class="p">)</span>
+        <span class="n">H_diag</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;H_diag&quot;</span><span class="p">)</span>
+        <span class="n">prev_flat_grad</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prev_flat_grad&quot;</span><span class="p">)</span>
+        <span class="n">prev_loss</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prev_loss&quot;</span><span class="p">)</span>
 
         <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1"># optimize for a max of max_iter iterations</span>
         <span class="k">while</span> <span class="n">n_iter</span> <span class="o">&lt;</span> <span class="n">max_iter</span><span class="p">:</span>
             <span class="c1"># keep track of nb of iterations</span>
             <span class="n">n_iter</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">state</span><span class="p">[</span><span class="s1">&#39;n_iter&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;n_iter&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
             <span class="c1">############################################################</span>
             <span class="c1"># compute gradient descent direction</span>
             <span class="c1">############################################################</span>
-            <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;n_iter&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;n_iter&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">d</span> <span class="o">=</span> <span class="n">flat_grad</span><span class="o">.</span><span class="n">neg</span><span class="p">()</span>
                 <span class="n">old_dirs</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="n">old_stps</span> <span class="o">=</span> <span class="p">[]</span>
@@ -852,7 +853,7 @@
                     <span class="c1"># store new direction/step</span>
                     <span class="n">old_dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
                     <span class="n">old_stps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-                    <span class="n">ro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">ys</span><span class="p">)</span>
+                    <span class="n">ro</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">ys</span><span class="p">)</span>
 
                     <span class="c1"># update scale of initial Hessian approximation</span>
                     <span class="n">H_diag</span> <span class="o">=</span> <span class="n">ys</span> <span class="o">/</span> <span class="n">y</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># (y*y)</span>
@@ -861,9 +862,9 @@
                 <span class="c1"># multiplied by the gradient</span>
                 <span class="n">num_old</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">old_dirs</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="s1">&#39;al&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="p">:</span>
-                    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;al&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">history_size</span>
-                <span class="n">al</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;al&#39;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;al&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="p">:</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;al&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">history_size</span>
+                <span class="n">al</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;al&quot;</span><span class="p">]</span>
 
                 <span class="c1"># iteration in L-BFGS loop collapsed to use just one buffer</span>
                 <span class="n">q</span> <span class="o">=</span> <span class="n">flat_grad</span><span class="o">.</span><span class="n">neg</span><span class="p">()</span>
@@ -888,8 +889,8 @@
             <span class="c1"># compute step length</span>
             <span class="c1">############################################################</span>
             <span class="c1"># reset initial guess for step size</span>
-            <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;n_iter&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">t</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">flat_grad</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">*</span> <span class="n">lr</span>
+            <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;n_iter&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">flat_grad</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">*</span> <span class="n">lr</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">t</span> <span class="o">=</span> <span class="n">lr</span>
 
@@ -913,7 +914,8 @@
                         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_directional_evaluate</span><span class="p">(</span><span class="n">closure</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 
                     <span class="n">loss</span><span class="p">,</span> <span class="n">flat_grad</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ls_func_evals</span> <span class="o">=</span> <span class="n">_strong_wolfe</span><span class="p">(</span>
-                        <span class="n">obj_func</span><span class="p">,</span> <span class="n">x_init</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">flat_grad</span><span class="p">,</span> <span class="n">gtd</span><span class="p">)</span>
+                        <span class="n">obj_func</span><span class="p">,</span> <span class="n">x_init</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">flat_grad</span><span class="p">,</span> <span class="n">gtd</span>
+                    <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_add_grad</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
                 <span class="n">opt_cond</span> <span class="o">=</span> <span class="n">flat_grad</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">tolerance_grad</span>
             <span class="k">else</span><span class="p">:</span>
@@ -931,7 +933,7 @@
 
             <span class="c1"># update func eval</span>
             <span class="n">current_evals</span> <span class="o">+=</span> <span class="n">ls_func_evals</span>
-            <span class="n">state</span><span class="p">[</span><span class="s1">&#39;func_evals&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">ls_func_evals</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;func_evals&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">ls_func_evals</span>
 
             <span class="c1">############################################################</span>
             <span class="c1"># check conditions</span>
@@ -953,14 +955,14 @@
             <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">loss</span> <span class="o">-</span> <span class="n">prev_loss</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolerance_change</span><span class="p">:</span>
                 <span class="k">break</span>
 
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;old_dirs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_dirs</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;old_stps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_stps</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;ro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ro</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;H_diag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">H_diag</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;prev_flat_grad&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_flat_grad</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;prev_loss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_loss</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;old_dirs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_dirs</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;old_stps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_stps</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;ro&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ro</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;H_diag&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">H_diag</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;prev_flat_grad&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_flat_grad</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;prev_loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_loss</span>
 
         <span class="k">return</span> <span class="n">orig_loss</span></div></div>
 </pre></div>

@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1885c39 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gite7cf6f8 ) &#x25BC</a>
     </div>
     
 
@@ -480,11 +480,21 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.optim.rprop</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
-<span class="kn">from</span> <span class="nn">.optimizer</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Optimizer</span><span class="p">,</span> <span class="n">_use_grad_for_differentiable</span><span class="p">,</span> <span class="n">_default_to_fused_or_foreach</span><span class="p">,</span> <span class="n">_get_scalar_dtype</span><span class="p">,</span>
-                        <span class="n">_differentiable_doc</span><span class="p">,</span> <span class="n">_foreach_doc</span><span class="p">,</span> <span class="n">_maximize_doc</span><span class="p">,</span> <span class="n">_capturable_doc</span><span class="p">,</span> <span class="n">_view_as_real</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">.optimizer</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_capturable_doc</span><span class="p">,</span>
+    <span class="n">_default_to_fused_or_foreach</span><span class="p">,</span>
+    <span class="n">_differentiable_doc</span><span class="p">,</span>
+    <span class="n">_foreach_doc</span><span class="p">,</span>
+    <span class="n">_get_scalar_dtype</span><span class="p">,</span>
+    <span class="n">_maximize_doc</span><span class="p">,</span>
+    <span class="n">_use_grad_for_differentiable</span><span class="p">,</span>
+    <span class="n">_view_as_real</span><span class="p">,</span>
+    <span class="n">Optimizer</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Rprop&quot;</span><span class="p">,</span> <span class="s2">&quot;rprop&quot;</span><span class="p">]</span>
 
@@ -527,11 +537,15 @@
             <span class="n">group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;capturable&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">]:</span>
                 <span class="n">p_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">[])</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_state</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">p_state</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_state</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">p_state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]):</span>
                     <span class="n">step_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p_state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">])</span>
-                    <span class="n">p_state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">step_val</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_get_scalar_dtype</span><span class="p">(),</span> <span class="n">device</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-                                       <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;capturable&#39;</span><span class="p">]</span>
-                                       <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">step_val</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_get_scalar_dtype</span><span class="p">()))</span>
+                    <span class="n">p_state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                            <span class="n">step_val</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_get_scalar_dtype</span><span class="p">(),</span> <span class="n">device</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">device</span>
+                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;capturable&quot;</span><span class="p">]</span>
+                        <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">step_val</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_get_scalar_dtype</span><span class="p">())</span>
+                    <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_init_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">prevs</span><span class="p">,</span> <span class="n">step_sizes</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">):</span>
         <span class="n">has_complex</span> <span class="o">=</span> <span class="kc">False</span>
@@ -549,17 +563,18 @@
 
             <span class="c1"># State initialization</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_get_scalar_dtype</span><span class="p">(),</span> <span class="n">device</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-                                 <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;capturable&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_get_scalar_dtype</span><span class="p">()))</span>
-
-                <span class="n">state</span><span class="p">[</span><span class="s2">&quot;prev&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span>
-                    <span class="n">p</span><span class="p">,</span> <span class="n">memory_format</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">preserve_format</span>
+                <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_get_scalar_dtype</span><span class="p">(),</span> <span class="n">device</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;capturable&quot;</span><span class="p">]</span>
+                    <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">_get_scalar_dtype</span><span class="p">())</span>
                 <span class="p">)</span>
+
+                <span class="n">state</span><span class="p">[</span><span class="s2">&quot;prev&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">memory_format</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">preserve_format</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">is_complex</span><span class="p">:</span>
                     <span class="c1"># Complex Number should be as if they are two independent real numbers.</span>
                     <span class="c1"># Hence the step_size shouldn&#39;t be zero for imaginary part.</span>
-                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="nb">complex</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]))</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span>
+                        <span class="n">grad</span><span class="p">,</span> <span class="nb">complex</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">])</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">])</span>
@@ -597,7 +612,9 @@
             <span class="n">foreach</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;foreach&quot;</span><span class="p">]</span>
             <span class="n">maximize</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;maximize&quot;</span><span class="p">]</span>
 
-            <span class="n">has_complex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_group</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">prevs</span><span class="p">,</span> <span class="n">step_sizes</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">)</span>
+            <span class="n">has_complex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_group</span><span class="p">(</span>
+                <span class="n">group</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">prevs</span><span class="p">,</span> <span class="n">step_sizes</span><span class="p">,</span> <span class="n">state_steps</span>
+            <span class="p">)</span>
 
             <span class="n">rprop</span><span class="p">(</span>
                 <span class="n">params</span><span class="p">,</span>
@@ -619,41 +636,43 @@
         <span class="k">return</span> <span class="n">loss</span></div></div>
 
 
-<span class="n">Rprop</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;Implements the resilient backpropagation algorithm.</span>
+<span class="n">Rprop</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Implements the resilient backpropagation algorithm.</span>
 
-<span class="s2">    .. math::</span>
-<span class="s2">       \begin</span><span class="si">{aligned}</span>
-<span class="s2">            &amp;\rule</span><span class="si">{110mm}{0.4pt}</span><span class="s2">                                                                 \\</span>
-<span class="s2">            &amp;\textbf</span><span class="si">{input}</span><span class="s2">      : \theta_0 \in \mathbf</span><span class="si">{R}</span><span class="s2">^d \text{ (params)},f(\theta)</span>
-<span class="s2">                \text{ (objective)},                                                             \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{13mm}</span><span class="s2">      \eta_{+/-} \text{ (etaplus, etaminus)}, \Gamma_{max/min}</span>
-<span class="s2">                \text{ (step sizes)}                                                             \\</span>
-<span class="s2">            &amp;\textbf</span><span class="si">{initialize}</span><span class="s2"> :   g^0_</span><span class="si">{prev}</span><span class="s2"> \leftarrow 0,</span>
-<span class="s2">                \: \eta_0 \leftarrow \text{lr (learning rate)}                                   \\</span>
-<span class="s2">            &amp;\rule</span><span class="si">{110mm}{0.4pt}</span><span class="s2">                                                                 \\</span>
-<span class="s2">            &amp;\textbf</span><span class="si">{for}</span><span class="s2"> \: t=1 \: \textbf</span><span class="si">{to}</span><span class="s2"> \: \ldots \: \textbf</span><span class="si">{do}</span><span class="s2">                         \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2">g_t           \leftarrow   \nabla_{\theta} f_t (\theta_{t-1})           \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2"> \textbf</span><span class="si">{for}</span><span class="s2"> \text{  } i = 0, 1, \ldots, d-1 \: \mathbf</span><span class="si">{do}</span><span class="s2">            \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">  \textbf</span><span class="si">{if}</span><span class="s2"> \:   g^i_</span><span class="si">{prev}</span><span class="s2"> g^i_t  &gt; 0                               \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{15mm}</span><span class="s2">  \eta^i_t \leftarrow \mathrm</span><span class="si">{min}</span><span class="s2">(\eta^i_{t-1} \eta_{+},</span>
-<span class="s2">                \Gamma_</span><span class="si">{max}</span><span class="s2">)                                                                    \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">  \textbf{else if}  \:  g^i_</span><span class="si">{prev}</span><span class="s2"> g^i_t &lt; 0                           \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{15mm}</span><span class="s2">  \eta^i_t \leftarrow \mathrm</span><span class="si">{max}</span><span class="s2">(\eta^i_{t-1} \eta_{-},</span>
-<span class="s2">                \Gamma_</span><span class="si">{min}</span><span class="s2">)                                                                    \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{15mm}</span><span class="s2">  g^i_t \leftarrow 0                                                   \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{10mm}</span><span class="s2">  \textbf</span><span class="si">{else}</span><span class="s2">  \:                                                    \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{15mm}</span><span class="s2">  \eta^i_t \leftarrow \eta^i_{t-1}                                     \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2">\theta_t \leftarrow \theta_{t-1}- \eta_t \mathrm</span><span class="si">{sign}</span><span class="s2">(g_t)             \\</span>
-<span class="s2">            &amp;\hspace</span><span class="si">{5mm}</span><span class="s2">g_</span><span class="si">{prev}</span><span class="s2"> \leftarrow  g_t                                                \\</span>
-<span class="s2">            &amp;\rule</span><span class="si">{110mm}{0.4pt}</span><span class="s2">                                                          \\[-1.ex]</span>
-<span class="s2">            &amp;\bf</span><span class="si">{return}</span><span class="s2"> \:  \theta_t                                                     \\[-1.ex]</span>
-<span class="s2">            &amp;\rule</span><span class="si">{110mm}{0.4pt}</span><span class="s2">                                                          \\[-1.ex]</span>
-<span class="s2">       \end</span><span class="si">{aligned}</span>
+<span class="sd">    .. math::</span>
+<span class="sd">       \begin{aligned}</span>
+<span class="sd">            &amp;\rule{110mm}{0.4pt}                                                                 \\</span>
+<span class="sd">            &amp;\textbf{input}      : \theta_0 \in \mathbf{R}^d \text{ (params)},f(\theta)</span>
+<span class="sd">                \text{ (objective)},                                                             \\</span>
+<span class="sd">            &amp;\hspace{13mm}      \eta_{+/-} \text{ (etaplus, etaminus)}, \Gamma_{max/min}</span>
+<span class="sd">                \text{ (step sizes)}                                                             \\</span>
+<span class="sd">            &amp;\textbf{initialize} :   g^0_{prev} \leftarrow 0,</span>
+<span class="sd">                \: \eta_0 \leftarrow \text{lr (learning rate)}                                   \\</span>
+<span class="sd">            &amp;\rule{110mm}{0.4pt}                                                                 \\</span>
+<span class="sd">            &amp;\textbf{for} \: t=1 \: \textbf{to} \: \ldots \: \textbf{do}                         \\</span>
+<span class="sd">            &amp;\hspace{5mm}g_t           \leftarrow   \nabla_{\theta} f_t (\theta_{t-1})           \\</span>
+<span class="sd">            &amp;\hspace{5mm} \textbf{for} \text{  } i = 0, 1, \ldots, d-1 \: \mathbf{do}            \\</span>
+<span class="sd">            &amp;\hspace{10mm}  \textbf{if} \:   g^i_{prev} g^i_t  &gt; 0                               \\</span>
+<span class="sd">            &amp;\hspace{15mm}  \eta^i_t \leftarrow \mathrm{min}(\eta^i_{t-1} \eta_{+},</span>
+<span class="sd">                \Gamma_{max})                                                                    \\</span>
+<span class="sd">            &amp;\hspace{10mm}  \textbf{else if}  \:  g^i_{prev} g^i_t &lt; 0                           \\</span>
+<span class="sd">            &amp;\hspace{15mm}  \eta^i_t \leftarrow \mathrm{max}(\eta^i_{t-1} \eta_{-},</span>
+<span class="sd">                \Gamma_{min})                                                                    \\</span>
+<span class="sd">            &amp;\hspace{15mm}  g^i_t \leftarrow 0                                                   \\</span>
+<span class="sd">            &amp;\hspace{10mm}  \textbf{else}  \:                                                    \\</span>
+<span class="sd">            &amp;\hspace{15mm}  \eta^i_t \leftarrow \eta^i_{t-1}                                     \\</span>
+<span class="sd">            &amp;\hspace{5mm}\theta_t \leftarrow \theta_{t-1}- \eta_t \mathrm{sign}(g_t)             \\</span>
+<span class="sd">            &amp;\hspace{5mm}g_{prev} \leftarrow  g_t                                                \\</span>
+<span class="sd">            &amp;\rule{110mm}{0.4pt}                                                          \\[-1.ex]</span>
+<span class="sd">            &amp;\bf{return} \:  \theta_t                                                     \\[-1.ex]</span>
+<span class="sd">            &amp;\rule{110mm}{0.4pt}                                                          \\[-1.ex]</span>
+<span class="sd">       \end{aligned}</span>
 
-<span class="s2">    For further details regarding the algorithm we refer to the paper</span>
-<span class="s2">    `A Direct Adaptive Method for Faster Backpropagation Learning: The RPROP Algorithm</span>
-<span class="s2">    &lt;http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.21.1417&gt;`_.</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="o">+</span> <span class="sa">fr</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="sd">    For further details regarding the algorithm we refer to the paper</span>
+<span class="sd">    `A Direct Adaptive Method for Faster Backpropagation Learning: The RPROP Algorithm</span>
+<span class="sd">    &lt;http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.21.1417&gt;`_.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">+</span> <span class="sa">rf</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    Args:</span>
 <span class="s2">        params (iterable): iterable of parameters to optimize or dicts defining</span>
 <span class="s2">            parameter groups</span>
@@ -669,6 +688,8 @@
 <span class="s2">        </span><span class="si">{</span><span class="n">_differentiable_doc</span><span class="si">}</span>
 
 <span class="s2">    &quot;&quot;&quot;</span>
+<span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">rprop</span><span class="p">(</span>
     <span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
@@ -695,11 +716,17 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># this check is slow during compilation, so we skip it</span>
     <span class="c1"># if it&#39;s strictly needed we can add this check back in dynamo</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">state_steps</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;API has changed, `state_steps` argument must contain a list of singleton tensors&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">state_steps</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;API has changed, `state_steps` argument must contain a list of singleton tensors&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">foreach</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">foreach</span> <span class="o">=</span> <span class="n">_default_to_fused_or_foreach</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">differentiable</span><span class="p">,</span> <span class="n">use_fused</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">foreach</span> <span class="o">=</span> <span class="n">_default_to_fused_or_foreach</span><span class="p">(</span>
+            <span class="n">params</span><span class="p">,</span> <span class="n">differentiable</span><span class="p">,</span> <span class="n">use_fused</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">foreach</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;torch.jit.script not supported with foreach optimizers&quot;</span><span class="p">)</span>
@@ -751,8 +778,8 @@
 
         <span class="c1"># If compiling, the compiler will handle cudagraph checks, see note [torch.compile x capturable]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">()</span> <span class="ow">and</span> <span class="n">capturable</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="p">(</span>
-                <span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">is_cuda</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_cuda</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">is_xla</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_xla</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">is_cuda</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_cuda</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                <span class="n">param</span><span class="o">.</span><span class="n">is_xla</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_xla</span>
             <span class="p">),</span> <span class="s2">&quot;If capturable=True, params and state_steps must be CUDA or XLA tensors.&quot;</span>
 
         <span class="n">step</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -808,7 +835,6 @@
     <span class="n">differentiable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">has_complex</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">):</span>
-
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span>
 
@@ -816,24 +842,37 @@
 
     <span class="c1"># If compiling, the compiler will handle cudagraph checks, see note [torch.compile x capturable]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">()</span> <span class="ow">and</span> <span class="n">capturable</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="nb">all</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">is_cuda</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_cuda</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">is_xla</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_xla</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">)),</span> \
-            <span class="s2">&quot;If capturable=True, params and state_steps must be CUDA or XLA tensors.&quot;</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">is_cuda</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_cuda</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">is_xla</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_xla</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">)</span>
+        <span class="p">),</span> <span class="s2">&quot;If capturable=True, params and state_steps must be CUDA or XLA tensors.&quot;</span>
 
-    <span class="n">grouped_tensors</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="o">.</span><span class="n">_group_tensors_by_device_and_dtype</span><span class="p">([</span><span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">prevs</span><span class="p">,</span> <span class="n">step_sizes</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">])</span>
-    <span class="k">for</span> <span class="p">((</span><span class="n">grouped_params</span><span class="p">,</span> <span class="n">grouped_grads</span><span class="p">,</span> <span class="n">grouped_prevs</span><span class="p">,</span> <span class="n">grouped_step_sizes</span><span class="p">,</span> <span class="n">grouped_state_steps</span><span class="p">),</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">grouped_tensors</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-
+    <span class="n">grouped_tensors</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="o">.</span><span class="n">_group_tensors_by_device_and_dtype</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">prevs</span><span class="p">,</span> <span class="n">step_sizes</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span>
+        <span class="n">grouped_params</span><span class="p">,</span>
+        <span class="n">grouped_grads</span><span class="p">,</span>
+        <span class="n">grouped_prevs</span><span class="p">,</span>
+        <span class="n">grouped_step_sizes</span><span class="p">,</span>
+        <span class="n">grouped_state_steps</span><span class="p">,</span>
+    <span class="p">),</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">grouped_tensors</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="c1"># Update steps</span>
         <span class="c1"># If steps are on CPU, foreach will fall back to the slow path, which is a for-loop calling t.add(1) over</span>
         <span class="c1"># and over. 1 will then be wrapped into a Tensor over and over again, which is slower than if we just</span>
         <span class="c1"># wrapped it once now. The alpha is required to assure we go to the right overload.</span>
         <span class="k">if</span> <span class="n">grouped_state_steps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_cpu</span><span class="p">:</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add_</span><span class="p">(</span><span class="n">grouped_state_steps</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add_</span><span class="p">(</span>
+                <span class="n">grouped_state_steps</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add_</span><span class="p">(</span><span class="n">grouped_state_steps</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="c1"># Handle complex params</span>
         <span class="k">if</span> <span class="n">has_complex</span><span class="p">:</span>
-            <span class="n">_view_as_real</span><span class="p">(</span><span class="n">grouped_params</span><span class="p">,</span> <span class="n">grouped_grads</span><span class="p">,</span> <span class="n">grouped_prevs</span><span class="p">,</span> <span class="n">grouped_step_sizes</span><span class="p">)</span>
+            <span class="n">_view_as_real</span><span class="p">(</span>
+                <span class="n">grouped_params</span><span class="p">,</span> <span class="n">grouped_grads</span><span class="p">,</span> <span class="n">grouped_prevs</span><span class="p">,</span> <span class="n">grouped_step_sizes</span>
+            <span class="p">)</span>
 
         <span class="n">signs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_mul</span><span class="p">(</span><span class="n">grouped_grads</span><span class="p">,</span> <span class="n">grouped_prevs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">maximize</span><span class="p">:</span>
@@ -868,14 +907,18 @@
         <span class="c1"># for dir&gt;=0 dfdx=dfdx</span>
         <span class="n">grouped_grads</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">grouped_grads</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grouped_grads</span><span class="p">)):</span>
-            <span class="n">grouped_grads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">signs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">etaminus</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">grouped_grads</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="n">grouped_grads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">signs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">etaminus</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">grouped_grads</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="p">)</span>
 
         <span class="c1"># explicitly del signs as it&#39;s not used after here to save memory</span>
         <span class="k">del</span> <span class="n">signs</span>
 
         <span class="c1"># update parameters</span>
         <span class="n">grad_signs</span> <span class="o">=</span> <span class="p">[</span><span class="n">grad</span><span class="o">.</span><span class="n">sign</span><span class="p">()</span> <span class="k">for</span> <span class="n">grad</span> <span class="ow">in</span> <span class="n">grouped_grads</span><span class="p">]</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_addcmul_</span><span class="p">(</span><span class="n">grouped_params</span><span class="p">,</span> <span class="n">grad_signs</span><span class="p">,</span> <span class="n">grouped_step_sizes</span><span class="p">,</span> <span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_addcmul_</span><span class="p">(</span>
+            <span class="n">grouped_params</span><span class="p">,</span> <span class="n">grad_signs</span><span class="p">,</span> <span class="n">grouped_step_sizes</span><span class="p">,</span> <span class="n">value</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="p">)</span>
 
         <span class="c1"># Logically, you may expect grouped_prevs to get updated to grouped_grads, but that&#39;s</span>
         <span class="c1"># basically already happened since we&#39;ve been using grouped_prevs&#39; memory to store</span>
