@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1885c39 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gite7cf6f8 ) &#x25BC</a>
     </div>
     
 
@@ -576,7 +576,7 @@
     <span class="s2">&quot;is_concrete_bool&quot;</span><span class="p">,</span> <span class="s2">&quot;is_nested_int&quot;</span><span class="p">,</span> <span class="s2">&quot;SHAPEENV_EVENT_KEY&quot;</span><span class="p">,</span> <span class="s2">&quot;CURRENT_NODE_KEY&quot;</span><span class="p">,</span>
     <span class="s2">&quot;has_free_symbols&quot;</span><span class="p">,</span> <span class="s2">&quot;sym_eq&quot;</span><span class="p">,</span> <span class="s2">&quot;SymbolicContext&quot;</span><span class="p">,</span> <span class="s2">&quot;StatelessSymbolicContext&quot;</span><span class="p">,</span>
     <span class="s2">&quot;StatefulSymbolicContext&quot;</span><span class="p">,</span> <span class="s2">&quot;SubclassSymbolicContext&quot;</span><span class="p">,</span> <span class="s2">&quot;statically_known_true&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;guard_size_oblivious&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;guard_size_oblivious&quot;</span><span class="p">,</span> <span class="s2">&quot;check_consistent&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="c1"># FX node metadata keys for symbolic shape FX graph.</span>
@@ -720,6 +720,29 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">expr</span></div>
+
+<div class="viewcode-block" id="check_consistent"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.check_consistent.html#torch.fx.experimental.symbolic_shapes.check_consistent">[docs]</a><span class="k">def</span> <span class="nf">check_consistent</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">old</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test that two &quot;meta&quot; values (typically either Tensor or SymInt) have</span>
+<span class="sd">    the same values, e.g., after retracing.  If we don&#39;t understand the</span>
+<span class="sd">    quantities in question, we&#39;ll just skip the consistency check.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: do boolean equality test too, see</span>
+    <span class="c1"># https://github.com/pytorch/pytorch/issues/124110</span>
+    <span class="n">scalar_types</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymFloat</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">old</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="n">new</span><span class="o">.</span><span class="n">dim</span><span class="p">(),</span> <span class="k">lambda</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">new</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> (old != new)&quot;</span><span class="p">)</span>
+        <span class="c1"># Do this manually so that each individual test is irrefutable</span>
+        <span class="c1"># (TODO: should be a helper for this, maybe sym_eq?  That</span>
+        <span class="c1"># gives us a compound expression and I&#39;m not sure it</span>
+        <span class="c1"># simplifies right now)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">old</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">new</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">new</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> (old != new)&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">scalar_types</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">scalar_types</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">old</span> <span class="o">==</span> <span class="n">new</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">new</span><span class="si">}</span><span class="s2"> (old != new)&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="canonicalize_bool_expr"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr.html#torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr">[docs]</a><span class="k">def</span> <span class="nf">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SympyBoolean</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Canonicalize a boolean expression by transforming it into a lt / le</span>
@@ -1004,7 +1027,8 @@
 
     <span class="c1"># This must always succeed, because the sole allowed caller _check_is_size</span>
     <span class="c1"># was responsible for expect_true&#39;ing this</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="c1"># This assert triggers expensive sym compute, do not do it until its cheap.</span>
+    <span class="c1"># assert a &gt;= 0</span>
 
     <span class="c1"># NB: it&#39;s important not to constrain range for size for *hinted* SymInts,</span>
     <span class="c1"># because it is not only unsound, it will immediately trip our asserts</span>
@@ -4590,7 +4614,7 @@
                     <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
                 <span class="p">},</span>
             <span class="p">)</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Ignored guard </span><span class="si">%s</span><span class="s2"> == </span><span class="si">%s</span><span class="s2">, this could result in accuracy problems&quot;</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">concrete_val</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Ignored guard </span><span class="si">%s</span><span class="s2"> == </span><span class="si">%s</span><span class="s2">, this could result in accuracy problems&quot;</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">concrete_val</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
     <span class="k">def</span> <span class="nf">_get_stack_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
