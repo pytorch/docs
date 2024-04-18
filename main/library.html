@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gite7cf6f8 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git21f7cbd ) &#x25BC</a>
     </div>
     
 
@@ -566,8 +566,8 @@ Examples: “cpu”, “cuda”.</p></li>
 </dd></dl>
 
 </div>
-<div class="section" id="extending-custom-ops-created-from-c">
-<h2>Extending custom ops created from C++<a class="headerlink" href="#extending-custom-ops-created-from-c" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="extending-custom-ops-created-from-python-or-c">
+<h2>Extending custom ops (created from Python or C++)<a class="headerlink" href="#extending-custom-ops-created-from-python-or-c" title="Permalink to this heading">¶</a></h2>
 <p>Use the impl methods, such as <a class="reference internal" href="#torch.library.impl" title="torch.library.impl"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.impl()</span></code></a> and
 func:<cite>torch.library.impl_abstract</cite>, to add implementations
 for any operators (they may have been created using <a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> or
@@ -613,19 +613,20 @@ will be tied to the lifetime of the Library object.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="torch.library.impl_abstract">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl_abstract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#impl_abstract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl_abstract" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register an abstract implementation for this operator.</p>
-<p>An “abstract implementation” specifies the behavior of this operator on
-Tensors that carry no data. Given some input Tensors with certain properties
-(sizes/strides/storage_offset/device), it specifies what the properties of
-the output Tensors are.</p>
-<p>The abstract implementation has the same signature as the operator.
-It is run for both FakeTensors and meta tensors. To write an abstract
+<dt class="sig sig-object py" id="torch.library.register_fake">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_fake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_fake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_fake" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a FakeTensor implementation (“fake impl”) for this operator.</p>
+<p>Also sometimes known as a “meta kernel”, “abstract impl”.</p>
+<p>An “FakeTensor implementation” specifies the behavior of this operator on
+Tensors that carry no data (“FakeTensor”). Given some input Tensors with
+certain properties (sizes/strides/storage_offset/device), it specifies
+what the properties of the output Tensors are.</p>
+<p>The FakeTensor implementation has the same signature as the operator.
+It is run for both FakeTensors and meta tensors. To write a FakeTensor
 implementation, assume that all Tensor inputs to the operator are
 regular CPU/CUDA/Meta tensors, but they do not have storage, and
 you are trying to return regular CPU/CUDA/Meta tensor(s) as output.
-The abstract implementation must consist of only PyTorch operations
+The FakeTensor implementation must consist of only PyTorch operations
 (and may not directly access the storage or data of any input or
 intermediate Tensors).</p>
 <p>This API may be used as a decorator (see examples).</p>
@@ -641,8 +642,8 @@ intermediate Tensors).</p>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;mylib::custom_linear&quot;</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;(Tensor x, Tensor weight, Tensor bias) -&gt; Tensor&quot;</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">impl_abstract</span><span class="p">(</span><span class="s2">&quot;mylib::custom_linear&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">custom_linear_abstract</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::custom_linear&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">weight</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">bias</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
@@ -663,10 +664,10 @@ intermediate Tensors).</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 2: an operator with data-dependent output shape</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;mylib::custom_nonzero&quot;</span><span class="p">,</span> <span class="s2">&quot;(Tensor x) -&gt; Tensor&quot;</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">impl_abstract</span><span class="p">(</span><span class="s2">&quot;mylib::custom_nonzero&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">custom_nonzero_abstract</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::custom_nonzero&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># Number of nonzero-elements is data-dependent.</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># Since we cannot peek at the data in an abstract impl,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># Since we cannot peek at the data in an fake impl,</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># we use the ctx object to construct a new symint that</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># represents the data-dependent size.</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">ctx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_ctx</span><span class="p">()</span>
@@ -693,11 +694,18 @@ intermediate Tensors).</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="torch.library.impl_abstract">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl_abstract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#impl_abstract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl_abstract" title="Permalink to this definition">¶</a></dt>
+<dd><p>This API was renamed to <a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a> in PyTorch 2.4.
+Please use that instead.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="torch.library.get_ctx">
 <span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">get_ctx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#get_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.get_ctx" title="Permalink to this definition">¶</a></dt>
 <dd><p>get_ctx() returns the current AbstractImplCtx object.</p>
-<p>Calling <code class="docutils literal notranslate"><span class="pre">get_ctx()</span></code> is only valid inside of an abstract impl
-(see <a class="reference internal" href="#torch.library.impl_abstract" title="torch.library.impl_abstract"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.impl_abstract()</span></code></a> for more usage details.</p>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">get_ctx()</span></code> is only valid inside of an fake impl
+(see <a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a> for more usage details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><em>AbstractImplCtx</em></p>
@@ -816,7 +824,7 @@ various PyTorch subsystems, like CPU/CUDA Tensors, Autograd, etc.</p>
 <p>This entrypoint defines the custom operator (the first step)
 you must then perform the second step by calling various
 <code class="docutils literal notranslate"><span class="pre">impl_*</span></code> APIs, like <a class="reference internal" href="#torch.library.impl" title="torch.library.impl"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.impl()</span></code></a> or
-<a class="reference internal" href="#torch.library.impl_abstract" title="torch.library.impl_abstract"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.impl_abstract()</span></code></a>.</p>
+<a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -922,8 +930,9 @@ if (url)
 <li><a class="reference internal" href="#torch.library.custom_op"><code class="docutils literal notranslate"><span class="pre">custom_op()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#extending-custom-ops-created-from-c">Extending custom ops created from C++</a><ul>
+<li><a class="reference internal" href="#extending-custom-ops-created-from-python-or-c">Extending custom ops (created from Python or C++)</a><ul>
 <li><a class="reference internal" href="#torch.library.impl"><code class="docutils literal notranslate"><span class="pre">impl()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.register_fake"><code class="docutils literal notranslate"><span class="pre">register_fake()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.impl_abstract"><code class="docutils literal notranslate"><span class="pre">impl_abstract()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.get_ctx"><code class="docutils literal notranslate"><span class="pre">get_ctx()</span></code></a></li>
 </ul>
