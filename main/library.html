@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitca6a0e1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitcf5ca58 ) &#x25BC</a>
     </div>
     
 
@@ -332,7 +332,6 @@
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
@@ -371,6 +370,7 @@
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="masked.html">torch.masked</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="size.html">torch.Size</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">torch.testing</a></li>
@@ -494,7 +494,7 @@ registration APIs (e.g. aten operators).</p>
 <p>Use <a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> to create new custom ops.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.custom_op">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">custom_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.library.custom_op" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">custom_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.library.custom_op" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wraps a function into custom operator.</p>
 <p>Reasons why you may want to create a custom op include:
 - Wrapping a third-party library or custom kernel to work with PyTorch
@@ -517,12 +517,26 @@ This MUST be accurate, otherwise, the behavior is undefined.</p></li>
 is valid for. If no device type is provided, then the function
 is used as the default implementation for all device types.
 Examples: “cpu”, “cuda”.</p></li>
+<li><p><strong>schema</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A schema string for the operator. If None
+(recommended) we’ll infer a schema for the operator from its type
+annotations. We recommend letting us infer a schema unless you
+have a specific reason not to.
+Example: “(Tensor x, int y) -&gt; (Tensor, Tensor)”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a></p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We recommend not passing in a <code class="docutils literal notranslate"><span class="pre">schema</span></code> arg and instead letting us infer
+it from the type annotations. It is error-prone to write your own schema.
+You may wish to provide your own schema if our interpretation of
+the type annotation is not what you want.
+For more info on how to write a schema string, see
+<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/aten/src/ATen/native/README.md#func">here</a></p>
+</div>
 <dl>
 <dt>Examples::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
@@ -569,53 +583,60 @@ Examples: “cpu”, “cuda”.</p></li>
 </div>
 <div class="section" id="extending-custom-ops-created-from-python-or-c">
 <h2>Extending custom ops (created from Python or C++)<a class="headerlink" href="#extending-custom-ops-created-from-python-or-c" title="Permalink to this heading">¶</a></h2>
-<p>Use the impl methods, such as <a class="reference internal" href="#torch.library.impl" title="torch.library.impl"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.impl()</span></code></a> and
-func:<cite>torch.library.impl_abstract</cite>, to add implementations
+<p>Use the register.* methods, such as <a class="reference internal" href="#torch.library.register_kernel" title="torch.library.register_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_kernel()</span></code></a> and
+func:<cite>torch.library.register_fake</cite>, to add implementations
 for any operators (they may have been created using <a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> or
 via PyTorch’s C++ operator registration APIs).</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="torch.library.impl">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#impl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py" id="torch.library.register_kernel">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_kernel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register an implementation for a device type for this operator.</p>
-<p>You may pass “default” for <code class="docutils literal notranslate"><span class="pre">types</span></code> to register this implementation as the
-default implementation for ALL device types.
-Please only use this if the implementation truly supports all device types;
-for example, this is true if it is a composition of built-in PyTorch operators.</p>
-<p>Some valid types are: “cpu”, “cuda”, “xla”, “mps”, “ipu”, “xpu”.</p>
+<p>Some valid device_types are: “cpu”, “cuda”, “xla”, “mps”, “ipu”, “xpu”.
+This API may be used as a decorator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>qualname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Should be a string that looks like “namespace::operator_name”.</p></li>
-<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device types to register an impl to.</p></li>
-<li><p><strong>lib</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.library.Library" title="torch.library.Library"><em>Library</em></a><em>]</em>) – If provided, the lifetime of this registration
-will be tied to the lifetime of the Library object.</p></li>
+<li><p><strong>fn</strong> (<em>Callable</em>) – The function to register as the implementation for
+the given device types.</p></li>
+<li><p><strong>device_types</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device_types to register an impl to.
+If None, we will register to all device types – please only use
+this option if your implementation is truly device-type-agnostic.</p></li>
 </ul>
 </dd>
 </dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<dl>
+<dt>Examples::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.library</span> <span class="kn">import</span> <span class="n">custom_op</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the operator</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;mylib::mysin&quot;</span><span class="p">,</span> <span class="s2">&quot;(Tensor x) -&gt; Tensor&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a custom op that works on cpu</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">(),</span> <span class="n">device_types</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_sin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add implementations for the cpu device</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">impl</span><span class="p">(</span><span class="s2">&quot;mylib::mysin&quot;</span><span class="p">,</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add implementations for the cuda device</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_kernel</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">mysin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_cpu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_cuda</span> <span class="o">=</span> <span class="n">x_cpu</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">numpy_sin</span><span class="p">(</span><span class="n">x_cpu</span><span class="p">),</span> <span class="n">x_cpu</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">numpy_sin</span><span class="p">(</span><span class="n">x_cuda</span><span class="p">),</span> <span class="n">x_cuda</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
 </pre></div>
 </div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.library.register_autograd">
-<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_autograd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup_context_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward_fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_autograd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_autograd" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_autograd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_autograd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_autograd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a backward formula for this custom op.</p>
 <p>In order for an operator to work with autograd, you need to register
 a backward formula:
@@ -656,7 +677,7 @@ you can make it a separate custom_op that you call inside <code class="docutils 
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_autograd</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="n">setup_context</span><span class="p">,</span> <span class="n">backward</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_autograd</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="n">backward</span><span class="p">,</span> <span class="n">setup_context</span><span class="o">=</span><span class="n">setup_context</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">numpy_sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -924,6 +945,46 @@ torch.Tag carefully before applying it.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.impl">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#impl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Register an implementation for a device type for this operator.</p>
+<p>You may pass “default” for <code class="docutils literal notranslate"><span class="pre">types</span></code> to register this implementation as the
+default implementation for ALL device types.
+Please only use this if the implementation truly supports all device types;
+for example, this is true if it is a composition of built-in PyTorch operators.</p>
+<p>Some valid types are: “cpu”, “cuda”, “xla”, “mps”, “ipu”, “xpu”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qualname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Should be a string that looks like “namespace::operator_name”.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device types to register an impl to.</p></li>
+<li><p><strong>lib</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.library.Library" title="torch.library.Library"><em>Library</em></a><em>]</em>) – If provided, the lifetime of this registration
+will be tied to the lifetime of the Library object.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the operator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;mylib::mysin&quot;</span><span class="p">,</span> <span class="s2">&quot;(Tensor x) -&gt; Tensor&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add implementations for the cpu device</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">impl</span><span class="p">(</span><span class="s2">&quot;mylib::mysin&quot;</span><span class="p">,</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()))</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">mysin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 
@@ -987,7 +1048,7 @@ if (url)
 </ul>
 </li>
 <li><a class="reference internal" href="#extending-custom-ops-created-from-python-or-c">Extending custom ops (created from Python or C++)</a><ul>
-<li><a class="reference internal" href="#torch.library.impl"><code class="docutils literal notranslate"><span class="pre">impl()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.register_kernel"><code class="docutils literal notranslate"><span class="pre">register_kernel()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.register_autograd"><code class="docutils literal notranslate"><span class="pre">register_autograd()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.register_fake"><code class="docutils literal notranslate"><span class="pre">register_fake()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.impl_abstract"><code class="docutils literal notranslate"><span class="pre">impl_abstract()</span></code></a></li>
@@ -1002,6 +1063,7 @@ if (url)
 </li>
 <li><a class="reference internal" href="#torch.library.fallthrough_kernel"><code class="docutils literal notranslate"><span class="pre">fallthrough_kernel()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.define"><code class="docutils literal notranslate"><span class="pre">define()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.impl"><code class="docutils literal notranslate"><span class="pre">impl()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitca6a0e1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitcf5ca58 ) &#x25BC</a>
     </div>
     
 
@@ -332,7 +332,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../export.html">torch.export</a></li>
@@ -371,6 +370,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../masked.html">torch.masked</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../size.html">torch.Size</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../testing.html">torch.testing</a></li>
@@ -487,13 +487,16 @@
 <h1>ChainedScheduler<a class="headerlink" href="#chainedscheduler" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.ChainedScheduler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">ChainedScheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schedulers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/optim/lr_scheduler.html#ChainedScheduler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Chains list of learning rate schedulers. It takes a list of chainable learning
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">ChainedScheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schedulers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/optim/lr_scheduler.html#ChainedScheduler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ChainedScheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chains list of learning rate schedulers. It takes a sequence of chainable learning
 rate schedulers and performs consecutive step() functions belonging to them by just
 one call.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>schedulers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of chained schedulers.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>schedulers</strong> (<em>sequence</em>) – sequence of chained schedulers.</p></li>
+<li><p><strong>optimizer</strong> (<a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>Optimizer</em></a><em>, </em><em>optional</em>) – Wrapped optimizer. Default: None.</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -505,7 +508,7 @@ one call.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># lr = 0.59049  if epoch &gt;= 4</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scheduler1</span> <span class="o">=</span> <span class="n">ConstantLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">total_iters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scheduler2</span> <span class="o">=</span> <span class="n">ExponentialLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">scheduler</span> <span class="o">=</span> <span class="n">ChainedScheduler</span><span class="p">([</span><span class="n">scheduler1</span><span class="p">,</span> <span class="n">scheduler2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scheduler</span> <span class="o">=</span> <span class="n">ChainedScheduler</span><span class="p">([</span><span class="n">scheduler1</span><span class="p">,</span> <span class="n">scheduler2</span><span class="p">],</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">train</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">validate</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
