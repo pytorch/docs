@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitcf5ca58 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita6a3f2e ) &#x25BC</a>
     </div>
     
 
@@ -2134,7 +2134,6 @@
             <span class="c1"># raise exception raised in try block</span>
             <span class="k">raise</span>
 
-
     <span class="fm">__call__</span> <span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">_wrapped_call_impl</span>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2453,7 +2452,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_state_dict_post_hooks</span><span class="p">[</span><span class="n">handle</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">hook</span>
         <span class="k">return</span> <span class="n">handle</span></div>
 
-
     <span class="k">def</span> <span class="nf">_load_from_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="n">strict</span><span class="p">,</span>
                               <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Copy parameters and buffers from :attr:`state_dict` into only this module, but not its descendants.</span>
@@ -2578,9 +2576,12 @@
         <span class="k">if</span> <span class="n">strict</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">!=</span> <span class="n">extra_state_key</span><span class="p">:</span>
-                    <span class="n">input_name</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">):]</span>
-                    <span class="n">input_name</span> <span class="o">=</span> <span class="n">input_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># get the name of param/buffer/child</span>
-                    <span class="k">if</span> <span class="n">input_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modules</span> <span class="ow">and</span> <span class="n">input_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">local_state</span><span class="p">:</span>
+                    <span class="n">input_name</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">):]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="c1"># Must be Module if it have attributes</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">input_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modules</span><span class="p">:</span>
+                            <span class="n">unexpected_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">input_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">local_state</span><span class="p">:</span>
                         <span class="n">unexpected_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Module.load_state_dict"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.load_state_dict">[docs]</a>    <span class="k">def</span> <span class="nf">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
