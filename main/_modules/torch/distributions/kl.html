@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita6a3f2e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitc5fafe9 ) &#x25BC</a>
     </div>
     
 
@@ -611,9 +611,8 @@
     <span class="n">right_fun</span> <span class="o">=</span> <span class="n">_KL_REGISTRY</span><span class="p">[</span><span class="n">right_p</span><span class="p">,</span> <span class="n">right_q</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">left_fun</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">right_fun</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;Ambiguous kl_divergence(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">). Please register_kl(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">type_p</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">type_q</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">left_p</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">right_q</span><span class="o">.</span><span class="vm">__name__</span>
-            <span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;Ambiguous kl_divergence(</span><span class="si">{</span><span class="n">type_p</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">type_q</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">). &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Please register_kl(</span><span class="si">{</span><span class="n">left_p</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">right_q</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
             <span class="ne">RuntimeWarning</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">left_fun</span>

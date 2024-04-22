@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita6a3f2e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitc5fafe9 ) &#x25BC</a>
     </div>
     
 
@@ -741,8 +741,9 @@
         <span class="c1"># simplifies right now)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">old</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">new</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">new</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> (old != new)&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">scalar_types</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">scalar_types</span><span class="p">)</span>
+    <span class="c1"># NB: bool is subclass of int</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">scalar_types</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">scalar_types</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">new</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">old</span> <span class="o">==</span> <span class="n">new</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">new</span><span class="si">}</span><span class="s2"> (old != new)&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="canonicalize_bool_expr"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr.html#torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr">[docs]</a><span class="k">def</span> <span class="nf">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SympyBoolean</span><span class="p">:</span>
@@ -998,8 +999,8 @@
 <span class="k">def</span> <span class="nf">_constrain_symbol_range</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">compiler_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">compiler_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="n">upd_vr</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">compiler_min</span><span class="p">,</span> <span class="n">compiler_max</span><span class="p">)</span>
     <span class="n">old_vr</span> <span class="o">=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_range</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="o">.</span><span class="n">unknown</span><span class="p">())</span>
-    <span class="n">new_vr</span> <span class="o">=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_vr</span> <span class="o">&amp;</span> <span class="n">upd_vr</span>
-    <span class="k">if</span> <span class="n">new_vr</span> <span class="o">!=</span> <span class="n">old_vr</span><span class="p">:</span>
+    <span class="n">shape_env</span><span class="o">.</span><span class="n">_update_var_to_range</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">upd_vr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">new_vr</span> <span class="o">:=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">s</span><span class="p">])</span> <span class="o">!=</span> <span class="n">old_vr</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;_constrain_symbol_range </span><span class="si">%s</span><span class="s2"> [</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">new_vr</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">new_vr</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
 
 
@@ -1776,11 +1777,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_source</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol_to_source</span><span class="p">[</span><span class="n">expr</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_print_Relational</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">)),</span>
-            <span class="n">expr</span><span class="o">.</span><span class="n">rel_op</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">expr</span><span class="o">.</span><span class="n">rel_op</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span><span class="w"> </span><span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
 
 
 <div class="viewcode-block" id="DimConstraints"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints">[docs]</a><span class="k">class</span> <span class="nc">DimConstraints</span><span class="p">:</span>
@@ -4340,6 +4337,25 @@
             <span class="c1"># problem</span>
         <span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_update_var_to_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">vr</span><span class="p">):</span>
+        <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">upper</span>
+
+        <span class="c1"># If we have a size-like unbacked SymInt, refuse to refine the range to be</span>
+        <span class="c1"># less than two.  This is because when we intersect this range</span>
+        <span class="c1"># with [2, inf] for size oblivious tests, the range would be</span>
+        <span class="c1"># unsatisfiable.  In other words, once you have a size-like</span>
+        <span class="c1"># unbacked SymInt, we can never learn that it is exactly zero or one,</span>
+        <span class="c1"># because we would now give inconsistent results for all size</span>
+        <span class="c1"># oblivous tests!</span>
+        <span class="k">if</span> <span class="n">upper</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">:</span>
+            <span class="n">upper</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="c1"># Updates the range and the guards corresponding to each bound of the symbol.</span>
+        <span class="k">if</span> <span class="n">symbol</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">&amp;=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_set_replacement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="s2">&quot;sympy.Symbol&quot;</span><span class="p">,</span> <span class="n">tgt</span><span class="p">:</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds or updates a replacement for a symbol.</span>
@@ -4372,7 +4388,7 @@
             <span class="c1"># substitution in the end.  This might be a no-op, if a already has</span>
             <span class="c1"># a tighter bound</span>
             <span class="n">tgt_bound</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bound_sympy</span><span class="p">(</span><span class="n">tgt</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">src_bound</span> <span class="o">&amp;</span> <span class="n">tgt_bound</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_var_to_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">tgt_bound</span><span class="p">)</span>
 
             <span class="c1"># Next, check if we can update the range of free symbols in tgt</span>
             <span class="c1"># based on the range in a. But only do it if:</span>
@@ -4577,9 +4593,9 @@
                             <span class="c1"># Propagate the value ranges.  It doesn&#39;t really</span>
                             <span class="c1"># matter if we use truediv or floordiv, because we</span>
                             <span class="c1"># have established divisibility.</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">=</span> <span class="n">SymPyValueRangeAnalysis</span><span class="o">.</span><span class="n">truediv</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_update_var_to_range</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">SymPyValueRangeAnalysis</span><span class="o">.</span><span class="n">truediv</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">i0</span><span class="p">],</span> <span class="n">ValueRanges</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-                            <span class="p">)</span>
+                            <span class="p">))</span>
                             <span class="c1"># Propagate size-like-ness</span>
                             <span class="k">if</span> <span class="n">i0</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">:</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i1</span><span class="p">)</span>
@@ -5006,7 +5022,7 @@
                 <span class="k">continue</span>
 
             <span class="c1"># Updates the range and the guards corresponding to each bound of the symbol.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_var_to_range</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">))</span>
             <span class="c1"># Clears the cache, since this update can change the result.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_evaluate_static</span><span class="o">.</span><span class="n">cache_clear</span><span class="p">()</span></div>
 
