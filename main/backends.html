@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitc5fafe9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6054789 ) &#x25BC</a>
     </div>
     
 
@@ -571,6 +571,37 @@ Query a specific device <cite>i</cite>’s cache via <cite>torch.backends.cuda.c
 <dd><p>Clears a cuFFT plan cache.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.backends.cuda.preferred_blas_library">
+<span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.</span></span><span class="sig-name descname"><span class="pre">preferred_blas_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/backends/cuda.html#preferred_blas_library"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cuda.preferred_blas_library" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the library PyTorch uses for BLAS operations. Choose between cuBLAS and cuBLASLt.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This flag is experimental and subject to change.</p>
+</div>
+<p>When PyTorch runs a CUDA BLAS operation it defaults to cuBLAS even if both cuBLAS and cuBLASLt are available.
+For PyTorch built for ROCm, hipBLAS and hipBLASLt may offer different performance.
+This flag (a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) allows overriding which BLAS library to use.</p>
+<ul class="simple">
+<li><p>If <cite>“cublas”</cite> is set then cuBLAS will be used wherever possible.</p></li>
+<li><p>If <cite>“cublaslt”</cite> is set then cuBLASLt will be used wherever possible.</p></li>
+<li><p>When no input is given, this function returns the currently preferred library.</p></li>
+<li><p>User may use the environment variable TORCH_BLAS_PREFER_CUBLASLT=1 to set the preferred library to cuBLASLt
+globally.
+This flag only sets the initial value of the preferred library and the preferred library
+may still be overridden by this function call later in your script.</p></li>
+</ul>
+<p>Note: When a library is preferred other libraries may still be used if the preferred library
+doesn’t implement the operation(s) called.
+This flag may achieve better performance if PyTorch’s library selection is incorrect
+for your application’s inputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>_BlasBackend</em></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1119,6 +1150,7 @@ if (url)
 <li><a class="reference internal" href="#torch.backends.cuda.cufft_plan_cache.size"><code class="docutils literal notranslate"><span class="pre">size</span></code></a></li>
 <li><a class="reference internal" href="#torch.backends.cuda.cufft_plan_cache.max_size"><code class="docutils literal notranslate"><span class="pre">max_size</span></code></a></li>
 <li><a class="reference internal" href="#torch.backends.cuda.cufft_plan_cache.clear"><code class="docutils literal notranslate"><span class="pre">clear()</span></code></a></li>
+<li><a class="reference internal" href="#torch.backends.cuda.preferred_blas_library"><code class="docutils literal notranslate"><span class="pre">preferred_blas_library()</span></code></a></li>
 <li><a class="reference internal" href="#torch.backends.cuda.preferred_linalg_library"><code class="docutils literal notranslate"><span class="pre">preferred_linalg_library()</span></code></a></li>
 <li><a class="reference internal" href="#torch.backends.cuda.SDPAParams"><code class="docutils literal notranslate"><span class="pre">SDPAParams</span></code></a></li>
 <li><a class="reference internal" href="#torch.backends.cuda.flash_sdp_enabled"><code class="docutils literal notranslate"><span class="pre">flash_sdp_enabled()</span></code></a></li>
