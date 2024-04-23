@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitc5fafe9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6054789 ) &#x25BC</a>
     </div>
     
 
@@ -511,12 +511,10 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A list of Events (for pretty printing).&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">use_cuda</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;use_cuda&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">use_device</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;use_device&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">profile_memory</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;profile_memory&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">with_flops</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;with_flops&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_use_cuda</span> <span class="o">=</span> <span class="n">use_cuda</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_use_device</span> <span class="o">=</span> <span class="n">use_device</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_profile_memory</span> <span class="o">=</span> <span class="n">profile_memory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tree_built</span> <span class="o">=</span> <span class="kc">False</span>
@@ -666,14 +664,16 @@
 <span class="sd">        Args:</span>
 <span class="sd">            sort_by (str, optional): Attribute used to sort entries. By default</span>
 <span class="sd">                they are printed in the same order as they were registered.</span>
-<span class="sd">                Valid keys include: ``cpu_time``, ``cuda_time``, ``cpu_time_total``,</span>
-<span class="sd">                ``cuda_time_total``, ``cpu_memory_usage``, ``cuda_memory_usage``,</span>
-<span class="sd">                ``self_cpu_memory_usage``, ``self_cuda_memory_usage``, ``count``.</span>
+<span class="sd">                Valid keys include: ``cpu_time``, ``cuda_time``, ``xpu_time``,</span>
+<span class="sd">                ``cpu_time_total``, ``cuda_time_total``, ``xpu_time_total``,</span>
+<span class="sd">                ``cpu_memory_usage``, ``cuda_memory_usage``, ``xpu_memory_usage``,</span>
+<span class="sd">                ``self_cpu_memory_usage``, ``self_cuda_memory_usage``,</span>
+<span class="sd">                ``self_xpu_memory_usage``, ``count``.</span>
 <span class="sd">            top_level_events_only(bool, optional): Boolean flag to determine the</span>
 <span class="sd">                selection of events to display. If true, the profiler will only</span>
 <span class="sd">                display events at top level like top-level invocation of python</span>
 <span class="sd">                `lstm`, python `add` or other functions, nested events like low-level</span>
-<span class="sd">                cpu/cuda ops events are omitted for profiler result readability.</span>
+<span class="sd">                cpu/cuda/xpu ops events are omitted for profiler result readability.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A string containing the table.</span>
@@ -752,6 +752,7 @@
         <span class="k">return</span> <span class="p">[</span>
             <span class="s2">&quot;self_cpu_time_total&quot;</span><span class="p">,</span>
             <span class="s2">&quot;self_cuda_time_total&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;self_xpu_time_total&quot;</span><span class="p">,</span>
             <span class="s2">&quot;self_privateuse1_time_total&quot;</span><span class="p">,</span>
         <span class="p">]</span>
 
@@ -765,7 +766,12 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">evt</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">evt</span><span class="o">.</span><span class="n">stack</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">stack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">metric_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">evt</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+                    <span class="n">metric_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                        <span class="n">evt</span><span class="p">,</span>
+                        <span class="n">metric</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xpu&quot;</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;privateuse1&quot;</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">),</span>
+                    <span class="p">)</span>
                     <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">metric_value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="n">stack_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">stack</span><span class="p">):</span>
@@ -810,7 +816,6 @@
 
         <span class="n">avg_list</span> <span class="o">=</span> <span class="n">EventList</span><span class="p">(</span>
             <span class="n">stats</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
-            <span class="n">use_cuda</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_use_cuda</span><span class="p">,</span>
             <span class="n">use_device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_use_device</span><span class="p">,</span>
             <span class="n">profile_memory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_profile_memory</span><span class="p">,</span>
             <span class="n">with_flops</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_with_flops</span><span class="p">,</span>
@@ -880,26 +885,23 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">cpu_time_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;cpu_time&quot;</span><span class="p">)</span>
-    <span class="n">cuda_time_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;cuda_time&quot;</span><span class="p">)</span>
-    <span class="n">privateuse1_time_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;privateuse1_time&quot;</span><span class="p">)</span>
+    <span class="n">device_time_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;device_time&quot;</span><span class="p">)</span>
     <span class="n">cpu_time_total_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;cpu_time_total&quot;</span><span class="p">)</span>
-    <span class="n">cuda_time_total_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;cuda_time_total&quot;</span><span class="p">)</span>
-    <span class="n">privateuse1_time_total_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;privateuse1_time_total&quot;</span><span class="p">)</span>
+    <span class="n">device_time_total_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;device_time_total&quot;</span><span class="p">)</span>
     <span class="n">self_cpu_time_total_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;self_cpu_time_total&quot;</span><span class="p">)</span>
-    <span class="n">self_cuda_time_total_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;self_cuda_time_total&quot;</span><span class="p">)</span>
-    <span class="n">self_privateuse1_time_total_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;self_privateuse1_time_total&quot;</span><span class="p">)</span>
+    <span class="n">self_device_time_total_str</span> <span class="o">=</span> <span class="n">_attr_formatter</span><span class="p">(</span><span class="s2">&quot;self_device_time_total&quot;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cpu_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_time_total</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">cuda_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cuda_time_total</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="k">def</span> <span class="nf">device_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_time_total</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">privateuse1_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_time_total</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="k">def</span> <span class="nf">cuda_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># To be deprecated</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_time</span>
 
 
 <div class="viewcode-block" id="Interval"><a class="viewcode-back" href="../../../generated/torch.autograd.profiler_util.Interval.html#torch.autograd.profiler_util.Interval">[docs]</a><span class="k">class</span> <span class="nc">Interval</span><span class="p">:</span>
@@ -933,8 +935,7 @@
         <span class="n">scope</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">use_device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">cpu_memory_usage</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">cuda_memory_usage</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">privateuse1_memory_usage</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">device_memory_usage</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">is_async</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">is_remote</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">sequence_nr</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
@@ -964,8 +965,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">scope</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">use_device</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cpu_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">cpu_memory_usage</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cuda_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">cuda_memory_usage</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">privateuse1_memory_usage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">device_memory_usage</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_async</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">is_async</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_remote</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">is_remote</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sequence_nr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sequence_nr</span>
@@ -1015,20 +1015,23 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">self_cuda_memory_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">self_device_memory_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_async</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">!=</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cuda_memory_usage</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span>
-            <span class="n">child</span><span class="o">.</span><span class="n">cuda_memory_usage</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_memory_usage</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">device_memory_usage</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span>
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">self_privateuse1_memory_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_async</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">!=</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">self_cuda_memory_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># To be deprecated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">self_device_memory_usage</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cpu_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range</span><span class="o">.</span><span class="n">elapsed_us</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span>
-            <span class="n">child</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span>
-        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">self_cpu_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1039,84 +1042,50 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">cuda_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_async</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_legacy</span><span class="p">:</span>
-                <span class="c1"># account for the kernels in the children ops</span>
-                <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kinfo</span><span class="o">.</span><span class="n">duration</span> <span class="k">for</span> <span class="n">kinfo</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">)</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span>
-                    <span class="n">ch</span><span class="o">.</span><span class="n">cuda_time_total</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># each legacy cpu events has a single (fake) kernel</span>
-                <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kinfo</span><span class="o">.</span><span class="n">duration</span> <span class="k">for</span> <span class="n">kinfo</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CUDA</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range</span><span class="o">.</span><span class="n">elapsed_us</span><span class="p">()</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">self_cuda_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_async</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cuda_time_total</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span>
-                <span class="n">child</span><span class="o">.</span><span class="n">cuda_time_total</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CUDA</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cuda_time_total</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">cpu_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range</span><span class="o">.</span><span class="n">elapsed_us</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">self_privateuse1_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_async</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_time_total</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span>
-                <span class="n">child</span><span class="o">.</span><span class="n">privateuse1_time_total</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CUDA</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_time_total</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">privateuse1_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">device_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_async</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_legacy</span><span class="p">:</span>
                 <span class="c1"># account for the kernels in the children ops</span>
                 <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kinfo</span><span class="o">.</span><span class="n">duration</span> <span class="k">for</span> <span class="n">kinfo</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">)</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span>
-                    <span class="n">ch</span><span class="o">.</span><span class="n">privateuse1_time_total</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span>
+                    <span class="n">ch</span><span class="o">.</span><span class="n">device_time_total</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># each legacy cpu events has a single (fake) kernel</span>
                 <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kinfo</span><span class="o">.</span><span class="n">duration</span> <span class="k">for</span> <span class="n">kinfo</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">PrivateUse1</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="ow">in</span> <span class="p">[</span><span class="n">DeviceType</span><span class="o">.</span><span class="n">CUDA</span><span class="p">,</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">PrivateUse1</span><span class="p">]</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range</span><span class="o">.</span><span class="n">elapsed_us</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cuda_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># To be deprecated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_time_total</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">self_device_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_async</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_time_total</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">device_time_total</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="ow">in</span> <span class="p">[</span><span class="n">DeviceType</span><span class="o">.</span><span class="n">CUDA</span><span class="p">,</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">PrivateUse1</span><span class="p">]</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_time_total</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">self_cuda_time_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># To be deprecated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">self_device_time_total</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">device_name</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span>
-        <span class="n">device_time</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cuda_time_str</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_time_str</span>
-        <span class="p">)</span>
-        <span class="n">device_memory_usage</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cuda_memory_usage</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span>
-            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span>
-        <span class="p">)</span>
+        <span class="n">device_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span>
+        <span class="n">device_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_time_str</span>
+        <span class="n">device_memory_usage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_memory_usage</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;&lt;FunctionEvent id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> device_type=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">device_type</span><span class="si">}</span><span class="s2"> node_id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="si">}</span><span class="s2"> &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;cpu_time=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cpu_time_str</span><span class="si">}</span><span class="s2"> start_us=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time_range</span><span class="o">.</span><span class="n">start</span><span class="si">}</span><span class="s2"> end_us=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time_range</span><span class="o">.</span><span class="n">end</span><span class="si">}</span><span class="s2"> &quot;</span>
@@ -1138,20 +1107,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">is_remote</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cpu_time_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cuda_time_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_time_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_time_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">self_cpu_time_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">self_cuda_time_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">self_privateuse1_time_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">self_device_time_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_shapes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cpu_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cuda_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">self_cpu_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">self_cuda_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">self_privateuse1_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">self_device_memory_usage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cpu_children</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">FunctionEvent</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cpu_parent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FunctionEvent</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span><span class="p">:</span> <span class="n">DeviceType</span> <span class="o">=</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span>
@@ -1179,17 +1144,13 @@
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">FunctionEvent</span><span class="p">,</span> <span class="n">FunctionEventAvg</span><span class="p">))</span>
         <span class="k">assert</span> <span class="n">other</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cpu_time_total</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">cpu_time_total</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cuda_time_total</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">cuda_time_total</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_time_total</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">privateuse1_time_total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_time_total</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">device_time_total</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">self_cpu_time_total</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">self_cpu_time_total</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">self_cuda_time_total</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">self_cuda_time_total</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">self_privateuse1_time_total</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">self_privateuse1_time_total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">self_device_time_total</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">self_device_time_total</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cpu_memory_usage</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">cpu_memory_usage</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cuda_memory_usage</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">cuda_memory_usage</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_memory_usage</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">device_memory_usage</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">self_cpu_memory_usage</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">self_cpu_memory_usage</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">self_cuda_memory_usage</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">self_cuda_memory_usage</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">self_privateuse1_memory_usage</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">self_privateuse1_memory_usage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">self_device_memory_usage</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">self_device_memory_usage</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">count</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flops</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">flops</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">flops</span>
@@ -1202,19 +1163,9 @@
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">device_name</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span>
-        <span class="n">self_device_time</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">self_cuda_time_total_str</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span>
-            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">self_privateuse1_time_total_str</span>
-        <span class="p">)</span>
-        <span class="n">device_time</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cuda_time_str</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_time_str</span>
-        <span class="p">)</span>
-        <span class="n">device_memory</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cuda_memory_usage</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span>
-            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span>
-        <span class="p">)</span>
+        <span class="n">self_device_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">self_device_time_total_str</span>
+        <span class="n">device_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_time_str</span>
+        <span class="n">device_memory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_memory_usage</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;&lt;FunctionEventAvg key=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="si">}</span><span class="s2"> self_cpu_time=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">self_cpu_time_total_str</span><span class="si">}</span><span class="s2"> cpu_time=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cpu_time_str</span><span class="si">}</span><span class="s2"> &quot;</span>
             <span class="sa">f</span><span class="s2">&quot; self_</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">_time=</span><span class="si">{</span><span class="n">self_device_time</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">_time=</span><span class="si">{</span><span class="n">device_time</span><span class="si">}</span><span class="s2"> input_shapes=</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_shapes</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
@@ -1313,19 +1264,14 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="n">has_cuda_time</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">self_cuda_time_total</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">)</span>
-    <span class="n">has_cuda_mem</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">self_cuda_memory_usage</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">)</span>
-    <span class="n">has_privateuse1_time</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
-        <span class="n">event</span><span class="o">.</span><span class="n">self_privateuse1_time_total</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span>
-    <span class="p">)</span>
-    <span class="n">has_privateuse1_mem</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
-        <span class="n">event</span><span class="o">.</span><span class="n">self_privateuse1_memory_usage</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span>
-    <span class="p">)</span>
+    <span class="n">has_device_time</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">self_device_time_total</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">)</span>
+    <span class="n">has_device_mem</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">self_device_memory_usage</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">)</span>
     <span class="n">use_device</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">use_device</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">use_device</span> <span class="ow">and</span> <span class="p">(</span><span class="n">has_privateuse1_mem</span> <span class="ow">or</span> <span class="n">has_privateuse1_time</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="s2">&quot;use_device is None, but there is private device performance data.&quot;</span>
-        <span class="p">)</span>
+    <span class="c1"># Running on PrivateUse1 device with profiler but not enable</span>
+    <span class="c1"># ProfilerActivity.PrivateUse1 can also catch privateuse1 memory usage.</span>
+    <span class="c1"># Here only need to check has_privateuse1_time if not use_device.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">use_device</span> <span class="ow">and</span> <span class="n">has_device_time</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;use_device is None, but there is device performance data.&quot;</span><span class="p">)</span>
 
     <span class="n">has_input_shapes</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
         <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">input_shapes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">input_shapes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
@@ -1334,8 +1280,16 @@
 
     <span class="k">if</span> <span class="n">sort_by</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">events</span> <span class="o">=</span> <span class="n">EventList</span><span class="p">(</span>
-            <span class="nb">sorted</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">evt</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">evt</span><span class="p">,</span> <span class="n">sort_by</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="n">use_cuda</span><span class="o">=</span><span class="n">has_cuda_time</span><span class="p">,</span>
+            <span class="nb">sorted</span><span class="p">(</span>
+                <span class="n">events</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">evt</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">evt</span><span class="p">,</span>
+                    <span class="n">sort_by</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xpu&quot;</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;privateuse1&quot;</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">),</span>
+                <span class="p">),</span>
+                <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
             <span class="n">use_device</span><span class="o">=</span><span class="n">use_device</span><span class="p">,</span>
             <span class="n">profile_memory</span><span class="o">=</span><span class="n">profile_memory</span><span class="p">,</span>
             <span class="n">with_flops</span><span class="o">=</span><span class="n">with_flops</span><span class="p">,</span>
@@ -1373,23 +1327,14 @@
         <span class="s2">&quot;CPU total&quot;</span><span class="p">,</span>
         <span class="s2">&quot;CPU time avg&quot;</span><span class="p">,</span>
     <span class="p">]</span>
-    <span class="k">if</span> <span class="n">has_cuda_time</span><span class="p">:</span>
+    <span class="n">device_name</span> <span class="o">=</span> <span class="n">use_device</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="n">use_device</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+    <span class="k">if</span> <span class="n">has_device_time</span><span class="p">:</span>
         <span class="n">headers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
             <span class="p">[</span>
-                <span class="s2">&quot;Self CUDA&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;Self CUDA %&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;CUDA total&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;CUDA time avg&quot;</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">)</span>
-    <span class="k">if</span> <span class="n">has_privateuse1_time</span><span class="p">:</span>
-        <span class="n">privateuse1</span> <span class="o">=</span> <span class="n">use_device</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-        <span class="n">headers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="sa">f</span><span class="s2">&quot;Self </span><span class="si">{</span><span class="n">privateuse1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">&quot;Self </span><span class="si">{</span><span class="n">privateuse1</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">privateuse1</span><span class="si">}</span><span class="s2"> total&quot;</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">privateuse1</span><span class="si">}</span><span class="s2"> time avg&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;Self </span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;Self </span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2"> total&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2"> time avg&quot;</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">profile_memory</span><span class="p">:</span>
@@ -1399,19 +1344,11 @@
                 <span class="s2">&quot;Self CPU Mem&quot;</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">has_cuda_mem</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">has_device_mem</span><span class="p">:</span>
             <span class="n">headers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="s2">&quot;CUDA Mem&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;Self CUDA Mem&quot;</span><span class="p">,</span>
-                <span class="p">]</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">has_privateuse1_mem</span><span class="p">:</span>
-            <span class="n">privateuse1</span> <span class="o">=</span> <span class="n">use_device</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-            <span class="n">headers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-                <span class="p">[</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">privateuse1</span><span class="si">}</span><span class="s2"> Mem&quot;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s2">&quot;Self </span><span class="si">{</span><span class="n">privateuse1</span><span class="si">}</span><span class="s2"> Mem&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2"> Mem&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Self </span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2"> Mem&quot;</span><span class="p">,</span>
                 <span class="p">]</span>
             <span class="p">)</span>
     <span class="n">headers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;# of Calls&quot;</span><span class="p">)</span>
@@ -1485,22 +1422,16 @@
         <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Yes, newline after the end as well</span>
 
-    <span class="n">sum_self_cpu_time_total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">self_cpu_time_total</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">)</span>
-    <span class="n">sum_self_cuda_time_total</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">sum_self_privateuse1_time_total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">sum_self_cpu_time_total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">sum_self_device_time_total</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">evt</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">evt</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span><span class="p">:</span>
+        <span class="n">sum_self_cpu_time_total</span> <span class="o">+=</span> <span class="n">evt</span><span class="o">.</span><span class="n">self_cpu_time_total</span>
+        <span class="k">if</span> <span class="n">evt</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CPU</span> <span class="ow">and</span> <span class="n">evt</span><span class="o">.</span><span class="n">is_legacy</span><span class="p">:</span>
             <span class="c1"># in legacy profiler, kernel info is stored in cpu events</span>
-            <span class="k">if</span> <span class="n">evt</span><span class="o">.</span><span class="n">is_legacy</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">use_device</span><span class="p">:</span>
-                    <span class="n">sum_self_cuda_time_total</span> <span class="o">+=</span> <span class="n">evt</span><span class="o">.</span><span class="n">self_cuda_time_total</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">sum_self_privateuse1_time_total</span> <span class="o">+=</span> <span class="n">evt</span><span class="o">.</span><span class="n">self_privateuse1_time_total</span>
-        <span class="k">elif</span> <span class="n">evt</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">CUDA</span><span class="p">:</span>
+            <span class="n">sum_self_device_time_total</span> <span class="o">+=</span> <span class="n">evt</span><span class="o">.</span><span class="n">self_device_time_total</span>
+        <span class="k">elif</span> <span class="n">evt</span><span class="o">.</span><span class="n">device_type</span> <span class="ow">in</span> <span class="p">[</span><span class="n">DeviceType</span><span class="o">.</span><span class="n">CUDA</span><span class="p">,</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">PrivateUse1</span><span class="p">]:</span>
             <span class="c1"># in kineto profiler, there&#39;re events with the correct device type (e.g. CUDA)</span>
-            <span class="n">sum_self_cuda_time_total</span> <span class="o">+=</span> <span class="n">evt</span><span class="o">.</span><span class="n">self_cuda_time_total</span>
-        <span class="k">elif</span> <span class="n">evt</span><span class="o">.</span><span class="n">device_type</span> <span class="o">==</span> <span class="n">DeviceType</span><span class="o">.</span><span class="n">PrivateUse1</span><span class="p">:</span>
-            <span class="n">sum_self_privateuse1_time_total</span> <span class="o">+=</span> <span class="n">evt</span><span class="o">.</span><span class="n">self_privateuse1_time_total</span>
+            <span class="n">sum_self_device_time_total</span> <span class="o">+=</span> <span class="n">evt</span><span class="o">.</span><span class="n">self_device_time_total</span>
 
     <span class="c1"># Actual printing</span>
     <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1545,28 +1476,16 @@
             <span class="n">evt</span><span class="o">.</span><span class="n">cpu_time_total_str</span><span class="p">,</span>  <span class="c1"># CPU total</span>
             <span class="n">evt</span><span class="o">.</span><span class="n">cpu_time_str</span><span class="p">,</span>  <span class="c1"># CPU time avg</span>
         <span class="p">]</span>
-        <span class="k">if</span> <span class="n">has_cuda_time</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">has_device_time</span><span class="p">:</span>
             <span class="n">row_values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="n">evt</span><span class="o">.</span><span class="n">self_cuda_time_total_str</span><span class="p">,</span>
-                    <span class="c1"># CUDA time total %</span>
+                    <span class="n">evt</span><span class="o">.</span><span class="n">self_device_time_total_str</span><span class="p">,</span>
+                    <span class="c1"># device time total %</span>
                     <span class="n">_format_time_share</span><span class="p">(</span>
-                        <span class="n">evt</span><span class="o">.</span><span class="n">self_cuda_time_total</span><span class="p">,</span> <span class="n">sum_self_cuda_time_total</span>
+                        <span class="n">evt</span><span class="o">.</span><span class="n">self_device_time_total</span><span class="p">,</span> <span class="n">sum_self_device_time_total</span>
                     <span class="p">),</span>
-                    <span class="n">evt</span><span class="o">.</span><span class="n">cuda_time_total_str</span><span class="p">,</span>
-                    <span class="n">evt</span><span class="o">.</span><span class="n">cuda_time_str</span><span class="p">,</span>  <span class="c1"># Cuda time avg</span>
-                <span class="p">]</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">has_privateuse1_time</span><span class="p">:</span>
-            <span class="n">row_values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-                <span class="p">[</span>
-                    <span class="n">evt</span><span class="o">.</span><span class="n">self_privateuse1_time_total_str</span><span class="p">,</span>
-                    <span class="c1"># PrivateUse1 time total %</span>
-                    <span class="n">_format_time_share</span><span class="p">(</span>
-                        <span class="n">evt</span><span class="o">.</span><span class="n">self_privateuse1_time_total</span><span class="p">,</span> <span class="n">sum_self_privateuse1_time_total</span>
-                    <span class="p">),</span>
-                    <span class="n">evt</span><span class="o">.</span><span class="n">privateuse1_time_total_str</span><span class="p">,</span>
-                    <span class="n">evt</span><span class="o">.</span><span class="n">privateuse1_time_str</span><span class="p">,</span>  <span class="c1"># PrivateUse1 time avg</span>
+                    <span class="n">evt</span><span class="o">.</span><span class="n">device_time_total_str</span><span class="p">,</span>
+                    <span class="n">evt</span><span class="o">.</span><span class="n">device_time_str</span><span class="p">,</span>  <span class="c1"># device time avg</span>
                 <span class="p">]</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">profile_memory</span><span class="p">:</span>
@@ -1578,22 +1497,13 @@
                     <span class="n">_format_memory</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">self_cpu_memory_usage</span><span class="p">),</span>
                 <span class="p">]</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="n">has_cuda_mem</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">has_device_mem</span><span class="p">:</span>
                 <span class="n">row_values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                     <span class="p">[</span>
-                        <span class="c1"># CUDA Mem Total</span>
-                        <span class="n">_format_memory</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">cuda_memory_usage</span><span class="p">),</span>
-                        <span class="c1"># Self CUDA Mem Total</span>
-                        <span class="n">_format_memory</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">self_cuda_memory_usage</span><span class="p">),</span>
-                    <span class="p">]</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="n">has_privateuse1_mem</span><span class="p">:</span>
-                <span class="n">row_values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-                    <span class="p">[</span>
-                        <span class="c1"># PrivateUse1 Mem Total</span>
-                        <span class="n">_format_memory</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">privateuse1_memory_usage</span><span class="p">),</span>
-                        <span class="c1"># Self PrivateUse1 Mem Total</span>
-                        <span class="n">_format_memory</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">self_privateuse1_memory_usage</span><span class="p">),</span>
+                        <span class="c1"># Device Mem Total</span>
+                        <span class="n">_format_memory</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">device_memory_usage</span><span class="p">),</span>
+                        <span class="c1"># Self Device Mem Total</span>
+                        <span class="n">_format_memory</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">self_device_memory_usage</span><span class="p">),</span>
                     <span class="p">]</span>
                 <span class="p">)</span>
         <span class="n">row_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -1629,11 +1539,10 @@
 
     <span class="n">append</span><span class="p">(</span><span class="n">header_sep</span><span class="p">)</span>
     <span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Self CPU time total: </span><span class="si">{</span><span class="n">_format_time</span><span class="p">(</span><span class="n">sum_self_cpu_time_total</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">has_cuda_time</span><span class="p">:</span>
-        <span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Self CUDA time total: </span><span class="si">{</span><span class="n">_format_time</span><span class="p">(</span><span class="n">sum_self_cuda_time_total</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">has_privateuse1_time</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">has_device_time</span><span class="p">:</span>
         <span class="n">append</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Self </span><span class="si">{</span><span class="n">use_device</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> time total: </span><span class="si">{</span><span class="n">_format_time</span><span class="p">(</span><span class="n">sum_self_privateuse1_time_total</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Self </span><span class="si">{</span><span class="n">use_device</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">use_device</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="kc">None</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;None&#39;</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;time total: </span><span class="si">{</span><span class="n">_format_time</span><span class="p">(</span><span class="n">sum_self_device_time_total</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>

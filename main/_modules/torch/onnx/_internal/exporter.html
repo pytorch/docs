@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitc5fafe9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6054789 ) &#x25BC</a>
     </div>
     
 
@@ -1495,6 +1495,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">destination</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BufferedIOBase</span><span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
+        <span class="n">include_initializers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">model_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">serializer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ONNXProgramSerializer</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1506,12 +1507,18 @@
 <span class="sd">                If `destination` is a string, besides saving the ONNX model into a file, model weights are also stored</span>
 <span class="sd">                in separate files in the same directory as the ONNX model. E.g. for `destination=&quot;/path/model.onnx&quot;`,</span>
 <span class="sd">                the initializers are saved in &quot;/path/&quot; folder along with &quot;onnx.model&quot;.</span>
+<span class="sd">            include_initializers: Whether to include initializers in the ONNX graph as external data.</span>
+<span class="sd">                Cannot be combined with `model_state_dict`.</span>
 <span class="sd">            model_state: The state_dict of the PyTorch model containing all weights on it.</span>
 <span class="sd">                It can be either a string with the path to a checkpoint or a dictionary with the actual model state.</span>
 <span class="sd">                The supported file formats are the same as those supported by `torch.load` and `safetensors.safe_open`.</span>
 <span class="sd">                Required when :func:`enable_fake_mode` is used but real initializers are needed on the ONNX graph.</span>
 <span class="sd">            serializer: The serializer to use. If not specified, the model will be serialized as Protobuf.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">include_initializers</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="p">),</span> <span class="s2">&quot;Cannot specify both `include_initializers=False` and `model_state`.&quot;</span>
         <span class="k">if</span> <span class="n">serializer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="n">serializer</span> <span class="o">=</span> <span class="n">LargeProtobufONNXProgramSerializer</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
@@ -1520,21 +1527,27 @@
 
         <span class="c1"># Add initializers when symbolic tracing is enabled</span>
         <span class="n">_model_state_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
-                <span class="n">model_state</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
-            <span class="p">),</span> <span class="s2">&quot;model_state must be a path to the model&#39;s state_dict or the actual state_dict&quot;</span>
-            <span class="c1"># NOTE: For dict, there can be performance penalty or high memory usage that might lead to OOM</span>
-            <span class="c1">#       if the dict wasn&#39;t loaded with torch.load(..., mmap=True, map_location=&quot;cpu&quot;)</span>
-            <span class="n">_model_state_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model_state</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span><span class="o">.</span><span class="n">state_dict_paths</span><span class="p">:</span>
-            <span class="c1"># Load state from previous model.load_state_dict() call within enable_fake_mode() context</span>
-            <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span><span class="o">.</span><span class="n">state_dict_paths</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">_model_state_files</span><span class="p">:</span>
-                    <span class="c1"># ignore duplicate</span>
-                    <span class="k">continue</span>
-                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>  <span class="c1"># type: ignore[arg-type]</span>
-                    <span class="n">_model_state_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_initializers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+                    <span class="n">model_state</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="p">),</span> <span class="s2">&quot;model_state must be a path to the model&#39;s state_dict or the actual state_dict&quot;</span>
+                <span class="c1"># NOTE: For dict, there can be performance penalty or high memory usage that might lead to OOM</span>
+                <span class="c1">#       if the dict wasn&#39;t loaded with torch.load(..., mmap=True, map_location=&quot;cpu&quot;)</span>
+                <span class="n">_model_state_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model_state</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span><span class="o">.</span><span class="n">state_dict_paths</span><span class="p">:</span>
+                <span class="c1"># Load state from previous model.load_state_dict() call within enable_fake_mode() context</span>
+                <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span><span class="o">.</span><span class="n">state_dict_paths</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">_model_state_files</span><span class="p">:</span>
+                        <span class="c1"># ignore duplicate</span>
+                        <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>  <span class="c1"># type: ignore[arg-type]</span>
+                        <span class="n">_model_state_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># self.model_proto.graph.initializer.clear() not available in older protobuf versions</span>
+            <span class="n">initializer_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">initializer</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">initializer_count</span><span class="p">):</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">initializer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">_model_state_files</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>

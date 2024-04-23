@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitc5fafe9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6054789 ) &#x25BC</a>
     </div>
     
 
@@ -485,7 +485,7 @@
   <h1>Source code for torch.distributed.tensor.parallel.style</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -820,13 +820,19 @@
 <span class="sd">    ``input_layouts``, and perform layout redistribution according to the ``desired_input_layouts``.</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        input_layouts (Union[Placement, Tuple[Placement]]):</span>
+<span class="sd">        input_layouts (Union[Placement, Tuple[Optional[Placement]]]):</span>
 <span class="sd">            The DTensor layouts of input tensors for the nn.Module, this is used to convert the input tensors to</span>
 <span class="sd">            DTensors. If some inputs are not torch.Tensor or no need to convert to DTensors, ``None`` need to be specified</span>
-<span class="sd">            as a placeholder.</span>
-<span class="sd">        desired_input_layouts (Union[Placement, Tuple[Placement]]):</span>
+<span class="sd">            as a placeholder. default: None.</span>
+<span class="sd">        desired_input_layouts (Union[Placement, Tuple[Optional[Placement]]]):</span>
 <span class="sd">            The desired DTensor layout of input tensors for the nn.Module, this is used to ensure the inputs of the nn.Module</span>
-<span class="sd">            have the desired DTensor layouts. This argument needs to have the same length with ``input_layouts``.</span>
+<span class="sd">            have the desired DTensor layouts. This argument needs to have the same length with ``input_layouts``. default: None.</span>
+<span class="sd">        input_kwarg_layouts (Dict[str, Placement]):</span>
+<span class="sd">            The DTensor layouts of input kwargs for the nn.Module, this is used to convert the input kwarg tensors to DTensors.</span>
+<span class="sd">            default: None</span>
+<span class="sd">        desired_input_kwarg_layouts: (Dict[str, Placement]):</span>
+<span class="sd">            The desired DTensor layout of input kwargs for the nn.Module, this is used to ensure the inputs of the nn.Module</span>
+<span class="sd">            have the desired DTensor layouts. default: None.</span>
 <span class="sd">        use_local_output (bool, optional):</span>
 <span class="sd">            Whether to use local :class:`torch.Tensor` instead of :class:`DTensor` for the module inputs, default: False.</span>
 <span class="sd">    Returns:</span>
@@ -857,24 +863,37 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">input_layouts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">]],</span>
-        <span class="n">desired_input_layouts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">]],</span>
+        <span class="n">input_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">desired_input_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">input_kwarg_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">desired_input_kwarg_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">use_local_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_layouts</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_layouts</span><span class="p">,</span> <span class="n">Placement</span><span class="p">)</span> <span class="k">else</span> <span class="n">input_layouts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span> <span class="o">=</span> \
             <span class="p">(</span><span class="n">desired_input_layouts</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">desired_input_layouts</span><span class="p">,</span> <span class="n">Placement</span><span class="p">)</span> <span class="k">else</span> <span class="n">desired_input_layouts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span> <span class="o">=</span> <span class="n">use_local_output</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">),</span> \
-            <span class="s2">&quot;input_layouts and desired_input_layouts should have same length!&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;desired module inputs should not be None!&quot;</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">),</span> \
+                <span class="s2">&quot;input_layouts and desired_input_layouts should have same length!&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_kwargs</span> <span class="o">=</span> <span class="n">input_kwarg_layouts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_kwarg_layouts</span> <span class="o">=</span> <span class="n">input_kwarg_layouts</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_kwarg_layouts</span> <span class="o">=</span> <span class="n">desired_input_kwarg_layouts</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_kwarg_layouts</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">desired_input_kwarg_layouts</span><span class="p">),</span> \
+                <span class="s2">&quot;input_kwarg_layouts and desired_input_kwarg_layouts should have same length!&quot;</span>
 
     <span class="k">def</span> <span class="nf">_prepare_input_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">inputs</span>
         <span class="n">prepared_inputs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="n">inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">inputs</span><span class="p">,)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;module inputs and input_layouts should have same length!&quot;</span><span class="p">)</span>
 
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;desired module inputs should not be None!&quot;</span>
         <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">input_layout</span><span class="p">,</span> <span class="n">desired_layout</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_layouts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">input_layout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">DTensor</span><span class="p">):</span>
@@ -883,15 +902,44 @@
                     <span class="n">dt_inp</span> <span class="o">=</span> <span class="n">inp</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">dt_inp</span> <span class="o">=</span> <span class="n">DTensor</span><span class="o">.</span><span class="n">from_local</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">(</span><span class="n">input_layout</span><span class="p">,),</span> <span class="n">run_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">input_layout</span> <span class="o">!=</span> <span class="n">desired_layout</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">desired_layout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">input_layout</span> <span class="o">!=</span> <span class="n">desired_layout</span><span class="p">:</span>
                     <span class="n">dt_inp</span> <span class="o">=</span> <span class="n">dt_inp</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="p">(</span><span class="n">desired_layout</span><span class="p">,))</span>
                 <span class="n">prepared_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt_inp</span><span class="o">.</span><span class="n">to_local</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span> <span class="k">else</span> <span class="n">dt_inp</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">prepared_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">prepared_inputs</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_prepare_input_kwarg_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">kwarg_inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">):</span>
+        <span class="n">prepared_arg_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
+        <span class="n">prepared_kwarg_inputs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">kwarg_key</span> <span class="ow">in</span> <span class="n">kwarg_inputs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">kwarg_val</span> <span class="o">=</span> <span class="n">kwarg_inputs</span><span class="p">[</span><span class="n">kwarg_key</span><span class="p">]</span>
+            <span class="n">input_layout</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">kwarg_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_kwarg_layouts</span><span class="p">:</span>
+                <span class="n">input_layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_kwarg_layouts</span><span class="p">[</span><span class="n">kwarg_key</span><span class="p">]</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwarg_val</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;input of key </span><span class="si">{</span><span class="n">kwarg_key</span><span class="si">}</span><span class="s2"> to the module should be a Tensor!&quot;</span>
+                <span class="n">kwarg_val</span> <span class="o">=</span> <span class="n">DTensor</span><span class="o">.</span><span class="n">from_local</span><span class="p">(</span><span class="n">kwarg_val</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">(</span><span class="n">input_layout</span><span class="p">,),</span> <span class="n">run_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">kwarg_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_kwarg_layouts</span><span class="p">:</span>
+                    <span class="n">desired_layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_kwarg_layouts</span><span class="p">[</span><span class="n">kwarg_key</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">desired_layout</span> <span class="o">!=</span> <span class="n">input_layout</span><span class="p">:</span>
+                        <span class="n">kwarg_val</span> <span class="o">=</span> <span class="n">kwarg_val</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">placements</span><span class="o">=</span><span class="p">(</span><span class="n">desired_layout</span><span class="p">,))</span>
+
+                <span class="n">prepared_kwarg_inputs</span><span class="p">[</span><span class="n">kwarg_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwarg_val</span><span class="o">.</span><span class="n">to_local</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_local_output</span> <span class="k">else</span> <span class="n">kwarg_val</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">prepared_kwarg_inputs</span><span class="p">[</span><span class="n">kwarg_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwarg_val</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">prepared_arg_inputs</span><span class="p">,</span> <span class="n">prepared_kwarg_inputs</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
-        <span class="n">module</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">))</span>  <span class="c1"># type: ignore[misc, call-arg]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">:</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span>
+                <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_kwarg_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">),</span>
+                <span class="n">with_kwargs</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_input_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">))</span>  <span class="c1"># type: ignore[misc, call-arg]</span>
         <span class="k">return</span> <span class="n">module</span></div>
 
 
