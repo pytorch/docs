@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="_static/css/jit.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="torch.mps.synchronize" href="generated/torch.mps.synchronize.html" />
+    <link rel="next" title="torch.mps.device_count" href="generated/torch.mps.device_count.html" />
     <link rel="prev" title="Understanding CUDA Memory Usage" href="torch_cuda_memory.html" />
 
 <!--
@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6054789 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita21327e ) &#x25BC</a>
     </div>
     
 
@@ -489,31 +489,34 @@ performance can be achieved, by running work on the metal GPU(s).
 See <a class="reference external" href="https://developer.apple.com/documentation/metalperformanceshaders">https://developer.apple.com/documentation/metalperformanceshaders</a> for more details.</p>
 <table class="autosummary longtable docutils colwidths-auto align-default">
 <tbody>
-<tr class="row-odd"><td><p><p id="torch.mps.synchronize"/><a class="reference internal" href="generated/torch.mps.synchronize.html#torch.mps.synchronize" title="torch.mps.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.device_count"/><a class="reference internal" href="generated/torch.mps.device_count.html#torch.mps.device_count" title="torch.mps.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
+<td><p>Returns the number of available MPS devices.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.mps.synchronize"/><a class="reference internal" href="generated/torch.mps.synchronize.html#torch.mps.synchronize" title="torch.mps.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
 <td><p>Waits for all kernels in all streams on a MPS device to complete.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.get_rng_state"/><a class="reference internal" href="generated/torch.mps.get_rng_state.html#torch.mps.get_rng_state" title="torch.mps.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.get_rng_state"/><a class="reference internal" href="generated/torch.mps.get_rng_state.html#torch.mps.get_rng_state" title="torch.mps.get_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rng_state</span></code></a></p></td>
 <td><p>Returns the random number generator state as a ByteTensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.set_rng_state"/><a class="reference internal" href="generated/torch.mps.set_rng_state.html#torch.mps.set_rng_state" title="torch.mps.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.set_rng_state"/><a class="reference internal" href="generated/torch.mps.set_rng_state.html#torch.mps.set_rng_state" title="torch.mps.set_rng_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rng_state</span></code></a></p></td>
 <td><p>Sets the random number generator state.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.manual_seed"/><a class="reference internal" href="generated/torch.mps.manual_seed.html#torch.mps.manual_seed" title="torch.mps.manual_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.manual_seed"/><a class="reference internal" href="generated/torch.mps.manual_seed.html#torch.mps.manual_seed" title="torch.mps.manual_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_seed</span></code></a></p></td>
 <td><p>Sets the seed for generating random numbers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.seed"/><a class="reference internal" href="generated/torch.mps.seed.html#torch.mps.seed" title="torch.mps.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.seed"/><a class="reference internal" href="generated/torch.mps.seed.html#torch.mps.seed" title="torch.mps.seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seed</span></code></a></p></td>
 <td><p>Sets the seed for generating random numbers to a random number.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.empty_cache"/><a class="reference internal" href="generated/torch.mps.empty_cache.html#torch.mps.empty_cache" title="torch.mps.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.empty_cache"/><a class="reference internal" href="generated/torch.mps.empty_cache.html#torch.mps.empty_cache" title="torch.mps.empty_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_cache</span></code></a></p></td>
 <td><p>Releases all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU applications.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.set_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.mps.set_per_process_memory_fraction.html#torch.mps.set_per_process_memory_fraction" title="torch.mps.set_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_per_process_memory_fraction</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.set_per_process_memory_fraction"/><a class="reference internal" href="generated/torch.mps.set_per_process_memory_fraction.html#torch.mps.set_per_process_memory_fraction" title="torch.mps.set_per_process_memory_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_per_process_memory_fraction</span></code></a></p></td>
 <td><p>Set memory fraction for limiting process's memory allocation on MPS device.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.mps.current_allocated_memory"/><a class="reference internal" href="generated/torch.mps.current_allocated_memory.html#torch.mps.current_allocated_memory" title="torch.mps.current_allocated_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_allocated_memory</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.mps.current_allocated_memory"/><a class="reference internal" href="generated/torch.mps.current_allocated_memory.html#torch.mps.current_allocated_memory" title="torch.mps.current_allocated_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_allocated_memory</span></code></a></p></td>
 <td><p>Returns the current GPU memory occupied by tensors in bytes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.mps.driver_allocated_memory"/><a class="reference internal" href="generated/torch.mps.driver_allocated_memory.html#torch.mps.driver_allocated_memory" title="torch.mps.driver_allocated_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">driver_allocated_memory</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.mps.driver_allocated_memory"/><a class="reference internal" href="generated/torch.mps.driver_allocated_memory.html#torch.mps.driver_allocated_memory" title="torch.mps.driver_allocated_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">driver_allocated_memory</span></code></a></p></td>
 <td><p>Returns total GPU memory allocated by Metal driver for the process in bytes.</p></td>
 </tr>
 </tbody>
@@ -554,7 +557,7 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="generated/torch.mps.synchronize.html" class="btn btn-neutral float-right" title="torch.mps.synchronize" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="generated/torch.mps.device_count.html" class="btn btn-neutral float-right" title="torch.mps.device_count" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
         <a href="torch_cuda_memory.html" class="btn btn-neutral" title="Understanding CUDA Memory Usage" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>

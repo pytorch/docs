@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6054789 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita21327e ) &#x25BC</a>
     </div>
     
 
@@ -484,11 +484,105 @@
   <div class="section" id="module-torch.library">
 <span id="torch-library"></span><h1>torch.library<a class="headerlink" href="#module-torch.library" title="Permalink to this heading">¶</a></h1>
 <p>torch.library is a collection of APIs for extending PyTorch’s core library
-of operators. It contains utilities for creating new custom operators as
-well as extending operators defined with PyTorch’s C++ operator
+of operators. It contains utilities for testing custom operators, creating new
+custom operators, and extending operators defined with PyTorch’s C++ operator
 registration APIs (e.g. aten operators).</p>
 <p>For a detailed guide on effectively using these APIs, please see
 <a class="reference external" href="https://docs.google.com/document/d/1W--T6wz8IY8fOI0Vm8BF44PdBgs283QvpelJZWieQWQ/edit">this gdoc</a></p>
+<div class="section" id="testing-custom-ops">
+<h2>Testing custom ops<a class="headerlink" href="#testing-custom-ops" title="Permalink to this heading">¶</a></h2>
+<p>Use <a class="reference internal" href="#torch.library.opcheck" title="torch.library.opcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.opcheck()</span></code></a> to test custom ops for incorrect usage of the
+Python torch.library and/or C++ TORCH_LIBRARY APIs. Also, if your operator supports
+training, use <a class="reference internal" href="autograd.html#module-torch.autograd.gradcheck" title="torch.autograd.gradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.gradcheck()</span></code></a> to test that the gradients are
+mathematically correct.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.opcheck">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">opcheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_utils</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('test_schema',</span> <span class="pre">'test_autograd_registration',</span> <span class="pre">'test_faketensor',</span> <span class="pre">'test_aot_dispatch_dynamic')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_exception</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#opcheck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.opcheck" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an operator and some sample arguments, tests if the operator is
+registered correctly.</p>
+<p>That is, when you use the torch.library/TORCH_LIBRARY APIs to create a
+custom op, you specified metadata (e.g. mutability info) about the custom op
+and these APIs require that the functions you pass them satisfy certain
+properties (e.g. no data pointer access in the fake/meta/abstract kernel)
+<code class="docutils literal notranslate"><span class="pre">opcheck</span></code> tests these metadata and properties.</p>
+<p>Concretely, we test the following:
+- test_schema: if the operator’s schema is correct.
+- test_autograd_registration: if autograd was registered correctly.
+- test_faketensor: If the operator has a FakeTensor kernel
+(and if it is correct). The FakeTensor kernel is necessary (
+but not sufficient) for the operator to work with PyTorch compilation
+APIs (torch.compile/export/FX).
+- test_aot_dispatch_dynamic: If the operator has correct behavior
+with PyTorch compilation APIs (torch.compile/export/FX).
+This checks that the outputs (and gradients, if applicable) are the
+same under eager-mode PyTorch and torch.compile.
+This test is a superset of <code class="docutils literal notranslate"><span class="pre">test_faketensor</span></code>.</p>
+<p>For best results, please call <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> multiple times with a
+representative set of inputs. If your operator supports
+autograd, please use <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> with inputs with <code class="docutils literal notranslate"><span class="pre">requires_grad</span> <span class="pre">=</span> <span class="pre">True</span></code>;
+if your operator supports multiple devices (e.g. CPU and CUDA), please
+use <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> with inputs on all supported devices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><em>OpOverload</em><em>, </em><em>OpOverloadPacket</em><em>, </em><em>CustomOpDef</em><em>]</em>) – The operator. Must either be a function decorated with
+<a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> or an OpOverload/OpOverloadPacket
+found in torch.ops.* (e.g. torch.ops.aten.sin, torch.ops.mylib.foo)</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>, </em><em>...</em><em>]</em>) – The args to the operator</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – The kwargs to the operator</p></li>
+<li><p><strong>test_utils</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em><em>]</em>) – Tests that we should run. Default: all of them.
+Example: (“test_schema”, “test_faketensor”)</p></li>
+<li><p><strong>raise_exception</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If we should raise an exception on the first
+error. If False, we will return a dict with information
+on if each test passed or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>opcheck and <a class="reference internal" href="autograd.html#module-torch.autograd.gradcheck" title="torch.autograd.gradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.gradcheck()</span></code></a> test different things;
+opcheck tests if your usage of torch.library APIs is correct while
+<a class="reference internal" href="autograd.html#module-torch.autograd.gradcheck" title="torch.autograd.gradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.gradcheck()</span></code></a> tests if your autograd formula is
+mathematically correct. Use both to test custom ops that support
+gradient computation.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_mul&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_add</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">z_np</span> <span class="o">=</span> <span class="n">x_np</span> <span class="o">+</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">z_np</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@numpy_sin</span><span class="o">.</span><span class="n">register_fake</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y</span><span class="p">,</span> <span class="o">=</span> <span class="n">inputs</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ctx</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">ctx</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="kc">None</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numpy_sin</span><span class="o">.</span><span class="n">register_autograd</span><span class="p">(</span><span class="n">backward</span><span class="p">,</span> <span class="n">setup_context</span><span class="o">=</span><span class="n">setup_context</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample_inputs</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mf">3.14</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">),</span> <span class="mf">2.718</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mf">1.234</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mf">90.18</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">args</span> <span class="ow">in</span> <span class="n">sample_inputs</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">opcheck</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
 <div class="section" id="creating-new-custom-ops-in-python">
 <h2>Creating new custom ops in Python<a class="headerlink" href="#creating-new-custom-ops-in-python" title="Permalink to this heading">¶</a></h2>
 <p>Use <a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> to create new custom ops.</p>
@@ -1043,6 +1137,10 @@ if (url)
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
 <li><a class="reference internal" href="#">torch.library</a><ul>
+<li><a class="reference internal" href="#testing-custom-ops">Testing custom ops</a><ul>
+<li><a class="reference internal" href="#torch.library.opcheck"><code class="docutils literal notranslate"><span class="pre">opcheck()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#creating-new-custom-ops-in-python">Creating new custom ops in Python</a><ul>
 <li><a class="reference internal" href="#torch.library.custom_op"><code class="docutils literal notranslate"><span class="pre">custom_op()</span></code></a></li>
 </ul>

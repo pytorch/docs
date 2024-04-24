@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6054789 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita21327e ) &#x25BC</a>
     </div>
     
 
@@ -482,7 +482,7 @@
               
   <h1>Source code for torch.library</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">._ops</span> <span class="kn">import</span> <span class="n">OpOverload</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
@@ -492,7 +492,7 @@
 <span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">torch._library.custom_ops</span> <span class="kn">import</span> <span class="n">custom_op</span><span class="p">,</span> <span class="n">_maybe_get_opdef</span><span class="p">,</span> <span class="n">device_types_t</span>
+<span class="kn">from</span> <span class="nn">torch._library.custom_ops</span> <span class="kn">import</span> <span class="n">custom_op</span><span class="p">,</span> <span class="n">_maybe_get_opdef</span><span class="p">,</span> <span class="n">device_types_t</span><span class="p">,</span> <span class="n">CustomOpDef</span>
 <span class="kn">import</span> <span class="nn">torch._library</span> <span class="k">as</span> <span class="nn">_library</span>
 
 
@@ -1226,6 +1226,107 @@
 <span class="sd">    (see :func:`torch.library.register_fake` for more usage details.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">abstract_impl</span><span class="o">.</span><span class="n">global_ctx_getter</span><span class="p">()</span></div>
+
+
+<span class="n">_OPCHECK_DEFAULT_UTILS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;test_schema&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;test_autograd_registration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;test_faketensor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;test_aot_dispatch_dynamic&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="opcheck"><a class="viewcode-back" href="../../library.html#torch.library.opcheck">[docs]</a><span class="k">def</span> <span class="nf">opcheck</span><span class="p">(</span>
+    <span class="n">op</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OpOverload</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OpOverloadPacket</span><span class="p">,</span> <span class="n">CustomOpDef</span><span class="p">],</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">test_utils</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_OPCHECK_DEFAULT_UTILS</span><span class="p">,</span>
+    <span class="n">raise_exception</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given an operator and some sample arguments, tests if the operator is</span>
+<span class="sd">    registered correctly.</span>
+
+<span class="sd">    That is, when you use the torch.library/TORCH_LIBRARY APIs to create a</span>
+<span class="sd">    custom op, you specified metadata (e.g. mutability info) about the custom op</span>
+<span class="sd">    and these APIs require that the functions you pass them satisfy certain</span>
+<span class="sd">    properties (e.g. no data pointer access in the fake/meta/abstract kernel)</span>
+<span class="sd">    ``opcheck`` tests these metadata and properties.</span>
+
+<span class="sd">    Concretely, we test the following:</span>
+<span class="sd">    - test_schema: if the operator&#39;s schema is correct.</span>
+<span class="sd">    - test_autograd_registration: if autograd was registered correctly.</span>
+<span class="sd">    - test_faketensor: If the operator has a FakeTensor kernel</span>
+<span class="sd">    (and if it is correct). The FakeTensor kernel is necessary (</span>
+<span class="sd">    but not sufficient) for the operator to work with PyTorch compilation</span>
+<span class="sd">    APIs (torch.compile/export/FX).</span>
+<span class="sd">    - test_aot_dispatch_dynamic: If the operator has correct behavior</span>
+<span class="sd">    with PyTorch compilation APIs (torch.compile/export/FX).</span>
+<span class="sd">    This checks that the outputs (and gradients, if applicable) are the</span>
+<span class="sd">    same under eager-mode PyTorch and torch.compile.</span>
+<span class="sd">    This test is a superset of ``test_faketensor``.</span>
+
+<span class="sd">    For best results, please call ``opcheck`` multiple times with a</span>
+<span class="sd">    representative set of inputs. If your operator supports</span>
+<span class="sd">    autograd, please use ``opcheck`` with inputs with ``requires_grad = True``;</span>
+<span class="sd">    if your operator supports multiple devices (e.g. CPU and CUDA), please</span>
+<span class="sd">    use ``opcheck`` with inputs on all supported devices.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        op: The operator. Must either be a function decorated with</span>
+<span class="sd">            :func:`torch.library.custom_op` or an OpOverload/OpOverloadPacket</span>
+<span class="sd">            found in torch.ops.* (e.g. torch.ops.aten.sin, torch.ops.mylib.foo)</span>
+<span class="sd">        args: The args to the operator</span>
+<span class="sd">        kwargs: The kwargs to the operator</span>
+<span class="sd">        test_utils: Tests that we should run. Default: all of them.</span>
+<span class="sd">            Example: (&quot;test_schema&quot;, &quot;test_faketensor&quot;)</span>
+<span class="sd">        raise_exception: If we should raise an exception on the first</span>
+<span class="sd">            error. If False, we will return a dict with information</span>
+<span class="sd">            on if each test passed or not.</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        opcheck and :func:`torch.autograd.gradcheck` test different things;</span>
+<span class="sd">        opcheck tests if your usage of torch.library APIs is correct while</span>
+<span class="sd">        :func:`torch.autograd.gradcheck` tests if your autograd formula is</span>
+<span class="sd">        mathematically correct. Use both to test custom ops that support</span>
+<span class="sd">        gradient computation.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +REQUIRES(env:TORCH_DOCTEST_CUDA)</span>
+<span class="sd">        &gt;&gt;&gt; @torch.library.custom_op(&quot;mylib::numpy_mul&quot;, mutates_args=())</span>
+<span class="sd">        &gt;&gt;&gt; def numpy_add(x: Tensor, y: float) -&gt; Tensor:</span>
+<span class="sd">        &gt;&gt;&gt;     x_np = x.numpy(force=True)</span>
+<span class="sd">        &gt;&gt;&gt;     z_np = x_np + y</span>
+<span class="sd">        &gt;&gt;&gt;     return torch.from_numpy(z_np).to(x.device)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; @numpy_sin.register_fake</span>
+<span class="sd">        &gt;&gt;&gt; def _(x, y):</span>
+<span class="sd">        &gt;&gt;&gt;     return torch.empty_like(x)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; def setup_context(ctx, inputs, output)</span>
+<span class="sd">        &gt;&gt;&gt;     y, = inputs</span>
+<span class="sd">        &gt;&gt;&gt;     ctx.y = y</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; def backward(ctx, grad)</span>
+<span class="sd">        &gt;&gt;&gt;     return grad * ctx.y, None</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; numpy_sin.register_autograd(backward, setup_context=setup_context)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; sample_inputs = [</span>
+<span class="sd">        &gt;&gt;&gt;     (torch.randn(3), 3.14),</span>
+<span class="sd">        &gt;&gt;&gt;     (torch.randn(2, 3, device=&#39;cuda&#39;), 2.718),</span>
+<span class="sd">        &gt;&gt;&gt;     (torch.randn(1, 10, requires_grad=True), 1.234),</span>
+<span class="sd">        &gt;&gt;&gt;     (torch.randn(64, 64, device=&#39;cuda&#39;, requires_grad=True), 90.18),</span>
+<span class="sd">        &gt;&gt;&gt; ]</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; for args in sample_inputs:</span>
+<span class="sd">        &gt;&gt;&gt;     torch.library.opcheck(foo, args)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">torch.testing._internal.optests</span> <span class="k">as</span> <span class="nn">optests</span>
+    <span class="k">return</span> <span class="n">optests</span><span class="o">.</span><span class="n">opcheck</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">test_utils</span><span class="o">=</span><span class="n">test_utils</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="n">raise_exception</span><span class="p">)</span></div>
 </pre></div>
 
              </article>
