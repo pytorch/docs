@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita21327e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
     </div>
     
 
@@ -331,6 +331,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
@@ -637,8 +638,11 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        The canonical FQNs based on the model traversal.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Remove the checkpoint prefix, if it exists.</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">_CHECKPOINT_PREFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">_CHECKPOINT_PREFIX</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">}</span>
 
     <span class="n">obj_names</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="n">fqn_obj_names</span> <span class="o">=</span> <span class="p">[]</span>
@@ -655,8 +659,6 @@
                 <span class="n">flat_param</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">FLAT_PARAM</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">prefix</span><span class="p">:</span>
                     <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">.&quot;</span>
-                <span class="c1"># FSDP already handles removal of checkpoint prefix, so we can return</span>
-                <span class="c1"># directly</span>
                 <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">fqn</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">flat_param</span><span class="o">.</span><span class="n">_fqns</span><span class="p">}</span>
             <span class="n">curr_obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">FSDP_WRAPPED_MODULE</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">curr_obj_name</span> <span class="o">!=</span> <span class="n">FSDP_WRAPPED_MODULE</span><span class="p">:</span>
