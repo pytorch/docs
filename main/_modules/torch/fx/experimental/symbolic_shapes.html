@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -331,7 +331,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
@@ -581,7 +580,7 @@
     <span class="s2">&quot;StatefulSymbolicContext&quot;</span><span class="p">,</span> <span class="s2">&quot;SubclassSymbolicContext&quot;</span><span class="p">,</span> <span class="s2">&quot;statically_known_true&quot;</span><span class="p">,</span>
     <span class="s2">&quot;guard_size_oblivious&quot;</span><span class="p">,</span> <span class="s2">&quot;check_consistent&quot;</span><span class="p">,</span>
     <span class="s2">&quot;compute_unbacked_bindings&quot;</span><span class="p">,</span> <span class="s2">&quot;ConvertIntKey&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;rebind_unbacked&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rebind_unbacked&quot;</span><span class="p">,</span> <span class="s2">&quot;resolve_unbacked_bindings&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="c1"># FX node metadata keys for symbolic shape FX graph.</span>
@@ -750,6 +749,14 @@
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">scalar_types</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">new</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">old</span> <span class="o">==</span> <span class="n">new</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">new</span><span class="si">}</span><span class="s2"> (old != new)&quot;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="resolve_unbacked_bindings"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.html#torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings">[docs]</a><span class="k">def</span> <span class="nf">resolve_unbacked_bindings</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">bindings</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">bindings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="n">shape_env</span><span class="o">.</span><span class="n">unbacked_renamings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span> <span class="n">v</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bindings</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span></div>
+
 <div class="viewcode-block" id="rebind_unbacked"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.rebind_unbacked.html#torch.fx.experimental.symbolic_shapes.rebind_unbacked">[docs]</a><span class="k">def</span> <span class="nf">rebind_unbacked</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Suppose we are retracing a pre-existing FX graph that previously had</span>
@@ -760,18 +767,45 @@
 <span class="sd">    has the old binding information) and the new result (which we can extract the</span>
 <span class="sd">    new unbacked SymInts out from).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">bindings</span> <span class="o">:=</span> <span class="n">n</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;unbacked_bindings&quot;</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">torch._dynamo.tensor_version_op</span> <span class="kn">import</span> <span class="n">_tensor_version</span>
+
+    <span class="c1"># Inputs never need rebinding</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">bindings</span> <span class="o">:=</span> <span class="n">resolve_unbacked_bindings</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;unbacked_bindings&quot;</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">raw_u0</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">bindings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">u1</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">key_get</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-            <span class="c1"># We should never have bindings for raw bools; instead they should</span>
-            <span class="c1"># have been converted to ints via ConvertIntKey</span>
-            <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">u1</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">bool</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
-                <span class="n">raw_u1</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">u1</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">raw_u1</span> <span class="o">=</span> <span class="n">u1</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span>
-            <span class="c1"># TODO: replace with rename unbacked to</span>
-            <span class="n">shape_env</span><span class="o">.</span><span class="n">defer_runtime_assert</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">raw_u0</span><span class="p">,</span> <span class="n">raw_u1</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+            <span class="c1"># tensor_version ops get specialized after AOTAutograd, it&#39;s OK,</span>
+            <span class="c1"># we don&#39;t actually want to do asserts on them.  This is all a bit</span>
+            <span class="c1"># questionable though</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">n</span><span class="o">.</span><span class="n">target</span> <span class="ow">is</span> <span class="n">_tensor_version</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;rebind_unbacked: discard _tensor_version </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">raw_u0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">u1</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">raw_u1</span> <span class="o">=</span> <span class="n">u1</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span>
+            <span class="c1"># Simplify SymBool binding</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_u1</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Piecewise</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span>
+                <span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">eq</span> <span class="o">:=</span> <span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_raw_u1</span> <span class="o">:=</span> <span class="n">eq</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">new_raw_u1</span><span class="p">]</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">ValueRanges</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="ow">and</span>
+                <span class="n">eq</span><span class="o">.</span><span class="n">rhs</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span>
+                <span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="c1"># This is what the pattern match above is testing</span>
+                <span class="n">repacked</span> <span class="o">=</span> <span class="n">_sympy_cast_symbool_to_symint_guardless</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">new_raw_u1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="k">assert</span> <span class="n">repacked</span> <span class="o">==</span> <span class="n">raw_u1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">repacked</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">raw_u1</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="c1"># Cancel the to_int(to_bool(x)). This is sound because x in</span>
+                <span class="c1"># [0, 1]</span>
+                <span class="n">raw_u1</span> <span class="o">=</span> <span class="n">new_raw_u1</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_u1</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+            <span class="c1"># The old and new could be the same if you improperly hit the memo</span>
+            <span class="c1"># while retracing.  Make sure you updated FakeTensorMode.epoch</span>
+            <span class="k">assert</span> <span class="n">raw_u0</span> <span class="o">!=</span> <span class="n">raw_u1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_u0</span><span class="si">}</span><span class="s2"> possible memo disaster&quot;</span>
+            <span class="c1"># Reuse the OLD symbol name</span>
+            <span class="n">shape_env</span><span class="o">.</span><span class="n">_rename_unbacked_to</span><span class="p">(</span><span class="n">raw_u1</span><span class="p">,</span> <span class="n">raw_u0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="canonicalize_bool_expr"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr.html#torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr">[docs]</a><span class="k">def</span> <span class="nf">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SympyBoolean</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Canonicalize a boolean expression by transforming it into a lt / le</span>
@@ -933,7 +967,19 @@
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)()</span></div></div>
 
 
-<div class="viewcode-block" id="compute_unbacked_bindings"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings.html#torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings">[docs]</a><span class="k">def</span> <span class="nf">compute_unbacked_bindings</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">example_value</span><span class="p">):</span>
+<div class="viewcode-block" id="DivideByKey"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html#torch.fx.experimental.symbolic_shapes.DivideByKey">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DivideByKey</span><span class="p">:</span>
+    <span class="n">divisor</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;.__floordiv__(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">divisor</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+<div class="viewcode-block" id="DivideByKey.get"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html#torch.fx.experimental.symbolic_shapes.DivideByKey.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Divide object by divisor&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">o</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">divisor</span></div></div>
+
+
+<div class="viewcode-block" id="compute_unbacked_bindings"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings.html#torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings">[docs]</a><span class="k">def</span> <span class="nf">compute_unbacked_bindings</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">example_value</span><span class="p">,</span> <span class="n">old_example_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    After having run fake tensor propagation and producing example_value</span>
 <span class="sd">    result, traverse example_value looking for freshly bound unbacked</span>
@@ -943,9 +989,13 @@
 <span class="sd">    function, you must call this on the tuple of tensor output, you</span>
 <span class="sd">    cannot wait!)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">pending</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">shape_env</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_tls</span><span class="p">():</span>
+        <span class="k">return</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span>
+    <span class="n">pending</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">pending</span><span class="p">:</span>
-        <span class="n">shape_env</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;compute_unbacked_bindings </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+        <span class="n">fs</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="k">def</span> <span class="nf">free_unbacked_symbols_with_path</span><span class="p">(</span>
             <span class="n">a</span><span class="p">,</span> <span class="n">path</span>
@@ -984,6 +1034,22 @@
             <span class="p">):</span>
                 <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
                 <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="c1"># When an unbacked SymInt is perfectly divisible by an integer</span>
+            <span class="c1"># constant, we replace it with the integer constant to improve</span>
+            <span class="c1"># reasoning capabilities.  However, in synthetic examples, it is</span>
+            <span class="c1"># then possible that the factor never is explicitly allocated.</span>
+            <span class="c1"># Fortunately, we can compute it by division.</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span> <span class="o">:=</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+                <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span> <span class="o">:=</span> <span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span> <span class="o">:=</span> <span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">rhs</span> <span class="ow">in</span> <span class="n">pending</span>
+            <span class="p">):</span>
+                <span class="c1"># TODO: DivideByKey needs to test divisibility at runtime!</span>
+                <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">DivideByKey</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">lhs</span><span class="p">)),)</span>
+                <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span>
             <span class="c1"># The annoyance here arises from the fact that SymBool is</span>
             <span class="c1"># allocated by allocating a SymInt and then testing if it&#39;s equal</span>
             <span class="c1"># to one.  So you have a complicated binding site logic for this.</span>
@@ -1001,7 +1067,32 @@
             <span class="k">return</span> <span class="n">r</span>
 
         <span class="n">symbol_to_path</span> <span class="o">=</span> <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="p">())</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="n">pending</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;pending </span><span class="si">{</span><span class="n">pending</span><span class="si">}</span><span class="s2"> not in </span><span class="si">{</span><span class="n">example_value</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">pending</span><span class="p">,</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;pending </span><span class="si">{</span><span class="n">pending</span><span class="si">}</span><span class="s2"> not in </span><span class="si">{</span><span class="n">example_value</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="o">+</span>
+            <span class="p">(</span>
+                <span class="nb">repr</span><span class="p">((</span><span class="n">example_value</span><span class="o">.</span><span class="n">stride</span><span class="p">(),</span> <span class="n">example_value</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">()))</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+                <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># TODO: This is pretty fragile</span>
+        <span class="c1"># Normally, the equality test is supposed to be a no-op here, because</span>
+        <span class="c1"># you&#39;ve already called rebind_unbacked first which takes all the old</span>
+        <span class="c1"># binding sites and discovers how they are newly bound.  But this does</span>
+        <span class="c1"># not always work.  For example, if the original FX node wasn&#39;t a</span>
+        <span class="c1"># binding site because you had a memo hit, but post translation you</span>
+        <span class="c1"># aren&#39;t a memo hit anymore, there&#39;s now a new binding site... but we</span>
+        <span class="c1"># know (because it&#39;s the same FX node) that the value is actually the</span>
+        <span class="c1"># same, they&#39;re just not obviously equal anymore.  So we just insert</span>
+        <span class="c1"># a runtime assert in this case.</span>
+        <span class="c1">#</span>
+        <span class="c1"># This is very fragile, because u0 == u1 assertion does not generate</span>
+        <span class="c1"># a replacement.  Here, I think it might be acceptable to do a</span>
+        <span class="c1"># replacement, so long as we replace the newer thing with the older</span>
+        <span class="c1"># thing.  Fix this if it becomes an issue.</span>
+        <span class="k">if</span> <span class="n">old_example_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">keypath</span> <span class="ow">in</span> <span class="n">symbol_to_path</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">pytree</span><span class="o">.</span><span class="n">key_get</span><span class="p">(</span><span class="n">old_example_value</span><span class="p">,</span> <span class="n">keypath</span><span class="p">)</span> <span class="o">==</span> <span class="n">pytree</span><span class="o">.</span><span class="n">key_get</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="n">keypath</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">symbol_to_path</span></div>
 
 <div class="viewcode-block" id="definitely_true"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.definitely_true.html#torch.fx.experimental.symbolic_shapes.definitely_true">[docs]</a><span class="k">def</span> <span class="nf">definitely_true</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
@@ -1117,10 +1208,6 @@
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unrecognized scalar </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_constrain_symbol_range</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">compiler_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">compiler_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="n">shape_env</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">compiler_min</span><span class="p">,</span> <span class="n">compiler_max</span><span class="p">)</span>
-
-
 <span class="k">def</span> <span class="nf">_advise_is_size</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Don&#39;t use this directly; use torch._check_is_size instead.</span>
@@ -1162,7 +1249,6 @@
     <span class="p">):</span>
         <span class="n">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
-<span class="nd">@record_shapeenv_event</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function is NOT INTENDED to be used by itself.</span>
@@ -1174,28 +1260,11 @@
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">),</span> <span class="s2">&quot;can only constrain range for SymInt&quot;</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
 
-    <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">min</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">max</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
-
-    <span class="k">if</span> <span class="nb">max</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Maximum value to constrain_as_size can&#39;t be less than the specified min value, &quot;</span>
-            <span class="s2">&quot;received min=</span><span class="si">{min}</span><span class="s2"> and max=</span><span class="si">{max}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-
-    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span>
-        <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
-        <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">size_like</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span>
 
 
 <span class="c1"># inclusive both ways</span>
-<div class="viewcode-block" id="constrain_range"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_range.html#torch.fx.experimental.symbolic_shapes.constrain_range">[docs]</a><span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">constrain_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="constrain_range"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_range.html#torch.fx.experimental.symbolic_shapes.constrain_range">[docs]</a><span class="k">def</span> <span class="nf">constrain_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Applies a constraint that the passed in SymInt must lie between min-max</span>
 <span class="sd">    inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning</span>
@@ -1236,54 +1305,24 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">min</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ValueRangeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span></div>
 
-    <span class="c1"># TODO: Shouldn&#39;t we install a guard if the symbol is backed?  Or is the</span>
-    <span class="c1"># semantics that this is an &quot;unchecked&quot; assert (but it this actually</span>
-    <span class="c1"># something useful?  Might be better to restrict only for unbacked</span>
-    <span class="c1"># SymInt).</span>
-    <span class="n">_constrain_symbol_range</span><span class="p">(</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="p">,</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span>
-        <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
-        <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
-    <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="constrain_unify"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_unify.html#torch.fx.experimental.symbolic_shapes.constrain_unify">[docs]</a><span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="viewcode-block" id="constrain_unify"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_unify.html#torch.fx.experimental.symbolic_shapes.constrain_unify">[docs]</a><span class="k">def</span> <span class="nf">constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given two SymInts, constrain them so that they must be equal.  NB:</span>
 <span class="sd">    this will not work with SymInts that represent nontrivial expressions</span>
 <span class="sd">    (yet!)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: this does not install a deferred runtime assert yet</span>
-
-    <span class="c1"># TODO: Maybe dedupe this with _maybe_guard_rel?</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
             <span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+            <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
             <span class="n">shape_env</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
-            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># TODO: Actually, we can support this as long as one of them is a symbol.</span>
-        <span class="c1"># NB: We can&#39;t actually do &quot;unification&quot; as our operators are not</span>
-        <span class="c1"># injective</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
         <span class="n">shape_env</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
-            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
-            <span class="n">new_var</span> <span class="o">=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
-            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_var</span></div>
+
+    <span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
 
 <span class="c1"># Assume that a boolean is true for the purposes of subsequent symbolic</span>
 <span class="c1"># reasoning.  This will keep track of corresponding runtime checks to verify</span>
@@ -1735,8 +1774,12 @@
     <span class="k">return</span> <span class="kc">True</span>
 
 
+<span class="k">def</span> <span class="nf">_sympy_cast_symbool_to_symint_guardless</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Piecewise</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+
+
 <span class="k">def</span> <span class="nf">cast_symbool_to_symint_guardless</span><span class="p">(</span><span class="n">symbool</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymBool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">:</span>
-    <span class="n">int_sym</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Piecewise</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">symbool</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+    <span class="n">int_sym</span> <span class="o">=</span> <span class="n">_sympy_cast_symbool_to_symint_guardless</span><span class="p">(</span><span class="n">symbool</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">symbool</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">create_symintnode</span><span class="p">(</span><span class="n">int_sym</span><span class="p">,</span> <span class="n">hint</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">symbool</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">require_hint</span><span class="p">())</span> <span class="k">if</span> <span class="n">has_hint</span><span class="p">(</span><span class="n">symbool</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
 
 <span class="n">SYMPY_INTERP</span> <span class="o">=</span> <span class="p">{</span>
@@ -2620,6 +2663,7 @@
         <span class="c1"># Maps from sympy ints to expressions representing them</span>
         <span class="c1"># Populated from equality guards (i.e. a.shape[0] == b.shape[0])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_renamings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Set holds a % b expressions that evaluate to 0.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">divisible</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="c1"># Set that holds &quot;size-like&quot; symbols.  When we perform</span>
@@ -2840,6 +2884,117 @@
             <span class="k">yield</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">is_recording</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Unlike set_replacement, this records a shapeenv event</span>
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_rename_unbacked_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orig_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">new_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orig_s</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="n">orig_s</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_s</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="n">new_s</span>
+        <span class="k">assert</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">new_s</span><span class="p">),</span> <span class="n">new_s</span>
+        <span class="k">assert</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">orig_s</span><span class="p">),</span> <span class="n">orig_s</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_tls</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="n">dest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">orig_s</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">dest</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">orig_s</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">orig_s</span><span class="p">,</span> <span class="n">new_s</span><span class="p">,</span> <span class="s2">&quot;rename_unbacked_to&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_renamings</span><span class="p">[</span><span class="n">orig_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_s</span>
+        <span class="k">if</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">new_s</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="s2">&quot;rename_unbacked_to_dest&quot;</span><span class="p">)</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_constrain_range_for_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">min</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">max</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="nb">max</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Maximum value to constrain_as_size can&#39;t be less than the specified min value, &quot;</span>
+                <span class="s2">&quot;received min=</span><span class="si">{min}</span><span class="s2"> and max=</span><span class="si">{max}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
+            <span class="n">a</span><span class="p">,</span>
+            <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
+            <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_constrain_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">min</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">ValueRangeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+
+        <span class="c1"># TODO: Shouldn&#39;t we install a guard if the symbol is backed?  Or is the</span>
+        <span class="c1"># semantics that this is an &quot;unchecked&quot; assert (but it this actually</span>
+        <span class="c1"># something useful?  Might be better to restrict only for unbacked</span>
+        <span class="c1"># SymInt).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
+            <span class="n">a</span><span class="p">,</span>
+            <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
+            <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_constrain_unify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given two SymInts, constrain them so that they must be equal.  NB:</span>
+<span class="sd">        this will not work with SymInts that represent nontrivial expressions</span>
+<span class="sd">        (yet!)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: this does not install a deferred runtime assert yet</span>
+
+        <span class="c1"># TODO: Maybe dedupe this with _maybe_guard_rel?</span>
+        <span class="c1"># Update Feb 2024: this is extra important to do, this doesn&#39;t handle</span>
+        <span class="c1"># unbacked replacements properly nor does it generate deferred runtime</span>
+        <span class="c1"># asserts</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+                <span class="k">assert</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="bp">self</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># TODO: Actually, we can support this as long as one of them is a symbol.</span>
+            <span class="c1"># NB: We can&#39;t actually do &quot;unification&quot; as our operators are not</span>
+            <span class="c1"># injective</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+            <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="bp">self</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+                <span class="n">new_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_var</span>
+
+    <span class="k">def</span> <span class="nf">_ignore_fresh_unbacked_symbols_tls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">TLS</span><span class="p">,</span> <span class="s2">&quot;ignore_fresh_unbacked_symbols&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_ignore_fresh_unbacked_symbols_enter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">TLS</span><span class="o">.</span><span class="n">ignore_fresh_unbacked_symbols</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_ignore_fresh_unbacked_symbols_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">TLS</span><span class="o">.</span><span class="n">ignore_fresh_unbacked_symbols</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="ShapeEnv.ignore_fresh_unbacked_symbols"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">ignore_fresh_unbacked_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Indicates that the newly allocated unbacked SymInts are being</span>
+<span class="sd">        discarded</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_enter</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_exit</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="ShapeEnv.freeze"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze">[docs]</a>    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">freeze</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -3268,7 +3423,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">symbol</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unbacked_symfloat_counter</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">[</span><span class="s2">&quot;create_unbacked_symbol&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_tls</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="o">.</span><span class="n">unknown</span><span class="p">()</span>
 
@@ -3284,7 +3440,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a symbolic integer without a hint value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">symbol</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;u</span><span class="si">{</span><span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unbacked_symint_counter</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_tls</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">[</span><span class="s2">&quot;create_unbacked_symbol&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_unspecified_value_range</span><span class="p">()</span>
@@ -3307,7 +3464,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a symbolic boolean without a hint value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">symbol</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;u</span><span class="si">{</span><span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unbacked_symint_counter</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_tls</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">[</span><span class="s2">&quot;create_unbacked_symbol&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -4681,31 +4839,32 @@
                 <span class="n">floor_div_atoms</span> <span class="o">=</span> <span class="n">lhs</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">rhs</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">))</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">floor_div_atoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">divisor</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">floor_div_atoms</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-                <span class="c1"># short-circuit when no solving is needed</span>
-
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="ow">and</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">lhs</span><span class="p">):</span>
+                <span class="c1"># Never replace unbacked symbols with other unbacked symbols.</span>
+                <span class="c1"># This is error prone because you can cause references to</span>
+                <span class="c1"># unbacked symbols to time travel backwards.  E.g.,</span>
+                <span class="c1">#</span>
+                <span class="c1"># u1 = x.item()</span>
+                <span class="c1"># ... use of u1 ...</span>
+                <span class="c1"># u2 = y.item()</span>
+                <span class="c1"># u3 = z.item()</span>
+                <span class="c1"># torch._check(u1 == u2 + u3)</span>
+                <span class="c1">#</span>
+                <span class="c1"># If you replace u1 with u2 + u3, then the use of u1 now</span>
+                <span class="c1"># references u2 and u3 prior to them actually being bound at</span>
+                <span class="c1"># runtime.  It&#39;s pretty inconvenient to setup control</span>
+                <span class="c1"># dependencies for substitutions, so ban it entirely.</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="ow">and</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">lhs</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">rhs</span><span class="p">):</span>
+                    <span class="c1"># short-circuit when no solving is needed</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">rhs</span><span class="p">),</span> <span class="s2">&quot;trivial_lhs&quot;</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="ow">and</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">rhs</span><span class="p">):</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="ow">and</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">lhs</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">lhs</span><span class="p">),</span> <span class="s2">&quot;trivial_rhs&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">r</span> <span class="o">=</span> <span class="n">try_solve</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">free</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">floordiv_inequality</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">is_integer</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sympy</span><span class="o">.</span><span class="n">preorder_traversal</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
                         <span class="n">new_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                        <span class="n">ok</span> <span class="o">=</span> <span class="kc">False</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_unbacked_symint</span><span class="p">(</span><span class="n">free</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                            <span class="c1"># If you have i0 + i1 + i2 = s0, don&#39;t substitute i2 =</span>
-                            <span class="c1"># s0 - i0 - i1.  Arguably this should be OK but the</span>
-                            <span class="c1"># runtime assert machinery is very delicate right now</span>
-                            <span class="c1"># so this causes things to fail e.g.,</span>
-                            <span class="c1"># test_split_unbacked_sizes</span>
-                            <span class="n">ok</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">new_var</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">1</span>
-                            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;solve_unbacked&quot;</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="c1"># Never substitute backed with unbacked</span>
-                            <span class="n">ok</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">new_var</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
-                            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;solve_backed&quot;</span>
+                        <span class="n">ok</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">new_var</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
                         <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">free</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">new_var</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">free</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">new_var</span><span class="p">,</span> <span class="s2">&quot;solve&quot;</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
                 <span class="k">pass</span>
         <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">Mod</span><span class="p">):</span>
@@ -5181,6 +5340,17 @@
 <span class="c1"># WARNING: This is legacy, DO NOT USE</span>
 <span class="k">def</span> <span class="nf">_is_dim_dynamic</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;_dynamo_dynamic_indices&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">_dynamo_dynamic_indices</span>
+
+<div class="viewcode-block" id="PropagateUnbackedSymInts"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts">[docs]</a><span class="k">class</span> <span class="nc">PropagateUnbackedSymInts</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Interpreter</span><span class="p">):</span>
+<div class="viewcode-block" id="PropagateUnbackedSymInts.run_node"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node">[docs]</a>    <span class="k">def</span> <span class="nf">run_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run an FX node, propagating unbacked Symbol bindings to the new fake tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">torch._guards</span> <span class="kn">import</span> <span class="n">detect_fake_mode</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run_node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">rebind_unbacked</span><span class="p">(</span><span class="n">detect_fake_mode</span><span class="p">()</span><span class="o">.</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
 </pre></div>
 
              </article>

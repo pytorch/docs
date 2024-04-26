@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -331,7 +331,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../export.html">torch.export</a></li>
@@ -491,10 +490,9 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">FakeTensor</span>
 <span class="kn">from</span> <span class="nn">torch.utils._pytree</span> <span class="kn">import</span> <span class="n">SUPPORTED_NODES</span>
 
 <span class="kn">from</span> <span class="nn">.exported_program</span> <span class="kn">import</span> <span class="n">ExportedProgram</span>
@@ -1046,7 +1044,6 @@
     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]]:</span>
-    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
     <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 
     <span class="kn">from</span> <span class="nn">torch._dynamo.exc</span> <span class="kn">import</span> <span class="n">UserError</span><span class="p">,</span> <span class="n">UserErrorType</span>
@@ -1296,109 +1293,6 @@
                 <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">primary</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">constraints</span>  <span class="c1"># type: ignore[return-value]</span>
-
-
-<span class="k">def</span> <span class="nf">_process_constraints</span><span class="p">(</span>
-    <span class="n">fake_mode</span><span class="p">,</span>
-    <span class="n">graph_module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span>
-    <span class="n">num_lifted_params_buffers</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">example_inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Process the constraints stored in the graph module to return something more readable.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        graph_module (torch.fx.GraphModule): GraphModule returned from</span>
-<span class="sd">            dynamo.export, which contains the &quot;input_shape_constraints&quot; and</span>
-<span class="sd">            &quot;inline_constraints&quot; metadata</span>
-
-<span class="sd">        example_inputs: Flattened list of example inputs used to export the graph module</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        range_constraints (Dict[sympy.Symbol, ValueRanges]): Mapping of</span>
-<span class="sd">            symbols (from SymInts) appearing in the fake tensors in</span>
-<span class="sd">            node.meta[&quot;val&quot;] to their range constraints, which are a tuple</span>
-<span class="sd">            containing (lower, upper) constraints.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">torch._export.passes.add_runtime_assertions_for_constraints_pass</span> <span class="kn">import</span> <span class="p">(</span>
-        <span class="n">InputDim</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Import sympy locally</span>
-    <span class="kn">from</span> <span class="nn">torch.fx.experimental.symbolic_shapes</span> <span class="kn">import</span> <span class="n">SymInt</span>
-    <span class="kn">from</span> <span class="nn">torch.utils._sympy.value_ranges</span> <span class="kn">import</span> <span class="n">ValueRanges</span>
-
-    <span class="n">input_shape_constraints</span> <span class="o">=</span> <span class="n">graph_module</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;input_shape_constraints&quot;</span><span class="p">,</span> <span class="p">[])</span>
-    <span class="n">inline_constraints</span> <span class="o">=</span> <span class="n">graph_module</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;inline_constraints&quot;</span><span class="p">,</span> <span class="p">[])</span>
-
-    <span class="c1"># Create dict mapping tensor_id to node names</span>
-    <span class="n">tensor_id_to_nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-    <span class="c1"># Create dict mapping placeholder node names to their nodes</span>
-    <span class="n">placeholder_nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">graph_module</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">!=</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
-            <span class="c1"># All placeholder nodes should be together in the beginning of the</span>
-            <span class="c1"># graph</span>
-            <span class="k">break</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">num_lifted_params_buffers</span><span class="p">:</span>
-            <span class="n">example_input</span> <span class="o">=</span> <span class="n">example_inputs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">num_lifted_params_buffers</span><span class="p">]</span>
-            <span class="n">tensor_id_to_nodes</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">example_input</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">placeholder_nodes</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
-
-    <span class="c1"># Create dict mapping (node name, dim) a list of range (lower, upper)</span>
-    <span class="c1"># constraints</span>
-    <span class="n">multi_range_constraints</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">InputDim</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ValueRanges</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="n">input_shape_constraints</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">tensor_id_to_nodes</span><span class="p">[</span><span class="n">constraint</span><span class="p">[</span><span class="s2">&quot;t_id&quot;</span><span class="p">]]:</span>
-            <span class="c1"># skip static shape constraints</span>
-            <span class="k">if</span> <span class="n">constraint</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">constraint</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">]:</span>
-                <span class="k">continue</span>
-            <span class="n">node_dim</span> <span class="o">=</span> <span class="n">InputDim</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">constraint</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">])</span>
-
-            <span class="c1"># Accumulate range constraints</span>
-            <span class="n">multi_range_constraints</span><span class="p">[</span><span class="n">node_dim</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">ValueRanges</span><span class="p">(</span><span class="n">constraint</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">],</span> <span class="n">constraint</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">])</span>
-            <span class="p">)</span>
-
-    <span class="c1"># Create dict mapping symbol to a singular range (lower, upper)</span>
-    <span class="n">range_constraints</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="c1"># Add inline constraints to range_constraints</span>
-    <span class="n">range_constraints</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">symbol</span><span class="p">:</span> <span class="n">inline_constraints</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">inline_constraints</span>
-    <span class="p">}</span>
-
-    <span class="n">free_symbols</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Symbol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="c1"># Add input range constraints to range_constraints</span>
-    <span class="k">for</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">multi_range_constraint</span> <span class="ow">in</span> <span class="n">multi_range_constraints</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># type: ignore[assignment]</span>
-        <span class="c1"># Simplify the range constraints into a single range constraint</span>
-        <span class="c1"># Ex. ranges [2, 10] and [3, 11] would get merged to [3, 10]</span>
-        <span class="n">min_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">rc</span><span class="o">.</span><span class="n">lower</span> <span class="k">for</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">multi_range_constraint</span><span class="p">]</span>
-        <span class="n">max_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">rc</span><span class="o">.</span><span class="n">upper</span> <span class="k">for</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">multi_range_constraint</span><span class="p">]</span>
-        <span class="n">min_val</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">min_vals</span><span class="p">)</span>  <span class="c1"># type: ignore[type-var]</span>
-        <span class="n">max_val</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">max_vals</span><span class="p">)</span>  <span class="c1"># type: ignore[type-var]</span>
-        <span class="k">assert</span> <span class="n">min_val</span> <span class="o">&lt;=</span> <span class="n">max_val</span>  <span class="c1"># type: ignore[operator]</span>
-
-        <span class="c1"># Add input node range constraints</span>
-        <span class="n">val</span> <span class="o">=</span> <span class="n">placeholder_nodes</span><span class="p">[</span><span class="n">input_dim</span><span class="o">.</span><span class="n">input_name</span><span class="p">]</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">FakeTensor</span><span class="p">)</span>
-        <span class="n">symint</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">input_dim</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">symint</span><span class="p">,</span> <span class="n">SymInt</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Expected SymInt but got </span><span class="si">{</span><span class="n">symint</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">symint</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">symbol</span> <span class="o">=</span> <span class="n">symint</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span>
-        <span class="n">range_constraints</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
-        <span class="n">free_symbols</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">symbol</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">free_symbols</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">symbol</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">range_constraints</span><span class="p">:</span>
-            <span class="c1"># Placeholders can have symbolic shapes that are derived expressions.</span>
-            <span class="c1"># The above code will record direct range constraints for them</span>
-            <span class="c1"># so that we can do runtime assertions. In addition, for serde checks</span>
-            <span class="c1"># we want to record range constraints for their root symbols.</span>
-            <span class="n">range_constraints</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">fake_mode</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">range_constraints</span>
 </pre></div>
 
              </article>

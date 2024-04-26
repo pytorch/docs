@@ -1,12 +1,12 @@
 ﻿.. role:: hidden
     :class: hidden-section
-.. currentmodule:: torch.mtia
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
 
 
-device
-======
+PropagateUnbackedSymInts
+========================
 
-.. autoclass:: device
+.. autoclass:: PropagateUnbackedSymInts
     :inherited-members:
     :members:
 

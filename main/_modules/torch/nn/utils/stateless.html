@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -331,7 +331,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
@@ -577,6 +576,7 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">tie_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">stack_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="kc">None</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">tie_weights</span><span class="p">:</span>
         <span class="n">untied_parameters_and_buffers</span> <span class="o">=</span> <span class="n">_untie_named_tensors_map</span><span class="p">(</span>
@@ -611,6 +611,11 @@
         <span class="p">)</span>
         <span class="k">yield</span>
     <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stack_weights</span><span class="p">:</span>
+            <span class="c1"># When stacking is enabled, we will restore the weights in LIFO order.</span>
+            <span class="n">orig_parameters_and_buffers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="nb">reversed</span><span class="p">(</span><span class="n">orig_parameters_and_buffers</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+            <span class="p">)</span>
         <span class="n">new_parameters_and_buffers</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">accessor</span><span class="o">.</span><span class="n">swap_tensors_dict</span><span class="p">(</span>
             <span class="n">orig_parameters_and_buffers</span><span class="p">,</span> <span class="n">allow_missing</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>

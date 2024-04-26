@@ -9,14 +9,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>torch.mtia &mdash; PyTorch main documentation</title>
+  <title>torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings &mdash; PyTorch main documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://pytorch.org/docs/stable/mtia.html"/>
+    <link rel="canonical" href="https://pytorch.org/docs/stable/generated/torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.html"/>
   
 
   
@@ -27,21 +27,21 @@
 
   
 
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
-  <link rel="stylesheet" href="_static/sphinx-dropdown.css" type="text/css" />
-  <link rel="stylesheet" href="_static/panels-bootstrap.min.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/jit.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="StreamContext" href="generated/torch.mtia.StreamContext.html" />
-    <link rel="prev" title="Stream" href="generated/torch.xpu.Stream.html" />
+  <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx-dropdown.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/panels-bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/jit.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="torch.hub" href="../hub.html" />
+    <link rel="prev" title="torch.fx.experimental.symbolic_shapes.rebind_unbacked" href="torch.fx.experimental.symbolic_shapes.rebind_unbacked.html" />
 
 <!--
   Search engines should not index the main version of documentation.
@@ -61,16 +61,16 @@
 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
   <!-- Preload the theme fonts -->
 
-<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
 <!-- Preload the katex fonts -->
 
@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -252,7 +252,7 @@
 
 
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search Docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -264,7 +264,7 @@
           
 
 <div>
-  <a style="color:#F05732" href="https://pytorch.org/docs/stable/mtia.html">
+  <a style="color:#F05732" href="https://pytorch.org/docs/stable/generated/torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.html">
     You are viewing unstable developer preview docs.
     Click here to view docs for latest stable release.
   </a>
@@ -278,122 +278,121 @@
             
               <p class="caption" role="heading"><span class="caption-text">Community</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="community/contribution_guide.html">PyTorch Contribution Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="community/design.html">PyTorch Design Philosophy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="community/governance.html">PyTorch Governance | Mechanics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community/contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community/design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community/governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="notes/amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/autograd.html">Autograd mechanics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/broadcasting.html">Broadcasting semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/cuda.html">CUDA semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/ddp.html">Distributed Data Parallel</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/fsdp.html">FSDP Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/modules.html">Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/mps.html">MPS backend</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/multiprocessing.html">Multiprocessing best practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/numerical_accuracy.html">Numerical accuracy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/randomness.html">Reproducibility</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/serialization.html">Serialization semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notes/windows.html">Windows FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/mps.html">MPS backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/windows.html">Windows FAQ</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="cpp_index.html">C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_index.html">C++</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploy.html">torch::deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy.html">torch::deploy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="torch.html">torch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.html">torch.nn</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.functional.html">torch.nn.functional</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tensors.html">torch.Tensor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tensor_attributes.html">Tensor Attributes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tensor_view.html">Tensor Views</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amp.html">torch.amp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="autograd.html">torch.autograd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="library.html">torch.library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cpu.html">torch.cpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cuda.html">torch.cuda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">torch.mtia</a></li>
-<li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
-<li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fsdp.html">torch.distributed.fsdp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.optim.html">torch.distributed.optim</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="torch.compiler.html">torch.compiler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fft.html">torch.fft</a></li>
-<li class="toctree-l1"><a class="reference internal" href="func.html">torch.func</a></li>
-<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fx.html">torch.fx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linalg.html">torch.linalg</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monitor.html">torch.monitor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="signal.html">torch.signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="special.html">torch.special</a></li>
-<li class="toctree-l1"><a class="reference internal" href="torch.overrides.html">torch.overrides</a></li>
-<li class="toctree-l1"><a class="reference internal" href="package.html">torch.package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="profiler.html">torch.profiler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nn.attention.html">torch.nn.attention</a></li>
-<li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
-<li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Parallelism</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
-<li class="toctree-l1"><a class="reference internal" href="masked.html">torch.masked</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nested.html">torch.nested</a></li>
-<li class="toctree-l1"><a class="reference internal" href="size.html">torch.Size</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="testing.html">torch.testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils.html">torch.utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bottleneck.html">torch.utils.bottleneck</a></li>
-<li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deterministic.html">torch.utils.deterministic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="jit_utils.html">torch.utils.jit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dlpack.html">torch.utils.dlpack</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="model_zoo.html">torch.utils.model_zoo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tensorboard.html">torch.utils.tensorboard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="type_info.html">Type Info</a></li>
-<li class="toctree-l1"><a class="reference internal" href="named_tensor.html">Named Tensors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="name_inference.html">Named Tensors operator coverage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config_mod.html">torch.__config__</a></li>
-<li class="toctree-l1"><a class="reference internal" href="future_mod.html">torch.__future__</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html">torch._logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="torch_environment_variables.html">Torch Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch.html">torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tensors.html">torch.Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tensor_attributes.html">Tensor Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tensor_view.html">Tensor Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.amp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../autograd.html">torch.autograd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library.html">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpu.html">torch.cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cuda.html">torch.cuda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">torch.backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../export.html">torch.export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributed.elastic.html">torch.distributed.elastic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch.compiler.html">torch.compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../func.html">torch.func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linalg.html">torch.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../monitor.html">torch.monitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signal.html">torch.signal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../special.html">torch.special</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../package.html">torch.package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiler.html">torch.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nn.attention.html">torch.nn.attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../complex_numbers.html">Complex Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipeline.html">Pipeline Parallelism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../masked.html">torch.masked</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../size.html">torch.Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">torch.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bottleneck.html">torch.utils.bottleneck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../checkpoint.html">torch.utils.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_extension.html">torch.utils.cpp_extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">torch.utils.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deterministic.html">torch.utils.deterministic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dlpack.html">torch.utils.dlpack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo.html">torch.utils.model_zoo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../type_info.html">Type Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../named_tensor.html">Named Tensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../name_inference.html">Named Tensors operator coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../future_mod.html">torch.__future__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torch_environment_variables.html">Torch Environment Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
 <ul>
@@ -437,7 +436,7 @@
   <ul class="pytorch-breadcrumbs">
     
       <li>
-        <a href="index.html">
+        <a href="../index.html">
           
             Docs
           
@@ -445,13 +444,15 @@
       </li>
 
         
-      <li>torch.mtia</li>
+          <li><a href="../fx.experimental.html">torch.fx.experimental</a> &gt;</li>
+        
+      <li>torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/mtia.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="../_sources/generated/torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -482,66 +483,13 @@
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
-  <div class="section" id="torch-mtia">
-<h1>torch.mtia<a class="headerlink" href="#torch-mtia" title="Permalink to this heading">¶</a></h1>
-<p>The MTIA backend is implemented out of the tree, only interfaces are be defined here.</p>
-<span class="target" id="module-torch.mtia"></span><p>This package enables an interface for accessing MTIA backend in python</p>
-<table class="autosummary longtable docutils colwidths-auto align-default">
-<tbody>
-<tr class="row-odd"><td><p><p id="torch.mtia.StreamContext"/><a class="reference internal" href="generated/torch.mtia.StreamContext.html#torch.mtia.StreamContext" title="torch.mtia.StreamContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamContext</span></code></a></p></td>
-<td><p>Context-manager that selects a given stream.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.mtia.current_device"/><a class="reference internal" href="generated/torch.mtia.current_device.html#torch.mtia.current_device" title="torch.mtia.current_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_device</span></code></a></p></td>
-<td><p>Return the index of a currently selected device.</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.current_stream"/><a class="reference internal" href="generated/torch.mtia.current_stream.html#torch.mtia.current_stream" title="torch.mtia.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
-<td><p>Return the currently selected <a class="reference internal" href="generated/torch.mtia.Stream.html#torch.mtia.Stream" title="torch.mtia.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.mtia.default_stream"/><a class="reference internal" href="generated/torch.mtia.default_stream.html#torch.mtia.default_stream" title="torch.mtia.default_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_stream</span></code></a></p></td>
-<td><p>Return the default <a class="reference internal" href="generated/torch.mtia.Stream.html#torch.mtia.Stream" title="torch.mtia.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a> for a given device.</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.device_count"/><a class="reference internal" href="generated/torch.mtia.device_count.html#torch.mtia.device_count" title="torch.mtia.device_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_count</span></code></a></p></td>
-<td><p>Return the number of MTIA devices available.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.mtia.init"/><a class="reference internal" href="generated/torch.mtia.init.html#torch.mtia.init" title="torch.mtia.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.is_available"/><a class="reference internal" href="generated/torch.mtia.is_available.html#torch.mtia.is_available" title="torch.mtia.is_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_available</span></code></a></p></td>
-<td><p>Return true if MTIA device is available</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.mtia.is_initialized"/><a class="reference internal" href="generated/torch.mtia.is_initialized.html#torch.mtia.is_initialized" title="torch.mtia.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
-<td><p>Return whether PyTorch's MTIA state has been initialized.</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.set_stream"/><a class="reference internal" href="generated/torch.mtia.set_stream.html#torch.mtia.set_stream" title="torch.mtia.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
-<td><p>Set the current stream.This is a wrapper API to set the stream.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.mtia.stream"/><a class="reference internal" href="generated/torch.mtia.stream.html#torch.mtia.stream" title="torch.mtia.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
-<td><p>Wrap around the Context-manager StreamContext that selects a given stream.</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.synchronize"/><a class="reference internal" href="generated/torch.mtia.synchronize.html#torch.mtia.synchronize" title="torch.mtia.synchronize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synchronize</span></code></a></p></td>
-<td><p>Waits for all jobs in all streams on a MTIA device to complete.</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.mtia.device"/><a class="reference internal" href="generated/torch.mtia.device.html#torch.mtia.device" title="torch.mtia.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
-<td><p>Context-manager that changes the selected device.</p></td>
-</tr>
-<tr class="row-odd"><td><p><p id="torch.mtia.DeferredMtiaCallError"/><a class="reference internal" href="generated/torch.mtia.DeferredMtiaCallError.html#torch.mtia.DeferredMtiaCallError" title="torch.mtia.DeferredMtiaCallError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeferredMtiaCallError</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<div class="section" id="streams-and-events">
-<h2>Streams and events<a class="headerlink" href="#streams-and-events" title="Permalink to this heading">¶</a></h2>
-<table class="autosummary longtable docutils colwidths-auto align-default">
-<tbody>
-<tr class="row-odd"><td><p><p id="torch.mtia.Event"/><a class="reference internal" href="generated/torch.mtia.Event.html#torch.mtia.Event" title="torch.mtia.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Event</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.mtia.Stream"/><a class="reference internal" href="generated/torch.mtia.Stream.html#torch.mtia.Stream" title="torch.mtia.Stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Stream</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</div>
+  <div class="section" id="torch-fx-experimental-symbolic-shapes-resolve-unbacked-bindings">
+<h1>torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings<a class="headerlink" href="#torch-fx-experimental-symbolic-shapes-resolve-unbacked-bindings" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings">
+<span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">resolve_unbacked_bindings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bindings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#resolve_unbacked_bindings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 
@@ -552,10 +500,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="generated/torch.mtia.StreamContext.html" class="btn btn-neutral float-right" title="StreamContext" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="../hub.html" class="btn btn-neutral float-right" title="torch.hub" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
-        <a href="generated/torch.xpu.Stream.html" class="btn btn-neutral" title="Stream" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+        <a href="torch.fx.experimental.symbolic_shapes.rebind_unbacked.html" class="btn btn-neutral" title="torch.fx.experimental.symbolic_shapes.rebind_unbacked" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
       
     </div>
   
@@ -598,8 +546,8 @@ if (url)
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">torch.mtia</a><ul>
-<li><a class="reference internal" href="#streams-and-events">Streams and events</a></li>
+<li><a class="reference internal" href="#">torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings</a><ul>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings"><code class="docutils literal notranslate"><span class="pre">resolve_unbacked_bindings()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -616,23 +564,23 @@ if (url)
   
 
      
-       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-         <script src="_static/jquery.js"></script>
-         <script src="_static/underscore.js"></script>
-         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-         <script src="_static/doctools.js"></script>
-         <script src="_static/sphinx_highlight.js"></script>
-         <script src="_static/clipboard.min.js"></script>
-         <script src="_static/copybutton.js"></script>
+       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+         <script src="../_static/jquery.js"></script>
+         <script src="../_static/underscore.js"></script>
+         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+         <script src="../_static/doctools.js"></script>
+         <script src="../_static/sphinx_highlight.js"></script>
+         <script src="../_static/clipboard.min.js"></script>
+         <script src="../_static/copybutton.js"></script>
      
 
   
 
-  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
-  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
-  <script type="text/javascript" src="_static/js/theme.js"></script>
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
@@ -744,7 +692,7 @@ if (url)
   <div class="cookie-banner-wrapper">
   <div class="container">
     <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
-    <img class="close-button" src="_static/images/pytorch-x.svg">
+    <img class="close-button" src="../_static/images/pytorch-x.svg">
   </div>
 </div>
 
@@ -880,7 +828,7 @@ if (url)
 
   <!-- End Mobile Menu -->
 
-  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/anchor.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {

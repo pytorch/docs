@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -331,7 +331,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../export.html">torch.export</a></li>
@@ -1506,7 +1505,7 @@
             <span class="k">else</span> <span class="s2">&quot;&quot;</span>
         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">node_count</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;X&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">has_mismatch</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;✓&#39;</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">error_node_kind</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">node_count</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;X&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">has_mismatch</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">chr</span><span class="p">(</span><span class="mh">0x2713</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">error_node_kind</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_graph_id_segment_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -1634,13 +1633,13 @@
 <span class="sd">        structure is as follows:</span>
 
 <span class="sd">        dir</span>
-<span class="sd">        ├── test_&lt;name&gt;</span>
-<span class="sd">        │   ├── model.onnx</span>
-<span class="sd">        │   └── test_data_set_0</span>
-<span class="sd">        │       ├── input_0.pb</span>
-<span class="sd">        │       ├── input_1.pb</span>
-<span class="sd">        │       ├── output_0.pb</span>
-<span class="sd">        │       └── output_1.pb</span>
+<span class="sd">        \u251c\u2500\u2500 test_&lt;name&gt;</span>
+<span class="sd">        \u2502   \u251c\u2500\u2500 model.onnx</span>
+<span class="sd">        \u2502   \u2514\u2500\u2500 test_data_set_0</span>
+<span class="sd">        \u2502       \u251c\u2500\u2500 input_0.pb</span>
+<span class="sd">        \u2502       \u251c\u2500\u2500 input_1.pb</span>
+<span class="sd">        \u2502       \u251c\u2500\u2500 output_0.pb</span>
+<span class="sd">        \u2502       \u2514\u2500\u2500 output_1.pb</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            proto: ONNX model proto.</span>
@@ -1730,19 +1729,19 @@
 <span class="sd">        Example::</span>
 
 <span class="sd">            ==================================== Tree: =====================================</span>
-<span class="sd">            5 X   __2 X    __1 ✓</span>
+<span class="sd">            5 X   __2 X    __1 \u2713</span>
 <span class="sd">            id:  |  id: 0 |  id: 00</span>
 <span class="sd">                 |        |</span>
 <span class="sd">                 |        |__1 X (aten::relu)</span>
 <span class="sd">                 |           id: 01</span>
 <span class="sd">                 |</span>
-<span class="sd">                 |__3 X    __1 ✓</span>
+<span class="sd">                 |__3 X    __1 \u2713</span>
 <span class="sd">                    id: 1 |  id: 10</span>
 <span class="sd">                          |</span>
 <span class="sd">                          |__2 X     __1 X (aten::relu)</span>
 <span class="sd">                             id: 11 |  id: 110</span>
 <span class="sd">                                    |</span>
-<span class="sd">                                    |__1 ✓</span>
+<span class="sd">                                    |__1 \u2713</span>
 <span class="sd">                                       id: 111</span>
 <span class="sd">            =========================== Mismatch leaf subgraphs: ===========================</span>
 <span class="sd">            [&#39;01&#39;, &#39;110&#39;]</span>
@@ -1840,13 +1839,13 @@
 <span class="sd">        The repro directory will contain the following files::</span>
 
 <span class="sd">            dir</span>
-<span class="sd">            ├── test_&lt;name&gt;</span>
-<span class="sd">            │   ├── model.onnx</span>
-<span class="sd">            │   └── test_data_set_0</span>
-<span class="sd">            │       ├── input_0.pb</span>
-<span class="sd">            │       ├── input_1.pb</span>
-<span class="sd">            │       ├── output_0.pb</span>
-<span class="sd">            │       └── output_1.pb</span>
+<span class="sd">            \u251c\u2500\u2500 test_&lt;name&gt;</span>
+<span class="sd">            \u2502   \u251c\u2500\u2500 model.onnx</span>
+<span class="sd">            \u2502   \u2514\u2500\u2500 test_data_set_0</span>
+<span class="sd">            \u2502       \u251c\u2500\u2500 input_0.pb</span>
+<span class="sd">            \u2502       \u251c\u2500\u2500 input_1.pb</span>
+<span class="sd">            \u2502       \u251c\u2500\u2500 output_0.pb</span>
+<span class="sd">            \u2502       \u2514\u2500\u2500 output_1.pb</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            repro_dir: The directory to export the repro files to. Defaults to current</span>
@@ -2311,19 +2310,19 @@
 <span class="sd">        Greatest absolute difference: 0.2328854203224182 at index (1, 2) (up to 1e-07 allowed)</span>
 <span class="sd">        Greatest relative difference: 0.699536174352349 at index (1, 3) (up to 0.001 allowed)</span>
 <span class="sd">        ==================================== Tree: =====================================</span>
-<span class="sd">        5 X   __2 X    __1 ✓</span>
+<span class="sd">        5 X   __2 X    __1 \u2713</span>
 <span class="sd">        id:  |  id: 0 |  id: 00</span>
 <span class="sd">             |        |</span>
 <span class="sd">             |        |__1 X (aten::relu)</span>
 <span class="sd">             |           id: 01</span>
 <span class="sd">             |</span>
-<span class="sd">             |__3 X    __1 ✓</span>
+<span class="sd">             |__3 X    __1 \u2713</span>
 <span class="sd">                id: 1 |  id: 10</span>
 <span class="sd">                      |</span>
 <span class="sd">                      |__2 X     __1 X (aten::relu)</span>
 <span class="sd">                         id: 11 |  id: 110</span>
 <span class="sd">                                |</span>
-<span class="sd">                                |__1 ✓</span>
+<span class="sd">                                |__1 \u2713</span>
 <span class="sd">                                   id: 111</span>
 <span class="sd">        =========================== Mismatch leaf subgraphs: ===========================</span>
 <span class="sd">        [&#39;01&#39;, &#39;110&#39;]</span>

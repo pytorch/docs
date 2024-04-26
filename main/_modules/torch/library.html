@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -331,7 +331,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../export.html">torch.export</a></li>
@@ -607,7 +606,6 @@
         <span class="k">if</span> <span class="n">has_preexisting_packet</span><span class="p">:</span>
             <span class="n">ns</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ns</span><span class="p">)</span>
             <span class="n">packet</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">packet_name</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;refreshing&quot;</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">packet_name</span><span class="p">)</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">_refresh_packet</span><span class="p">(</span><span class="n">packet</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_op_defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">qualname</span><span class="p">)</span>
@@ -1111,17 +1109,19 @@
 <span class="sd">    2. If you need any values from the forward to compute gradients, you can</span>
 <span class="sd">    use `setup_context` to save values for backward.</span>
 
-<span class="sd">    ``backward_fn`` runs during the backward pass. It accepts ``(ctx, *grads)``:</span>
+<span class="sd">    ``backward`` runs during the backward pass. It accepts ``(ctx, *grads)``:</span>
 <span class="sd">    - ``grads`` is one or more gradients. The number of gradients matches</span>
 <span class="sd">    the number of outputs of the operator.</span>
 <span class="sd">    The ``ctx`` object is `the same ctx object &lt;context_method_mixins&gt;`_ used by</span>
 <span class="sd">    :class:`torch.autograd.Function`. The semantics of ``backward_fn`` are the</span>
 <span class="sd">    same as :meth:`torch.autograd.Function.backward`.</span>
 
-<span class="sd">    ``setup_context_fn(ctx, inputs, output)`` runs during the forward pass.</span>
+<span class="sd">    ``setup_context(ctx, inputs, output)`` runs during the forward pass.</span>
 <span class="sd">    Please save quantities needed for backward onto the ``ctx`` object via</span>
 <span class="sd">    either :meth:`torch.autograd.function.FunctionCtx.save_for_backward`</span>
-<span class="sd">    or assigning them as attributes of ``ctx``.</span>
+<span class="sd">    or assigning them as attributes of ``ctx``. If your custom op has</span>
+<span class="sd">    kwarg-only arguments, we expect the signature of ``setup_context``</span>
+<span class="sd">    to be ``setup_context(ctx, inputs, keyword_only_inputs, output)``.</span>
 
 <span class="sd">    Both ``setup_context_fn`` and ``backward_fn`` must be traceable. That is,</span>
 <span class="sd">    they may not directly access :meth:`torch.Tensor.data_ptr` and they must</span>
@@ -1153,6 +1153,26 @@
 <span class="sd">        &gt;&gt;&gt; y = numpy_sin(x)</span>
 <span class="sd">        &gt;&gt;&gt; grad_x, = torch.autograd.grad(y, x, torch.ones_like(y))</span>
 <span class="sd">        &gt;&gt;&gt; assert torch.allclose(grad_x, x.cos())</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Example with a keyword-only arg</span>
+<span class="sd">        &gt;&gt;&gt; @torch.library.custom_op(&quot;mylib::numpy_mul&quot;, mutates_args=())</span>
+<span class="sd">        &gt;&gt;&gt; def numpy_mul(x: Tensor, *, val: float) -&gt; Tensor:</span>
+<span class="sd">        &gt;&gt;&gt;     x_np = x.cpu().numpy()</span>
+<span class="sd">        &gt;&gt;&gt;     y_np = x_np * val</span>
+<span class="sd">        &gt;&gt;&gt;     return torch.from_numpy(y_np).to(device=x.device)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; def setup_context(ctx, inputs, keyword_only_inputs, output) -&gt; Tensor:</span>
+<span class="sd">        &gt;&gt;&gt;     ctx.val = keyword_only_inputs[&quot;val&quot;]</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; def backward(ctx, grad):</span>
+<span class="sd">        &gt;&gt;&gt;     return grad * ctx.val</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; torch.library.register_autograd(&quot;mylib::numpy_mul&quot;, backward, setup_context=setup_context)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.randn(3, requires_grad=True)</span>
+<span class="sd">        &gt;&gt;&gt; y = numpy_mul(x, val=3.14)</span>
+<span class="sd">        &gt;&gt;&gt; grad_x, = torch.autograd.grad(y, x, torch.ones_like(y))</span>
+<span class="sd">        &gt;&gt;&gt; assert torch.allclose(grad_x, torch.full_like(x, 3.14))</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OpOverload</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">custom_ops</span><span class="o">.</span><span class="n">CustomOpDef</span><span class="p">)):</span>
@@ -1174,6 +1194,11 @@
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">op</span><span class="si">}</span><span class="s2"> with schema </span><span class="si">{</span><span class="n">schema</span><span class="si">}</span><span class="s2">. Please create &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;a functional operator and register an autograd formula for that.&quot;</span>
         <span class="p">)</span>
+    <span class="k">if</span> <span class="n">_library</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">has_kwarg_only_tensors</span><span class="p">(</span><span class="n">schema</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;register_autograd with kwarg-only Tensor args. In the original &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;definition of the op, please make your tensors not kwarg-only. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Got: </span><span class="si">{</span><span class="n">schema</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">info</span> <span class="o">=</span> <span class="n">_library</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Info</span><span class="p">(</span><span class="n">backward</span><span class="p">,</span> <span class="n">setup_context</span><span class="p">)</span>
     <span class="n">autograd_kernel</span> <span class="o">=</span> <span class="n">_library</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">make_autograd_impl</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>

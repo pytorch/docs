@@ -1,12 +1,12 @@
 ﻿.. role:: hidden
     :class: hidden-section
-.. currentmodule:: torch.mtia
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
 
 
-Event
-=====
+DivideByKey
+===========
 
-.. autoclass:: Event
+.. autoclass:: DivideByKey
     :inherited-members:
     :members:
 

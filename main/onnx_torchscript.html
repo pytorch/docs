@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -332,7 +332,6 @@
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
@@ -1647,19 +1646,19 @@ exhibits the mismatch.</p>
 <span class="go">Greatest absolute difference: 0.2328854203224182 at index (1, 2) (up to 1e-07 allowed)</span>
 <span class="go">Greatest relative difference: 0.699536174352349 at index (1, 3) (up to 0.001 allowed)</span>
 <span class="go">==================================== Tree: =====================================</span>
-<span class="go">5 X   __2 X    __1 ✓</span>
+<span class="go">5 X   __2 X    __1 \u2713</span>
 <span class="go">id:  |  id: 0 |  id: 00</span>
 <span class="go">     |        |</span>
 <span class="go">     |        |__1 X (aten::relu)</span>
 <span class="go">     |           id: 01</span>
 <span class="go">     |</span>
-<span class="go">     |__3 X    __1 ✓</span>
+<span class="go">     |__3 X    __1 \u2713</span>
 <span class="go">        id: 1 |  id: 10</span>
 <span class="go">              |</span>
 <span class="go">              |__2 X     __1 X (aten::relu)</span>
 <span class="go">                 id: 11 |  id: 110</span>
 <span class="go">                        |</span>
-<span class="go">                        |__1 ✓</span>
+<span class="go">                        |__1 \u2713</span>
 <span class="go">                           id: 111</span>
 <span class="go">=========================== Mismatch leaf subgraphs: ===========================</span>
 <span class="go">[&#39;01&#39;, &#39;110&#39;]</span>

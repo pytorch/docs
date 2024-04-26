@@ -9,14 +9,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>torch.mtia.is_available &mdash; PyTorch main documentation</title>
+  <title>PropagateUnbackedSymInts &mdash; PyTorch main documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://pytorch.org/docs/stable/generated/torch.mtia.is_available.html"/>
+    <link rel="canonical" href="https://pytorch.org/docs/stable/generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html"/>
   
 
   
@@ -40,8 +40,8 @@
   <link rel="stylesheet" href="../_static/css/jit.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.mtia.is_initialized" href="torch.mtia.is_initialized.html" />
-    <link rel="prev" title="torch.mtia.init" href="torch.mtia.init.html" />
+    <link rel="next" title="DivideByKey" href="torch.fx.experimental.symbolic_shapes.DivideByKey.html" />
+    <link rel="prev" title="CallMethodKey" href="torch.fx.experimental.symbolic_shapes.CallMethodKey.html" />
 
 <!--
   Search engines should not index the main version of documentation.
@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -264,7 +264,7 @@
           
 
 <div>
-  <a style="color:#F05732" href="https://pytorch.org/docs/stable/generated/torch.mtia.is_available.html">
+  <a style="color:#F05732" href="https://pytorch.org/docs/stable/generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html">
     You are viewing unstable developer preview docs.
     Click here to view docs for latest stable release.
   </a>
@@ -332,7 +332,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../export.html">torch.export</a></li>
@@ -349,7 +348,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../func.html">torch.func</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fx.html">torch.fx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../fx.experimental.html">torch.fx.experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linalg.html">torch.linalg</a></li>
@@ -445,15 +444,15 @@
       </li>
 
         
-          <li><a href="../mtia.html">torch.mtia</a> &gt;</li>
+          <li><a href="../fx.experimental.html">torch.fx.experimental</a> &gt;</li>
         
-      <li>torch.mtia.is_available</li>
+      <li>PropagateUnbackedSymInts</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="../_sources/generated/torch.mtia.is_available.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
+            <a href="../_sources/generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -484,17 +483,297 @@
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
-  <div class="section" id="torch-mtia-is-available">
-<h1>torch.mtia.is_available<a class="headerlink" href="#torch-mtia-is-available" title="Permalink to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.mtia.is_available">
-<span class="sig-prename descclassname"><span class="pre">torch.mtia.</span></span><span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/mtia.html#is_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mtia.is_available" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return true if MTIA device is available</p>
+  <div class="section" id="propagateunbackedsymints">
+<h1>PropagateUnbackedSymInts<a class="headerlink" href="#propagateunbackedsymints" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">PropagateUnbackedSymInts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">garbage_collect_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#PropagateUnbackedSymInts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.boxed_run">
+<span class="sig-name descname"><span class="pre">boxed_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.boxed_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run <cite>module</cite> via interpretation and return the result.  This uses the “boxed”
+calling convention, where you pass a list of arguments, which will be cleared
+by the interpreter.  This ensures that input tensors are promptly deallocated.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_function">
+<span class="sig-name descname"><span class="pre">call_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">call_function</span></code> node and return the result.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>Target</em>) – The call target for this node. See
+<a class="reference external" href="https://pytorch.org/docs/main/fx.html#torch.fx.Node">Node</a> for
+details on semantics</p></li>
+<li><p><strong>args</strong> (<em>Tuple</em>) – Tuple of positional args for this invocation</p></li>
+<li><p><strong>kwargs</strong> (<em>Dict</em>) – Dict of keyword arguments for this invocation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
+<dl class="simple">
+<dt>Return</dt><dd><p>Any: The value returned by the function invocation</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_method">
+<span class="sig-name descname"><span class="pre">call_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">call_method</span></code> node and return the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>Target</em>) – The call target for this node. See
+<a class="reference external" href="https://pytorch.org/docs/main/fx.html#torch.fx.Node">Node</a> for
+details on semantics</p></li>
+<li><p><strong>args</strong> (<em>Tuple</em>) – Tuple of positional args for this invocation</p></li>
+<li><p><strong>kwargs</strong> (<em>Dict</em>) – Dict of keyword arguments for this invocation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Return</dt><dd><p>Any: The value returned by the method invocation</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_module">
+<span class="sig-name descname"><span class="pre">call_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">call_module</span></code> node and return the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>Target</em>) – The call target for this node. See
+<a class="reference external" href="https://pytorch.org/docs/main/fx.html#torch.fx.Node">Node</a> for
+details on semantics</p></li>
+<li><p><strong>args</strong> (<em>Tuple</em>) – Tuple of positional args for this invocation</p></li>
+<li><p><strong>kwargs</strong> (<em>Dict</em>) – Dict of keyword arguments for this invocation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Return</dt><dd><p>Any: The value returned by the module invocation</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_args_kwargs_from_env">
+<span class="sig-name descname"><span class="pre">fetch_args_kwargs_from_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_args_kwargs_from_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch the concrete values of <code class="docutils literal notranslate"><span class="pre">args</span></code> and <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> of node <code class="docutils literal notranslate"><span class="pre">n</span></code>
+from the current execution environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> (<a class="reference internal" href="../fx.html#torch.fx.Node" title="torch.fx.Node"><em>Node</em></a>) – The node for which <code class="docutils literal notranslate"><span class="pre">args</span></code> and <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> should be fetched.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">args</span></code> and <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> with concrete values for <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[Tuple, Dict]</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_attr">
+<span class="sig-name descname"><span class="pre">fetch_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch an attribute from the <code class="docutils literal notranslate"><span class="pre">Module</span></code> hierarchy of <code class="docutils literal notranslate"><span class="pre">self.module</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The fully-qualified name of the attribute to fetch</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value of the attribute.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.get_attr">
+<span class="sig-name descname"><span class="pre">get_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.get_attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">get_attr</span></code> node. Will retrieve an attribute
+value from the <code class="docutils literal notranslate"><span class="pre">Module</span></code> hierarchy of <code class="docutils literal notranslate"><span class="pre">self.module</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>Target</em>) – The call target for this node. See
+<a class="reference external" href="https://pytorch.org/docs/main/fx.html#torch.fx.Node">Node</a> for
+details on semantics</p></li>
+<li><p><strong>args</strong> (<em>Tuple</em>) – Tuple of positional args for this invocation</p></li>
+<li><p><strong>kwargs</strong> (<em>Dict</em>) – Dict of keyword arguments for this invocation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value of the attribute that was retrieved</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.map_nodes_to_values">
+<span class="sig-name descname"><span class="pre">map_nodes_to_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.map_nodes_to_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively descend through <code class="docutils literal notranslate"><span class="pre">args</span></code> and look up the concrete value
+for each <code class="docutils literal notranslate"><span class="pre">Node</span></code> in the current execution environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>Argument</em>) – Data structure within which to look up concrete values</p></li>
+<li><p><strong>n</strong> (<a class="reference internal" href="../fx.html#torch.fx.Node" title="torch.fx.Node"><em>Node</em></a>) – Node to which <code class="docutils literal notranslate"><span class="pre">args</span></code> belongs. This is only used for error reporting.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>, …], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>], <a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.12)">slice</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#range" title="(in Python v3.12)">range</a>, <a class="reference internal" href="../fx.html#torch.fx.Node" title="torch.fx.node.Node"><em>Node</em></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.12)">complex</a>, <a class="reference internal" href="../tensor_attributes.html#torch.dtype" title="torch.dtype"><em>dtype</em></a>, <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><em>device</em></a>, <a class="reference internal" href="../tensor_attributes.html#torch.memory_format" title="torch.memory_format"><em>memory_format</em></a>, <a class="reference internal" href="../tensor_attributes.html#torch.layout" title="torch.layout"><em>layout</em></a>, <em>OpOverload</em>]]</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.output">
+<span class="sig-name descname"><span class="pre">output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute an <code class="docutils literal notranslate"><span class="pre">output</span></code> node. This really just retrieves
+the value referenced by the <code class="docutils literal notranslate"><span class="pre">output</span></code> node and returns it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>Target</em>) – The call target for this node. See
+<a class="reference external" href="https://pytorch.org/docs/main/fx.html#torch.fx.Node">Node</a> for
+details on semantics</p></li>
+<li><p><strong>args</strong> (<em>Tuple</em>) – Tuple of positional args for this invocation</p></li>
+<li><p><strong>kwargs</strong> (<em>Dict</em>) – Dict of keyword arguments for this invocation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return value referenced by the output node</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.placeholder">
+<span class="sig-name descname"><span class="pre">placeholder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.placeholder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> node. Note that this is stateful:
+<code class="docutils literal notranslate"><span class="pre">Interpreter</span></code> maintains an internal iterator over
+arguments passed to <code class="docutils literal notranslate"><span class="pre">run</span></code> and this method returns
+next() on that iterator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>Target</em>) – The call target for this node. See
+<a class="reference external" href="https://pytorch.org/docs/main/fx.html#torch.fx.Node">Node</a> for
+details on semantics</p></li>
+<li><p><strong>args</strong> (<em>Tuple</em>) – Tuple of positional args for this invocation</p></li>
+<li><p><strong>kwargs</strong> (<em>Dict</em>) – Dict of keyword arguments for this invocation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The argument value that was retrieved.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_env</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_io_processing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run <cite>module</cite> via interpretation and return the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> – The arguments to the Module to run, in positional order</p></li>
+<li><p><strong>initial_env</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference internal" href="../fx.html#torch.fx.Node" title="torch.fx.Node"><em>Node</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – An optional starting environment for execution.
+This is a dict mapping <cite>Node</cite> to any value. This can be used, for example, to
+pre-populate results for certain <cite>Nodes</cite> so as to do only partial evaluation within
+the interpreter.</p></li>
+<li><p><strong>enable_io_processing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If true, we process the inputs and outputs with graph’s process_inputs and
+process_outputs function first before using them.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value returned from executing the Module</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Backwards-compatibility for this API is guaranteed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node">
+<span class="sig-name descname"><span class="pre">run_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#PropagateUnbackedSymInts.run_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run an FX node, propagating unbacked Symbol bindings to the new fake tensor</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -507,10 +786,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="torch.mtia.is_initialized.html" class="btn btn-neutral float-right" title="torch.mtia.is_initialized" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="torch.fx.experimental.symbolic_shapes.DivideByKey.html" class="btn btn-neutral float-right" title="DivideByKey" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
-        <a href="torch.mtia.init.html" class="btn btn-neutral" title="torch.mtia.init" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+        <a href="torch.fx.experimental.symbolic_shapes.CallMethodKey.html" class="btn btn-neutral" title="CallMethodKey" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
       
     </div>
   
@@ -553,8 +832,22 @@ if (url)
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">torch.mtia.is_available</a><ul>
-<li><a class="reference internal" href="#torch.mtia.is_available"><code class="docutils literal notranslate"><span class="pre">is_available()</span></code></a></li>
+<li><a class="reference internal" href="#">PropagateUnbackedSymInts</a><ul>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts</span></code></a><ul>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.boxed_run"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.boxed_run()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_function"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.call_function()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_method"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.call_method()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_module"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.call_module()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_args_kwargs_from_env"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.fetch_args_kwargs_from_env()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_attr"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.fetch_attr()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.get_attr"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.get_attr()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.map_nodes_to_values"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.map_nodes_to_values()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.output"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.output()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.placeholder"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.placeholder()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.run()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node"><code class="docutils literal notranslate"><span class="pre">PropagateUnbackedSymInts.run_node()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

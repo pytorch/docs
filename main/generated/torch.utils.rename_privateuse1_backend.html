@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -332,7 +332,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../export.html">torch.export</a></li>
@@ -505,16 +504,6 @@ BackendModule needs to have the following API’s:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">get_amp_supported_dtype()</span> <span class="pre">-&gt;</span> <span class="pre">List[torch.dtype]</span></code>
 get the supported dtypes on your “foo” device in AMP, maybe the “foo” device supports one more dtype.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">is_autocast_enabled()</span> <span class="pre">-&gt;</span> <span class="pre">bool</span></code>
-check the AMP is enabled or not on your “foo” device.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">get_autocast_dtype()</span> <span class="pre">-&gt;</span> <span class="pre">torch.dtype</span></code>
-get the supported dtype on your “foo” device in AMP, which is set by <code class="docutils literal notranslate"><span class="pre">set_autocast_dtype</span></code> or the
-default dtype, and the default dtype is <code class="docutils literal notranslate"><span class="pre">torch.float16</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">set_autocast_enabled(bool)</span> <span class="pre">-&gt;</span> <span class="pre">None</span></code>
-enable the AMP or not on your “foo” device.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">set_autocast_dtype(dtype)</span> <span class="pre">-&gt;</span> <span class="pre">None</span></code>
-set the supported dtype on your “foo” device in AMP, and the dtype be contained in the dtypes got
-from <code class="docutils literal notranslate"><span class="pre">get_amp_supported_dtype</span></code>.</p></li>
 </ol>
 <p>Note(random): If you want to support to set seed for your device, BackendModule needs to have the following API’s:</p>
 <ol class="arabic simple">

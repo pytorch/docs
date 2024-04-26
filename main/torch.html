@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -332,7 +332,6 @@
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
@@ -2080,16 +2079,13 @@ Forward-mode AD is not supported.</p>
 <tr class="row-even"><td><p><p id="torch.set_warn_always"/><a class="reference internal" href="generated/torch.set_warn_always.html#torch.set_warn_always" title="torch.set_warn_always"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_warn_always</span></code></a></p></td>
 <td><p>When this flag is False (default) then some PyTorch warnings may only appear once per process.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.get_device_module"/><a class="reference internal" href="generated/torch.get_device_module.html#torch.get_device_module" title="torch.get_device_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device_module</span></code></a></p></td>
-<td><p>Returns the module associated with a given device(e.g., torch.device('cuda'), &quot;mtia:0&quot;, &quot;xpu&quot;, ...).</p></td>
-</tr>
-<tr class="row-even"><td><p><p id="torch.is_warn_always_enabled"/><a class="reference internal" href="generated/torch.is_warn_always_enabled.html#torch.is_warn_always_enabled" title="torch.is_warn_always_enabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_warn_always_enabled</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.is_warn_always_enabled"/><a class="reference internal" href="generated/torch.is_warn_always_enabled.html#torch.is_warn_always_enabled" title="torch.is_warn_always_enabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_warn_always_enabled</span></code></a></p></td>
 <td><p>Returns True if the global warn_always flag is turned on.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.vmap"/><a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vmap</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.vmap"/><a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vmap</span></code></a></p></td>
 <td><p>vmap is the vectorizing map; <code class="docutils literal notranslate"><span class="pre">vmap(func)</span></code> returns a new function that maps <code class="docutils literal notranslate"><span class="pre">func</span></code> over some dimension of the inputs.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch._assert"/><a class="reference internal" href="generated/torch._assert.html#torch._assert" title="torch._assert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_assert</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch._assert"/><a class="reference internal" href="generated/torch._assert.html#torch._assert" title="torch._assert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_assert</span></code></a></p></td>
 <td><p>A wrapper around Python's assert which is symbolically traceable.</p></td>
 </tr>
 </tbody>

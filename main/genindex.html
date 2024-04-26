@@ -241,7 +241,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6822507 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
     </div>
     
 
@@ -330,7 +330,6 @@
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
@@ -1591,8 +1590,12 @@
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.bound_sympy">bound_sympy() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Interpreter.boxed_run">boxed_run() (torch.fx.Interpreter method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.boxed_run">boxed_run() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
+
+      <ul>
+        <li><a href="fx.html#torch.fx.Interpreter.boxed_run">(torch.fx.Interpreter method)</a>
 </li>
+      </ul></li>
       <li><a href="distributed.html#torch.distributed.breakpoint">breakpoint() (in module torch.distributed)</a>
 </li>
       <li><a href="generated/torch.cuda.comm.broadcast.html#torch.cuda.comm.broadcast">broadcast() (in module torch.cuda.comm)</a>
@@ -1661,23 +1664,29 @@
 </li>
       <li><a href="generated/torch.ao.quantization.observer.MinMaxObserver.html#torch.ao.quantization.observer.MinMaxObserver.calculate_qparams">calculate_qparams() (torch.ao.quantization.observer.MinMaxObserver method)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Graph.call_function">call_function() (torch.fx.Graph method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_function">call_function() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
 
       <ul>
+        <li><a href="fx.html#torch.fx.Graph.call_function">(torch.fx.Graph method)</a>
+</li>
         <li><a href="fx.html#torch.fx.Interpreter.call_function">(torch.fx.Interpreter method)</a>
 </li>
         <li><a href="fx.html#torch.fx.Transformer.call_function">(torch.fx.Transformer method)</a>
 </li>
       </ul></li>
-      <li><a href="fx.html#torch.fx.Graph.call_method">call_method() (torch.fx.Graph method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_method">call_method() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
 
       <ul>
+        <li><a href="fx.html#torch.fx.Graph.call_method">(torch.fx.Graph method)</a>
+</li>
         <li><a href="fx.html#torch.fx.Interpreter.call_method">(torch.fx.Interpreter method)</a>
 </li>
       </ul></li>
-      <li><a href="fx.html#torch.fx.Graph.call_module">call_module() (torch.fx.Graph method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.call_module">call_module() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
 
       <ul>
+        <li><a href="fx.html#torch.fx.Graph.call_module">(torch.fx.Graph method)</a>
+</li>
         <li><a href="fx.html#torch.fx.Interpreter.call_module">(torch.fx.Interpreter method)</a>
 </li>
         <li><a href="fx.html#torch.fx.Tracer.call_module">(torch.fx.Tracer method)</a>
@@ -2075,6 +2084,8 @@
         <li><a href="generated/torch.linalg.cond.html#torch.linalg.cond">(in module torch.linalg)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig.configs">configs (torch.ao.quantization.backend_config.BackendConfig property)</a>
 </li>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.configure">configure() (in module torch.distributed.elastic.metrics)</a>
@@ -2083,8 +2094,6 @@
         <li><a href="elastic/timer.html#torch.distributed.elastic.timer.configure">(in module torch.distributed.elastic.timer)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.confirmed_by_owner">confirmed_by_owner() (torch.distributed.rpc.PyRRef method)</a>
 </li>
       <li><a href="generated/torch.conj.html#torch.conj">conj() (in module torch)</a>
@@ -2514,8 +2523,6 @@
       <ul>
         <li><a href="generated/torch.cuda.current_device.html#torch.cuda.current_device">(in module torch.cuda)</a>
 </li>
-        <li><a href="generated/torch.mtia.current_device.html#torch.mtia.current_device">(in module torch.mtia)</a>
-</li>
         <li><a href="generated/torch.xpu.current_device.html#torch.xpu.current_device">(in module torch.xpu)</a>
 </li>
       </ul></li>
@@ -2525,8 +2532,6 @@
 
       <ul>
         <li><a href="generated/torch.cuda.current_stream.html#torch.cuda.current_stream">(in module torch.cuda)</a>
-</li>
-        <li><a href="generated/torch.mtia.current_stream.html#torch.mtia.current_stream">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream">(in module torch.xpu)</a>
 </li>
@@ -2630,11 +2635,7 @@
       <li><a href="generated/torch.ao.quantization.qconfig.default_qconfig.html#torch.ao.quantization.qconfig.default_qconfig">default_qconfig (in module torch.ao.quantization.qconfig)</a>
 </li>
       <li><a href="generated/torch.cuda.default_stream.html#torch.cuda.default_stream">default_stream() (in module torch.cuda)</a>
-
-      <ul>
-        <li><a href="generated/torch.mtia.default_stream.html#torch.mtia.default_stream">(in module torch.mtia)</a>
 </li>
-      </ul></li>
       <li><a href="generated/torch.ao.quantization.fake_quantize.default_weight_fake_quant.html#torch.ao.quantization.fake_quantize.default_weight_fake_quant">default_weight_fake_quant (in module torch.ao.quantization.fake_quantize)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.observer.default_weight_observer.html#torch.ao.quantization.observer.default_weight_observer">default_weight_observer (in module torch.ao.quantization.observer)</a>
@@ -2648,8 +2649,6 @@
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.DefaultSavePlanner">DefaultSavePlanner (class in torch.distributed.checkpoint)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.defer_runtime_assert">defer_runtime_assert() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
-</li>
-      <li><a href="generated/torch.mtia.DeferredMtiaCallError.html#torch.mtia.DeferredMtiaCallError">DeferredMtiaCallError</a>
 </li>
       <li><a href="library.html#torch.library.define">define() (in module torch.library)</a>
 
@@ -2718,8 +2717,6 @@
       <ul>
         <li><a href="generated/torch.cuda.device.html#torch.cuda.device">(class in torch.cuda)</a>
 </li>
-        <li><a href="generated/torch.mtia.device.html#torch.mtia.device">(class in torch.mtia)</a>
-</li>
         <li><a href="generated/torch.xpu.device.html#torch.xpu.device">(class in torch.xpu)</a>
 </li>
         <li><a href="generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel.device">(torch.autograd.profiler_util.Kernel attribute)</a>
@@ -2739,8 +2736,6 @@
         <li><a href="generated/torch.cuda.device_count.html#torch.cuda.device_count">(in module torch.cuda)</a>
 </li>
         <li><a href="generated/torch.mps.device_count.html#torch.mps.device_count">(in module torch.mps)</a>
-</li>
-        <li><a href="generated/torch.mtia.device_count.html#torch.mtia.device_count">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.device_count.html#torch.xpu.device_count">(in module torch.xpu)</a>
 </li>
@@ -2771,14 +2766,14 @@
         <li><a href="generated/torch.Tensor.diag_embed.html#torch.Tensor.diag_embed">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.diagflat.html#torch.diagflat">diagflat() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.diagflat.html#torch.Tensor.diagflat">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.diagnostic_context">diagnostic_context (torch.onnx.ONNXProgram property)</a>
 </li>
       <li><a href="onnx_dynamo.html#torch.onnx.DiagnosticOptions">DiagnosticOptions (class in torch.onnx)</a>
@@ -2882,6 +2877,8 @@
 </li>
       </ul></li>
       <li><a href="generated/torch.Tensor.divide_.html#torch.Tensor.divide_">divide_() (torch.Tensor method)</a>
+</li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html#torch.fx.experimental.symbolic_shapes.DivideByKey">DivideByKey (class in torch.fx.experimental.symbolic_shapes)</a>
 </li>
       <li><a href="futures.html#torch.futures.Future.done">done() (torch.futures.Future method)</a>
 </li>
@@ -3289,8 +3286,6 @@
 </li>
         <li><a href="generated/torch.mps.event.Event.html#torch.mps.event.Event">(class in torch.mps.event)</a>
 </li>
-        <li><a href="generated/torch.mtia.Event.html#torch.mtia.Event">(class in torch.mtia)</a>
-</li>
         <li><a href="generated/torch.xpu.Event.html#torch.xpu.Event">(class in torch.xpu)</a>
 </li>
       </ul></li>
@@ -3528,10 +3523,18 @@
 </li>
       <li><a href="generated/torch.nn.FeatureAlphaDropout.html#torch.nn.FeatureAlphaDropout">FeatureAlphaDropout (class in torch.nn)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Interpreter.fetch_args_kwargs_from_env">fetch_args_kwargs_from_env() (torch.fx.Interpreter method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_args_kwargs_from_env">fetch_args_kwargs_from_env() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
+
+      <ul>
+        <li><a href="fx.html#torch.fx.Interpreter.fetch_args_kwargs_from_env">(torch.fx.Interpreter method)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Interpreter.fetch_attr">fetch_attr() (torch.fx.Interpreter method)</a>
+      </ul></li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.fetch_attr">fetch_attr() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
+
+      <ul>
+        <li><a href="fx.html#torch.fx.Interpreter.fetch_attr">(torch.fx.Interpreter method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.fft.fft.html#torch.fft.fft">fft() (in module torch.fft)</a>
 </li>
       <li><a href="generated/torch.fft.fft2.html#torch.fft.fft2">fft2() (in module torch.fft)</a>
@@ -3742,10 +3745,10 @@
 </li>
       <li><a href="random.html#torch.random.fork_rng">fork_rng() (in module torch.random)</a>
 </li>
-      <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards">format_guards() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards">format_guards() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
+</li>
       <li><a href="fx.html#torch.fx.Node.format_node">format_node() (torch.fx.Node method)</a>
 </li>
       <li><a href="generated/torch.ao.nn.quantizable.MultiheadAttention.html#torch.ao.nn.quantizable.MultiheadAttention.forward">forward() (torch.ao.nn.quantizable.MultiheadAttention method)</a>
@@ -4057,6 +4060,8 @@
 </li>
         <li><a href="generated/torch.fx.experimental.symbolic_shapes.ConvertIntKey.html#torch.fx.experimental.symbolic_shapes.ConvertIntKey.get">(torch.fx.experimental.symbolic_shapes.ConvertIntKey method)</a>
 </li>
+        <li><a href="generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html#torch.fx.experimental.symbolic_shapes.DivideByKey.get">(torch.fx.experimental.symbolic_shapes.DivideByKey method)</a>
+</li>
         <li><a href="monitor.html#torch.monitor.Stat.get">(torch.monitor.Stat method)</a>
 </li>
         <li><a href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict.get">(torch.nn.ParameterDict method)</a>
@@ -4072,9 +4077,11 @@
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_int">get_as_int() (torch.distributed.elastic.rendezvous.RendezvousParameters method)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Graph.get_attr">get_attr() (torch.fx.Graph method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.get_attr">get_attr() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
 
       <ul>
+        <li><a href="fx.html#torch.fx.Graph.get_attr">(torch.fx.Graph method)</a>
+</li>
         <li><a href="fx.html#torch.fx.Interpreter.get_attr">(torch.fx.Interpreter method)</a>
 </li>
         <li><a href="fx.html#torch.fx.Transformer.get_attr">(torch.fx.Transformer method)</a>
@@ -4128,8 +4135,6 @@
         <li><a href="generated/torch.xpu.get_device_capability.html#torch.xpu.get_device_capability">(in module torch.xpu)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.get_device_module.html#torch.get_device_module">get_device_module() (in module torch)</a>
-</li>
       <li><a href="generated/torch.cuda.get_device_name.html#torch.cuda.get_device_name">get_device_name() (in module torch.cuda)</a>
 
       <ul>
@@ -4728,6 +4733,8 @@
 </li>
       <li><a href="generated/torch.jit.ignore.html#torch.jit.ignore">ignore() (in module torch.jit)</a>
 </li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols">ignore_fresh_unbacked_symbols() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
+</li>
       <li><a href="generated/torch.fft.ihfft.html#torch.fft.ihfft">ihfft() (in module torch.fft)</a>
 </li>
       <li><a href="generated/torch.fft.ihfft2.html#torch.fft.ihfft2">ihfft2() (in module torch.fft)</a>
@@ -4821,8 +4828,6 @@
       <li><a href="generated/torch.cuda.init.html#torch.cuda.init">init() (in module torch.cuda)</a>
 
       <ul>
-        <li><a href="generated/torch.mtia.init.html#torch.mtia.init">(in module torch.mtia)</a>
-</li>
         <li><a href="generated/torch.xpu.init.html#torch.xpu.init">(in module torch.xpu)</a>
 </li>
       </ul></li>
@@ -4936,10 +4941,10 @@
 </li>
       <li><a href="generated/torch.linalg.inv_ex.html#torch.linalg.inv_ex">inv_ex() (in module torch.linalg)</a>
 </li>
-      <li><a href="onnx_dynamo.html#torch.onnx.InvalidExportOptionsError">InvalidExportOptionsError (class in torch.onnx)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="onnx_dynamo.html#torch.onnx.InvalidExportOptionsError">InvalidExportOptionsError (class in torch.onnx)</a>
+</li>
       <li><a href="generated/torch.inverse.html#torch.inverse">inverse() (in module torch)</a>
 
       <ul>
@@ -4988,8 +4993,6 @@
         <li><a href="generated/torch.cuda.is_available.html#torch.cuda.is_available">(in module torch.cuda)</a>
 </li>
         <li><a href="distributed.html#torch.distributed.is_available">(in module torch.distributed)</a>
-</li>
-        <li><a href="generated/torch.mtia.is_available.html#torch.mtia.is_available">(in module torch.mtia)</a>
 </li>
         <li><a href="profiler.html#torch.profiler.itt.is_available">(in module torch.profiler.itt)</a>
 </li>
@@ -5072,8 +5075,6 @@
 
       <ul>
         <li><a href="distributed.html#torch.distributed.is_initialized">(in module torch.distributed)</a>
-</li>
-        <li><a href="generated/torch.mtia.is_initialized.html#torch.mtia.is_initialized">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.is_initialized.html#torch.xpu.is_initialized">(in module torch.xpu)</a>
 </li>
@@ -5700,6 +5701,8 @@
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.Transform.log_abs_det_jacobian">log_abs_det_jacobian() (torch.distributions.transforms.Transform method)</a>
 </li>
+      <li><a href="elastic/timer.html#torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers">log_debug_info_for_expired_timers() (in module torch.distributed.elastic.timer.debug_info_logging)</a>
+</li>
       <li><a href="monitor.html#torch.monitor.log_event">log_event() (in module torch.monitor)</a>
 </li>
       <li><a href="special.html#torch.special.log_ndtr">log_ndtr() (in module torch.special)</a>
@@ -6018,8 +6021,12 @@
       </ul></li>
       <li><a href="generated/torch.Tensor.map_.html#torch.Tensor.map_">map_() (torch.Tensor method)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Interpreter.map_nodes_to_values">map_nodes_to_values() (torch.fx.Interpreter method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.map_nodes_to_values">map_nodes_to_values() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
+
+      <ul>
+        <li><a href="fx.html#torch.fx.Interpreter.map_nodes_to_values">(torch.fx.Interpreter method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.nn.functional.margin_ranking_loss.html#torch.nn.functional.margin_ranking_loss">margin_ranking_loss() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.MarginRankingLoss.html#torch.nn.MarginRankingLoss">MarginRankingLoss (class in torch.nn)</a>
@@ -6932,6 +6939,8 @@
 </li>
         <li><a href="distributed.html#module-torch.distributed.elastic.timer.api">torch.distributed.elastic.timer.api</a>
 </li>
+        <li><a href="elastic/timer.html#module-torch.distributed.elastic.timer.debug_info_logging">torch.distributed.elastic.timer.debug_info_logging</a>
+</li>
         <li><a href="distributed.html#module-torch.distributed.elastic.timer.file_based_local_timer">torch.distributed.elastic.timer.file_based_local_timer</a>
 </li>
         <li><a href="distributed.html#module-torch.distributed.elastic.timer.local_timer">torch.distributed.elastic.timer.local_timer</a>
@@ -7431,8 +7440,6 @@
         <li><a href="mps.html#module-torch.mps.event">torch.mps.event</a>
 </li>
         <li><a href="mps.html#module-torch.mps.profiler">torch.mps.profiler</a>
-</li>
-        <li><a href="mtia.html#module-torch.mtia">torch.mtia</a>
 </li>
         <li><a href="multiprocessing.html#module-torch.multiprocessing">torch.multiprocessing</a>
 </li>
@@ -8511,9 +8518,11 @@
       </ul></li>
       <li><a href="generated/torch.cuda.OutOfMemoryError.html#torch.cuda.OutOfMemoryError">OutOfMemoryError</a>
 </li>
-      <li><a href="fx.html#torch.fx.Graph.output">output() (torch.fx.Graph method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.output">output() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
 
       <ul>
+        <li><a href="fx.html#torch.fx.Graph.output">(torch.fx.Graph method)</a>
+</li>
         <li><a href="fx.html#torch.fx.Interpreter.output">(torch.fx.Interpreter method)</a>
 </li>
       </ul></li>
@@ -8665,9 +8674,11 @@
 </li>
       <li><a href="generated/torch.nn.PixelUnshuffle.html#torch.nn.PixelUnshuffle">PixelUnshuffle (class in torch.nn)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Graph.placeholder">placeholder() (torch.fx.Graph method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.placeholder">placeholder() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
 
       <ul>
+        <li><a href="fx.html#torch.fx.Graph.placeholder">(torch.fx.Graph method)</a>
+</li>
         <li><a href="fx.html#torch.fx.Interpreter.placeholder">(torch.fx.Interpreter method)</a>
 </li>
         <li><a href="fx.html#torch.fx.Transformer.placeholder">(torch.fx.Transformer method)</a>
@@ -8910,6 +8921,8 @@
       <li><a href="generated/torch.promote_types.html#torch.promote_types">promote_types() (in module torch)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.propagate_qconfig_.html#torch.ao.quantization.propagate_qconfig_">propagate_qconfig_ (class in torch.ao.quantization)</a>
+</li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts">PropagateUnbackedSymInts (class in torch.fx.experimental.symbolic_shapes)</a>
 </li>
       <li><a href="fx.html#torch.fx.Proxy">Proxy (class in torch.fx)</a>
 </li>
@@ -9705,6 +9718,8 @@
       </ul></li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.resolve_tensor">resolve_tensor() (torch.distributed.checkpoint.LoadPlanner method)</a>
 </li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.html#torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings">resolve_unbacked_bindings() (in module torch.fx.experimental.symbolic_shapes)</a>
+</li>
       <li><a href="generated/torch.result_type.html#torch.result_type">result_type() (in module torch)</a>
 </li>
       <li><a href="generated/torch.Tensor.retain_grad.html#torch.Tensor.retain_grad">retain_grad() (torch.Tensor method)</a>
@@ -9848,13 +9863,19 @@
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.ElasticAgent.run">run() (torch.distributed.elastic.agent.server.ElasticAgent method)</a>
 
       <ul>
+        <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run">(torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
+</li>
         <li><a href="fx.html#torch.fx.Interpreter.run">(torch.fx.Interpreter method)</a>
 </li>
       </ul></li>
       <li><a href="export.html#torch.export.ExportedProgram.run_decompositions">run_decompositions() (torch.export.ExportedProgram method)</a>
 </li>
-      <li><a href="fx.html#torch.fx.Interpreter.run_node">run_node() (torch.fx.Interpreter method)</a>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.run_node">run_node() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
+
+      <ul>
+        <li><a href="fx.html#torch.fx.Interpreter.run_node">(torch.fx.Interpreter method)</a>
 </li>
+      </ul></li>
       <li><a href="elastic/multiprocessing.html#torch.distributed.elastic.multiprocessing.api.RunProcsResult">RunProcsResult (class in torch.distributed.elastic.multiprocessing.api)</a>
 </li>
       <li><a href="elastic/agent.html#torch.distributed.elastic.agent.server.api.RunResult">RunResult (class in torch.distributed.elastic.agent.server.api)</a>
@@ -10290,8 +10311,6 @@
       <li><a href="generated/torch.cuda.set_stream.html#torch.cuda.set_stream">set_stream() (in module torch.cuda)</a>
 
       <ul>
-        <li><a href="generated/torch.mtia.set_stream.html#torch.mtia.set_stream">(in module torch.mtia)</a>
-</li>
         <li><a href="generated/torch.xpu.set_stream.html#torch.xpu.set_stream">(in module torch.xpu)</a>
 </li>
       </ul></li>
@@ -10481,14 +10500,14 @@
 </li>
       <li><a href="pipeline.html#torch.distributed.pipeline.sync.skip.skippable.skippable">skippable() (in module torch.distributed.pipeline.sync.skip.skippable)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.slice_scatter.html#torch.slice_scatter">slice_scatter() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.slice_scatter.html#torch.Tensor.slice_scatter">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.slogdet.html#torch.slogdet">slogdet() (in module torch)</a>
 
       <ul>
@@ -10850,8 +10869,6 @@
       <ul>
         <li><a href="generated/torch.cuda.Stream.html#torch.cuda.Stream">(class in torch.cuda)</a>
 </li>
-        <li><a href="generated/torch.mtia.Stream.html#torch.mtia.Stream">(class in torch.mtia)</a>
-</li>
         <li><a href="generated/torch.xpu.Stream.html#torch.xpu.Stream">(class in torch.xpu)</a>
 </li>
       </ul></li>
@@ -10860,8 +10877,6 @@
       <ul>
         <li><a href="generated/torch.cuda.stream.html#torch.cuda.stream">(in module torch.cuda)</a>
 </li>
-        <li><a href="generated/torch.mtia.stream.html#torch.mtia.stream">(in module torch.mtia)</a>
-</li>
         <li><a href="generated/torch.xpu.stream.html#torch.xpu.stream">(in module torch.xpu)</a>
 </li>
       </ul></li>
@@ -10869,8 +10884,6 @@
 
       <ul>
         <li><a href="generated/torch.cuda.StreamContext.html#torch.cuda.StreamContext">(class in torch.cuda)</a>
-</li>
-        <li><a href="generated/torch.mtia.StreamContext.html#torch.mtia.StreamContext">(class in torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.StreamContext.html#torch.xpu.StreamContext">(class in torch.xpu)</a>
 </li>
@@ -11067,8 +11080,6 @@
         <li><a href="generated/torch.cuda.synchronize.html#torch.cuda.synchronize">(in module torch.cuda)</a>
 </li>
         <li><a href="generated/torch.mps.synchronize.html#torch.mps.synchronize">(in module torch.mps)</a>
-</li>
-        <li><a href="generated/torch.mtia.synchronize.html#torch.mtia.synchronize">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.synchronize.html#torch.xpu.synchronize">(in module torch.xpu)</a>
 </li>
@@ -13226,6 +13237,13 @@
 </li>
       </ul></li>
       <li>
+    torch.distributed.elastic.timer.debug_info_logging
+
+      <ul>
+        <li><a href="elastic/timer.html#module-torch.distributed.elastic.timer.debug_info_logging">module</a>
+</li>
+      </ul></li>
+      <li>
     torch.distributed.elastic.timer.file_based_local_timer
 
       <ul>
@@ -14121,6 +14139,8 @@
         <li><a href="distributions.html#module-torch.distributions.von_mises">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.distributions.weibull
 
@@ -14128,8 +14148,6 @@
         <li><a href="distributions.html#module-torch.distributions.weibull">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.distributions.wishart
 
@@ -14979,13 +14997,6 @@
 
       <ul>
         <li><a href="mps.html#module-torch.mps.profiler">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.mtia
-
-      <ul>
-        <li><a href="mtia.html#module-torch.mtia">module</a>
 </li>
       </ul></li>
       <li>

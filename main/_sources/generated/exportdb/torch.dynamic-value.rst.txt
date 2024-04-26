@@ -5,7 +5,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -41,18 +41,18 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "i64[]"):
-                    _local_scalar_dense: "Sym(u3)" = torch.ops.aten._local_scalar_dense.default(x);  x = None
+                    _local_scalar_dense: "Sym(u0)" = torch.ops.aten._local_scalar_dense.default(x);  x = None
                 
-                    ge: "Sym(u3 >= 0)" = _local_scalar_dense >= 0
+                    ge: "Sym(u0 >= 0)" = _local_scalar_dense >= 0
                 scalar_tensor_default: "f32[]" = torch.ops.aten.scalar_tensor.default(ge);  ge = None
                 _assert_async_msg = torch.ops.aten._assert_async.msg(scalar_tensor_default, '_local_scalar_dense is outside of inline constraint [0, 5].');  scalar_tensor_default = None
-                le: "Sym(u3 <= 0)" = _local_scalar_dense <= 5
+                le: "Sym(u0 <= 0)" = _local_scalar_dense <= 5
                 scalar_tensor_default_1: "f32[]" = torch.ops.aten.scalar_tensor.default(le);  le = None
                 _assert_async_msg_1 = torch.ops.aten._assert_async.msg(scalar_tensor_default_1, '_local_scalar_dense is outside of inline constraint [0, 5].');  scalar_tensor_default_1 = None
                 
                     sym_constrain_range_for_size = torch.ops.aten.sym_constrain_range_for_size.default(_local_scalar_dense, min = 0, max = 5)
                 
-                    zeros: "f32[u3, 5]" = torch.ops.aten.zeros.default([_local_scalar_dense, 5], device = device(type='cpu'), pin_memory = False);  _local_scalar_dense = None
+                    zeros: "f32[u0, 5]" = torch.ops.aten.zeros.default([_local_scalar_dense, 5], device = device(type='cpu'), pin_memory = False);  _local_scalar_dense = None
                 return (zeros,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='zeros'), target=None)])
@@ -65,7 +65,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -104,12 +104,12 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "i64[]", y: "f32[5, 5]"):
-                    _local_scalar_dense: "Sym(u3)" = torch.ops.aten._local_scalar_dense.default(x);  x = None
+                    _local_scalar_dense: "Sym(u0)" = torch.ops.aten._local_scalar_dense.default(x);  x = None
                 
-                    ge: "Sym(u3 >= 0)" = _local_scalar_dense >= 0
+                    ge: "Sym(u0 >= 0)" = _local_scalar_dense >= 0
                 scalar_tensor_default: "f32[]" = torch.ops.aten.scalar_tensor.default(ge);  ge = None
                 _assert_async_msg = torch.ops.aten._assert_async.msg(scalar_tensor_default, '_local_scalar_dense is outside of inline constraint [0, 5].');  scalar_tensor_default = None
-                le: "Sym(u3 <= 0)" = _local_scalar_dense <= 5
+                le: "Sym(u0 <= 0)" = _local_scalar_dense <= 5
                 scalar_tensor_default_1: "f32[]" = torch.ops.aten.scalar_tensor.default(le);  le = None
                 _assert_async_msg_1 = torch.ops.aten._assert_async.msg(scalar_tensor_default_1, '_local_scalar_dense is outside of inline constraint [0, 5].');  scalar_tensor_default_1 = None
                 
