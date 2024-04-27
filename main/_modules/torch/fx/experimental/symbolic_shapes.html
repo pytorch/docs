@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitfd24d8c ) &#x25BC</a>
     </div>
     
 
@@ -331,6 +331,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
@@ -1208,6 +1209,10 @@
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unrecognized scalar </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">_constrain_symbol_range</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">compiler_min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">compiler_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">shape_env</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">compiler_min</span><span class="p">,</span> <span class="n">compiler_max</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_advise_is_size</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Don&#39;t use this directly; use torch._check_is_size instead.</span>
@@ -1249,6 +1254,7 @@
     <span class="p">):</span>
         <span class="n">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
+<span class="nd">@record_shapeenv_event</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function is NOT INTENDED to be used by itself.</span>
@@ -1260,11 +1266,28 @@
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">),</span> <span class="s2">&quot;can only constrain range for SymInt&quot;</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
 
-    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">min</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">max</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="nb">max</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Maximum value to constrain_as_size can&#39;t be less than the specified min value, &quot;</span>
+            <span class="s2">&quot;received min=</span><span class="si">{min}</span><span class="s2"> and max=</span><span class="si">{max}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span>
+        <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
+        <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">size_like</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
 
 
 <span class="c1"># inclusive both ways</span>
-<div class="viewcode-block" id="constrain_range"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_range.html#torch.fx.experimental.symbolic_shapes.constrain_range">[docs]</a><span class="k">def</span> <span class="nf">constrain_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="constrain_range"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_range.html#torch.fx.experimental.symbolic_shapes.constrain_range">[docs]</a><span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">constrain_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Applies a constraint that the passed in SymInt must lie between min-max</span>
 <span class="sd">    inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning</span>
@@ -1305,24 +1328,54 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
-    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">min</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ValueRangeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
 
-<div class="viewcode-block" id="constrain_unify"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_unify.html#torch.fx.experimental.symbolic_shapes.constrain_unify">[docs]</a><span class="k">def</span> <span class="nf">constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># TODO: Shouldn&#39;t we install a guard if the symbol is backed?  Or is the</span>
+    <span class="c1"># semantics that this is an &quot;unchecked&quot; assert (but it this actually</span>
+    <span class="c1"># something useful?  Might be better to restrict only for unbacked</span>
+    <span class="c1"># SymInt).</span>
+    <span class="n">_constrain_symbol_range</span><span class="p">(</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="p">,</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span>
+        <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
+        <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="constrain_unify"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_unify.html#torch.fx.experimental.symbolic_shapes.constrain_unify">[docs]</a><span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given two SymInts, constrain them so that they must be equal.  NB:</span>
 <span class="sd">    this will not work with SymInts that represent nontrivial expressions</span>
 <span class="sd">    (yet!)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: this does not install a deferred runtime assert yet</span>
+
+    <span class="c1"># TODO: Maybe dedupe this with _maybe_guard_rel?</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
             <span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
-            <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
             <span class="n">shape_env</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
+            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># TODO: Actually, we can support this as long as one of them is a symbol.</span>
+        <span class="c1"># NB: We can&#39;t actually do &quot;unification&quot; as our operators are not</span>
+        <span class="c1"># injective</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
         <span class="n">shape_env</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
-
-    <span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
+            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+            <span class="n">new_var</span> <span class="o">=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
+            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_var</span></div>
 
 <span class="c1"># Assume that a boolean is true for the purposes of subsequent symbolic</span>
 <span class="c1"># reasoning.  This will keep track of corresponding runtime checks to verify</span>
@@ -2901,78 +2954,6 @@
         <span class="k">if</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">new_s</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="s2">&quot;rename_unbacked_to_dest&quot;</span><span class="p">)</span>
 
-    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">_constrain_range_for_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">min</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">max</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
-
-        <span class="k">if</span> <span class="nb">max</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Maximum value to constrain_as_size can&#39;t be less than the specified min value, &quot;</span>
-                <span class="s2">&quot;received min=</span><span class="si">{min}</span><span class="s2"> and max=</span><span class="si">{max}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
-            <span class="n">a</span><span class="p">,</span>
-            <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
-            <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-
-    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">_constrain_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">min</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">ValueRangeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-            <span class="k">return</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
-
-        <span class="c1"># TODO: Shouldn&#39;t we install a guard if the symbol is backed?  Or is the</span>
-        <span class="c1"># semantics that this is an &quot;unchecked&quot; assert (but it this actually</span>
-        <span class="c1"># something useful?  Might be better to restrict only for unbacked</span>
-        <span class="c1"># SymInt).</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
-            <span class="n">a</span><span class="p">,</span>
-            <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
-            <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
-        <span class="p">)</span>
-
-    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">_constrain_unify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Given two SymInts, constrain them so that they must be equal.  NB:</span>
-<span class="sd">        this will not work with SymInts that represent nontrivial expressions</span>
-<span class="sd">        (yet!)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO: this does not install a deferred runtime assert yet</span>
-
-        <span class="c1"># TODO: Maybe dedupe this with _maybe_guard_rel?</span>
-        <span class="c1"># Update Feb 2024: this is extra important to do, this doesn&#39;t handle</span>
-        <span class="c1"># unbacked replacements properly nor does it generate deferred runtime</span>
-        <span class="c1"># asserts</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
-                <span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
-                <span class="k">assert</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="bp">self</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># TODO: Actually, we can support this as long as one of them is a symbol.</span>
-            <span class="c1"># NB: We can&#39;t actually do &quot;unification&quot; as our operators are not</span>
-            <span class="c1"># injective</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
-            <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="bp">self</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
-                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
-                <span class="n">new_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_var</span>
-
     <span class="k">def</span> <span class="nf">_ignore_fresh_unbacked_symbols_tls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">TLS</span><span class="p">,</span> <span class="s2">&quot;ignore_fresh_unbacked_symbols&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
@@ -4139,9 +4120,11 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Failing guard allocated at: </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">guard</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">format</span><span class="p">()))</span>
                 <span class="k">raise</span>
 
-        <span class="c1"># First, issue all the non-trivial guards.</span>
+        <span class="c1"># First, issue all guards.</span>
+        <span class="c1"># This removes all the checks that follow from bounds</span>
+        <span class="c1"># We could simply emit those and also the bounds 2 &lt;= size when necessary</span>
         <span class="k">for</span> <span class="n">guard</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_evaluate_static</span><span class="p">(</span><span class="n">guard</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_evaluate_static</span><span class="p">(</span><span class="n">guard</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">axioms</span><span class="o">=</span><span class="p">())</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">issue_guard</span><span class="p">(</span><span class="n">guard</span><span class="p">)</span>
 
@@ -4346,7 +4329,7 @@
 
 <div class="viewcode-block" id="ShapeEnv.get_nontrivial_guards"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards">[docs]</a>    <span class="k">def</span> <span class="nf">get_nontrivial_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a list of guard expressions that aren&#39;t statically known (i.e. not trivial)&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">guard</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span> <span class="k">for</span> <span class="n">guard</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">guards</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_evaluate_static</span><span class="p">(</span><span class="n">guard</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">guard</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span> <span class="k">for</span> <span class="n">guard</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">guards</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_evaluate_static</span><span class="p">(</span><span class="n">guard</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">axioms</span><span class="o">=</span><span class="p">())</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="ShapeEnv.format_guards"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards">[docs]</a>    <span class="k">def</span> <span class="nf">format_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Format this shape env&#39;s guard expressions with optional traceback info if verbose&quot;&quot;&quot;</span>
@@ -4367,10 +4350,61 @@
                     <span class="n">var_to_range</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">oo</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">bound_sympy</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">var_to_range</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="ShapeEnv.get_axioms"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms">[docs]</a>    <span class="nd">@_lru_cache</span>
+    <span class="k">def</span> <span class="nf">get_axioms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbols</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;sympy.Symbol&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;sympy.Expr&quot;</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given the symbols in an expression, it returns all the runtime asserts that have those symbols</span>
+<span class="sd">        concatenated with all the guards.</span>
+<span class="sd">        If symbols is None, it returns all the runtime asserts (and all the guards)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">symbols</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">runtime_asserts</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">expr</span>
+                               <span class="k">for</span> <span class="n">rs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deferred_runtime_asserts</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                               <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">runtime_asserts</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">expr</span>
+                               <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span>
+                               <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deferred_runtime_asserts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">()))</span>
+        <span class="n">guards</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">expr</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="n">guards</span><span class="p">,</span> <span class="n">runtime_asserts</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ShapeEnv.get_implications"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_implications">[docs]</a>    <span class="nd">@_lru_cache</span>
+    <span class="k">def</span> <span class="nf">get_implications</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                         <span class="n">e</span><span class="p">:</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">,</span>
+                         <span class="n">compute_hint</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;sympy.Expr&quot;</span><span class="p">,</span> <span class="s1">&#39;sympy.logic.boolalg.BooleanAtom&#39;</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Given a expression, it returns a list of predicates that follow from it &quot;&quot;&quot;</span>
+        <span class="n">equiv</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">def</span> <span class="nf">add_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+            <span class="c1"># Expr and negation</span>
+            <span class="n">equiv</span><span class="p">[</span><span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">true</span>
+            <span class="n">equiv</span><span class="p">[</span><span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">expr</span><span class="p">))]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">false</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Rel</span><span class="p">):</span>
+                <span class="c1"># multiplying by -1 changes the direction of the inequality</span>
+                <span class="n">dual</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">)(</span><span class="o">-</span><span class="n">expr</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="o">-</span><span class="n">expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+                <span class="n">equiv</span><span class="p">[</span><span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">dual</span><span class="p">)]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">true</span>
+                <span class="n">equiv</span><span class="p">[</span><span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">dual</span><span class="p">))]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">false</span>
+
+        <span class="k">if</span> <span class="n">compute_hint</span><span class="p">:</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">))</span>
+        <span class="n">add_expr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="c1"># Other relational expressions this expression implies</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">):</span>
+            <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
+            <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Ge</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Lt</span><span class="p">):</span>
+            <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
+            <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Ne</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="o">.</span><span class="n">is_integer</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">is_integer</span><span class="p">:</span>
+                <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">):</span>
+            <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Lt</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">equiv</span><span class="o">.</span><span class="n">items</span><span class="p">())</span></div>
+
     <span class="nd">@_lru_cache</span>
     <span class="k">def</span> <span class="nf">_maybe_evaluate_static</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">unbacked_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">compute_hint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">expect_rational</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">expect_rational</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">axioms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Optional[sympy.Expr]&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Tries to evaluate expr without introducing guards</span>
@@ -4384,6 +4418,9 @@
 <span class="sd">        hint for the particular hint values of backed SymInts, e.g., if</span>
 <span class="sd">        s0 happens to be 3 this run, compute_hint will subsitute s0 with 3.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># axioms with compute hint NYE</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">compute_hint</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">axioms</span>
+
         <span class="n">expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">compute_hint</span><span class="p">:</span>
@@ -4391,53 +4428,14 @@
 
         <span class="n">expr</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
-        <span class="n">symbols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
-
-        <span class="c1"># Apply known runtime asserts</span>
-        <span class="n">guards_exprs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="p">:</span>
-            <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">compute_hint</span><span class="p">:</span>
-                <span class="n">e</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">))</span>
-            <span class="n">guards_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-
-        <span class="n">symbols_unbacked</span> <span class="o">=</span> <span class="n">symbols</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-        <span class="n">defra_exprs</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols_unbacked</span><span class="p">:</span>
-            <span class="n">defras</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deferred_runtime_asserts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">())</span>
-            <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">defra</span> <span class="ow">in</span> <span class="n">defras</span><span class="p">:</span>
-                <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">defra</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">compute_hint</span><span class="p">:</span>
-                    <span class="n">e</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">))</span>
-                <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="n">defra_exprs</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span>
-
-
+        <span class="c1"># Pattern matching</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">axioms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">axioms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_axioms</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
         <span class="n">subst</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols_unbacked</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">axioms</span><span class="p">:</span>
+            <span class="n">subst</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_implications</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">compute_hint</span><span class="o">=</span><span class="n">compute_hint</span><span class="p">)))</span>
 
-            <span class="k">def</span> <span class="nf">add_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
-                <span class="c1"># Expr and negation</span>
-                <span class="n">subst</span><span class="p">[</span><span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">true</span>
-                <span class="n">subst</span><span class="p">[</span><span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">expr</span><span class="p">))]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">false</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Rel</span><span class="p">):</span>
-                    <span class="c1"># multiplying by -1 changes the direction of the inequality</span>
-                    <span class="n">dual</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">)(</span><span class="o">-</span><span class="n">expr</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="o">-</span><span class="n">expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
-                    <span class="n">subst</span><span class="p">[</span><span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">dual</span><span class="p">)]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">true</span>
-                    <span class="n">subst</span><span class="p">[</span><span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">dual</span><span class="p">))]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">false</span>
-
-            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="n">guards_exprs</span><span class="p">,</span> <span class="n">defra_exprs</span><span class="p">[</span><span class="n">s</span><span class="p">]):</span>
-                <span class="n">add_expr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                <span class="c1"># Other relational expressions this expression implies</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">):</span>
-                    <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
-                    <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Ge</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Lt</span><span class="p">):</span>
-                    <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
-                    <span class="n">add_expr</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Ne</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
-
-        <span class="c1"># NB: this helps us deal with And/Or connectives</span>
         <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">subst</span><span class="p">)</span>
 
         <span class="c1"># Simplify making use of value range lower bound</span>
@@ -5151,7 +5149,6 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress_guards_tls</span><span class="p">():</span>
                 <span class="n">stack</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">guard</span> <span class="o">=</span> <span class="n">ShapeGuard</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
-                <span class="c1"># TODO: deal with duplicate guards somehow</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">guard</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">fresh</span><span class="p">:</span>

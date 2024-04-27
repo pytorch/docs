@@ -241,7 +241,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf9379eb ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitfd24d8c ) &#x25BC</a>
     </div>
     
 
@@ -330,6 +330,7 @@
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mtia.html">torch.mtia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
@@ -2084,10 +2085,10 @@
         <li><a href="generated/torch.linalg.cond.html#torch.linalg.cond">(in module torch.linalg)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig.configs">configs (torch.ao.quantization.backend_config.BackendConfig property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.configure">configure() (in module torch.distributed.elastic.metrics)</a>
 
       <ul>
@@ -2523,6 +2524,8 @@
       <ul>
         <li><a href="generated/torch.cuda.current_device.html#torch.cuda.current_device">(in module torch.cuda)</a>
 </li>
+        <li><a href="generated/torch.mtia.current_device.html#torch.mtia.current_device">(in module torch.mtia)</a>
+</li>
         <li><a href="generated/torch.xpu.current_device.html#torch.xpu.current_device">(in module torch.xpu)</a>
 </li>
       </ul></li>
@@ -2532,6 +2535,8 @@
 
       <ul>
         <li><a href="generated/torch.cuda.current_stream.html#torch.cuda.current_stream">(in module torch.cuda)</a>
+</li>
+        <li><a href="generated/torch.mtia.current_stream.html#torch.mtia.current_stream">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream">(in module torch.xpu)</a>
 </li>
@@ -2635,7 +2640,11 @@
       <li><a href="generated/torch.ao.quantization.qconfig.default_qconfig.html#torch.ao.quantization.qconfig.default_qconfig">default_qconfig (in module torch.ao.quantization.qconfig)</a>
 </li>
       <li><a href="generated/torch.cuda.default_stream.html#torch.cuda.default_stream">default_stream() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.mtia.default_stream.html#torch.mtia.default_stream">(in module torch.mtia)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.ao.quantization.fake_quantize.default_weight_fake_quant.html#torch.ao.quantization.fake_quantize.default_weight_fake_quant">default_weight_fake_quant (in module torch.ao.quantization.fake_quantize)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.observer.default_weight_observer.html#torch.ao.quantization.observer.default_weight_observer">default_weight_observer (in module torch.ao.quantization.observer)</a>
@@ -2649,6 +2658,8 @@
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.DefaultSavePlanner">DefaultSavePlanner (class in torch.distributed.checkpoint)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.defer_runtime_assert">defer_runtime_assert() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
+</li>
+      <li><a href="generated/torch.mtia.DeferredMtiaCallError.html#torch.mtia.DeferredMtiaCallError">DeferredMtiaCallError</a>
 </li>
       <li><a href="library.html#torch.library.define">define() (in module torch.library)</a>
 
@@ -2717,6 +2728,8 @@
       <ul>
         <li><a href="generated/torch.cuda.device.html#torch.cuda.device">(class in torch.cuda)</a>
 </li>
+        <li><a href="generated/torch.mtia.device.html#torch.mtia.device">(class in torch.mtia)</a>
+</li>
         <li><a href="generated/torch.xpu.device.html#torch.xpu.device">(class in torch.xpu)</a>
 </li>
         <li><a href="generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel.device">(torch.autograd.profiler_util.Kernel attribute)</a>
@@ -2736,6 +2749,8 @@
         <li><a href="generated/torch.cuda.device_count.html#torch.cuda.device_count">(in module torch.cuda)</a>
 </li>
         <li><a href="generated/torch.mps.device_count.html#torch.mps.device_count">(in module torch.mps)</a>
+</li>
+        <li><a href="generated/torch.mtia.device_count.html#torch.mtia.device_count">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.device_count.html#torch.xpu.device_count">(in module torch.xpu)</a>
 </li>
@@ -2766,14 +2781,14 @@
         <li><a href="generated/torch.Tensor.diag_embed.html#torch.Tensor.diag_embed">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.diagflat.html#torch.diagflat">diagflat() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.diagflat.html#torch.Tensor.diagflat">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.diagnostic_context">diagnostic_context (torch.onnx.ONNXProgram property)</a>
 </li>
       <li><a href="onnx_dynamo.html#torch.onnx.DiagnosticOptions">DiagnosticOptions (class in torch.onnx)</a>
@@ -3285,6 +3300,8 @@
         <li><a href="monitor.html#torch.monitor.Event">(class in torch.monitor)</a>
 </li>
         <li><a href="generated/torch.mps.event.Event.html#torch.mps.event.Event">(class in torch.mps.event)</a>
+</li>
+        <li><a href="generated/torch.mtia.Event.html#torch.mtia.Event">(class in torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.Event.html#torch.xpu.Event">(class in torch.xpu)</a>
 </li>
@@ -4087,6 +4104,8 @@
         <li><a href="fx.html#torch.fx.Transformer.get_attr">(torch.fx.Transformer method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms">get_axioms() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
+</li>
       <li><a href="distributed.html#torch.distributed.get_backend">get_backend() (in module torch.distributed)</a>
 
       <ul>
@@ -4135,6 +4154,8 @@
         <li><a href="generated/torch.xpu.get_device_capability.html#torch.xpu.get_device_capability">(in module torch.xpu)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.get_device_module.html#torch.get_device_module">get_device_module() (in module torch)</a>
+</li>
       <li><a href="generated/torch.cuda.get_device_name.html#torch.cuda.get_device_name">get_device_name() (in module torch.cuda)</a>
 
       <ul>
@@ -4174,6 +4195,8 @@
       <li><a href="distributed.html#torch.distributed.get_group_rank">get_group_rank() (in module torch.distributed)</a>
 </li>
       <li><a href="torch.overrides.html#torch.overrides.get_ignored_functions">get_ignored_functions() (in module torch.overrides)</a>
+</li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_implications">get_implications() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
       <li><a href="generated/torch.optim.lr_scheduler.ChainedScheduler.html#torch.optim.lr_scheduler.ChainedScheduler.get_last_lr">get_last_lr() (torch.optim.lr_scheduler.ChainedScheduler method)</a>
 
@@ -4828,6 +4851,8 @@
       <li><a href="generated/torch.cuda.init.html#torch.cuda.init">init() (in module torch.cuda)</a>
 
       <ul>
+        <li><a href="generated/torch.mtia.init.html#torch.mtia.init">(in module torch.mtia)</a>
+</li>
         <li><a href="generated/torch.xpu.init.html#torch.xpu.init">(in module torch.xpu)</a>
 </li>
       </ul></li>
@@ -4941,10 +4966,10 @@
 </li>
       <li><a href="generated/torch.linalg.inv_ex.html#torch.linalg.inv_ex">inv_ex() (in module torch.linalg)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="onnx_dynamo.html#torch.onnx.InvalidExportOptionsError">InvalidExportOptionsError (class in torch.onnx)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.inverse.html#torch.inverse">inverse() (in module torch)</a>
 
       <ul>
@@ -4973,6 +4998,8 @@
 </li>
       <li><a href="generated/torch.fft.irfftn.html#torch.fft.irfftn">irfftn() (in module torch.fft)</a>
 </li>
+      <li><a href="amp.html#torch.amp.autocast_mode.is_autocast_available">is_autocast_available() (in module torch.amp.autocast_mode)</a>
+</li>
       <li><a href="backends.html#torch.backends.cudnn.is_available">is_available() (in module torch.backends.cudnn)</a>
 
       <ul>
@@ -4993,6 +5020,8 @@
         <li><a href="generated/torch.cuda.is_available.html#torch.cuda.is_available">(in module torch.cuda)</a>
 </li>
         <li><a href="distributed.html#torch.distributed.is_available">(in module torch.distributed)</a>
+</li>
+        <li><a href="generated/torch.mtia.is_available.html#torch.mtia.is_available">(in module torch.mtia)</a>
 </li>
         <li><a href="profiler.html#torch.profiler.itt.is_available">(in module torch.profiler.itt)</a>
 </li>
@@ -5075,6 +5104,8 @@
 
       <ul>
         <li><a href="distributed.html#torch.distributed.is_initialized">(in module torch.distributed)</a>
+</li>
+        <li><a href="generated/torch.mtia.is_initialized.html#torch.mtia.is_initialized">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.is_initialized.html#torch.xpu.is_initialized">(in module torch.xpu)</a>
 </li>
@@ -7440,6 +7471,8 @@
         <li><a href="mps.html#module-torch.mps.event">torch.mps.event</a>
 </li>
         <li><a href="mps.html#module-torch.mps.profiler">torch.mps.profiler</a>
+</li>
+        <li><a href="mtia.html#module-torch.mtia">torch.mtia</a>
 </li>
         <li><a href="multiprocessing.html#module-torch.multiprocessing">torch.multiprocessing</a>
 </li>
@@ -10311,6 +10344,8 @@
       <li><a href="generated/torch.cuda.set_stream.html#torch.cuda.set_stream">set_stream() (in module torch.cuda)</a>
 
       <ul>
+        <li><a href="generated/torch.mtia.set_stream.html#torch.mtia.set_stream">(in module torch.mtia)</a>
+</li>
         <li><a href="generated/torch.xpu.set_stream.html#torch.xpu.set_stream">(in module torch.xpu)</a>
 </li>
       </ul></li>
@@ -10500,14 +10535,14 @@
 </li>
       <li><a href="pipeline.html#torch.distributed.pipeline.sync.skip.skippable.skippable">skippable() (in module torch.distributed.pipeline.sync.skip.skippable)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.slice_scatter.html#torch.slice_scatter">slice_scatter() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.slice_scatter.html#torch.Tensor.slice_scatter">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.slogdet.html#torch.slogdet">slogdet() (in module torch)</a>
 
       <ul>
@@ -10869,6 +10904,8 @@
       <ul>
         <li><a href="generated/torch.cuda.Stream.html#torch.cuda.Stream">(class in torch.cuda)</a>
 </li>
+        <li><a href="generated/torch.mtia.Stream.html#torch.mtia.Stream">(class in torch.mtia)</a>
+</li>
         <li><a href="generated/torch.xpu.Stream.html#torch.xpu.Stream">(class in torch.xpu)</a>
 </li>
       </ul></li>
@@ -10877,6 +10914,8 @@
       <ul>
         <li><a href="generated/torch.cuda.stream.html#torch.cuda.stream">(in module torch.cuda)</a>
 </li>
+        <li><a href="generated/torch.mtia.stream.html#torch.mtia.stream">(in module torch.mtia)</a>
+</li>
         <li><a href="generated/torch.xpu.stream.html#torch.xpu.stream">(in module torch.xpu)</a>
 </li>
       </ul></li>
@@ -10884,6 +10923,8 @@
 
       <ul>
         <li><a href="generated/torch.cuda.StreamContext.html#torch.cuda.StreamContext">(class in torch.cuda)</a>
+</li>
+        <li><a href="generated/torch.mtia.StreamContext.html#torch.mtia.StreamContext">(class in torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.StreamContext.html#torch.xpu.StreamContext">(class in torch.xpu)</a>
 </li>
@@ -11080,6 +11121,8 @@
         <li><a href="generated/torch.cuda.synchronize.html#torch.cuda.synchronize">(in module torch.cuda)</a>
 </li>
         <li><a href="generated/torch.mps.synchronize.html#torch.mps.synchronize">(in module torch.mps)</a>
+</li>
+        <li><a href="generated/torch.mtia.synchronize.html#torch.mtia.synchronize">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.synchronize.html#torch.xpu.synchronize">(in module torch.xpu)</a>
 </li>
@@ -14997,6 +15040,13 @@
 
       <ul>
         <li><a href="mps.html#module-torch.mps.profiler">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.mtia
+
+      <ul>
+        <li><a href="mtia.html#module-torch.mtia">module</a>
 </li>
       </ul></li>
       <li>
