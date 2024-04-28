@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitfd24d8c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git7478b7f ) &#x25BC</a>
     </div>
     
 
@@ -1254,7 +1254,6 @@
     <span class="p">):</span>
         <span class="n">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
-<span class="nd">@record_shapeenv_event</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function is NOT INTENDED to be used by itself.</span>
@@ -1266,28 +1265,11 @@
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">),</span> <span class="s2">&quot;can only constrain range for SymInt&quot;</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
 
-    <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">min</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">max</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
-
-    <span class="k">if</span> <span class="nb">max</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Maximum value to constrain_as_size can&#39;t be less than the specified min value, &quot;</span>
-            <span class="s2">&quot;received min=</span><span class="si">{min}</span><span class="s2"> and max=</span><span class="si">{max}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-
-    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span>
-        <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
-        <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">size_like</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span>
 
 
 <span class="c1"># inclusive both ways</span>
-<div class="viewcode-block" id="constrain_range"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_range.html#torch.fx.experimental.symbolic_shapes.constrain_range">[docs]</a><span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">constrain_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="constrain_range"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_range.html#torch.fx.experimental.symbolic_shapes.constrain_range">[docs]</a><span class="k">def</span> <span class="nf">constrain_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Applies a constraint that the passed in SymInt must lie between min-max</span>
 <span class="sd">    inclusive-inclusive, WITHOUT introducing a guard on the SymInt (meaning</span>
@@ -1328,54 +1310,24 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">min</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ValueRangeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span></div>
 
-    <span class="c1"># TODO: Shouldn&#39;t we install a guard if the symbol is backed?  Or is the</span>
-    <span class="c1"># semantics that this is an &quot;unchecked&quot; assert (but it this actually</span>
-    <span class="c1"># something useful?  Might be better to restrict only for unbacked</span>
-    <span class="c1"># SymInt).</span>
-    <span class="n">_constrain_symbol_range</span><span class="p">(</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="p">,</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span>
-        <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
-        <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
-    <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="constrain_unify"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_unify.html#torch.fx.experimental.symbolic_shapes.constrain_unify">[docs]</a><span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="viewcode-block" id="constrain_unify"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.constrain_unify.html#torch.fx.experimental.symbolic_shapes.constrain_unify">[docs]</a><span class="k">def</span> <span class="nf">constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given two SymInts, constrain them so that they must be equal.  NB:</span>
 <span class="sd">    this will not work with SymInts that represent nontrivial expressions</span>
 <span class="sd">    (yet!)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: this does not install a deferred runtime assert yet</span>
-
-    <span class="c1"># TODO: Maybe dedupe this with _maybe_guard_rel?</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
             <span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+            <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
             <span class="n">shape_env</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
-            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># TODO: Actually, we can support this as long as one of them is a symbol.</span>
-        <span class="c1"># NB: We can&#39;t actually do &quot;unification&quot; as our operators are not</span>
-        <span class="c1"># injective</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
         <span class="n">shape_env</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
-            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
-            <span class="n">new_var</span> <span class="o">=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
-            <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_var</span></div>
+
+    <span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_unify</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
 
 <span class="c1"># Assume that a boolean is true for the purposes of subsequent symbolic</span>
 <span class="c1"># reasoning.  This will keep track of corresponding runtime checks to verify</span>
@@ -2953,6 +2905,78 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_renamings</span><span class="p">[</span><span class="n">orig_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_s</span>
         <span class="k">if</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">new_s</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="s2">&quot;rename_unbacked_to_dest&quot;</span><span class="p">)</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_constrain_range_for_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">min</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">max</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="nb">max</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Maximum value to constrain_as_size can&#39;t be less than the specified min value, &quot;</span>
+                <span class="s2">&quot;received min=</span><span class="si">{min}</span><span class="s2"> and max=</span><span class="si">{max}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
+            <span class="n">a</span><span class="p">,</span>
+            <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
+            <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_constrain_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">min</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">ValueRangeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2"> for range [</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">max</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+
+        <span class="c1"># TODO: Shouldn&#39;t we install a guard if the symbol is backed?  Or is the</span>
+        <span class="c1"># semantics that this is an &quot;unchecked&quot; assert (but it this actually</span>
+        <span class="c1"># something useful?  Might be better to restrict only for unbacked</span>
+        <span class="c1"># SymInt).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constrain_symbol_range</span><span class="p">(</span>
+            <span class="n">a</span><span class="p">,</span>
+            <span class="n">compiler_min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
+            <span class="n">compiler_max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_constrain_unify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given two SymInts, constrain them so that they must be equal.  NB:</span>
+<span class="sd">        this will not work with SymInts that represent nontrivial expressions</span>
+<span class="sd">        (yet!)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: this does not install a deferred runtime assert yet</span>
+
+        <span class="c1"># TODO: Maybe dedupe this with _maybe_guard_rel?</span>
+        <span class="c1"># Update Feb 2024: this is extra important to do, this doesn&#39;t handle</span>
+        <span class="c1"># unbacked replacements properly nor does it generate deferred runtime</span>
+        <span class="c1"># asserts</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+                <span class="k">assert</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="bp">self</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># TODO: Actually, we can support this as long as one of them is a symbol.</span>
+            <span class="c1"># NB: We can&#39;t actually do &quot;unification&quot; as our operators are not</span>
+            <span class="c1"># injective</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+            <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="bp">self</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span> <span class="ow">is</span> <span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="s2">&quot;constraining non-Symbols NYI&quot;</span>
+                <span class="n">new_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_var</span>
 
     <span class="k">def</span> <span class="nf">_ignore_fresh_unbacked_symbols_tls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">TLS</span><span class="p">,</span> <span class="s2">&quot;ignore_fresh_unbacked_symbols&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
