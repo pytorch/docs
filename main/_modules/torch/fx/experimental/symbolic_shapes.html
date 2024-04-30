@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gite3b9b71 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git744f341 ) &#x25BC</a>
     </div>
     
 
@@ -1076,24 +1076,35 @@
                 <span class="k">else</span> <span class="s2">&quot;&quot;</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="c1"># TODO: This is pretty fragile</span>
-        <span class="c1"># Normally, the equality test is supposed to be a no-op here, because</span>
-        <span class="c1"># you&#39;ve already called rebind_unbacked first which takes all the old</span>
-        <span class="c1"># binding sites and discovers how they are newly bound.  But this does</span>
-        <span class="c1"># not always work.  For example, if the original FX node wasn&#39;t a</span>
-        <span class="c1"># binding site because you had a memo hit, but post translation you</span>
-        <span class="c1"># aren&#39;t a memo hit anymore, there&#39;s now a new binding site... but we</span>
-        <span class="c1"># know (because it&#39;s the same FX node) that the value is actually the</span>
-        <span class="c1"># same, they&#39;re just not obviously equal anymore.  So we just insert</span>
-        <span class="c1"># a runtime assert in this case.</span>
+        <span class="c1"># Why do we have to do some rebinding here?  If the original FX node</span>
+        <span class="c1"># wasn&#39;t a binding site because you had a memo hit, but post</span>
+        <span class="c1"># translation you aren&#39;t a memo hit anymore, there&#39;s now a new binding</span>
+        <span class="c1"># site... but we know (because it&#39;s the same FX node) that the value</span>
+        <span class="c1"># is actually the same, they&#39;re just not obviously equal anymore.</span>
         <span class="c1">#</span>
-        <span class="c1"># This is very fragile, because u0 == u1 assertion does not generate</span>
-        <span class="c1"># a replacement.  Here, I think it might be acceptable to do a</span>
-        <span class="c1"># replacement, so long as we replace the newer thing with the older</span>
-        <span class="c1"># thing.  Fix this if it becomes an issue.</span>
+        <span class="c1"># The logic here is written carefully, because unlike the</span>
+        <span class="c1"># bind_unbacked case, we are not guaranteed to have a symbol for</span>
+        <span class="c1"># old_sym.  If we have a symbol, do regular rename unbacked to; but if</span>
+        <span class="c1"># we don&#39;t, we need to specially eliminate the fresh unbacked symbol</span>
+        <span class="c1"># (NB: we are /trusting/ that the memoization is correct, and that we</span>
+        <span class="c1"># don&#39;t need to generate a new runtime assert.  This is load bearing,</span>
+        <span class="c1"># as repropagation can happen after we&#39;ve frozen runtime asserts.)</span>
         <span class="k">if</span> <span class="n">old_example_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">keypath</span> <span class="ow">in</span> <span class="n">symbol_to_path</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">pytree</span><span class="o">.</span><span class="n">key_get</span><span class="p">(</span><span class="n">old_example_value</span><span class="p">,</span> <span class="n">keypath</span><span class="p">)</span> <span class="o">==</span> <span class="n">pytree</span><span class="o">.</span><span class="n">key_get</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="n">keypath</span><span class="p">))</span>
+                <span class="n">old_sym</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">key_get</span><span class="p">(</span><span class="n">old_example_value</span><span class="p">,</span> <span class="n">keypath</span><span class="p">)</span>
+                <span class="n">new_sym</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">key_get</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="n">keypath</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_sym</span><span class="p">,</span> <span class="n">SymTypes</span><span class="p">)</span> <span class="ow">and</span>
+                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_s</span> <span class="o">:=</span> <span class="n">new_sym</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+                <span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_sym</span><span class="p">,</span> <span class="n">SymTypes</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">old_s</span> <span class="o">:=</span> <span class="n">old_sym</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span> <span class="o">!=</span> <span class="n">new_s</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_s</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">):</span>
+                            <span class="n">shape_env</span><span class="o">.</span><span class="n">_rename_unbacked_to</span><span class="p">(</span><span class="n">new_s</span><span class="p">,</span> <span class="n">old_s</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">shape_env</span><span class="o">.</span><span class="n">_eliminate_unbacked</span><span class="p">(</span><span class="n">new_s</span><span class="p">,</span> <span class="n">old_s</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_sym</span><span class="p">,</span> <span class="n">SymTypes</span><span class="p">):</span>
+                        <span class="n">shape_env</span><span class="o">.</span><span class="n">_eliminate_unbacked</span><span class="p">(</span><span class="n">new_s</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">old_sym</span><span class="p">))</span>
+
         <span class="k">return</span> <span class="n">symbol_to_path</span></div>
 
 <div class="viewcode-block" id="definitely_true"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.definitely_true.html#torch.fx.experimental.symbolic_shapes.definitely_true">[docs]</a><span class="k">def</span> <span class="nf">definitely_true</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
@@ -1784,6 +1795,8 @@
 
 
 <span class="k">def</span> <span class="nf">cast_symbool_to_symint_guardless</span><span class="p">(</span><span class="n">symbool</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymBool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">symbool</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="n">int_sym</span> <span class="o">=</span> <span class="n">_sympy_cast_symbool_to_symint_guardless</span><span class="p">(</span><span class="n">symbool</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">symbool</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">create_symintnode</span><span class="p">(</span><span class="n">int_sym</span><span class="p">,</span> <span class="n">hint</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">symbool</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">require_hint</span><span class="p">())</span> <span class="k">if</span> <span class="n">has_hint</span><span class="p">(</span><span class="n">symbool</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
 
@@ -2717,6 +2730,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;create_env&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frozen</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runtime_asserts_frozen</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_constraints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DimConstraints</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
         <span class="c1"># Mapping from sympy.Symbol to the number of guards which mention this</span>
@@ -2758,6 +2772,33 @@
         <span class="c1"># duplicated nodes.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fx_node_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source_to_symbol</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Suppose you want to replace an unbacked symbol with another</span>
+        <span class="c1"># unbacked symbol.  This is error prone because you can cause</span>
+        <span class="c1"># references to unbacked symbols to time travel backwards.  E.g.,</span>
+        <span class="c1">#</span>
+        <span class="c1"># u1 = x.item()</span>
+        <span class="c1"># ... use of u1 ...</span>
+        <span class="c1"># u2 = y.item()</span>
+        <span class="c1"># u3 = z.item()</span>
+        <span class="c1"># torch._check(u1 == u2 + u3)</span>
+        <span class="c1">#</span>
+        <span class="c1"># If you replace u1 with u2 + u3, then the use of u1 now</span>
+        <span class="c1"># references u2 and u3 prior to them actually being bound at</span>
+        <span class="c1"># runtime.</span>
+        <span class="c1">#</span>
+        <span class="c1"># To control for this, we track the order unbacked symbols</span>
+        <span class="c1"># were allocated, and only allow substitutions if they respect</span>
+        <span class="c1"># the dependency from this order; an unbacked symbol can only</span>
+        <span class="c1"># be substituted with unbacked symbols that come before it in the</span>
+        <span class="c1"># order.</span>
+        <span class="c1">#</span>
+        <span class="c1"># This also imposes an ordering on the unbacked symbol binding</span>
+        <span class="c1"># sites themselves: you are not allowed to reorder unbacked symbol</span>
+        <span class="c1"># bindings.  At the moment, this is not tracked, but we potentially</span>
+        <span class="c1"># could track this at the IR level using a higher order operator</span>
+        <span class="c1"># with something like effect token tracking.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_alloc_order</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="kn">from</span> <span class="nn">torch.fx.experimental.validator</span> <span class="kn">import</span> <span class="n">translation_validation_enabled</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_translation_validation_enabled</span> <span class="o">=</span> <span class="n">translation_validation_enabled</span><span class="p">()</span>
@@ -2890,6 +2931,10 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">is_recording</span> <span class="o">=</span> <span class="kc">False</span>
 
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_eliminate_unbacked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orig_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">new_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">orig_s</span><span class="p">,</span> <span class="n">new_s</span><span class="p">,</span> <span class="s2">&quot;eliminate_unbacked&quot;</span><span class="p">)</span>
+
     <span class="c1"># Unlike set_replacement, this records a shapeenv event</span>
     <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">_rename_unbacked_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orig_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">new_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">):</span>
@@ -3009,6 +3054,17 @@
 <span class="sd">        only emit a warning which may lead to accuracy problems.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frozen</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="ShapeEnv.freeze_runtime_asserts"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze_runtime_asserts">[docs]</a>    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">freeze_runtime_asserts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Freeze this ShapeEnv to stop adding deferred runtime asserts.</span>
+
+<span class="sd">        We will error if you try to install a new runtime assert when it is</span>
+<span class="sd">        frozen.  This would indicate a lowering violation, or perhaps something</span>
+<span class="sd">        we know statically is already True but we are checking it again in a way</span>
+<span class="sd">        that is not clearly dischargeable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runtime_asserts_frozen</span> <span class="o">=</span> <span class="kc">True</span></div>
 
     <span class="k">def</span> <span class="nf">_create_symbol_for_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translation_validation_enabled</span><span class="p">:</span>
@@ -5246,6 +5302,10 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_expr</span><span class="p">(</span><span class="n">new_expr</span><span class="p">,</span> <span class="n">fx_node</span><span class="o">=</span><span class="n">fx_node</span><span class="p">)</span>
         <span class="c1"># NB: Don&#39;t use new_expr as expr; it could contain gunk like shape0</span>
         <span class="c1"># which we don&#39;t want to guard on</span>
+
+        <span class="c1"># If you&#39;re here because of this assert, read Note [Backwards runtime asserts]</span>
+        <span class="c1"># in torch/_inductor/graph.py</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime_asserts_frozen</span><span class="p">,</span> <span class="n">expr</span>
 
         <span class="c1"># OK, we&#39;re definitely doing a runtime assert now</span>
         <span class="k">if</span> <span class="p">(</span>

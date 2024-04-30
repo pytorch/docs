@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gite3b9b71 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git744f341 ) &#x25BC</a>
     </div>
     
 
@@ -673,6 +673,16 @@ only emit a warning which may lead to accuracy problems.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze_runtime_asserts">
+<span class="sig-name descname"><span class="pre">freeze_runtime_asserts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.freeze_runtime_asserts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze_runtime_asserts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Freeze this ShapeEnv to stop adding deferred runtime asserts.</p>
+<p>We will error if you try to install a new runtime assert when it is
+frozen.  This would indicate a lowering violation, or perhaps something
+we know statically is already True but we are checking it again in a way
+that is not clearly dischargeable.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms">
 <span class="sig-name descname"><span class="pre">get_axioms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.get_axioms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the symbols in an expression, it returns all the runtime asserts that have those symbols
@@ -869,6 +879,7 @@ if (url)
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_for_args"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.evaluate_guards_for_args()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.format_guards()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.freeze()</span></code></a></li>
+<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze_runtime_asserts"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.freeze_runtime_asserts()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.get_axioms()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_implications"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.get_implications()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards"><code class="docutils literal notranslate"><span class="pre">ShapeEnv.get_nontrivial_guards()</span></code></a></li>
