@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git744f341 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1bcbc91 ) &#x25BC</a>
     </div>
     
 
@@ -518,6 +518,13 @@
 <span class="n">MAP_LOCATION</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span>
 <span class="n">STORAGE</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Storage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">TypedStorage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">]</span>
 
+<span class="n">IS_WINDOWS</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mmap</span> <span class="kn">import</span> <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">MAP_PRIVATE</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">MAP_PRIVATE</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
+
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;SourceChangeWarning&#39;</span><span class="p">,</span>
     <span class="s1">&#39;mkdtemp&#39;</span><span class="p">,</span>
@@ -588,6 +595,41 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">endianness</span><span class="p">,</span> <span class="n">LoadEndianness</span><span class="p">)</span> <span class="ow">and</span> <span class="n">endianness</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid argument type in function set_default_load_endianness&quot;</span><span class="p">)</span>
     <span class="n">_default_load_endian</span> <span class="o">=</span> <span class="n">endianness</span></div>
+
+<span class="n">_default_mmap_options</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAP_PRIVATE</span>
+
+<div class="viewcode-block" id="get_default_mmap_options"><a class="viewcode-back" href="../../notes/serialization.html#torch.get_default_mmap_options">[docs]</a><span class="k">def</span> <span class="nf">get_default_mmap_options</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get default mmap options for :func:`torch.load` with ``mmap=True``.</span>
+
+<span class="sd">    Defaults to ``mmap.MAP_PRIVATE``.</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        default_mmap_options: int</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_default_mmap_options</span></div>
+
+<div class="viewcode-block" id="set_default_mmap_options"><a class="viewcode-back" href="../../notes/serialization.html#torch.set_default_mmap_options">[docs]</a><span class="k">def</span> <span class="nf">set_default_mmap_options</span><span class="p">(</span><span class="n">flags</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Set default mmap options for :func:`torch.load` with ``mmap=True`` to flags.</span>
+
+<span class="sd">    For now, only either ``mmap.MAP_PRIVATE`` or ``mmap.MAP_SHARED`` are supported.</span>
+<span class="sd">    Please open an issue if you need any other option to be added here.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This feature is currently not supported for Windows.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        flags: ``mmap.MAP_PRIVATE`` or ``mmap.MAP_SHARED``</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">_default_mmap_options</span>
+    <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Changing the default mmap options is currently not supported for Windows&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">flags</span> <span class="o">!=</span> <span class="n">MAP_PRIVATE</span> <span class="ow">and</span> <span class="n">flags</span> <span class="o">!=</span> <span class="n">MAP_SHARED</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid argument in function set_default_mmap_options, &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;expected mmap.MAP_PRIVATE or mmap.MAP_SHARED, but got </span><span class="si">{</span><span class="n">flags</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">_default_mmap_options</span> <span class="o">=</span> <span class="n">flags</span></div>
 
 <span class="k">def</span> <span class="nf">_is_zipfile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="c1"># This is a stricter implementation than zipfile.is_zipfile().</span>
@@ -1496,7 +1538,11 @@
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_path</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;f must be a file path in order to use the mmap argument&quot;</span><span class="p">)</span>
                     <span class="n">size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-                    <span class="n">overall_storage</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+                        <span class="n">shared</span> <span class="o">=</span> <span class="n">get_default_mmap_options</span><span class="p">()</span> <span class="o">==</span> <span class="n">MAP_SHARED</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">shared</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">overall_storage</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">shared</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">weights_only</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="k">return</span> <span class="n">_load</span><span class="p">(</span><span class="n">opened_zipfile</span><span class="p">,</span>
