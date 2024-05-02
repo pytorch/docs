@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1bcbc91 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
     </div>
     
 
@@ -341,6 +341,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fsdp.html">torch.distributed.fsdp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributed.pipelining.html">torch.distributed.pipelining</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
@@ -491,9 +492,9 @@
 <span class="sig-prename descclassname"><span class="pre">torch.nn.utils.rnn.</span></span><span class="sig-name descname"><span class="pre">pad_packed_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#pad_packed_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.rnn.pad_packed_sequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pad a packed batch of variable length sequences.</p>
 <p>It is an inverse operation to <a class="reference internal" href="torch.nn.utils.rnn.pack_padded_sequence.html#torch.nn.utils.rnn.pack_padded_sequence" title="torch.nn.utils.rnn.pack_padded_sequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">pack_padded_sequence()</span></code></a>.</p>
-<p>The returned Tensor’s data will be of size <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code>, where <cite>T</cite> is the length
-of the longest sequence and <cite>B</cite> is the batch size. If <code class="docutils literal notranslate"><span class="pre">batch_first</span></code> is True,
-the data will be transposed into <code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">T</span> <span class="pre">x</span> <span class="pre">*</span></code> format.</p>
+<p>The returned Tensor’s data will be of size <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> (if <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>)
+or <code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">T</span> <span class="pre">x</span> <span class="pre">*</span></code> (if <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>) , where <code class="docutils literal notranslate"><span class="pre">T</span></code> is the length of the longest
+sequence and <code class="docutils literal notranslate"><span class="pre">B</span></code> is the batch size.</p>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.nn.utils.rnn</span> <span class="kn">import</span> <span class="n">pack_padded_sequence</span><span class="p">,</span> <span class="n">pad_packed_sequence</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seq</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
@@ -524,7 +525,7 @@ details.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sequence</strong> (<a class="reference internal" href="torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence" title="torch.nn.utils.rnn.PackedSequence"><em>PackedSequence</em></a>) – batch to pad</p></li>
 <li><p><strong>batch_first</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, the output will be in <code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">T</span> <span class="pre">x</span> <span class="pre">*</span></code>
-format.</p></li>
+format, <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> otherwise.</p></li>
 <li><p><strong>padding_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – values for padded elements.</p></li>
 <li><p><strong>total_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – if not <code class="docutils literal notranslate"><span class="pre">None</span></code>, the output will be padded to
 have length <code class="xref py py-attr docutils literal notranslate"><span class="pre">total_length</span></code>. This method will throw <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a>

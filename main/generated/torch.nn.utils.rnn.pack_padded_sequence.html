@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1bcbc91 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
     </div>
     
 
@@ -341,6 +341,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fsdp.html">torch.distributed.fsdp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distributed.pipelining.html">torch.distributed.pipelining</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
@@ -490,10 +491,10 @@
 <dt class="sig sig-object py" id="torch.nn.utils.rnn.pack_padded_sequence">
 <span class="sig-prename descclassname"><span class="pre">torch.nn.utils.rnn.</span></span><span class="sig-name descname"><span class="pre">pack_padded_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforce_sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#pack_padded_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.rnn.pack_padded_sequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Packs a Tensor containing padded sequences of variable length.</p>
-<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> can be of size <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> where <cite>T</cite> is the length of the
-longest sequence (equal to <code class="docutils literal notranslate"><span class="pre">lengths[0]</span></code>), <code class="docutils literal notranslate"><span class="pre">B</span></code> is the batch size, and
-<code class="docutils literal notranslate"><span class="pre">*</span></code> is any number of dimensions (including 0). If <code class="docutils literal notranslate"><span class="pre">batch_first</span></code> is
-<code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">T</span> <span class="pre">x</span> <span class="pre">*</span></code> <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> is expected.</p>
+<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> can be of size <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> where <code class="docutils literal notranslate"><span class="pre">T</span></code> is the length of the
+longest sequence, <code class="docutils literal notranslate"><span class="pre">B</span></code> is the batch size, and <code class="docutils literal notranslate"><span class="pre">*</span></code> is any number of dimensions
+(including 0). If <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> is expected,
+<code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">T</span> <span class="pre">x</span> <span class="pre">*</span></code> otherwise.</p>
 <p>For unsorted sequences, use <cite>enforce_sorted = False</cite>. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">enforce_sorted</span></code> is
 <code class="docutils literal notranslate"><span class="pre">True</span></code>, the sequences should be sorted by length in a decreasing order, i.e.
 <code class="docutils literal notranslate"><span class="pre">input[:,0]</span></code> should be the longest sequence, and <code class="docutils literal notranslate"><span class="pre">input[:,B-1]</span></code> the shortest
@@ -512,7 +513,7 @@ a <a class="reference internal" href="torch.nn.utils.rnn.PackedSequence.html#tor
 <li><p><strong>lengths</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>)</em>) – list of sequence lengths of each batch
 element (must be on the CPU if provided as a tensor).</p></li>
 <li><p><strong>batch_first</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, the input is expected in <code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">T</span> <span class="pre">x</span> <span class="pre">*</span></code>
-format.</p></li>
+format, <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> otherwise.</p></li>
 <li><p><strong>enforce_sorted</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, the input is expected to
 contain sequences sorted by length in a decreasing order. If
 <code class="docutils literal notranslate"><span class="pre">False</span></code>, the input will get sorted unconditionally. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>

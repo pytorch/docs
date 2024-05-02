@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1bcbc91 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
     </div>
     
 
@@ -340,6 +340,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../fsdp.html">torch.distributed.fsdp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.pipelining.html">torch.distributed.pipelining</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributions.html">torch.distributions</a></li>
@@ -2869,6 +2870,7 @@
             <span class="s2">&quot;source_name_to_debug_name&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_prev_cache_key&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_version_counter&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dim_constraints&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Mapping of the value of each to-be-compared field into the values that</span>
@@ -3881,7 +3883,7 @@
         <span class="c1"># TODO: Make this more efficient by binding all the size/stride/offsets</span>
         <span class="c1"># to locals before performing tests on them.</span>
 
-        <span class="kn">from</span> <span class="nn">torch._dynamo.source</span> <span class="kn">import</span> <span class="n">TensorPropertySource</span><span class="p">,</span> <span class="n">TensorProperty</span><span class="p">,</span> <span class="n">NegateSource</span>
+        <span class="kn">from</span> <span class="nn">torch._dynamo.source</span> <span class="kn">import</span> <span class="n">TensorPropertySource</span><span class="p">,</span> <span class="n">TensorProperty</span>
 
         <span class="c1"># Actual codegen must be delayed as we don&#39;t necessarily know what</span>
         <span class="c1"># the symbol mapping is</span>
@@ -3974,8 +3976,6 @@
                     <span class="n">symbol_to_source</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">constraint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">symbol_to_constraints</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">):</span>
-                    <span class="n">symbol_to_source</span><span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NegateSource</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">constraint_violated</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="n">StrictMinMaxConstraint</span><span class="p">):</span>

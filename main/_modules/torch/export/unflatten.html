@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git1bcbc91 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
     </div>
     
 
@@ -340,6 +340,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../fsdp.html">torch.distributed.fsdp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../distributed.pipelining.html">torch.distributed.pipelining</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributions.html">torch.distributions</a></li>
@@ -487,19 +488,20 @@
 <span></span><span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx._pytree</span> <span class="k">as</span> <span class="nn">fx_pytree</span>
 <span class="kn">import</span> <span class="nn">torch.utils._pytree</span> <span class="k">as</span> <span class="nn">pytree</span>
-<span class="kn">from</span> <span class="nn">torch._library.fake_class_registry</span> <span class="kn">import</span> <span class="n">FakeScriptObject</span>
 <span class="kn">from</span> <span class="nn">torch.export._tree_utils</span> <span class="kn">import</span> <span class="n">reorder_kwargs</span>
 <span class="kn">from</span> <span class="nn">torch.export.exported_program</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ConstantArgument</span><span class="p">,</span>
     <span class="n">ExportedProgram</span><span class="p">,</span>
+    <span class="n">InputKind</span><span class="p">,</span>
     <span class="n">ModuleCallSignature</span><span class="p">,</span>
     <span class="n">SymIntArgument</span><span class="p">,</span>
     <span class="n">TensorArgument</span><span class="p">,</span>
@@ -541,16 +543,7 @@
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
         <span class="n">to_module</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="n">persistent</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">CONSTANT</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">from_obj</span><span class="p">,</span> <span class="n">FakeScriptObject</span>
-        <span class="p">),</span> <span class="s2">&quot;FakeScriptObject should only exist during tracing.&quot;</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">from_obj</span><span class="p">,</span>
-            <span class="p">(</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">ScriptObject</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ScriptObject</span><span class="p">))</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
 
 
@@ -698,22 +691,52 @@
                 <span class="n">attr_kind</span><span class="o">=</span><span class="n">_AttrKind</span><span class="o">.</span><span class="n">CONSTANT</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">inputs_to_parameters</span><span class="p">,</span>
-            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">inputs_to_buffers</span><span class="p">,</span>
-            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">inputs_to_lifted_tensor_constants</span><span class="p">,</span>
-            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">inputs_to_lifted_custom_objs</span><span class="p">,</span>
-        <span class="p">}</span>
+        <span class="c1"># This is to handle parameters/buffers that point to the same tensor</span>
+        <span class="c1"># object id -&gt; list of (node_name, target_name)</span>
+        <span class="n">consts_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">add_to_consts_map</span><span class="p">(</span><span class="n">obj_id</span><span class="p">,</span> <span class="n">node_name</span><span class="p">,</span> <span class="n">target_name</span><span class="p">):</span>
+            <span class="n">name_list</span> <span class="o">=</span> <span class="n">consts_map</span><span class="p">[</span><span class="n">obj_id</span><span class="p">]</span>
+            <span class="n">name_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node_name</span><span class="p">,</span> <span class="n">target_name</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">input_specs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">InputKind</span><span class="o">.</span><span class="n">PARAMETER</span> <span class="ow">or</span> <span class="p">(</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">InputKind</span><span class="o">.</span><span class="n">BUFFER</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">persistent</span>
+            <span class="p">):</span>
+                <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">arg</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="n">add_to_consts_map</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="p">(</span><span class="n">export_module</span><span class="o">.</span><span class="n">state_dict</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">target</span><span class="p">]),</span> <span class="n">s</span><span class="o">.</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">target</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">InputKind</span><span class="o">.</span><span class="n">BUFFER</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">persistent</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="n">s</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">InputKind</span><span class="o">.</span><span class="n">CONSTANT_TENSOR</span>
+                <span class="ow">or</span> <span class="n">s</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">InputKind</span><span class="o">.</span><span class="n">CUSTOM_OBJ</span>
+            <span class="p">):</span>
+                <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">arg</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="n">add_to_consts_map</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="p">(</span><span class="n">export_module</span><span class="o">.</span><span class="n">constants</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">target</span><span class="p">]),</span> <span class="n">s</span><span class="o">.</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">target</span>
+                <span class="p">)</span>
+
+        <span class="c1"># node name -&gt; list of possible targets</span>
+        <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">node_target</span> <span class="ow">in</span> <span class="n">consts_map</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">node_target</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">node_target</span><span class="p">:</span>
+                <span class="n">inputs_to_state</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">targets</span>
 
         <span class="n">_sink_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs_to_state</span><span class="p">,</span> <span class="p">[])</span>
         <span class="c1"># Check all input nodes has been processed.</span>
-        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;graph&quot;</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">!=</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
                     <span class="k">continue</span>
-                <span class="k">assert</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">inputs_to_state</span>
+                <span class="k">assert</span> <span class="p">(</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">inputs_to_state</span>
+                <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> was not sunk into the module </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> which has the graph: </span><span class="si">{</span><span class="n">module</span><span class="o">.</span><span class="n">graph</span><span class="si">}</span><span class="s2">&quot;</span>
 
         <span class="c1"># Cache so we don&#39;t have to compute this every time.</span>
         <span class="c1"># NOTE: this needs to be kept in sync with the placeholders in</span>
@@ -1343,7 +1366,7 @@
 
 <span class="k">def</span> <span class="nf">_sink_params</span><span class="p">(</span>
     <span class="n">module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-    <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
     <span class="n">scope</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sink params, buffers, and constants from graph inputs into get_attr nodes.</span>
@@ -1382,16 +1405,25 @@
             <span class="k">continue</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">users</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">state_name</span> <span class="o">=</span> <span class="n">inputs_to_state</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
-            <span class="c1"># If there&#39;s a mismatch beteewn scope name and state name, then there must be multuple scopes</span>
-            <span class="c1"># pointing to the same state name, meaning some modules are shared. In such case, we can simply</span>
-            <span class="c1"># skip updating the current node because another later iteration will take care of this input</span>
-            <span class="c1"># node when the unique match between scope and state name occurs.</span>
-            <span class="c1"># To make sure this always happen, we should enforce the invariant that no placeholder node</span>
-            <span class="c1"># in the unflattened graph appears in inputs_to_state dict, which means all the extra input</span>
-            <span class="c1"># nodes have been handled.</span>
-            <span class="k">if</span> <span class="n">state_name</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">scope</span><span class="p">)]</span> <span class="o">!=</span> <span class="n">scope</span><span class="p">:</span>
+            <span class="n">state_name</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">sn</span> <span class="ow">in</span> <span class="n">inputs_to_state</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">]:</span>
+                <span class="n">sn_split</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sn_split</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">scope</span><span class="p">)]</span> <span class="o">==</span> <span class="n">scope</span><span class="p">:</span>
+                    <span class="n">state_name</span> <span class="o">=</span> <span class="n">sn_split</span>
+                    <span class="k">break</span>
+
+            <span class="c1"># If there&#39;s a mismatch beteewn scope name and state name, then</span>
+            <span class="c1"># there must be multuple scopes pointing to the same state name,</span>
+            <span class="c1"># meaning some modules are shared. In such case, we can simply skip</span>
+            <span class="c1"># updating the current node because another later iteration will</span>
+            <span class="c1"># take care of this input node when the unique match between scope</span>
+            <span class="c1"># and state name occurs.  To make sure this always happen, we should</span>
+            <span class="c1"># enforce the invariant that no placeholder node in the unflattened</span>
+            <span class="c1"># graph appears in inputs_to_state dict, which means all the extra</span>
+            <span class="c1"># input nodes have been handled.</span>
+            <span class="k">if</span> <span class="n">state_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
+
             <span class="n">attr_path</span> <span class="o">=</span> <span class="n">state_name</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span> <span class="p">:]</span>
             <span class="n">state_attr</span> <span class="o">=</span> <span class="n">_recursive_getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">attr_path</span><span class="p">)</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state_attr</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ScriptObject</span><span class="p">))</span>
