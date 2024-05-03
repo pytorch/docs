@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4440d07 ) &#x25BC</a>
     </div>
     
 
@@ -724,6 +724,96 @@ rank has an individual GPU, via <code class="docutils literal notranslate"><span
 <dd><p>This method is deprecated. Please switch to ‘load’.</p>
 <dl class="field-list simple">
 </dl>
+</dd></dl>
+
+<p>The following module is also useful for additional customization of the staging mechanisms used for asynchronous checkpointing (<cite>torch.distributed.checkpoint.async_save</cite>):</p>
+<span class="target" id="module-torch.distributed.checkpoint.staging"></span><dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.AsyncStager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.staging.</span></span><span class="sig-name descname"><span class="pre">AsyncStager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/staging.html#AsyncStager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.staging.AsyncStager" title="Permalink to this definition">¶</a></dt>
+<dd><p>This protocol is meant to provide customization and extensibility for dcp.async_save, allowing users
+to customize how data is staged previous to executing the usual dcp.save path in parallel.
+The expected order of operations (concretely defined in <cite>torch.distributed.state_dict_saver.async_save</cite>)
+is the following:</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>AsyncStager.stage_data(state_dict):</dt><dd><p>This call gives the AsyncStager the opportunity to ‘stage’
+the state_dict. The expectation and purpose of staging in this context is to create a “training-safe”
+representation of the state dict, meaning that any updates to module data after staging is complete
+should not be reflected in the state dict returned from this method. For example, in the default
+case a copy of the entire state dict is created on CPU RAM and returned here, allowing users
+to continue training without risking changes to data which is being serialized.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dcp.save is called on the state_dict returned from stage in parallel. This call is respondsible</dt><dd><p>for serializing the state_dict and writing it to storage.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>If AsyncStager.should_synchronize_after_execute is True, this method will be called immediately after</dt><dd><p>the serialization thread starts and before returning from dcp.async_save. If this is set to False,
+the assumption is the user has defined a custom synchronization point for the the purpose of further
+optimizing save latency in the training loop (for example, by overlapping staging with the
+forward/backward pass), and it is the respondsibility of the user to call <cite>AsyncStager.synchronize_staging</cite>
+at the appropriate time.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">should_synchronize_after_execute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><a class="headerlink" href="#torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to synchronize after executing the stage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.AsyncStager.stage">
+<span class="sig-name descname"><span class="pre">stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/staging.html#AsyncStager.stage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.staging.AsyncStager.stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “staged” copy of <cite>state_dict</cite>. The expectation of the staged copy is that it is
+innoculated from any updates incurred after the stage call is complete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.AsyncStager.synchronize_staging">
+<span class="sig-name descname"><span class="pre">synchronize_staging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/staging.html#AsyncStager.synchronize_staging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.staging.AsyncStager.synchronize_staging" title="Permalink to this definition">¶</a></dt>
+<dd><p>In the case <cite>stage</cite> is async in some way, this method should be called to ensure staging
+is complete and it is safe to begin modifying the original <cite>state_dict</cite></p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.BlockingAsyncStager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.staging.</span></span><span class="sig-name descname"><span class="pre">BlockingAsyncStager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_staged_state_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/staging.html#BlockingAsyncStager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.staging.BlockingAsyncStager" title="Permalink to this definition">¶</a></dt>
+<dd><p>An implementation of AsyncStager which stages the state_dict on CPU RAM and blocks until the copy is complete.
+This implementation also provides an option to optimize stage latency using pinned memory.</p>
+<p>N.B. synchronize_staging is a no-op in this case.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.BlockingAsyncStager.stage">
+<span class="sig-name descname"><span class="pre">stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/staging.html#BlockingAsyncStager.stage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.staging.BlockingAsyncStager.stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of <cite>state_dict</cite> on the CPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.BlockingAsyncStager.synchronize_staging">
+<span class="sig-name descname"><span class="pre">synchronize_staging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/staging.html#BlockingAsyncStager.synchronize_staging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.staging.BlockingAsyncStager.synchronize_staging" title="Permalink to this definition">¶</a></dt>
+<dd><p>No-op function, since staging is blocking.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <p>In addition to the above entrypoints, <cite>Stateful</cite> objects, as described below, provide additional customization during saving/loading
@@ -1449,7 +1539,7 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.FileSystemWriter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">FileSystemWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single_file_per_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thread_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_thread_copy_ahead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/filesystem.html#FileSystemWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemWriter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">FileSystemWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single_file_per_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thread_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_thread_copy_ahead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_staged_state_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/filesystem.html#FileSystemWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemWriter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Basic implementation of StorageWriter using file IO.</p>
 <p>This implementation makes the following assumptions and simplifications:</p>
 <ul class="simple">
@@ -1458,12 +1548,15 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 </ul>
 <p>The checkpoint consist of one file per write request plus
 a <cite>.metadata</cite> file with the serialized metadata.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.checkpoint.FileSystemWriter.stage">
+<span class="sig-name descname"><span class="pre">stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/filesystem.html#FileSystemWriter.stage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemWriter.stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override of AsyncStager.stage</p>
 <dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+</dd>
 </dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="torch.distributed.checkpoint.FileSystemWriter.checkpoint_id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkpoint_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemWriter.checkpoint_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the checkpoint_id that will be used to save the checkpoint.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1498,11 +1591,12 @@ can handle all of torch.distributed constructs such as FSDP, DDP, ShardedTensor 
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.DefaultLoadPlanner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">DefaultLoadPlanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flatten_state_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten_sharded_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/default_planner.html#DefaultLoadPlanner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.DefaultLoadPlanner" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">DefaultLoadPlanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flatten_state_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten_sharded_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_partial_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/default_planner.html#DefaultLoadPlanner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.DefaultLoadPlanner" title="Permalink to this definition">¶</a></dt>
 <dd><p>DefaultLoadPlanner that adds multiple features on top of LoadPlanner.</p>
 <p>In particular it adds the following:</p>
 <p>flatten_state_dict: Handle state_dict with nested dicts
-flatten_sharded_tensors: For FSDP in 2D parallel mode</p>
+flatten_sharded_tensors: For FSDP in 2D parallel mode
+allow_partial_load: If False, will raise a runtime error if a key is present in state_dict, but not in the checkpoint.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
@@ -1917,7 +2011,7 @@ the entire checkpoint on each rank, hopefully preventing OOM issues</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.format_utils.</span></span><span class="sig-name descname"><span class="pre">DynamicMetaLoadPlanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flatten_state_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten_sharded_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/format_utils.html#DynamicMetaLoadPlanner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.format_utils.</span></span><span class="sig-name descname"><span class="pre">DynamicMetaLoadPlanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flatten_state_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten_sharded_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_partial_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/format_utils.html#DynamicMetaLoadPlanner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extension of DefaultLoadPlanner, which creates a new Metadata object based on the passed in state dict,
 avoiding the need to read metadata from disk. This is useful when reading formats which don’t have a
 metadata file, like Torch Save files.</p>
@@ -2010,6 +2104,17 @@ if (url)
 <li><a class="reference internal" href="#torch.distributed.checkpoint.state_dict_saver.save_state_dict"><code class="docutils literal notranslate"><span class="pre">save_state_dict()</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.state_dict_loader.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.state_dict_loader.load_state_dict"><code class="docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.staging.AsyncStager"><code class="docutils literal notranslate"><span class="pre">AsyncStager</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute"><code class="docutils literal notranslate"><span class="pre">AsyncStager.should_synchronize_after_execute</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.staging.AsyncStager.stage"><code class="docutils literal notranslate"><span class="pre">AsyncStager.stage()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.staging.AsyncStager.synchronize_staging"><code class="docutils literal notranslate"><span class="pre">AsyncStager.synchronize_staging()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.staging.BlockingAsyncStager"><code class="docutils literal notranslate"><span class="pre">BlockingAsyncStager</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.staging.BlockingAsyncStager.stage"><code class="docutils literal notranslate"><span class="pre">BlockingAsyncStager.stage()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.staging.BlockingAsyncStager.synchronize_staging"><code class="docutils literal notranslate"><span class="pre">BlockingAsyncStager.synchronize_staging()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.stateful.Stateful"><code class="docutils literal notranslate"><span class="pre">Stateful</span></code></a><ul>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.stateful.Stateful.load_state_dict"><code class="docutils literal notranslate"><span class="pre">Stateful.load_state_dict()</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.stateful.Stateful.state_dict"><code class="docutils literal notranslate"><span class="pre">Stateful.state_dict()</span></code></a></li>
@@ -2066,7 +2171,7 @@ if (url)
 </ul>
 </li>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemWriter"><code class="docutils literal notranslate"><span class="pre">FileSystemWriter</span></code></a><ul>
-<li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemWriter.checkpoint_id"><code class="docutils literal notranslate"><span class="pre">FileSystemWriter.checkpoint_id</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.checkpoint.FileSystemWriter.stage"><code class="docutils literal notranslate"><span class="pre">FileSystemWriter.stage()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#torch.distributed.checkpoint.DefaultSavePlanner"><code class="docutils literal notranslate"><span class="pre">DefaultSavePlanner</span></code></a><ul>

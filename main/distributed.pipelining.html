@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4440d07 ) &#x25BC</a>
     </div>
     
 
@@ -636,6 +636,62 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="module-torch.distributed.pipelining.microbatch">
+<span id="microbatch-utilities"></span><h3>Microbatch Utilities<a class="headerlink" href="#module-torch.distributed.pipelining.microbatch" title="Permalink to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.microbatch.TensorChunkSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.microbatch.</span></span><span class="sig-name descname"><span class="pre">TensorChunkSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/microbatch.html#TensorChunkSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.microbatch.TensorChunkSpec" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.microbatch.</span></span><span class="sig-name descname"><span class="pre">split_args_kwargs_into_chunks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/microbatch.html#split_args_kwargs_into_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sequence of args and kwargs, split them into a number of chunks
+according to  their respective chunking specs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>, </em><em>...</em><em>]</em>) – Tuple of args</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – Dict of kwargs</p></li>
+<li><p><strong>chunks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Number of chunks to split the args and kwargs into</p></li>
+<li><p><strong>args_chunk_spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="#torch.distributed.pipelining.microbatch.TensorChunkSpec" title="torch.distributed.pipelining.microbatch.TensorChunkSpec"><em>TensorChunkSpec</em></a><em>, </em><em>...</em><em>]</em><em>]</em>) – chunking specs for args, in same shape as args</p></li>
+<li><p><strong>kwargs_chunk_spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference internal" href="#torch.distributed.pipelining.microbatch.TensorChunkSpec" title="torch.distributed.pipelining.microbatch.TensorChunkSpec"><em>TensorChunkSpec</em></a><em>]</em><em>]</em>) – chunking specs for kwargs, in same shape as kwargs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of sharded args
+kwargs_split: List of sharded kwargs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>args_split</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.microbatch.merge_chunks">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.microbatch.</span></span><span class="sig-name descname"><span class="pre">merge_chunks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/microbatch.html#merge_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.microbatch.merge_chunks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of chunks, merge them into a single value according to
+the chunk spec.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chunks</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – list of chunks</p></li>
+<li><p><strong>chunk_spec</strong> – Chunking spec for the chunks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Merged value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 </div>
 
@@ -700,6 +756,12 @@ if (url)
 <li><a class="reference internal" href="#techniques-explained">Techniques Explained</a><ul>
 <li><a class="reference internal" href="#splitting-a-model-with-pipeline">Splitting a Model with <code class="docutils literal notranslate"><span class="pre">pipeline</span></code></a></li>
 <li><a class="reference internal" href="#using-pipelineschedule-for-execution">Using <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code> for Execution</a></li>
+<li><a class="reference internal" href="#module-torch.distributed.pipelining.microbatch">Microbatch Utilities</a><ul>
+<li><a class="reference internal" href="#torch.distributed.pipelining.microbatch.TensorChunkSpec"><code class="docutils literal notranslate"><span class="pre">TensorChunkSpec</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks"><code class="docutils literal notranslate"><span class="pre">split_args_kwargs_into_chunks()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.microbatch.merge_chunks"><code class="docutils literal notranslate"><span class="pre">merge_chunks()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

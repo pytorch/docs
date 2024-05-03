@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4440d07 ) &#x25BC</a>
     </div>
     
 
@@ -498,6 +498,7 @@
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">,</span>
     <span class="n">cast</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
@@ -515,6 +516,8 @@
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
 <span class="kn">from</span> <span class="nn">torch._utils</span> <span class="kn">import</span> <span class="n">_get_available_device_type</span><span class="p">,</span> <span class="n">_get_device_module</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._shard._utils</span> <span class="kn">import</span> <span class="n">narrow_tensor_by_index</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.metadata</span> <span class="kn">import</span> <span class="n">STATE_DICT_TYPE</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.staging</span> <span class="kn">import</span> <span class="n">BlockingAsyncStager</span>
 <span class="kn">from</span> <span class="nn">torch.futures</span> <span class="kn">import</span> <span class="n">Future</span>
 
 <span class="kn">from</span> <span class="nn">.metadata</span> <span class="kn">import</span> <span class="n">Metadata</span><span class="p">,</span> <span class="n">MetadataIndex</span>
@@ -880,7 +883,7 @@
         <span class="k">return</span> <span class="kc">False</span>
 
 
-<div class="viewcode-block" id="FileSystemWriter"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemWriter">[docs]</a><span class="k">class</span> <span class="nc">FileSystemWriter</span><span class="p">(</span><span class="n">StorageWriter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_FileSystemWriter</span><span class="p">(</span><span class="n">StorageWriter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Basic implementation of StorageWriter using file IO.</span>
 
@@ -901,6 +904,8 @@
         <span class="n">sync_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">thread_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">per_thread_copy_ahead</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the writer pointing to `path`.</span>
@@ -1035,7 +1040,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate_checkpoint_id</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">FileSystem</span><span class="o">.</span><span class="n">validate_checkpoint_id</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">FileSystem</span><span class="o">.</span><span class="n">validate_checkpoint_id</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="FileSystemReader"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemReader">[docs]</a><span class="k">class</span> <span class="nc">FileSystemReader</span><span class="p">(</span><span class="n">StorageReader</span><span class="p">):</span>
@@ -1118,6 +1123,61 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate_checkpoint_id</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FileSystem</span><span class="o">.</span><span class="n">validate_checkpoint_id</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FileSystemWriter"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemWriter">[docs]</a><span class="k">class</span> <span class="nc">FileSystemWriter</span><span class="p">(</span><span class="n">_FileSystemWriter</span><span class="p">,</span> <span class="n">BlockingAsyncStager</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Basic implementation of StorageWriter using file IO.</span>
+
+<span class="sd">    This implementation makes the following assumptions and simplifications:</span>
+
+<span class="sd">    * The checkpoint path is an empty or non-existing directory.</span>
+<span class="sd">    * File creation is atomic</span>
+
+<span class="sd">    The checkpoint consist of one file per write request plus</span>
+<span class="sd">    a `.metadata` file with the serialized metadata.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span>
+        <span class="n">single_file_per_rank</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">sync_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">thread_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">per_thread_copy_ahead</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span><span class="p">,</span>
+        <span class="n">cache_staged_state_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the writer pointing to `path`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path: directory where the checkpoint will be written to.</span>
+<span class="sd">            single_file_per_rank: Produce one file per rank instead of one file per tensor/blob. Default to True.</span>
+<span class="sd">            sync_files : force files to be synced to permanent storage. Default to True.</span>
+<span class="sd">            thread_count: Number of IO threads to use to write. Default to 1.</span>
+<span class="sd">            per_thread_copy_ahead: How many bytes to copy from the GPU ahead of saving then. Default 10Mb.</span>
+<span class="sd">            cache_staged_state_dict: Whether to cache the staged state_dict. This option decreases staging latency</span>
+<span class="sd">                at the cost of increases memory usage. Additionally, if this parameter is set to True, it&#39;s the expectation</span>
+<span class="sd">                that the stager is maintained and re-used for multiple dcp.async_save calls. Default to False.</span>
+
+<span class="sd">        N. B. If sync_files is disabled, there&#39;s no guarantee that the checkpoint will be consistent in the case of a failure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">single_file_per_rank</span><span class="o">=</span><span class="n">single_file_per_rank</span><span class="p">,</span>
+            <span class="n">sync_files</span><span class="o">=</span><span class="n">sync_files</span><span class="p">,</span>
+            <span class="n">thread_count</span><span class="o">=</span><span class="n">thread_count</span><span class="p">,</span>
+            <span class="n">per_thread_copy_ahead</span><span class="o">=</span><span class="n">per_thread_copy_ahead</span><span class="p">,</span>
+            <span class="n">cache_staged_state_dict</span><span class="o">=</span><span class="n">cache_staged_state_dict</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="FileSystemWriter.stage"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemWriter.stage">[docs]</a>    <span class="k">def</span> <span class="nf">stage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">:</span> <span class="n">STATE_DICT_TYPE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">STATE_DICT_TYPE</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override of AsyncStager.stage&quot;&quot;&quot;</span>
+        <span class="c1"># in the async case, the state dict is already on CPU, so maintaining this</span>
+        <span class="c1"># buffer makes no sense</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">per_thread_copy_ahead</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">stage</span><span class="p">(</span><span class="n">state_dict</span><span class="p">)</span></div></div>
 </pre></div>
 
              </article>

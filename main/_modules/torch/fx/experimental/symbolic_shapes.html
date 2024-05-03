@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4440d07 ) &#x25BC</a>
     </div>
     
 
@@ -981,7 +981,7 @@
         <span class="k">return</span> <span class="n">o</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">divisor</span></div></div>
 
 
-<div class="viewcode-block" id="compute_unbacked_bindings"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings.html#torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings">[docs]</a><span class="k">def</span> <span class="nf">compute_unbacked_bindings</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">example_value</span><span class="p">,</span> <span class="n">old_example_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="compute_unbacked_bindings"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings.html#torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings">[docs]</a><span class="k">def</span> <span class="nf">compute_unbacked_bindings</span><span class="p">(</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">example_value</span><span class="p">,</span> <span class="n">old_example_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">peek</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    After having run fake tensor propagation and producing example_value</span>
 <span class="sd">    result, traverse example_value looking for freshly bound unbacked</span>
@@ -990,40 +990,51 @@
 <span class="sd">    example_value.  (NB: this means if you have a multi-output</span>
 <span class="sd">    function, you must call this on the tuple of tensor output, you</span>
 <span class="sd">    cannot wait!)</span>
+
+<span class="sd">    The peek parameter lets you check out what the bindings are without</span>
+<span class="sd">    changing the affected list.  This is primarily useful for ensuring</span>
+<span class="sd">    unbacked_var_to_val is promptly populated when propagate_real_tensors is on.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">shape_env</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
     <span class="k">if</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_tls</span><span class="p">():</span>
         <span class="k">return</span>
     <span class="n">fs</span> <span class="o">=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span>
     <span class="n">pending</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">pending</span><span class="p">:</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;compute_unbacked_bindings </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
-        <span class="n">fs</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">peek</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;compute_unbacked_bindings </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+            <span class="n">fs</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="k">def</span> <span class="nf">free_unbacked_symbols_with_path</span><span class="p">(</span>
-            <span class="n">a</span><span class="p">,</span> <span class="n">path</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">None</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]:</span>
             <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
                     <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                         <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span>
-                            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">pytree</span><span class="o">.</span><span class="n">SequenceKey</span><span class="p">(</span><span class="n">i</span><span class="p">),)</span>
+                            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">pytree</span><span class="o">.</span><span class="n">SequenceKey</span><span class="p">(</span><span class="n">i</span><span class="p">),),</span>
+                            <span class="n">real</span><span class="o">=</span><span class="n">real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
                 <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                     <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span>
-                        <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">),)</span>
+                        <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">),),</span>
+                        <span class="n">real</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
                 <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                     <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span>
-                        <span class="n">a</span><span class="o">.</span><span class="n">stride</span><span class="p">(),</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;stride&quot;</span><span class="p">),)</span>
+                        <span class="n">a</span><span class="o">.</span><span class="n">stride</span><span class="p">(),</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;stride&quot;</span><span class="p">),),</span>
+                        <span class="n">real</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">stride</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
                 <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                     <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span>
-                        <span class="n">a</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">(),</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;storage_offset&quot;</span><span class="p">),)</span>
+                        <span class="n">a</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">(),</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;storage_offset&quot;</span><span class="p">),),</span>
+                        <span class="n">real</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
 
@@ -1035,6 +1046,8 @@
                 <span class="ow">and</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pending</span>
             <span class="p">):</span>
                 <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+                <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">real</span><span class="p">)</span>
                 <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
             <span class="c1"># When an unbacked SymInt is perfectly divisible by an integer</span>
             <span class="c1"># constant, we replace it with the integer constant to improve</span>
@@ -1051,6 +1064,8 @@
             <span class="p">):</span>
                 <span class="c1"># TODO: DivideByKey needs to test divisibility at runtime!</span>
                 <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">DivideByKey</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">lhs</span><span class="p">)),)</span>
+                <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">real</span> <span class="o">//</span> <span class="nb">int</span><span class="p">(</span><span class="n">lhs</span><span class="p">))</span>
                 <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span>
             <span class="c1"># The annoyance here arises from the fact that SymBool is</span>
             <span class="c1"># allocated by allocating a SymInt and then testing if it&#39;s equal</span>
@@ -1064,6 +1079,8 @@
                 <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">lhs</span> <span class="ow">in</span> <span class="n">pending</span>
             <span class="p">):</span>
                 <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">lhs</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">ConvertIntKey</span><span class="p">(),)</span>
+                <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">real</span><span class="p">))</span>
                 <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">r</span>
@@ -2671,6 +2688,9 @@
         <span class="c1"># Maps symbolic ints to their original concrete values</span>
         <span class="c1"># Currently populated from tensors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># Like var_to_val, but only set when propagate_real_tensors is on.</span>
+        <span class="c1"># Used as last resort to avoid GuardOnDataDependent error</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Maps symbolic ints to their min/max range.  These ranges</span>
         <span class="c1"># are conservative: the int MUST fall in the range, but the</span>
         <span class="c1"># range may contain ints which may not actually appear in</span>
@@ -2937,6 +2957,12 @@
     <span class="k">def</span> <span class="nf">_eliminate_unbacked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orig_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">new_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">orig_s</span><span class="p">,</span> <span class="n">new_s</span><span class="p">,</span> <span class="s2">&quot;eliminate_unbacked&quot;</span><span class="p">)</span>
 
+<div class="viewcode-block" id="ShapeEnv.set_unbacked_var_to_val"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.set_unbacked_var_to_val">[docs]</a>    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">set_unbacked_var_to_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Used only when propagate_real_tensors; registers a value for an</span>
+<span class="sd">        unbacked symbol, which can be used last resort to resolve hints.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
+
     <span class="c1"># Unlike set_replacement, this records a shapeenv event</span>
     <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">_rename_unbacked_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orig_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">new_s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">):</span>
@@ -3185,7 +3211,7 @@
 <span class="sd">        Defines the current &quot;state&quot; of the guards we&#39;ve accumulated in this ShapeEnv.</span>
 <span class="sd">        Determines when we need to invalidate our cache</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">divisible</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_deferred_runtime_asserts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">divisible</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_deferred_runtime_asserts</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_update_version_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># The shape environment is queried orders of magnitude more often than</span>
@@ -4165,6 +4191,12 @@
             <span class="k">if</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">issued</span><span class="p">:</span>
                 <span class="k">return</span>
 
+            <span class="c1"># When propagate_real_tensors is on, we may end up with guards on</span>
+            <span class="c1"># data dependent variables.  These guards are unissuable, so just ignore them</span>
+            <span class="k">if</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;propagate_real_tensors: ignoring guard </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expr</span><span class="p">)</span>
+                <span class="k">return</span>
+
             <span class="n">issued</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
             <span class="k">try</span><span class="p">:</span>
@@ -4666,6 +4698,13 @@
                 <span class="k">return</span> <span class="n">r</span>
             <span class="k">if</span> <span class="n">allow_none</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">:</span>
+                <span class="n">unsound_expr</span> <span class="o">=</span> <span class="n">result_expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">unsound_expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;propagate_real_tensors size_hint(</span><span class="si">%s</span><span class="s2">) -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">unsound_expr</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">unsound_expr</span>
+
             <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_data_dependent_error</span><span class="p">(</span><span class="n">result_expr</span><span class="p">,</span> <span class="n">expr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result_expr</span></div>
 
@@ -5167,6 +5206,7 @@
                     <span class="k">assert</span> <span class="n">static_expr</span> <span class="o">==</span> <span class="n">hint</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">static_expr</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">hint</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="k">return</span> <span class="n">static_expr</span>
 
+            <span class="n">concrete_val</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
                 <span class="c1"># TODO: dedupe this with _maybe_evaluate_static</span>
                 <span class="c1"># Attempt to eliminate the unbacked SymInt</span>
@@ -5180,14 +5220,24 @@
                             <span class="n">size_oblivious</span><span class="o">=</span><span class="kc">True</span>
                         <span class="p">)</span>
 
-                    <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_data_dependent_error</span><span class="p">(</span>
-                        <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">),</span>
-                        <span class="n">expr</span><span class="p">,</span>
-                        <span class="n">size_oblivious_result</span><span class="o">=</span><span class="n">size_oblivious_result</span>
-                    <span class="p">)</span>
-                <span class="n">expr</span> <span class="o">=</span> <span class="n">new_expr</span>
+                    <span class="c1"># Last ditch</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span> <span class="ow">and</span>
+                        <span class="ow">not</span> <span class="p">(</span><span class="n">unsound_result</span> <span class="o">:=</span> <span class="n">orig_expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">))</span><span class="o">.</span><span class="n">free_symbols</span>
+                    <span class="p">):</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;propagate_real_tensors evaluate_expr(</span><span class="si">%s</span><span class="s2">) -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">orig_expr</span><span class="p">,</span> <span class="n">unsound_result</span><span class="p">)</span>
+                        <span class="n">concrete_val</span> <span class="o">=</span> <span class="n">unsound_result</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_data_dependent_error</span><span class="p">(</span>
+                            <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">),</span>
+                            <span class="n">expr</span><span class="p">,</span>
+                            <span class="n">size_oblivious_result</span><span class="o">=</span><span class="n">size_oblivious_result</span>
+                        <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">expr</span> <span class="o">=</span> <span class="n">new_expr</span>
 
-            <span class="n">concrete_val</span> <span class="o">=</span> <span class="n">compute_concrete_val</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">concrete_val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">concrete_val</span> <span class="o">=</span> <span class="n">compute_concrete_val</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_frozen</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">concrete_val</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="p">(</span>

@@ -241,7 +241,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git9e24c26 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4440d07 ) &#x25BC</a>
     </div>
     
 
@@ -1310,6 +1310,8 @@
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.async_save">async_save() (in module torch.distributed.checkpoint.state_dict_saver)</a>
 </li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager">AsyncStager (class in torch.distributed.checkpoint.staging)</a>
+</li>
       <li><a href="generated/torch.atan.html#torch.atan">atan() (in module torch)</a>
 
       <ul>
@@ -1500,10 +1502,10 @@
         <li><a href="generated/torch.Tensor.bincount.html#torch.Tensor.bincount">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.bind_symbols">bind_symbols() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.binomial.Binomial">Binomial (class in torch.distributions.binomial)</a>
 </li>
       <li><a href="generated/torch.bitwise_and.html#torch.bitwise_and">bitwise_and() (in module torch)</a>
@@ -1561,6 +1563,8 @@
       <li><a href="generated/torch.block_diag.html#torch.block_diag">block_diag() (in module torch)</a>
 </li>
       <li><a href="benchmark_utils.html#torch.utils.benchmark.Timer.blocked_autorange">blocked_autorange() (torch.utils.benchmark.Timer method)</a>
+</li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.BlockingAsyncStager">BlockingAsyncStager (class in torch.distributed.checkpoint.staging)</a>
 </li>
       <li><a href="generated/torch.bmm.html#torch.bmm">bmm() (in module torch)</a>
 
@@ -1827,11 +1831,7 @@
       <li><a href="checkpoint.html#torch.utils.checkpoint.checkpoint">checkpoint() (in module torch.utils.checkpoint)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemReader.checkpoint_id">checkpoint_id (torch.distributed.checkpoint.FileSystemReader property)</a>
-
-      <ul>
-        <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemWriter.checkpoint_id">(torch.distributed.checkpoint.FileSystemWriter property)</a>
 </li>
-      </ul></li>
       <li><a href="checkpoint.html#torch.utils.checkpoint.checkpoint_sequential">checkpoint_sequential() (in module torch.utils.checkpoint)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.chi2.Chi2">Chi2 (class in torch.distributions.chi2)</a>
@@ -2088,14 +2088,14 @@
       </ul></li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig.configs">configs (torch.ao.quantization.backend_config.BackendConfig property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.configure">configure() (in module torch.distributed.elastic.metrics)</a>
 
       <ul>
         <li><a href="elastic/timer.html#torch.distributed.elastic.timer.configure">(in module torch.distributed.elastic.timer)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.confirmed_by_owner">confirmed_by_owner() (torch.distributed.rpc.PyRRef method)</a>
 </li>
       <li><a href="generated/torch.conj.html#torch.conj">conj() (in module torch)</a>
@@ -6295,6 +6295,8 @@
 </li>
       <li><a href="benchmark_utils.html#torch.utils.benchmark.Measurement.merge">merge() (torch.utils.benchmark.Measurement static method)</a>
 </li>
+      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.microbatch.merge_chunks">merge_chunks() (in module torch.distributed.pipelining.microbatch)</a>
+</li>
       <li><a href="generated/torch.nn.MultiheadAttention.html#torch.nn.MultiheadAttention.merge_masks">merge_masks() (torch.nn.MultiheadAttention method)</a>
 </li>
       <li><a href="generated/torch.meshgrid.html#torch.meshgrid">meshgrid() (in module torch)</a>
@@ -6889,6 +6891,8 @@
 </li>
         <li><a href="distributed.html#module-torch.distributed.checkpoint.resharding">torch.distributed.checkpoint.resharding</a>
 </li>
+        <li><a href="distributed.checkpoint.html#module-torch.distributed.checkpoint.staging">torch.distributed.checkpoint.staging</a>
+</li>
         <li><a href="distributed.html#module-torch.distributed.checkpoint.state_dict">torch.distributed.checkpoint.state_dict</a>
 </li>
         <li><a href="distributed.html#module-torch.distributed.checkpoint.state_dict_loader">torch.distributed.checkpoint.state_dict_loader</a>
@@ -7104,6 +7108,8 @@
         <li><a href="distributed.html#module-torch.distributed.pipeline.sync.worker">torch.distributed.pipeline.sync.worker</a>
 </li>
         <li><a href="distributed.pipelining.html#module-torch.distributed.pipelining">torch.distributed.pipelining</a>
+</li>
+        <li><a href="distributed.pipelining.html#module-torch.distributed.pipelining.microbatch">torch.distributed.pipelining.microbatch</a>
 </li>
         <li><a href="distributed.html#module-torch.distributed.remote_device">torch.distributed.remote_device</a>
 </li>
@@ -10366,6 +10372,8 @@
 </li>
       <li><a href="distributed.html#torch.distributed.Store.set_timeout">set_timeout() (in module torch.distributed.Store)</a>
 </li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.set_unbacked_var_to_val">set_unbacked_var_to_val() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
+</li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner.set_up_planner">set_up_planner() (torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner method)</a>
 
       <ul>
@@ -10451,6 +10459,8 @@
 </li>
       </ul></li>
       <li><a href="storage.html#torch.ShortStorage">ShortStorage (class in torch)</a>
+</li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute">should_synchronize_after_execute (torch.distributed.checkpoint.staging.AsyncStager property)</a>
 </li>
       <li><a href="config_mod.html#torch.__config__.show">show() (in module torch.__config__)</a>
 </li>
@@ -10548,14 +10558,14 @@
 </li>
       <li><a href="pipeline.html#torch.distributed.pipeline.sync.skip.skippable.skippable">skippable() (in module torch.distributed.pipeline.sync.skip.skippable)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.slice_scatter.html#torch.slice_scatter">slice_scatter() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.slice_scatter.html#torch.Tensor.slice_scatter">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.slogdet.html#torch.slogdet">slogdet() (in module torch)</a>
 
       <ul>
@@ -10678,6 +10688,8 @@
         <li><a href="generated/torch.Tensor.split.html#torch.Tensor.split">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks">split_args_kwargs_into_chunks() (in module torch.distributed.pipelining.microbatch)</a>
+</li>
       <li><a href="generated/torch.sqrt.html#torch.sqrt">sqrt() (in module torch)</a>
 
       <ul>
@@ -10720,6 +10732,14 @@
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.StackTransform">StackTransform (class in torch.distributions.transforms)</a>
 </li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemWriter.stage">stage() (torch.distributed.checkpoint.FileSystemWriter method)</a>
+
+      <ul>
+        <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager.stage">(torch.distributed.checkpoint.staging.AsyncStager method)</a>
+</li>
+        <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.BlockingAsyncStager.stage">(torch.distributed.checkpoint.staging.BlockingAsyncStager method)</a>
+</li>
+      </ul></li>
       <li><a href="generated/torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry.html#torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry">StandaloneModuleConfigEntry (class in torch.ao.quantization.fx.custom_config)</a>
 </li>
       <li><a href="generated/torch.mps.profiler.start.html#torch.mps.profiler.start">start() (in module torch.mps.profiler)</a>
@@ -11152,6 +11172,12 @@
         <li><a href="generated/torch.xpu.Stream.html#torch.xpu.Stream.synchronize">(torch.xpu.Stream method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager.synchronize_staging">synchronize_staging() (torch.distributed.checkpoint.staging.AsyncStager method)</a>
+
+      <ul>
+        <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.BlockingAsyncStager.synchronize_staging">(torch.distributed.checkpoint.staging.BlockingAsyncStager method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -11235,6 +11261,8 @@
       <li><a href="profiler.html#torch.profiler.tensorboard_trace_handler">tensorboard_trace_handler() (in module torch.profiler)</a>
 </li>
       <li><a href="monitor.html#torch.monitor.TensorboardEventHandler">TensorboardEventHandler (class in torch.monitor)</a>
+</li>
+      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.microbatch.TensorChunkSpec">TensorChunkSpec (class in torch.distributed.pipelining.microbatch)</a>
 </li>
       <li><a href="data.html#torch.utils.data.TensorDataset">TensorDataset (class in torch.utils.data)</a>
 </li>
@@ -12985,6 +13013,13 @@
 </li>
       </ul></li>
       <li>
+    torch.distributed.checkpoint.staging
+
+      <ul>
+        <li><a href="distributed.checkpoint.html#module-torch.distributed.checkpoint.staging">module</a>
+</li>
+      </ul></li>
+      <li>
     torch.distributed.checkpoint.state_dict
 
       <ul>
@@ -13741,6 +13776,13 @@
 </li>
       </ul></li>
       <li>
+    torch.distributed.pipelining.microbatch
+
+      <ul>
+        <li><a href="distributed.pipelining.html#module-torch.distributed.pipelining.microbatch">module</a>
+</li>
+      </ul></li>
+      <li>
     torch.distributed.remote_device
 
       <ul>
@@ -14195,6 +14237,8 @@
         <li><a href="distributions.html#module-torch.distributions.utils">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.distributions.von_mises
 
@@ -14202,8 +14246,6 @@
         <li><a href="distributions.html#module-torch.distributions.von_mises">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.distributions.weibull
 
