@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4440d07 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git8a1af95 ) &#x25BC</a>
     </div>
     
 
@@ -913,6 +913,56 @@ to the same name (in which case the counts are added together), etc.</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.utils.benchmark.Compare">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.utils.benchmark.</span></span><span class="sig-name descname"><span class="pre">Compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/benchmark/utils/compare.html#Compare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.benchmark.Compare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper class for displaying the results of many measurements in a
+formatted table.</p>
+<p>The table format is based on the information fields provided in
+<a class="reference internal" href="#torch.utils.benchmark.Timer" title="torch.utils.benchmark.Timer"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.benchmark.Timer</span></code></a> (<cite>description</cite>, <cite>label</cite>, <cite>sub_label</cite>,
+<cite>num_threads</cite>, etc).</p>
+<p>The table can be directly printed using <a class="reference internal" href="#torch.utils.benchmark.Compare.print" title="torch.utils.benchmark.Compare.print"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print()</span></code></a> or casted as a <cite>str</cite>.</p>
+<p>For a full tutorial on how to use this class, see:
+<a class="reference external" href="https://pytorch.org/tutorials/recipes/recipes/benchmark.html">https://pytorch.org/tutorials/recipes/recipes/benchmark.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>results</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference internal" href="#torch.utils.benchmark.Measurement" title="torch.utils.benchmark.utils.common.Measurement"><em>Measurement</em></a><em>]</em>) – List of Measurment to display.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.utils.benchmark.Compare.colorize">
+<span class="sig-name descname"><span class="pre">colorize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rowwise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/benchmark/utils/compare.html#Compare.colorize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.benchmark.Compare.colorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Colorize formatted table.</p>
+<p>Colorize columnwise by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.utils.benchmark.Compare.extend_results">
+<span class="sig-name descname"><span class="pre">extend_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/benchmark/utils/compare.html#Compare.extend_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.benchmark.Compare.extend_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append results to already stored ones.</p>
+<p>All added results must be instances of <code class="docutils literal notranslate"><span class="pre">Measurement</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.utils.benchmark.Compare.highlight_warnings">
+<span class="sig-name descname"><span class="pre">highlight_warnings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/benchmark/utils/compare.html#Compare.highlight_warnings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.benchmark.Compare.highlight_warnings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables warning highlighting when building formatted table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.utils.benchmark.Compare.print">
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/benchmark/utils/compare.html#Compare.print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.benchmark.Compare.print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print formatted table</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.utils.benchmark.Compare.trim_significant_figures">
+<span class="sig-name descname"><span class="pre">trim_significant_figures</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/benchmark/utils/compare.html#Compare.trim_significant_figures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.utils.benchmark.Compare.trim_significant_figures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables trimming of significant figures when building the formatted table.</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-torch.utils.benchmark.examples"></span><span class="target" id="module-torch.utils.benchmark.op_fuzzers"></span><span class="target" id="module-torch.utils.benchmark.utils"></span><span class="target" id="module-torch.utils.benchmark.utils.valgrind_wrapper"></span></div>
 
 
@@ -993,6 +1043,14 @@ if (url)
 <li><a class="reference internal" href="#torch.utils.benchmark.FunctionCounts.denoise"><code class="docutils literal notranslate"><span class="pre">FunctionCounts.denoise()</span></code></a></li>
 <li><a class="reference internal" href="#torch.utils.benchmark.FunctionCounts.filter"><code class="docutils literal notranslate"><span class="pre">FunctionCounts.filter()</span></code></a></li>
 <li><a class="reference internal" href="#torch.utils.benchmark.FunctionCounts.transform"><code class="docutils literal notranslate"><span class="pre">FunctionCounts.transform()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#torch.utils.benchmark.Compare"><code class="docutils literal notranslate"><span class="pre">Compare</span></code></a><ul>
+<li><a class="reference internal" href="#torch.utils.benchmark.Compare.colorize"><code class="docutils literal notranslate"><span class="pre">Compare.colorize()</span></code></a></li>
+<li><a class="reference internal" href="#torch.utils.benchmark.Compare.extend_results"><code class="docutils literal notranslate"><span class="pre">Compare.extend_results()</span></code></a></li>
+<li><a class="reference internal" href="#torch.utils.benchmark.Compare.highlight_warnings"><code class="docutils literal notranslate"><span class="pre">Compare.highlight_warnings()</span></code></a></li>
+<li><a class="reference internal" href="#torch.utils.benchmark.Compare.print"><code class="docutils literal notranslate"><span class="pre">Compare.print()</span></code></a></li>
+<li><a class="reference internal" href="#torch.utils.benchmark.Compare.trim_significant_figures"><code class="docutils literal notranslate"><span class="pre">Compare.trim_significant_figures()</span></code></a></li>
 </ul>
 </li>
 </ul>
