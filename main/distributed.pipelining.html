@@ -243,7 +243,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git8a1af95 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git7f0c5eb ) &#x25BC</a>
     </div>
     
 
@@ -388,6 +388,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model_zoo.html">torch.utils.model_zoo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_tracker.html">torch.utils.module_tracker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="type_info.html">Type Info</a></li>
 <li class="toctree-l1"><a class="reference internal" href="named_tensor.html">Named Tensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="name_inference.html">Named Tensors operator coverage</a></li>
@@ -636,6 +637,97 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="pipeline-transformation-apis">
+<h3>Pipeline Transformation APIs<a class="headerlink" href="#pipeline-transformation-apis" title="Permalink to this heading">¶</a></h3>
+<p>The following set of APIs transform your model into a pipeline representation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.SplitPoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">SplitPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#SplitPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.SplitPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.pipeline">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a pipeline representation for the provided module.</p>
+<p>See <cite>Pipe</cite> for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><em>Module</em></a>) – The module to be transformed into a <cite>Pipe</cite>.</p></li>
+<li><p><strong>num_chunks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of microbatches to be run with this pipeline.</p></li>
+<li><p><strong>example_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>, </em><em>...</em><em>]</em>) – Example positional inputs to be used with this pipeline.</p></li>
+<li><p><strong>example_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – Example keyword inputs to be used with this pipeline. (default: <cite>None</cite>)</p></li>
+<li><p><strong>split_spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference internal" href="#torch.distributed.pipelining.SplitPoint" title="torch.distributed.pipelining._IR.SplitPoint"><em>SplitPoint</em></a><em>]</em><em>]</em>) – A dictionary mapping module names to <cite>SplitPoint`s. (default: `None</cite>)</p></li>
+<li><p><strong>split_policy</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="fx.html#torch.fx.GraphModule" title="torch.fx.graph_module.GraphModule"><em>GraphModule</em></a><em>]</em><em>, </em><a class="reference internal" href="fx.html#torch.fx.GraphModule" title="torch.fx.graph_module.GraphModule"><em>GraphModule</em></a><em>]</em><em>]</em>) – The policy to use for splitting the module. (default: <cite>None</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>A pipeline representation of class <cite>Pipe</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.Pipe">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">Pipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_gm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splitter_qualname_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_loss_and_backward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracer_qualname_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#Pipe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.Pipe" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>args_chunk_spec:</dt><dd><p>Chunking specification for positional inputs. (default: <cite>None</cite>)</p>
+</dd>
+<dt>kwargs_chunk_spec:</dt><dd><p>Chunking specification for keyword inputs. (default: <cite>None</cite>)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.annotate_split_points">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">annotate_split_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#annotate_split_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.annotate_split_points" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.pipe_split">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">pipe_split</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#pipe_split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.pipe_split" title="Permalink to this definition">¶</a></dt>
+<dd><p>pipe_split is a special operator that is used to mark the boundary between
+stages in a module. It is used to split the module into stages. It is a
+no-op if your annotated module is run eagerly.</p>
+<p>Example:
+&gt;&gt;&gt; def forward(self, x):
+&gt;&gt;&gt;     x = torch.mm(x, self.mm_param)
+&gt;&gt;&gt;     x = torch.relu(x)
+&gt;&gt;&gt;     pipe_split()
+&gt;&gt;&gt;     x = self.lin(x)
+&gt;&gt;&gt;     return x</p>
+<p>The above example will be split into two stages.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.ArgsChunkSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">ArgsChunkSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_dims</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#ArgsChunkSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.ArgsChunkSpec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Example:
+&gt;&gt;&gt; # There are three positional arguments to the model, and
+&gt;&gt;&gt; # we are chunking them along dimension 0, 0 and 1, respectively
+&gt;&gt;&gt; with ArgsChunkSpec((0, 0, 1)):
+&gt;&gt;&gt;     pipe = pipeline(model, num_chunks, example_args)</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.KwargsChunkSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">KwargsChunkSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_dims</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#KwargsChunkSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.KwargsChunkSpec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Example:
+&gt;&gt;&gt; # Chunk dimension 0 for the “id” argument, 1 for the “mask” argument
+&gt;&gt;&gt; with KwargsChunkSpec({“id”: 0, “mask”: 1}):
+&gt;&gt;&gt;     pipe = pipeline(model, num_chunks, (), example_kwargs)</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-torch.distributed.pipelining.microbatch">
 <span id="microbatch-utilities"></span><h3>Microbatch Utilities<a class="headerlink" href="#module-torch.distributed.pipelining.microbatch" title="Permalink to this heading">¶</a></h3>
 <dl class="py class">
@@ -756,6 +848,16 @@ if (url)
 <li><a class="reference internal" href="#techniques-explained">Techniques Explained</a><ul>
 <li><a class="reference internal" href="#splitting-a-model-with-pipeline">Splitting a Model with <code class="docutils literal notranslate"><span class="pre">pipeline</span></code></a></li>
 <li><a class="reference internal" href="#using-pipelineschedule-for-execution">Using <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code> for Execution</a></li>
+<li><a class="reference internal" href="#pipeline-transformation-apis">Pipeline Transformation APIs</a><ul>
+<li><a class="reference internal" href="#torch.distributed.pipelining.SplitPoint"><code class="docutils literal notranslate"><span class="pre">SplitPoint</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.pipeline"><code class="docutils literal notranslate"><span class="pre">pipeline()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.Pipe"><code class="docutils literal notranslate"><span class="pre">Pipe</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.annotate_split_points"><code class="docutils literal notranslate"><span class="pre">annotate_split_points()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.pipe_split"><code class="docutils literal notranslate"><span class="pre">pipe_split()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.ArgsChunkSpec"><code class="docutils literal notranslate"><span class="pre">ArgsChunkSpec</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.KwargsChunkSpec"><code class="docutils literal notranslate"><span class="pre">KwargsChunkSpec</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-torch.distributed.pipelining.microbatch">Microbatch Utilities</a><ul>
 <li><a class="reference internal" href="#torch.distributed.pipelining.microbatch.TensorChunkSpec"><code class="docutils literal notranslate"><span class="pre">TensorChunkSpec</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks"><code class="docutils literal notranslate"><span class="pre">split_args_kwargs_into_chunks()</span></code></a></li>
