@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git3407899 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git939b701 ) &#x25BC</a>
     </div>
     
 
@@ -513,6 +513,7 @@
     <span class="n">MetadataIndex</span><span class="p">,</span>
     <span class="n">STATE_DICT_TYPE</span><span class="p">,</span>
     <span class="n">STORAGE_TYPES</span><span class="p">,</span>
+    <span class="n">StorageMeta</span><span class="p">,</span>
     <span class="n">TensorStorageMetadata</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.planner</span> <span class="kn">import</span> <span class="p">(</span>
@@ -566,7 +567,12 @@
                 <span class="s2">&quot;from your call.&quot;</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">set_up_planner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">:</span> <span class="n">STATE_DICT_TYPE</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_up_planner</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">state_dict</span><span class="p">:</span> <span class="n">STATE_DICT_TYPE</span><span class="p">,</span>
+        <span class="n">storage_meta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StorageMeta</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten_state_dict</span><span class="p">:</span>
             <span class="n">state_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span> <span class="o">=</span> <span class="n">flatten_state_dict</span><span class="p">(</span><span class="n">state_dict</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten_sharded_tensors</span><span class="p">:</span>
@@ -656,8 +662,8 @@
     <span class="k">def</span> <span class="nf">set_up_planner</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">state_dict</span><span class="p">:</span> <span class="n">STATE_DICT_TYPE</span><span class="p">,</span>
-        <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span><span class="p">,</span>
-        <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Metadata</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_init_state_dict</span><span class="p">(</span><span class="n">state_dict</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">original_state_dict</span> <span class="o">=</span> <span class="n">state_dict</span>
@@ -673,6 +679,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">is_coordinator</span> <span class="o">=</span> <span class="n">is_coordinator</span>
 
     <span class="k">def</span> <span class="nf">create_local_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoadPlan</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">create_default_local_load_plan</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">state_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_partial_load</span>
         <span class="p">)</span>
@@ -753,10 +760,11 @@
     <span class="k">def</span> <span class="nf">set_up_planner</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">state_dict</span><span class="p">:</span> <span class="n">STATE_DICT_TYPE</span><span class="p">,</span>
-        <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span><span class="p">,</span>
-        <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Metadata</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="n">state_dict</span>
+        <span class="k">assert</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
         <span class="c1"># rebuild the state dict from the metadata</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">state_dict_metadata</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -837,7 +845,10 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DTensor</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">requests</span> <span class="o">+=</span> <span class="n">_create_write_items</span><span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">))</span> <span class="ow">or</span> <span class="n">is_coordinator</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># For the plain tensor and non-tensor values, add the request for all</span>
+            <span class="c1"># the ranks. Coordinator will decides whether to deduplicate the</span>
+            <span class="c1"># values based on the keys.</span>
             <span class="n">requests</span> <span class="o">+=</span> <span class="n">_create_write_items</span><span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">SavePlan</span><span class="p">(</span><span class="n">requests</span><span class="p">)</span>

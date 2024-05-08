@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git3407899 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git939b701 ) &#x25BC</a>
     </div>
     
 
@@ -928,7 +928,8 @@
 
         <span class="c1"># Dictionary to store metadata</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_node_hook</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="c1"># TorchScript breaks trying to compile the graph setter because of the</span>
     <span class="c1"># continued string literal. Issue here: https://github.com/pytorch/pytorch/issues/44842</span>
@@ -1285,6 +1286,7 @@
             <span class="s2">&quot;_load_state_dict_pre_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_load_state_dict_post_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_replace_hook&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_create_node_hook&quot;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">extra_preserved_attrs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
@@ -1351,7 +1353,33 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">yield</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="n">prev</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="n">prev</span>
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">_set_create_node_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes a callable which will be called after we create a new node. The</span>
+<span class="sd">        callable takes the newly created node as input and returns None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;create_node hook must be a callable.&quot;</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_node_hook</span>
+
+        <span class="c1"># Add the hook to all submodules</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">GraphModule</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="n">m</span><span class="o">.</span><span class="n">_create_node_hook</span> <span class="ow">is</span> <span class="n">prev</span><span class="p">,</span> <span class="p">(</span>
+                    <span class="s2">&quot;create_node_hook is not be the same for all submodules: &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Found: </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">_create_node_hook</span><span class="si">}</span><span class="s2">. Previously: </span><span class="si">{</span><span class="n">prev</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">_create_node_hook</span> <span class="o">=</span> <span class="n">f</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Restore hook for all submodules</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">GraphModule</span><span class="p">):</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">_create_node_hook</span> <span class="o">=</span> <span class="n">prev</span></div>
 
 
 <span class="c1"># workarounds for issues in __torch_function__</span>

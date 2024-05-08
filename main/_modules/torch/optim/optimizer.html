@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git3407899 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git939b701 ) &#x25BC</a>
     </div>
     
 
@@ -602,6 +602,27 @@
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_disable_dynamo_if_unsupported</span><span class="p">(</span><span class="n">single_tensor_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># workaround for torchscript BC</span>
+    <span class="c1"># it requires all called functions to be in the</span>
+    <span class="c1"># global environment at the site at which the</span>
+    <span class="c1"># maybe_fallback closure is created</span>
+    <span class="k">if</span> <span class="n">single_tensor_fn</span><span class="p">:</span>
+        <span class="nb">globals</span><span class="p">()[</span><span class="n">single_tensor_fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">single_tensor_fn</span>
+
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">maybe_fallback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">is_compiling</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;capturable&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_disable_dynamo</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">maybe_fallback</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
 
 
 <span class="c1"># For any optimizer with a faster implementation, we attempt to default to the</span>
