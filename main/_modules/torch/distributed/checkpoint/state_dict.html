@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git939b701 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git96a5698 ) &#x25BC</a>
     </div>
     
 
@@ -511,8 +511,11 @@
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._shard.sharded_tensor</span> <span class="kn">import</span> <span class="n">ShardedTensor</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._state_dict_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_broadcast_state_dict</span><span class="p">,</span>
+    <span class="n">_flatten_state_dict</span><span class="p">,</span>
     <span class="n">_gather_state_dict</span><span class="p">,</span>
     <span class="n">_offload_state_dict_to_cpu</span><span class="p">,</span>
+    <span class="n">_unflatten_state_dict</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._tensor</span> <span class="kn">import</span> <span class="n">DTensor</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.algorithms._checkpoint.checkpoint_wrapper</span> <span class="kn">import</span> <span class="p">(</span>
@@ -534,6 +537,7 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.nn.modules.module</span> <span class="kn">import</span> <span class="n">_IncompatibleKeys</span>
 <span class="kn">from</span> <span class="nn">torch.nn.parallel</span> <span class="kn">import</span> <span class="n">DistributedDataParallel</span> <span class="k">as</span> <span class="n">DDP</span>
+<span class="kn">from</span> <span class="nn">torch.utils._pytree</span> <span class="kn">import</span> <span class="n">tree_map_only</span>
 
 
 <span class="n">FLAT_PARAM</span> <span class="o">=</span> <span class="s2">&quot;_flat_param&quot;</span>
@@ -598,13 +602,21 @@
 <span class="sd">    - ``strict``: the ``strict`` option when ``set_state_dict`` calls</span>
 <span class="sd">      model.load_state_dict().</span>
 <span class="sd">      The default value is False.</span>
+
+<span class="sd">    - ``broadcast_from_rank0``: when the option is True, rank0 should receive a</span>
+<span class="sd">       full state_dict and will broadcast the tensors in the state_dict/</span>
+<span class="sd">       optim_state_dict one by one to other ranks. Other ranks will receive</span>
+<span class="sd">       the tensors and shard according to the local shards in the model and</span>
+<span class="sd">       optimizer. ``full_state_dict`` must be set to True when using this option.</span>
+<span class="sd">       This option currently only supports DTensor, not the legacy ShardedTensor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">full_state_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">cpu_offload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">ignore_frozen_params</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">keep_submodule_prefixes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></div>
+    <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">broadcast_from_rank0</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
 <span class="nd">@dataclass</span>
@@ -759,6 +771,10 @@
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">fqns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Submodule FQN should only have 1 instance&quot;</span>
             <span class="n">submodule_prefixes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fqn</span><span class="si">}</span><span class="s2">.&quot;</span> <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">fqns</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">broadcast_from_rank0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">full_state_dict</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;full_state_dict must be True when broadcast_from_rank0 is True.&quot;</span>
+        <span class="p">)</span>
     <span class="n">fsdp_modules</span> <span class="o">=</span> <span class="n">FSDP</span><span class="o">.</span><span class="n">fsdp_modules</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">state_dict_config</span><span class="p">:</span> <span class="n">StateDictConfig</span>
     <span class="n">optim_state_dict_config</span><span class="p">:</span> <span class="n">OptimStateDictConfig</span>
@@ -770,7 +786,8 @@
                 <span class="n">offload_to_cpu</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">cpu_offload</span><span class="p">,</span> <span class="n">rank0_only</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">cpu_offload</span>
             <span class="p">)</span>
             <span class="n">optim_state_dict_config</span> <span class="o">=</span> <span class="n">FullOptimStateDictConfig</span><span class="p">(</span>
-                <span class="n">offload_to_cpu</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">cpu_offload</span><span class="p">,</span> <span class="n">rank0_only</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">cpu_offload</span>
+                <span class="n">offload_to_cpu</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">cpu_offload</span><span class="p">,</span>
+                <span class="n">rank0_only</span><span class="o">=</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">cpu_offload</span> <span class="ow">or</span> <span class="n">options</span><span class="o">.</span><span class="n">broadcast_from_rank0</span><span class="p">),</span>
             <span class="p">)</span>
             <span class="n">state_dict_type</span> <span class="o">=</span> <span class="n">StateDictType</span><span class="o">.</span><span class="n">FULL_STATE_DICT</span>
         <span class="k">else</span><span class="p">:</span>
@@ -822,6 +839,7 @@
         <span class="ow">and</span> <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">ignore_frozen_params</span>
         <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">cpu_offload</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">full_state_dict</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">strict</span>
+        <span class="ow">and</span> <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">broadcast_from_rank0</span>
     <span class="p">):</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="s2">&quot;The option indicates that model state_dict is required to save &quot;</span>
@@ -830,8 +848,10 @@
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">handle_optim</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">optim_state_dict</span> <span class="ow">and</span> <span class="n">optim_state_dict</span><span class="p">[</span><span class="n">STATE</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span>
-            <span class="n">info</span><span class="o">.</span><span class="n">cpu_offload</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">full_state_dict</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="p">(</span><span class="n">optim_state_dict</span> <span class="ow">and</span> <span class="n">optim_state_dict</span><span class="p">[</span><span class="n">STATE</span><span class="p">])</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">cpu_offload</span> <span class="ow">and</span> <span class="n">info</span><span class="o">.</span><span class="n">full_state_dict</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">broadcast_from_rank0</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="s2">&quot;The option indicates that model state_dict is required to save, &quot;</span>
@@ -933,17 +953,35 @@
     <span class="n">state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">],</span>
     <span class="n">info</span><span class="p">:</span> <span class="n">_StateDictInfo</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_IncompatibleKeys</span><span class="p">:</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">handle_model</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">state_dict</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">handle_model</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">state_dict</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">broadcast_from_rank0</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_IncompatibleKeys</span><span class="p">({},</span> <span class="p">{})</span>
 
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">_iterate_valid_model_state</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">local_state_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">_iterate_valid_model_state</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
         <span class="n">fqns</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
         <span class="n">fqns_with_prefix</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span>
             <span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">skip_ddp_prefix</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_compiler_prefix</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span>
+
         <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">fqn_with_prefix</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fqns</span><span class="p">,</span> <span class="n">fqns_with_prefix</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">fqn</span> <span class="o">!=</span> <span class="n">fqn_with_prefix</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="ow">not</span> <span class="n">info</span><span class="o">.</span><span class="n">broadcast_from_rank0</span> <span class="ow">or</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="p">)</span> <span class="ow">and</span> <span class="n">fqn</span> <span class="o">!=</span> <span class="n">fqn_with_prefix</span><span class="p">:</span>
                 <span class="n">state_dict</span><span class="p">[</span><span class="n">fqn_with_prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
+            <span class="n">local_state_dict</span><span class="p">[</span><span class="n">fqn_with_prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">broadcast_from_rank0</span><span class="p">:</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">local_state_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">device</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">device</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">assert</span> <span class="n">device</span> <span class="o">==</span> <span class="n">value</span><span class="o">.</span><span class="n">device</span>
+        <span class="k">assert</span> <span class="n">device</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">_broadcast_state_dict</span><span class="p">(</span><span class="n">state_dict</span><span class="p">,</span> <span class="n">local_state_dict</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">local_state</span> <span class="ow">in</span> <span class="n">local_state_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">state_dict</span><span class="p">[</span><span class="n">fqn</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_state</span>
 
     <span class="k">with</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_context</span><span class="p">():</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
@@ -975,7 +1013,20 @@
                 <span class="p">)</span>
             <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
                 <span class="n">param</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+
+    <span class="c1"># Some optimizers will update parameters regardless of grads due to lr, so</span>
+    <span class="c1"># make lr to zero when calling `step()`.</span>
+    <span class="n">lrs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="n">optim</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;lr&quot;</span> <span class="ow">in</span> <span class="n">param_group</span><span class="p">:</span>
+            <span class="n">lrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param_group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">])</span>
+            <span class="n">param_group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">optim</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="c1"># Whether to recover the &quot;lr&quot; should not matter too much as we will</span>
+    <span class="c1"># restore checkpointing later.</span>
+    <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="n">optim</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;lr&quot;</span> <span class="ow">in</span> <span class="n">param_group</span><span class="p">:</span>
+            <span class="n">param_group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">(</span><span class="n">set_to_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
@@ -1109,7 +1160,11 @@
         <span class="k">return</span>
 
     <span class="k">for</span> <span class="n">optim</span> <span class="ow">in</span> <span class="n">optimizers</span><span class="p">:</span>
-        <span class="n">optim_state_dict</span> <span class="o">=</span> <span class="n">_split_optim_state_dict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+        <span class="n">_init_optim_state</span><span class="p">(</span><span class="n">optim</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">state_dict</span><span class="p">:</span>
+            <span class="n">optim_state_dict</span> <span class="o">=</span> <span class="n">_split_optim_state_dict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">optim_state_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">fsdp_modules</span><span class="p">:</span>
             <span class="c1"># We need to specially handle FlatParameter FSDP as</span>
             <span class="c1"># FlatParameter FSDP converts the FQNs.</span>
@@ -1139,11 +1194,33 @@
                 <span class="n">optim_state_dict</span> <span class="o">=</span> <span class="n">FSDP</span><span class="o">.</span><span class="n">optim_state_dict_to_load</span><span class="p">(</span>
                     <span class="n">model</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">optim_state_dict</span>
                 <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">info</span><span class="o">.</span><span class="n">broadcast_from_rank0</span><span class="p">:</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">full_state_dict</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">local_state_dict</span> <span class="o">=</span> <span class="n">_get_optim_state_dict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">optim</span><span class="p">,),</span> <span class="n">info</span><span class="p">)</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">full_state_dict</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">def</span> <span class="nf">_device</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">nonlocal</span> <span class="n">device</span>
+                    <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">device</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">device</span>
+                    <span class="k">elif</span> <span class="n">device</span> <span class="o">!=</span> <span class="n">t</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Device mismatch&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">t</span>
+
+            <span class="n">_</span> <span class="o">=</span> <span class="n">tree_map_only</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">_device</span><span class="p">,</span> <span class="n">local_state_dict</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">device</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="n">flatten_osd</span><span class="p">,</span> <span class="n">osd_mapping</span> <span class="o">=</span> <span class="n">_flatten_state_dict</span><span class="p">(</span><span class="n">optim_state_dict</span><span class="p">)</span>
+            <span class="n">flatten_local_osd</span><span class="p">,</span> <span class="n">local_osd_mapping</span> <span class="o">=</span> <span class="n">_flatten_state_dict</span><span class="p">(</span><span class="n">local_state_dict</span><span class="p">)</span>
+            <span class="n">_broadcast_state_dict</span><span class="p">(</span><span class="n">flatten_osd</span><span class="p">,</span> <span class="n">flatten_local_osd</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">optim_state_dict</span> <span class="o">=</span> <span class="n">_unflatten_state_dict</span><span class="p">(</span>
+                <span class="n">flatten_local_osd</span><span class="p">,</span> <span class="n">local_osd_mapping</span>
+            <span class="p">)</span>
 
         <span class="c1"># Note that we do not have to convert the FQN back to param id here if</span>
         <span class="c1"># order in optim.param_groups[idx][PARAMS] is the same as the one in</span>
         <span class="c1"># optim_state_dict[PG][idx][PARAMS].</span>
-        <span class="n">_init_optim_state</span><span class="p">(</span><span class="n">optim</span><span class="p">)</span>
         <span class="n">_state_dict_fn</span><span class="p">(</span><span class="n">optim</span><span class="p">,</span> <span class="s2">&quot;load_state_dict&quot;</span><span class="p">)(</span><span class="n">state_dict</span><span class="o">=</span><span class="n">optim_state_dict</span><span class="p">)</span>
 
 

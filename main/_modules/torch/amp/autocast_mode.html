@@ -242,7 +242,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git939b701 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git96a5698 ) &#x25BC</a>
     </div>
     
 
@@ -677,7 +677,10 @@
 <span class="sd">                                     Thus, you may obtain the device type of a tensor using `Tensor.device.type`.</span>
 <span class="sd">        enabled(bool, optional):  Whether autocasting should be enabled in the region.</span>
 <span class="sd">            Default: ``True``</span>
-<span class="sd">        dtype(torch_dtype, optional):  Whether to use torch.float16 or torch.bfloat16.</span>
+<span class="sd">        dtype(torch_dtype, optional):  Data type for ops run in autocast. It uses the default value</span>
+<span class="sd">            (``torch.float16`` for CUDA and ``torch.bfloat16`` for CPU), given by</span>
+<span class="sd">            :func:`~torch.get_autocast_dtype`, if :attr:`dtype` is ``None``.</span>
+<span class="sd">            Default: ``None``</span>
 <span class="sd">        cache_enabled(bool, optional):  Whether the weight cache inside autocast should be enabled.</span>
 <span class="sd">            Default: ``True``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -693,11 +696,12 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Expected `device_type` of type `str`, got: `</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">device_type</span><span class="p">)</span><span class="si">}</span><span class="s2">`&quot;</span>
             <span class="p">)</span>
+        <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">get_autocast_dtype</span><span class="p">(</span><span class="n">device_type</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_jit_internal</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_enabled</span> <span class="o">=</span> <span class="n">enabled</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device_type</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fast_dtype</span> <span class="o">=</span> <span class="n">dtype</span>
-            <span class="c1"># TODO: support get_autocast_gpu/cpu_dtype</span>
             <span class="k">assert</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device_type</span>
