@@ -42,22 +42,22 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "i64[]"):
-                    _local_scalar_dense: "Sym(u0)" = torch.ops.aten._local_scalar_dense.default(x);  x = None
+                    item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
                 
-                    sym_constrain_range = torch.ops.aten.sym_constrain_range.default(_local_scalar_dense, min = 0, max = 5)
+                    sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
                 
                 # No stacktrace found for following nodes
-                mul: "Sym(-u0)" = -1 * _local_scalar_dense
+                mul: "Sym(-u0)" = -1 * item
                 le: "Sym(-u0 <= 0)" = mul <= 0;  mul = None
                 _assert_scalar = torch.ops.aten._assert_scalar.default(le, "Runtime assertion failed for expression -u0 <= 0 on node 'le_1'");  le = None
-                le_1: "Sym(u0 <= 5)" = _local_scalar_dense <= 5
+                le_1: "Sym(u0 <= 5)" = item <= 5
                 _assert_scalar_1 = torch.ops.aten._assert_scalar.default(le_1, "Runtime assertion failed for expression u0 <= 5 on node 'le_2'");  le_1 = None
                 
-                    zeros: "f32[u0, 5]" = torch.ops.aten.zeros.default([_local_scalar_dense, 5], device = device(type='cpu'), pin_memory = False);  _local_scalar_dense = None
+                    zeros: "f32[u0, 5]" = torch.ops.aten.zeros.default([item, 5], device = device(type='cpu'), pin_memory = False);  item = None
                 return (zeros,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='zeros'), target=None)])
-    Range constraints: {u0: ValueRanges(lower=0, upper=5, is_bool=False), u1: ValueRanges(lower=0, upper=5, is_bool=False), u2: ValueRanges(lower=0, upper=5, is_bool=False), u3: ValueRanges(lower=0, upper=5, is_bool=False)}
+    Range constraints: {u0: ValueRanges(lower=0, upper=5, is_bool=False), u1: ValueRanges(lower=0, upper=5, is_bool=False), u2: ValueRanges(lower=0, upper=5, is_bool=False)}
     
 
 
@@ -106,20 +106,20 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "i64[]", y: "f32[5, 5]"):
-                    _local_scalar_dense: "Sym(u0)" = torch.ops.aten._local_scalar_dense.default(x);  x = None
+                    item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
                 
-                    sym_constrain_range = torch.ops.aten.sym_constrain_range.default(_local_scalar_dense, min = 0, max = 5)
+                    sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
                 
                 # No stacktrace found for following nodes
-                mul: "Sym(-u0)" = -1 * _local_scalar_dense
+                mul: "Sym(-u0)" = -1 * item
                 le: "Sym(-u0 <= 0)" = mul <= 0;  mul = None
                 _assert_scalar = torch.ops.aten._assert_scalar.default(le, "Runtime assertion failed for expression -u0 <= 0 on node 'le_1'");  le = None
-                le_1: "Sym(u0 <= 5)" = _local_scalar_dense <= 5;  _local_scalar_dense = None
+                le_1: "Sym(u0 <= 5)" = item <= 5;  item = None
                 _assert_scalar_1 = torch.ops.aten._assert_scalar.default(le_1, "Runtime assertion failed for expression u0 <= 5 on node 'le_2'");  le_1 = None
                 
                     sin: "f32[5, 5]" = torch.ops.aten.sin.default(y);  y = None
                 return (sin,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='sin'), target=None)])
-    Range constraints: {u0: ValueRanges(lower=0, upper=5, is_bool=False), u1: ValueRanges(lower=0, upper=5, is_bool=False), u2: ValueRanges(lower=0, upper=5, is_bool=False), u3: ValueRanges(lower=0, upper=5, is_bool=False)}
+    Range constraints: {u0: ValueRanges(lower=0, upper=5, is_bool=False), u1: ValueRanges(lower=0, upper=5, is_bool=False), u2: ValueRanges(lower=0, upper=5, is_bool=False)}
     
