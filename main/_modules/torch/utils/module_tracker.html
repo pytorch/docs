@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4b88a5b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6a5acd9 ) &#x25BC</a>
     </div>
     
 
@@ -578,7 +578,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parents</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Global&quot;</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_known_modules</span><span class="p">:</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_modules</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_modules</span><span class="p">:</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakSet</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakSet</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_has_callback</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_maybe_set_engine_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -607,6 +607,8 @@
         <span class="k">if</span> <span class="n">mod</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_modules</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submod</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_known_modules</span><span class="p">[</span><span class="n">submod</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mod_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_get_mod_name</span><span class="p">(</span><span class="n">submod</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_seen_modules</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">mod_name</span>
 
     <span class="k">def</span> <span class="nf">_get_append_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">is_bw</span><span class="p">):</span>
