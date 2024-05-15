@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6a5acd9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitdccb5cf ) &#x25BC</a>
     </div>
     
 
@@ -530,6 +530,8 @@
 <span class="kn">from</span> <span class="nn">torch.backends.cuda</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">can_use_efficient_attention</span><span class="p">,</span>
     <span class="n">can_use_flash_attention</span><span class="p">,</span>
+    <span class="n">cudnn_sdp_enabled</span><span class="p">,</span>
+    <span class="n">enable_cudnn_sdp</span><span class="p">,</span>
     <span class="n">enable_flash_sdp</span><span class="p">,</span>
     <span class="n">enable_math_sdp</span><span class="p">,</span>
     <span class="n">enable_mem_efficient_sdp</span><span class="p">,</span>
@@ -623,19 +625,23 @@
         <span class="n">backends</span> <span class="o">=</span> <span class="p">[</span><span class="n">backends</span><span class="p">]</span>
 
     <span class="n">backends</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">backends</span><span class="p">)</span>
+    <span class="n">previous_cudnn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">cudnn_sdp_enabled</span><span class="p">()</span>
     <span class="n">previous_flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">flash_sdp_enabled</span><span class="p">()</span>
     <span class="n">previous_mem_efficient</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">mem_efficient_sdp_enabled</span><span class="p">()</span>
     <span class="n">previous_math</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">math_sdp_enabled</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
+        <span class="n">enable_cudnn</span> <span class="o">=</span> <span class="n">SDPBackend</span><span class="o">.</span><span class="n">CUDNN_ATTENTION</span> <span class="ow">in</span> <span class="n">backends</span>
         <span class="n">enable_flash</span> <span class="o">=</span> <span class="n">SDPBackend</span><span class="o">.</span><span class="n">FLASH_ATTENTION</span> <span class="ow">in</span> <span class="n">backends</span>
         <span class="n">enable_mem_efficient</span> <span class="o">=</span> <span class="n">SDPBackend</span><span class="o">.</span><span class="n">EFFICIENT_ATTENTION</span> <span class="ow">in</span> <span class="n">backends</span>
         <span class="n">enable_math</span> <span class="o">=</span> <span class="n">SDPBackend</span><span class="o">.</span><span class="n">MATH</span> <span class="ow">in</span> <span class="n">backends</span>
 
+        <span class="n">enable_cudnn_sdp</span><span class="p">(</span><span class="n">enable_cudnn</span><span class="p">)</span>
         <span class="n">enable_flash_sdp</span><span class="p">(</span><span class="n">enable_flash</span><span class="p">)</span>
         <span class="n">enable_mem_efficient_sdp</span><span class="p">(</span><span class="n">enable_mem_efficient</span><span class="p">)</span>
         <span class="n">enable_math_sdp</span><span class="p">(</span><span class="n">enable_math</span><span class="p">)</span>
         <span class="k">yield</span> <span class="p">{}</span>
     <span class="k">finally</span><span class="p">:</span>
+        <span class="n">enable_cudnn_sdp</span><span class="p">(</span><span class="n">previous_cudnn</span><span class="p">)</span>
         <span class="n">enable_flash_sdp</span><span class="p">(</span><span class="n">previous_flash</span><span class="p">)</span>
         <span class="n">enable_mem_efficient_sdp</span><span class="p">(</span><span class="n">previous_mem_efficient</span><span class="p">)</span>
         <span class="n">enable_math_sdp</span><span class="p">(</span><span class="n">previous_math</span><span class="p">)</span></div>

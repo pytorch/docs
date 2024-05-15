@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6a5acd9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitdccb5cf ) &#x25BC</a>
     </div>
     
 
@@ -1198,9 +1198,13 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_done</span><span class="p">():</span>
                 <span class="c1"># we should ALWAYS have ALL the return values when all the processes are done</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_worker_finished_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-                <span class="c1"># Wait untill all processes are finished. At this point workers finished executing</span>
-                <span class="c1"># user function</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_pc</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+                <span class="c1"># At this point workers finished running the user function</span>
+                <span class="c1"># But the child process might still have not exited. Wait for them.</span>
+                <span class="c1"># pc.join() blocks [forever] until &quot;a&quot; proc exits. Loop until all of them exits.</span>
+                <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pc</span><span class="o">.</span><span class="n">join</span><span class="p">():</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;entrypoint fn finished, waiting for all child procs to exit...&quot;</span><span class="p">)</span>
+
                 <span class="n">_validate_full_rank</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_return_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nprocs</span><span class="p">,</span> <span class="s2">&quot;return_value queue&quot;</span>
                 <span class="p">)</span>

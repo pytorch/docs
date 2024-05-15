@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6a5acd9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitdccb5cf ) &#x25BC</a>
     </div>
     
 
@@ -3540,6 +3540,38 @@
             <span class="n">out</span> <span class="o">=</span> <span class="n">SymInt</span><span class="p">(</span><span class="n">SymNode</span><span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">hint</span><span class="p">,</span> <span class="n">fx_node</span><span class="o">=</span><span class="n">fx_node</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">out</span></div>
 
+<div class="viewcode-block" id="ShapeEnv.create_symfloatnode"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symfloatnode">[docs]</a>    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">create_symfloatnode</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">sym</span><span class="p">:</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">hint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+            <span class="n">source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Source</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a SymFloat value from a symbolic expression&quot;&quot;&quot;</span>
+        <span class="n">source_name</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">if</span> <span class="n">source</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translation_validation_enabled</span> <span class="ow">and</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Create a new symbol for this source.</span>
+            <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_symbol_for_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">symbol</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+            <span class="c1"># Create a new FX placeholder and Z3 variable for &#39;symbol&#39;.</span>
+            <span class="n">fx_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_fx_placeholder_and_z3var</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+            <span class="c1"># Add an equality assertion for the newly created symbol and &#39;sym&#39;.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_assertion</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">sym</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fx_node</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Float</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">hint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="nb">float</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span> <span class="o">==</span> <span class="n">hint</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">SymFloat</span><span class="p">(</span><span class="n">SymNode</span><span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">hint</span><span class="p">,</span> <span class="n">fx_node</span><span class="o">=</span><span class="n">fx_node</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
 <div class="viewcode-block" id="ShapeEnv.create_unspecified_symint_and_symbol"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symint_and_symbol">[docs]</a>    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">create_unspecified_symint_and_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dynamic_dim</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a SymInt wrapping a new unspecified symbol&quot;&quot;&quot;</span>
@@ -3724,10 +3756,15 @@
             <span class="c1"># If we&#39;re not duck shaping, we always create a new symbol</span>
             <span class="c1"># Even if we&#39;re duck shaping, if we haven&#39;t seen this particular</span>
             <span class="c1"># value before, we also create a new symbol</span>
-            <span class="n">sympy_expr</span> <span class="o">=</span> <span class="n">make_symbol</span><span class="p">(</span><span class="n">SymT</span><span class="o">.</span><span class="n">SIZE</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">),</span> <span class="n">positive</span><span class="o">=</span><span class="n">positive</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+                <span class="n">sympy_expr</span> <span class="o">=</span> <span class="n">make_symbol</span><span class="p">(</span><span class="n">SymT</span><span class="o">.</span><span class="n">SIZE</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">),</span> <span class="n">positive</span><span class="o">=</span><span class="n">positive</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sympy_expr</span> <span class="o">=</span> <span class="n">make_symbol</span><span class="p">(</span><span class="n">SymT</span><span class="o">.</span><span class="n">FLOAT</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">),</span> <span class="n">positive</span><span class="o">=</span><span class="n">positive</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="c1"># We always associate vars to vals</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">[</span><span class="n">sympy_expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">[</span><span class="n">sympy_expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Only used for jagged layout nested tensors</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">[</span><span class="n">sympy_expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">SingletonInt</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">nested_int</span><span class="p">(),</span> <span class="n">coeff</span><span class="o">=</span><span class="n">val</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">nested_int_coeff</span><span class="p">())</span>
@@ -3762,6 +3799,9 @@
                 <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vr</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">ConstraintViolationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2"> not in range [</span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
 
+                <span class="n">range_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">]&quot;</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">sympy_expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">vr</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="o">-</span><span class="n">sympy</span><span class="o">.</span><span class="n">oo</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">oo</span><span class="p">)</span>
                 <span class="n">range_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">]&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Skip var_range logic for SingletonInt</span>
@@ -3908,7 +3948,7 @@
                     <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">input_contexts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">_create_no_constraints_context</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">(</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+                    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">(</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
                     <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
 
         <span class="c1"># It took a lot of sweat to figure out the algorithm here.  Let&#39;s</span>
@@ -4116,6 +4156,22 @@
                     <span class="p">)</span>
                     <span class="n">record_constraint_violation</span><span class="p">(</span><span class="n">constraint</span><span class="o">.</span><span class="n">warn_only</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_debug_name</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="n">msg</span><span class="p">)</span>
 
+        <span class="k">def</span> <span class="nf">track_symfloat</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;track_symfloat </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">LazyString</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="n">val</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_symbolic</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)</span> <span class="ow">and</span> <span class="n">val</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">maybe_as_float</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">maybe_as_float</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">):</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">):</span>
+                    <span class="n">symbol_to_source</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+                <span class="n">input_guards</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="n">input_guards</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+
         <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">context</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">placeholders</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">input_contexts</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="kn">from</span> <span class="nn">torch._dynamo.source</span> <span class="kn">import</span> <span class="n">LocalSource</span>
@@ -4125,6 +4181,9 @@
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">(</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
                 <span class="n">track_symint</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">(</span><span class="n">SymFloat</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">track_symfloat</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
                 <span class="k">continue</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Tensorlike</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">is_traceable_wrapper_subclass</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
@@ -4312,7 +4371,6 @@
                 <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span>
 
             <span class="k">assert</span> <span class="n">sources</span>
-            <span class="k">assert</span> <span class="n">symbol</span><span class="o">.</span><span class="n">is_integer</span>
             <span class="n">bounds</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">lower</span> <span class="o">!=</span> <span class="o">-</span><span class="n">sympy</span><span class="o">.</span><span class="n">oo</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">is_dim</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">):</span>
@@ -4358,6 +4416,12 @@
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_debug_name</span><span class="p">(</span><span class="n">source</span><span class="p">),</span>
                                 <span class="n">msg</span><span class="p">,</span>
                             <span class="p">)</span>
+            <span class="c1"># We NaN specialize, which means similar to 0/1 specialization we</span>
+            <span class="c1"># should assume that the float is NOT nan.  This is load bearing</span>
+            <span class="c1"># if you have something like an equality guard, nan will play</span>
+            <span class="c1"># merry hell with the reasoning.</span>
+            <span class="k">if</span> <span class="n">symbol_is_type</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">SymT</span><span class="o">.</span><span class="n">FLOAT</span><span class="p">):</span>
+                <span class="n">exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;not __math_isnan(</span><span class="si">{</span><span class="n">source_ref</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">constraint_violations</span><span class="p">:</span>
             <span class="n">warn_msgs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -5022,6 +5086,7 @@
                 <span class="n">floor_div_atoms</span> <span class="o">=</span> <span class="n">lhs</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">rhs</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">))</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">floor_div_atoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">divisor</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">floor_div_atoms</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
                 <span class="c1"># Never replace unbacked symbols with other unbacked symbols.</span>
                 <span class="c1"># This is error prone because you can cause references to</span>
                 <span class="c1"># unbacked symbols to time travel backwards.  E.g.,</span>
@@ -5036,10 +5101,20 @@
                 <span class="c1"># references u2 and u3 prior to them actually being bound at</span>
                 <span class="c1"># runtime.  It&#39;s pretty inconvenient to setup control</span>
                 <span class="c1"># dependencies for substitutions, so ban it entirely.</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="ow">and</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">lhs</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">rhs</span><span class="p">):</span>
-                    <span class="c1"># short-circuit when no solving is needed</span>
+                <span class="k">def</span> <span class="nf">trivial_solve</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">lhs</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">rhs</span><span class="p">):</span>
+                            <span class="k">return</span> <span class="kc">True</span>
+                        <span class="k">if</span> <span class="n">symbol_is_type</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">SymT</span><span class="o">.</span><span class="n">FLOAT</span><span class="p">):</span>
+                            <span class="k">return</span> <span class="kc">True</span>
+                        <span class="c1"># TODO: Maybe trivial solutions for int should also be</span>
+                        <span class="c1"># done?</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="c1"># short-circuit when no solving is needed</span>
+                <span class="k">if</span> <span class="n">trivial_solve</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">rhs</span><span class="p">),</span> <span class="s2">&quot;trivial_lhs&quot;</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="ow">and</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">free_unbacked_symbols</span><span class="p">(</span><span class="n">lhs</span><span class="p">):</span>
+                <span class="k">elif</span> <span class="n">trivial_solve</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">lhs</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">lhs</span><span class="p">),</span> <span class="s2">&quot;trivial_rhs&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">r</span> <span class="o">=</span> <span class="n">try_solve</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">free</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">floordiv_inequality</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -5315,21 +5390,11 @@
 
             <span class="c1"># Turn this into a boolean expression, no longer need to consult</span>
             <span class="c1"># concrete_val</span>
-            <span class="n">suppress_maybe_guard_rel</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="n">concrete_val</span> <span class="ow">is</span> <span class="n">sympy</span><span class="o">.</span><span class="n">true</span><span class="p">:</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="n">expr</span>
             <span class="k">elif</span> <span class="n">concrete_val</span> <span class="ow">is</span> <span class="n">sympy</span><span class="o">.</span><span class="n">false</span><span class="p">:</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># WARNING: we cannot actually do simplifications on guards</span>
-                <span class="c1"># on floating point values, because Sympy generally does not</span>
-                <span class="c1"># think expressions on integers can ever be equal to floating</span>
-                <span class="c1"># point (e.g., sympy.Eq(s0/6, 0.5) evaluates to False).  Without</span>
-                <span class="c1"># very clear algebraic laws that hold for floating point, such</span>
-                <span class="c1"># simplifications are error prone anyway, so be sure not to</span>
-                <span class="c1"># maybe_guard_rel in those cases.</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">concrete_val</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
-                    <span class="n">suppress_maybe_guard_rel</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">concrete_val</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Rel</span><span class="p">):</span>

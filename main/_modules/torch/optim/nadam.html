@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git6a5acd9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitdccb5cf ) &#x25BC</a>
     </div>
     
 
@@ -522,7 +522,7 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.optim.nadam</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
@@ -533,12 +533,14 @@
     <span class="n">_disable_dynamo_if_unsupported</span><span class="p">,</span>
     <span class="n">_dispatch_sqrt</span><span class="p">,</span>
     <span class="n">_foreach_doc</span><span class="p">,</span>
+    <span class="n">_get_capturable_supported_devices</span><span class="p">,</span>
     <span class="n">_get_scalar_dtype</span><span class="p">,</span>
     <span class="n">_get_value</span><span class="p">,</span>
     <span class="n">_stack_if_compiling</span><span class="p">,</span>
     <span class="n">_use_grad_for_differentiable</span><span class="p">,</span>
     <span class="n">_view_as_real</span><span class="p">,</span>
     <span class="n">Optimizer</span><span class="p">,</span>
+    <span class="n">ParamsT</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NAdam&quot;</span><span class="p">,</span> <span class="s2">&quot;nadam&quot;</span><span class="p">]</span>
@@ -547,12 +549,12 @@
 <div class="viewcode-block" id="NAdam"><a class="viewcode-back" href="../../../generated/torch.optim.NAdam.html#torch.optim.NAdam">[docs]</a><span class="k">class</span> <span class="nc">NAdam</span><span class="p">(</span><span class="n">Optimizer</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">params</span><span class="p">,</span>
-        <span class="n">lr</span><span class="o">=</span><span class="mf">2e-3</span><span class="p">,</span>
-        <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span>
-        <span class="n">eps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
-        <span class="n">weight_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">momentum_decay</span><span class="o">=</span><span class="mf">4e-3</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">ParamsT</span><span class="p">,</span>
+        <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2e-3</span><span class="p">,</span>
+        <span class="n">betas</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span>
+        <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
+        <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">momentum_decay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4e-3</span><span class="p">,</span>
         <span class="n">decoupled_weight_decay</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">foreach</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -679,13 +681,13 @@
                 <span class="n">loss</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
-            <span class="n">params_with_grad</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">grads</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">exp_avgs</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">exp_avg_sqs</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">mu_products</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">state_steps</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;betas&quot;</span><span class="p">]</span>
+            <span class="n">params_with_grad</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">exp_avgs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">exp_avg_sqs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">mu_products</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">state_steps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;betas&quot;</span><span class="p">])</span>
 
             <span class="n">has_complex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_group</span><span class="p">(</span>
                 <span class="n">group</span><span class="p">,</span>
@@ -817,9 +819,14 @@
 
         <span class="c1"># If compiling, the compiler will handle cudagraph checks, see note [torch.compile x capturable]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">()</span> <span class="ow">and</span> <span class="n">capturable</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">is_cuda</span> <span class="ow">and</span> <span class="n">mu_product</span><span class="o">.</span><span class="n">is_cuda</span> <span class="ow">and</span> <span class="n">step_t</span><span class="o">.</span><span class="n">is_cuda</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-                <span class="n">param</span><span class="o">.</span><span class="n">is_xla</span> <span class="ow">and</span> <span class="n">mu_product</span><span class="o">.</span><span class="n">is_xla</span> <span class="ow">and</span> <span class="n">step_t</span><span class="o">.</span><span class="n">is_xla</span>
-            <span class="p">),</span> <span class="s2">&quot;If capturable=True, params, mu_products, and state_steps must be CUDA or XLA tensors.&quot;</span>
+            <span class="n">capturable_supported_devices</span> <span class="o">=</span> <span class="n">_get_capturable_supported_devices</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="n">param</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">mu_product</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">step_t</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span>
+                <span class="ow">and</span> <span class="n">param</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">capturable_supported_devices</span>
+            <span class="p">),</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;If capturable=True, params, mu_products and state_steps must be &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;on supported devices: </span><span class="si">{</span><span class="n">capturable_supported_devices</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
 
         <span class="c1"># update step</span>
         <span class="n">step_t</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -897,10 +904,14 @@
 
     <span class="c1"># If compiling, the compiler will handle cudagraph checks, see note [torch.compile x capturable]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">()</span> <span class="ow">and</span> <span class="n">capturable</span><span class="p">:</span>
+        <span class="n">capturable_supported_devices</span> <span class="o">=</span> <span class="n">_get_capturable_supported_devices</span><span class="p">(</span>
+            <span class="n">supports_xla</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">is_cuda</span> <span class="ow">and</span> <span class="n">mp</span><span class="o">.</span><span class="n">is_cuda</span> <span class="ow">and</span> <span class="n">step</span><span class="o">.</span><span class="n">is_cuda</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">mp</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">step</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span>
+            <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">capturable_supported_devices</span>
             <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">mp</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">mu_products</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">)</span>
-        <span class="p">),</span> <span class="s2">&quot;If capturable=True, params, mu_products, and state_steps must be CUDA tensors.&quot;</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;If capturable=True, params, mu_products, and state_steps must be on supported devices: </span><span class="si">{</span><span class="n">capturable_supported_devices</span><span class="si">}</span><span class="s2">.&quot;</span>
 
     <span class="n">grouped_tensors</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="o">.</span><span class="n">_group_tensors_by_device_and_dtype</span><span class="p">(</span>
         <span class="p">[</span><span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">exp_avgs</span><span class="p">,</span> <span class="n">exp_avg_sqs</span><span class="p">,</span> <span class="n">mu_products</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">]</span>
@@ -935,7 +946,7 @@
                 <span class="c1"># Perform stepweight decay</span>
                 <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_mul_</span><span class="p">(</span><span class="n">grouped_params</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">weight_decay</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">grouped_grads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add</span><span class="p">(</span>
+                <span class="n">grouped_grads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add</span><span class="p">(</span>  <span class="c1"># type: ignore[assignment]</span>
                     <span class="n">grouped_grads</span><span class="p">,</span> <span class="n">grouped_params</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">weight_decay</span>
                 <span class="p">)</span>
 
@@ -949,6 +960,9 @@
 
         <span class="n">exp_avg_sq_sqrt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_sqrt</span><span class="p">(</span><span class="n">grouped_exp_avg_sqs</span><span class="p">)</span>
 
+        <span class="n">bias_correction_sqrt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
+        <span class="n">mus</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
+        <span class="n">mu_nexts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
         <span class="k">if</span> <span class="n">capturable</span><span class="p">:</span>
             <span class="c1"># mus will be beta1 * (1 - 0.5 * 0.96 ** (step * momentum_decay))</span>
             <span class="n">exponent</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_mul</span><span class="p">(</span><span class="n">grouped_state_steps</span><span class="p">,</span> <span class="n">momentum_decay</span><span class="p">)</span>
@@ -1048,10 +1062,10 @@
             <span class="p">)</span>
 
             <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_addcdiv_</span><span class="p">(</span>
-                <span class="n">grouped_params</span><span class="p">,</span> <span class="n">grouped_grads</span><span class="p">,</span> <span class="n">exp_avg_sq_sqrt</span><span class="p">,</span> <span class="n">step_size_grads</span>
+                <span class="n">grouped_params</span><span class="p">,</span> <span class="n">grouped_grads</span><span class="p">,</span> <span class="n">exp_avg_sq_sqrt</span><span class="p">,</span> <span class="n">step_size_grads</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="p">)</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_addcdiv_</span><span class="p">(</span>
-                <span class="n">grouped_params</span><span class="p">,</span> <span class="n">grouped_exp_avgs</span><span class="p">,</span> <span class="n">exp_avg_sq_sqrt</span><span class="p">,</span> <span class="n">step_size_expavg</span>
+                <span class="n">grouped_params</span><span class="p">,</span> <span class="n">grouped_exp_avgs</span><span class="p">,</span> <span class="n">exp_avg_sq_sqrt</span><span class="p">,</span> <span class="n">step_size_expavg</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="p">)</span>
 
 
