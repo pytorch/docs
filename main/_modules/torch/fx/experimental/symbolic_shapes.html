@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitdccb5cf ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git06d6bb4 ) &#x25BC</a>
     </div>
     
 
@@ -605,6 +605,9 @@
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">GuardOnDataDependentSymNode</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">PendingUnbackedSymbolNotFound</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="kn">import</span> <span class="nn">sympy</span>
@@ -1126,14 +1129,19 @@
             <span class="k">return</span> <span class="n">r</span>
 
         <span class="n">symbol_to_path</span> <span class="o">=</span> <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="p">())</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="n">pending</span><span class="p">,</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;pending </span><span class="si">{</span><span class="n">pending</span><span class="si">}</span><span class="s2"> not in </span><span class="si">{</span><span class="n">example_value</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="o">+</span>
-            <span class="p">(</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">peek</span> <span class="ow">and</span> <span class="n">pending</span><span class="p">:</span>
+            <span class="n">extra</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="nb">repr</span><span class="p">((</span><span class="n">example_value</span><span class="o">.</span><span class="n">stride</span><span class="p">(),</span> <span class="n">example_value</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">()))</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
                 <span class="k">else</span> <span class="s2">&quot;&quot;</span>
             <span class="p">)</span>
-        <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">PendingUnbackedSymbolNotFound</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Pending unbacked symbols </span><span class="si">{</span><span class="n">pending</span><span class="si">}</span><span class="s2"> not in returned outputs </span><span class="si">{</span><span class="n">example_value</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;Did you accidentally call new_dynamic_size() or item() more times &quot;</span>
+                <span class="s2">&quot;than you needed to in your fake implementation?</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;For more help, see https://docs.google.com/document/d/1RWrH-3wLEpzR9kCS6gGBNen_-Fs-8PVbWWFE5AcgeWE/edit&quot;</span>
+            <span class="p">)</span>
+
         <span class="c1"># Why do we have to do some rebinding here?  If the original FX node</span>
         <span class="c1"># wasn&#39;t a binding site because you had a memo hit, but post</span>
         <span class="c1"># translation you aren&#39;t a memo hit anymore, there&#39;s now a new binding</span>

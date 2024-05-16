@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitdccb5cf ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git06d6bb4 ) &#x25BC</a>
     </div>
     
 
@@ -533,6 +533,7 @@
 <span class="kn">import</span> <span class="nn">queue</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
@@ -582,7 +583,9 @@
 <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.utils</span> <span class="kn">import</span> <span class="n">_create_file_view</span>
 <span class="kn">from</span> <span class="nn">torch.futures</span> <span class="kn">import</span> <span class="n">Future</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;FileSystemWriter&quot;</span><span class="p">,</span> <span class="s2">&quot;FileSystemReader&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;FileSystemWriter&quot;</span><span class="p">,</span> <span class="s2">&quot;FileSystemReader&quot;</span><span class="p">,</span> <span class="s2">&quot;FileSystem&quot;</span><span class="p">,</span> <span class="s2">&quot;FileSystemBase&quot;</span><span class="p">]</span>
+
+<span class="n">_metadata_fn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.metadata&quot;</span>
 
 
 <span class="nd">@dataclass</span>
@@ -893,6 +896,14 @@
     <span class="k">def</span> <span class="nf">validate_checkpoint_id</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="o">...</span>
 
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">rm_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+
 
 <span class="k">class</span> <span class="nc">FileSystem</span><span class="p">(</span><span class="n">FileSystemBase</span><span class="p">):</span>
     <span class="nd">@contextmanager</span>
@@ -934,6 +945,12 @@
 
         <span class="k">return</span> <span class="kc">False</span>
 
+    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">rm_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
 
 <span class="k">class</span> <span class="nc">_FileSystemWriter</span><span class="p">(</span><span class="n">StorageWriter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -956,6 +973,7 @@
         <span class="n">sync_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">thread_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">per_thread_copy_ahead</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -968,6 +986,7 @@
 <span class="sd">            sync_files : force files to be synced to permanent storage. Default to True.</span>
 <span class="sd">            thread_count: Number of IO threads to use to write. Default to 1.</span>
 <span class="sd">            per_thread_copy_ahead: How many bytes to copy from the GPU ahead of saving then. Default 10Mb.</span>
+<span class="sd">            overwrite: Whether to allow overwriting existing checkpoints. Defaults to True.</span>
 
 <span class="sd">        N. B. If sync_files is disabled, there&#39;s no guarantee that the checkpoint will be consistent in the case of a failure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -979,6 +998,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">thread_count</span> <span class="o">=</span> <span class="n">thread_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">per_thread_copy_ahead</span> <span class="o">=</span> <span class="n">per_thread_copy_ahead</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save_id</span> <span class="o">=</span> <span class="n">_generate_uuid</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overwrite</span> <span class="o">=</span> <span class="n">overwrite</span>
 
     <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">checkpoint_id</span><span class="p">:</span>
@@ -990,6 +1010,16 @@
 
     <span class="k">def</span> <span class="nf">prepare_local_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan</span><span class="p">:</span> <span class="n">SavePlan</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SavePlan</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata_path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">overwrite</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Detected an existing checkpoint in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata_path</span><span class="si">}</span><span class="s2">, overwriting since </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">overwrite</span><span class="si">=}</span><span class="s2">.&quot;</span>
+                    <span class="s2">&quot; Past version 2.5 of PyTorch, `overwrite` will default to False. Set this variable to True to&quot;</span>
+                    <span class="s2">&quot; maintain this functionality or False to raise when an existing checkpoint is found.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checkpoint already exists and </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">overwrite</span><span class="si">=}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">plan</span>
 
     <span class="k">def</span> <span class="nf">prepare_global_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plans</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">]:</span>
@@ -1076,8 +1106,7 @@
 
         <span class="n">metadata</span><span class="o">.</span><span class="n">storage_meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_meta</span><span class="p">()</span>
 
-        <span class="n">tmp_path</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;.metadata.tmp&quot;</span><span class="p">))</span>
-        <span class="n">meta_path</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;.metadata&quot;</span><span class="p">))</span>
+        <span class="n">tmp_path</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_metadata_fn</span><span class="si">}</span><span class="s2">.tmp&quot;</span><span class="p">))</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">create_stream</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">metadata_file</span><span class="p">:</span>
             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">metadata_file</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sync_files</span><span class="p">:</span>
@@ -1086,10 +1115,18 @@
                 <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                     <span class="n">os</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="n">meta_path</span><span class="p">)</span>
+        <span class="c1"># delete in-case other checkpoints were present.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata_path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">rm_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">storage_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StorageMeta</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">StorageMeta</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_id</span><span class="p">,</span> <span class="n">save_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">save_id</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">metadata_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">concat_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">_metadata_fn</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">checkpoint_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]:</span>
@@ -1215,6 +1252,7 @@
         <span class="n">thread_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">per_thread_copy_ahead</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span><span class="p">,</span>
         <span class="n">cache_staged_state_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the writer pointing to `path`.</span>
@@ -1228,6 +1266,7 @@
 <span class="sd">            cache_staged_state_dict: Whether to cache the staged state_dict. This option decreases staging latency</span>
 <span class="sd">                at the cost of increases memory usage. Additionally, if this parameter is set to True, it&#39;s the expectation</span>
 <span class="sd">                that the stager is maintained and re-used for multiple dcp.async_save calls. Default to False.</span>
+<span class="sd">            overwrite: Whether to allow overwriting existing checkpoints. Defaults to True.</span>
 
 <span class="sd">        N. B. If sync_files is disabled, there&#39;s no guarantee that the checkpoint will be consistent in the case of a failure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1238,6 +1277,7 @@
             <span class="n">thread_count</span><span class="o">=</span><span class="n">thread_count</span><span class="p">,</span>
             <span class="n">per_thread_copy_ahead</span><span class="o">=</span><span class="n">per_thread_copy_ahead</span><span class="p">,</span>
             <span class="n">cache_staged_state_dict</span><span class="o">=</span><span class="n">cache_staged_state_dict</span><span class="p">,</span>
+            <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="FileSystemWriter.stage"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemWriter.stage">[docs]</a>    <span class="k">def</span> <span class="nf">stage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">:</span> <span class="n">STATE_DICT_TYPE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">STATE_DICT_TYPE</span><span class="p">:</span>
