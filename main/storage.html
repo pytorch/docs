@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git06d6bb4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git4a5ef0b ) &#x25BC</a>
     </div>
     
 
@@ -608,7 +608,7 @@ in the future, and <a class="reference internal" href="#torch.UntypedStorage" ti
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.TypedStorage.cuda">
-<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/storage.html#TypedStorage.cuda"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.TypedStorage.cuda" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/storage.html#TypedStorage.cuda"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.TypedStorage.cuda" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of this object in CUDA memory.</p>
 <p>If this object is already in CUDA memory and on the correct device, then
 no copy is performed and the original object is returned.</p>
@@ -619,8 +619,6 @@ no copy is performed and the original object is returned.</p>
 <li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
-<li><p><strong>**kwargs</strong> – For compatibility, may contain the key <code class="docutils literal notranslate"><span class="pre">async</span></code> in place of
-the <code class="docutils literal notranslate"><span class="pre">non_blocking</span></code> argument.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -742,7 +740,7 @@ underlying <a class="reference external" href="https://man7.org/linux/man-pages/
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.TypedStorage.hpu">
-<span class="sig-name descname"><span class="pre">hpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/storage.html#TypedStorage.hpu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.TypedStorage.hpu" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">hpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/storage.html#TypedStorage.hpu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.TypedStorage.hpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of this object in HPU memory.</p>
 <p>If this object is already in HPU memory and on the correct device, then
 no copy is performed and the original object is returned.</p>
@@ -753,8 +751,6 @@ no copy is performed and the original object is returned.</p>
 <li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
-<li><p><strong>**kwargs</strong> – For compatibility, may contain the key <code class="docutils literal notranslate"><span class="pre">async</span></code> in place of
-the <code class="docutils literal notranslate"><span class="pre">non_blocking</span></code> argument.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -861,6 +857,27 @@ the <code class="docutils literal notranslate"><span class="pre">non_blocking</s
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="torch.TypedStorage.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/storage.html#TypedStorage.to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.TypedStorage.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of this object in device memory.</p>
+<p>If this object is already on the correct device, then no copy is performed
+and the original object is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The destination device.</p></li>
+<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
+the copy will be asynchronous with respect to the host. Otherwise,
+the argument has no effect.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>T</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="torch.TypedStorage.tolist">
 <span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/storage.html#TypedStorage.tolist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.TypedStorage.tolist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list containing the elements of this storage.</p>
@@ -963,7 +980,7 @@ the <code class="docutils literal notranslate"><span class="pre">non_blocking</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.UntypedStorage.cuda">
-<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.cuda" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.cuda" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of this object in CUDA memory.</p>
 <p>If this object is already in CUDA memory and on the correct device, then
 no copy is performed and the original object is returned.</p>
@@ -974,9 +991,10 @@ no copy is performed and the original object is returned.</p>
 <li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
-<li><p><strong>**kwargs</strong> – For compatibility, may contain the key <code class="docutils literal notranslate"><span class="pre">async</span></code> in place of
-the <code class="docutils literal notranslate"><span class="pre">non_blocking</span></code> argument.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>T</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1091,7 +1109,7 @@ underlying <a class="reference external" href="https://man7.org/linux/man-pages/
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.UntypedStorage.hpu">
-<span class="sig-name descname"><span class="pre">hpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.hpu" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">hpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.hpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of this object in HPU memory.</p>
 <p>If this object is already in HPU memory and on the correct device, then
 no copy is performed and the original object is returned.</p>
@@ -1102,9 +1120,10 @@ no copy is performed and the original object is returned.</p>
 <li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
-<li><p><strong>**kwargs</strong> – For compatibility, may contain the key <code class="docutils literal notranslate"><span class="pre">async</span></code> in place of
-the <code class="docutils literal notranslate"><span class="pre">non_blocking</span></code> argument.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>T</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1247,6 +1266,16 @@ file. This file is persistent and will remain until it is deleted by the user.</
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.UntypedStorage.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.to" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>T</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1590,6 +1619,7 @@ if (url)
 <li><a class="reference internal" href="#torch.TypedStorage.share_memory_"><code class="docutils literal notranslate"><span class="pre">TypedStorage.share_memory_()</span></code></a></li>
 <li><a class="reference internal" href="#torch.TypedStorage.short"><code class="docutils literal notranslate"><span class="pre">TypedStorage.short()</span></code></a></li>
 <li><a class="reference internal" href="#torch.TypedStorage.size"><code class="docutils literal notranslate"><span class="pre">TypedStorage.size()</span></code></a></li>
+<li><a class="reference internal" href="#torch.TypedStorage.to"><code class="docutils literal notranslate"><span class="pre">TypedStorage.to()</span></code></a></li>
 <li><a class="reference internal" href="#torch.TypedStorage.tolist"><code class="docutils literal notranslate"><span class="pre">TypedStorage.tolist()</span></code></a></li>
 <li><a class="reference internal" href="#torch.TypedStorage.type"><code class="docutils literal notranslate"><span class="pre">TypedStorage.type()</span></code></a></li>
 <li><a class="reference internal" href="#torch.TypedStorage.untyped"><code class="docutils literal notranslate"><span class="pre">TypedStorage.untyped()</span></code></a></li>
@@ -1640,6 +1670,7 @@ if (url)
 <li><a class="reference internal" href="#torch.UntypedStorage.share_memory_"><code class="docutils literal notranslate"><span class="pre">UntypedStorage.share_memory_()</span></code></a></li>
 <li><a class="reference internal" href="#torch.UntypedStorage.short"><code class="docutils literal notranslate"><span class="pre">UntypedStorage.short()</span></code></a></li>
 <li><a class="reference internal" href="#torch.UntypedStorage.size"><code class="docutils literal notranslate"><span class="pre">UntypedStorage.size()</span></code></a></li>
+<li><a class="reference internal" href="#torch.UntypedStorage.to"><code class="docutils literal notranslate"><span class="pre">UntypedStorage.to()</span></code></a></li>
 <li><a class="reference internal" href="#torch.UntypedStorage.tolist"><code class="docutils literal notranslate"><span class="pre">UntypedStorage.tolist()</span></code></a></li>
 <li><a class="reference internal" href="#torch.UntypedStorage.type"><code class="docutils literal notranslate"><span class="pre">UntypedStorage.type()</span></code></a></li>
 <li><a class="reference internal" href="#torch.UntypedStorage.untyped"><code class="docutils literal notranslate"><span class="pre">UntypedStorage.untyped()</span></code></a></li>
