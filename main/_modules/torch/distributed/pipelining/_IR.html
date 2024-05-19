@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git2863c76 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitabc4b66 ) &#x25BC</a>
     </div>
     
 
@@ -537,12 +537,13 @@
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx</span> <span class="k">as</span> <span class="nn">fx</span>
 <span class="kn">from</span> <span class="nn">torch.export</span> <span class="kn">import</span> <span class="n">ExportedProgram</span>
+<span class="kn">from</span> <span class="nn">torch.export.unflatten</span> <span class="kn">import</span> <span class="n">_assign_attr</span><span class="p">,</span> <span class="n">_AttrKind</span><span class="p">,</span> <span class="n">_sink_params</span>
 <span class="kn">from</span> <span class="nn">torch.fx.node</span> <span class="kn">import</span> <span class="n">map_aggregate</span>
 <span class="kn">from</span> <span class="nn">torch.fx.passes.split_module</span> <span class="kn">import</span> <span class="n">split_module</span>
 
 <span class="kn">from</span> <span class="nn">._backward</span> <span class="kn">import</span> <span class="n">_null_coalesce_accumulate</span><span class="p">,</span> <span class="n">stage_backward</span>
 <span class="kn">from</span> <span class="nn">._debug</span> <span class="kn">import</span> <span class="n">PIPPY_VERBOSITY</span>
-<span class="kn">from</span> <span class="nn">._unflatten</span> <span class="kn">import</span> <span class="n">_assign_attr</span><span class="p">,</span> <span class="n">_AttrKind</span><span class="p">,</span> <span class="n">_outline_submodules</span><span class="p">,</span> <span class="n">_sink_params</span>
+<span class="kn">from</span> <span class="nn">._unflatten</span> <span class="kn">import</span> <span class="n">_outline_submodules</span>
 <span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">QualnameMapMixin</span>
 <span class="kn">from</span> <span class="nn">.microbatch</span> <span class="kn">import</span> <span class="n">split_args_kwargs_into_chunks</span><span class="p">,</span> <span class="n">TensorChunkSpec</span>
 
@@ -1395,8 +1396,8 @@
         <span class="c1"># After moving the params to their corresponding hierarchies, we also</span>
         <span class="c1"># need to move the `get_attr` nodes from the root of the graph to those</span>
         <span class="c1"># hierarchies.</span>
-        <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">target</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attr_nodes</span>
+        <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">target</span><span class="p">]</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attr_nodes</span>
         <span class="p">}</span>
         <span class="c1"># This is done by (1) `_sind_params` at each submodule;</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submod</span> <span class="ow">in</span> <span class="n">split</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
