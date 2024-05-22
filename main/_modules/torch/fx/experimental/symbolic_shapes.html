@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitcd3a71f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git25ea325 ) &#x25BC</a>
     </div>
     
 
@@ -1013,6 +1013,18 @@
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)()</span></div></div>
 
 
+<div class="viewcode-block" id="InnerTensorKey"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.InnerTensorKey.html#torch.fx.experimental.symbolic_shapes.InnerTensorKey">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">InnerTensorKey</span><span class="p">:</span>
+    <span class="n">inner_name</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="InnerTensorKey.get"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.InnerTensorKey.html#torch.fx.experimental.symbolic_shapes.InnerTensorKey.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the inner tensor attribute&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_name</span><span class="p">)</span></div></div>
+
+
 <div class="viewcode-block" id="DivideByKey"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DivideByKey.html#torch.fx.experimental.symbolic_shapes.DivideByKey">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">DivideByKey</span><span class="p">:</span>
     <span class="n">divisor</span><span class="p">:</span> <span class="nb">int</span>
@@ -1061,6 +1073,14 @@
                             <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">pytree</span><span class="o">.</span><span class="n">SequenceKey</span><span class="p">(</span><span class="n">i</span><span class="p">),),</span>
                             <span class="n">real</span><span class="o">=</span><span class="n">real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
                         <span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">is_traceable_wrapper_subclass</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+                <span class="c1"># TODO: Determine if this is correct</span>
+                <span class="n">attrs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">__tensor_flatten__</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+                    <span class="n">sub</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                        <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">InnerTensorKey</span><span class="p">(</span><span class="n">attr</span><span class="p">),))</span>
                     <span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
                 <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
@@ -4921,6 +4941,9 @@
 <span class="sd">        Use this instead of `self.replacements[a] = tgt`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="k">if</span> <span class="n">tgt</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">return</span>
+
         <span class="c1"># Precondition: a == tgt</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
 
@@ -5011,14 +5034,24 @@
                                    <span class="s2">&quot;[</span><span class="si">%s</span><span class="s2"> not subset of </span><span class="si">%s</span><span class="s2"> (size-oblivious conditions)]&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">tgt</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">tgt_bound_so</span><span class="p">,</span> <span class="n">src_bound_so</span><span class="p">)</span>
                     <span class="k">return</span>
 
-        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">print_specializations</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tgt</span><span class="p">,</span> <span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Float</span><span class="p">)):</span>
-            <span class="c1"># specializing to a constant, which is likely unexpected</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tgt</span><span class="p">,</span> <span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Float</span><span class="p">)):</span>
+            <span class="c1"># specializing to a constant, which is likely unexpected (unless</span>
+            <span class="c1"># you specified dynamic=True)</span>
 
-            <span class="c1"># NOTE(avik): It is possible that we try logging the same specialization multiple times, e.g.,</span>
-            <span class="c1"># when adding a to self.replacements, and again when simplifying an expression containing a.</span>
-            <span class="c1"># Thus to avoid duplication, checking whether a is in self.replacements isn&#39;t enough; if it is,</span>
-            <span class="c1"># it must not already map to `tgt`. Fortunately this check is cheap because `tgt` is a constant.</span>
-            <span class="k">if</span> <span class="n">a</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span> <span class="ow">or</span> <span class="n">tgt</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">[</span><span class="n">a</span><span class="p">]:</span>
+            <span class="n">user_tb</span> <span class="o">=</span> <span class="n">TracingContext</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()</span>
+            <span class="n">trace_structured</span><span class="p">(</span>
+                <span class="s2">&quot;symbolic_shape_specialization&quot;</span><span class="p">,</span>
+                <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="p">),</span>
+                    <span class="s2">&quot;sources&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[])],</span>
+                    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">tgt</span><span class="p">),</span>
+                    <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="n">msg</span><span class="p">,</span>
+                    <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span><span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()),</span>
+                    <span class="s2">&quot;user_stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span><span class="n">user_tb</span><span class="p">)</span> <span class="k">if</span> <span class="n">user_tb</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">print_specializations</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Specializing </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">tgt</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;SPECIALIZATION&quot;</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;set_replacement </span><span class="si">%s</span><span class="s2"> = </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">) </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">tgt</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">tgt_bound</span><span class="p">)</span>
