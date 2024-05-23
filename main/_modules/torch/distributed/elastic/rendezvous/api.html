@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git25ea325 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitebbd431 ) &#x25BC</a>
     </div>
     
 
@@ -530,10 +530,31 @@
 <span class="c1"># This source code is licensed under the BSD-style license found in the</span>
 <span class="c1"># LICENSE file in the root directory of this source tree.</span>
 
+<span class="kn">import</span> <span class="nn">socket</span>
+
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">torch.distributed</span> <span class="kn">import</span> <span class="n">Store</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.elastic.utils.distributed</span> <span class="kn">import</span> <span class="n">get_free_port</span> <span class="k">as</span> <span class="n">_get_free_port</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;RendezvousClosedError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousConnectionError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousGracefulExitError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousHandler&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousHandlerCreator&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousHandlerRegistry&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousInfo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousParameters&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousStateError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousStoreInfo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RendezvousTimeoutError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rendezvous_handler_registry&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <div class="viewcode-block" id="RendezvousError"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousError">[docs]</a><span class="k">class</span> <span class="nc">RendezvousError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
@@ -561,6 +582,61 @@
 <span class="sd">    Exception is a mechanism to exit the stack, however does not mean a failure.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
+<div class="viewcode-block" id="RendezvousStoreInfo"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousStoreInfo">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RendezvousStoreInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Store address and port that can be used to bootstrap trainer distributed comms&quot;&quot;&quot;</span>
+    <span class="n">MASTER_ADDR_KEY</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MASTER_ADDR&quot;</span>
+    <span class="n">MASTER_PORT_KEY</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MASTER_PORT&quot;</span>
+    <span class="n">master_addr</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">master_port</span><span class="p">:</span> <span class="nb">int</span>
+
+<div class="viewcode-block" id="RendezvousStoreInfo.build"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousStoreInfo.build">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="n">Store</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;RendezvousStoreInfo&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Factory method, finds unused new port on rank0 host and addr/port info with all ranks.</span>
+
+<span class="sd">        If master_addr/master_port is knowns (useful when sharing existing tcp store server) use the constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO swap to collectives comms API</span>
+        <span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">addr</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">getfqdn</span><span class="p">()</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="n">_get_free_port</span><span class="p">()</span>
+            <span class="n">store</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">RendezvousStoreInfo</span><span class="o">.</span><span class="n">MASTER_ADDR_KEY</span><span class="p">,</span> <span class="n">addr</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">))</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">store</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">RendezvousStoreInfo</span><span class="o">.</span><span class="n">MASTER_PORT_KEY</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">))</span>  <span class="c1"># type: ignore[arg-type]</span>
+
+        <span class="n">addr</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">RendezvousStoreInfo</span><span class="o">.</span><span class="n">MASTER_ADDR_KEY</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">store</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">RendezvousStoreInfo</span><span class="o">.</span><span class="n">MASTER_PORT_KEY</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">RendezvousStoreInfo</span><span class="p">(</span><span class="n">master_addr</span><span class="o">=</span><span class="n">addr</span><span class="p">,</span> <span class="n">master_port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="RendezvousInfo"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousInfo">[docs]</a><span class="k">class</span> <span class="nc">RendezvousInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Holds the information about the rendezvous.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="n">Store</span><span class="p">,</span> <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bootstrap_store_info</span><span class="p">:</span> <span class="n">RendezvousStoreInfo</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_store</span> <span class="o">=</span> <span class="n">store</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span> <span class="o">=</span> <span class="n">rank</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_world_size</span> <span class="o">=</span> <span class="n">world_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bootstrap_store_info</span> <span class="o">=</span> <span class="n">bootstrap_store_info</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Store</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Store used by torchelastic control plane&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_store</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rank within a group&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">world_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Global group size&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_size</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bootstrap_store_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RendezvousStoreInfo</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Store information that can used by trainer code to bootstrap distributed comms.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bootstrap_store_info</span></div>
+
+
 <div class="viewcode-block" id="RendezvousHandler"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler">[docs]</a><span class="k">class</span> <span class="nc">RendezvousHandler</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Main rendezvous interface.</span>
 
@@ -574,10 +650,18 @@
     <span class="k">def</span> <span class="nf">get_backend</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the name of the rendezvous backend.&quot;&quot;&quot;</span></div>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">use_agent_store</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indicates that store reference returned by :py:meth:`next_rendezvous` can be shared with user</span>
+<span class="sd">        applications and will be available during application lifecyle.</span>
+
+<span class="sd">        Rendezous handler impl will share store details as instance of :py:class:`RendezvousStoreInfo`.</span>
+<span class="sd">        Applications as a convention use `MASTER_ADDR`/`MASTER_PORT` env variables to lookup the store.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
 <div class="viewcode-block" id="RendezvousHandler.next_rendezvous"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler.next_rendezvous">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">next_rendezvous</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Store</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">next_rendezvous</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RendezvousInfo</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Main entry-point into the rendezvous barrier.</span>
 
 <span class="sd">        Blocks until the rendezvous is complete and the current process is</span>
@@ -585,8 +669,7 @@
 <span class="sd">        rendezvous was marked closed.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A tuple of :py:class:`torch.distributed.Store`, ``rank``, and</span>
-<span class="sd">            ``world size``.</span>
+<span class="sd">            Instance of :py:class:`RendezvousInfo`.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            RendezvousClosedError:</span>
@@ -749,7 +832,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_registry</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="RendezvousHandlerRegistry.register"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">creator</span><span class="p">:</span> <span class="n">RendezvousHandlerCreator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">creator</span><span class="p">:</span> <span class="n">RendezvousHandlerCreator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Register a new rendezvous backend.</span>
 
 <span class="sd">        Args:</span>
@@ -774,9 +857,9 @@
                 <span class="sa">f</span><span class="s2">&quot;is already registered with &#39;</span><span class="si">{</span><span class="n">current_creator</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_registry</span><span class="p">[</span><span class="n">backend</span><span class="p">]</span> <span class="o">=</span> <span class="n">creator</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_registry</span><span class="p">[</span><span class="n">backend</span><span class="p">]</span> <span class="o">=</span> <span class="n">creator</span>
 
-<div class="viewcode-block" id="RendezvousHandlerRegistry.create_handler"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandlerRegistry.create_handler">[docs]</a>    <span class="k">def</span> <span class="nf">create_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">RendezvousParameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RendezvousHandler</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">RendezvousParameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RendezvousHandler</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new :py:class:`RendezvousHandler`.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">creator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registry</span><span class="p">[</span><span class="n">params</span><span class="o">.</span><span class="n">backend</span><span class="p">]</span>
@@ -795,7 +878,7 @@
                 <span class="sa">f</span><span class="s2">&quot;backend &#39;</span><span class="si">{</span><span class="n">params</span><span class="o">.</span><span class="n">backend</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">handler</span></div></div>
+        <span class="k">return</span> <span class="n">handler</span></div>
 
 
 <span class="c1"># The default global registry instance used by launcher scripts to instantiate</span>

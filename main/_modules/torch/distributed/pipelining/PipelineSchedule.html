@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git25ea325 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitebbd431 ) &#x25BC</a>
     </div>
     
 
@@ -536,13 +536,23 @@
 <span class="kn">from</span> <span class="nn">torch.profiler</span> <span class="kn">import</span> <span class="n">record_function</span>
 
 <span class="kn">from</span> <span class="nn">._IR</span> <span class="kn">import</span> <span class="n">Pipe</span>
-<span class="kn">from</span> <span class="nn">._PipelineStage</span> <span class="kn">import</span> <span class="n">PipelineStageBase</span>
 <span class="kn">from</span> <span class="nn">.microbatch</span> <span class="kn">import</span> <span class="n">merge_chunks</span><span class="p">,</span> <span class="n">split_args_kwargs_into_chunks</span>
+<span class="kn">from</span> <span class="nn">.PipelineStage</span> <span class="kn">import</span> <span class="n">_PipelineStageBase</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;PipelineScheduleSingle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PipelineScheduleMulti&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Schedule1F1B&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ScheduleGPipe&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ScheduleInterleaved1F1B&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ScheduleLoopedBFS&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">PipelineSchedule</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_PipelineSchedule</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">n_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -566,9 +576,6 @@
         <span class="k">if</span> <span class="n">stage</span><span class="o">.</span><span class="n">is_last</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
             <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_loss</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">[</span><span class="n">mb_index</span><span class="p">])</span>  <span class="c1"># type: ignore[index]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_internal_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">stage</span><span class="o">.</span><span class="n">stage_index</span><span class="si">}</span><span class="s2">] Loss of microbatch </span><span class="si">{</span><span class="n">mb_index</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
-            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_maybe_get_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">):</span>
         <span class="n">valid_index</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">mb_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_losses</span><span class="p">)</span>
@@ -757,7 +764,7 @@
     <span class="k">return</span> <span class="n">work_by_peer</span>
 
 
-<span class="k">class</span> <span class="nc">PipelineScheduleSingle</span><span class="p">(</span><span class="n">PipelineSchedule</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineScheduleSingle"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle">[docs]</a><span class="k">class</span> <span class="nc">PipelineScheduleSingle</span><span class="p">(</span><span class="n">_PipelineSchedule</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for single-stage schedules.</span>
 <span class="sd">    Implements the `step` method.</span>
@@ -766,7 +773,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">stage</span><span class="p">:</span> <span class="n">PipelineStageBase</span><span class="p">,</span>
+        <span class="n">stage</span><span class="p">:</span> <span class="n">_PipelineStageBase</span><span class="p">,</span>
         <span class="n">n_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">loss_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">output_merge_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -806,7 +813,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_outputs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">output_chunks</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="ScheduleGPipe"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.ScheduleGPipe">[docs]</a><span class="k">class</span> <span class="nc">ScheduleGPipe</span><span class="p">(</span><span class="n">PipelineScheduleSingle</span><span class="p">):</span>
@@ -1038,7 +1045,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_losses</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">PipelineScheduleMulti</span><span class="p">(</span><span class="n">PipelineSchedule</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineScheduleMulti"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti">[docs]</a><span class="k">class</span> <span class="nc">PipelineScheduleMulti</span><span class="p">(</span><span class="n">_PipelineSchedule</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for multi-stage schedules.</span>
 <span class="sd">    Implements the `step` method.</span>
@@ -1047,7 +1054,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">stages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PipelineStageBase</span><span class="p">],</span>
+        <span class="n">stages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_PipelineStageBase</span><span class="p">],</span>
         <span class="n">n_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">loss_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">output_merge_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1098,7 +1105,7 @@
             <span class="k">if</span> <span class="n">stage</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_outputs</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">output_chunks</span><span class="p">)</span>
         <span class="c1"># Does not contain the last stage</span>
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="ScheduleLoopedBFS"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.ScheduleLoopedBFS">[docs]</a><span class="k">class</span> <span class="nc">ScheduleLoopedBFS</span><span class="p">(</span><span class="n">PipelineScheduleMulti</span><span class="p">):</span>
@@ -1181,7 +1188,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">stages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PipelineStageBase</span><span class="p">],</span>
+        <span class="n">stages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_PipelineStageBase</span><span class="p">],</span>
         <span class="n">n_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">loss_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">output_merge_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1255,8 +1262,8 @@
                 <span class="o">-</span> <span class="p">((</span><span class="n">step</span> <span class="o">-</span> <span class="n">warmup_steps</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span>
             <span class="p">)</span>
 
-        <span class="n">fwd_stage_mb_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">PipelineStageBase</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        <span class="n">bwd_stage_mb_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">PipelineStageBase</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">fwd_stage_mb_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">_PipelineStageBase</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">bwd_stage_mb_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">_PipelineStageBase</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
         <span class="c1"># Delay send waits</span>
         <span class="n">sends_to_wait</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">Work</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>

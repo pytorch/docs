@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git25ea325 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitebbd431 ) &#x25BC</a>
     </div>
     
 
@@ -639,7 +639,10 @@
 </div>
 <div class="section" id="using-pipelineschedule-for-execution">
 <h3>Using <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code> for Execution<a class="headerlink" href="#using-pipelineschedule-for-execution" title="Permalink to this heading">¶</a></h3>
-<p>Given the above <code class="docutils literal notranslate"><span class="pre">Pipe</span></code> object, we can use one of the <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> classes to execute our model in a pipelined fashion. First off, let us instantiate a <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> instance:</p>
+<p>After transforming the model into a <code class="docutils literal notranslate"><span class="pre">Pipe</span></code> representation, we can run its stages in a distributed <em>runtime</em>. This can be done in two steps:
+* instantiate a <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> from a stage module of <code class="docutils literal notranslate"><span class="pre">Pipe</span></code>;
+* run the <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> according to a <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code>.</p>
+<p>First off, let us instantiate a <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We are using `torchrun` to run this example with multiple processes.</span>
 <span class="c1"># `torchrun` defines two environment variables: `RANK` and `WORLD_SIZE`.</span>
 <span class="n">rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;RANK&quot;</span><span class="p">])</span>
@@ -822,6 +825,44 @@ the chunk spec.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-torch.distributed.pipelining.PipelineStage">
+<span id="pipeline-stages"></span><h3>Pipeline Stages<a class="headerlink" href="#module-torch.distributed.pipelining.PipelineStage" title="Permalink to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineStage.PipelineStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineStage.</span></span><span class="sig-name descname"><span class="pre">PipelineStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineStage.html#PipelineStage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineStage.PipelineStage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineStage.ManualPipelineStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineStage.</span></span><span class="sig-name descname"><span class="pre">ManualPipelineStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">submodule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineStage.html#ManualPipelineStage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineStage.ManualPipelineStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class representing a pipeline stage in a pipeline parallelism setup.
+This class is created manually by providing a example input (and optionally output)
+as opposed to the PipelineStage class that is outputed from pipeline().
+This class extends the <cite>_PipelineStageBase</cite> class and can similarly be used
+in <cite>PipelineScheule</cite>.
+:param submodule: The PyTorch module wrapped by this stage.
+:type submodule: nn.Module
+:param stage_index: The ID of this stage.
+:type stage_index: int
+:param num_stages: The total number of stages.
+:type num_stages: int
+:param device: The device where this stage is located.
+:type device: torch.device
+:param num_microbatches: The number of microbatches to use.
+:type num_microbatches: int
+:param input_args: The input arguments for the submodule.
+:type input_args: Union[torch.Tensor, List[torch.tensor]], optional
+:param output_args: The output arguments for the submodule.
+:type output_args: Union[torch.Tensor, List[torch.tensor]], optional
+:param group: The process group for distributed training. If None, default group.
+:type group: dist.ProcessGroup, optional</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-torch.distributed.pipelining.PipelineSchedule">
 <span id="pipeline-schedules"></span><h3>Pipeline Schedules<a class="headerlink" href="#module-torch.distributed.pipelining.PipelineSchedule" title="Permalink to this heading">¶</a></h3>
 <dl class="py class">
@@ -863,6 +904,38 @@ Simliar to Interleaved 1F1B, Looped BFS supports multiple stages per rank.
 What is different is that when microbatches are ready for multiple local
 stages, Loops BFS will prioritizes the earlier stage, running all available
 microbatches at once.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="implementing-your-own-schedule">
+<h3>Implementing Your Own Schedule<a class="headerlink" href="#implementing-your-own-schedule" title="Permalink to this heading">¶</a></h3>
+<p>You can implement your own pipeline schedule by extending one of the following two class:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code> is for schedules that assigns <em>only one</em> stage per rank.
+<code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code> is for schedules that assigns multiple stages per rank.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">ScheduleGPipe</span></code> and <code class="docutils literal notranslate"><span class="pre">Schedule1F1B</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code>.
+Whereas, <code class="docutils literal notranslate"><span class="pre">ScheduleInterleaved1F1B</span></code> and <code class="docutils literal notranslate"><span class="pre">ScheduleLoopedBFS</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">PipelineScheduleSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#PipelineScheduleSingle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for single-stage schedules.
+Implements the <cite>step</cite> method.
+Derived classes should implement <cite>_step_microbatches</cite>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">PipelineScheduleMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#PipelineScheduleMulti"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for multi-stage schedules.
+Implements the <cite>step</cite> method.
+Derived classes should implement <cite>_step_microbatches</cite>.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -948,11 +1021,21 @@ if (url)
 <li><a class="reference internal" href="#torch.distributed.pipelining.microbatch.merge_chunks"><code class="docutils literal notranslate"><span class="pre">merge_chunks()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-torch.distributed.pipelining.PipelineStage">Pipeline Stages</a><ul>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineStage.PipelineStage"><code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineStage.ManualPipelineStage"><code class="docutils literal notranslate"><span class="pre">ManualPipelineStage</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-torch.distributed.pipelining.PipelineSchedule">Pipeline Schedules</a><ul>
 <li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleGPipe"><code class="docutils literal notranslate"><span class="pre">ScheduleGPipe</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.Schedule1F1B"><code class="docutils literal notranslate"><span class="pre">Schedule1F1B</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleInterleaved1F1B"><code class="docutils literal notranslate"><span class="pre">ScheduleInterleaved1F1B</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleLoopedBFS"><code class="docutils literal notranslate"><span class="pre">ScheduleLoopedBFS</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementing-your-own-schedule">Implementing Your Own Schedule</a><ul>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code></a></li>
 </ul>
 </li>
 </ul>
