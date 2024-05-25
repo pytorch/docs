@@ -93,9 +93,8 @@ Result:
             def forward(self, x: "i64[]"):
                     item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
                 
-                    sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
-                
                 # No stacktrace found for following nodes
+                sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
                 mul: "Sym(-u0)" = -1 * item
                 le: "Sym(-u0 <= 0)" = mul <= 0;  mul = None
                 _assert_scalar = torch.ops.aten._assert_scalar.default(le, "Runtime assertion failed for expression -u0 <= 0 on node 'le_1'");  le = None
@@ -157,9 +156,8 @@ Result:
             def forward(self, x: "i64[]", y: "f32[5, 5]"):
                     item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
                 
-                    sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
-                
                 # No stacktrace found for following nodes
+                sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
                 mul: "Sym(-u0)" = -1 * item
                 le: "Sym(-u0 <= 0)" = mul <= 0;  mul = None
                 _assert_scalar = torch.ops.aten._assert_scalar.default(le, "Runtime assertion failed for expression -u0 <= 0 on node 'le_1'");  le = None

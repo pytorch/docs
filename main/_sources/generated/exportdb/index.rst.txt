@@ -467,7 +467,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
 
     Support Level: SUPPORTED
 
@@ -705,9 +705,8 @@ Result:
             def forward(self, x: "i64[]"):
                     item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
                 
-                    sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
-                
                 # No stacktrace found for following nodes
+                sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
                 mul: "Sym(-u0)" = -1 * item
                 le: "Sym(-u0 <= 0)" = mul <= 0;  mul = None
                 _assert_scalar = torch.ops.aten._assert_scalar.default(le, "Runtime assertion failed for expression -u0 <= 0 on node 'le_1'");  le = None
@@ -769,9 +768,8 @@ Result:
             def forward(self, x: "i64[]", y: "f32[5, 5]"):
                     item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
                 
-                    sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
-                
                 # No stacktrace found for following nodes
+                sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
                 mul: "Sym(-u0)" = -1 * item
                 le: "Sym(-u0 <= 0)" = mul <= 0;  mul = None
                 _assert_scalar = torch.ops.aten._assert_scalar.default(le, "Runtime assertion failed for expression -u0 <= 0 on node 'le_1'");  le = None
@@ -983,7 +981,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -1288,7 +1286,7 @@ list_unpack
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -1867,7 +1865,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -2007,6 +2005,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f07ab2e6040>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7fc8fb492550>
 
 

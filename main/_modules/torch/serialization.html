@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git95e5c99 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitbbeb090 ) &#x25BC</a>
     </div>
     
 
@@ -1977,7 +1977,11 @@
 
     <span class="n">unpickler</span> <span class="o">=</span> <span class="n">UnpicklerWrapper</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">)</span>
     <span class="n">unpickler</span><span class="o">.</span><span class="n">persistent_load</span> <span class="o">=</span> <span class="n">persistent_load</span>
+    <span class="c1"># Needed for tensors where storage device and rebuild tensor device are</span>
+    <span class="c1"># not connected (wrapper subclasses and tensors rebuilt using numpy)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_thread_local_state</span><span class="o">.</span><span class="n">map_location</span> <span class="o">=</span> <span class="n">map_location</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">unpickler</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="k">del</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_thread_local_state</span><span class="o">.</span><span class="n">map_location</span>
 
     <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_validate_loaded_sparse_tensors</span><span class="p">()</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_metadata</span><span class="p">(</span>
