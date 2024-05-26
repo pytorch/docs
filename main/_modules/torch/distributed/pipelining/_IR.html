@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitbbeb090 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf8c4c26 ) &#x25BC</a>
     </div>
     
 
@@ -543,7 +543,6 @@
 
 <span class="kn">from</span> <span class="nn">._backward</span> <span class="kn">import</span> <span class="n">_null_coalesce_accumulate</span><span class="p">,</span> <span class="n">stage_backward</span>
 <span class="kn">from</span> <span class="nn">._unflatten</span> <span class="kn">import</span> <span class="n">_outline_submodules</span>
-<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">QualnameMapMixin</span>
 <span class="kn">from</span> <span class="nn">.microbatch</span> <span class="kn">import</span> <span class="n">split_args_kwargs_into_chunks</span><span class="p">,</span> <span class="n">TensorChunkSpec</span>
 
 
@@ -1006,7 +1005,7 @@
     <span class="p">)</span>
 
 
-<div class="viewcode-block" id="Pipe"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.Pipe">[docs]</a><span class="k">class</span> <span class="nc">Pipe</span><span class="p">(</span><span class="n">QualnameMapMixin</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="Pipe"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.Pipe">[docs]</a><span class="k">class</span> <span class="nc">Pipe</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="c1"># Class variables</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    args_chunk_spec:</span>
@@ -1033,14 +1032,11 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">split_gm</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span>
-        <span class="n">splitter_qualname_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
         <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">has_loss_and_backward</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">loss_spec</span><span class="p">,</span>
-        <span class="n">tracer_qualname_map</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="c1"># TODO: is there a way not to hard wire init?</span>
-        <span class="n">QualnameMapMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">splitter_qualname_map</span><span class="p">,</span> <span class="n">tracer_qualname_map</span><span class="p">)</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">split_gm</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span> <span class="o">=</span> <span class="n">split_gm</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="p">:</span> <span class="n">DetachExecutor</span> <span class="o">=</span> <span class="n">DetachExecutor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_gm</span><span class="p">)</span>
@@ -1093,22 +1089,6 @@
                 <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">submod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">atom</span><span class="p">)</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
-
-        <span class="c1"># Create qualname mapping for each submodule</span>
-        <span class="c1"># Dict looks like this:</span>
-        <span class="c1"># {submod_name : Dict{old_qualname : new_qualname}}</span>
-        <span class="c1"># We save this information here for use during pipeline stage creation.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">submod_qualname_mappings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">m_qualname</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_gm</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
-            <span class="c1"># &quot;submod_x.&quot; prefix</span>
-            <span class="n">mod_prefix</span> <span class="o">=</span> <span class="n">m_qualname</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span>
-            <span class="n">mod_qualname_mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_to_old_qualname_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">mod_prefix</span><span class="p">):</span>
-                    <span class="c1"># Remove prefix</span>
-                    <span class="n">new_key</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">mod_prefix</span><span class="p">)</span> <span class="p">:]</span>
-                    <span class="n">mod_qualname_mapping</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">new_key</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">submod_qualname_mappings</span><span class="p">[</span><span class="n">m_qualname</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod_qualname_mapping</span>
 
         <span class="k">def</span> <span class="nf">throw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -1252,11 +1232,9 @@
                 <span class="n">part_idx</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">return</span> <span class="n">part_idx</span>
 
-        <span class="c1"># Ask split_module to return mapping from new qualname to old qualname</span>
-        <span class="n">splitter_qualname_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># TODO: what does split do with module invocations? does it move the modules</span>
         <span class="c1"># into the submodules?</span>
-        <span class="n">split</span> <span class="o">=</span> <span class="n">split_module</span><span class="p">(</span><span class="n">traced</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">split_callback</span><span class="p">,</span> <span class="n">splitter_qualname_map</span><span class="p">)</span>
+        <span class="n">split</span> <span class="o">=</span> <span class="n">split_module</span><span class="p">(</span><span class="n">traced</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">split_callback</span><span class="p">)</span>
         <span class="c1"># a (custom) tracer can produce dead code like orphan get_attr nodes</span>
         <span class="n">split</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">eliminate_dead_code</span><span class="p">()</span>
 
@@ -1339,19 +1317,6 @@
                     <span class="n">attr_kind</span><span class="o">=</span><span class="n">_AttrKind</span><span class="o">.</span><span class="n">PARAMETER</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="c1"># logger.debug(f&quot;Moved parameter {param_fqn} to {callee_name}&quot;)</span>
-
-            <span class="c1"># Update qualname mapping</span>
-            <span class="c1"># New qualname will have submodule prefix</span>
-            <span class="n">new_qualname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">callee_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">param_fqn</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="k">if</span> <span class="n">param_fqn</span> <span class="ow">in</span> <span class="n">splitter_qualname_map</span><span class="p">:</span>
-                <span class="c1"># Just in case the target name is already in the splitter_qualname_map</span>
-                <span class="c1"># returned by split_module() -- we update the mapping using the</span>
-                <span class="c1"># new name as a new key</span>
-                <span class="n">splitter_qualname_map</span><span class="p">[</span><span class="n">new_qualname</span><span class="p">]</span> <span class="o">=</span> <span class="n">splitter_qualname_map</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span>
-                    <span class="n">param_fqn</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">splitter_qualname_map</span><span class="p">[</span><span class="n">new_qualname</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_fqn</span>
 
             <span class="c1"># Next step is to replace placeholder of submodule with a get_attr.</span>
             <span class="c1"># Those placeholders are created by `split_module` inside each</span>
@@ -1597,19 +1562,13 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Pipeline is in inference mode, backward pass not generated&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Tracer may modify qualname, get the qualname mapping before and after tracing.</span>
-        <span class="c1"># This qualname mapping is different from the mapping before and after splitting.</span>
-        <span class="n">tracer_qualname_map</span> <span class="o">=</span> <span class="n">Pipe</span><span class="o">.</span><span class="n">_get_param_buffer_mapping</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">traced</span><span class="p">)</span>
-
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Full pipe model:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># noqa: G004</span>
 
         <span class="k">return</span> <span class="n">Pipe</span><span class="p">(</span>
             <span class="n">split</span><span class="p">,</span>
-            <span class="n">splitter_qualname_map</span><span class="p">,</span>
             <span class="n">num_stages</span><span class="p">,</span>
             <span class="n">has_loss_and_backward</span><span class="p">,</span>
             <span class="n">generated_loss_spec</span><span class="p">,</span>
-            <span class="n">tracer_qualname_map</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">print_readable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1729,45 +1688,7 @@
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="s2">&quot;Pipe info is not available. Please use the `pipeline` method to create the `Pipe` object.&quot;</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipe_info</span>
-
-    <span class="c1"># TODO: this util comes from pytorch/pytorch#115462, delete it from PiPPy</span>
-    <span class="c1"># when PyTorch 2.3 comes with support, or when PiPPy migrates from</span>
-    <span class="c1"># `_export_to_torch_ir` to export + unflattener.</span>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_get_param_buffer_mapping</span><span class="p">(</span>
-        <span class="n">original_module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-        <span class="n">traced_module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a mapping of parameter/buffer names from the new module to the</span>
-<span class="sd">        original model. This is to help with restoring the FQN for parameter/buffers</span>
-<span class="sd">        of a traced module to what the original module contains.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">param_lookup</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">buffer_lookup</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">original_module</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">(</span><span class="n">remove_duplicate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">param_lookup</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">param</span><span class="p">),</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="n">original_module</span><span class="o">.</span><span class="n">named_buffers</span><span class="p">(</span><span class="n">remove_duplicate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">buffer_lookup</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-
-        <span class="n">param_buffer_table</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">dynamo_name</span><span class="p">,</span> <span class="n">dynamo_param</span> <span class="ow">in</span> <span class="n">traced_module</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">(</span>
-            <span class="n">remove_duplicate</span><span class="o">=</span><span class="kc">False</span>
-        <span class="p">):</span>
-            <span class="k">assert</span> <span class="n">dynamo_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">param_buffer_table</span>
-            <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">dynamo_param</span><span class="p">)</span> <span class="ow">in</span> <span class="n">param_lookup</span><span class="p">:</span>
-                <span class="n">param_buffer_table</span><span class="p">[</span><span class="n">dynamo_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_lookup</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">dynamo_param</span><span class="p">)]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-
-        <span class="k">for</span> <span class="n">dynamo_name</span><span class="p">,</span> <span class="n">dynamo_buffer</span> <span class="ow">in</span> <span class="n">traced_module</span><span class="o">.</span><span class="n">named_buffers</span><span class="p">(</span>
-            <span class="n">remove_duplicate</span><span class="o">=</span><span class="kc">False</span>
-        <span class="p">):</span>
-            <span class="k">assert</span> <span class="n">dynamo_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">param_buffer_table</span>
-            <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">dynamo_buffer</span><span class="p">)</span> <span class="ow">in</span> <span class="n">buffer_lookup</span><span class="p">:</span>
-                <span class="n">param_buffer_table</span><span class="p">[</span><span class="n">dynamo_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">buffer_lookup</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">dynamo_buffer</span><span class="p">)]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">param_buffer_table</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipe_info</span></div>
 
 
 <div class="viewcode-block" id="SplitPoint"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.SplitPoint">[docs]</a><span class="k">class</span> <span class="nc">SplitPoint</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
