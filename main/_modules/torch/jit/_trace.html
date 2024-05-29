@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git70d8bc2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
     </div>
     
 
@@ -542,6 +542,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">TypeVar</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">ParamSpec</span>
 
@@ -552,7 +553,6 @@
     <span class="n">is_scripting</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">torch._utils_internal</span> <span class="kn">import</span> <span class="n">log_torchscript_usage</span>
 <span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">function</span>
 <span class="kn">from</span> <span class="nn">torch.jit._script</span> <span class="kn">import</span> <span class="n">_CachedForward</span><span class="p">,</span> <span class="n">script</span><span class="p">,</span> <span class="n">ScriptModule</span>
 
@@ -1165,6 +1165,182 @@
     <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;forward&quot;</span><span class="p">:</span> <span class="n">c</span><span class="p">}</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">check_inputs</span><span class="p">]</span>
 
 
+<span class="k">def</span> <span class="nf">analyze_ts_result_with_export_result</span><span class="p">(</span><span class="n">export</span><span class="p">,</span> <span class="n">trace</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">torch.utils._pytree</span> <span class="k">as</span> <span class="nn">pytree</span>
+
+    <span class="n">flat_export</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_leaves</span><span class="p">(</span><span class="n">export</span><span class="p">)</span>
+    <span class="n">flat_trace</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_leaves</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">orig</span><span class="p">,</span> <span class="n">loaded</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">flat_export</span><span class="p">,</span> <span class="n">flat_trace</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">orig</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="n">loaded</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">loaded</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">orig</span> <span class="o">!=</span> <span class="n">loaded</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="k">def</span> <span class="nf">_trace_impl</span><span class="p">(</span>
+    <span class="n">func</span><span class="p">,</span>
+    <span class="n">example_inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">optimize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">check_trace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">check_inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">check_tolerance</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
+    <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">_force_outplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">_module_class</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">_compilation_unit</span><span class="o">=</span><span class="n">_python_cu</span><span class="p">,</span>
+    <span class="n">example_kwarg_inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">_store_inputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">):</span>
+        <span class="c1"># it is hard to trace it because the forward method on ScriptModule is already defined, so it</span>
+        <span class="c1"># would result in an error.</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;The input to trace is already a ScriptModule, tracing it is a no-op. Returning the object as is.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">func</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">example_inputs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">example_inputs</span> <span class="o">=</span> <span class="n">example_kwarg_inputs</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;example_kwarg_inputs should be a dict&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">trace_module</span><span class="p">(</span>
+            <span class="n">func</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;forward&quot;</span><span class="p">:</span> <span class="n">example_inputs</span><span class="p">},</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="n">check_trace</span><span class="p">,</span>
+            <span class="n">wrap_check_inputs</span><span class="p">(</span><span class="n">check_inputs</span><span class="p">),</span>
+            <span class="n">check_tolerance</span><span class="p">,</span>
+            <span class="n">strict</span><span class="p">,</span>
+            <span class="n">_force_outplace</span><span class="p">,</span>
+            <span class="n">_module_class</span><span class="p">,</span>
+            <span class="n">example_inputs_is_kwarg</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span>
+            <span class="n">_store_inputs</span><span class="o">=</span><span class="n">_store_inputs</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="nb">hasattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;__self__&quot;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;forward&quot;</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">example_inputs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">example_inputs</span> <span class="o">=</span> <span class="n">example_kwarg_inputs</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;example_kwarg_inputs should be a dict&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">trace_module</span><span class="p">(</span>
+            <span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;forward&quot;</span><span class="p">:</span> <span class="n">example_inputs</span><span class="p">},</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="n">check_trace</span><span class="p">,</span>
+            <span class="n">wrap_check_inputs</span><span class="p">(</span><span class="n">check_inputs</span><span class="p">),</span>
+            <span class="n">check_tolerance</span><span class="p">,</span>
+            <span class="n">strict</span><span class="p">,</span>
+            <span class="n">_force_outplace</span><span class="p">,</span>
+            <span class="n">_module_class</span><span class="p">,</span>
+            <span class="n">example_inputs_is_kwarg</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span>
+            <span class="n">_store_inputs</span><span class="o">=</span><span class="n">_store_inputs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Special case for common case of passing a single Tensor</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_inputs</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
+        <span class="ow">and</span> <span class="n">example_kwarg_inputs</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">example_inputs</span><span class="p">,)</span>
+    <span class="c1"># done primarily so that weird iterables fail here and not pybind11 code</span>
+    <span class="k">elif</span> <span class="n">example_kwarg_inputs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_inputs</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">example_inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">example_inputs</span><span class="p">)</span>
+
+    <span class="n">var_lookup_fn</span> <span class="o">=</span> <span class="n">_create_interpreter_name_lookup_fn</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;__self__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+            <span class="s2">&quot;trace doesn&#39;t support compiling individual module&#39;s functions.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;Please use trace_module&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">_qualified_name</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">example_inputs</span> <span class="o">=</span> <span class="n">example_kwarg_inputs</span>
+        <span class="n">traced</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_create_function_from_trace_with_dict</span><span class="p">(</span>
+            <span class="n">name</span><span class="p">,</span>
+            <span class="n">func</span><span class="p">,</span>
+            <span class="n">example_kwarg_inputs</span><span class="p">,</span>
+            <span class="n">var_lookup_fn</span><span class="p">,</span>
+            <span class="n">strict</span><span class="p">,</span>
+            <span class="n">_force_outplace</span><span class="p">,</span>
+            <span class="n">get_callable_argument_names</span><span class="p">(</span><span class="n">func</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">traced</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_create_function_from_trace</span><span class="p">(</span>
+            <span class="n">name</span><span class="p">,</span>
+            <span class="n">func</span><span class="p">,</span>
+            <span class="n">example_inputs</span><span class="p">,</span>
+            <span class="n">var_lookup_fn</span><span class="p">,</span>
+            <span class="n">strict</span><span class="p">,</span>
+            <span class="n">_force_outplace</span><span class="p">,</span>
+            <span class="n">get_callable_argument_names</span><span class="p">(</span><span class="n">func</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Check the trace against new traces created from user-specified inputs</span>
+    <span class="k">if</span> <span class="n">check_trace</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">check_inputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_check_trace</span><span class="p">(</span>
+                <span class="n">check_inputs</span><span class="p">,</span>
+                <span class="n">func</span><span class="p">,</span>
+                <span class="n">traced</span><span class="p">,</span>
+                <span class="n">check_tolerance</span><span class="p">,</span>
+                <span class="n">strict</span><span class="p">,</span>
+                <span class="n">_force_outplace</span><span class="p">,</span>
+                <span class="kc">False</span><span class="p">,</span>
+                <span class="n">_module_class</span><span class="p">,</span>
+                <span class="n">example_inputs_is_kwarg</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_check_trace</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">example_inputs</span><span class="p">],</span>
+                <span class="n">func</span><span class="p">,</span>
+                <span class="n">traced</span><span class="p">,</span>
+                <span class="n">check_tolerance</span><span class="p">,</span>
+                <span class="n">strict</span><span class="p">,</span>
+                <span class="n">_force_outplace</span><span class="p">,</span>
+                <span class="kc">False</span><span class="p">,</span>
+                <span class="n">_module_class</span><span class="p">,</span>
+                <span class="n">example_inputs_is_kwarg</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Allow torch.compile() to inline</span>
+    <span class="n">traced</span><span class="o">.</span><span class="n">_torchdynamo_inline</span> <span class="o">=</span> <span class="n">func</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="k">return</span> <span class="n">traced</span>
+
+
+<span class="k">class</span> <span class="nc">_ExportType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">DIRECT_EXPORT</span> <span class="o">=</span> <span class="s2">&quot;DIRECT_EXPORT&quot;</span>
+    <span class="n">TRACE_AND_EXPORT</span> <span class="o">=</span> <span class="s2">&quot;TRACE_AND_EXPORT&quot;</span>
+    <span class="n">SOURCE_TO_SOURCE</span> <span class="o">=</span> <span class="s2">&quot;SOURCE_TO_SOURCE&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+
+<span class="k">class</span> <span class="nc">_ExportOutcome</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s2">&quot;SUCCESS&quot;</span>
+    <span class="n">FAILED_TO_EXPORT</span> <span class="o">=</span> <span class="s2">&quot;FAILED_TO_EXPORT&quot;</span>
+    <span class="n">FAILED_TO_RUN</span> <span class="o">=</span> <span class="s2">&quot;FAILED_TO_RUN&quot;</span>
+    <span class="n">ACCURACY_ERROR</span> <span class="o">=</span> <span class="s2">&quot;ACCURACY_ERROR&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+
 <div class="viewcode-block" id="trace"><a class="viewcode-back" href="../../../generated/torch.jit.trace.html#torch.jit.trace">[docs]</a><span class="k">def</span> <span class="nf">trace</span><span class="p">(</span>
     <span class="n">func</span><span class="p">,</span>
     <span class="n">example_inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1331,130 +1507,110 @@
             <span class="s2">&quot;`optimize` is deprecated and has no effect. Use `with torch.jit.optimized_execution() instead&quot;</span>
         <span class="p">)</span>
 
+    <span class="kn">from</span> <span class="nn">torch._utils_internal</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">check_if_torch_exportable</span><span class="p">,</span>
+        <span class="n">log_torch_jit_trace_exportability</span><span class="p">,</span>
+        <span class="n">log_torchscript_usage</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="n">log_torchscript_usage</span><span class="p">(</span><span class="s2">&quot;trace&quot;</span><span class="p">)</span>
+    <span class="n">traced_func</span> <span class="o">=</span> <span class="n">_trace_impl</span><span class="p">(</span>
+        <span class="n">func</span><span class="p">,</span>
+        <span class="n">example_inputs</span><span class="p">,</span>
+        <span class="n">optimize</span><span class="p">,</span>
+        <span class="n">check_trace</span><span class="p">,</span>
+        <span class="n">check_inputs</span><span class="p">,</span>
+        <span class="n">check_tolerance</span><span class="p">,</span>
+        <span class="n">strict</span><span class="p">,</span>
+        <span class="n">_force_outplace</span><span class="p">,</span>
+        <span class="n">_module_class</span><span class="p">,</span>
+        <span class="n">_compilation_unit</span><span class="p">,</span>
+        <span class="n">example_kwarg_inputs</span><span class="p">,</span>
+        <span class="n">_store_inputs</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">):</span>
-        <span class="c1"># it is hard to trace it because the forward method on ScriptModule is already defined, so it</span>
-        <span class="c1"># would result in an error.</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;The input to trace is already a ScriptModule, tracing it is a no-op. Returning the object as is.&quot;</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">func</span>
-
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">example_inputs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="n">example_inputs</span> <span class="o">=</span> <span class="n">example_kwarg_inputs</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;example_kwarg_inputs should be a dict&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">trace_module</span><span class="p">(</span>
-            <span class="n">func</span><span class="p">,</span>
-            <span class="p">{</span><span class="s2">&quot;forward&quot;</span><span class="p">:</span> <span class="n">example_inputs</span><span class="p">},</span>
-            <span class="kc">None</span><span class="p">,</span>
-            <span class="n">check_trace</span><span class="p">,</span>
-            <span class="n">wrap_check_inputs</span><span class="p">(</span><span class="n">check_inputs</span><span class="p">),</span>
-            <span class="n">check_tolerance</span><span class="p">,</span>
-            <span class="n">strict</span><span class="p">,</span>
-            <span class="n">_force_outplace</span><span class="p">,</span>
-            <span class="n">_module_class</span><span class="p">,</span>
-            <span class="n">example_inputs_is_kwarg</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span>
-            <span class="n">_store_inputs</span><span class="o">=</span><span class="n">_store_inputs</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">hasattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;__self__&quot;</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;forward&quot;</span>
-    <span class="p">):</span>
-        <span class="k">if</span> <span class="n">example_inputs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="n">example_inputs</span> <span class="o">=</span> <span class="n">example_kwarg_inputs</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;example_kwarg_inputs should be a dict&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">trace_module</span><span class="p">(</span>
-            <span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span>
-            <span class="p">{</span><span class="s2">&quot;forward&quot;</span><span class="p">:</span> <span class="n">example_inputs</span><span class="p">},</span>
-            <span class="kc">None</span><span class="p">,</span>
-            <span class="n">check_trace</span><span class="p">,</span>
-            <span class="n">wrap_check_inputs</span><span class="p">(</span><span class="n">check_inputs</span><span class="p">),</span>
-            <span class="n">check_tolerance</span><span class="p">,</span>
-            <span class="n">strict</span><span class="p">,</span>
-            <span class="n">_force_outplace</span><span class="p">,</span>
-            <span class="n">_module_class</span><span class="p">,</span>
-            <span class="n">example_inputs_is_kwarg</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span>
-            <span class="n">_store_inputs</span><span class="o">=</span><span class="n">_store_inputs</span><span class="p">,</span>
+    <span class="k">if</span> <span class="n">check_if_torch_exportable</span><span class="p">():</span>
+        <span class="kn">from</span> <span class="nn">torch._export.converter</span> <span class="kn">import</span> <span class="n">TS2EPConverter</span>
+        <span class="kn">from</span> <span class="nn">torch.export._trace</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">_convert_ts_to_export_experimental</span><span class="p">,</span>
+            <span class="n">_process_jit_trace_inputs_for_export</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="c1"># Special case for common case of passing a single Tensor</span>
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_inputs</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span>
-        <span class="ow">and</span> <span class="n">example_kwarg_inputs</span> <span class="ow">is</span> <span class="kc">None</span>
-    <span class="p">):</span>
-        <span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">example_inputs</span><span class="p">,)</span>
-    <span class="c1"># done primarily so that weird iterables fail here and not pybind11 code</span>
-    <span class="k">elif</span> <span class="n">example_kwarg_inputs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_inputs</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-        <span class="n">example_inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">example_inputs</span><span class="p">)</span>
-
-    <span class="n">var_lookup_fn</span> <span class="o">=</span> <span class="n">_create_interpreter_name_lookup_fn</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;__self__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-            <span class="s2">&quot;trace doesn&#39;t support compiling individual module&#39;s functions.</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;Please use trace_module&quot;</span>
+        <span class="n">export_args</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_process_jit_trace_inputs_for_export</span><span class="p">(</span>
+            <span class="n">example_inputs</span><span class="p">,</span> <span class="n">example_kwarg_inputs</span>
         <span class="p">)</span>
 
-    <span class="n">name</span> <span class="o">=</span> <span class="n">_qualified_name</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">example_inputs</span> <span class="o">=</span> <span class="n">example_kwarg_inputs</span>
-        <span class="n">traced</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_create_function_from_trace_with_dict</span><span class="p">(</span>
-            <span class="n">name</span><span class="p">,</span>
-            <span class="n">func</span><span class="p">,</span>
-            <span class="n">example_kwarg_inputs</span><span class="p">,</span>
-            <span class="n">var_lookup_fn</span><span class="p">,</span>
-            <span class="n">strict</span><span class="p">,</span>
-            <span class="n">_force_outplace</span><span class="p">,</span>
-            <span class="n">get_callable_argument_names</span><span class="p">(</span><span class="n">func</span><span class="p">),</span>
-        <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">traced</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_create_function_from_trace</span><span class="p">(</span>
-            <span class="n">name</span><span class="p">,</span>
-            <span class="n">func</span><span class="p">,</span>
-            <span class="n">example_inputs</span><span class="p">,</span>
-            <span class="n">var_lookup_fn</span><span class="p">,</span>
-            <span class="n">strict</span><span class="p">,</span>
-            <span class="n">_force_outplace</span><span class="p">,</span>
-            <span class="n">get_callable_argument_names</span><span class="p">(</span><span class="n">func</span><span class="p">),</span>
-        <span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_log_exportability</span><span class="p">(</span><span class="n">func_to_export</span><span class="p">,</span> <span class="n">export_func</span><span class="p">,</span> <span class="n">export_args</span><span class="p">,</span> <span class="n">export_type</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ep_module</span> <span class="o">=</span> <span class="n">export_func</span><span class="p">(</span><span class="n">func_to_export</span><span class="p">,</span> <span class="n">export_args</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log_torch_jit_trace_exportability</span><span class="p">(</span>
+                    <span class="s2">&quot;trace&quot;</span><span class="p">,</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">export_type</span><span class="p">),</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">_ExportOutcome</span><span class="o">.</span><span class="n">FAILED_TO_EXPORT</span><span class="p">),</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="k">return</span>
 
-    <span class="c1"># Check the trace against new traces created from user-specified inputs</span>
-    <span class="k">if</span> <span class="n">check_trace</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">check_inputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">_check_trace</span><span class="p">(</span>
-                <span class="n">check_inputs</span><span class="p">,</span>
-                <span class="n">func</span><span class="p">,</span>
-                <span class="n">traced</span><span class="p">,</span>
-                <span class="n">check_tolerance</span><span class="p">,</span>
-                <span class="n">strict</span><span class="p">,</span>
-                <span class="n">_force_outplace</span><span class="p">,</span>
-                <span class="kc">False</span><span class="p">,</span>
-                <span class="n">_module_class</span><span class="p">,</span>
-                <span class="n">example_inputs_is_kwarg</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">_check_trace</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">example_inputs</span><span class="p">],</span>
-                <span class="n">func</span><span class="p">,</span>
-                <span class="n">traced</span><span class="p">,</span>
-                <span class="n">check_tolerance</span><span class="p">,</span>
-                <span class="n">strict</span><span class="p">,</span>
-                <span class="n">_force_outplace</span><span class="p">,</span>
-                <span class="kc">False</span><span class="p">,</span>
-                <span class="n">_module_class</span><span class="p">,</span>
-                <span class="n">example_inputs_is_kwarg</span><span class="o">=</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">example_kwarg_inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">export</span> <span class="o">=</span> <span class="n">ep_module</span><span class="p">(</span><span class="o">*</span><span class="n">export_args</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log_torch_jit_trace_exportability</span><span class="p">(</span>
+                    <span class="s2">&quot;trace&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">export_type</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">_ExportOutcome</span><span class="o">.</span><span class="n">FAILED_TO_RUN</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">traced_result</span> <span class="o">=</span> <span class="n">traced_func</span><span class="p">(</span><span class="o">*</span><span class="n">export_args</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">e</span>
+                <span class="n">log_torch_jit_trace_exportability</span><span class="p">(</span>
+                    <span class="s2">&quot;trace&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">export_type</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">_ExportOutcome</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">),</span> <span class="s2">&quot;succeeded&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">analyze_ts_result_with_export_result</span><span class="p">(</span><span class="n">export</span><span class="p">,</span> <span class="n">traced_result</span><span class="p">):</span>
+                <span class="n">log_torch_jit_trace_exportability</span><span class="p">(</span>
+                    <span class="s2">&quot;trace&quot;</span><span class="p">,</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">export_type</span><span class="p">),</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">_ExportOutcome</span><span class="o">.</span><span class="n">ACCURACY_ERROR</span><span class="p">),</span>
+                    <span class="s2">&quot;accuracy error&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="n">log_torch_jit_trace_exportability</span><span class="p">(</span>
+                <span class="s2">&quot;trace&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">export_type</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">_ExportOutcome</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">),</span> <span class="s2">&quot;succeeded&quot;</span>
             <span class="p">)</span>
 
-    <span class="c1"># Allow torch.compile() to inline</span>
-    <span class="n">traced</span><span class="o">.</span><span class="n">_torchdynamo_inline</span> <span class="o">=</span> <span class="n">func</span>  <span class="c1"># type: ignore[attr-defined]</span>
-    <span class="k">return</span> <span class="n">traced</span></div>
+        <span class="k">def</span> <span class="nf">_direct_export_and_lower</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">export_args</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">export_args</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">module</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">_convert_ts_to_export_source_to_source</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">export_args</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TS2EPConverter</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">export_args</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span><span class="o">.</span><span class="n">module</span><span class="p">()</span>
+
+        <span class="c1"># torch.jit.trace is noop when the original module is torch.jit.ScriptModule</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">traced_func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">):</span>
+            <span class="n">_log_exportability</span><span class="p">(</span>
+                <span class="n">traced_func</span><span class="p">,</span>
+                <span class="n">_direct_export_and_lower</span><span class="p">,</span>
+                <span class="n">export_args</span><span class="p">,</span>
+                <span class="n">_ExportType</span><span class="o">.</span><span class="n">DIRECT_EXPORT</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">_log_exportability</span><span class="p">(</span>
+            <span class="n">traced_func</span><span class="p">,</span>
+            <span class="n">_convert_ts_to_export_experimental</span><span class="p">,</span>
+            <span class="n">export_args</span><span class="p">,</span>
+            <span class="n">_ExportType</span><span class="o">.</span><span class="n">TRACE_AND_EXPORT</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">_log_exportability</span><span class="p">(</span>
+            <span class="n">traced_func</span><span class="p">,</span>
+            <span class="n">_convert_ts_to_export_source_to_source</span><span class="p">,</span>
+            <span class="n">export_args</span><span class="p">,</span>
+            <span class="n">_ExportType</span><span class="o">.</span><span class="n">SOURCE_TO_SOURCE</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">traced_func</span></div>
 
 
 <span class="n">_trace_module_map</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>

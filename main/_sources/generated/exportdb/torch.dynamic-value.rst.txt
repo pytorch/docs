@@ -5,7 +5,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -44,6 +44,9 @@ Result:
             def forward(self, x: "i64[]"):
                     item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
                 
+                # 
+                sym_constrain_range_for_size_default = torch.ops.aten.sym_constrain_range_for_size.default(item)
+                
                 # No stacktrace found for following nodes
                 sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = 0, max = 5)
                 mul: "Sym(-u0)" = -1 * item
@@ -65,7 +68,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git70d8bc2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
     </div>
     
 
@@ -992,8 +992,8 @@
 
 <span class="sd">        The graph is differentiated using the chain rule. If the tensor is</span>
 <span class="sd">        non-scalar (i.e. its data has more than one element) and requires</span>
-<span class="sd">        gradient, the function additionally requires specifying ``gradient``.</span>
-<span class="sd">        It should be a tensor of matching type and location, that contains</span>
+<span class="sd">        gradient, the function additionally requires specifying a ``gradient``.</span>
+<span class="sd">        It should be a tensor of matching type and shape, that represents</span>
 <span class="sd">        the gradient of the differentiated function w.r.t. ``self``.</span>
 
 <span class="sd">        This function accumulates gradients in the leaves - you might need to zero</span>
@@ -1015,12 +1015,9 @@
 <span class="sd">            See https://github.com/pytorch/pytorch/pull/60521#issuecomment-867061780 for more details.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            gradient (Tensor or None): Gradient w.r.t. the</span>
-<span class="sd">                tensor. If it is a tensor, it will be automatically converted</span>
-<span class="sd">                to a Tensor that does not require grad unless ``create_graph`` is True.</span>
-<span class="sd">                None values can be specified for scalar Tensors or ones that</span>
-<span class="sd">                don&#39;t require grad. If a None value would be acceptable then</span>
-<span class="sd">                this argument is optional.</span>
+<span class="sd">            gradient (Tensor, optional): The gradient of the function</span>
+<span class="sd">                being differentiated w.r.t. ``self``.</span>
+<span class="sd">                This argument can be omitted if ``self`` is a scalar.</span>
 <span class="sd">            retain_graph (bool, optional): If ``False``, the graph used to compute</span>
 <span class="sd">                the grads will be freed. Note that in nearly all cases setting</span>
 <span class="sd">                this option to True is not needed and often can be worked around</span>
@@ -1029,10 +1026,10 @@
 <span class="sd">            create_graph (bool, optional): If ``True``, graph of the derivative will</span>
 <span class="sd">                be constructed, allowing to compute higher order derivative</span>
 <span class="sd">                products. Defaults to ``False``.</span>
-<span class="sd">            inputs (sequence of Tensor): Inputs w.r.t. which the gradient will be</span>
-<span class="sd">                accumulated into ``.grad``. All other Tensors will be ignored. If not</span>
+<span class="sd">            inputs (sequence of Tensor, optional): Inputs w.r.t. which the gradient will be</span>
+<span class="sd">                accumulated into ``.grad``. All other tensors will be ignored. If not</span>
 <span class="sd">                provided, the gradient is accumulated into all the leaf Tensors that were</span>
-<span class="sd">                used to compute the attr::tensors.</span>
+<span class="sd">                used to compute the :attr:`tensors`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">has_torch_function_unary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">handle_torch_function</span><span class="p">(</span>

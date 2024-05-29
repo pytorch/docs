@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git70d8bc2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
     </div>
     
 
@@ -2438,9 +2438,192 @@
                 <span class="n">dynamic_results</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dc</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamic_results</span> <span class="o">=</span> <span class="n">dynamic_results</span></div>
 
+    <span class="k">def</span> <span class="nf">_is_derived_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">_DerivedDim</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_is_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">_Dim</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">_DerivedDim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_derived_dim_roots</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+        <span class="n">name_to_dim</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Here we resolve 2 concerns with derived dims suggested fixes: 1) newly introduced roots,</span>
+<span class="sd">        and 2) root swapping.</span>
+
+<span class="sd">        1) Newly introduced roots appear with modulo guards, e.g. Mod(dx, 2) = 0 suggests</span>
+<span class="sd">        dx is a derived dim equal to 2 * _dx, introducing a new root _dx. Currently the final</span>
+<span class="sd">        suggested fixes handle this correctly, but we can get intermediate results that look like</span>
+<span class="sd">        {&quot;dy&quot;: {&quot;eq&quot;: &quot;dx + 1&quot;}, &quot;dx&quot;: {&quot;eq&quot;: &quot;2 * _dx + 1, &quot;min&quot;: 3, &quot;max&quot;: 15}}</span>
+<span class="sd">        and this routine prettifies this by unifying to a single root, and making each suggestion</span>
+<span class="sd">        either a derived dim or min/max range, not both.</span>
+
+<span class="sd">        2) With suggested fixes for derived dims, roots can be swapped,</span>
+<span class="sd">        e.g. dx, dx - 1 -&gt; dy + 1, dy. Here we don&#39;t want to print out the attached name,</span>
+<span class="sd">        since this leads to messages like &quot;dx - 1 = Dim(&quot;dx - 1&quot;, ...)&quot;.</span>
+<span class="sd">        Instead we evaluate the new root value, and remove results for its derivations.</span>
+
+<span class="sd">        First we find all the original roots (specified in dynamic_shapes), that are found in the</span>
+<span class="sd">        values of results (i.e. used for computing suggesting fix values). These original roots</span>
+<span class="sd">        (suppose `dx`) are either specialized, unchanged, refined, or swapped</span>
+<span class="sd">        (expressed as a derived dim). If any of the first 3 cases happen, we suggest `dx`&#39;s value</span>
+<span class="sd">        in results, and remove suggestions for derivations of `dx`, assuming the derived relation</span>
+<span class="sd">        is valid. If swapped, we find the new root, and use the fix to evaluate `dx`&#39;s new value,</span>
+<span class="sd">        and then do the same with `dx`&#39;s derivations.</span>
+
+<span class="sd">        Assuming the originally specified derived relations are correct is valid, because:</span>
+<span class="sd">            1) if the relations are plain wrong (e.g. input shape = (6, 4) with spec (dx, dx - 1))</span>
+<span class="sd">               produce_guards() will catch this and crash before hand.</span>
+<span class="sd">            2) if the relations are numerically correct but do not match the emitted guard,</span>
+<span class="sd">               for example:</span>
+
+<span class="sd">                    def forward(self, x, y):</span>
+<span class="sd">                        return x.reshape([-1]) + y  # guard: s0 * 2 = s1</span>
+<span class="sd">                    inputs = (torch.randn(6, 2), torch.randn(12))</span>
+<span class="sd">                    dx = Dim(&quot;dx&quot;, min=2, max=32)</span>
+<span class="sd">                    dynamic_shapes={&quot;x&quot;: (dx, 2), &quot;y&quot;: (dx + 6, )}  # this matches values but not op</span>
+
+<span class="sd">               then this leads to 2 linear equations, and a) produce_guards() is able to solve for</span>
+<span class="sd">               the unique solution of dx = 6 and specialize, and b) the export constraint solver will</span>
+<span class="sd">               raise an issue due to range constraints (a unique solution means not all values in a</span>
+<span class="sd">               range satisfy a guard) and also force specializations.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">torch.export.dynamic_shapes</span> <span class="kn">import</span> <span class="n">Dim</span>
+
+        <span class="k">def</span> <span class="nf">_check_same_range</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+            <span class="c1"># returns True if c &amp; dim are both min/max ranges with same values</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_is_dim</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;min&quot;</span> <span class="ow">in</span> <span class="n">c</span> <span class="ow">or</span> <span class="s2">&quot;max&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">min</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">dim</span><span class="o">.</span><span class="n">min</span> <span class="o">==</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># let pass if min &lt; 2</span>
+                <span class="ow">and</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span> <span class="o">==</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># 1) newly introduced roots</span>
+        <span class="c1"># this part we handle adding newly introduced roots</span>
+        <span class="c1"># these arise from guards like &quot;x.shape[0] % 3 == 0&quot;</span>
+        <span class="c1"># leading to suggested fixes like &quot;dx = 3*_dx&quot;</span>
+        <span class="c1"># extract _dx, and find appropriate min/max values</span>
+        <span class="c1">#</span>
+        <span class="c1"># before, we have something like:</span>
+        <span class="c1"># {&quot;dx&quot;: {&quot;eq&quot;: 3*_dx+1, &quot;min&quot;: 4, &quot;max&quot;: 10}, &quot;dy&quot;: dx+1, &quot;dz&quot;: dx+2}</span>
+        <span class="c1"># we want instead:</span>
+        <span class="c1"># {&quot;_dx&quot;: {&quot;min&quot;: 1, &quot;max&quot;: 4}, &quot;dx&quot;: 3*_dx+1, &quot;dy&quot;: 3*_dx+2, &quot;dz&quot;: 3*_dx+3}</span>
+        <span class="n">introduced_roots</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># map new root -&gt; old root</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="s2">&quot;eq&quot;</span> <span class="ow">in</span> <span class="n">c</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">):</span>  <span class="c1"># derived dim</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_to_dim</span><span class="p">:</span>
+                    <span class="n">introduced_roots</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">)]</span> <span class="o">=</span> <span class="n">k</span>
+                    <span class="c1"># calculate necessary min &amp; max</span>
+                    <span class="n">modulus</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">polys</span><span class="o">.</span><span class="n">polytools</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">],</span> <span class="n">root</span><span class="p">)</span>
+                    <span class="n">c_min</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="n">min_</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">c_min</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">)</span> <span class="o">/</span> <span class="n">modulus</span><span class="p">)</span>
+                    <span class="n">c_max</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">max_</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">c_max</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">)</span> <span class="o">/</span> <span class="n">modulus</span><span class="p">)</span>
+                    <span class="c1"># create result &amp; dim</span>
+                    <span class="n">results</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="n">min_</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="n">max_</span><span class="p">}</span>
+                    <span class="n">name_to_dim</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">)]</span> <span class="o">=</span> <span class="n">Dim</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">),</span> <span class="nb">min</span><span class="o">=</span><span class="n">min_</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">max_</span><span class="p">)</span>
+                    <span class="c1"># remove old root min/max bounds</span>
+                    <span class="n">c</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="n">c</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># alter derivations that depend on old root, to unify to new root</span>
+        <span class="c1"># e.g. dx=3*_dx+1, dy=dx+1 -&gt; dy=3*_dx+2</span>
+        <span class="k">for</span> <span class="n">old_root</span> <span class="ow">in</span> <span class="n">introduced_roots</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="s2">&quot;eq&quot;</span> <span class="ow">in</span> <span class="n">c</span>
+                    <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">symbol</span> <span class="o">:=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)))</span> <span class="o">==</span> <span class="n">old_root</span>
+                <span class="p">):</span>  <span class="c1"># derived dim with root = old_root</span>
+                    <span class="n">new_root_expr</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">old_root</span><span class="p">)][</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span>  <span class="c1"># dx=3*_dx+1</span>
+                    <span class="n">new_expr</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">symbol</span><span class="p">:</span> <span class="n">new_root_expr</span><span class="p">})</span>  <span class="c1"># dy=(3*_dx+1)+1</span>
+                    <span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_expr</span>
+
+        <span class="c1"># 2) root swapping</span>
+        <span class="c1"># collect all the original roots that are used for calculating values of suggested fixes</span>
+        <span class="c1"># this consists of:</span>
+        <span class="c1"># 1) {&quot;dx&quot;: {&quot;min&quot;: ..., &quot;max&quot;: ...}} -&gt; dx: refined root dim</span>
+        <span class="c1"># 2) {&quot;dy&quot;: &quot;dx + 1&quot;} -&gt; dx: root for suggested fix</span>
+        <span class="n">modified_roots</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_to_dim</span><span class="p">:</span>  <span class="c1"># _dynamo.export() may handle source directly</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_dim</span><span class="p">(</span><span class="n">name_to_dim</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;min&quot;</span> <span class="ow">in</span> <span class="n">c</span> <span class="ow">or</span> <span class="s2">&quot;max&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">):</span>  <span class="c1"># case 1)</span>
+                <span class="n">modified_roots</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">&quot;eq&quot;</span> <span class="ow">in</span> <span class="n">c</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">):</span>  <span class="c1"># case 2)</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">))</span>
+                <span class="k">assert</span> <span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="n">modified_roots</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+
+        <span class="c1"># exclude newly introduced roots, we&#39;ve already processed these</span>
+        <span class="n">modified_roots</span> <span class="o">=</span> <span class="n">modified_roots</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">introduced_roots</span><span class="p">)</span>
+
+        <span class="c1"># evaluate the new value for each root</span>
+        <span class="c1"># this is now either 1) unchanged, 2) refined with a new range,</span>
+        <span class="c1"># or 3) specialized to a concrete value</span>
+        <span class="n">modified_root_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="n">modified_roots</span><span class="p">:</span>
+            <span class="n">swapped_root</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">root</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">root</span><span class="p">]</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="s2">&quot;min&quot;</span> <span class="ow">in</span> <span class="n">c</span> <span class="ow">or</span> <span class="s2">&quot;max&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">)</span>  <span class="c1"># range</span>
+                    <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span>  <span class="c1"># specialized</span>
+                <span class="p">):</span>
+                    <span class="c1"># here, the original root is a root Dim or concrete value in results.</span>
+                    <span class="c1"># if it is a derived dim, it is swapped, and we handle that below.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_same_range</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">name_to_dim</span><span class="p">[</span><span class="n">root</span><span class="p">]):</span>  <span class="c1"># ignore if unchanged</span>
+                        <span class="n">modified_root_values</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+                    <span class="n">swapped_root</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="n">swapped_root</span><span class="p">:</span>
+                <span class="c1"># if the original root has been swapped in results, that means the new root</span>
+                <span class="c1"># is a range (if it had specialized, the original root would have too).</span>
+                <span class="c1"># find this new root, and solve for the original root&#39;s range.</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_to_dim</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">dim</span> <span class="o">=</span> <span class="n">name_to_dim</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">dim</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;_DerivedDim&quot;</span> <span class="ow">and</span> <span class="n">dim</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">root</span><span class="p">:</span>
+                        <span class="c1"># only look for min/max root, otherwise root would have specialized</span>
+                        <span class="k">if</span> <span class="s2">&quot;min&quot;</span> <span class="ow">in</span> <span class="n">c</span> <span class="ow">or</span> <span class="s2">&quot;max&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
+                            <span class="n">expr</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                            <span class="n">s</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">))</span>
+                            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                                <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="n">try_solve</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">]),</span> <span class="n">s</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+                                <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="n">try_solve</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">]),</span> <span class="n">s</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+                            <span class="p">}</span>
+                            <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_same_range</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">name_to_dim</span><span class="p">[</span><span class="n">root</span><span class="p">]):</span>  <span class="c1"># ignore if unchanged</span>
+                                <span class="n">modified_root_values</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+                                <span class="k">break</span>
+
+        <span class="c1"># filter out results where the key is a derived dim (e.g. {&quot;dx - 1&quot; : 4})</span>
+        <span class="c1"># we only want to suggest fixes for the root, to avoid derived names.</span>
+        <span class="c1"># also, remove anything in modified_roots, since we either add new modified values after this,</span>
+        <span class="c1"># or have decided they are unchanged.</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_to_dim</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_derived_dim</span><span class="p">(</span><span class="n">name_to_dim</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="ow">or</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">modified_roots</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">results</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="c1"># update results with modified root values</span>
+        <span class="c1"># now results has the following properties:</span>
+        <span class="c1"># - only contains original roots as keys</span>
+        <span class="c1"># - each root is now either specialized, refined, or derived from another original root</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">modified_root_values</span><span class="p">)</span>
+
 <div class="viewcode-block" id="DimConstraints.prettify_results"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints.prettify_results">[docs]</a>    <span class="k">def</span> <span class="nf">prettify_results</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">original_signature</span><span class="p">:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Signature</span><span class="p">,</span>
+        <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">constraint_violation_error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">forced_specializations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -2453,6 +2636,8 @@
                 <span class="k">return</span> <span class="n">s</span>
 
             <span class="n">results</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dynamic_shapes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="p">{}</span>
 
             <span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="n">op</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">:</span>
@@ -2478,6 +2663,18 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">assert</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;==&quot;</span>
                     <span class="n">results</span><span class="p">[</span><span class="n">expr</span><span class="p">][</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">digit</span>
+
+            <span class="c1"># retrieve dynamic shapes</span>
+            <span class="n">name_to_dim</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_flatten</span><span class="p">(</span>
+                <span class="n">dynamic_shapes</span><span class="p">,</span>
+                <span class="n">is_leaf</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_derived_dim</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_dim</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">name_to_dim</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_derived_dim</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+                    <span class="n">name_to_dim</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span><span class="o">.</span><span class="n">root</span>
 
             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static_results</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamic_results</span><span class="p">):</span>
                 <span class="n">t</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -2505,23 +2702,26 @@
             <span class="p">}</span>
 
             <span class="n">buf</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-            <span class="n">debug_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">forced_specializations</span><span class="p">:</span>
-                <span class="n">debug_names</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; = &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">forced_specializations</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">debug_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">forced_specializations</span><span class="p">:</span>
+                    <span class="n">dim</span> <span class="o">=</span> <span class="n">name_to_dim</span><span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; = &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_derived_dim</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+                        <span class="n">debug_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">debug_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
                 <span class="n">buf</span> <span class="o">+=</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Specializations unexpectedly required (</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">debug_names</span><span class="p">)</span><span class="si">}</span><span class="s2">)! &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Specializations unexpectedly required (</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">debug_names</span><span class="p">))</span><span class="si">}</span><span class="s2">)! &quot;</span>
                     <span class="s2">&quot;For more information, run with TORCH_LOGS=</span><span class="se">\&quot;</span><span class="s2">+dynamic</span><span class="se">\&quot;</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
                 <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">forced_specializations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="n">buf</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> must be specialized to </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2"> because the guards generated for it are too complex.</span><span class="se">\n</span><span class="s2">&quot;</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_derived_dim_roots</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">name_to_dim</span><span class="p">)</span>
+
             <span class="n">dims</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">others</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">match</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">if</span> <span class="n">constraint_violation_error</span><span class="p">:</span>
-                <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Constraints violated \((.*)\)&quot;</span><span class="p">,</span> <span class="n">constraint_violation_error</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">debug_names</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">))</span>
 
             <span class="c1"># order results by source name</span>
             <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
@@ -2531,21 +2731,11 @@
                 <span class="p">)</span>
             <span class="p">}</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="c1"># if k not in debug_names:</span>
-                <span class="c1">#     continue</span>
                 <span class="k">if</span> <span class="s2">&quot;eq&quot;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
                     <span class="n">other</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                         <span class="n">others</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
-                        <span class="n">s</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">))</span>
-                        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                            <span class="n">modulus</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">polys</span><span class="o">.</span><span class="n">polytools</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-                            <span class="n">c_min</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-                            <span class="n">min_</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">c_min</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">)</span> <span class="o">/</span> <span class="n">modulus</span><span class="p">)</span>
-                            <span class="n">c_max</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-                            <span class="n">max_</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">c_max</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">)</span> <span class="o">/</span> <span class="n">modulus</span><span class="p">)</span>
-                            <span class="n">dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> = Dim(&#39;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">&#39;, min=</span><span class="si">{</span><span class="n">min_</span><span class="si">}</span><span class="s2">, max=</span><span class="si">{</span><span class="n">max_</span><span class="si">}</span><span class="s2">)  # </span><span class="si">{</span><span class="n">c_min</span><span class="si">}</span><span class="s2"> &lt;= </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2"> &lt;= </span><span class="si">{</span><span class="n">c_max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                         <span class="n">others</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">min_</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -2561,8 +2751,12 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = Dim(&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">)</span>
 
-            <span class="n">buf</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Suggested fixes:</span><span class="se">\n</span><span class="s2">  &quot;</span>
-            <span class="n">buf</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dims</span> <span class="o">+</span> <span class="n">others</span><span class="p">)</span>
+            <span class="c1"># results will get filtered out if no new suggestions,</span>
+            <span class="c1"># this can happen if guards are too complex.</span>
+            <span class="c1"># in that case don&#39;t suggest fix</span>
+            <span class="k">if</span> <span class="n">dims</span> <span class="ow">or</span> <span class="n">others</span><span class="p">:</span>
+                <span class="n">buf</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Suggested fixes:</span><span class="se">\n</span><span class="s2">  &quot;</span>
+                <span class="n">buf</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dims</span> <span class="o">+</span> <span class="n">others</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">buf</span>
 
@@ -4461,7 +4655,7 @@
                     <span class="n">error_msgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                     <span class="n">debug_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">debug_name</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">error_msgs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">debug_names</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">debug_names</span><span class="p">)</span>
+                <span class="n">debug_names</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">debug_names</span><span class="p">))</span>
                 <span class="n">err</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">error_msgs</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="n">ConstraintViolationError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Constraints violated (</span><span class="si">{</span><span class="n">debug_names</span><span class="si">}</span><span class="s2">)! &quot;</span>
