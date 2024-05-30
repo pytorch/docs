@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
     </div>
     
 
@@ -523,7 +523,6 @@
               
   <h1>Source code for torch.nn.modules.conv</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
@@ -537,6 +536,7 @@
 
 <span class="kn">from</span> <span class="nn">..common_types</span> <span class="kn">import</span> <span class="n">_size_1_t</span><span class="p">,</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">_size_3_t</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Conv1d&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv2d&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv3d&#39;</span><span class="p">,</span> <span class="s1">&#39;ConvTranspose1d&#39;</span><span class="p">,</span> <span class="s1">&#39;ConvTranspose2d&#39;</span><span class="p">,</span> <span class="s1">&#39;ConvTranspose3d&#39;</span><span class="p">,</span>
            <span class="s1">&#39;LazyConv1d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyConv2d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyConv3d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyConvTranspose1d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyConvTranspose2d&#39;</span><span class="p">,</span>
@@ -562,9 +562,6 @@
 <span class="s2">        In other words, for an input of size :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, L_</span><span class="si">{in}</span><span class="s2">)`,</span>
 <span class="s2">        a depthwise convolution with a depthwise multiplier `K` can be performed with the arguments</span>
 <span class="s2">        :math:`(C_\text</span><span class="si">{in}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2">, C_\text</span><span class="si">{out}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2"> \times \text</span><span class="si">{K}</span><span class="s2">, ..., \text</span><span class="si">{groups}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2">)`.&quot;&quot;&quot;</span><span class="p">}</span>  <span class="c1"># noqa: B950</span>
-
-
-
 
 
 <span class="k">class</span> <span class="nc">_ConvNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
@@ -1134,7 +1131,6 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conv_forward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
 
 
-
 <span class="k">class</span> <span class="nc">_ConvTransposeNd</span><span class="p">(</span><span class="n">_ConvNd</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span>
                  <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">,</span> <span class="n">transposed</span><span class="p">,</span> <span class="n">output_padding</span><span class="p">,</span>
@@ -1645,10 +1641,13 @@
 <span class="c1"># `_ConvTransposeNd` is really not a mixin anymore (but multiple inheritance as</span>
 <span class="c1"># above would still work).</span>
 <span class="k">class</span> <span class="nc">_ConvTransposeMixin</span><span class="p">(</span><span class="n">_ConvTransposeNd</span><span class="p">):</span>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;`_ConvTransposeMixin` is a deprecated internal class. &quot;</span>
+        <span class="s2">&quot;Please consider using public APIs.&quot;</span><span class="p">,</span>
+        <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;_ConvTransposeMixin is a deprecated internal class. &quot;</span>
-            <span class="s2">&quot;Please consider using public APIs.&quot;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 

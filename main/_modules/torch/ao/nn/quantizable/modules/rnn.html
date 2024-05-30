@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
     </div>
     
 
@@ -646,7 +646,7 @@
         <span class="k">return</span> <span class="n">cell</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_float</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_float</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span>
         <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;qconfig&#39;</span><span class="p">),</span> <span class="s2">&quot;The float module must have &#39;qconfig&#39;&quot;</span>
         <span class="n">observed</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_params</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">weight_ih</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">weight_hh</span><span class="p">,</span>

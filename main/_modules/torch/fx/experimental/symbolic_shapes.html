@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
     </div>
     
 
@@ -1715,6 +1715,19 @@
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbolic_context</span><span class="p">,</span> <span class="n">SymbolicContext</span><span class="p">),</span> <span class="s2">&quot;Invalid symbolic_context object&quot;</span>
     <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">symbolic_context</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">SymbolicContext</span><span class="p">,</span> <span class="s2">&quot;Illegal usage of symbolic_context ABC&quot;</span>
 
+<span class="k">def</span> <span class="nf">_is_supported_equivalence</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+    <span class="c1"># Currently supported Dim ops are linear expressions with integer coefficients.</span>
+    <span class="c1"># So check that expr only contains +, *, ints, and a single occurrence of a symbol.</span>
+    <span class="c1"># (See also documentation of dynamic_shapes._DerivedDim.)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">lhs</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">))</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">rhs</span><span class="p">))</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SymbolicContext"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.SymbolicContext.html#torch.fx.experimental.symbolic_shapes.SymbolicContext">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">SymbolicContext</span><span class="p">:</span>
@@ -2050,7 +2063,14 @@
 <span class="sd">    Solutions are &quot;static&quot; values or simplified &quot;dynamic&quot; constraints.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol_to_source</span><span class="p">,</span> <span class="n">var_to_val</span><span class="p">,</span> <span class="n">marked_dynamic</span><span class="p">,</span> <span class="n">source_name_to_debug_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">symbol_to_source</span><span class="p">,</span>
+        <span class="n">var_to_val</span><span class="p">,</span>
+        <span class="n">marked_dynamic</span><span class="p">,</span>
+        <span class="n">source_name_to_debug_name</span><span class="p">,</span>
+        <span class="n">_allow_complex_guards_as_runtime_asserts</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="c1"># We try to solve systems of inequalities with 1 free variable.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_univariate_inequalities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
         <span class="c1"># Among them, we prioritize solving for a free variable that has equalities.</span>
@@ -2091,6 +2111,9 @@
 
         <span class="c1"># symbols that are marked dynamic</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_marked_dynamic</span> <span class="o">=</span> <span class="n">marked_dynamic</span>
+
+        <span class="c1"># for constraints we can&#39;t express with the dynamic shapes language, defer as runtime asserts in export</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_allow_complex_guards_as_runtime_asserts</span> <span class="o">=</span> <span class="n">_allow_complex_guards_as_runtime_asserts</span>
 
 <div class="viewcode-block" id="DimConstraints.rewrite_with_congruences"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints.rewrite_with_congruences">[docs]</a>    <span class="k">def</span> <span class="nf">rewrite_with_congruences</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2355,7 +2378,7 @@
         <span class="n">symbolic_equivalences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_symbolic_equivalences</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_symbolic_equivalences</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">symbolic_equivalences</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">_disable_forced_specializations</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_disable_forced_specializations</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_force_specialization</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
                     <span class="n">sexpr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dcp</span><span class="o">.</span><span class="n">_print_Symbol</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -2365,19 +2388,6 @@
         <span class="c1"># remaining symbolic equivalences become dynamic equality constraints</span>
         <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_symbolic_equivalences</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dynamic_results</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_dcp</span><span class="o">.</span><span class="n">print_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="si">}</span><span class="s2"> == </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_dcp</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_is_supported_equivalence</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
-        <span class="c1"># Currently supported Dim ops are linear expressions with integer coefficients.</span>
-        <span class="c1"># So check that expr only contains +, *, ints, and a single occurrence of a symbol.</span>
-        <span class="c1"># (See also documentation of dynamic_shapes._DerivedDim.)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">)):</span>
-            <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span>
-            <span class="k">return</span> <span class="p">(</span>
-                <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">lhs</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">))</span> <span class="ow">or</span>
-                <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">rhs</span><span class="p">))</span>
-            <span class="p">)</span>
-        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_is_supported_congruence</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">congruence</span><span class="p">):</span>
@@ -2735,7 +2745,7 @@
                     <span class="n">other</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                         <span class="n">others</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+                    <span class="k">elif</span> <span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
                         <span class="n">others</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">min_</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -2862,7 +2872,8 @@
     <span class="n">assume_static_by_default</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">specialize_zero_one</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">duck_shape</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">prefer_deferred_runtime_asserts_over_guards</span><span class="p">:</span> <span class="nb">bool</span></div>
+    <span class="n">prefer_deferred_runtime_asserts_over_guards</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">_allow_complex_guards_as_runtime_asserts</span><span class="p">:</span> <span class="nb">bool</span></div>
 
 
 <div class="viewcode-block" id="ShapeEnv"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv">[docs]</a><span class="k">class</span> <span class="nc">ShapeEnv</span><span class="p">:</span>
@@ -2956,6 +2967,10 @@
         <span class="c1"># in guards is helpful, since these guards in some sense are overly</span>
         <span class="c1"># pedantic.  See also https://github.com/pytorch/pytorch/issues/121749</span>
         <span class="n">prefer_deferred_runtime_asserts_over_guards</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="c1"># When True, does not emit or raise constraint violation errors on</span>
+        <span class="c1"># implicit guards generated by ops, and defers to runtime assertions</span>
+        <span class="c1"># in the graph instead. For export.</span>
+        <span class="n">_allow_complex_guards_as_runtime_asserts</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="c1"># XXX Add any new settings that could affect FakeTensor evaluation</span>
         <span class="c1"># to: torch._subclasses.fake_tensor._ShapeEnvSettings</span>
     <span class="p">):</span>
@@ -2968,6 +2983,7 @@
             <span class="n">specialize_zero_one</span><span class="o">=</span><span class="n">specialize_zero_one</span><span class="p">,</span>
             <span class="n">duck_shape</span><span class="o">=</span><span class="n">duck_shape</span><span class="p">,</span>
             <span class="n">prefer_deferred_runtime_asserts_over_guards</span><span class="o">=</span><span class="n">prefer_deferred_runtime_asserts_over_guards</span><span class="p">,</span>
+            <span class="n">_allow_complex_guards_as_runtime_asserts</span><span class="o">=</span><span class="n">_allow_complex_guards_as_runtime_asserts</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3152,6 +3168,10 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">prefer_deferred_runtime_asserts_over_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">prefer_deferred_runtime_asserts_over_guards</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_allow_complex_guards_as_runtime_asserts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">_allow_complex_guards_as_runtime_asserts</span>
 
 <div class="viewcode-block" id="ShapeEnv.check_equal"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.check_equal">[docs]</a>    <span class="k">def</span> <span class="nf">check_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;ShapeEnv&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compare another ShapeEnv for equivalence</span>
@@ -4456,6 +4476,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">,</span>
             <span class="nb">set</span><span class="p">(</span><span class="n">symbol_to_constraints</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">source_name_to_debug_name</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_allow_complex_guards_as_runtime_asserts</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">_simplified</span><span class="p">:</span>
@@ -4865,7 +4886,8 @@
     <span class="nd">@_lru_cache</span>
     <span class="k">def</span> <span class="nf">_maybe_evaluate_static</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">unbacked_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">compute_hint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">expect_rational</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">axioms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">expect_rational</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">axioms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">var_to_range</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Optional[sympy.Expr]&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Tries to evaluate expr without introducing guards</span>
@@ -4879,8 +4901,14 @@
 <span class="sd">        hint for the particular hint values of backed SymInts, e.g., if</span>
 <span class="sd">        s0 happens to be 3 this run, compute_hint will subsitute s0 with 3.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1"># axioms with compute hint NYE</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="n">compute_hint</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">axioms</span>
+
+        <span class="k">if</span> <span class="n">var_to_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">var_ranges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">var_ranges</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">var_to_range</span><span class="p">)</span>
 
         <span class="n">expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
@@ -4904,10 +4932,10 @@
         <span class="n">new_range_env</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">symbols</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">SingletonInt</span><span class="p">):</span>
-                <span class="c1"># Skip var_to_range logic for SingletonInt which is only used</span>
+                <span class="c1"># Skip var_ranges logic for SingletonInt which is only used</span>
                 <span class="c1"># for jagged layout NestedTensors today</span>
                 <span class="k">continue</span>
-            <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">vr</span> <span class="o">=</span> <span class="n">var_ranges</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">size_oblivious</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">:</span>
                 <span class="n">lower</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -5142,6 +5170,9 @@
 
         <span class="c1"># Precondition: a == tgt</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_complex_guards_as_runtime_asserts</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_is_supported_equivalence</span><span class="p">(</span><span class="n">tgt</span><span class="p">):</span>
+            <span class="k">return</span>  <span class="c1"># continuing leads to placeholder shapes having complex expressions that we can&#39;t resolve</span>
 
         <span class="c1"># Handles nested tensor symbolic variables which don&#39;t have</span>
         <span class="c1"># var_to_range bounds</span>
@@ -5670,34 +5701,43 @@
                     <span class="c1"># is no longer necessary)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_guard_rel</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 
-                <span class="n">stack</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                <span class="n">guard</span> <span class="o">=</span> <span class="n">ShapeGuard</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">guard</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_complex_guards_as_runtime_asserts</span><span class="p">:</span>
+                    <span class="c1"># at this point, we&#39;ve evaluated the concrete expr value, and have</span>
+                    <span class="c1"># flipped/negated the guard if necessary. Now we know what to guard</span>
+                    <span class="c1"># or defer to runtime assert on.</span>
+                    <span class="n">stack</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">guard</span> <span class="o">=</span> <span class="n">ShapeGuard</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">guard</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># it&#39;s fine to defer simple guards here without checking,</span>
+                    <span class="c1"># the _maybe_guard_rel() call above will set replacements if possible,</span>
+                    <span class="c1"># and so the result here will be statically known</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">defer_runtime_assert</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;evaluate_expr: </span><span class="si">{</span><span class="n">orig_expr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">fresh</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_remove_fx_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
             <span class="k">raise</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress_guards_tls</span><span class="p">():</span>
-                <span class="k">assert</span> <span class="n">guard</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">guard</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># we might have deferred this to runtime assert</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="n">forcing_spec</span><span class="p">)</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="n">forcing_spec</span><span class="p">)</span>
-
-                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">symbol_guard_counter</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="c1"># Forcing_spec to avoid infinite recursion</span>
-                    <span class="k">if</span> <span class="p">(</span>
-                        <span class="ow">not</span> <span class="n">forcing_spec</span> <span class="ow">and</span>
-                        <span class="n">config</span><span class="o">.</span><span class="n">symbol_guard_limit_before_specialize</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">symbol_guard_counter</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">config</span><span class="o">.</span><span class="n">symbol_guard_limit_before_specialize</span>
-                    <span class="p">):</span>
-                        <span class="c1"># Force specialization</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                            <span class="s2">&quot;symbol_guard_limit_before_specialize=</span><span class="si">%s</span><span class="s2"> exceeded on </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                            <span class="n">config</span><span class="o">.</span><span class="n">symbol_guard_limit_before_specialize</span><span class="p">,</span>
-                            <span class="n">s</span>
-                        <span class="p">)</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_expr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">symbol_guard_counter</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="c1"># Forcing_spec to avoid infinite recursion</span>
+                        <span class="k">if</span> <span class="p">(</span>
+                            <span class="ow">not</span> <span class="n">forcing_spec</span> <span class="ow">and</span>
+                            <span class="n">config</span><span class="o">.</span><span class="n">symbol_guard_limit_before_specialize</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">symbol_guard_counter</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">config</span><span class="o">.</span><span class="n">symbol_guard_limit_before_specialize</span>
+                        <span class="p">):</span>
+                            <span class="c1"># Force specialization</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                                <span class="s2">&quot;symbol_guard_limit_before_specialize=</span><span class="si">%s</span><span class="s2"> exceeded on </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="n">config</span><span class="o">.</span><span class="n">symbol_guard_limit_before_specialize</span><span class="p">,</span>
+                                <span class="n">s</span>
+                            <span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_expr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;eval [guard suppressed]&quot;</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="n">forcing_spec</span><span class="p">)</span>
 

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
     </div>
     
 
@@ -537,6 +537,7 @@
 <span class="kn">import</span> <span class="nn">zipfile</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 <span class="kn">from</span> <span class="nn">urllib.error</span> <span class="kn">import</span> <span class="n">HTTPError</span><span class="p">,</span> <span class="n">URLError</span>
 <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span><span class="p">,</span> <span class="n">Request</span>
 <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>  <span class="c1"># noqa: F401</span>
@@ -1204,10 +1205,13 @@
     <span class="k">return</span> <span class="kc">False</span>
 
 
+<span class="nd">@deprecated</span><span class="p">(</span>
+    <span class="s1">&#39;Falling back to the old format &lt; 1.6. This support will be &#39;</span>
+    <span class="s1">&#39;deprecated in favor of default zipfile format introduced in 1.6. &#39;</span>
+    <span class="s1">&#39;Please redo torch.save() to save it in the new zipfile format.&#39;</span><span class="p">,</span>
+    <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="k">def</span> <span class="nf">_legacy_zip_load</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">map_location</span><span class="p">:</span> <span class="n">MAP_LOCATION</span><span class="p">,</span> <span class="n">weights_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Falling back to the old format &lt; 1.6. This support will be &#39;</span>
-                  <span class="s1">&#39;deprecated in favor of default zipfile format introduced in 1.6. &#39;</span>
-                  <span class="s1">&#39;Please redo torch.save() to save it in the new zipfile format.&#39;</span><span class="p">)</span>
     <span class="c1"># Note: extractall() defaults to overwrite file if exists. No need to clean up beforehand.</span>
     <span class="c1">#       We deliberately don&#39;t handle tarfile here since our legacy serialization format was in tar.</span>
     <span class="c1">#       E.g. resnet18-5c106cde.pth which is widely used.</span>

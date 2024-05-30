@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
     </div>
     
 
@@ -761,6 +761,13 @@
     <span class="k">if</span> <span class="n">has_no_children_ignoring_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">)</span> \
        <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">in</span> <span class="n">qconfig_propagation_list</span><span class="p">:</span>
         <span class="n">insert_activation_post_process</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+    <span class="c1"># This is a special case for AdaRound eager mode</span>
+    <span class="c1"># AdaRound contains weight_fake_quant to be propagated from API to convert</span>
+    <span class="c1"># leaf node check with a number of children looks naive assumption that blocks</span>
+    <span class="c1"># Adding an exception case for AdaRound</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;weight_fake_quant&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">)</span> \
+       <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">in</span> <span class="n">qconfig_propagation_list</span><span class="p">:</span>
+        <span class="n">insert_activation_post_process</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_get_unique_devices_</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">()}</span> <span class="o">|</span> \
@@ -1046,7 +1053,8 @@
 
 <div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.convert.html#torch.ao.quantization.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span>
         <span class="n">module</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">remove_qconfig</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">is_reference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">is_reference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts submodules in input module to a different module according to `mapping`</span>
 <span class="sd">    by calling `from_float` method on the target module class. And remove qconfig at the</span>
 <span class="sd">    end if remove_qconfig is set to True.</span>
@@ -1059,6 +1067,7 @@
 <span class="sd">        `inplace`: carry out model transformations in-place, the original module</span>
 <span class="sd">                   is mutated</span>
 <span class="sd">        `convert_custom_config_dict`: custom configuration dictionary for convert function</span>
+<span class="sd">        `use_precomputed_fake_quant`: a flag to enable use of precomputed fake quant</span>
 
 <span class="sd">    .. code-block:: python</span>
 
@@ -1078,14 +1087,16 @@
         <span class="n">module</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
     <span class="n">_convert</span><span class="p">(</span>
         <span class="n">module</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_reference</span><span class="o">=</span><span class="n">is_reference</span><span class="p">,</span>
-        <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="n">convert_custom_config_dict</span><span class="p">)</span>
+        <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="n">convert_custom_config_dict</span><span class="p">,</span>
+        <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">remove_qconfig</span><span class="p">:</span>
         <span class="n">_remove_qconfig</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">module</span></div>
 
 <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span>
         <span class="n">module</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">is_reference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">is_reference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts submodules in input module to a different module according to `mapping`</span>
 <span class="sd">    by calling `from_float` method on the target module class</span>
 
@@ -1097,6 +1108,7 @@
 <span class="sd">        inplace: carry out model transformations in-place, the original module</span>
 <span class="sd">                 is mutated</span>
 <span class="sd">        is_reference: a flag to enable quantized reference module</span>
+<span class="sd">        use_precomputed_fake_quant: a flag to enable use of precomputed fake quant</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1115,15 +1127,16 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">_FusedModule</span><span class="p">)</span> <span class="ow">and</span> \
            <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">custom_module_class_mapping</span><span class="p">:</span>
             <span class="n">_convert</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># inplace</span>
-                     <span class="n">is_reference</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="p">)</span>
-        <span class="n">reassign</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">swap_module</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">)</span>
+                     <span class="n">is_reference</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="p">,</span>
+                     <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
+        <span class="n">reassign</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">swap_module</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">reassign</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">module</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">return</span> <span class="n">module</span>
 
-<div class="viewcode-block" id="swap_module"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.swap_module.html#torch.ao.quantization.swap_module">[docs]</a><span class="k">def</span> <span class="nf">swap_module</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">):</span>
+<div class="viewcode-block" id="swap_module"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.swap_module.html#torch.ao.quantization.swap_module">[docs]</a><span class="k">def</span> <span class="nf">swap_module</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Swaps the module if it has a quantized counterpart and it has an</span>
 <span class="sd">    `observer` attached.</span>
 
@@ -1149,7 +1162,7 @@
                 <span class="n">weight_qparams</span> <span class="o">=</span> <span class="n">get_qparam_dict</span><span class="p">(</span><span class="n">weight_post_process</span><span class="p">)</span>
                 <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">weight_qparams</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+                <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
             <span class="n">swapped</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="n">swapped</span><span class="p">:</span>

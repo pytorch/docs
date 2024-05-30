@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf4cbcff ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
     </div>
     
 
@@ -534,10 +534,10 @@
 
 <span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MetricsConfig&#39;</span><span class="p">,</span> <span class="s1">&#39;MetricHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;ConsoleMetricHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;NullMetricHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;MetricStream&#39;</span><span class="p">,</span>
            <span class="s1">&#39;configure&#39;</span><span class="p">,</span> <span class="s1">&#39;getStream&#39;</span><span class="p">,</span> <span class="s1">&#39;prof&#39;</span><span class="p">,</span> <span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="s1">&#39;put_metric&#39;</span><span class="p">,</span> <span class="s1">&#39;publish_metric&#39;</span><span class="p">,</span> <span class="s1">&#39;get_elapsed_time_ms&#39;</span><span class="p">,</span>
@@ -663,6 +663,7 @@
         <span class="k">return</span> <span class="n">wrap</span></div>
 
 
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Deprecated, use `@prof` instead&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    @profile decorator adds latency and success/failure metrics to any given function.</span>
@@ -674,8 +675,6 @@
 <span class="sd">     @metrics.profile(&quot;my_metric_group&quot;)</span>
 <span class="sd">     def some_function(&lt;arguments&gt;):</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Deprecated, use @prof instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -713,10 +712,11 @@
     <span class="n">getStream</span><span class="p">(</span><span class="n">metric_group</span><span class="p">)</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="n">metric_name</span><span class="p">,</span> <span class="n">metric_value</span><span class="p">)</span></div>
 
 
+<span class="nd">@deprecated</span><span class="p">(</span>
+    <span class="s2">&quot;Deprecated, use `put_metric(metric_group)(metric_name, metric_value)` instead&quot;</span><span class="p">,</span>
+    <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="k">def</span> <span class="nf">publish_metric</span><span class="p">(</span><span class="n">metric_group</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">metric_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-        <span class="s2">&quot;Deprecated, use put_metric(metric_group)(metric_name, metric_value) instead&quot;</span>
-    <span class="p">)</span>
     <span class="n">metric_stream</span> <span class="o">=</span> <span class="n">getStream</span><span class="p">(</span><span class="n">metric_group</span><span class="p">)</span>
     <span class="n">metric_stream</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="n">metric_name</span><span class="p">,</span> <span class="n">metric_value</span><span class="p">)</span>
 
