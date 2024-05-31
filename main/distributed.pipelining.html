@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita2bff4d ) &#x25BC</a>
     </div>
     
 
@@ -329,6 +329,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/ddp.html">Distributed Data Parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
@@ -735,24 +736,29 @@
 <dd><p>pipe_split is a special operator that is used to mark the boundary between
 stages in a module. It is used to split the module into stages. It is a
 no-op if your annotated module is run eagerly.</p>
-<p>Example:
-&gt;&gt;&gt; def forward(self, x):
-&gt;&gt;&gt;     x = torch.mm(x, self.mm_param)
-&gt;&gt;&gt;     x = torch.relu(x)
-&gt;&gt;&gt;     pipe_split()
-&gt;&gt;&gt;     x = self.lin(x)
-&gt;&gt;&gt;     return x</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mm_param</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pipe_split</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
 <p>The above example will be split into two stages.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.ArgsChunkSpec">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">ArgsChunkSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_dims</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#ArgsChunkSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.ArgsChunkSpec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Example:
-&gt;&gt;&gt; # There are three positional arguments to the model, and
-&gt;&gt;&gt; # we are chunking them along dimension 0, 0 and 1, respectively
-&gt;&gt;&gt; with ArgsChunkSpec((0, 0, 1)):
-&gt;&gt;&gt;     pipe = pipeline(model, num_chunks, example_args)</p>
+<dd><p>Context manager for setting <cite>args_chunk_spec</cite> during creation of Pipe</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># There are three positional arguments to the model, and</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># we are chunking them along dimension 0, 0 and 1, respectively</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">ArgsChunkSpec</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -760,10 +766,13 @@ no-op if your annotated module is run eagerly.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.KwargsChunkSpec">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">KwargsChunkSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_dims</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#KwargsChunkSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.KwargsChunkSpec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Example:
-&gt;&gt;&gt; # Chunk dimension 0 for the “id” argument, 1 for the “mask” argument
-&gt;&gt;&gt; with KwargsChunkSpec({“id”: 0, “mask”: 1}):
-&gt;&gt;&gt;     pipe = pipeline(model, num_chunks, (), example_kwargs)</p>
+<dd><p>Context manager for setting <cite>kwargs_chunk_spec</cite> during creation of Pipe</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Chunk dimension 0 for the &quot;id&quot; argument, 1 for the &quot;mask&quot; argument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">KwargsChunkSpec</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;mask&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="p">(),</span> <span class="n">example_kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -841,24 +850,20 @@ the chunk spec.</p>
 This class is created manually by providing a example input (and optionally output)
 as opposed to the PipelineStage class that is outputed from pipeline().
 This class extends the <cite>_PipelineStageBase</cite> class and can similarly be used
-in <cite>PipelineScheule</cite>.
-:param submodule: The PyTorch module wrapped by this stage.
-:type submodule: nn.Module
-:param stage_index: The ID of this stage.
-:type stage_index: int
-:param num_stages: The total number of stages.
-:type num_stages: int
-:param device: The device where this stage is located.
-:type device: torch.device
-:param num_microbatches: The number of microbatches to use.
-:type num_microbatches: int
-:param input_args: The input arguments for the submodule.
-:type input_args: Union[torch.Tensor, List[torch.tensor]], optional
-:param output_args: The output arguments for the submodule.
-:type output_args: Union[torch.Tensor, List[torch.tensor]], optional
-:param group: The process group for distributed training. If None, default group.
-:type group: dist.ProcessGroup, optional</p>
+in <cite>PipelineScheule</cite>.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>submodule</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>nn.Module</em></a>) – The PyTorch module wrapped by this stage.</p></li>
+<li><p><strong>stage_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The ID of this stage.</p></li>
+<li><p><strong>num_stages</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The total number of stages.</p></li>
+<li><p><strong>device</strong> (<a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device where this stage is located.</p></li>
+<li><p><strong>num_microbatches</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of microbatches to use.</p></li>
+<li><p><strong>input_args</strong> (<em>Union</em><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em>, </em><em>List</em><em>[</em><em>torch.tensor</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The input arguments for the submodule.</p></li>
+<li><p><strong>output_args</strong> (<em>Union</em><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em>, </em><em>List</em><em>[</em><em>torch.tensor</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The output arguments for the submodule.</p></li>
+<li><p><strong>group</strong> (<em>dist.ProcessGroup</em><em>, </em><em>optional</em>) – The process group for distributed training. If None, default group.</p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 

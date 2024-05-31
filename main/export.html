@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita2bff4d ) &#x25BC</a>
     </div>
     
 
@@ -329,6 +329,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/ddp.html">Distributed Data Parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
@@ -1078,19 +1079,14 @@ number of paths. In such cases, users will need to rewrite their code using
 special control flow operators. Currently, we support <a class="reference internal" href="cond.html#cond"><span class="std std-ref">torch.cond</span></a>
 to express if-else like control flow (more coming soon!).</p>
 </div>
-<div class="section" id="missing-meta-kernels-for-operators">
-<h3>Missing Meta Kernels for Operators<a class="headerlink" href="#missing-meta-kernels-for-operators" title="Permalink to this heading">¶</a></h3>
-<p>When tracing, a META implementation (or “meta kernel”) is required for all
-operators. This is used to reason about the input/output shapes for this
-operator.</p>
-<p>To register a meta kernel for a C++ Custom Operator, please refer to
-<a class="reference external" href="https://docs.google.com/document/d/1_W62p8WJOQQUzPsJYa7s701JXt0qf2OfLub2sbkHOaU/edit#heading=h.ahugy69p2jmz">this documentation</a>.</p>
-<p>The official API for registering custom meta kernels for custom ops implemented
-in python is currently undergoing development. While the final API is being
-refined, you can refer to the documentation
-<a class="reference external" href="https://docs.google.com/document/d/1GgvOe7C8_NVOMLOCwDaYV1mXXyHMXY7ExoewHqooxrs/edit#heading=h.64r4npvq0w0">here</a>.</p>
+<div class="section" id="missing-fake-meta-abstract-kernels-for-operators">
+<h3>Missing Fake/Meta/Abstract Kernels for Operators<a class="headerlink" href="#missing-fake-meta-abstract-kernels-for-operators" title="Permalink to this heading">¶</a></h3>
+<p>When tracing, a FakeTensor kernel (aka meta kernel, abstract impl) is
+required for all operators. This is used to reason about the input/output shapes
+for this operator.</p>
+<p>Please see <a class="reference internal" href="library.html#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a> for more details.</p>
 <p>In the unfortunate case where your model uses an ATen operator that is does not
-have a meta kernel implementation yet, please file an issue.</p>
+have a FakeTensor kernel implementation yet, please file an issue.</p>
 </div>
 </div>
 <div class="section" id="read-more">
@@ -1930,7 +1926,7 @@ if (url)
 <li><a class="reference internal" href="#limitations-of-torch-export">Limitations of torch.export</a><ul>
 <li><a class="reference internal" href="#graph-breaks">Graph Breaks</a></li>
 <li><a class="reference internal" href="#data-shape-dependent-control-flow">Data/Shape-Dependent Control Flow</a></li>
-<li><a class="reference internal" href="#missing-meta-kernels-for-operators">Missing Meta Kernels for Operators</a></li>
+<li><a class="reference internal" href="#missing-fake-meta-abstract-kernels-for-operators">Missing Fake/Meta/Abstract Kernels for Operators</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#read-more">Read More</a><ul>

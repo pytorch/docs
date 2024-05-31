@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd66f126 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita2bff4d ) &#x25BC</a>
     </div>
     
 
@@ -329,6 +329,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/ddp.html">Distributed Data Parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
@@ -523,13 +524,14 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <div class="section" id="module-torch.library">
-<span id="torch-library"></span><h1>torch.library<a class="headerlink" href="#module-torch.library" title="Permalink to this heading">¶</a></h1>
+<span id="torch-library"></span><span id="torch-library-docs"></span><h1>torch.library<a class="headerlink" href="#module-torch.library" title="Permalink to this heading">¶</a></h1>
 <p>torch.library is a collection of APIs for extending PyTorch’s core library
 of operators. It contains utilities for testing custom operators, creating new
 custom operators, and extending operators defined with PyTorch’s C++ operator
 registration APIs (e.g. aten operators).</p>
 <p>For a detailed guide on effectively using these APIs, please see
-<a class="reference external" href="https://docs.google.com/document/d/1W--T6wz8IY8fOI0Vm8BF44PdBgs283QvpelJZWieQWQ/edit">this gdoc</a></p>
+Please see <a class="reference internal" href="notes/custom_operators.html#custom-ops-landing-page"><span class="std std-ref">PyTorch Custom Operators Landing Page</span></a>
+for more details on how to effectively use these APIs.</p>
 <div class="section" id="testing-custom-ops">
 <h2>Testing custom ops<a class="headerlink" href="#testing-custom-ops" title="Permalink to this heading">¶</a></h2>
 <p>Use <a class="reference internal" href="#torch.library.opcheck" title="torch.library.opcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.opcheck()</span></code></a> to test custom ops for incorrect usage of the
@@ -865,7 +867,7 @@ The FakeTensor implementation must consist of only PyTorch operations
 intermediate Tensors).</p>
 <p>This API may be used as a decorator (see examples).</p>
 <p>For a detailed guide on custom ops, please see
-<a class="reference external" href="https://docs.google.com/document/d/1W--T6wz8IY8fOI0Vm8BF44PdBgs283QvpelJZWieQWQ/edit">https://docs.google.com/document/d/1W–T6wz8IY8fOI0Vm8BF44PdBgs283QvpelJZWieQWQ/edit</a></p>
+<a class="reference external" href="https://pytorch.org/docs/main/notes/custom_operators.html">https://pytorch.org/docs/main/notes/custom_operators.html</a></p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
