@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita2bff4d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitff8042b ) &#x25BC</a>
     </div>
     
 
@@ -528,7 +528,7 @@
 <span></span><span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-
+<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.ao.nn.quantized</span> <span class="k">as</span> <span class="nn">nnq</span>
@@ -1163,7 +1163,11 @@
                 <span class="n">weight_qparams</span> <span class="o">=</span> <span class="n">get_qparam_dict</span><span class="p">(</span><span class="n">weight_post_process</span><span class="p">)</span>
                 <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">weight_qparams</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
+                <span class="n">sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;use_precomputed_fake_quant&#39;</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                    <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
             <span class="n">swapped</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="n">swapped</span><span class="p">:</span>

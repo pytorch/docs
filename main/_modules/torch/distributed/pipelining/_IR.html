@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita2bff4d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitff8042b ) &#x25BC</a>
     </div>
     
 
@@ -529,16 +529,22 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">Signature</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MethodType</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx</span> <span class="k">as</span> <span class="nn">fx</span>
 <span class="kn">from</span> <span class="nn">torch.export</span> <span class="kn">import</span> <span class="n">ExportedProgram</span>
-<span class="kn">from</span> <span class="nn">torch.export.unflatten</span> <span class="kn">import</span> <span class="n">_assign_attr</span><span class="p">,</span> <span class="n">_AttrKind</span><span class="p">,</span> <span class="n">_sink_params</span>
+<span class="kn">from</span> <span class="nn">torch.export.unflatten</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_assign_attr</span><span class="p">,</span>
+    <span class="n">_AttrKind</span><span class="p">,</span>
+    <span class="n">_sink_params</span><span class="p">,</span>
+    <span class="n">InterpreterModule</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.fx.node</span> <span class="kn">import</span> <span class="n">map_aggregate</span>
 <span class="kn">from</span> <span class="nn">torch.fx.passes.split_module</span> <span class="kn">import</span> <span class="n">split_module</span>
 
@@ -1278,6 +1284,18 @@
         <span class="c1"># To be accumulated in `move_param_to_callee`.</span>
         <span class="n">to_delete</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
+        <span class="k">def</span> <span class="nf">_recursive_getattr_with_parent</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">fqn</span><span class="p">):</span>
+            <span class="c1"># Returns getattr call given a nested FQN, and the last parent</span>
+            <span class="n">atoms</span> <span class="o">=</span> <span class="n">fqn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">atom</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="n">mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">atom</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="n">mod</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">mod</span><span class="p">,</span> <span class="n">attr</span>
+
         <span class="k">def</span> <span class="nf">move_param_to_callee</span><span class="p">(</span>
             <span class="n">root</span><span class="p">,</span>
             <span class="n">callee_name</span><span class="p">,</span>
@@ -1293,12 +1311,7 @@
             <span class="c1"># `atoms` is a list of strings representing the path to the</span>
             <span class="c1"># parameter in the original model</span>
             <span class="n">atoms</span> <span class="o">=</span> <span class="n">param_fqn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
-            <span class="c1"># Recursively find the parent of the parameter</span>
-            <span class="n">mod_itr</span> <span class="o">=</span> <span class="n">split</span>
-            <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="n">mod_itr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod_itr</span><span class="p">,</span> <span class="n">atom</span><span class="p">)</span>
-            <span class="c1"># Get the parameter (it is still under the root module)</span>
-            <span class="n">param_val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod_itr</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">mod_itr</span><span class="p">,</span> <span class="n">param_val</span> <span class="o">=</span> <span class="n">_recursive_getattr_with_parent</span><span class="p">(</span><span class="n">split</span><span class="p">,</span> <span class="n">param_fqn</span><span class="p">)</span>
             <span class="c1"># Check whether the parameter is a buffer or a parameter</span>
             <span class="n">is_buffer</span> <span class="o">=</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">mod_itr</span><span class="o">.</span><span class="n">_buffers</span>
 
@@ -1364,6 +1377,37 @@
                     <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
                 <span class="p">)</span>
 
+        <span class="c1"># [aliasing] store tensor id -&gt; list of FQNs, built from state dict</span>
+        <span class="c1"># Also assign non-persistent buffers</span>
+        <span class="n">id_to_fqns</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(</span><span class="n">keep_vars</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">id_to_fqns</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">)]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">named_buffers</span><span class="p">():</span>
+            <span class="n">id_to_fqns</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">)]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
+
+        <span class="c1"># After moving the params to their corresponding hierarchies, we also</span>
+        <span class="c1"># need to move the `get_attr` nodes from the root of the graph to those</span>
+        <span class="c1"># hierarchies.</span>
+        <span class="c1"># [aliasing] use id -&gt; fqn mapping to list out all valid FQNs</span>
+        <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attr_nodes</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">tensor</span> <span class="o">=</span> <span class="n">_recursive_getattr_with_parent</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">attr</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+            <span class="n">inputs_to_state</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">id_to_fqns</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">)])</span>
+
+        <span class="c1"># [aliasing] for each submodule split, assign attributes on FQNs that may be used.</span>
+        <span class="c1"># We determine this based on whether or not the FQN attribute parent exists.</span>
+        <span class="c1"># i.e. if the last submodule exists, assign the attribute.</span>
+        <span class="n">added_attributes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(</span><span class="n">keep_vars</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submod</span> <span class="ow">in</span> <span class="n">split</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">):</span>
+                    <span class="n">parent</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="n">_recursive_getattr_with_parent</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">fqn</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">parent</span> <span class="ow">and</span> <span class="n">child</span> <span class="ow">is</span> <span class="kc">None</span>
+                    <span class="p">):</span>  <span class="c1"># parent exists, attribute doesn&#39;t -&gt; assign</span>
+                        <span class="n">added_attributes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
+                        <span class="nb">setattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">fqn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">tensor</span><span class="p">)</span>
+
         <span class="c1"># Deferral deletion: Remove the original attributes (to params) from the</span>
         <span class="c1"># root GraphModule</span>
         <span class="k">for</span> <span class="n">mod_itr</span><span class="p">,</span> <span class="n">last_atom</span> <span class="ow">in</span> <span class="n">to_delete</span><span class="p">:</span>
@@ -1373,18 +1417,38 @@
                 <span class="c1"># This is expected if the parameter is used in multiple stages</span>
                 <span class="k">pass</span>
 
-        <span class="c1"># After moving the params to their corresponding hierarchies, we also</span>
-        <span class="c1"># need to move the `get_attr` nodes from the root of the graph to those</span>
-        <span class="c1"># hierarchies.</span>
-        <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">target</span><span class="p">]</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attr_nodes</span>
-        <span class="p">}</span>
         <span class="c1"># This is done by (1) `_sink_params` at each submodule;</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submod</span> <span class="ow">in</span> <span class="n">split</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">):</span>
                 <span class="n">_sink_params</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">inputs_to_state</span><span class="p">,</span> <span class="p">[])</span>
                 <span class="n">submod</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">lint</span><span class="p">()</span>
                 <span class="n">submod</span><span class="o">.</span><span class="n">recompile</span><span class="p">()</span>
+
+        <span class="c1"># [aliasing] This step is not super necessary, but helps reduce parameter usage/memory.</span>
+        <span class="c1"># After _sink_params() routine has run, clean up unused attributes that we previously added.</span>
+        <span class="c1"># Determine this based on the get_attr nodes - if not used, remove it.</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">attributes</span> <span class="ow">in</span> <span class="n">added_attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">submod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">split</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">unused_attributes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
+            <span class="c1"># track used attributes in the submodule, running DFS on subgraph hierarchy</span>
+            <span class="n">stack</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">submod</span><span class="p">)]</span>  <span class="c1"># (scope, submodule)</span>
+            <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+                <span class="n">scope</span><span class="p">,</span> <span class="n">_mod</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_mod</span><span class="p">,</span> <span class="p">(</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="n">InterpreterModule</span><span class="p">)):</span>
+                    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">_mod</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;get_attr&quot;</span><span class="p">:</span>
+                            <span class="c1"># get_attr might get access deeper level attribute</span>
+                            <span class="n">fqn</span> <span class="o">=</span> <span class="n">scope</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="k">if</span> <span class="n">scope</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span>
+                            <span class="k">if</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">unused_attributes</span><span class="p">:</span>  <span class="c1"># used, remove it</span>
+                                <span class="n">unused_attributes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">_name</span><span class="p">,</span> <span class="n">_submod</span> <span class="ow">in</span> <span class="n">_mod</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
+                    <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">scope</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">_name</span> <span class="k">if</span> <span class="n">scope</span> <span class="k">else</span> <span class="n">_name</span><span class="p">,</span> <span class="n">_submod</span><span class="p">))</span>
+            <span class="c1"># delete unused attributes</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">unused_attributes</span><span class="p">:</span>
+                <span class="n">mod_itr</span><span class="p">,</span> <span class="n">atoms</span> <span class="o">=</span> <span class="n">submod</span><span class="p">,</span> <span class="n">attr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">mod_itr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod_itr</span><span class="p">,</span> <span class="n">atom</span><span class="p">)</span>
+                <span class="nb">delattr</span><span class="p">(</span><span class="n">mod_itr</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">attr_nodes</span><span class="p">:</span>
             <span class="c1"># And (2): remove `get_attr` node from submod&#39;s arg list</span>

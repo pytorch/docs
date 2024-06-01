@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gita2bff4d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitff8042b ) &#x25BC</a>
     </div>
     
 
@@ -530,7 +530,6 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.testing</span>
@@ -834,14 +833,6 @@
     <span class="k">return</span> <span class="n">jacobians</span>
 
 
-<span class="nd">@deprecated</span><span class="p">(</span>
-    <span class="s2">&quot;`get_numerical_jacobian` was part of PyTorch&#39;s private API and not &quot;</span>
-    <span class="s2">&quot;meant to be exposed. We are deprecating it and it will be removed &quot;</span>
-    <span class="s2">&quot;in a future version of PyTorch. If you have a specific use for &quot;</span>
-    <span class="s2">&quot;this or feature request for this to be a stable API, please file &quot;</span>
-    <span class="s2">&quot;us an issue at https://github.com/pytorch/pytorch/issues/new&quot;</span><span class="p">,</span>
-    <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_numerical_jacobian</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">grad_out</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the numerical Jacobian for a given fn and its inputs.</span>
 
@@ -861,6 +852,13 @@
 <span class="sd">    Note that `target` may not even be part of `input` to `fn`, so please be</span>
 <span class="sd">    **very careful** in this to not clone `target`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+        <span class="s2">&quot;get_numerical_jacobian was part of PyTorch&#39;s private API and not &quot;</span>
+        <span class="s2">&quot;meant to be exposed. We are deprecating it and it will be removed &quot;</span>
+        <span class="s2">&quot;in a future version of PyTorch. If you have a specific use for &quot;</span>
+        <span class="s2">&quot;this or feature request for this to be a stable API, please file &quot;</span>
+        <span class="s2">&quot;us an issue at https://github.com/pytorch/pytorch/issues/new&quot;</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="n">grad_out</span> <span class="o">!=</span> <span class="mf">1.0</span>
     <span class="p">):</span>  <span class="c1"># grad_out param is only kept for backward compatibility reasons</span>
@@ -1347,17 +1345,16 @@
     <span class="k">return</span> <span class="n">reduced_jacobians</span>
 
 
-<span class="nd">@deprecated</span><span class="p">(</span>
-    <span class="s2">&quot;`get_analytical_jacobian` was part of PyTorch&#39;s private API and not &quot;</span>
-    <span class="s2">&quot;meant to be exposed. We are deprecating it and it will be removed &quot;</span>
-    <span class="s2">&quot;in a future version of PyTorch. If you have a specific use for &quot;</span>
-    <span class="s2">&quot;this or feature request for this to be a stable API, please file &quot;</span>
-    <span class="s2">&quot;us an issue at https://github.com/pytorch/pytorch/issues/new&quot;</span><span class="p">,</span>
-    <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_analytical_jacobian</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">nondet_tol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">grad_out</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="c1"># Replicates the behavior of the old get_analytical_jacobian before the refactor</span>
     <span class="c1"># This shares much of its code with _check_analytical_jacobian_attributes</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+        <span class="s2">&quot;get_analytical_jacobian was part of PyTorch&#39;s private API and not &quot;</span>
+        <span class="s2">&quot;meant to be exposed. We are deprecating it and it will be removed &quot;</span>
+        <span class="s2">&quot;in a future version of PyTorch. If you have a specific use for &quot;</span>
+        <span class="s2">&quot;this or feature request for this to be a stable API, please file &quot;</span>
+        <span class="s2">&quot;us an issue at https://github.com/pytorch/pytorch/issues/new&quot;</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="n">grad_out</span> <span class="o">!=</span> <span class="mf">1.0</span>
     <span class="p">):</span>  <span class="c1"># grad_out param is only kept for backward compatibility reasons</span>
