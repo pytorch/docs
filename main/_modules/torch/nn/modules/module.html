@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git2e77916 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitfec8ef8 ) &#x25BC</a>
     </div>
     
 
@@ -873,7 +873,7 @@
 <span class="sd">        instead of this since the former takes care of running the</span>
 <span class="sd">        registered hooks while the latter silently ignores them.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Module [</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">] is missing the required </span><span class="se">\&quot;</span><span class="s2">forward</span><span class="se">\&quot;</span><span class="s2"> function&quot;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Module [</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">] is missing the required &quot;forward&quot; function&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Module"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module">[docs]</a><span class="k">class</span> <span class="nc">Module</span><span class="p">:</span>
@@ -1860,20 +1860,28 @@
     <span class="k">def</span> <span class="nf">_maybe_warn_non_full_backward_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">grad_fn</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)):</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Using non-full backward hooks on a Module that does not return a &quot;</span>
-                              <span class="s2">&quot;single Tensor or a tuple of Tensors is deprecated and will be removed &quot;</span>
-                              <span class="s2">&quot;in future versions. This hook will be missing some of the grad_output. &quot;</span>
-                              <span class="s2">&quot;Please use register_full_backward_hook to get the documented behavior.&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;Using non-full backward hooks on a Module that does not return a &quot;</span>
+                    <span class="s2">&quot;single Tensor or a tuple of Tensors is deprecated and will be removed &quot;</span>
+                    <span class="s2">&quot;in future versions. This hook will be missing some of the grad_output. &quot;</span>
+                    <span class="s2">&quot;Please use register_full_backward_hook to get the documented behavior.&quot;</span><span class="p">,</span>
+                    <span class="ne">FutureWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span><span class="p">,)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">)):</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Using non-full backward hooks on a Module that does not take as input a &quot;</span>
-                              <span class="s2">&quot;single Tensor or a tuple of Tensors is deprecated and will be removed &quot;</span>
-                              <span class="s2">&quot;in future versions. This hook will be missing some of the grad_input. &quot;</span>
-                              <span class="s2">&quot;Please use register_full_backward_hook to get the documented behavior.&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;Using non-full backward hooks on a Module that does not take as input a &quot;</span>
+                    <span class="s2">&quot;single Tensor or a tuple of Tensors is deprecated and will be removed &quot;</span>
+                    <span class="s2">&quot;in future versions. This hook will be missing some of the grad_input. &quot;</span>
+                    <span class="s2">&quot;Please use register_full_backward_hook to get the documented behavior.&quot;</span><span class="p">,</span>
+                    <span class="ne">FutureWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">inputs</span><span class="p">,)</span>
@@ -1881,13 +1889,21 @@
         <span class="c1"># At this point we are sure that inputs and result are tuple of Tensors</span>
         <span class="n">out_grad_fn</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="o">.</span><span class="n">grad_fn</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">result</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">grad_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_grad_fn</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_grad_fn</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">grad_fn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">out_grad_fn</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Using a non-full backward hook when outputs are nested in python data structure &quot;</span>
-                          <span class="s2">&quot;is deprecated and will be removed in future versions. This hook will be missing &quot;</span>
-                          <span class="s2">&quot;some grad_output.&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Using a non-full backward hook when outputs are nested in python data structure &quot;</span>
+                <span class="s2">&quot;is deprecated and will be removed in future versions. This hook will be missing &quot;</span>
+                <span class="s2">&quot;some grad_output.&quot;</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_grad_fn</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Using a non-full backward hook when outputs are generated by different autograd Nodes &quot;</span>
-                          <span class="s2">&quot;is deprecated and will be removed in future versions. This hook will be missing &quot;</span>
-                          <span class="s2">&quot;some grad_output. Please use register_full_backward_hook to get the documented behavior.&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Using a non-full backward hook when outputs are generated by different autograd Nodes &quot;</span>
+                <span class="s2">&quot;is deprecated and will be removed in future versions. This hook will be missing &quot;</span>
+                <span class="s2">&quot;some grad_output. Please use register_full_backward_hook to get the documented behavior.&quot;</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># At this point the grad_output part of the hook will most likely be correct</span>
             <span class="n">inputs_grad_fn</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">grad_fn</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inputs</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">grad_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
@@ -1895,10 +1911,14 @@
             <span class="n">next_functions</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">grad_fn</span><span class="o">.</span><span class="n">next_functions</span><span class="p">}</span>
 
             <span class="k">if</span> <span class="n">inputs_grad_fn</span> <span class="o">!=</span> <span class="n">next_functions</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Using a non-full backward hook when the forward contains multiple autograd Nodes &quot;</span>
-                              <span class="s2">&quot;is deprecated and will be removed in future versions. This hook will be missing &quot;</span>
-                              <span class="s2">&quot;some grad_input. Please use register_full_backward_hook to get the documented &quot;</span>
-                              <span class="s2">&quot;behavior.&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;Using a non-full backward hook when the forward contains multiple autograd Nodes &quot;</span>
+                    <span class="s2">&quot;is deprecated and will be removed in future versions. This hook will be missing &quot;</span>
+                    <span class="s2">&quot;some grad_input. Please use register_full_backward_hook to get the documented &quot;</span>
+                    <span class="s2">&quot;behavior.&quot;</span><span class="p">,</span>
+                    <span class="ne">FutureWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
 
 <div class="viewcode-block" id="Module.register_forward_pre_hook"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.register_forward_pre_hook">[docs]</a>    <span class="k">def</span> <span class="nf">register_forward_pre_hook</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -2412,17 +2432,20 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Remove `args` and the parsing logic when BC allows.</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># DeprecationWarning is ignored by default</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Positional args are being deprecated, use kwargs instead. Refer to &quot;</span>
+                <span class="s2">&quot;https://pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.state_dict&quot;</span>
+                <span class="s2">&quot; for details.&quot;</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="n">destination</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">destination</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
                 <span class="n">prefix</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">keep_vars</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
                 <span class="n">keep_vars</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-            <span class="c1"># DeprecationWarning is ignored by default</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s2">&quot;Positional args are being deprecated, use kwargs instead. Refer to &quot;</span>
-                <span class="s2">&quot;https://pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.state_dict&quot;</span>
-                <span class="s2">&quot; for details.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">destination</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">destination</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
