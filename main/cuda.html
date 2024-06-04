@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitfec8ef8 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitb42cfca ) &#x25BC</a>
     </div>
     
 
@@ -821,6 +821,20 @@ GPUs for computation.</p>
 </tbody>
 </table>
 </div>
+<div class="section" id="tunableop">
+<h2>TunableOp<a class="headerlink" href="#tunableop" title="Permalink to this heading">¶</a></h2>
+<p>Some operations could be implemented using more than one library or more than
+one technique. For example, a GEMM could be implemented for CUDA or ROCm using
+either the cublas/cublasLt libraries or hipblas/hipblasLt libraries,
+respectively. How does one know which implementation is the fastest and should
+be chosen? That’s what TunableOp provides. Certain operators have been
+implemented using multiple strategies as Tunable Operators. At runtime, all
+strategies are profiled and the fastest is selected for all subsequent
+operations.</p>
+<p>See the <a class="reference internal" href="cuda.tunable.html"><span class="doc">documentation</span></a> for information on how to use it.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
 <div class="section" id="stream-sanitizer-prototype">
 <h2>Stream Sanitizer (prototype)<a class="headerlink" href="#stream-sanitizer-prototype" title="Permalink to this heading">¶</a></h2>
 <p>CUDA Sanitizer is a prototype tool for detecting synchronization errors between streams in PyTorch.
@@ -892,6 +906,7 @@ if (url)
 <li><a class="reference internal" href="#memory-management">Memory management</a></li>
 <li><a class="reference internal" href="#nvidia-tools-extension-nvtx">NVIDIA Tools Extension (NVTX)</a></li>
 <li><a class="reference internal" href="#jiterator-beta">Jiterator (beta)</a></li>
+<li><a class="reference internal" href="#tunableop">TunableOp</a></li>
 <li><a class="reference internal" href="#stream-sanitizer-prototype">Stream Sanitizer (prototype)</a></li>
 </ul>
 </li>

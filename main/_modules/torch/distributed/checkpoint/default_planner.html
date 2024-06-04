@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitfec8ef8 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitb42cfca ) &#x25BC</a>
     </div>
     
 
@@ -594,11 +594,12 @@
         <span class="n">flatten_state_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">flatten_sharded_tensors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dedup_replicated_tensors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dedup_save_to_lowest_rank</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flatten_state_dict</span> <span class="o">=</span> <span class="n">flatten_state_dict</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flatten_sharded_tensors</span> <span class="o">=</span> <span class="n">flatten_sharded_tensors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span> <span class="o">=</span> <span class="p">{}</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">dedup_save_to_lowest_rank</span> <span class="o">=</span> <span class="n">dedup_save_to_lowest_rank</span>
         <span class="k">if</span> <span class="n">dedup_replicated_tensors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                 <span class="s2">&quot;DefaultSavePlanner&#39;s `dedup_replicated_tensors` argument is being &quot;</span>
@@ -630,7 +631,7 @@
     <span class="k">def</span> <span class="nf">create_global_plan</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">all_plans</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">],</span> <span class="n">Metadata</span><span class="p">]:</span>
-        <span class="n">all_plans</span> <span class="o">=</span> <span class="n">dedup_save_plans</span><span class="p">(</span><span class="n">all_plans</span><span class="p">)</span>
+        <span class="n">all_plans</span> <span class="o">=</span> <span class="n">dedup_save_plans</span><span class="p">(</span><span class="n">all_plans</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dedup_save_to_lowest_rank</span><span class="p">)</span>
 
         <span class="n">global_plan</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">create_default_global_save_plan</span><span class="p">(</span><span class="n">all_plans</span><span class="p">)</span>
 
