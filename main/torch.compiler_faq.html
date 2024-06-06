@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git7fdfb88 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git8bcebc8 ) &#x25BC</a>
     </div>
     
 
@@ -560,7 +560,7 @@ backwards may be delayed until after the entire compiled region of
 backwards ops, due to how AOTAutograd compiled functions interact with
 dispatcher hooks.</p>
 <p>The basic strategy for optimizing DDP with Dynamo is outlined in
-<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/_dynamo/optimizations/distributed.py">distributed.py</a>
+<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/_dynamo/backends/distributed.py">distributed.py</a>
 where the main idea will be to graph break on <a class="reference external" href="https://pytorch.org/docs/stable/notes/ddp.html#internal-design">DDP bucket
 boundaries</a>.</p>
 <p>When each node in DDP needs to synchronize its weights with the other
@@ -695,7 +695,7 @@ memory we can design an appropriate schedule</p></li>
 different backends will each make different tradeoffs on what to
 optimize. For example Inductor first takes care of fusing whatever it
 can and only then generates <a class="reference external" href="https://openai.com/blog/triton/">Triton</a>
-kernels. It can also</p>
+kernels.</p>
 <p>Triton in addition offers speedups because of automatic memory
 coalescing, memory management and scheduling within each Streaming
 Multiprocessor and has been designed to handle tiled computations.</p>

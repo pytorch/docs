@@ -396,7 +396,7 @@ Result:
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
-    Range constraints: {s0: ValueRanges(lower=0, upper=9223372036854775806, is_bool=False, is_int=True, is_float=False)}
+    Range constraints: {s0: ValueRanges(lower=0, upper=9223372036854775806, is_bool=False)}
     
 
 

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git7fdfb88 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git8bcebc8 ) &#x25BC</a>
     </div>
     
 
@@ -528,6 +528,7 @@
 <span></span><span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">gc</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
@@ -650,7 +651,7 @@
 <span class="sd">      won&#39;t contain any frozen parameters -- the ``requires_grad`` is False.</span>
 <span class="sd">      The default value is False.</span>
 
-<span class="sd">    - ``keep_submodule_prefixes``: when ``submodules`` is not None, this option</span>
+<span class="sd">    - ``keep_submodule_prefixes`` (deprecated): when ``submodules`` is not None, this option</span>
 <span class="sd">      indicates whether to keep the submodule prefixes from the state_dict keys.</span>
 <span class="sd">      or example, if the submodule is ``module.pretrain`` and the full FQN of</span>
 <span class="sd">      the parameter is ``pretrain.layer1.weight`` of the param. When this option</span>
@@ -802,6 +803,13 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Verify the model and options passed by the user and generates _StateDictInfo.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">submodules</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Getting submodules only model/optim state_dict is deprecated and &quot;</span>
+            <span class="s2">&quot;will be removed in 2.5. This feature can be achieved by manually &quot;</span>
+            <span class="s2">&quot;filtering out the state_dict returned from get_state_dict.&quot;</span><span class="p">,</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+        <span class="p">)</span>
     <span class="k">if</span> <span class="n">optim_only</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">optims</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="s2">&quot;Optimizers are not passed in but optim_only is set to True.&quot;</span>
@@ -860,8 +868,24 @@
             <span class="p">)</span>
             <span class="n">state_dict_type</span> <span class="o">=</span> <span class="n">StateDictType</span><span class="o">.</span><span class="n">SHARDED_STATE_DICT</span>
 
+        <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+        <span class="k">def</span> <span class="nf">fsdp_state_dict_type_without_warning</span><span class="p">(</span>
+            <span class="n">module</span><span class="p">,</span>
+            <span class="n">state_dict_type</span><span class="p">,</span>
+            <span class="n">state_dict_config</span><span class="p">,</span>
+            <span class="n">optim_state_dict_config</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+                <span class="k">with</span> <span class="n">FSDP</span><span class="o">.</span><span class="n">state_dict_type</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+                    <span class="n">state_dict_type</span><span class="o">=</span><span class="n">state_dict_type</span><span class="p">,</span>
+                    <span class="n">state_dict_config</span><span class="o">=</span><span class="n">state_dict_config</span><span class="p">,</span>
+                    <span class="n">optim_state_dict_config</span><span class="o">=</span><span class="n">optim_state_dict_config</span><span class="p">,</span>
+                <span class="p">):</span>
+                    <span class="k">yield</span>
+
         <span class="n">fsdp_context</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
-            <span class="n">FSDP</span><span class="o">.</span><span class="n">state_dict_type</span><span class="p">,</span>
+            <span class="n">fsdp_state_dict_type_without_warning</span><span class="p">,</span>
             <span class="n">module</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
             <span class="n">state_dict_type</span><span class="o">=</span><span class="n">state_dict_type</span><span class="p">,</span>
             <span class="n">state_dict_config</span><span class="o">=</span><span class="n">state_dict_config</span><span class="p">,</span>
@@ -1437,7 +1461,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        model (nn.Module): the nn.Module to the model.</span>
-<span class="sd">        submodules: Optional[Set[nn.Module]]: only return the model parameters</span>
+<span class="sd">        submodules (deprecated): Optional[Set[nn.Module]]: only return the model parameters</span>
 <span class="sd">            that belong to the submodules.</span>
 <span class="sd">        options (StateDictOptions): the options to control how</span>
 <span class="sd">            model state_dict and optimizer state_dict should be returned. See</span>
@@ -1477,7 +1501,7 @@
 <span class="sd">        model (nn.Module): the nn.Module to the model.</span>
 <span class="sd">        optimizers (Union[None, Optimizer, Iterable[Optimizer]]):</span>
 <span class="sd">            The optimizers that are used to optimize ``model``.</span>
-<span class="sd">        submodules: Optional[Set[nn.Module]]: only return the model parameters</span>
+<span class="sd">        submodules (deprecated): Optional[Set[nn.Module]]: only return the model parameters</span>
 <span class="sd">            that belong to the submodules.</span>
 <span class="sd">        options (StateDictOptions): the options to control how</span>
 <span class="sd">            model state_dict and optimizer state_dict should be returned. See</span>
@@ -1564,7 +1588,7 @@
 <span class="sd">        model (nn.Module): the nn.Module to the model.</span>
 <span class="sd">        optimizers (Union[None, Optimizer, Iterable[Optimizer]]):</span>
 <span class="sd">            The optimizers that are used to optimize ``model``.</span>
-<span class="sd">        submodules: Optional[Set[nn.Module]]: only return the model parameters</span>
+<span class="sd">        submodules (deprecated): Optional[Set[nn.Module]]: only return the model parameters</span>
 <span class="sd">            that belong to the submodules.</span>
 <span class="sd">        options (StateDictOptions): the options to control how</span>
 <span class="sd">            model state_dict and optimizer state_dict should be returned. See</span>
@@ -1595,6 +1619,39 @@
         <span class="k">return</span> <span class="n">model_state_dict</span><span class="p">,</span> <span class="n">optim_state_dict</span></div>
 
 
+<span class="k">def</span> <span class="nf">_unflatten_model_state_dict</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">state_dict</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">state_dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">state_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Passing model_state_dict as a ``Dict[nn.Module, Dict[str, Any]]``&quot;</span>
+            <span class="s2">&quot;is deprecated and will be removed in 2.5. If you need this &quot;</span>
+            <span class="s2">&quot;feature, please preprocessing the model_state_dict to achieve the &quot;</span>
+            <span class="s2">&quot;same functionality.&quot;</span><span class="p">,</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">cast_state_dict</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]],</span> <span class="n">state_dict</span><span class="p">)</span>
+        <span class="n">new_state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">submodule</span><span class="p">,</span> <span class="n">sub_state_dict</span> <span class="ow">in</span> <span class="n">cast_state_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">m</span> <span class="o">!=</span> <span class="n">submodule</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">fqns</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">fqns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;FQNs for a submodule should only have 1 element&quot;</span>
+                <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">fqns</span><span class="p">))</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="n">new_state_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="p">{</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">subfqn</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">subfqn</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sub_state_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                <span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_state_dict</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">],</span> <span class="n">state_dict</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="set_model_state_dict"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.set_model_state_dict">[docs]</a><span class="k">def</span> <span class="nf">set_model_state_dict</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">],</span>
@@ -1608,7 +1665,11 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        model (nn.Module): the nn.Module to the model.</span>
-<span class="sd">        model_state_dict: (Dict[str, ValueType]): the model state_dict to load.</span>
+<span class="sd">        model_state_dict: (Dict[str, ValueType]):</span>
+<span class="sd">           the model state_dict to load. If the key of the ``model_state_dict``</span>
+<span class="sd">           is nn.Module, the key is a submodule of ``model`` and the value should</span>
+<span class="sd">           be the state_dict of the submodule. When loading the state_dict,</span>
+<span class="sd">           the prefix of the submodule will be append to the state_dict.</span>
 <span class="sd">        options (StateDictOptions): the options to control how</span>
 <span class="sd">            model state_dict and optimizer state_dict should be loaded. See</span>
 <span class="sd">            `StateDictOptions` for the details.</span>
@@ -1620,6 +1681,9 @@
 
 <span class="sd">    :type model_state_dict: typing.Dict[str, ValueType]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unflatten_model_state_dict</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">model_state_dict</span>
+    <span class="p">)</span>
     <span class="k">with</span> <span class="n">gc_context</span><span class="p">():</span>
         <span class="n">info</span> <span class="o">=</span> <span class="n">_verify_options</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(),</span> <span class="n">optim_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
 
@@ -1688,7 +1752,11 @@
 <span class="sd">        model (nn.Module): the nn.Module to the model.</span>
 <span class="sd">        optimizers (Union[Optimizer, Iterable[Optimizer]]):</span>
 <span class="sd">            The optimizers that are used to optimize ``model``.</span>
-<span class="sd">        model_state_dict: (Dict[str, ValueType]]): the model state_dict to load.</span>
+<span class="sd">        model_state_dict: (Union[Dict[nn.Module, Dict[str, ValueType]], Dict[str, ValueType]]):</span>
+<span class="sd">           the model state_dict to load. If the key of the ``model_state_dict``</span>
+<span class="sd">           is nn.Module, the key is a submodule of ``model`` and the value should</span>
+<span class="sd">           be the state_dict of the submodule. When loading the state_dict,</span>
+<span class="sd">           the prefix of the submodule will be append to the state_dict.</span>
 <span class="sd">        optim_state_dict: OptimizerStateType:</span>
 <span class="sd">            the optimizer state_dict to load.</span>
 <span class="sd">        options (StateDictOptions): the options to control how</span>
@@ -1704,6 +1772,9 @@
 <span class="sd">    :type optim_state_dict: typing.OptimizerStateType</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">model_state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueType</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unflatten_model_state_dict</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">model_state_dict</span>
+    <span class="p">)</span>
     <span class="k">with</span> <span class="n">gc_context</span><span class="p">():</span>
         <span class="n">optimizers</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">(</span><span class="n">optimizers</span><span class="p">,)</span>

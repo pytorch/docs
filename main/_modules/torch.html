@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git7fdfb88 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git8bcebc8 ) &#x25BC</a>
     </div>
     
 
@@ -839,75 +839,6 @@
 
     <span class="c1"># Magic methods installed by torch.fx.experimental.sym_node</span>
 
-    <span class="k">def</span> <span class="fm">__round__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
-    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__float_truediv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__int_truediv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__rfloat_truediv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rint_truediv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">/</span> <span class="n">other</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__int_floordiv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__rfloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">other</span> <span class="o">/</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rint_floordiv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-
-    <span class="c1"># nb: complex is impossible to handle correctly lol, with</span>
-    <span class="c1"># negative base and integral float need to diverge semantics and</span>
-    <span class="c1"># just always return complex.  Neener neener pretend this problem</span>
-    <span class="c1"># doesn&#39;t exist</span>
-    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__pow__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="c1"># Guards!  This guard is necessary because we need to know it to</span>
-        <span class="c1"># determine the output type of this operation</span>
-        <span class="k">if</span> <span class="n">other</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pow_by_natural__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Mercifully, when the exponent is negative, Python just promotes</span>
-            <span class="c1"># to doubles and does a float pow:</span>
-            <span class="c1">#</span>
-            <span class="c1">#   if (Py_SIZE(b) &lt; 0 &amp;&amp; c == NULL) {</span>
-            <span class="c1">#       /* if exponent is negative and there&#39;s no modulus:</span>
-            <span class="c1">#              return a float.  This works because we know</span>
-            <span class="c1">#              that this calls float_pow() which converts its</span>
-            <span class="c1">#              arguments to double. */</span>
-            <span class="c1">#       Py_DECREF(a);</span>
-            <span class="c1">#       Py_DECREF(b);</span>
-            <span class="c1">#       return PyFloat_Type.tp_as_number-&gt;nb_power(v, w, x);</span>
-            <span class="c1">#   }</span>
-            <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__pow__</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="fm">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__rpow__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">if</span> <span class="bp">self</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># self is exponent</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rpow_by_natural__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__rpow__</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
-
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
 
@@ -927,24 +858,6 @@
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymInt&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__pow_by_natural__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymInt&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__rpow_by_natural__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymInt&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__int_truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymFloat&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__rint_truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymFloat&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__int_floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymFloat&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__rint_floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymFloat&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__sym_max__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -981,42 +894,8 @@
         <span class="c1"># class has a field named node that stores SymNode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
 
-    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__float_truediv__</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rfloat_truediv__</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span> <span class="o">/</span> <span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
-
-    <span class="k">def</span> <span class="fm">__rfloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="p">))</span>
-
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">bool_</span><span class="p">()</span>
-
-    <span class="c1"># Symbolic power does NOT work with negative base, this is to avoid</span>
-    <span class="c1"># potential complex outputs</span>
-    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="bp">self</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__float_pow__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">other</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rfloat_pow__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
     <span class="c1"># Magic methods installed by torch.fx.experimental.sym_node</span>
 
@@ -1033,18 +912,6 @@
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__float_pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymFloat&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__rfloat_pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymFloat&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__float_truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymFloat&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__rfloat_truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymFloat&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__trunc__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1180,12 +1047,7 @@
     <span class="k">return</span> <span class="n">py_int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span></div>
 
 <div class="viewcode-block" id="sym_max"><a class="viewcode-back" href="../generated/torch.sym_max.html#torch.sym_max">[docs]</a><span class="k">def</span> <span class="nf">sym_max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    SymInt-aware utility for max which avoids branching on a &lt; b.</span>
-<span class="sd">    Unlike builtins.max(), this only works for int/float, and it always</span>
-<span class="sd">    promotes to float if any argument is float (unlike builtins.max, which</span>
-<span class="sd">    will faithfully preserve the type of the input argument).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; SymInt-aware utility for max().&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.overrides</span> <span class="kn">import</span> <span class="n">has_torch_function</span><span class="p">,</span> <span class="n">handle_torch_function</span>
 
     <span class="k">if</span> <span class="n">has_torch_function</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)):</span>
@@ -1193,19 +1055,14 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
         <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">__sym_max__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-        <span class="c1"># Due to promotion semantics, this is operator is commutative:</span>
-        <span class="c1"># max(1, 1.0) === max(1.0, 1) === 1.0</span>
+        <span class="c1"># NB: If you actually care about preserving output type exactly</span>
+        <span class="c1"># if you do something like max(0, 0.0), it is NOT sound to treat</span>
+        <span class="c1"># min/max as commutative</span>
         <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">__sym_max__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="c1"># TODO: Probably can make bool work too, just lazy</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">)),</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">)),</span> <span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">builtins</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">builtins</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span></div>
 
 <div class="viewcode-block" id="sym_min"><a class="viewcode-back" href="../generated/torch.sym_min.html#torch.sym_min">[docs]</a><span class="k">def</span> <span class="nf">sym_min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; SymInt-aware utility for min().&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; SymInt-aware utility for max().&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.overrides</span> <span class="kn">import</span> <span class="n">has_torch_function</span><span class="p">,</span> <span class="n">handle_torch_function</span>
 
     <span class="k">if</span> <span class="n">has_torch_function</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)):</span>
@@ -1214,12 +1071,7 @@
         <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">__sym_min__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
         <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">__sym_min__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">)),</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">)),</span> <span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">builtins</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">builtins</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span></div>
 
 <span class="c1"># Drop in replacement for math.sqrt, math.sin, math.cos etc</span>
 <span class="n">current_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span>
