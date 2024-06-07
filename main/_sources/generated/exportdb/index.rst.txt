@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo wih a modul
     :caption: Tags
 
     torch.escape-hatch
-    torch.dynamic-shape
     torch.cond
+    torch.dynamic-shape
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -202,7 +202,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -283,7 +283,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -362,7 +362,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -528,7 +528,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -593,7 +593,7 @@ Result:
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
-    Range constraints: {s0: ValueRanges(lower=0, upper=9223372036854775806, is_bool=False)}
+    Range constraints: {s0: VR[0, 9223372036854775806]}
     
 
 
@@ -602,7 +602,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -720,7 +720,7 @@ Result:
                 return (zeros,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='zeros'), target=None)])
-    Range constraints: {u0: ValueRanges(lower=0, upper=5, is_bool=False), u1: ValueRanges(lower=0, upper=5, is_bool=False), u2: ValueRanges(lower=0, upper=5, is_bool=False)}
+    Range constraints: {u0: VR[0, 5], u1: VR[0, 5], u2: VR[0, 5]}
     
 
 
@@ -783,7 +783,7 @@ Result:
                 return (sin,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='sin'), target=None)])
-    Range constraints: {u0: ValueRanges(lower=0, upper=5, is_bool=False), u1: ValueRanges(lower=0, upper=5, is_bool=False), u2: ValueRanges(lower=0, upper=5, is_bool=False)}
+    Range constraints: {u0: VR[0, 5], u1: VR[0, 5], u2: VR[0, 5]}
     
 
 
@@ -984,7 +984,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -1030,7 +1030,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
+    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1243,7 +1243,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1289,7 +1289,7 @@ list_unpack
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -1538,7 +1538,7 @@ Result:
                 return (add,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=SymIntArgument(name='add'), target=None)])
-    Range constraints: {s0: ValueRanges(lower=0, upper=9223372036854775806, is_bool=False)}
+    Range constraints: {s0: VR[0, 9223372036854775806]}
     
 
 
@@ -1868,7 +1868,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -1899,7 +1899,7 @@ Result:
 
 .. code-block::
 
-    AssertionError: Round(dim0_x/2) <= dim0_x
+    AssertionError: RoundToInt(IntTrueDiv(dim0_x, 2)) <= dim0_x
 
 
 model_attr_mutation
@@ -2008,6 +2008,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7fe33d1d7dc0>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7fe06bfdcaf0>
 
 

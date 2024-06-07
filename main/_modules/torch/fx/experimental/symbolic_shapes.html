@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git8bcebc8 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git901226a ) &#x25BC</a>
     </div>
     
 
@@ -586,7 +586,7 @@
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">SymBool</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">,</span> <span class="n">SymInt</span>
 <span class="kn">from</span> <span class="nn">torch._guards</span> <span class="kn">import</span> <span class="n">ShapeGuard</span><span class="p">,</span> <span class="n">Source</span><span class="p">,</span> <span class="n">TracingContext</span>
 <span class="kn">from</span> <span class="nn">torch.utils._python_dispatch</span> <span class="kn">import</span> <span class="n">is_traceable_wrapper_subclass</span>
-<span class="kn">from</span> <span class="nn">torch.utils._sympy.functions</span> <span class="kn">import</span> <span class="n">FloorDiv</span><span class="p">,</span> <span class="n">Mod</span><span class="p">,</span> <span class="n">IsNonOverlappingAndDenseIndicator</span>
+<span class="kn">from</span> <span class="nn">torch.utils._sympy.functions</span> <span class="kn">import</span> <span class="n">FloorDiv</span><span class="p">,</span> <span class="n">Mod</span><span class="p">,</span> <span class="n">PythonMod</span><span class="p">,</span> <span class="n">IsNonOverlappingAndDenseIndicator</span><span class="p">,</span> <span class="n">CleanDiv</span>
 <span class="kn">from</span> <span class="nn">torch.utils._sympy.solve</span> <span class="kn">import</span> <span class="n">try_solve</span>
 <span class="kn">from</span> <span class="nn">torch.utils._sympy.value_ranges</span> <span class="kn">import</span> <span class="n">bound_sympy</span><span class="p">,</span> <span class="n">SymPyValueRangeAnalysis</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">,</span> <span class="n">ValueRangeError</span>
 <span class="kn">from</span> <span class="nn">torch.utils._sympy.singleton_int</span> <span class="kn">import</span> <span class="n">SingletonInt</span>
@@ -1394,9 +1394,9 @@
 <span class="sd">    for N=1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">min</span> <span class="o">=</span> <span class="o">-</span><span class="n">sympy</span><span class="o">.</span><span class="n">oo</span>
+        <span class="nb">min</span> <span class="o">=</span> <span class="o">-</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">max</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">oo</span>
+        <span class="nb">max</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
 
     <span class="k">if</span> <span class="nb">max</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -1503,16 +1503,6 @@
 
 <span class="k">def</span> <span class="nf">bind_symbols</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">gm</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">bind_symbols</span><span class="p">(</span><span class="n">fx_placeholder_vals</span><span class="p">(</span><span class="n">gm</span><span class="p">),</span> <span class="n">args</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">_assert_bound_is_rational</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="n">bound</span><span class="p">:</span> <span class="n">ValueRanges</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    We assert that the bounds are either Boolean, or not finite, or can be computed</span>
-<span class="sd">    in exact prevision via rational arithmetic.</span>
-<span class="sd">    The only exception to this is the rare case when the user calls `sqrt(s0)`</span>
-<span class="sd">    sqrt is turned into sympy.Pow so we just match for that (it matches more things, but still)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="n">bound</span><span class="o">.</span><span class="n">lower</span><span class="o">.</span><span class="n">is_rational</span> <span class="ow">or</span> <span class="n">bound</span><span class="o">.</span><span class="n">lower</span><span class="o">.</span><span class="n">is_Boolean</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">bound</span><span class="o">.</span><span class="n">lower</span><span class="o">.</span><span class="n">is_finite</span> <span class="ow">or</span> <span class="n">expr</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Pow</span><span class="p">),</span> <span class="p">(</span><span class="n">bound</span><span class="p">,</span> <span class="n">expr</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">bound</span><span class="o">.</span><span class="n">upper</span><span class="o">.</span><span class="n">is_rational</span> <span class="ow">or</span> <span class="n">bound</span><span class="o">.</span><span class="n">upper</span><span class="o">.</span><span class="n">is_Boolean</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">bound</span><span class="o">.</span><span class="n">upper</span><span class="o">.</span><span class="n">is_finite</span> <span class="ow">or</span> <span class="n">expr</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Pow</span><span class="p">),</span> <span class="p">(</span><span class="n">bound</span><span class="p">,</span> <span class="n">expr</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DimDynamic"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DimDynamic.html#torch.fx.experimental.symbolic_shapes.DimDynamic">[docs]</a><span class="k">class</span> <span class="nc">DimDynamic</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1912,14 +1902,19 @@
     <span class="s1">&#39;Min&#39;</span><span class="p">:</span> <span class="nb">min</span><span class="p">,</span>
     <span class="s1">&#39;Max&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">,</span>
     <span class="s1">&#39;Mod&#39;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span>
+    <span class="s1">&#39;PythonMod&#39;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span>
     <span class="s1">&#39;FloorDiv&#39;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">floordiv</span><span class="p">,</span>
     <span class="s1">&#39;TrueDiv&#39;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">truediv</span><span class="p">,</span>
     <span class="s1">&#39;IsNonOverlappingAndDenseIndicator&#39;</span><span class="p">:</span> <span class="n">eval_is_non_overlapping_and_dense</span><span class="p">,</span>
     <span class="s1">&#39;floor&#39;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span>
     <span class="s1">&#39;ceiling&#39;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">,</span>
+    <span class="s1">&#39;FloorToInt&#39;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span>
+    <span class="s1">&#39;CeilToInt&#39;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">,</span>
     <span class="s1">&#39;cast_symbool_to_symint_guardless&#39;</span><span class="p">:</span> <span class="n">cast_symbool_to_symint_guardless</span><span class="p">,</span>
-    <span class="s1">&#39;Round&#39;</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">round</span><span class="p">,</span>
+    <span class="s1">&#39;RoundToInt&#39;</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">round</span><span class="p">,</span>
     <span class="s1">&#39;RoundDecimal&#39;</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">round</span><span class="p">,</span>
+    <span class="s1">&#39;TruncToInt&#39;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">trunc</span><span class="p">,</span>
+    <span class="s1">&#39;IntTrueDiv&#39;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">truediv</span><span class="p">,</span>
 <span class="p">}</span>
 
 
@@ -2167,10 +2162,17 @@
             <span class="n">congruence</span> <span class="o">=</span> <span class="p">(</span><span class="n">base</span> <span class="o">-</span> <span class="n">mod_reduced</span><span class="p">)</span> <span class="o">%</span> <span class="n">divisor</span>
             <span class="k">if</span> <span class="n">congruence</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_congruences</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">congruence</span><span class="p">)</span>
+            <span class="c1"># NB: Must not be CleanDiv, it needs to be regular sympy division</span>
+            <span class="c1"># so inequality solver works.  This is sort of problematic for</span>
+            <span class="c1"># is_integer tests though haha</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">base</span> <span class="o">-</span> <span class="n">mod_reduced</span><span class="p">)</span> <span class="o">/</span> <span class="n">divisor</span>
 
         <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">Mod</span><span class="p">):</span>
             <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">Mod</span><span class="p">,</span> <span class="n">mod_handler</span><span class="p">)</span>
+        <span class="c1"># 7 // -3 is -3, 7 % -3 is -2, and 7 - (-2) / -3 is -3.0 so negative</span>
+        <span class="c1"># arguments should be OK.</span>
+        <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">PythonMod</span><span class="p">):</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">PythonMod</span><span class="p">,</span> <span class="n">mod_handler</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">):</span>
             <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">,</span> <span class="n">floor_div_handler</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">expr</span></div>
@@ -3855,6 +3857,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="o">.</span><span class="n">unknown</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">vr</span><span class="o">.</span><span class="n">is_float</span>
 
         <span class="c1"># Create a new FX placeholder and Z3 variable for &#39;symbol&#39;.</span>
         <span class="n">fx_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_fx_placeholder_and_z3var</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
@@ -3873,6 +3876,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">[</span><span class="s2">&quot;create_unbacked_symbol&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_unspecified_value_range</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">vr</span><span class="o">.</span><span class="n">is_int</span>
 
         <span class="c1"># Create a new FX placeholder and Z3 variable for &#39;symbol&#39;.</span>
         <span class="n">fx_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_fx_placeholder_and_z3var</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
@@ -3896,6 +3900,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">[</span><span class="s2">&quot;create_unbacked_symbol&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">vr</span><span class="o">.</span><span class="n">is_int</span>
 
         <span class="c1"># Create a new FX placeholder and Z3 variable for &#39;symbol&#39;.</span>
         <span class="n">fx_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_fx_placeholder_and_z3var</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
@@ -4041,6 +4046,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">sympy_expr</span><span class="p">]</span> <span class="o">&amp;=</span> <span class="n">constraint_dim</span><span class="o">.</span><span class="n">vr</span>
 
                 <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">sympy_expr</span><span class="p">]</span>
+                <span class="k">assert</span> <span class="n">vr</span><span class="o">.</span><span class="n">is_int</span>
 
                 <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vr</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">ConstraintViolationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2"> not in range [</span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
@@ -4049,6 +4055,7 @@
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">sympy_expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">vr</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="o">-</span><span class="n">sympy</span><span class="o">.</span><span class="n">oo</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">oo</span><span class="p">)</span>
                 <span class="n">range_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">]&quot;</span>
+                <span class="k">assert</span> <span class="n">vr</span><span class="o">.</span><span class="n">is_float</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Skip var_range logic for SingletonInt</span>
                 <span class="c1"># Only used for jagged layout nested tensors</span>
@@ -4098,6 +4105,7 @@
 
 <div class="viewcode-block" id="ShapeEnv.add_var_to_val"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.add_var_to_val">[docs]</a>    <span class="k">def</span> <span class="nf">add_var_to_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Adds a new symbol to the symbolic environment. &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;add_var_to_val </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">expr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2"> already exists&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">[</span><span class="n">expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
 
@@ -4826,7 +4834,8 @@
             <span class="c1"># Clamp values of size-like variables</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span> <span class="o">&amp;</span> <span class="n">var_to_range</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">var_to_range</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">var_to_range</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">oo</span><span class="p">)</span>
+                    <span class="n">var_to_range</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="k">assert</span> <span class="n">var_to_range</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">is_int</span>
         <span class="k">return</span> <span class="n">bound_sympy</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">var_to_range</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ShapeEnv.get_axioms"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms">[docs]</a>    <span class="nd">@_lru_cache</span>
@@ -4943,6 +4952,11 @@
                 <span class="n">vr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_unspecified_value_range</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">size_oblivious</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">:</span>
                 <span class="n">lower</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
+                <span class="c1"># This is a bit dodgy: what this means is that there was a</span>
+                <span class="c1"># size-like unbacked symbol whose upper bound &lt; 2.  This</span>
+                <span class="c1"># causes... problems.</span>
+                <span class="k">if</span> <span class="n">lower</span> <span class="o">&lt;=</span> <span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="p">:</span>
+                    <span class="n">vr</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">lower</span> <span class="o">=</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span>
             <span class="c1"># Don&#39;t do anything if we don&#39;t have a nontrivial lower bound</span>
@@ -4950,10 +4964,17 @@
             <span class="c1"># SymInt</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">lower</span> <span class="o">&lt;</span> <span class="p">(</span><span class="o">-</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="ow">or</span>
-                <span class="p">(</span><span class="n">unbacked_only</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">unbacked_only</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="ow">not</span> <span class="n">vr</span><span class="o">.</span><span class="n">is_int</span>
             <span class="p">):</span>
                 <span class="n">new_range_env</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">vr</span>
                 <span class="k">continue</span>
+            <span class="c1"># The goal is to take our symbols which have various lower bounds</span>
+            <span class="c1"># and reallocate them into new symbols which are exactly positive;</span>
+            <span class="c1"># e.g., if we have s0 in [2, inf], we want to turn it into ess0 in</span>
+            <span class="c1"># [1, inf], where s0 = ess0 + 1.  This gives the most information</span>
+            <span class="c1"># to sympy for subsequent simplifications.</span>
+            <span class="c1">#</span>
             <span class="c1"># Positive means &gt;= 1</span>
             <span class="c1"># Positive - 1 means &gt;= 0</span>
             <span class="c1"># Positive + lower - 1 means &gt;= lower</span>
@@ -4985,21 +5006,28 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">[</span><span class="s2">&quot;sympy_recursion_error&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="n">floor_div_replace</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">new_expr</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">):</span>
-            <span class="n">floor_div_replace</span><span class="p">[</span><span class="n">atom</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">atom</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">new_expr</span> <span class="o">=</span> <span class="n">safe_expand</span><span class="p">(</span><span class="n">new_expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">floor_div_replace</span><span class="p">))</span>
-        <span class="c1"># TODO: when unbacked_only, can sometimes early return even when there</span>
-        <span class="c1"># are still free symbols</span>
+        <span class="n">new_expr</span> <span class="o">=</span> <span class="n">safe_expand</span><span class="p">(</span><span class="n">new_expr</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">new_expr</span><span class="o">.</span><span class="n">is_number</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">new_expr</span>
 
+        <span class="c1"># This is bad to do, the replacement with division leaves us with</span>
+        <span class="c1"># rationals when atom.args[0] is addition, e.g., sympy will happily</span>
+        <span class="c1"># turn (s0 + s1) // 2 into s0 / 2 + s1 / 2.  Needless complication!</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        floor_div_replace = {}</span>
+<span class="sd">        for atom in new_expr.atoms(FloorDiv):</span>
+<span class="sd">            floor_div_replace[atom] = sympy.floor(atom.args[0] / atom.args[1])</span>
+<span class="sd">        new_expr = safe_expand(new_expr.xreplace(floor_div_replace))</span>
+<span class="sd">        # TODO: when unbacked_only, can sometimes early return even when there</span>
+<span class="sd">        # are still free symbols</span>
+<span class="sd">        if new_expr.is_number:</span>
+<span class="sd">            return new_expr</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1"># Check if the range can solve it statically</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">bound_sympy</span><span class="p">(</span><span class="n">new_expr</span><span class="p">,</span> <span class="n">new_range_env</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">expect_rational</span><span class="p">:</span>
-            <span class="n">_assert_bound_is_rational</span><span class="p">(</span><span class="n">new_expr</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">is_singleton</span><span class="p">():</span>
-                <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">lower</span>
+        <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">is_singleton</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">lower</span>
 
         <span class="k">return</span> <span class="n">new_expr</span> <span class="k">if</span> <span class="n">unbacked_only</span> <span class="k">else</span> <span class="kc">None</span>
 
@@ -5051,7 +5079,7 @@
             <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">):</span>
                 <span class="n">base</span><span class="p">,</span> <span class="n">divisor</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">args</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">Mod</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">divisor</span><span class="p">))</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">divisible</span><span class="p">:</span>
-                    <span class="n">div_replacements</span><span class="p">[</span><span class="n">fd</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span> <span class="o">/</span> <span class="n">divisor</span>
+                    <span class="n">div_replacements</span><span class="p">[</span><span class="n">fd</span><span class="p">]</span> <span class="o">=</span> <span class="n">CleanDiv</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">divisor</span><span class="p">)</span>
             <span class="n">new_expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">div_replacements</span><span class="p">)</span>
             <span class="n">new_expr</span> <span class="o">=</span> <span class="n">safe_expand</span><span class="p">(</span><span class="n">new_expr</span><span class="p">)</span>
             <span class="n">new_pows</span> <span class="o">=</span> <span class="n">new_expr</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Pow</span><span class="p">)</span>
@@ -5195,7 +5223,10 @@
             <span class="n">int_range</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="o">-</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
             <span class="k">def</span> <span class="nf">issubset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-                <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">int_range</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="n">int_range</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">is_int</span> <span class="ow">and</span> <span class="n">y</span><span class="o">.</span><span class="n">is_int</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">int_range</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="n">int_range</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
             <span class="c1"># First, refine the value range of a based on the computed value range</span>
             <span class="c1"># of tgt.  This is always OK to do, even if we decide not to do the</span>
@@ -5213,7 +5244,7 @@
                 <span class="n">b</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">tgt</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">))</span>
                 <span class="c1"># Try to invert the equality</span>
                 <span class="n">r</span> <span class="o">=</span> <span class="n">try_solve</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">tgt</span><span class="p">),</span> <span class="n">b</span><span class="p">,</span> <span class="n">floordiv_inequality</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">is_integer</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sympy</span><span class="o">.</span><span class="n">preorder_traversal</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
                     <span class="n">b_bound</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bound_sympy</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">b_bound</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
                     <span class="n">tgt_bound</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bound_sympy</span><span class="p">(</span><span class="n">tgt</span><span class="p">)</span>
@@ -5424,12 +5455,12 @@
                         <span class="p">):</span>
                             <span class="c1"># We have Mod(i0, q / c) == 0, which means we can</span>
                             <span class="c1"># rewrite i0 as (q / gcd(q, c)) * i1</span>
-                            <span class="n">d</span> <span class="o">=</span> <span class="n">q</span> <span class="o">/</span> <span class="n">sympy</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+                            <span class="n">d</span> <span class="o">=</span> <span class="n">q</span> <span class="o">/</span> <span class="n">sympy</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>  <span class="c1"># TODO: CleanDiv?</span>
                             <span class="n">i1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_unbacked_symint</span><span class="p">()</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span>
                             <span class="c1"># Propagate the value ranges.  It doesn&#39;t really</span>
                             <span class="c1"># matter if we use truediv or floordiv, because we</span>
                             <span class="c1"># have established divisibility.</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_update_var_to_range</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">SymPyValueRangeAnalysis</span><span class="o">.</span><span class="n">truediv</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_update_var_to_range</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">SymPyValueRangeAnalysis</span><span class="o">.</span><span class="n">floordiv</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">i0</span><span class="p">],</span> <span class="n">ValueRanges</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
                             <span class="p">))</span>
                             <span class="c1"># Propagate size-like-ness</span>
@@ -5866,7 +5897,6 @@
             <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">upper</span>
 
             <span class="n">rhs_vr</span> <span class="o">=</span> <span class="n">bound_sympy</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">)</span>
-            <span class="n">_assert_bound_is_rational</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rhs_vr</span><span class="p">)</span>
 
             <span class="c1"># Let&#39;s suppose that we have a preexisting range for x [0, 100].</span>
             <span class="c1"># Now, we issue a guard x &gt; y, where the range for y is [50, 150].</span>
