@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git901226a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
     </div>
     
 
@@ -405,7 +405,6 @@
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Parallelism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
@@ -527,160 +526,275 @@
 <h1>Pipeline Parallelism<a class="headerlink" href="#pipeline-parallelism" title="Permalink to this heading">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code> is a package migrated from the <a class="reference external" href="https://github.com/pytorch/PiPPy">PiPPy</a> project. It is currently in alpha state and under extensive development. For examples that work with our APIs, please refer to PiPPy’s <a class="reference external" href="https://github.com/pytorch/PiPPy/tree/main/examples">examples</a> directory.</p>
+<p><code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code> is currently in alpha state and under
+development. API changes may be possible. It was migrated from the <a class="reference external" href="https://github.com/pytorch/PiPPy">PiPPy</a> project.</p>
 </div>
 <div class="section" id="why-pipeline-parallel">
 <h2>Why Pipeline Parallel?<a class="headerlink" href="#why-pipeline-parallel" title="Permalink to this heading">¶</a></h2>
-<p>One of the most important techniques for advancing the state of the art in deep learning is scaling. Common techniques for scaling neural networks include <em>data parallelism</em>, <em>tensor/operation parallelism</em>, and <em>pipeline parallelism</em> (or <em>pipelining</em>). Pipelining is a technique in which the <em>code</em> of the model is partitioned and multiple <em>micro-batches</em> execute different parts of the model code concurrently. In many cases, pipeline parallelism can be an effective technique for scaling, in particular for large-scale jobs or bandwidth-limited interconnects. To learn more about pipeline parallelism in deep learning, see <a class="reference external" href="https://www.deepspeed.ai/tutorials/pipeline/">this article</a>.</p>
-</div>
-<div class="section" id="module-torch.distributed.pipelining">
-<span id="what-is-torch-distributed-pipelining"></span><h2>What is <code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code>?<a class="headerlink" href="#module-torch.distributed.pipelining" title="Permalink to this heading">¶</a></h2>
-<p>While promising for scaling, pipelining is often difficult to implement, requiring intrusive code changes to model code and difficult-to-implement runtime orchestration code. <code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code> aims to provide <strong>a toolkit that does said things automatically to allow high-productivity scaling of models.</strong> It consists of a <strong>compiler</strong> and a <strong>runtime</strong> stack for easy pipelining of PyTorch models. In particular, it provides the following features:</p>
+<p>Pipeline Parallelism is one of the <strong>primitive</strong> parallelism for deep learning.
+It allows the <strong>execution</strong> of a model to be partitioned such that multiple
+<strong>micro-batches</strong> can execute different parts of the model code concurrently.
+Pipeline parallelism can be an effective technique for:</p>
 <ul class="simple">
-<li><p>Splitting of model code based on your specification. The goal is for the user to provide model code as-is to the system for parallelization, without having to make heavyweight modifications to make parallelism work. The specification is also simple.</p></li>
-<li><p>Support for rich pipeline scheduling paradigms, including GPipe, 1F1B, Interleaved 1F1B and Looped BFS. It will be also easy to customize your own schedule under this framework.</p></li>
-<li><p>First-class support for cross-host pipeline parallelism, as this is where PP is typically used (over slower interconnects).</p></li>
-<li><p>Composability with other PyTorch parallel schemes such as data parallelism (DDP, FSDP) or tensor  parallelism (overall, known as “3d parallelism”).</p></li>
+<li><p>large-scale training</p></li>
+<li><p>bandwidth-limited clusters</p></li>
+<li><p>large model inference.</p></li>
+</ul>
+<p>The above scenarios share a commonality that the computation per device cannot
+hide the communication of conventional parallelism, for example, the weight
+all-gather of FSDP.</p>
+</div>
+<div class="section" id="what-is-torch-distributed-pipelining">
+<h2>What is <code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code>?<a class="headerlink" href="#what-is-torch-distributed-pipelining" title="Permalink to this heading">¶</a></h2>
+<p>While promising for scaling, pipelining is often difficult to implement because
+it needs to <strong>partition the execution</strong> of a model in addition to model weights.
+The partitioning of execution often requires intrusive code changes to your
+model. Another aspect of complexity comes from <strong>scheduling micro-batches in a
+distributed environment</strong>, with <strong>data flow dependency</strong> considered.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pipelining</span></code> package provides a toolkit that does said things
+<strong>automatically</strong> which allows easy implementation of pipeline parallelism
+on <strong>general</strong> models.</p>
+<p>It consists of two parts: a
+<strong>splitting frontend</strong> and a <strong>distributed runtime</strong>.
+The splitting frontend takes your model code as-is, splits it up into “model
+partitions”, and capture the data-flow relationship.  The distributed runtime
+executes the pipeline stages on different devices in parallel, handling things
+like micro-batch splitting, scheduling, communication, and gradient propagation,
+etc.</p>
+<p>Overall, the <code class="docutils literal notranslate"><span class="pre">pipelining</span></code> package provides the following features:</p>
+<ul class="simple">
+<li><p>Splitting of model code based on simple specification. The goal is to make
+parallelism work for your model with <strong>zero model code change</strong>.</p></li>
+<li><p>Rich support for pipeline schedules, including GPipe, 1F1B,
+Interleaved 1F1B and Looped BFS, and providing the infrastruture for writing
+customized schedules.</p></li>
+<li><p>First-class support for cross-host pipeline parallelism, as this is where PP
+is typically used (over slower interconnects).</p></li>
+<li><p>Composability with other PyTorch parallel techniques such as data parallel
+(DDP, FSDP) or tensor  parallel. The <a class="reference external" href="https://github.com/pytorch/torchtitan">TorchTitan</a> project demonstrates a “3D parallel”
+application on the Llama model.</p></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2>Examples<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
-<p>In the <a class="reference external" href="https://github.com/pytorch/PiPPy">PiPPy</a> repo where this package is migrated from, we provide rich examples based on realistic models. In particular, we show how to apply pipelining without any model code change. You can refer to the <a class="reference external" href="https://github.com/pytorch/PiPPy/tree/main/examples/huggingface">HuggingFace examples directory</a>. Popular examples include: <a class="reference external" href="https://github.com/pytorch/PiPPy/tree/main/examples/huggingface/pippy_gpt2.py">GPT2</a>, and <a class="reference external" href="https://github.com/pytorch/PiPPy/tree/main/examples/llama">LLaMA</a>.</p>
-</div>
-<div class="section" id="techniques-explained">
-<h2>Techniques Explained<a class="headerlink" href="#techniques-explained" title="Permalink to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code> consists of two parts: a <em>compiler</em> and a <em>runtime</em>. The compiler takes your model code, splits it up, and transforms it into a <code class="docutils literal notranslate"><span class="pre">Pipe</span></code>, which is a wrapper that describes the model at each pipeline stage and their data-flow relationship. The runtime executes the <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> in parallel, handling things like micro-batch splitting, scheduling, communication, and gradient propagation, etc. We will cover the APIs for these concepts in this section.</p>
-<div class="section" id="splitting-a-model-with-pipeline">
-<h3>Splitting a Model with <code class="docutils literal notranslate"><span class="pre">pipeline</span></code><a class="headerlink" href="#splitting-a-model-with-pipeline" title="Permalink to this heading">¶</a></h3>
-<p>To see how we can split a model into a pipeline, let’s first take an example trivial neural network:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-
-<span class="k">class</span> <span class="nc">MyNetworkBlock</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">):</span>
+<div class="section" id="step-1-choose-the-frontend-that-fits-your-need">
+<h2>Step 1: choose the frontend that fits your need<a class="headerlink" href="#step-1-choose-the-frontend-that-fits-your-need" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">pipelining</span></code> package provides two frontends for two different use cases.
+You can make your choice based on whether you have:</p>
+<ul class="simple">
+<li><p>a full model, or</p></li>
+<li><p>module constructor for each stage.</p></li>
+</ul>
+<div class="section" id="frontend-1-the-pipeline-api-if-you-have-a-full-model">
+<h3>Frontend 1: the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API – if you have a full model<a class="headerlink" href="#frontend-1-the-pipeline-api-if-you-have-a-full-model" title="Permalink to this heading">¶</a></h3>
+<p>If you have a full model and do not want to spend time on modifying it into a
+sequence of “model partitions”, the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API is here to help.
+Here is a brief example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lin</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emb</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">(</span>
+            <span class="n">Layer</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lm</span> <span class="o">=</span> <span class="n">LMHead</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emb</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span>
-
-
-<span class="k">class</span> <span class="nc">MyNetwork</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">,</span> <span class="n">layer_dims</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
-        <span class="n">prev_dim</span> <span class="o">=</span> <span class="n">in_dim</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer_dims</span><span class="p">):</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;layer</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">MyNetworkBlock</span><span class="p">(</span><span class="n">prev_dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span>
-            <span class="n">prev_dim</span> <span class="o">=</span> <span class="n">dim</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_dims</span><span class="p">)</span>
-        <span class="c1"># 10 output classes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_proj</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">layer_dims</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">10</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">):</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;layer</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_proj</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-
-<span class="n">in_dim</span> <span class="o">=</span> <span class="mi">512</span>
-<span class="n">layer_dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">512</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">256</span><span class="p">]</span>
-<span class="n">mn</span> <span class="o">=</span> <span class="n">MyNetwork</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">layer_dims</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This network is written as free-form Python code; it has not been modified for any specific parallelism technique.</p>
-<p>Let us see our usage of the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> interface:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.distributed.pipelining</span> <span class="kn">import</span> <span class="n">annotate_split_points</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">Pipe</span><span class="p">,</span> <span class="n">SplitPoint</span>
-
-<span class="n">annotate_split_points</span><span class="p">(</span><span class="n">mn</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;layer0&#39;</span><span class="p">:</span> <span class="n">SplitPoint</span><span class="o">.</span><span class="n">END</span><span class="p">,</span>
-                          <span class="s1">&#39;layer1&#39;</span><span class="p">:</span> <span class="n">SplitPoint</span><span class="o">.</span><span class="n">END</span><span class="p">})</span>
-
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
-<span class="n">example_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
-<span class="n">chunks</span> <span class="o">=</span> <span class="mi">4</span>
-
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">mn</span><span class="p">,</span> <span class="n">chunks</span><span class="p">,</span> <span class="n">example_args</span><span class="o">=</span><span class="p">(</span><span class="n">example_input</span><span class="p">,))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="p">)</span>
+<p>If we print the model, we can see multiple hierarchies, which makes it hard to split by hand:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Model</span><span class="p">(</span>
+  <span class="p">(</span><span class="n">emb</span><span class="p">):</span> <span class="n">Embedding</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">layers</span><span class="p">):</span> <span class="n">ModuleList</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="mi">2</span> <span class="n">x</span> <span class="n">Layer</span><span class="p">(</span>
+      <span class="p">(</span><span class="n">lin</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">)</span>
+  <span class="p">)</span>
+  <span class="p">(</span><span class="n">lm</span><span class="p">):</span> <span class="n">LMHead</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">proj</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*************************************</span> <span class="n">pipe</span> <span class="o">*************************************</span>
-<span class="n">GraphModule</span><span class="p">(</span>
+<p>Let us see how the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API works:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.distributed.pipelining</span> <span class="kn">import</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">SplitPoint</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="n">module</span><span class="o">=</span><span class="n">mod</span><span class="p">,</span>
+    <span class="n">num_chunks</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">example_args</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,),</span>
+    <span class="n">split_spec</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;layers.1&quot;</span><span class="p">:</span> <span class="n">SplitPoint</span><span class="o">.</span><span class="n">BEGINNING</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API splits your model given a <code class="docutils literal notranslate"><span class="pre">split_spec</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">SplitPoint.BEGINNING</span></code> stands for adding a split point
+<em>before</em> execution of certain submodule in the <code class="docutils literal notranslate"><span class="pre">forward</span></code> function, and
+similarly, <code class="docutils literal notranslate"><span class="pre">SplitPoint.END</span></code> for split point <em>after</em> such.</p>
+<p>If we <code class="docutils literal notranslate"><span class="pre">print(pipe)</span></code>, we can see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GraphModule</span><span class="p">(</span>
   <span class="p">(</span><span class="n">submod_0</span><span class="p">):</span> <span class="n">GraphModule</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">layer0</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">(</span>
-      <span class="p">(</span><span class="n">lin</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">()</span>
+    <span class="p">(</span><span class="n">emb</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">()</span>
+    <span class="p">(</span><span class="n">layers</span><span class="p">):</span> <span class="n">Module</span><span class="p">(</span>
+      <span class="p">(</span><span class="mi">0</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">lin</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">()</span>
+      <span class="p">)</span>
     <span class="p">)</span>
   <span class="p">)</span>
   <span class="p">(</span><span class="n">submod_1</span><span class="p">):</span> <span class="n">GraphModule</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">layer1</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">(</span>
-      <span class="p">(</span><span class="n">lin</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">()</span>
+    <span class="p">(</span><span class="n">layers</span><span class="p">):</span> <span class="n">Module</span><span class="p">(</span>
+      <span class="p">(</span><span class="mi">1</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">lin</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">()</span>
+      <span class="p">)</span>
     <span class="p">)</span>
-  <span class="p">)</span>
-  <span class="p">(</span><span class="n">submod_2</span><span class="p">):</span> <span class="n">GraphModule</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">layer2</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">(</span>
-      <span class="p">(</span><span class="n">lin</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">()</span>
+    <span class="p">(</span><span class="n">lm</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">(</span>
+      <span class="p">(</span><span class="n">proj</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">()</span>
     <span class="p">)</span>
-    <span class="p">(</span><span class="n">output_proj</span><span class="p">):</span> <span class="n">InterpreterModule</span><span class="p">()</span>
   <span class="p">)</span>
 <span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg8_1</span><span class="p">):</span>
-    <span class="n">submod_0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod_0</span><span class="p">(</span><span class="n">arg8_1</span><span class="p">);</span>  <span class="n">arg8_1</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">submod_0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod_0</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>  <span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">submod_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod_1</span><span class="p">(</span><span class="n">submod_0</span><span class="p">);</span>  <span class="n">submod_0</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">submod_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod_2</span><span class="p">(</span><span class="n">submod_1</span><span class="p">);</span>  <span class="n">submod_1</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">submod_2</span><span class="p">,)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">submod_1</span><span class="p">,)</span>
 </pre></div>
 </div>
-<p>So what’s going on here? First, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> turns our model into a directed acyclic graph (DAG) by tracing the model. Then, it groups together the operations and parameters into <em>pipeline stages</em>. Stages are represented as <code class="docutils literal notranslate"><span class="pre">submod_N</span></code> submodules, where <code class="docutils literal notranslate"><span class="pre">N</span></code> is a natural number.</p>
-<p>We used <code class="docutils literal notranslate"><span class="pre">annotate_split_points</span></code> to specify that the code should be split and the end of <code class="docutils literal notranslate"><span class="pre">layer0</span></code> and <code class="docutils literal notranslate"><span class="pre">layer1</span></code>. Our code has thus been split into <em>three</em> pipeline stages. Our library also provides <code class="docutils literal notranslate"><span class="pre">SplitPoint.BEGINNING</span></code> if a user wants to split before certain annotation point.</p>
-<p>While the <code class="docutils literal notranslate"><span class="pre">annotate_split_points</span></code> API gives users a way to specify the split points without modifying the model, our library also provides an API for in-model annotation: <code class="docutils literal notranslate"><span class="pre">pipe_split()</span></code>. For details, you can read <a class="reference external" href="https://github.com/pytorch/PiPPy/blob/main/test/test_pipe.py">this example</a>.</p>
-<p>This covers the basic usage of the <code class="docutils literal notranslate"><span class="pre">Pipe</span></code> API. For more information, please see the documentation.</p>
-</div>
-<div class="section" id="using-pipelineschedule-for-execution">
-<h3>Using <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code> for Execution<a class="headerlink" href="#using-pipelineschedule-for-execution" title="Permalink to this heading">¶</a></h3>
-<p>After transforming the model into a <code class="docutils literal notranslate"><span class="pre">Pipe</span></code> representation, we can run its stages in a distributed <em>runtime</em>. This can be done in two steps:
-* instantiate a <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> from a stage module of <code class="docutils literal notranslate"><span class="pre">Pipe</span></code>;
-* run the <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> according to a <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code>.</p>
-<p>First off, let us instantiate a <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> instance:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We are using `torchrun` to run this example with multiple processes.</span>
-<span class="c1"># `torchrun` defines two environment variables: `RANK` and `WORLD_SIZE`.</span>
-<span class="n">rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;RANK&quot;</span><span class="p">])</span>
-<span class="n">world_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;WORLD_SIZE&quot;</span><span class="p">])</span>
-
-<span class="c1"># Initialize distributed environment</span>
-<span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
-<span class="n">dist</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span> <span class="n">world_size</span><span class="o">=</span><span class="n">world_size</span><span class="p">)</span>
-
-<span class="c1"># Pipeline stage is our main pipeline runtime. It takes in the pipe object,</span>
-<span class="c1"># the rank of this process, and the device.</span>
-<span class="kn">from</span> <span class="nn">torch.distributed.pipelining</span> <span class="kn">import</span> <span class="n">PipelineStage</span>
-<span class="n">stage</span> <span class="o">=</span> <span class="n">PipelineStage</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<p>The “model partitions” are represented by submodules (<code class="docutils literal notranslate"><span class="pre">submod_0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">submod_1</span></code>), each of which is reconstructed with original model operations
+and hierarchies.  In addition, a “root-level” <code class="docutils literal notranslate"><span class="pre">forward</span></code> function is
+reconstructed to capture the data flow between those partitions. Such data flow
+will be replayed by the pipeline runtime later, in a distributed fashion.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Pipe</span></code> object provides a method for retrieving the “model partitions”:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stage_mod</span> <span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">get_stage_module</span><span class="p">(</span><span class="n">stage_idx</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can now attach the <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> to a pipeline schedule, GPipe for example, and run with data:</p>
+<p>You can also create a distributed stage runtime on a device using <code class="docutils literal notranslate"><span class="pre">Pipe</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.distributed.pipelining</span> <span class="kn">import</span> <span class="n">TracerPipelineStage</span>
+<span class="n">stage</span> <span class="o">=</span> <span class="n">TracerPipelineStage</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">stage_idx</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> frontend uses a tracer (<code class="docutils literal notranslate"><span class="pre">torch.export</span></code>) to capture your
+model into a single graph. If your model is not full-graph’able, you can use
+our manual frontend below.</p>
+</div>
+</div>
+<div class="section" id="frontend-2-pipelinestage-if-you-already-have-module-for-each-stage">
+<h3>Frontend 2: <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> – if you already have module for each stage<a class="headerlink" href="#frontend-2-pipelinestage-if-you-already-have-module-for-each-stage" title="Permalink to this heading">¶</a></h3>
+<p>If you already have the module for each stage, you can skip the pipeline split
+step above and directly connect to our runtime offering: <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> wraps your stage module given a distributed context,
+i.e. a <code class="docutils literal notranslate"><span class="pre">ProcessGroup</span></code> along the pipeline dimension.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.distributed.pipelining</span> <span class="kn">import</span> <span class="n">PipelineStage</span>
+<span class="n">stage</span> <span class="o">=</span> <span class="n">PipelineStage</span><span class="p">(</span>
+    <span class="n">stage_mod</span><span class="p">,</span>
+    <span class="n">stage_idx</span><span class="p">,</span>
+    <span class="n">num_stages</span><span class="p">,</span>
+    <span class="n">device</span><span class="p">,</span>
+    <span class="n">input_args</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">num_microbatches</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> requires an example argument (similar to <code class="docutils literal notranslate"><span class="pre">example_args</span></code> used in <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>).
+This argument is passed through the forward method of the stage module to determine the
+input and output shapes required for communication.</p>
+</div>
+</div>
+<div class="section" id="step-2-use-pipelineschedule-for-execution">
+<h2>Step 2: use <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code> for execution<a class="headerlink" href="#step-2-use-pipelineschedule-for-execution" title="Permalink to this heading">¶</a></h2>
+<p>We can now attach the <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> to a pipeline schedule, and run the
+schedule with input data. Here is a GPipe example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.distributed.pipelining</span> <span class="kn">import</span> <span class="n">ScheduleGPipe</span>
-<span class="n">schedule</span> <span class="o">=</span> <span class="n">ScheduleGPipe</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">chunks</span><span class="p">)</span>
 
-<span class="c1"># Input data</span>
+<span class="c1"># Create a schedule</span>
+<span class="n">schedule</span> <span class="o">=</span> <span class="n">ScheduleGPipe</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">n_microbatches</span><span class="p">)</span>
+
+<span class="c1"># Input data (whole batch)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
 
-<span class="c1"># Run the pipeline with input `x`. Divide the batch into 4 micro-batches</span>
-<span class="c1"># and run them in parallel on the pipeline</span>
+<span class="c1"># Run the pipeline with input `x`</span>
+<span class="c1"># `x` will be divided into microbatches automatically</span>
 <span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="n">schedule</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Note that since we split our model into three stages, we must run this script with three workers. For this example, we will use <code class="docutils literal notranslate"><span class="pre">torchrun</span></code> to run multiple processes within a single machine for demonstration purposes. We can collect up all of the code blocks above into a file named <a class="reference external" href="https://github.com/pytorch/PiPPy/tree/main/examples/basic">example.py</a> and then run it with <code class="docutils literal notranslate"><span class="pre">torchrun</span></code> like so:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torchrun<span class="w"> </span>--nproc_per_node<span class="o">=</span><span class="m">3</span><span class="w"> </span>example.py
+<p>Note that the above code needs to be launched for each worker, thus we use a
+launcher service to launch multiple processes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torchrun<span class="w"> </span>--nproc_per_node<span class="o">=</span><span class="m">2</span><span class="w"> </span>example.py
 </pre></div>
 </div>
 </div>
-<div class="section" id="pipeline-transformation-apis">
-<h3>Pipeline Transformation APIs<a class="headerlink" href="#pipeline-transformation-apis" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="hugging-face-examples">
+<h2>Hugging Face Examples<a class="headerlink" href="#hugging-face-examples" title="Permalink to this heading">¶</a></h2>
+<p>In the <a class="reference external" href="https://github.com/pytorch/PiPPy">PiPPy</a> repo where this package was
+original created, we kept examples based on unmodified Hugging Face models.
+See the <a class="reference external" href="https://github.com/pytorch/PiPPy/tree/main/examples/huggingface">examples/huggingface</a> directory.</p>
+<p>Examples include:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/pytorch/PiPPy/tree/main/examples/huggingface/pippy_gpt2.py">GPT2</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pytorch/PiPPy/tree/main/examples/llama">Llama</a></p></li>
+</ul>
+</div>
+<div class="section" id="technical-deep-dive">
+<h2>Technical Deep Dive<a class="headerlink" href="#technical-deep-dive" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="how-does-the-pipeline-api-split-a-model">
+<h3>How does the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API split a model?<a class="headerlink" href="#how-does-the-pipeline-api-split-a-model" title="Permalink to this heading">¶</a></h3>
+<p>First, the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API turns our model into a directed acyclic graph (DAG)
+by tracing the model.  It traces the model using <code class="docutils literal notranslate"><span class="pre">torch.export</span></code> – a PyTorch 2
+full-graph capturing tool.</p>
+<p>Then, it groups together the <strong>operations and parameters</strong> needed by a stage
+into a reconstructed submodule: <code class="docutils literal notranslate"><span class="pre">submod_0</span></code>, <code class="docutils literal notranslate"><span class="pre">submod_1</span></code>, …</p>
+<p>Different from conventional submodule access methods like <code class="docutils literal notranslate"><span class="pre">Module.children()</span></code>,
+the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API does not only cut the module structure of your model, but
+also the <strong>forward</strong> function of your model.</p>
+<p>This is necessary because model structure like <code class="docutils literal notranslate"><span class="pre">Module.children()</span></code> merely
+captures information during <code class="docutils literal notranslate"><span class="pre">Module.__init__()</span></code>, and does not capture any
+information about <code class="docutils literal notranslate"><span class="pre">Module.forward()</span></code>. Said differently, <code class="docutils literal notranslate"><span class="pre">Module.children()</span></code>
+lacks information about the following aspects key to pipelininig:</p>
+<ul class="simple">
+<li><p>Execution order of child modules in <code class="docutils literal notranslate"><span class="pre">forward</span></code></p></li>
+<li><p>Activation flows between child modules</p></li>
+<li><p>Whether there are any functional operators between child modules (for example,
+<code class="docutils literal notranslate"><span class="pre">relu</span></code> or <code class="docutils literal notranslate"><span class="pre">add</span></code> operations will not be captured by <code class="docutils literal notranslate"><span class="pre">Module.children()</span></code>).</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API, on the contrary, makes sure that the <code class="docutils literal notranslate"><span class="pre">forward</span></code> behavior
+is truly preserved. It also captures the activation flow between the partitions,
+helping the distributed runtime to make correct send/receive calls without human
+intervention.</p>
+<p>Another flexibility of the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API is that split points can be at
+arbitrary levels within your model hierarchy. In the split partitions, the original model
+hierarchy related to that partition will be reconstructed at no cost to you.
+At a result, fully-qualified names (FQNs) pointing to a submodule or parameter
+would be still valid, and services that relies on FQNs (such as FSDP, TP or
+checkpointing) can still run with your partitioned modules with almost zero code
+change.</p>
+</div>
+</div>
+<div class="section" id="implementing-your-own-schedule">
+<h2>Implementing Your Own Schedule<a class="headerlink" href="#implementing-your-own-schedule" title="Permalink to this heading">¶</a></h2>
+<p>You can implement your own pipeline schedule by extending one of the following two class:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code> is for schedules that assigns <em>only one</em> stage per rank.
+<code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code> is for schedules that assigns multiple stages per rank.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">ScheduleGPipe</span></code> and <code class="docutils literal notranslate"><span class="pre">Schedule1F1B</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code>.
+Whereas, <code class="docutils literal notranslate"><span class="pre">ScheduleInterleaved1F1B</span></code> and <code class="docutils literal notranslate"><span class="pre">ScheduleLoopedBFS</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code>.</p>
+</div>
+<div class="section" id="module-torch.distributed.pipelining">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-torch.distributed.pipelining" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="model-split-apis">
+<h3>Model Split APIs<a class="headerlink" href="#model-split-apis" title="Permalink to this heading">¶</a></h3>
 <p>The following set of APIs transform your model into a pipeline representation.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.SplitPoint">
@@ -690,17 +804,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.pipeline">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.pipeline" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a pipeline representation for the provided module.</p>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mb_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mb_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split a module based on a specification.</p>
 <p>See <cite>Pipe</cite> for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>module</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><em>Module</em></a>) – The module to be transformed into a <cite>Pipe</cite>.</p></li>
-<li><p><strong>num_chunks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of microbatches to be run with this pipeline.</p></li>
-<li><p><strong>example_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>, </em><em>...</em><em>]</em>) – Example positional inputs to be used with this pipeline.</p></li>
-<li><p><strong>example_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – Example keyword inputs to be used with this pipeline. (default: <cite>None</cite>)</p></li>
-<li><p><strong>split_spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference internal" href="#torch.distributed.pipelining.SplitPoint" title="torch.distributed.pipelining._IR.SplitPoint"><em>SplitPoint</em></a><em>]</em><em>]</em>) – A dictionary mapping module names to <cite>SplitPoint`s. (default: `None</cite>)</p></li>
+<li><p><strong>module</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><em>Module</em></a>) – The module to be splitted.</p></li>
+<li><p><strong>mb_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>, </em><em>...</em><em>]</em>) – Example positional inputs, in micro-batch form.</p></li>
+<li><p><strong>mb_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – Example keyword inputs, in micro-batch form. (default: <cite>None</cite>)</p></li>
+<li><p><strong>split_spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference internal" href="#torch.distributed.pipelining.SplitPoint" title="torch.distributed.pipelining._IR.SplitPoint"><em>SplitPoint</em></a><em>]</em><em>]</em>) – A dictionary using submodule names as split marker. (default: <cite>None</cite>)</p></li>
 <li><p><strong>split_policy</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="fx.html#torch.fx.GraphModule" title="torch.fx.graph_module.GraphModule"><em>GraphModule</em></a><em>]</em><em>, </em><a class="reference internal" href="fx.html#torch.fx.GraphModule" title="torch.fx.graph_module.GraphModule"><em>GraphModule</em></a><em>]</em><em>]</em>) – The policy to use for splitting the module. (default: <cite>None</cite>)</p></li>
 </ul>
 </dd>
@@ -713,19 +826,6 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.Pipe">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">Pipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_gm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_loss_and_backward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#Pipe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.Pipe" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>args_chunk_spec:</dt><dd><p>Chunking specification for positional inputs. (default: <cite>None</cite>)</p>
-</dd>
-<dt>kwargs_chunk_spec:</dt><dd><p>Chunking specification for keyword inputs. (default: <cite>None</cite>)</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.distributed.pipelining.annotate_split_points">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">annotate_split_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#annotate_split_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.annotate_split_points" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -748,42 +848,14 @@ no-op if your annotated module is run eagerly.</p>
 <p>The above example will be split into two stages.</p>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="torch.distributed.pipelining.ArgsChunkSpec">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">ArgsChunkSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_dims</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#ArgsChunkSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.ArgsChunkSpec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Context manager for setting <cite>args_chunk_spec</cite> during creation of Pipe</p>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># There are three positional arguments to the model, and</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># we are chunking them along dimension 0, 0 and 1, respectively</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">ArgsChunkSpec</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="torch.distributed.pipelining.KwargsChunkSpec">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.</span></span><span class="sig-name descname"><span class="pre">KwargsChunkSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_dims</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/_IR.html#KwargsChunkSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.KwargsChunkSpec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Context manager for setting <cite>kwargs_chunk_spec</cite> during creation of Pipe</p>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Chunk dimension 0 for the &quot;id&quot; argument, 1 for the &quot;mask&quot; argument</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">KwargsChunkSpec</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;mask&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="p">(),</span> <span class="n">example_kwargs</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
 </div>
 <div class="section" id="module-torch.distributed.pipelining.microbatch">
 <span id="microbatch-utilities"></span><h3>Microbatch Utilities<a class="headerlink" href="#module-torch.distributed.pipelining.microbatch" title="Permalink to this heading">¶</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.microbatch.TensorChunkSpec">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.microbatch.</span></span><span class="sig-name descname"><span class="pre">TensorChunkSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/microbatch.html#TensorChunkSpec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.microbatch.TensorChunkSpec" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Class used to specify chunking of inputs</p>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -838,14 +910,7 @@ the chunk spec.</p>
 <span id="pipeline-stages"></span><h3>Pipeline Stages<a class="headerlink" href="#module-torch.distributed.pipelining.PipelineStage" title="Permalink to this heading">¶</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineStage.PipelineStage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineStage.</span></span><span class="sig-name descname"><span class="pre">PipelineStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineStage.html#PipelineStage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineStage.PipelineStage" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineStage.ManualPipelineStage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineStage.</span></span><span class="sig-name descname"><span class="pre">ManualPipelineStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">submodule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineStage.html#ManualPipelineStage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineStage.ManualPipelineStage" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineStage.</span></span><span class="sig-name descname"><span class="pre">PipelineStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">submodule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineStage.html#PipelineStage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineStage.PipelineStage" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class representing a pipeline stage in a pipeline parallelism setup.
 This class is created manually by providing a example input (and optionally output)
 as opposed to the PipelineStage class that is outputed from pipeline().
@@ -858,12 +923,18 @@ in <cite>PipelineScheule</cite>.</p>
 <li><p><strong>stage_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The ID of this stage.</p></li>
 <li><p><strong>num_stages</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The total number of stages.</p></li>
 <li><p><strong>device</strong> (<a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device where this stage is located.</p></li>
-<li><p><strong>num_microbatches</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The number of microbatches to use.</p></li>
-<li><p><strong>input_args</strong> (<em>Union</em><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em>, </em><em>List</em><em>[</em><em>torch.tensor</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The input arguments for the submodule.</p></li>
-<li><p><strong>output_args</strong> (<em>Union</em><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em>, </em><em>List</em><em>[</em><em>torch.tensor</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The output arguments for the submodule.</p></li>
+<li><p><strong>input_args</strong> (<em>Union</em><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em>, </em><em>Tuple</em><em>[</em><em>torch.tensor</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The input arguments for the submodule.</p></li>
+<li><p><strong>output_args</strong> (<em>Union</em><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em>, </em><em>Tuple</em><em>[</em><em>torch.tensor</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The output arguments for the submodule.</p></li>
 <li><p><strong>group</strong> (<em>dist.ProcessGroup</em><em>, </em><em>optional</em>) – The process group for distributed training. If None, default group.</p></li>
 </ul>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineStage.TracerPipelineStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineStage.</span></span><span class="sig-name descname"><span class="pre">TracerPipelineStage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineStage.html#TracerPipelineStage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineStage.TracerPipelineStage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -872,7 +943,7 @@ in <cite>PipelineScheule</cite>.</p>
 <span id="pipeline-schedules"></span><h3>Pipeline Schedules<a class="headerlink" href="#module-torch.distributed.pipelining.PipelineSchedule" title="Permalink to this heading">¶</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.ScheduleGPipe">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">ScheduleGPipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#ScheduleGPipe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleGPipe" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">ScheduleGPipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#ScheduleGPipe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleGPipe" title="Permalink to this definition">¶</a></dt>
 <dd><p>The GPipe schedule.
 Will go through all the microbatches in a fill-drain manner.</p>
 <dl class="field-list simple">
@@ -881,7 +952,7 @@ Will go through all the microbatches in a fill-drain manner.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.Schedule1F1B">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">Schedule1F1B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#Schedule1F1B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.Schedule1F1B" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">Schedule1F1B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#Schedule1F1B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.Schedule1F1B" title="Permalink to this definition">¶</a></dt>
 <dd><p>The 1F1B schedule.
 Will perform one forward and one backward on the microbatches in steady state.</p>
 <dl class="field-list simple">
@@ -890,7 +961,7 @@ Will perform one forward and one backward on the microbatches in steady state.</
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.ScheduleInterleaved1F1B">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">ScheduleInterleaved1F1B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#ScheduleInterleaved1F1B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleInterleaved1F1B" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">ScheduleInterleaved1F1B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#ScheduleInterleaved1F1B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleInterleaved1F1B" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Interleaved 1F1B schedule.
 See <a class="reference external" href="https://arxiv.org/pdf/2104.04473">https://arxiv.org/pdf/2104.04473</a> for details.
 Will perform one forward and one backward on the microbatches in steady
@@ -914,36 +985,51 @@ microbatches at once.</p>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="implementing-your-own-schedule">
-<h3>Implementing Your Own Schedule<a class="headerlink" href="#implementing-your-own-schedule" title="Permalink to this heading">¶</a></h3>
-<p>You can implement your own pipeline schedule by extending one of the following two class:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code></p></li>
-</ul>
-<p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code> is for schedules that assigns <em>only one</em> stage per rank.
-<code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code> is for schedules that assigns multiple stages per rank.</p>
-<p>For example, <code class="docutils literal notranslate"><span class="pre">ScheduleGPipe</span></code> and <code class="docutils literal notranslate"><span class="pre">Schedule1F1B</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code>.
-Whereas, <code class="docutils literal notranslate"><span class="pre">ScheduleInterleaved1F1B</span></code> and <code class="docutils literal notranslate"><span class="pre">ScheduleLoopedBFS</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">PipelineScheduleSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#PipelineScheduleSingle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">PipelineScheduleSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#PipelineScheduleSingle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for single-stage schedules.
 Implements the <cite>step</cite> method.
 Derived classes should implement <cite>_step_microbatches</cite>.</p>
 <dl class="field-list simple">
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#PipelineScheduleSingle.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run one iteration of the pipeline schedule with <em>whole-batch</em> input.
+Will chunk the input into microbatches automatically, and go through the
+microbatches according to the schedule implementation.</p>
+<p>args: positional arguments to the model (as in non-pipeline case).
+kwargs: keyword arguments to the model (as in non-pipeline case).
+target: target for the loss function.
+losses: a list to store the losses for each microbatch.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">PipelineScheduleMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#PipelineScheduleMulti"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.PipelineSchedule.</span></span><span class="sig-name descname"><span class="pre">PipelineScheduleMulti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#PipelineScheduleMulti"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for multi-stage schedules.
-Implements the <cite>step</cite> method.
-Derived classes should implement <cite>_step_microbatches</cite>.</p>
+Implements the <cite>step</cite> method.</p>
 <dl class="field-list simple">
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/PipelineSchedule.html#PipelineScheduleMulti.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run one iteration of the pipeline schedule with <em>whole-batch</em> input.
+Will chunk the input into microbatches automatically, and go through the
+microbatches according to the schedule implementation.</p>
+<p>args: positional arguments to the model (as in non-pipeline case).
+kwargs: keyword arguments to the model (as in non-pipeline case).
+target: target for the loss function.
+losses: a list to store the losses for each microbatch.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1006,19 +1092,25 @@ if (url)
               <ul>
 <li><a class="reference internal" href="#">Pipeline Parallelism</a><ul>
 <li><a class="reference internal" href="#why-pipeline-parallel">Why Pipeline Parallel?</a></li>
-<li><a class="reference internal" href="#module-torch.distributed.pipelining">What is <code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code>?</a></li>
-<li><a class="reference internal" href="#id1">Examples</a></li>
-<li><a class="reference internal" href="#techniques-explained">Techniques Explained</a><ul>
-<li><a class="reference internal" href="#splitting-a-model-with-pipeline">Splitting a Model with <code class="docutils literal notranslate"><span class="pre">pipeline</span></code></a></li>
-<li><a class="reference internal" href="#using-pipelineschedule-for-execution">Using <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code> for Execution</a></li>
-<li><a class="reference internal" href="#pipeline-transformation-apis">Pipeline Transformation APIs</a><ul>
+<li><a class="reference internal" href="#what-is-torch-distributed-pipelining">What is <code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code>?</a></li>
+<li><a class="reference internal" href="#step-1-choose-the-frontend-that-fits-your-need">Step 1: choose the frontend that fits your need</a><ul>
+<li><a class="reference internal" href="#frontend-1-the-pipeline-api-if-you-have-a-full-model">Frontend 1: the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API – if you have a full model</a></li>
+<li><a class="reference internal" href="#frontend-2-pipelinestage-if-you-already-have-module-for-each-stage">Frontend 2: <code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code> – if you already have module for each stage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#step-2-use-pipelineschedule-for-execution">Step 2: use <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code> for execution</a></li>
+<li><a class="reference internal" href="#hugging-face-examples">Hugging Face Examples</a></li>
+<li><a class="reference internal" href="#technical-deep-dive">Technical Deep Dive</a><ul>
+<li><a class="reference internal" href="#how-does-the-pipeline-api-split-a-model">How does the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> API split a model?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementing-your-own-schedule">Implementing Your Own Schedule</a></li>
+<li><a class="reference internal" href="#module-torch.distributed.pipelining">API Reference</a><ul>
+<li><a class="reference internal" href="#model-split-apis">Model Split APIs</a><ul>
 <li><a class="reference internal" href="#torch.distributed.pipelining.SplitPoint"><code class="docutils literal notranslate"><span class="pre">SplitPoint</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.pipeline"><code class="docutils literal notranslate"><span class="pre">pipeline()</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.Pipe"><code class="docutils literal notranslate"><span class="pre">Pipe</span></code></a></li>
-<li><a class="reference internal" href="#torch.distributed.pipelining.annotate_split_points"><code class="docutils literal notranslate"><span class="pre">annotate_split_points()</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.pipe_split"><code class="docutils literal notranslate"><span class="pre">pipe_split()</span></code></a></li>
-<li><a class="reference internal" href="#torch.distributed.pipelining.ArgsChunkSpec"><code class="docutils literal notranslate"><span class="pre">ArgsChunkSpec</span></code></a></li>
-<li><a class="reference internal" href="#torch.distributed.pipelining.KwargsChunkSpec"><code class="docutils literal notranslate"><span class="pre">KwargsChunkSpec</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-torch.distributed.pipelining.microbatch">Microbatch Utilities</a><ul>
@@ -1029,7 +1121,7 @@ if (url)
 </li>
 <li><a class="reference internal" href="#module-torch.distributed.pipelining.PipelineStage">Pipeline Stages</a><ul>
 <li><a class="reference internal" href="#torch.distributed.pipelining.PipelineStage.PipelineStage"><code class="docutils literal notranslate"><span class="pre">PipelineStage</span></code></a></li>
-<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineStage.ManualPipelineStage"><code class="docutils literal notranslate"><span class="pre">ManualPipelineStage</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineStage.TracerPipelineStage"><code class="docutils literal notranslate"><span class="pre">TracerPipelineStage</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-torch.distributed.pipelining.PipelineSchedule">Pipeline Schedules</a><ul>
@@ -1037,11 +1129,14 @@ if (url)
 <li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.Schedule1F1B"><code class="docutils literal notranslate"><span class="pre">Schedule1F1B</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleInterleaved1F1B"><code class="docutils literal notranslate"><span class="pre">ScheduleInterleaved1F1B</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.ScheduleLoopedBFS"><code class="docutils literal notranslate"><span class="pre">ScheduleLoopedBFS</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle.step"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle.step()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#implementing-your-own-schedule">Implementing Your Own Schedule</a><ul>
-<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code></a></li>
-<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti.step"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti.step()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

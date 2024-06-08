@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git901226a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
     </div>
     
 
@@ -405,7 +405,6 @@
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Parallelism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
@@ -1465,6 +1464,48 @@ dynamic_shapes[tensor_y] = {0: dim * 2}
 
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes">
+<span class="sig-prename descclassname"><span class="pre">torch.export.dynamic_shapes.</span></span><span class="sig-name descname"><span class="pre">refine_dynamic_shapes_from_suggested_fixes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_shapes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/dynamic_shapes.html#refine_dynamic_shapes_from_suggested_fixes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes" title="Permalink to this definition">¶</a></dt>
+<dd><p>For working with export’s dynamic shapes suggested fixes, and/or automatic dynamic shapes.
+Refines the given dynamic shapes spec, given a ConstraintViolation error message and the original dynamic shapes.</p>
+<p>For most cases behavior is straightforward - i.e. for suggested fixes that specialize or refine a Dim’s range,
+or fixes that suggest a derived relation, the new dynamic shapes spec will be updated as such.</p>
+<p>e.g.
+Suggested fixes:</p>
+<blockquote>
+<div><p>dim = Dim(‘dim’, min=3, max=6) -&gt; this just refines the dim’s range
+dim = 4 -&gt; this specializes to a constant
+dy = dx + 1 -&gt; dy was specified as an independent dim, but is actually tied to dx with this relation</p>
+</div></blockquote>
+<p>However, suggested fixes associated with derived dims can be more complicated.
+For example, if a suggested fix is provided for a root dim, the new derived dim value is evaluated based on the root.</p>
+<p>e.g.
+dx = Dim(‘dx’)
+dy = dx + 2
+dynamic_shapes = {“x”: (dx,), “y”: (dy,)}</p>
+<p>Suggested fixes:</p>
+<blockquote>
+<div><p>dx = 4  # specialization will lead to dy also specializing = 6
+dx = Dim(‘dx’, max=6)  # dy now has max = 8</p>
+</div></blockquote>
+<p>Derived dims suggested fixes can also be used to express divisibility constraints.
+This involves creating new root dims that aren’t tied to a particular input shape.
+In this case the root dims won’t appear directly in the new spec, but as a root of
+one of the dims.</p>
+<p>e.g.
+Suggested fixes:</p>
+<blockquote>
+<div><p>_dx = Dim(‘_dx’, max=1024)  # this won’t appear in the return result, but dx will
+dx = 4*_dx  # dx is now divisible by 4, with a max value of 4096</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.export.Constraint">
 <span class="sig-prename descclassname"><span class="pre">torch.export.</span></span><span class="sig-name descname"><span class="pre">Constraint</span></span><a class="headerlink" href="#torch.export.Constraint" title="Permalink to this definition">¶</a></dt>
@@ -1944,6 +1985,7 @@ if (url)
 <li><a class="reference internal" href="#torch.export.dynamic_shapes.ShapesCollection.dynamic_shapes"><code class="docutils literal notranslate"><span class="pre">ShapesCollection.dynamic_shapes()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes"><code class="docutils literal notranslate"><span class="pre">refine_dynamic_shapes_from_suggested_fixes()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.Constraint"><code class="docutils literal notranslate"><span class="pre">Constraint</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.ExportedProgram"><code class="docutils literal notranslate"><span class="pre">ExportedProgram</span></code></a><ul>
 <li><a class="reference internal" href="#torch.export.ExportedProgram.module"><code class="docutils literal notranslate"><span class="pre">ExportedProgram.module()</span></code></a></li>

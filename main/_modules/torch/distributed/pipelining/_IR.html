@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git901226a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
     </div>
     
 
@@ -404,7 +404,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../complex_numbers.html">Complex Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../pipeline.html">Pipeline Parallelism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../random.html">torch.random</a></li>
@@ -550,7 +549,6 @@
 
 <span class="kn">from</span> <span class="nn">._backward</span> <span class="kn">import</span> <span class="n">_null_coalesce_accumulate</span><span class="p">,</span> <span class="n">stage_backward</span>
 <span class="kn">from</span> <span class="nn">._unflatten</span> <span class="kn">import</span> <span class="n">_outline_submodules</span>
-<span class="kn">from</span> <span class="nn">.microbatch</span> <span class="kn">import</span> <span class="n">split_args_kwargs_into_chunks</span><span class="p">,</span> <span class="n">TensorChunkSpec</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -1013,28 +1011,11 @@
 
 
 <div class="viewcode-block" id="Pipe"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.Pipe">[docs]</a><span class="k">class</span> <span class="nc">Pipe</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="c1"># Class variables</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    args_chunk_spec:</span>
-<span class="sd">        Chunking specification for positional inputs. (default: `None`)</span>
-<span class="sd">    kwargs_chunk_spec:</span>
-<span class="sd">        Chunking specification for keyword inputs. (default: `None`)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># args_chunk_spec and kwargs_chunk_spec are used to specify how to chunk</span>
-    <span class="c1"># inputs. They are used to create microbatched examples before tracing.</span>
-    <span class="c1"># See context managers `ArgsChunkSpec` and `KwargsChunkSpec`.</span>
-    <span class="c1"># TODO: Do we need to support `_Replicate`? It&#39;s unclear, dropping for now.</span>
-    <span class="n">args_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">TensorChunkSpec</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">kwargs_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TensorChunkSpec</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-
     <span class="nd">@dataclass</span>
     <span class="k">class</span> <span class="nc">PipeInfo</span><span class="p">:</span>
         <span class="n">graph</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">Graph</span>
         <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span>
-        <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span>
         <span class="n">has_loss_and_backward</span><span class="p">:</span> <span class="nb">bool</span>
-        <span class="n">args_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">kwargs_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1149,6 +1130,9 @@
         <span class="k">return</span> <span class="n">res</span>
 
     <span class="k">def</span> <span class="nf">get_stage_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a stage module corresponding to `stage_idx` of the `pipe`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">stage_idx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">stage_idx</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid stage index </span><span class="si">{</span><span class="n">stage_idx</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_gm</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;submod_</span><span class="si">{</span><span class="n">stage_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1392,7 +1376,11 @@
         <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attr_nodes</span><span class="p">:</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">tensor</span> <span class="o">=</span> <span class="n">_recursive_getattr_with_parent</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">attr</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
-            <span class="n">inputs_to_state</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">id_to_fqns</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">)])</span>
+            <span class="n">fqns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">id_to_fqns</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="n">fqns</span><span class="p">:</span>
+                <span class="n">inputs_to_state</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fqns</span>
+            <span class="k">elif</span> <span class="n">attr</span><span class="o">.</span><span class="n">target</span> <span class="ow">in</span> <span class="n">exported_program</span><span class="o">.</span><span class="n">constants</span><span class="p">:</span>  <span class="c1"># lifted constants</span>
+                <span class="n">inputs_to_state</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
 
         <span class="c1"># [aliasing] for each submodule split, assign attributes on FQNs that may be used.</span>
         <span class="c1"># We determine this based on whether or not the FQN attribute parent exists.</span>
@@ -1520,7 +1508,6 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">from_tracing</span><span class="p">(</span>
         <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-        <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">example_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
         <span class="n">example_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">split_policy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">],</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1539,19 +1526,11 @@
 <span class="sd">            )</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">args_split</span><span class="p">,</span> <span class="n">kwargs_split</span> <span class="o">=</span> <span class="n">split_args_kwargs_into_chunks</span><span class="p">(</span>
-            <span class="n">example_args</span><span class="p">,</span>
-            <span class="n">example_kwargs</span><span class="p">,</span>
-            <span class="n">num_chunks</span><span class="p">,</span>
-            <span class="n">Pipe</span><span class="o">.</span><span class="n">args_chunk_spec</span><span class="p">,</span>
-            <span class="n">Pipe</span><span class="o">.</span><span class="n">kwargs_chunk_spec</span><span class="p">,</span>
-        <span class="p">)</span>
-
         <span class="c1"># Trace with export</span>
         <span class="n">exported_program</span> <span class="o">=</span> <span class="n">Pipe</span><span class="o">.</span><span class="n">_trace_with_export</span><span class="p">(</span>
             <span class="n">mod</span><span class="p">,</span>
-            <span class="n">example_args</span><span class="o">=</span><span class="n">args_split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-            <span class="n">example_kwargs</span><span class="o">=</span><span class="n">kwargs_split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">example_args</span><span class="p">,</span>
+            <span class="n">example_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipe</span><span class="o">.</span><span class="n">_from_traced</span><span class="p">(</span>
@@ -1595,10 +1574,7 @@
         <span class="n">pipe</span><span class="o">.</span><span class="n">pipe_info</span> <span class="o">=</span> <span class="n">Pipe</span><span class="o">.</span><span class="n">PipeInfo</span><span class="p">(</span>
             <span class="n">graph</span><span class="o">=</span><span class="n">pipe</span><span class="o">.</span><span class="n">split_gm</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span>
             <span class="n">num_stages</span><span class="o">=</span><span class="n">pipe</span><span class="o">.</span><span class="n">num_stages</span><span class="p">,</span>
-            <span class="n">num_chunks</span><span class="o">=</span><span class="n">num_chunks</span><span class="p">,</span>
             <span class="n">has_loss_and_backward</span><span class="o">=</span><span class="n">pipe</span><span class="o">.</span><span class="n">has_loss_and_backward</span><span class="p">,</span>
-            <span class="n">args_chunk_spec</span><span class="o">=</span><span class="n">Pipe</span><span class="o">.</span><span class="n">args_chunk_spec</span><span class="p">,</span>
-            <span class="n">kwargs_chunk_spec</span><span class="o">=</span><span class="n">Pipe</span><span class="o">.</span><span class="n">kwargs_chunk_spec</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">pipe</span>
 
@@ -1640,7 +1616,7 @@
         <span class="n">pipe_split</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="annotate_split_points"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.annotate_split_points">[docs]</a><span class="k">def</span> <span class="nf">annotate_split_points</span><span class="p">(</span><span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SplitPoint</span><span class="p">]):</span>
+<span class="k">def</span> <span class="nf">annotate_split_points</span><span class="p">(</span><span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SplitPoint</span><span class="p">]):</span>
     <span class="c1"># TODO: make this implementation out-of-place?</span>
     <span class="k">for</span> <span class="n">qualname</span><span class="p">,</span> <span class="n">split_type</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">qualname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
@@ -1660,34 +1636,31 @@
         <span class="k">elif</span> <span class="n">split_type</span> <span class="o">==</span> <span class="n">SplitPoint</span><span class="o">.</span><span class="n">END</span><span class="p">:</span>
             <span class="n">mod_to_wrap</span><span class="o">.</span><span class="n">forward</span> <span class="o">=</span> <span class="n">MethodType</span><span class="p">(</span><span class="n">_split_after_forward</span><span class="p">,</span> <span class="n">mod_to_wrap</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown split point type.&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown split point type.&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="pipeline"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.pipeline">[docs]</a><span class="k">def</span> <span class="nf">pipeline</span><span class="p">(</span>
     <span class="n">module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-    <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">example_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-    <span class="n">example_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">mb_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">mb_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">split_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SplitPoint</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">split_policy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">],</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pipe</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a pipeline representation for the provided module.</span>
+<span class="sd">    Split a module based on a specification.</span>
 
 <span class="sd">    See `Pipe` for more details.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
 <span class="sd">    module:</span>
-<span class="sd">        The module to be transformed into a `Pipe`.</span>
-<span class="sd">    num_chunks:</span>
-<span class="sd">        The number of microbatches to be run with this pipeline.</span>
-<span class="sd">    example_args:</span>
-<span class="sd">        Example positional inputs to be used with this pipeline.</span>
-<span class="sd">    example_kwargs:</span>
-<span class="sd">        Example keyword inputs to be used with this pipeline. (default: `None`)</span>
+<span class="sd">        The module to be splitted.</span>
+<span class="sd">    mb_args:</span>
+<span class="sd">        Example positional inputs, in micro-batch form.</span>
+<span class="sd">    mb_kwargs:</span>
+<span class="sd">        Example keyword inputs, in micro-batch form. (default: `None`)</span>
 <span class="sd">    split_spec:</span>
-<span class="sd">        A dictionary mapping module names to `SplitPoint`s. (default: `None`)</span>
+<span class="sd">        A dictionary using submodule names as split marker. (default: `None`)</span>
 <span class="sd">    split_policy:</span>
 <span class="sd">        The policy to use for splitting the module. (default: `None`)</span>
 
@@ -1705,80 +1678,17 @@
         <span class="n">annotate_split_points</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">split_spec</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Pipe</span><span class="o">.</span><span class="n">from_tracing</span><span class="p">(</span>
             <span class="n">mod</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
-            <span class="n">num_chunks</span><span class="o">=</span><span class="n">num_chunks</span><span class="p">,</span>
-            <span class="n">example_args</span><span class="o">=</span><span class="n">example_args</span><span class="p">,</span>
-            <span class="n">example_kwargs</span><span class="o">=</span><span class="n">example_kwargs</span><span class="p">,</span>
+            <span class="n">example_args</span><span class="o">=</span><span class="n">mb_args</span><span class="p">,</span>
+            <span class="n">example_kwargs</span><span class="o">=</span><span class="n">mb_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Use split policy</span>
         <span class="k">return</span> <span class="n">Pipe</span><span class="o">.</span><span class="n">from_tracing</span><span class="p">(</span>
             <span class="n">mod</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
-            <span class="n">num_chunks</span><span class="o">=</span><span class="n">num_chunks</span><span class="p">,</span>
-            <span class="n">example_args</span><span class="o">=</span><span class="n">example_args</span><span class="p">,</span>
-            <span class="n">example_kwargs</span><span class="o">=</span><span class="n">example_kwargs</span><span class="p">,</span>
+            <span class="n">example_args</span><span class="o">=</span><span class="n">mb_args</span><span class="p">,</span>
+            <span class="n">example_kwargs</span><span class="o">=</span><span class="n">mb_kwargs</span><span class="p">,</span>
             <span class="n">split_policy</span><span class="o">=</span><span class="n">split_policy</span><span class="p">,</span>
         <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ArgsChunkSpec"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.ArgsChunkSpec">[docs]</a><span class="k">class</span> <span class="nc">ArgsChunkSpec</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Context manager for setting `args_chunk_spec` during creation of Pipe</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
-<span class="sd">        &gt;&gt;&gt; # There are three positional arguments to the model, and</span>
-<span class="sd">        &gt;&gt;&gt; # we are chunking them along dimension 0, 0 and 1, respectively</span>
-<span class="sd">        &gt;&gt;&gt; with ArgsChunkSpec((0, 0, 1)):</span>
-<span class="sd">        &gt;&gt;&gt;     pipe = pipeline(model, num_chunks, example_args)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">chunk_dims</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-    <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args_chunk_spec</span> <span class="o">=</span> <span class="n">map_aggregate</span><span class="p">(</span>
-            <span class="n">chunk_dims</span><span class="p">,</span>
-            <span class="k">lambda</span> <span class="n">dim</span><span class="p">:</span> <span class="n">TensorChunkSpec</span><span class="p">(</span><span class="n">dim</span><span class="p">),</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Inject into the Pipe class</span>
-        <span class="n">Pipe</span><span class="o">.</span><span class="n">args_chunk_spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_chunk_spec</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_chunk_spec</span>
-
-    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-        <span class="c1"># Remove from the Pipe class</span>
-        <span class="n">Pipe</span><span class="o">.</span><span class="n">args_chunk_spec</span> <span class="o">=</span> <span class="kc">None</span></div>
-
-
-<div class="viewcode-block" id="KwargsChunkSpec"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.KwargsChunkSpec">[docs]</a><span class="k">class</span> <span class="nc">KwargsChunkSpec</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Context manager for setting `kwargs_chunk_spec` during creation of Pipe</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
-<span class="sd">        &gt;&gt;&gt; # Chunk dimension 0 for the &quot;id&quot; argument, 1 for the &quot;mask&quot; argument</span>
-<span class="sd">        &gt;&gt;&gt; with KwargsChunkSpec({&quot;id&quot;: 0, &quot;mask&quot;: 1}):</span>
-<span class="sd">        &gt;&gt;&gt;     pipe = pipeline(model, num_chunks, (), example_kwargs)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">chunk_dims</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-    <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs_chunk_spec</span> <span class="o">=</span> <span class="n">map_aggregate</span><span class="p">(</span>
-            <span class="n">chunk_dims</span><span class="p">,</span>
-            <span class="k">lambda</span> <span class="n">dim</span><span class="p">:</span> <span class="n">TensorChunkSpec</span><span class="p">(</span><span class="n">dim</span><span class="p">),</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Inject into the Pipe class</span>
-        <span class="n">Pipe</span><span class="o">.</span><span class="n">kwargs_chunk_spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs_chunk_spec</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs_chunk_spec</span>
-
-    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-        <span class="c1"># Remove from the Pipe class</span>
-        <span class="n">Pipe</span><span class="o">.</span><span class="n">kwargs_chunk_spec</span> <span class="o">=</span> <span class="kc">None</span></div>
 </pre></div>
 
              </article>

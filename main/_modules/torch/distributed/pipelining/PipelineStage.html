@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git901226a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
     </div>
     
 
@@ -404,7 +404,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../complex_numbers.html">Complex Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../pipeline.html">Pipeline Parallelism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../random.html">torch.random</a></li>
@@ -529,7 +528,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
@@ -548,7 +547,7 @@
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;PipelineStage&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ManualPipelineStage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TracerPipelineStage&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -607,7 +606,7 @@
 <span class="k">class</span> <span class="nc">_PipelineStageBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for pipeline stages.</span>
-<span class="sd">    Implements common methods used by both the `PipelineStage` used by the tracing frontend and `ManualPipelineStage`.</span>
+<span class="sd">    Implements common methods used by both the `TracerPipelineStage` used by the tracing frontend and `PipelineStage`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -616,7 +615,6 @@
         <span class="n">stage_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
-        <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -640,7 +638,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">=</span> <span class="n">stage_index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span> <span class="o">=</span> <span class="n">num_stages</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">=</span> <span class="n">num_microbatches</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">group</span>
 
         <span class="c1"># `group_rank` is rank in process group `group`.</span>
@@ -655,17 +652,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_outputs_meta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># map microbatch ID to list of forward tensor args</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fwd_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="c1"># Current forward chunk id to be used in computation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="c1"># Current backward chunk id to be used in computation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1"># Caching chunk outputs for final output merge or reduction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_chunks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># Current forward chunk id to be used in recv</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recv_fwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="c1"># Current backward chunk id to be used in recv</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recv_bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># Create stage id to group rank mapping</span>
         <span class="c1"># In interleaved case, `group_rank` is stage index % group size.</span>
@@ -691,6 +679,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">grad_recv_info</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grad_send_info</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
+        <span class="c1"># Number of backward chunks seen. This is used to determine when to do</span>
+        <span class="c1"># grad reduction in DDP or FSDP.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># To be populated later</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">has_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -715,6 +710,16 @@
 <span class="sd">        Returns true if this stage is the last stage in the pipeline.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_check_chunk_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Attempted to access chunk_id before chunks have been configured.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">chunk_id</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Chunk id </span><span class="si">{</span><span class="n">chunk_id</span><span class="si">}</span><span class="s2"> is out of range [0, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">chunks</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_configure_outputs_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs_meta</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -763,6 +768,20 @@
         <span class="k">return</span> <span class="n">grad_send_info</span>
 
     <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="c1"># TODO: this is needed for backward_maybe_with_nosync</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">=</span> <span class="n">num_microbatches</span>
+
+        <span class="k">for</span> <span class="n">mb_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_microbatches</span><span class="p">):</span>
+            <span class="c1"># `grad_recv_info` is a mirror of `act_send_info`</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grad_recv_info</span><span class="p">[</span><span class="n">mb_index</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_grad_recv_info</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">act_send_info</span>
+            <span class="p">)</span>
+
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">_create_grad_recv_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">act_send_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
@@ -794,24 +813,23 @@
 
         <span class="k">return</span> <span class="n">ops</span>
 
-    <span class="k">def</span> <span class="nf">get_fwd_recv_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">get_fwd_recv_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of ops that are needed to receive the input arguments</span>
 <span class="sd">        for this stage.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">recv_infos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">InputInfo</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">recv_fwd_chunk_id</span><span class="p">]</span>
+        <span class="n">recv_infos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">InputInfo</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="n">fwd_chunk_id</span><span class="p">]</span>
 
         <span class="c1"># In case there is backward pass, set requires_grad for receive buffers</span>
         <span class="c1"># before first forward</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_backward</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_requires_grad</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">recv_fwd_chunk_id</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_backward</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_requires_grad</span><span class="p">[</span><span class="n">fwd_chunk_id</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">recv_infos</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">_RecvInfo</span><span class="p">):</span>
                     <span class="n">a</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">recv_fwd_chunk_id</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_recv_ops</span><span class="p">(</span><span class="n">recv_infos</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_bwd_recv_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">get_bwd_recv_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of ops that are needed to receive the gradients</span>
 <span class="sd">        for this stage.</span>
@@ -819,22 +837,14 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_backward</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span>
 
-        <span class="c1"># Create bwd recv infra lazily</span>
-        <span class="n">recv_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_recv_info</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">recv_bwd_chunk_id</span><span class="p">,</span>
-            <span class="c1"># `grad_recv_info` is a mirror of `act_send_info`</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_create_grad_recv_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">act_send_info</span><span class="p">),</span>
-        <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">recv_bwd_chunk_id</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">recv_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_recv_info</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_recv_ops</span><span class="p">(</span><span class="n">recv_infos</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_fwd_send_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">get_fwd_send_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the activation send ops for current stage&#39;s forward.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Use &quot;-1&quot; to get the outputs created by the last chunk</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_chunks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_chunks</span><span class="p">[</span><span class="n">fwd_chunk_id</span><span class="p">]</span>
         <span class="c1"># Unify output form to tuple for easy correspondance with</span>
         <span class="c1"># `act_send_info`</span>
         <span class="n">output_tuple</span> <span class="o">=</span> <span class="n">output</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="k">else</span> <span class="p">(</span><span class="n">output</span><span class="p">,)</span>
@@ -860,10 +870,12 @@
 
         <span class="k">return</span> <span class="n">ops</span>
 
-    <span class="k">def</span> <span class="nf">get_bwd_send_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">get_bwd_send_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the gradient send ops for current stage&#39;s backward.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_chunk_id</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_backward</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span>
 
@@ -892,7 +904,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">grad_recv_stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">}</span><span class="s2">] for chunk </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bwd_chunk_id</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> has gradients </span><span class="si">{</span><span class="n">grad</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">}</span><span class="s2">] for chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> has gradients </span><span class="si">{</span><span class="n">grad</span><span class="si">}</span><span class="s2"> &quot;</span>
                         <span class="sa">f</span><span class="s2">&quot;and is expecting to send gradients to stage </span><span class="si">{</span><span class="n">grad_recv_stage</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="p">)</span>
         <span class="k">return</span> <span class="n">ops</span>
@@ -901,15 +913,12 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear runtime states of the stage.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Reset pointers</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fwd_chunk_id</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bwd_chunk_id</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recv_fwd_chunk_id</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recv_bwd_chunk_id</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1"># map microbatch ID to list of forward tensor args</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fwd_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="c1"># Caching chunk outputs for final output merge or reduction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_chunks</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="c1"># Reset bwd chunk counter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># Clear grad of input buffers in between schedule steps. This is because</span>
         <span class="c1"># `torch.autograd.backward()` will accumulate gradients into leaf</span>
@@ -943,36 +952,24 @@
 
         <span class="k">return</span> <span class="n">tensors</span>
 
-    <span class="k">def</span> <span class="nf">_retrieve_recv_activations</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_retrieve_recv_activations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the activations received for the current stage during forward.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">recv_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fwd_chunk_id</span><span class="p">]</span>
+        <span class="n">recv_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="n">fwd_chunk_id</span><span class="p">]</span>
         <span class="n">activations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_tensor_from_recv_info</span><span class="p">(</span><span class="n">recv_infos</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">activations</span>
 
     <span class="k">def</span> <span class="nf">_retrieve_recv_grads</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the gradients received for the current stage during backward.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">recv_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_recv_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">bwd_chunk_id</span><span class="p">]</span>
+        <span class="n">recv_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_recv_info</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span>
         <span class="n">grads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_tensor_from_recv_info</span><span class="p">(</span><span class="n">recv_infos</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">grads</span>
-
-    <span class="k">def</span> <span class="nf">_configure_data_parallel_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">last_backward</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Whether using PP with FSDP or DDP, there are some runtime differences between the last backward step and the</span>
-<span class="sd">        other steps.  Namely, we need to accumulate gradients on previous steps and reduce them on the last step, but</span>
-<span class="sd">        there are additional state-variables and performance considerations depending on the data parallelism used.</span>
-<span class="sd">        This helper should adapt any pipeline parallel schedule to work with common/supported data parallel libraries.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_is_last_backward</span><span class="p">(</span><span class="n">last_backward</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_requires_gradient_sync</span><span class="p">(</span><span class="n">last_backward</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward_maybe_with_nosync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># If submod is wrapped with DDP, we use the `no_sync` context manager to</span>
@@ -984,9 +981,18 @@
             <span class="n">out_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">out_val</span>
 
-    <span class="k">def</span> <span class="nf">backward_maybe_with_nosync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">backward_maybe_with_nosync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether using PP with FSDP or DDP, there are some runtime differences between the last backward step and the</span>
+<span class="sd">        other steps.  Namely, we need to accumulate gradients on previous steps and reduce them on the last step, but</span>
+<span class="sd">        there are additional state-variables and performance considerations depending on the data parallelism used.</span>
+<span class="sd">        This helper should adapt any pipeline parallel schedule to work with common/supported data parallel libraries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">last_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># type: ignore[operator]</span>
+
+        <span class="c1"># If submod is wrapped by DDP</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">,</span> <span class="n">DistributedDataParallel</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">bwd_chunk_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">last_backward</span><span class="p">:</span>
                 <span class="c1"># Last chunk, prepare for gradient reduction</span>
                 <span class="c1"># HACK: reaching into DDP implementation details here. Is there a better way?</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">reducer</span><span class="o">.</span><span class="n">prepare_for_backward</span><span class="p">(</span>  <span class="c1"># type: ignore[union-attr, operator]</span>
@@ -1000,14 +1006,21 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">no_sync</span><span class="p">():</span>  <span class="c1"># type: ignore[operator]</span>
                     <span class="n">grads_input</span> <span class="o">=</span> <span class="n">stage_backward</span><span class="p">(</span><span class="o">**</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+        <span class="c1"># If submod is a FSDP module</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_is_last_backward</span><span class="p">(</span><span class="n">last_backward</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_requires_gradient_sync</span><span class="p">(</span><span class="n">last_backward</span><span class="p">)</span>
+            <span class="n">grads_input</span> <span class="o">=</span> <span class="n">stage_backward</span><span class="p">(</span><span class="o">**</span><span class="n">bwd_kwargs</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Non-DDP submodule, regular backward</span>
+            <span class="c1"># Non-DP submodule, regular backward</span>
             <span class="n">grads_input</span> <span class="o">=</span> <span class="n">stage_backward</span><span class="p">(</span><span class="o">**</span><span class="n">bwd_kwargs</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">grads_input</span>
 
     <span class="k">def</span> <span class="nf">forward_one_chunk</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
         <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -1024,7 +1037,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Receive activations for this chunk</span>
             <span class="c1"># Activations only come in args form</span>
-            <span class="n">composite_args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrieve_recv_activations</span><span class="p">()</span>
+            <span class="n">composite_args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrieve_recv_activations</span><span class="p">(</span><span class="n">fwd_chunk_id</span><span class="p">)</span>
             <span class="n">composite_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_fwd_input</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
@@ -1056,30 +1069,32 @@
         <span class="n">flat_args</span> <span class="o">=</span> <span class="n">flatten_args</span><span class="p">(</span><span class="n">composite_args</span><span class="p">)</span>
         <span class="n">flat_kwargs</span> <span class="o">=</span> <span class="n">flatten_args</span><span class="p">(</span><span class="n">composite_kwargs</span><span class="p">)</span>
         <span class="n">flatten_input_tensors</span> <span class="o">=</span> <span class="n">flat_args</span> <span class="o">+</span> <span class="n">flat_kwargs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fwd_cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fwd_cache</span><span class="p">[</span><span class="n">fwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">output_tuple</span><span class="p">,</span>  <span class="c1"># stage_output</span>
             <span class="n">flatten_input_tensors</span><span class="p">,</span>  <span class="c1"># input_values</span>
         <span class="p">)</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Forwarded chunk </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fwd_chunk_id</span><span class="si">}</span><span class="s2">, outputs: </span><span class="si">{</span><span class="n">map_debug_info</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Forwarded chunk </span><span class="si">{</span><span class="n">fwd_chunk_id</span><span class="si">}</span><span class="s2">, outputs: </span><span class="si">{</span><span class="n">map_debug_info</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_fwd_outputs</span><span class="p">(</span><span class="n">output_tuple</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fwd_chunk_id</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">def</span> <span class="nf">backward_one_chunk</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">loss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform backward pass on the module.</span>
 <span class="sd">        This should only be called once per microbatch.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_chunk_id</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
+
         <span class="p">(</span>
             <span class="n">stage_output</span><span class="p">,</span>
             <span class="n">input_values</span><span class="p">,</span>
-        <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fwd_cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fwd_cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
 
         <span class="c1"># Compute backward</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
@@ -1092,7 +1107,7 @@
             <span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Otherwise, receive gradients from next stage</span>
-            <span class="n">grads_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrieve_recv_grads</span><span class="p">()</span>
+            <span class="n">grads_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrieve_recv_grads</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
             <span class="c1"># If an input to the pipeline requires gradient,</span>
             <span class="c1"># `torch.autograd.backward` will accumulate the gradient into the</span>
             <span class="c1"># `.grad` field of such input</span>
@@ -1102,20 +1117,17 @@
                 <span class="s2">&quot;input_values&quot;</span><span class="p">:</span> <span class="n">input_values</span><span class="p">,</span>
             <span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
-            <span class="n">bwd_kwargs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bwd_chunk_id</span>
-        <span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Backwarded chunk </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bwd_chunk_id</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Backwarded chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># noqa: G004</span>
 
     <span class="k">def</span> <span class="nf">_validate_fwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Raises a RuntimeError if shapes of input args/kwargs do not match the shapes configured for this stage.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
             <span class="c1"># TODO why is there a separate recv_info for each pipeline chunk?</span>
-            <span class="n">expected_args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fwd_chunk_id</span><span class="p">]</span>
+            <span class="c1"># kwen2501: to avoid passing a `fwd_chunk_id` to this function, we</span>
+            <span class="c1"># check all chunks against args_recv_info[0]</span>
+            <span class="n">expected_args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># We don&#39;t check inputs for non-0 stages assuming they don&#39;t accept</span>
             <span class="c1"># user inputs in canonical pipeline scenarios</span>
@@ -1157,6 +1169,7 @@
         <span class="n">stage_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">pipe_info</span><span class="p">:</span> <span class="n">Pipe</span><span class="o">.</span><span class="n">PipeInfo</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+        <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1169,7 +1182,6 @@
             <span class="n">stage_index</span><span class="p">,</span>
             <span class="n">pipe_info</span><span class="o">.</span><span class="n">num_stages</span><span class="p">,</span>
             <span class="n">device</span><span class="p">,</span>
-            <span class="n">pipe_info</span><span class="o">.</span><span class="n">num_chunks</span><span class="p">,</span>
             <span class="n">group</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pipe_info</span> <span class="o">=</span> <span class="n">pipe_info</span>
@@ -1195,9 +1207,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">submod_to_stage_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">submod_nodes</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">submod_to_stage_index</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-
-        <span class="c1"># Prepare forward send/recv infrastructure</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">()</span>
 
         <span class="c1"># Cast submodule to device</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_move_submod_to_device</span><span class="p">()</span>
@@ -1226,13 +1235,13 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">):</span>
             <span class="n">modify_graph_op_device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create send/recv infrastructures for activations (during forward)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Flag per chunk to keep track of whether we have set `requires_grad`</span>
         <span class="c1"># for receive buffers. Format: {chunk : Boolean}</span>
-        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chunks</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_microbatches</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="n">chunk</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_act_recv_info</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_requires_grad</span><span class="p">[</span><span class="n">chunk</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -1421,12 +1430,14 @@
         <span class="k">return</span> <span class="n">grad_recv_info_tuple</span>
 
 
-<div class="viewcode-block" id="PipelineStage"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineStage.PipelineStage">[docs]</a><span class="k">class</span> <span class="nc">PipelineStage</span><span class="p">(</span><span class="n">_PipelineStage</span><span class="p">):</span>
+<span class="c1"># TODO: Update this to be returned by helper method under Pipe (kwen)</span>
+<div class="viewcode-block" id="TracerPipelineStage"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineStage.TracerPipelineStage">[docs]</a><span class="k">class</span> <span class="nc">TracerPipelineStage</span><span class="p">(</span><span class="n">_PipelineStage</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">pipe</span><span class="p">:</span> <span class="n">Pipe</span><span class="p">,</span>
         <span class="n">stage_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+        <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>  <span class="c1"># To be cleaned</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1436,7 +1447,9 @@
         <span class="n">stage_module</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">get_stage_module</span><span class="p">(</span><span class="n">stage_index</span><span class="p">)</span>
         <span class="c1"># Get my pipe info</span>
         <span class="n">pipe_info</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">stage_module</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">pipe_info</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">stage_module</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">pipe_info</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">group</span>
+        <span class="p">)</span></div>
 
 
 <span class="c1"># Manual PipelineStage functions and definition</span>
@@ -1446,7 +1459,7 @@
 
 
 <span class="k">def</span> <span class="nf">_create_empty_tensors</span><span class="p">(</span>
-    <span class="n">tensor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]],</span> <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span>
+    <span class="n">tensor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]],</span> <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a list of empty tensors with the same properties (like shape and dtype) as the input tensor(s),</span>
@@ -1596,7 +1609,7 @@
     <span class="k">return</span> <span class="n">stage_id_to_shapes</span>
 
 
-<div class="viewcode-block" id="ManualPipelineStage"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineStage.ManualPipelineStage">[docs]</a><span class="k">class</span> <span class="nc">ManualPipelineStage</span><span class="p">(</span><span class="n">_PipelineStageBase</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineStage"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineStage.PipelineStage">[docs]</a><span class="k">class</span> <span class="nc">PipelineStage</span><span class="p">(</span><span class="n">_PipelineStageBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a pipeline stage in a pipeline parallelism setup.</span>
 <span class="sd">    This class is created manually by providing a example input (and optionally output)</span>
@@ -1609,9 +1622,8 @@
 <span class="sd">        stage_index (int): The ID of this stage.</span>
 <span class="sd">        num_stages (int): The total number of stages.</span>
 <span class="sd">        device (torch.device): The device where this stage is located.</span>
-<span class="sd">        num_microbatches (int): The number of microbatches to use.</span>
-<span class="sd">        input_args (Union[torch.Tensor, List[torch.tensor]], optional): The input arguments for the submodule.</span>
-<span class="sd">        output_args (Union[torch.Tensor, List[torch.tensor]], optional): The output arguments for the submodule.</span>
+<span class="sd">        input_args (Union[torch.Tensor, Tuple[torch.tensor]], optional): The input arguments for the submodule.</span>
+<span class="sd">        output_args (Union[torch.Tensor, Tuple[torch.tensor]], optional): The output arguments for the submodule.</span>
 <span class="sd">        group (dist.ProcessGroup, optional): The process group for distributed training. If None, default group.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1621,17 +1633,13 @@
         <span class="n">stage_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
-        <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">input_args</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]],</span>
-        <span class="n">output_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">input_args</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
+        <span class="n">output_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">submodule</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">num_stages</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_microbatches</span><span class="p">,</span> <span class="n">group</span>
-        <span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">submodule</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">num_stages</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="c1"># When we materialize the model partition on cuda, we call reset_parameters() if it is available</span>
-        <span class="c1"># logger.info(f&quot;input args {input_args=}&quot;)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1661,9 +1669,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">prev_stage</span> <span class="o">=</span> <span class="n">stage_global_rank</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">next_stage</span> <span class="o">=</span> <span class="n">stage_global_rank</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
 
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;finished pipeline stage init, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="si">=}</span><span class="s2">, &quot;</span>  <span class="c1"># noqa: G004</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span><span class="si">=}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;inputs: </span><span class="si">{</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">inp</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;output: </span><span class="si">{</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Receive info during forward</span>
         <span class="c1"># TODO: create args_recv_info lazily? (same needed for PipelineStage)</span>
-        <span class="k">for</span> <span class="n">chunk_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chunks</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">chunk_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_microbatches</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_requires_grad</span><span class="p">[</span><span class="n">chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
                 <span class="c1"># We assume that we always receive from stage - 1</span>
@@ -1693,13 +1709,6 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">act_send_info</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">act_send_info</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;finished pipeline stage init, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="si">=}</span><span class="s2">, &quot;</span>  <span class="c1"># noqa: G004</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span><span class="si">=}</span><span class="s2">, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;inputs: </span><span class="si">{</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">inp</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;output: </span><span class="si">{</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_create_grad_recv_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1746,7 +1755,7 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
 
-<span class="k">def</span> <span class="nf">_validate_stage_shapes</span><span class="p">(</span><span class="n">pipeline_stages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ManualPipelineStage</span><span class="p">]):</span>
+<span class="k">def</span> <span class="nf">_validate_stage_shapes</span><span class="p">(</span><span class="n">pipeline_stages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PipelineStage</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check that the buffer shapes match between stages was expected by performing an all_gather between</span>
 <span class="sd">    all stages.</span>

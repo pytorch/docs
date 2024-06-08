@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git901226a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
     </div>
     
 
@@ -404,7 +404,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../complex_numbers.html">Complex Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../pipeline.html">Pipeline Parallelism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../random.html">torch.random</a></li>
@@ -615,6 +614,27 @@
 
 
 <span class="k">def</span> <span class="nf">clamp_probs</span><span class="p">(</span><span class="n">probs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clamps the probabilities to be in the open interval `(0, 1)`.</span>
+
+<span class="sd">    The probabilities would be clamped between `eps` and `1 - eps`,</span>
+<span class="sd">    and `eps` would be the smallest representable positive number for the input data type.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        probs (Tensor): A tensor of probabilities.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor: The clamped probabilities.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; probs = torch.tensor([0.0, 0.5, 1.0])</span>
+<span class="sd">        &gt;&gt;&gt; clamp_probs(probs)</span>
+<span class="sd">        tensor([1.1921e-07, 5.0000e-01, 1.0000e+00])</span>
+
+<span class="sd">        &gt;&gt;&gt; probs = torch.tensor([0.0, 0.5, 1.0], dtype=torch.float64)</span>
+<span class="sd">        &gt;&gt;&gt; clamp_probs(probs)</span>
+<span class="sd">        tensor([2.2204e-16, 5.0000e-01, 1.0000e+00], dtype=torch.float64)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">eps</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
     <span class="k">return</span> <span class="n">probs</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eps</span><span class="p">)</span>
 

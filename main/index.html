@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git901226a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
     </div>
     
 
@@ -404,7 +404,6 @@
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Parallelism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
@@ -899,9 +898,13 @@ flags, and are at an early stage for feedback and testing.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#why-pipeline-parallel">Why Pipeline Parallel?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#module-torch.distributed.pipelining">What is <code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code>?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#id1">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#techniques-explained">Techniques Explained</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#what-is-torch-distributed-pipelining">What is <code class="docutils literal notranslate"><span class="pre">torch.distributed.pipelining</span></code>?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#step-1-choose-the-frontend-that-fits-your-need">Step 1: choose the frontend that fits your need</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#step-2-use-pipelineschedule-for-execution">Step 2: use <code class="docutils literal notranslate"><span class="pre">PipelineSchedule</span></code> for execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#hugging-face-examples">Hugging Face Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#technical-deep-dive">Technical Deep Dive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#implementing-your-own-schedule">Implementing Your Own Schedule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed.pipelining.html#module-torch.distributed.pipelining">API Reference</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a><ul>
@@ -1146,14 +1149,6 @@ flags, and are at an early stage for feedback and testing.</p>
 <li class="toctree-l2"><a class="reference internal" href="ddp_comm_hooks.html#debugging-communication-hooks">Debugging Communication Hooks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ddp_comm_hooks.html#checkpointing-of-communication-hooks">Checkpointing of Communication Hooks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ddp_comm_hooks.html#acknowledgements">Acknowledgements</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Parallelism</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#model-parallelism-using-multiple-gpus">Model Parallelism using multiple GPUs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#pipelined-execution">Pipelined Execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#pipe-apis-in-pytorch">Pipe APIs in PyTorch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#tutorials">Tutorials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pipeline.html#acknowledgements">Acknowledgements</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a><ul>

@@ -279,7 +279,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git901226a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
     </div>
     
 
@@ -403,7 +403,6 @@
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Parallelism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
@@ -1066,17 +1065,15 @@
         <li><a href="generated/torch.Tensor.aminmax.html#torch.Tensor.aminmax">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.angle.html#torch.angle">angle() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.angle.html#torch.Tensor.angle">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.jit.annotate.html#torch.jit.annotate">annotate() (in module torch.jit)</a>
-</li>
-      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.annotate_split_points">annotate_split_points() (in module torch.distributed.pipelining)</a>
 </li>
       <li><a href="generated/torch.any.html#torch.any">any() (in module torch)</a>
 
@@ -1297,8 +1294,6 @@
 </li>
       </ul></li>
       <li><a href="fx.html#torch.fx.Node.args">args (torch.fx.Node property)</a>
-</li>
-      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.ArgsChunkSpec">ArgsChunkSpec (class in torch.distributed.pipelining)</a>
 </li>
       <li><a href="generated/torch.argsort.html#torch.argsort">argsort() (in module torch)</a>
 
@@ -3864,8 +3859,6 @@
 </li>
         <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.forward">(torch.distributed.fsdp.FullyShardedDataParallel method)</a>
 </li>
-        <li><a href="pipeline.html#torch.distributed.pipeline.sync.Pipe.forward">(torch.distributed.pipeline.sync.Pipe method)</a>
-</li>
         <li><a href="generated/torch.nn.EmbeddingBag.html#torch.nn.EmbeddingBag.forward">(torch.nn.EmbeddingBag method)</a>
 </li>
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.forward">(torch.nn.Module method)</a>
@@ -4354,6 +4347,8 @@
 </li>
       </ul></li>
       <li><a href="distributed.html#torch.distributed.get_process_group_ranks">get_process_group_ranks() (in module torch.distributed)</a>
+</li>
+      <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_pruned_guards">get_pruned_guards() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.get_rank">get_rank() (in module torch.distributed)</a>
 </li>
@@ -5485,8 +5480,6 @@
 </li>
       <li><a href="fx.html#torch.fx.Node.kwargs">kwargs (torch.fx.Node property)</a>
 </li>
-      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.KwargsChunkSpec">KwargsChunkSpec (class in torch.distributed.pipelining)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -6151,8 +6144,6 @@
         <li><a href="generated/torch.xpu.manual_seed_all.html#torch.xpu.manual_seed_all">(in module torch.xpu)</a>
 </li>
       </ul></li>
-      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.PipelineStage.ManualPipelineStage">ManualPipelineStage (class in torch.distributed.pipelining.PipelineStage)</a>
-</li>
       <li><a href="generated/torch.Tensor.map_.html#torch.Tensor.map_">map_() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.html#torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts.map_nodes_to_values">map_nodes_to_values() (torch.fx.experimental.symbolic_shapes.PropagateUnbackedSymInts method)</a>
@@ -7168,44 +7159,6 @@
         <li><a href="distributed.html#module-torch.distributed.optim.utils">torch.distributed.optim.utils</a>
 </li>
         <li><a href="distributed.html#module-torch.distributed.optim.zero_redundancy_optimizer">torch.distributed.optim.zero_redundancy_optimizer</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline">torch.distributed.pipeline</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync">torch.distributed.pipeline.sync</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.batchnorm">torch.distributed.pipeline.sync.batchnorm</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.checkpoint">torch.distributed.pipeline.sync.checkpoint</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.copy">torch.distributed.pipeline.sync.copy</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.dependency">torch.distributed.pipeline.sync.dependency</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.microbatch">torch.distributed.pipeline.sync.microbatch</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.phony">torch.distributed.pipeline.sync.phony</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.pipe">torch.distributed.pipeline.sync.pipe</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.pipeline">torch.distributed.pipeline.sync.pipeline</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip">torch.distributed.pipeline.sync.skip</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.layout">torch.distributed.pipeline.sync.skip.layout</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.namespace">torch.distributed.pipeline.sync.skip.namespace</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.portal">torch.distributed.pipeline.sync.skip.portal</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.skippable">torch.distributed.pipeline.sync.skip.skippable</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.tracker">torch.distributed.pipeline.sync.skip.tracker</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.stream">torch.distributed.pipeline.sync.stream</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.utils">torch.distributed.pipeline.sync.utils</a>
-</li>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.worker">torch.distributed.pipeline.sync.worker</a>
 </li>
         <li><a href="distributed.pipelining.html#module-torch.distributed.pipelining">torch.distributed.pipelining</a>
 </li>
@@ -8822,12 +8775,8 @@
         <li><a href="generated/torch.Tensor.pinverse.html#torch.Tensor.pinverse">(torch.Tensor method)</a>
 </li>
       </ul></li>
-      <li><a href="pipeline.html#torch.distributed.pipeline.sync.Pipe">Pipe (class in torch.distributed.pipeline.sync)</a>
-
-      <ul>
-        <li><a href="distributed.pipelining.html#torch.distributed.pipelining.Pipe">(class in torch.distributed.pipelining)</a>
+      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.Pipe">Pipe (class in torch.distributed.pipelining)</a>
 </li>
-      </ul></li>
       <li><a href="distributed.pipelining.html#torch.distributed.pipelining.pipe_split">pipe_split() (in module torch.distributed.pipelining)</a>
 </li>
       <li><a href="distributed.pipelining.html#torch.distributed.pipelining.pipeline">pipeline() (in module torch.distributed.pipelining)</a>
@@ -8882,8 +8831,6 @@
 </li>
       <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.pool">pool() (torch.cuda.CUDAGraph method)</a>
 </li>
-      <li><a href="pipeline.html#torch.distributed.pipeline.sync.skip.skippable.pop">pop (class in torch.distributed.pipeline.sync.skip.skippable)</a>
-</li>
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.pop">pop() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
@@ -8924,10 +8871,10 @@
 </li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook.PowerSGDState">PowerSGDState (class in torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.transforms.PowerTransform">PowerTransform (class in torch.distributions.transforms)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal.precision_matrix">precision_matrix (torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal property)</a>
 
       <ul>
@@ -9361,6 +9308,8 @@
       <li><a href="generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html#torch.optim.lr_scheduler.ReduceLROnPlateau">ReduceLROnPlateau (class in torch.optim.lr_scheduler)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.ReduceOp">ReduceOp (class in torch.distributed)</a>
+</li>
+      <li><a href="export.html#torch.export.dynamic_shapes.refine_dynamic_shapes_from_suggested_fixes">refine_dynamic_shapes_from_suggested_fixes() (in module torch.export.dynamic_shapes)</a>
 </li>
       <li><a href="named_tensor.html#torch.Tensor.refine_names">refine_names() (torch.Tensor method)</a>
 </li>
@@ -10704,8 +10653,6 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pipeline.html#torch.distributed.pipeline.sync.skip.skippable.skippable">skippable() (in module torch.distributed.pipeline.sync.skip.skippable)</a>
-</li>
       <li><a href="generated/torch.slice_scatter.html#torch.slice_scatter">slice_scatter() (in module torch)</a>
 
       <ul>
@@ -10898,8 +10845,6 @@
       </ul></li>
       <li><a href="elastic/multiprocessing.html#torch.distributed.elastic.multiprocessing.start_processes">start_processes() (in module torch.distributed.elastic.multiprocessing)</a>
 </li>
-      <li><a href="pipeline.html#torch.distributed.pipeline.sync.skip.skippable.stash">stash (class in torch.distributed.pipeline.sync.skip.skippable)</a>
-</li>
       <li><a href="monitor.html#torch.monitor.Stat">Stat (class in torch.monitor)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.stateful.Stateful.state_dict">state_dict() (torch.distributed.checkpoint.stateful.Stateful method)</a>
@@ -11016,6 +10961,10 @@
         <li><a href="distributed.optim.html#torch.distributed.optim.PostLocalSGDOptimizer.step">(torch.distributed.optim.PostLocalSGDOptimizer method)</a>
 </li>
         <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer.step">(torch.distributed.optim.ZeroRedundancyOptimizer method)</a>
+</li>
+        <li><a href="distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti.step">(torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti method)</a>
+</li>
+        <li><a href="distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle.step">(torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle method)</a>
 </li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.step">(torch.optim.Adadelta method)</a>
 </li>
@@ -13804,139 +13753,6 @@
 </li>
       </ul></li>
       <li>
-    torch.distributed.pipeline
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.batchnorm
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.batchnorm">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.checkpoint
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.checkpoint">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.copy
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.copy">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.dependency
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.dependency">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.microbatch
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.microbatch">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.phony
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.phony">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.pipe
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.pipe">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.pipeline
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.pipeline">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.skip
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.skip.layout
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.layout">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.skip.namespace
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.namespace">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.skip.portal
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.portal">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.skip.skippable
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.skippable">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.skip.tracker
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.skip.tracker">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.stream
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.stream">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.utils
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.utils">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.distributed.pipeline.sync.worker
-
-      <ul>
-        <li><a href="distributed.html#module-torch.distributed.pipeline.sync.worker">module</a>
-</li>
-      </ul></li>
-      <li>
     torch.distributed.pipelining
 
       <ul>
@@ -14412,8 +14228,6 @@
         <li><a href="distributions.html#module-torch.distributions.uniform">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.distributions.utils
 
@@ -14484,6 +14298,8 @@
         <li><a href="export.html#module-torch.export.unflatten">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.fft
 
@@ -17394,6 +17210,8 @@
 </li>
       <li><a href="fx.html#torch.fx.Tracer">Tracer (class in torch.fx)</a>
 </li>
+      <li><a href="distributed.pipelining.html#torch.distributed.pipelining.PipelineStage.TracerPipelineStage">TracerPipelineStage (class in torch.distributed.pipelining.PipelineStage)</a>
+</li>
       <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.train">train() (torch.jit.ScriptModule method)</a>
 
       <ul>
@@ -17783,8 +17601,6 @@
       <li><a href="generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.verify_export">verify_export() (torch.onnx.verification.GraphInfo method)</a>
 </li>
       <li><a href="cpp_extension.html#torch.utils.cpp_extension.verify_ninja_availability">verify_ninja_availability() (in module torch.utils.cpp_extension)</a>
-</li>
-      <li><a href="pipeline.html#torch.distributed.pipeline.sync.skip.skippable.verify_skippables">verify_skippables() (in module torch.distributed.pipeline.sync.skip.skippable)</a>
 </li>
       <li><a href="backends.html#torch.backends.cudnn.version">version() (in module torch.backends.cudnn)</a>
 </li>
