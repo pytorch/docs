@@ -50,6 +50,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     import torch._dynamo as torchdynamo
     
@@ -99,6 +100,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -151,6 +153,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -210,6 +213,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from functorch.experimental.control_flow import cond
@@ -291,6 +295,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from functorch.experimental.control_flow import cond
@@ -370,6 +375,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from functorch.experimental.control_flow import cond
@@ -475,6 +481,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from functorch.experimental.control_flow import cond
@@ -536,6 +543,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from torch.export import Dim
@@ -610,6 +618,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from functorch.experimental.control_flow import cond
@@ -674,6 +683,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -737,6 +747,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -800,6 +811,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import functools
     
     import torch
@@ -854,6 +866,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -902,6 +915,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -948,6 +962,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -984,7 +999,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -992,6 +1007,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1038,6 +1054,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from functorch.experimental.control_flow import map
@@ -1093,6 +1110,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1139,6 +1157,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1188,6 +1207,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1243,7 +1263,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1251,6 +1271,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1289,7 +1310,7 @@ list_unpack
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1297,6 +1318,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     from typing import List
     
     import torch
@@ -1349,6 +1371,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1408,6 +1431,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import contextlib
     
     import torch
@@ -1461,6 +1485,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from torch.utils import _pytree as pytree
@@ -1506,6 +1531,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from torch.export import Dim
@@ -1555,6 +1581,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     from enum import Enum
     
     import torch
@@ -1611,6 +1638,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1667,6 +1695,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1716,6 +1745,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1757,6 +1787,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1829,6 +1860,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1868,7 +1900,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
+    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -1876,6 +1908,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     from torch.export import Dim
@@ -1915,6 +1948,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1956,6 +1990,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -1991,6 +2026,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -2008,6 +2044,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f5f9d47adc0>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7ff78bfd1f70>
 
 

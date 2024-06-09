@@ -10,14 +10,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>torch.distributed.pipelining.PipelineSchedule &mdash; PyTorch main documentation</title>
+  <title>torch.distributed.pipelining.schedules &mdash; PyTorch main documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://pytorch.org/docs/stable/_modules/torch/distributed/pipelining/PipelineSchedule.html"/>
+    <link rel="canonical" href="https://pytorch.org/docs/stable/_modules/torch/distributed/pipelining/schedules.html"/>
   
 
   
@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf681e36 ) &#x25BC</a>
     </div>
     
 
@@ -301,7 +301,7 @@
           
 
 <div>
-  <a style="color:#F05732" href="https://pytorch.org/docs/stable/_modules/torch/distributed/pipelining/PipelineSchedule.html">
+  <a style="color:#F05732" href="https://pytorch.org/docs/stable/_modules/torch/distributed/pipelining/schedules.html">
     You are viewing unstable developer preview docs.
     Click here to view docs for latest stable release.
   </a>
@@ -490,7 +490,7 @@
         
           <li><a href="../../distributed.html">torch.distributed</a> &gt;</li>
         
-      <li>torch.distributed.pipelining.PipelineSchedule</li>
+      <li>torch.distributed.pipelining.schedules</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
@@ -523,34 +523,22 @@
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
-  <h1>Source code for torch.distributed.pipelining.PipelineSchedule</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
+  <h1>Source code for torch.distributed.pipelining.schedules</h1><div class="highlight"><pre>
+<span></span><span class="c1"># mypy: allow-untyped-defs</span>
+<span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Any</span><span class="p">,</span>
-    <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
-    <span class="n">NamedTuple</span><span class="p">,</span>
-    <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
-    <span class="n">Union</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
 <span class="kn">from</span> <span class="nn">torch.profiler</span> <span class="kn">import</span> <span class="n">record_function</span>
 
 <span class="kn">from</span> <span class="nn">.microbatch</span> <span class="kn">import</span> <span class="n">merge_chunks</span><span class="p">,</span> <span class="n">split_args_kwargs_into_chunks</span><span class="p">,</span> <span class="n">TensorChunkSpec</span>
-<span class="kn">from</span> <span class="nn">.PipelineStage</span> <span class="kn">import</span> <span class="n">_PipelineStageBase</span>
-
-<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">._IR</span> <span class="kn">import</span> <span class="n">Pipe</span>
+<span class="kn">from</span> <span class="nn">.stage</span> <span class="kn">import</span> <span class="n">_PipelineStageBase</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
@@ -610,8 +598,6 @@
 
         <span class="c1"># Derived</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loss_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="c1"># To be filled by subclasses</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pipe_info</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Pipe</span><span class="o">.</span><span class="n">PipeInfo</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Holds the losses for each microbatch.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_losses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -802,7 +788,7 @@
     <span class="k">return</span> <span class="n">work_by_peer</span>
 
 
-<div class="viewcode-block" id="PipelineScheduleSingle"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle">[docs]</a><span class="k">class</span> <span class="nc">PipelineScheduleSingle</span><span class="p">(</span><span class="n">_PipelineSchedule</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineScheduleSingle"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleSingle">[docs]</a><span class="k">class</span> <span class="nc">PipelineScheduleSingle</span><span class="p">(</span><span class="n">_PipelineSchedule</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for single-stage schedules.</span>
 <span class="sd">    Implements the `step` method.</span>
@@ -826,9 +812,6 @@
             <span class="n">kwargs_chunk_spec</span><span class="o">=</span><span class="n">kwargs_chunk_spec</span><span class="p">,</span>
             <span class="n">output_merge_spec</span><span class="o">=</span><span class="n">output_merge_spec</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pipe_info</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">stage</span><span class="o">.</span><span class="n">pipe_info</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="s2">&quot;pipe_info&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>  <span class="c1"># type: ignore[attr-defined]</span>
-        <span class="p">)</span>
         <span class="c1"># Self attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="o">=</span> <span class="n">stage</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">num_stages</span>
@@ -841,7 +824,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
             <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="n">n_microbatches</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PipelineScheduleSingle.step"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleSingle.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">losses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineScheduleSingle.step"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleSingle.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">losses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run one iteration of the pipeline schedule with *whole-batch* input.</span>
 <span class="sd">        Will chunk the input into microbatches automatically, and go through the</span>
@@ -875,7 +858,7 @@
             <span class="k">return</span> <span class="kc">None</span></div></div>
 
 
-<div class="viewcode-block" id="ScheduleGPipe"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.ScheduleGPipe">[docs]</a><span class="k">class</span> <span class="nc">ScheduleGPipe</span><span class="p">(</span><span class="n">PipelineScheduleSingle</span><span class="p">):</span>
+<div class="viewcode-block" id="ScheduleGPipe"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.ScheduleGPipe">[docs]</a><span class="k">class</span> <span class="nc">ScheduleGPipe</span><span class="p">(</span><span class="n">PipelineScheduleSingle</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The GPipe schedule.</span>
 <span class="sd">    Will go through all the microbatches in a fill-drain manner.</span>
@@ -959,7 +942,7 @@
             <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Schedule1F1B"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.Schedule1F1B">[docs]</a><span class="k">class</span> <span class="nc">Schedule1F1B</span><span class="p">(</span><span class="n">PipelineScheduleSingle</span><span class="p">):</span>
+<div class="viewcode-block" id="Schedule1F1B"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.Schedule1F1B">[docs]</a><span class="k">class</span> <span class="nc">Schedule1F1B</span><span class="p">(</span><span class="n">PipelineScheduleSingle</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The 1F1B schedule.</span>
 <span class="sd">    Will perform one forward and one backward on the microbatches in steady state.</span>
@@ -1094,7 +1077,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_losses</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="PipelineScheduleMulti"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti">[docs]</a><span class="k">class</span> <span class="nc">PipelineScheduleMulti</span><span class="p">(</span><span class="n">_PipelineSchedule</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineScheduleMulti"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleMulti">[docs]</a><span class="k">class</span> <span class="nc">PipelineScheduleMulti</span><span class="p">(</span><span class="n">_PipelineSchedule</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for multi-stage schedules.</span>
 <span class="sd">    Implements the `step` method.</span>
@@ -1121,9 +1104,6 @@
             <span class="n">kwargs_chunk_spec</span><span class="o">=</span><span class="n">kwargs_chunk_spec</span><span class="p">,</span>
             <span class="n">output_merge_spec</span><span class="o">=</span><span class="n">output_merge_spec</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pipe_info</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pipe_info</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;pipe_info&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>  <span class="c1"># type: ignore[attr-defined]</span>
-        <span class="p">)</span>
         <span class="c1"># Self attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span> <span class="o">=</span> <span class="n">stages</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">num_stages</span>
@@ -1147,7 +1127,7 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
                 <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="n">n_microbatches</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PipelineScheduleMulti.step"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.PipelineScheduleMulti.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">losses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="PipelineScheduleMulti.step"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleMulti.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">losses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run one iteration of the pipeline schedule with *whole-batch* input.</span>
 <span class="sd">        Will chunk the input into microbatches automatically, and go through the</span>
@@ -1275,7 +1255,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_losses</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ScheduleLoopedBFS"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.ScheduleLoopedBFS">[docs]</a><span class="k">class</span> <span class="nc">ScheduleLoopedBFS</span><span class="p">(</span><span class="n">PipelineScheduleMulti</span><span class="p">):</span>
+<div class="viewcode-block" id="ScheduleLoopedBFS"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.ScheduleLoopedBFS">[docs]</a><span class="k">class</span> <span class="nc">ScheduleLoopedBFS</span><span class="p">(</span><span class="n">PipelineScheduleMulti</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Breadth-First Pipeline Parallelism.</span>
 <span class="sd">    See https://arxiv.org/abs/2211.05953 for details.</span>
@@ -1339,7 +1319,7 @@
         <span class="k">return</span> <span class="n">rank_ops</span></div>
 
 
-<div class="viewcode-block" id="ScheduleInterleaved1F1B"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.PipelineSchedule.ScheduleInterleaved1F1B">[docs]</a><span class="k">class</span> <span class="nc">ScheduleInterleaved1F1B</span><span class="p">(</span><span class="n">PipelineScheduleMulti</span><span class="p">):</span>
+<div class="viewcode-block" id="ScheduleInterleaved1F1B"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B">[docs]</a><span class="k">class</span> <span class="nc">ScheduleInterleaved1F1B</span><span class="p">(</span><span class="n">PipelineScheduleMulti</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Interleaved 1F1B schedule.</span>
 <span class="sd">    See https://arxiv.org/pdf/2104.04473 for details.</span>

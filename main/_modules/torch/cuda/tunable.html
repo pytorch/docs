@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf681e36 ) &#x25BC</a>
     </div>
     
 
@@ -664,12 +664,12 @@
 
 <div class="viewcode-block" id="enable"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.enable">[docs]</a><span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is the big on/off switch for all TunableOp implementations.&quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_enable</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_enable</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="is_enabled"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.is_enabled">[docs]</a><span class="k">def</span> <span class="nf">is_enabled</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns whether the TunableOp feature is enabled.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_is_enabled</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_is_enabled</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="tuning_enable"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.tuning_enable">[docs]</a><span class="k">def</span> <span class="nf">tuning_enable</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -678,12 +678,12 @@
 <span class="sd">    When enabled, if a tuned entry isn&#39;t found, run the tuning step and record</span>
 <span class="sd">    the entry.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_tuning_enable</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_tuning_enable</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="tuning_is_enabled"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.tuning_is_enabled">[docs]</a><span class="k">def</span> <span class="nf">tuning_is_enabled</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns whether TunableOp implementations can be tuned.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_tuning_is_enabled</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_tuning_is_enabled</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="set_max_tuning_duration"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.set_max_tuning_duration">[docs]</a><span class="k">def</span> <span class="nf">set_max_tuning_duration</span><span class="p">(</span><span class="n">duration</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -692,12 +692,12 @@
 <span class="sd">    If both max tuning duration and iterations are set, the smaller of the two</span>
 <span class="sd">    will be honored. At minimum 1 tuning iteration will always be run.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_set_max_tuning_duration</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span></div>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_set_max_tuning_duration</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="get_max_tuning_duration"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.get_max_tuning_duration">[docs]</a><span class="k">def</span> <span class="nf">get_max_tuning_duration</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get max time to spend tuning a given solution.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_max_tuning_duration</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_max_tuning_duration</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="set_max_tuning_iterations"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.set_max_tuning_iterations">[docs]</a><span class="k">def</span> <span class="nf">set_max_tuning_iterations</span><span class="p">(</span><span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -706,12 +706,12 @@
 <span class="sd">    If both max tuning duration and iterations are set, the smaller of the two</span>
 <span class="sd">    will be honored. At minimum 1 tuning iteration will always be run.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_set_max_tuning_iterations</span><span class="p">(</span><span class="n">iterations</span><span class="p">)</span></div>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_set_max_tuning_iterations</span><span class="p">(</span><span class="n">iterations</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="get_max_tuning_iterations"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.get_max_tuning_iterations">[docs]</a><span class="k">def</span> <span class="nf">get_max_tuning_iterations</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get max iterations to spend tuning a given solution.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_max_tuning_iterations</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_max_tuning_iterations</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="set_filename"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.set_filename">[docs]</a><span class="k">def</span> <span class="nf">set_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">insert_device_ordinal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -721,22 +721,22 @@
 <span class="sd">    will be added to the given filename automatically. This can be used in a</span>
 <span class="sd">    1-process-per-gpu cenario to ensure all processes write to a separate file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_set_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">insert_device_ordinal</span><span class="p">)</span></div>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_set_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">insert_device_ordinal</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="get_filename"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.get_filename">[docs]</a><span class="k">def</span> <span class="nf">get_filename</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get the results filename.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_filename</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_filename</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="get_results"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.get_results">[docs]</a><span class="k">def</span> <span class="nf">get_results</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return all TunableOp results.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_results</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_results</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="get_validators"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.get_validators">[docs]</a><span class="k">def</span> <span class="nf">get_validators</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the TunableOp validators.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_validators</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_validators</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="write_file_on_exit"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.write_file_on_exit">[docs]</a><span class="k">def</span> <span class="nf">write_file_on_exit</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -745,7 +745,7 @@
 <span class="sd">    This is useful as a final flush of your results to disk if your application</span>
 <span class="sd">    terminates as result of normal operation or an error. Manual flushing of</span>
 <span class="sd">    your results can be achieved by manually calling ``write_file()``.&quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_write_file_on_exit</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_write_file_on_exit</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="write_file"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.write_file">[docs]</a><span class="k">def</span> <span class="nf">write_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -755,7 +755,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">get_filename</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_write_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_write_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="read_file"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.read_file">[docs]</a><span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -765,7 +765,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">get_filename</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 </pre></div>
 
              </article>

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitef2b5ed ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitf681e36 ) &#x25BC</a>
     </div>
     
 
@@ -524,12 +524,12 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.distributed.pipelining._IR</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
+<span></span><span class="c1"># mypy: allow-untyped-defs</span>
+<span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">Signature</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MethodType</span>
@@ -537,6 +537,7 @@
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx</span> <span class="k">as</span> <span class="nn">fx</span>
+<span class="kn">from</span> <span class="nn">torch.distributed</span> <span class="kn">import</span> <span class="n">ProcessGroup</span>
 <span class="kn">from</span> <span class="nn">torch.export</span> <span class="kn">import</span> <span class="n">ExportedProgram</span>
 <span class="kn">from</span> <span class="nn">torch.export.unflatten</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_assign_attr</span><span class="p">,</span>
@@ -546,9 +547,10 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.fx.node</span> <span class="kn">import</span> <span class="n">map_aggregate</span>
 <span class="kn">from</span> <span class="nn">torch.fx.passes.split_module</span> <span class="kn">import</span> <span class="n">split_module</span>
-
 <span class="kn">from</span> <span class="nn">._backward</span> <span class="kn">import</span> <span class="n">_null_coalesce_accumulate</span><span class="p">,</span> <span class="n">stage_backward</span>
 <span class="kn">from</span> <span class="nn">._unflatten</span> <span class="kn">import</span> <span class="n">_outline_submodules</span>
+<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">PipeInfo</span>
+<span class="kn">from</span> <span class="nn">.stage</span> <span class="kn">import</span> <span class="n">_PipelineStage</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -1010,13 +1012,42 @@
     <span class="p">)</span>
 
 
-<div class="viewcode-block" id="Pipe"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.Pipe">[docs]</a><span class="k">class</span> <span class="nc">Pipe</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="nd">@dataclass</span>
-    <span class="k">class</span> <span class="nc">PipeInfo</span><span class="p">:</span>
-        <span class="n">graph</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">Graph</span>
-        <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span>
-        <span class="n">has_loss_and_backward</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="k">def</span> <span class="nf">_modify_graph_op_device</span><span class="p">(</span>
+    <span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span>
+    <span class="n">new_device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modify the device argument of all &quot;call_function&quot; nodes in the graph.  This</span>
+<span class="sd">    is useful for moving the graph to a different device. In particular for</span>
+<span class="sd">    generator ops, like torch.ones.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">modified</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;device&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">kwargs</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">new_device</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Changing device of Node </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_device</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
+                <span class="p">)</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">update_kwarg</span><span class="p">(</span><span class="s2">&quot;device&quot;</span><span class="p">,</span> <span class="n">new_device</span><span class="p">)</span>
+                <span class="n">modified</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_module&quot;</span><span class="p">:</span>
+            <span class="c1"># Recursively modify &quot;device&quot; in submodules</span>
+            <span class="n">submod</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">get_submodule</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">):</span>
+                <span class="n">_modify_graph_op_device</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">new_device</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">InterpreterModule</span><span class="p">):</span>
+                <span class="c1"># If unflattening has been performed, we need to access its graph module by `.graph_module`</span>
+                <span class="n">_modify_graph_op_device</span><span class="p">(</span><span class="n">submod</span><span class="o">.</span><span class="n">graph_module</span><span class="p">,</span> <span class="n">new_device</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Skipping device modification for submodule </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="si">}</span><span class="s2"> because it is a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">submod</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
+                <span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">modified</span><span class="p">:</span>
+        <span class="n">gm</span><span class="o">.</span><span class="n">recompile</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Pipe"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.Pipe">[docs]</a><span class="k">class</span> <span class="nc">Pipe</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">split_gm</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span>
@@ -1031,7 +1062,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">num_stages</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">has_loss_and_backward</span> <span class="o">=</span> <span class="n">has_loss_and_backward</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loss_spec</span> <span class="o">=</span> <span class="n">loss_spec</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pipe_info</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Pipe</span><span class="o">.</span><span class="n">PipeInfo</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">split_gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
             <span class="k">assert</span> <span class="p">(</span>
@@ -1498,11 +1528,21 @@
         <span class="n">example_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExportedProgram</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Tracing model ...&quot;</span><span class="p">)</span>
-        <span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
-            <span class="n">mod</span><span class="p">,</span>
-            <span class="n">example_args</span><span class="p">,</span>
-            <span class="n">example_kwargs</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
+                <span class="n">mod</span><span class="p">,</span>
+                <span class="n">example_args</span><span class="p">,</span>
+                <span class="n">example_kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;It seems that we cannot capture your model as a full graph. &quot;</span>
+                <span class="s2">&quot;Typical reasons include graph breaks, data/shape-dependent &quot;</span>
+                <span class="s2">&quot;control flow, or missing meta kernels for custom operators. &quot;</span>
+                <span class="s2">&quot;You can use our manual pipeline interfaces, or try to fix the &quot;</span>
+                <span class="s2">&quot;graph breaks, see https://pytorch.org/docs/stable/export.html&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
         <span class="k">return</span> <span class="n">ep</span>
 
     <span class="nd">@staticmethod</span>
@@ -1570,12 +1610,6 @@
             <span class="p">)</span>
             <span class="n">submod0</span><span class="o">.</span><span class="n">recompile</span><span class="p">()</span>
 
-        <span class="c1"># Create pipe info</span>
-        <span class="n">pipe</span><span class="o">.</span><span class="n">pipe_info</span> <span class="o">=</span> <span class="n">Pipe</span><span class="o">.</span><span class="n">PipeInfo</span><span class="p">(</span>
-            <span class="n">graph</span><span class="o">=</span><span class="n">pipe</span><span class="o">.</span><span class="n">split_gm</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span>
-            <span class="n">num_stages</span><span class="o">=</span><span class="n">pipe</span><span class="o">.</span><span class="n">num_stages</span><span class="p">,</span>
-            <span class="n">has_loss_and_backward</span><span class="o">=</span><span class="n">pipe</span><span class="o">.</span><span class="n">has_loss_and_backward</span><span class="p">,</span>
-        <span class="p">)</span>
         <span class="k">return</span> <span class="n">pipe</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1585,11 +1619,53 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_gm</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PipeInfo</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipe_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;Pipe info is not available. Please use the `pipeline` method to create the `Pipe` object.&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get information about the pipe.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        PipeInfo</span>
+<span class="sd">            A dataclass containing information about the pipe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PipeInfo</span><span class="p">(</span>
+            <span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">split_gm</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span>
+            <span class="n">num_stages</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span><span class="p">,</span>
+            <span class="n">has_loss_and_backward</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">has_loss_and_backward</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build_stage</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">stage_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+        <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_PipelineStage</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a `PipelineStage` given a stage index and distributed group.</span>
+<span class="sd">        The `PipelineStage` can run with `PipelineSchedule`s.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Find stage module</span>
+        <span class="n">stage_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stage_module</span><span class="p">(</span><span class="n">stage_index</span><span class="p">)</span>
+
+        <span class="c1"># Move ops argument to device</span>
+        <span class="c1"># Today PT2 tracer does not treat `x.device` as a symbolic device;</span>
+        <span class="c1"># instead, the device of tracing time got burned into the generated</span>
+        <span class="c1"># code.  Here we provide a workaround for users to manually modify the</span>
+        <span class="c1"># &quot;device&quot; kwarg of operations. Such operation may include:</span>
+        <span class="c1"># `torch.ones`, `torch.zeros`, `torch.rand`, etc.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stage_module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">):</span>
+            <span class="n">_modify_graph_op_device</span><span class="p">(</span><span class="n">stage_module</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Expected a `torch.fx.GraphModule` but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">stage_module</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipe_info</span></div>
+
+        <span class="c1"># Detach pipe info</span>
+        <span class="c1"># Note: be careful what&#39;s included in `pipe_info`. We don&#39;t want to keep</span>
+        <span class="c1"># a reference to `Pipe` or `Pipe.split_gm` which stops python from</span>
+        <span class="c1"># recycling them. When python recycles them, other stage modules (which</span>
+        <span class="c1"># are irrelevant to current rank) can be automatically freed.</span>
+        <span class="n">pipe_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">_PipelineStage</span><span class="p">(</span><span class="n">stage_module</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">pipe_info</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SplitPoint"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.SplitPoint">[docs]</a><span class="k">class</span> <span class="nc">SplitPoint</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>

@@ -13,6 +13,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
@@ -54,6 +55,7 @@ Original source code:
 
 .. code-block:: python
 
+    # mypy: allow-untyped-defs
     import torch
     
     
