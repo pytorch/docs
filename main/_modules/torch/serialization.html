@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+gitd3817d8 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git99f5a85 ) &#x25BC</a>
     </div>
     
 
@@ -915,6 +915,25 @@
 
 
 <span class="k">def</span> <span class="nf">default_restore_location</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Restores `storage` using a deserializer function registered for the `location`.</span>
+
+<span class="sd">    This function looks in the registry for deserializer functions that match the `location`.</span>
+<span class="sd">    If found, it attempts to use them, in priority order, to restore `storage` until one</span>
+<span class="sd">    returns a not `None` result. If no deserializer can be found in the registry, or all found fail</span>
+<span class="sd">    to bear a result, it raises a `RuntimeError`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        storage (STORAGE): the storage object to restore</span>
+<span class="sd">        location (str): the location tag associated with the storage object</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        storage: Optional[STORAGE]</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: If no deserializer matching `location` is found in the registry or if</span>
+<span class="sd">           all matching ones return `None`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">_package_registry</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
