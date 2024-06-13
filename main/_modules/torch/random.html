@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.4.0a0+git5d8c7f3 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc1cd946 ) &#x25BC</a>
     </div>
     
 
@@ -524,11 +524,11 @@
   <h1>Source code for torch.random</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">contextlib</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generator</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generator</span>
 
-<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">default_generator</span>
 <span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">default_generator</span>
 
 
 <div class="viewcode-block" id="set_rng_state"><a class="viewcode-back" href="../../generated/torch.set_rng_state.html#torch.set_rng_state">[docs]</a><span class="k">def</span> <span class="nf">set_rng_state</span><span class="p">(</span><span class="n">new_state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -570,10 +570,12 @@
         <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">torch.mps</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">_is_in_bad_fork</span><span class="p">():</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">torch.xpu</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">_is_in_bad_fork</span><span class="p">():</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
@@ -593,10 +595,12 @@
         <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">torch.mps</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">_is_in_bad_fork</span><span class="p">():</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
     <span class="kn">import</span> <span class="nn">torch.xpu</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">_is_in_bad_fork</span><span class="p">():</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 
@@ -619,7 +623,9 @@
         <span class="n">custom_device_mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="p">,</span> <span class="n">custom_backend_name</span><span class="p">)</span>
         <span class="n">_bad_fork_name</span> <span class="o">=</span> <span class="s2">&quot;_is_in_bad_fork&quot;</span>
         <span class="n">_seed_all_name</span> <span class="o">=</span> <span class="s2">&quot;manual_seed_all&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">custom_device_mod</span><span class="p">,</span> <span class="n">_bad_fork_name</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">custom_device_mod</span><span class="p">,</span> <span class="n">_seed_all_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">custom_device_mod</span><span class="p">,</span> <span class="n">_bad_fork_name</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span>
+            <span class="n">custom_device_mod</span><span class="p">,</span> <span class="n">_seed_all_name</span>
+        <span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">custom_device_mod</span><span class="p">,</span> <span class="n">_bad_fork_name</span><span class="p">)():</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="n">custom_device_mod</span><span class="p">,</span> <span class="n">_seed_all_name</span><span class="p">)(</span><span class="n">seed</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -641,7 +647,13 @@
 
 
 <div class="viewcode-block" id="fork_rng"><a class="viewcode-back" href="../../random.html#torch.fork_rng">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-<span class="k">def</span> <span class="nf">fork_rng</span><span class="p">(</span><span class="n">devices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">_caller</span><span class="o">=</span><span class="s2">&quot;fork_rng&quot;</span><span class="p">,</span> <span class="n">_devices_kw</span><span class="o">=</span><span class="s2">&quot;devices&quot;</span><span class="p">,</span> <span class="n">device_type</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">fork_rng</span><span class="p">(</span>
+    <span class="n">devices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">_caller</span><span class="o">=</span><span class="s2">&quot;fork_rng&quot;</span><span class="p">,</span>
+    <span class="n">_devices_kw</span><span class="o">=</span><span class="s2">&quot;devices&quot;</span><span class="p">,</span>
+    <span class="n">device_type</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Forks the RNG, so that when you return, the RNG is reset</span>
 <span class="sd">    to the state that it was previously in.</span>
@@ -662,8 +674,10 @@
     <span class="n">device_type</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device_type</span><span class="p">)</span><span class="o">.</span><span class="n">type</span>
     <span class="n">device_mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="p">,</span> <span class="n">device_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">device_mod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;torch has no module of `</span><span class="si">{</span><span class="n">device_type</span><span class="si">}</span><span class="s2">`, you should register &quot;</span> <span class="o">+</span>
-                           <span class="s2">&quot;a module by `torch._register_device_module`.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;torch has no module of `</span><span class="si">{</span><span class="n">device_type</span><span class="si">}</span><span class="s2">`, you should register &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;a module by `torch._register_device_module`.&quot;</span>
+        <span class="p">)</span>
     <span class="k">global</span> <span class="n">_fork_rng_warned_already</span>
 
     <span class="c1"># Internal arguments:</span>
@@ -677,17 +691,19 @@
     <span class="k">if</span> <span class="n">devices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">num_devices</span> <span class="o">=</span> <span class="n">device_mod</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">num_devices</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_fork_rng_warned_already</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> reports that you have </span><span class="si">{</span><span class="n">num_devices</span><span class="si">}</span><span class="s2"> available devices, and &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;you have used </span><span class="si">{</span><span class="n">_caller</span><span class="si">}</span><span class="s2"> without explicitly specifying which devices are being used. &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;For safety, we initialize *every* </span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> device by default, which can &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;be quite slow if you have a lot of </span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">s. If you know that you are only&quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot; making use of a few </span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> devices, set the environment variable &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">_VISIBLE_DEVICES or the &#39;</span><span class="si">{</span><span class="n">_devices_kw</span><span class="si">}</span><span class="s2">&#39; keyword argument of </span><span class="si">{</span><span class="n">_caller</span><span class="si">}</span><span class="s2"> &quot;</span>
-                       <span class="s2">&quot;with the set of devices you are actually using. For example, if you are using CPU only, &quot;</span>
-                       <span class="s2">&quot;set device.upper()_VISIBLE_DEVICES= or devices=[]; if you are using device 0 only, &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;set </span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">_VISIBLE_DEVICES=0 or devices=[0].  To initialize all devices &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;and suppress this warning, set the &#39;</span><span class="si">{</span><span class="n">_devices_kw</span><span class="si">}</span><span class="s2">&#39; keyword argument to &quot;</span>
-                       <span class="sa">f</span><span class="s2">&quot;`range(torch.</span><span class="si">{</span><span class="n">device_type</span><span class="si">}</span><span class="s2">.device_count())`.&quot;</span><span class="p">)</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> reports that you have </span><span class="si">{</span><span class="n">num_devices</span><span class="si">}</span><span class="s2"> available devices, and &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;you have used </span><span class="si">{</span><span class="n">_caller</span><span class="si">}</span><span class="s2"> without explicitly specifying which devices are being used. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;For safety, we initialize *every* </span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> device by default, which can &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;be quite slow if you have a lot of </span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">s. If you know that you are only&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; making use of a few </span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> devices, set the environment variable &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">_VISIBLE_DEVICES or the &#39;</span><span class="si">{</span><span class="n">_devices_kw</span><span class="si">}</span><span class="s2">&#39; keyword argument of </span><span class="si">{</span><span class="n">_caller</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="s2">&quot;with the set of devices you are actually using. For example, if you are using CPU only, &quot;</span>
+                <span class="s2">&quot;set device.upper()_VISIBLE_DEVICES= or devices=[]; if you are using device 0 only, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;set </span><span class="si">{</span><span class="n">device_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">_VISIBLE_DEVICES=0 or devices=[0].  To initialize all devices &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;and suppress this warning, set the &#39;</span><span class="si">{</span><span class="n">_devices_kw</span><span class="si">}</span><span class="s2">&#39; keyword argument to &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;`range(torch.</span><span class="si">{</span><span class="n">device_type</span><span class="si">}</span><span class="s2">.device_count())`.&quot;</span>
+            <span class="p">)</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
             <span class="n">_fork_rng_warned_already</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">devices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_devices</span><span class="p">))</span>
