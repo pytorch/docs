@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc1cd946 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ebec1f ) &#x25BC</a>
     </div>
     
 
@@ -323,7 +323,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../notes/amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
@@ -523,24 +523,24 @@
               
   <h1>Source code for torch.nn.utils.parametrizations</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
-
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">parametrize</span>
-<span class="kn">from</span> <span class="nn">..modules</span> <span class="kn">import</span> <span class="n">Module</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
-
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">auto</span><span class="p">,</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;orthogonal&#39;</span><span class="p">,</span> <span class="s1">&#39;spectral_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;weight_norm&#39;</span><span class="p">]</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">torch.nn.modules</span> <span class="kn">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">torch.nn.utils</span> <span class="kn">import</span> <span class="n">parametrize</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;orthogonal&quot;</span><span class="p">,</span> <span class="s2">&quot;spectral_norm&quot;</span><span class="p">,</span> <span class="s2">&quot;weight_norm&quot;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_is_orthogonal</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">Q</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">Id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">Q</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">Q</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
     <span class="c1"># A reasonable eps, but not too large</span>
-    <span class="n">eps</span> <span class="o">=</span> <span class="mf">10.</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+    <span class="n">eps</span> <span class="o">=</span> <span class="mf">10.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">mH</span> <span class="o">@</span> <span class="n">Q</span><span class="p">,</span> <span class="n">Id</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
 
 
@@ -565,11 +565,9 @@
 <span class="k">class</span> <span class="nc">_Orthogonal</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="n">base</span><span class="p">:</span> <span class="n">Tensor</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">weight</span><span class="p">,</span>
-                 <span class="n">orthogonal_map</span><span class="p">:</span> <span class="n">_OrthMaps</span><span class="p">,</span>
-                 <span class="o">*</span><span class="p">,</span>
-                 <span class="n">use_trivialization</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">orthogonal_map</span><span class="p">:</span> <span class="n">_OrthMaps</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">use_trivialization</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="c1"># Note [Householder complex]</span>
@@ -585,7 +583,9 @@
         <span class="c1"># them as independent tensors we would not maintain the constraint</span>
         <span class="c1"># An equivalent reasoning holds for rectangular matrices</span>
         <span class="k">if</span> <span class="n">weight</span><span class="o">.</span><span class="n">is_complex</span><span class="p">()</span> <span class="ow">and</span> <span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">householder</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The householder parametrization does not support complex tensors.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;The householder parametrization does not support complex tensors.&quot;</span>
+            <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">=</span> <span class="n">orthogonal_map</span>
@@ -599,12 +599,17 @@
             <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">mT</span>
             <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span>
         <span class="c1"># Here n &gt; k and X is a tall matrix</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">matrix_exp</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">cayley</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">matrix_exp</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">cayley</span>
+        <span class="p">):</span>
             <span class="c1"># We just need n x k - k(k-1)/2 parameters</span>
             <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">tril</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
                 <span class="c1"># Embed into a square matrix</span>
-                <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
+                <span class="p">)</span>
             <span class="n">A</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">mH</span>
             <span class="c1"># A is skew-symmetric (or skew-hermitian)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">matrix_exp</span><span class="p">:</span>
@@ -612,7 +617,9 @@
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">cayley</span><span class="p">:</span>
                 <span class="c1"># Computes the Cayley retraction (I+A/2)(I-A/2)^{-1}</span>
                 <span class="n">Id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-                <span class="n">Q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+                <span class="n">Q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                <span class="p">)</span>
             <span class="c1"># Q is now orthogonal (or unitary) of size (..., n, n)</span>
             <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
                 <span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="n">k</span><span class="p">]</span>
@@ -620,7 +627,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># X is real here, as we do not support householder with complex numbers</span>
             <span class="n">A</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">diagonal</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">tau</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">2</span><span class="p">))</span>
             <span class="n">Q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">householder_product</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">tau</span><span class="p">)</span>
             <span class="c1"># The diagonal of X is 1&#39;s and -1&#39;s</span>
             <span class="c1"># We do not want to differentiate through this or update the diagonal of X hence the casting</span>
@@ -635,8 +642,10 @@
     <span class="nd">@torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">right_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">Q</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected a matrix or batch of matrices of shape </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. &quot;</span>
-                             <span class="sa">f</span><span class="s2">&quot;Got a tensor of shape </span><span class="si">{</span><span class="n">Q</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Expected a matrix or batch of matrices of shape </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Got a tensor of shape </span><span class="si">{</span><span class="n">Q</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
 
         <span class="n">Q_init</span> <span class="o">=</span> <span class="n">Q</span>
         <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">Q</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -657,9 +666,14 @@
             <span class="c1"># gives the original tensor. It is not clear how to do this.</span>
             <span class="c1"># Perhaps via some algebraic manipulation involving the QR like that of</span>
             <span class="c1"># Corollary 2.2 in Edelman, Arias and Smith?</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">cayley</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">matrix_exp</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;It is not possible to assign to the matrix exponential &quot;</span>
-                                          <span class="s2">&quot;or the Cayley parametrizations when use_trivialization=False.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">cayley</span>
+                <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">orthogonal_map</span> <span class="o">==</span> <span class="n">_OrthMaps</span><span class="o">.</span><span class="n">matrix_exp</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                    <span class="s2">&quot;It is not possible to assign to the matrix exponential &quot;</span>
+                    <span class="s2">&quot;or the Cayley parametrizations when use_trivialization=False.&quot;</span>
+                <span class="p">)</span>
 
             <span class="c1"># If parametrization == _OrthMaps.householder, make Q orthogonal via the QR decomposition.</span>
             <span class="c1"># Here Q is always real because we do not support householder and complex matrices.</span>
@@ -671,7 +685,7 @@
             <span class="n">A</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">dim1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim2</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sign_</span><span class="p">()</span>
             <span class="c1"># Equality with zero is ok because LAPACK returns exactly zero when it does not want</span>
             <span class="c1"># to use a particular reflection</span>
-            <span class="n">A</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">dim1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim2</span><span class="o">=-</span><span class="mi">1</span><span class="p">)[</span><span class="n">tau</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">A</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">dim1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim2</span><span class="o">=-</span><span class="mi">1</span><span class="p">)[</span><span class="n">tau</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
             <span class="k">return</span> <span class="n">A</span><span class="o">.</span><span class="n">mT</span> <span class="k">if</span> <span class="n">transpose</span> <span class="k">else</span> <span class="n">A</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
@@ -682,7 +696,9 @@
                     <span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Complete Q into a full n x n orthogonal matrix</span>
-                <span class="n">N</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">size</span><span class="p">()[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">Q</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">Q</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                <span class="n">N</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span>
+                    <span class="o">*</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">size</span><span class="p">()[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">Q</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">Q</span><span class="o">.</span><span class="n">device</span>
+                <span class="p">)</span>
                 <span class="n">Q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">Q</span><span class="p">,</span> <span class="n">N</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">Q</span> <span class="o">=</span> <span class="n">_make_orthogonal</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">Q</span>
@@ -692,15 +708,17 @@
             <span class="c1"># householder(torch.zeros(m,n)) == torch.eye(m,n)</span>
             <span class="c1"># Poor man&#39;s version of eye_like</span>
             <span class="n">neg_Id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Q_init</span><span class="p">)</span>
-            <span class="n">neg_Id</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">dim1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim2</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
+            <span class="n">neg_Id</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">dim1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim2</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">neg_Id</span>
 
 
-<div class="viewcode-block" id="orthogonal"><a class="viewcode-back" href="../../../../generated/torch.nn.utils.parametrizations.orthogonal.html#torch.nn.utils.parametrizations.orthogonal">[docs]</a><span class="k">def</span> <span class="nf">orthogonal</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span>
-               <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span>
-               <span class="n">orthogonal_map</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-               <span class="o">*</span><span class="p">,</span>
-               <span class="n">use_trivialization</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Module</span><span class="p">:</span>
+<div class="viewcode-block" id="orthogonal"><a class="viewcode-back" href="../../../../generated/torch.nn.utils.parametrizations.orthogonal.html#torch.nn.utils.parametrizations.orthogonal">[docs]</a><span class="k">def</span> <span class="nf">orthogonal</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+    <span class="n">orthogonal_map</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">use_trivialization</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Module</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply an orthogonal or unitary parametrization to a matrix or a batch of matrices.</span>
 
 <span class="sd">    Letting :math:`\mathbb{K}` be :math:`\mathbb{R}` or :math:`\mathbb{C}`, the parametrized</span>
@@ -794,19 +812,25 @@
     <span class="c1"># We could implement this for 1-dim tensors as the maps on the sphere</span>
     <span class="c1"># but I believe it&#39;d bite more people than it&#39;d help</span>
     <span class="k">if</span> <span class="n">weight</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Expected a matrix or batch of matrices. &quot;</span>
-                         <span class="sa">f</span><span class="s2">&quot;Got a tensor of </span><span class="si">{</span><span class="n">weight</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2"> dimensions.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Expected a matrix or batch of matrices. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Got a tensor of </span><span class="si">{</span><span class="n">weight</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2"> dimensions.&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">orthogonal_map</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">orthogonal_map</span> <span class="o">=</span> <span class="s2">&quot;matrix_exp&quot;</span> <span class="k">if</span> <span class="n">weight</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="n">weight</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="n">weight</span><span class="o">.</span><span class="n">is_complex</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;householder&quot;</span>
+        <span class="n">orthogonal_map</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;matrix_exp&quot;</span>
+            <span class="k">if</span> <span class="n">weight</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="n">weight</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="n">weight</span><span class="o">.</span><span class="n">is_complex</span><span class="p">()</span>
+            <span class="k">else</span> <span class="s2">&quot;householder&quot;</span>
+        <span class="p">)</span>
 
     <span class="n">orth_enum</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_OrthMaps</span><span class="p">,</span> <span class="n">orthogonal_map</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">orth_enum</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;orthogonal_map has to be one of &quot;matrix_exp&quot;, &quot;cayley&quot;, &quot;householder&quot;. &#39;</span>
-                         <span class="sa">f</span><span class="s1">&#39;Got: </span><span class="si">{</span><span class="n">orthogonal_map</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">orth</span> <span class="o">=</span> <span class="n">_Orthogonal</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span>
-                       <span class="n">orth_enum</span><span class="p">,</span>
-                       <span class="n">use_trivialization</span><span class="o">=</span><span class="n">use_trivialization</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;orthogonal_map has to be one of &quot;matrix_exp&quot;, &quot;cayley&quot;, &quot;householder&quot;. &#39;</span>
+            <span class="sa">f</span><span class="s2">&quot;Got: </span><span class="si">{</span><span class="n">orthogonal_map</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="n">orth</span> <span class="o">=</span> <span class="n">_Orthogonal</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">orth_enum</span><span class="p">,</span> <span class="n">use_trivialization</span><span class="o">=</span><span class="n">use_trivialization</span><span class="p">)</span>
     <span class="n">parametrize</span><span class="o">.</span><span class="n">register_parametrization</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">orth</span><span class="p">,</span> <span class="n">unsafe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">module</span></div>
 
@@ -831,7 +855,7 @@
         <span class="k">return</span> <span class="n">weight_g</span><span class="p">,</span> <span class="n">weight_v</span>
 
 
-<div class="viewcode-block" id="weight_norm"><a class="viewcode-back" href="../../../../generated/torch.nn.utils.parametrizations.weight_norm.html#torch.nn.utils.parametrizations.weight_norm">[docs]</a><span class="k">def</span> <span class="nf">weight_norm</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="weight_norm"><a class="viewcode-back" href="../../../../generated/torch.nn.utils.parametrizations.weight_norm.html#torch.nn.utils.parametrizations.weight_norm">[docs]</a><span class="k">def</span> <span class="nf">weight_norm</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply weight normalization to a parameter in the given module.</span>
 
 <span class="sd">    .. math::</span>
@@ -877,7 +901,15 @@
     <span class="n">_weight_norm</span> <span class="o">=</span> <span class="n">_WeightNorm</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
     <span class="n">parametrize</span><span class="o">.</span><span class="n">register_parametrization</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_weight_norm</span><span class="p">,</span> <span class="n">unsafe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_weight_norm_compat_hook</span><span class="p">(</span><span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="n">strict</span><span class="p">,</span> <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_weight_norm_compat_hook</span><span class="p">(</span>
+        <span class="n">state_dict</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="p">,</span>
+        <span class="n">local_metadata</span><span class="p">,</span>
+        <span class="n">strict</span><span class="p">,</span>
+        <span class="n">missing_keys</span><span class="p">,</span>
+        <span class="n">unexpected_keys</span><span class="p">,</span>
+        <span class="n">error_msgs</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="n">g_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">name</span><span class="si">}</span><span class="s2">_g&quot;</span>
         <span class="n">v_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">name</span><span class="si">}</span><span class="s2">_v&quot;</span>
         <span class="k">if</span> <span class="n">g_key</span> <span class="ow">in</span> <span class="n">state_dict</span> <span class="ow">and</span> <span class="n">v_key</span> <span class="ow">in</span> <span class="n">state_dict</span><span class="p">:</span>
@@ -885,6 +917,7 @@
             <span class="n">original1</span> <span class="o">=</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">v_key</span><span class="p">)</span>
             <span class="n">state_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">parametrizations.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.original0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">original0</span>
             <span class="n">state_dict</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">parametrizations.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.original1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">original1</span>
+
     <span class="n">module</span><span class="o">.</span><span class="n">_register_load_state_dict_pre_hook</span><span class="p">(</span><span class="n">_weight_norm_compat_hook</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">module</span></div>
 
@@ -895,17 +928,21 @@
         <span class="n">weight</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
         <span class="n">n_power_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-12</span>
+        <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">ndim</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">ndim</span>
         <span class="k">if</span> <span class="n">dim</span> <span class="o">&gt;=</span> <span class="n">ndim</span> <span class="ow">or</span> <span class="n">dim</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">ndim</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Dimension out of range (expected to be in range of &quot;</span>
-                             <span class="sa">f</span><span class="s2">&quot;[-</span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ndim</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">] but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
+                <span class="s2">&quot;Dimension out of range (expected to be in range of &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;[-</span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ndim</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">] but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">n_power_iterations</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Expected n_power_iterations to be positive, but &#39;</span>
-                             <span class="sa">f</span><span class="s1">&#39;got n_power_iterations=</span><span class="si">{</span><span class="n">n_power_iterations</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Expected n_power_iterations to be positive, but &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;got n_power_iterations=</span><span class="si">{</span><span class="n">n_power_iterations</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span> <span class="k">if</span> <span class="n">dim</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dim</span> <span class="o">+</span> <span class="n">ndim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
         <span class="k">if</span> <span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -916,8 +953,8 @@
 
             <span class="n">u</span> <span class="o">=</span> <span class="n">weight_mat</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">v</span> <span class="o">=</span> <span class="n">weight_mat</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;_u&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;_v&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;_u&quot;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;_v&quot;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">))</span>
 
             <span class="c1"># Start with u, v initialized to some reasonable values by performing a number</span>
             <span class="c1"># of iterations of the power method</span>
@@ -929,7 +966,9 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># permute dim to front</span>
-            <span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">weight</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span> <span class="k">if</span> <span class="n">d</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">))</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">weight</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span> <span class="k">if</span> <span class="n">d</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">weight</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
@@ -973,10 +1012,18 @@
             <span class="c1"># Spectral norm of weight equals to `u^T W v`, where `u` and `v`</span>
             <span class="c1"># are the first left and right singular vectors.</span>
             <span class="c1"># This power iteration produces approximations of `u` and `v`.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">weight_mat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_v</span><span class="p">),</span>      <span class="c1"># type: ignore[has-type]</span>
-                                  <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">)</span>   <span class="c1"># type: ignore[has-type]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_v</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">weight_mat</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">),</span>
-                                  <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_v</span><span class="p">)</span>   <span class="c1"># type: ignore[has-type]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">weight_mat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_v</span><span class="p">),</span>  <span class="c1"># type: ignore[has-type]</span>
+                <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
+                <span class="n">out</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span>  <span class="c1"># type: ignore[has-type]</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_v</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">weight_mat</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">),</span>  <span class="c1"># type: ignore[has-type]</span>
+                <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
+                <span class="n">out</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_v</span><span class="p">,</span>  <span class="c1"># type: ignore[has-type]</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">weight</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -1001,11 +1048,13 @@
         <span class="k">return</span> <span class="n">value</span>
 
 
-<div class="viewcode-block" id="spectral_norm"><a class="viewcode-back" href="../../../../generated/torch.nn.utils.parametrizations.spectral_norm.html#torch.nn.utils.parametrizations.spectral_norm">[docs]</a><span class="k">def</span> <span class="nf">spectral_norm</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span>
-                  <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span>
-                  <span class="n">n_power_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                  <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">,</span>
-                  <span class="n">dim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Module</span><span class="p">:</span>
+<div class="viewcode-block" id="spectral_norm"><a class="viewcode-back" href="../../../../generated/torch.nn.utils.parametrizations.spectral_norm.html#torch.nn.utils.parametrizations.spectral_norm">[docs]</a><span class="k">def</span> <span class="nf">spectral_norm</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+    <span class="n">n_power_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">,</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Module</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply spectral normalization to a parameter in the given module.</span>
 
 <span class="sd">    .. math::</span>
@@ -1086,13 +1135,20 @@
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose1d</span><span class="p">,</span>
-                               <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose2d</span><span class="p">,</span>
-                               <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose3d</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">module</span><span class="p">,</span>
+            <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose1d</span><span class="p">,</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose2d</span><span class="p">,</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose3d</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">):</span>
             <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">dim</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">parametrize</span><span class="o">.</span><span class="n">register_parametrization</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_SpectralNorm</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">n_power_iterations</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">eps</span><span class="p">))</span>
+    <span class="n">parametrize</span><span class="o">.</span><span class="n">register_parametrization</span><span class="p">(</span>
+        <span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_SpectralNorm</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">n_power_iterations</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">module</span></div>
 </pre></div>
 

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc1cd946 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ebec1f ) &#x25BC</a>
     </div>
     
 
@@ -323,7 +323,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../notes/amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
@@ -523,16 +523,25 @@
               
   <h1>Source code for torch.utils</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">_osp</span>
-<span class="kn">import</span> <span class="nn">torch</span>
 
-<span class="kn">from</span> <span class="nn">.throughput_benchmark</span> <span class="kn">import</span> <span class="n">ThroughputBenchmark</span>
-<span class="kn">from</span> <span class="nn">.cpp_backtrace</span> <span class="kn">import</span> <span class="n">get_cpp_backtrace</span>
-<span class="kn">from</span> <span class="nn">.backend_registration</span> <span class="kn">import</span> <span class="n">rename_privateuse1_backend</span><span class="p">,</span> <span class="n">generate_methods_for_privateuse1_backend</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">deterministic</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">collect_env</span>
-<span class="kn">import</span> <span class="nn">weakref</span>
 <span class="kn">import</span> <span class="nn">copyreg</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">_osp</span>
+<span class="kn">import</span> <span class="nn">weakref</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">backcompat</span> <span class="k">as</span> <span class="n">backcompat</span><span class="p">,</span>
+    <span class="n">collect_env</span> <span class="k">as</span> <span class="n">collect_env</span><span class="p">,</span>
+    <span class="n">data</span> <span class="k">as</span> <span class="n">data</span><span class="p">,</span>
+    <span class="n">deterministic</span> <span class="k">as</span> <span class="n">deterministic</span><span class="p">,</span>
+    <span class="n">hooks</span> <span class="k">as</span> <span class="n">hooks</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.utils.backend_registration</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">generate_methods_for_privateuse1_backend</span><span class="p">,</span>
+    <span class="n">rename_privateuse1_backend</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.utils.cpp_backtrace</span> <span class="kn">import</span> <span class="n">get_cpp_backtrace</span>
+<span class="kn">from</span> <span class="nn">torch.utils.throughput_benchmark</span> <span class="kn">import</span> <span class="n">ThroughputBenchmark</span>
 
 <div class="viewcode-block" id="set_module"><a class="viewcode-back" href="../../generated/torch.utils.set_module.html#torch.utils.set_module">[docs]</a><span class="k">def</span> <span class="nf">set_module</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>

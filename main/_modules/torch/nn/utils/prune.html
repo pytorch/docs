@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc1cd946 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ebec1f ) &#x25BC</a>
     </div>
     
 
@@ -323,7 +323,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../notes/amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
@@ -589,7 +589,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># to carry out the multiplication, the mask needs to have been computed,</span>
         <span class="c1"># so the pruning method must know what tensor it&#39;s operating on</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Module </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2"> has to be pruned&quot;</span>  <span class="c1"># this gets set in apply()</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tensor_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Module </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2"> has to be pruned&quot;</span>  <span class="c1"># this gets set in apply()</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor_name</span> <span class="o">+</span> <span class="s2">&quot;_mask&quot;</span><span class="p">)</span>
         <span class="n">orig</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor_name</span> <span class="o">+</span> <span class="s2">&quot;_orig&quot;</span><span class="p">)</span>
         <span class="n">pruned_tensor</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">*</span> <span class="n">orig</span>
@@ -813,9 +815,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check that we&#39;re adding a pruning method to the container</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">BasePruningMethod</span><span class="p">)</span> <span class="ow">and</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="si">}</span><span class="s2"> is not a BasePruningMethod subclass&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="si">}</span><span class="s2"> is not a BasePruningMethod subclass&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor_name</span> <span class="o">!=</span> <span class="n">method</span><span class="o">.</span><span class="n">_tensor_name</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Can only add pruning methods acting on &quot;</span>
@@ -917,9 +917,7 @@
                 <span class="n">slc</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="n">n_dims</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Unrecognized PRUNING_TYPE </span><span class="si">{</span><span class="n">method</span><span class="o">.</span><span class="n">PRUNING_TYPE</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized PRUNING_TYPE </span><span class="si">{</span><span class="n">method</span><span class="o">.</span><span class="n">PRUNING_TYPE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
             <span class="c1"># compute the new mask on the unpruned slice of the tensor t</span>
             <span class="n">partial_mask</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">compute_mask</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">slc</span><span class="p">],</span> <span class="n">default_mask</span><span class="o">=</span><span class="n">mask</span><span class="p">[</span><span class="n">slc</span><span class="p">])</span>
@@ -1317,7 +1315,6 @@
 
 
 <div class="viewcode-block" id="CustomFromMask"><a class="viewcode-back" href="../../../../generated/torch.nn.utils.prune.CustomFromMask.html#torch.nn.utils.prune.CustomFromMask">[docs]</a><span class="k">class</span> <span class="nc">CustomFromMask</span><span class="p">(</span><span class="n">BasePruningMethod</span><span class="p">):</span>
-
     <span class="n">PRUNING_TYPE</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
@@ -1654,7 +1651,6 @@
     <span class="c1"># Pointer for slicing the mask to match the shape of each parameter</span>
     <span class="n">pointer</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
-
         <span class="n">param</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="c1"># The length of the parameter</span>
         <span class="n">num_param</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
@@ -1779,9 +1775,7 @@
 <span class="sd">        tensor to be pruned, which is known only at prune.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid type for amount: </span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">. Must be int or float.&quot;</span>
-        <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid type for amount: </span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">. Must be int or float.&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span> <span class="ow">and</span> <span class="n">amount</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
         <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span>  <span class="c1"># so it&#39;s a float</span>

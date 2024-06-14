@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CUDA Automatic Mixed Precision examples &mdash; PyTorch main documentation</title>
+  <title>Automatic Mixed Precision examples &mdash; PyTorch main documentation</title>
   
 
   
@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc1cd946 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ebec1f ) &#x25BC</a>
     </div>
     
 
@@ -324,7 +324,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
@@ -485,7 +485,7 @@
       </li>
 
         
-      <li>CUDA Automatic Mixed Precision examples</li>
+      <li>Automatic Mixed Precision examples</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
@@ -522,17 +522,17 @@
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
-  <div class="section" id="cuda-automatic-mixed-precision-examples">
-<span id="amp-examples"></span><h1>CUDA Automatic Mixed Precision examples<a class="headerlink" href="#cuda-automatic-mixed-precision-examples" title="Permalink to this heading">¶</a></h1>
+  <div class="section" id="automatic-mixed-precision-examples">
+<span id="amp-examples"></span><h1>Automatic Mixed Precision examples<a class="headerlink" href="#automatic-mixed-precision-examples" title="Permalink to this heading">¶</a></h1>
 <p>Ordinarily, “automatic mixed precision training” means training with
-<a class="reference internal" href="../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> and <a class="reference internal" href="../amp.html#torch.cuda.amp.GradScaler" title="torch.cuda.amp.GradScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.amp.GradScaler</span></code></a> together.</p>
+<a class="reference internal" href="../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> and <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.amp.GradScaler</span></code> together.</p>
 <p>Instances of <a class="reference internal" href="../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> enable autocasting for chosen regions.
 Autocasting automatically chooses the precision for GPU operations to improve performance
 while maintaining accuracy.</p>
-<p>Instances of <a class="reference internal" href="../amp.html#torch.cuda.amp.GradScaler" title="torch.cuda.amp.GradScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.amp.GradScaler</span></code></a> help perform the steps of
-gradient scaling conveniently.  Gradient scaling improves convergence for networks with <code class="docutils literal notranslate"><span class="pre">float16</span></code>
+<p>Instances of <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.amp.GradScaler</span></code> help perform the steps of
+gradient scaling conveniently.  Gradient scaling improves convergence for networks with <code class="docutils literal notranslate"><span class="pre">float16</span></code> (by default on CUDA and XPU)
 gradients by minimizing gradient underflow, as explained <a class="reference internal" href="../amp.html#gradient-scaling"><span class="std std-ref">here</span></a>.</p>
-<p><a class="reference internal" href="../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> and <a class="reference internal" href="../amp.html#torch.cuda.amp.GradScaler" title="torch.cuda.amp.GradScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.amp.GradScaler</span></code></a> are modular.
+<p><a class="reference internal" href="../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> and <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.amp.GradScaler</span></code> are modular.
 In the samples below, each is used as its individual documentation suggests.</p>
 <p>(Samples here are illustrative.  See the
 <a class="reference external" href="https://pytorch.org/tutorials/recipes/recipes/amp_recipe.html">Automatic Mixed Precision recipe</a>
@@ -723,7 +723,7 @@ passed to <a class="reference internal" href="../generated/torch.autograd.grad.h
 will therefore be scaled, and should be unscaled before being combined to create the
 penalty value.</p>
 <p>Also, the penalty term computation is part of the forward pass, and therefore should be
-inside an <a class="reference internal" href="../amp.html#torch.cuda.amp.autocast" title="torch.cuda.amp.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">autocast</span></code></a> context.</p>
+inside an <code class="xref py py-class docutils literal notranslate"><span class="pre">autocast</span></code> context.</p>
 <p>Here’s how that looks for the same L2 penalty:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">GradScaler</span><span class="p">()</span>
 
@@ -772,7 +772,7 @@ If your network has multiple optimizers, you may call <code class="xref py py-me
 and you must call <code class="xref py py-meth docutils literal notranslate"><span class="pre">scaler.step</span></code> on each of them individually.</p>
 <p>However, <code class="xref py py-meth docutils literal notranslate"><span class="pre">scaler.update</span></code> should only be called once,
 after all optimizers used this iteration have been stepped:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">GradScaler</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">GradScaler</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">epochs</span><span class="p">:</span>
     <span class="k">for</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
@@ -807,7 +807,7 @@ to a multiple-optimizer model, please report a bug.</p>
 </div>
 <div class="section" id="working-with-multiple-gpus">
 <span id="amp-multigpu"></span><h2><a class="toc-backref" href="#id9">Working with Multiple GPUs</a><a class="headerlink" href="#working-with-multiple-gpus" title="Permalink to this heading">¶</a></h2>
-<p>The issues described here only affect <a class="reference internal" href="../amp.html#torch.cuda.amp.autocast" title="torch.cuda.amp.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">autocast</span></code></a>.  <a class="reference internal" href="../amp.html#torch.cuda.amp.GradScaler" title="torch.cuda.amp.GradScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradScaler</span></code></a>‘s usage is unchanged.</p>
+<p>The issues described here only affect <code class="xref py py-class docutils literal notranslate"><span class="pre">autocast</span></code>.  <code class="xref py py-class docutils literal notranslate"><span class="pre">GradScaler</span></code>‘s usage is unchanged.</p>
 <div class="section" id="dataparallel-in-a-single-process">
 <span id="amp-dataparallel"></span><h3><a class="toc-backref" href="#id10">DataParallel in a single process</a><a class="headerlink" href="#dataparallel-in-a-single-process" title="Permalink to this heading">¶</a></h3>
 <p>Even if <a class="reference internal" href="../generated/torch.nn.DataParallel.html#torch.nn.DataParallel" title="torch.nn.DataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.DataParallel</span></code></a> spawns threads to run the forward pass on each device.
@@ -828,7 +828,7 @@ The autocast state is propagated in each one and the following will work:</p>
 <h3><a class="toc-backref" href="#id11">DistributedDataParallel, one GPU per process</a><a class="headerlink" href="#distributeddataparallel-one-gpu-per-process" title="Permalink to this heading">¶</a></h3>
 <p><a class="reference internal" href="../generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel" title="torch.nn.parallel.DistributedDataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.parallel.DistributedDataParallel</span></code></a>’s documentation recommends one GPU per process for best
 performance.  In this case, <code class="docutils literal notranslate"><span class="pre">DistributedDataParallel</span></code> does not spawn threads internally,
-so usages of <a class="reference internal" href="../amp.html#torch.cuda.amp.autocast" title="torch.cuda.amp.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">autocast</span></code></a> and <a class="reference internal" href="../amp.html#torch.cuda.amp.GradScaler" title="torch.cuda.amp.GradScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradScaler</span></code></a> are not affected.</p>
+so usages of <code class="xref py py-class docutils literal notranslate"><span class="pre">autocast</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">GradScaler</span></code> are not affected.</p>
 </div>
 <div class="section" id="distributeddataparallel-multiple-gpus-per-process">
 <h3><a class="toc-backref" href="#id12">DistributedDataParallel, multiple GPUs per process</a><a class="headerlink" href="#distributeddataparallel-multiple-gpus-per-process" title="Permalink to this heading">¶</a></h3>
@@ -858,11 +858,11 @@ is to disable autocast and force execution in <code class="docutils literal notr
 </pre></div>
 </div>
 <p>If you’re the function’s author (or can alter its definition) a better solution is to use the
-<a class="reference internal" href="../amp.html#torch.cuda.amp.custom_fwd" title="torch.cuda.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cuda.amp.custom_fwd()</span></code></a> and <a class="reference internal" href="../amp.html#torch.cuda.amp.custom_bwd" title="torch.cuda.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cuda.amp.custom_bwd()</span></code></a> decorators as shown in
+<a class="reference internal" href="../amp.html#torch.amp.custom_fwd" title="torch.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.amp.custom_fwd()</span></code></a> and <a class="reference internal" href="../amp.html#torch.amp.custom_bwd" title="torch.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.amp.custom_bwd()</span></code></a> decorators as shown in
 the relevant case below.</p>
 <div class="section" id="functions-with-multiple-inputs-or-autocastable-ops">
 <h3><a class="toc-backref" href="#id14">Functions with multiple inputs or autocastable ops</a><a class="headerlink" href="#functions-with-multiple-inputs-or-autocastable-ops" title="Permalink to this heading">¶</a></h3>
-<p>Apply <a class="reference internal" href="../amp.html#torch.cuda.amp.custom_fwd" title="torch.cuda.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_fwd</span></code></a> and <a class="reference internal" href="../amp.html#torch.cuda.amp.custom_bwd" title="torch.cuda.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_bwd</span></code></a> (with no arguments) to <code class="docutils literal notranslate"><span class="pre">forward</span></code> and
+<p>Apply <a class="reference internal" href="../amp.html#torch.amp.custom_fwd" title="torch.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_fwd</span></code></a> and <a class="reference internal" href="../amp.html#torch.amp.custom_bwd" title="torch.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_bwd</span></code></a> (with no arguments) to <code class="docutils literal notranslate"><span class="pre">forward</span></code> and
 <code class="docutils literal notranslate"><span class="pre">backward</span></code> respectively.  These ensure <code class="docutils literal notranslate"><span class="pre">forward</span></code> executes with the current autocast state and <code class="docutils literal notranslate"><span class="pre">backward</span></code>
 executes with the same autocast state as <code class="docutils literal notranslate"><span class="pre">forward</span></code> (which can prevent type mismatch errors):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMM</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
@@ -889,19 +889,20 @@ executes with the same autocast state as <code class="docutils literal notransla
 <div class="section" id="functions-that-need-a-particular-dtype">
 <h3><a class="toc-backref" href="#id15">Functions that need a particular <code class="docutils literal notranslate"><span class="pre">dtype</span></code></a><a class="headerlink" href="#functions-that-need-a-particular-dtype" title="Permalink to this heading">¶</a></h3>
 <p>Consider a custom function that requires <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code> inputs.
-Apply <a class="reference internal" href="../amp.html#torch.cuda.amp.custom_fwd" title="torch.cuda.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_fwd(cast_inputs=torch.float32)</span></code></a> to <code class="docutils literal notranslate"><span class="pre">forward</span></code>
-and <a class="reference internal" href="../amp.html#torch.cuda.amp.custom_bwd" title="torch.cuda.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_bwd</span></code></a> (with no arguments) to <code class="docutils literal notranslate"><span class="pre">backward</span></code>.
-If <code class="docutils literal notranslate"><span class="pre">forward</span></code> runs in an autocast-enabled region, the decorators cast floating-point CUDA Tensor
-inputs to <code class="docutils literal notranslate"><span class="pre">float32</span></code>, and locally disable autocast during <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">backward</span></code>:</p>
+Apply <a class="reference internal" href="../amp.html#torch.amp.custom_fwd" title="torch.amp.custom_fwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_fwd(device_type='cuda',</span> <span class="pre">cast_inputs=torch.float32)</span></code></a> to <code class="docutils literal notranslate"><span class="pre">forward</span></code>
+and <a class="reference internal" href="../amp.html#torch.amp.custom_bwd" title="torch.amp.custom_bwd"><code class="xref py py-func docutils literal notranslate"><span class="pre">custom_bwd(device_type='cuda')</span></code></a> to <code class="docutils literal notranslate"><span class="pre">backward</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">forward</span></code> runs in an autocast-enabled region, the decorators cast floating-point Tensor
+inputs to <code class="docutils literal notranslate"><span class="pre">float32</span></code> on designated device assigned by the argument <a class="reference external" href="../amp.html">device_type</a>,
+<cite>CUDA</cite> in this example, and locally disable autocast during <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">backward</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFloat32Func</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
-    <span class="nd">@custom_fwd</span><span class="p">(</span><span class="n">cast_inputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="nd">@custom_fwd</span><span class="p">(</span><span class="n">device_type</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">cast_inputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
         <span class="o">...</span>
         <span class="k">return</span> <span class="n">fwd_output</span>
     <span class="nd">@staticmethod</span>
-    <span class="nd">@custom_bwd</span>
+    <span class="nd">@custom_bwd</span><span class="p">(</span><span class="n">device_type</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad</span><span class="p">):</span>
         <span class="o">...</span>
 </pre></div>
@@ -972,7 +973,7 @@ if (url)
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">CUDA Automatic Mixed Precision examples</a><ul>
+<li><a class="reference internal" href="#">Automatic Mixed Precision examples</a><ul>
 <li><a class="reference internal" href="#typical-mixed-precision-training">Typical Mixed Precision Training</a></li>
 <li><a class="reference internal" href="#working-with-unscaled-gradients">Working with Unscaled Gradients</a><ul>
 <li><a class="reference internal" href="#gradient-clipping">Gradient clipping</a></li>

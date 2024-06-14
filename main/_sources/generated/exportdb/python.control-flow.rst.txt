@@ -5,7 +5,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -38,8 +38,9 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "f32[3, 2, 2]"):
-                    cos: "f32[3, 2, 2]" = torch.ops.aten.cos.default(x);  x = None
+            def forward(self, x: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m"):
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_if_guard.py:20 in forward, code: return x.cos()[0m
+                cos: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.cos.default(x);  [2mx = None[0m
                 return (cos,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='cos'), target=None)])
@@ -91,8 +92,9 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, args_0: "f32[3, 2]", args_1: "i64[]", args_2: "i64[]"):
-                    add: "f32[3, 2]" = torch.ops.aten.add.Tensor(args_0, args_1);  args_0 = args_1 = None
+            def forward(self, args_0: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", args_1: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m", args_2: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m"):
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_unpack.py:28 in forward, code: return x + y[0][0m
+                add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(args_0, args_1);  [2margs_0 = args_1 = None[0m
                 return (add,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='args_0'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='args_1'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='args_2'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
@@ -139,17 +141,18 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "f32[3, 2]"):
-                    add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 0)
-                add_1: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 1)
-                add_2: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 2)
-                add_3: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 3)
-                add_4: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 4)
-                add_5: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 5)
-                add_6: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 6)
-                add_7: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 7)
-                add_8: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 8)
-                add_9: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 9);  x = None
+            def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_for_loop.py:22 in forward, code: ret.append(i + x)[0m
+                add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m0[0m)
+                add_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m1[0m)
+                add_2: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m2[0m)
+                add_3: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m3[0m)
+                add_4: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m4[0m)
+                add_5: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m5[0m)
+                add_6: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m6[0m)
+                add_7: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m7[0m)
+                add_8: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m8[0m)
+                add_9: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m9[0m);  [2mx = None[0m
                 return (add, add_1, add_2, add_3, add_4, add_5, add_6, add_7, add_8, add_9)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_1'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_2'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_3'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_4'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_5'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_6'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_7'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_8'), target=None), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_9'), target=None)])
@@ -197,9 +200,10 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "f32[3, 2, 2]"):
-                    ones: "f32[1, 1, 1]" = torch.ops.aten.ones.default([1, 1, 1], device = device(type='cpu'), pin_memory = False)
-                add: "f32[3, 2, 2]" = torch.ops.aten.add.Tensor(x, ones);  x = ones = None
+            def forward(self, x: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m"):
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_if.py:22 in forward, code: return x + torch.ones(1, 1, 1)[0m
+                ones: "[31mf32[0m[34m[1, 1, 1][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.ones.default([34m[1, 1, 1][0m, device = [34mdevice(type='cpu')[0m, pin_memory = [34mFalse[0m)
+                add: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, ones);  [2mx = ones = None[0m
                 return (add,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
