@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git271852a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git6079c50 ) &#x25BC</a>
     </div>
     
 
@@ -530,10 +530,9 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.CyclicLR">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.optim.lr_scheduler.</span></span><span class="sig-name descname"><span class="pre">CyclicLR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size_up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size_down</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'triangular'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cycle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle_momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'deprecated'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/optim/lr_scheduler.html#CyclicLR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CyclicLR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the learning rate of each parameter group according to
-cyclical learning rate policy (CLR). The policy cycles the learning
-rate between two boundaries with a constant frequency, as detailed in
-the paper <a class="reference external" href="https://arxiv.org/abs/1506.01186">Cyclical Learning Rates for Training Neural Networks</a>.
+<dd><p>Sets the learning rate of each parameter group according to cyclical learning rate policy (CLR).</p>
+<p>The policy cycles the learning rate between two boundaries with a constant frequency,
+as detailed in the paper <a class="reference external" href="https://arxiv.org/abs/1506.01186">Cyclical Learning Rates for Training Neural Networks</a>.
 The distance between the two boundaries can be scaled on a per-iteration
 or per-cycle basis.</p>
 <p>Cyclical learning rate policy changes the learning rate after every batch.
@@ -639,10 +638,16 @@ learning rate.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.CyclicLR.get_lr">
 <span class="sig-name descname"><span class="pre">get_lr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/optim/lr_scheduler.html#CyclicLR.get_lr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CyclicLR.get_lr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the learning rate at batch index. This function treats
-<cite>self.last_epoch</cite> as the last batch index.</p>
+<dd><p>Calculate the learning rate at batch index.</p>
+<p>This function treats <cite>self.last_epoch</cite> as the last batch index.</p>
 <p>If <cite>self.cycle_momentum</cite> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, this function has a side effect of
 updating the optimizer’s momentum.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.optim.lr_scheduler.CyclicLR.load_state_dict">
+<span class="sig-name descname"><span class="pre">load_state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/optim/lr_scheduler.html#CyclicLR.load_state_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CyclicLR.load_state_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the scheduler’s state.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -653,6 +658,25 @@ updating the optimizer’s momentum.</p>
 <p><span class="versionmodified deprecated">Deprecated since version 2.4: </span><code class="docutils literal notranslate"><span class="pre">print_lr()</span></code> is deprecated. Please use <code class="docutils literal notranslate"><span class="pre">get_last_lr()</span></code> to access the
 learning rate.</p>
 </div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.optim.lr_scheduler.CyclicLR.scale_fn">
+<span class="sig-name descname"><span class="pre">scale_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/optim/lr_scheduler.html#CyclicLR.scale_fn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.CyclicLR.scale_fn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the scaling policy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.optim.lr_scheduler.CyclicLR.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.optim.lr_scheduler.CyclicLR.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a step.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -719,7 +743,10 @@ if (url)
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.CyclicLR"><code class="docutils literal notranslate"><span class="pre">CyclicLR</span></code></a><ul>
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.CyclicLR.get_last_lr"><code class="docutils literal notranslate"><span class="pre">CyclicLR.get_last_lr()</span></code></a></li>
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.CyclicLR.get_lr"><code class="docutils literal notranslate"><span class="pre">CyclicLR.get_lr()</span></code></a></li>
+<li><a class="reference internal" href="#torch.optim.lr_scheduler.CyclicLR.load_state_dict"><code class="docutils literal notranslate"><span class="pre">CyclicLR.load_state_dict()</span></code></a></li>
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.CyclicLR.print_lr"><code class="docutils literal notranslate"><span class="pre">CyclicLR.print_lr()</span></code></a></li>
+<li><a class="reference internal" href="#torch.optim.lr_scheduler.CyclicLR.scale_fn"><code class="docutils literal notranslate"><span class="pre">CyclicLR.scale_fn()</span></code></a></li>
+<li><a class="reference internal" href="#torch.optim.lr_scheduler.CyclicLR.step"><code class="docutils literal notranslate"><span class="pre">CyclicLR.step()</span></code></a></li>
 </ul>
 </li>
 </ul>
