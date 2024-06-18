@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf9dae86 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
     </div>
     
 
@@ -1488,6 +1488,9 @@
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch&#39;</span><span class="p">)</span>
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_cpu&#39;</span><span class="p">)</span>
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_python&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+        <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;sleef&quot;</span><span class="p">)</span>
+
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;libraries&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">libraries</span>
 
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;c++&#39;</span>

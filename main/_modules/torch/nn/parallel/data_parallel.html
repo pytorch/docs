@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf9dae86 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
     </div>
     
 
@@ -525,22 +525,26 @@
   <h1>Source code for torch.nn.parallel.data_parallel</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">..modules</span> <span class="kn">import</span> <span class="n">Module</span>
-<span class="kn">from</span> <span class="nn">.scatter_gather</span> <span class="kn">import</span> <span class="n">scatter_kwargs</span><span class="p">,</span> <span class="n">gather</span>
-<span class="kn">from</span> <span class="nn">.replicate</span> <span class="kn">import</span> <span class="n">replicate</span>
-<span class="kn">from</span> <span class="nn">.parallel_apply</span> <span class="kn">import</span> <span class="n">parallel_apply</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch._utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_get_all_device_indices</span><span class="p">,</span>
     <span class="n">_get_available_device_type</span><span class="p">,</span>
     <span class="n">_get_device_index</span><span class="p">,</span>
-    <span class="n">_get_devices_properties</span>
+    <span class="n">_get_devices_properties</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DataParallel&#39;</span><span class="p">,</span> <span class="s1">&#39;data_parallel&#39;</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">..modules</span> <span class="kn">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">.parallel_apply</span> <span class="kn">import</span> <span class="n">parallel_apply</span>
+<span class="kn">from</span> <span class="nn">.replicate</span> <span class="kn">import</span> <span class="n">replicate</span>
+<span class="kn">from</span> <span class="nn">.scatter_gather</span> <span class="kn">import</span> <span class="n">gather</span><span class="p">,</span> <span class="n">scatter_kwargs</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DataParallel&quot;</span><span class="p">,</span> <span class="s2">&quot;data_parallel&quot;</span><span class="p">]</span>
+
 
 <span class="k">def</span> <span class="nf">_check_balance</span><span class="p">(</span><span class="n">device_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">imbalance_warn</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -556,7 +560,9 @@
         <span class="n">min_pos</span><span class="p">,</span> <span class="n">min_val</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
         <span class="n">max_pos</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">min_val</span> <span class="o">/</span> <span class="n">max_val</span> <span class="o">&lt;</span> <span class="mf">0.75</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">imbalance_warn</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">device_ids</span><span class="p">[</span><span class="n">min_pos</span><span class="p">],</span> <span class="n">device_ids</span><span class="p">[</span><span class="n">max_pos</span><span class="p">]))</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">imbalance_warn</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">device_ids</span><span class="p">[</span><span class="n">min_pos</span><span class="p">],</span> <span class="n">device_ids</span><span class="p">[</span><span class="n">max_pos</span><span class="p">])</span>
+            <span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="kc">False</span>
 
@@ -694,9 +700,11 @@
 
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">buffers</span><span class="p">()):</span>
                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">device</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_device_obj</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;module must have its parameters and buffers &quot;</span>
-                                       <span class="sa">f</span><span class="s2">&quot;on device </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">src_device_obj</span><span class="si">}</span><span class="s2"> (device_ids[0]) but found one of &quot;</span>
-                                       <span class="sa">f</span><span class="s2">&quot;them on device: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                        <span class="s2">&quot;module must have its parameters and buffers &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;on device </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">src_device_obj</span><span class="si">}</span><span class="s2"> (device_ids[0]) but found one of &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;them on device: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
 
             <span class="n">inputs</span><span class="p">,</span> <span class="n">module_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">)</span>
             <span class="c1"># for forward function without any inputs, empty list and dict will be created</span>
@@ -707,11 +715,13 @@
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">module_kwargs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">replicas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replicate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)])</span>
+            <span class="n">replicas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replicate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)])</span>
             <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallel_apply</span><span class="p">(</span><span class="n">replicas</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">module_kwargs</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_device</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">replicate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">device_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">replicate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">device_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">replicate</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">device_ids</span><span class="p">,</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_grad_enabled</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">scatter</span><span class="p">(</span>
@@ -722,8 +732,12 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">scatter_kwargs</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">device_ids</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">parallel_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">replicas</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">parallel_apply</span><span class="p">(</span><span class="n">replicas</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">replicas</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">parallel_apply</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">replicas</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">parallel_apply</span><span class="p">(</span>
+            <span class="n">replicas</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">replicas</span><span class="p">)]</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">gather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">output_device</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">gather</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">output_device</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span></div>
@@ -774,9 +788,11 @@
 
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">module</span><span class="o">.</span><span class="n">buffers</span><span class="p">()):</span>
         <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">device</span> <span class="o">!=</span> <span class="n">src_device_obj</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;module must have its parameters and buffers &quot;</span>
-                               <span class="sa">f</span><span class="s2">&quot;on device </span><span class="si">{</span><span class="n">src_device_obj</span><span class="si">}</span><span class="s2"> (device_ids[0]) but found one of &quot;</span>
-                               <span class="sa">f</span><span class="s2">&quot;them on device: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;module must have its parameters and buffers &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;on device </span><span class="si">{</span><span class="n">src_device_obj</span><span class="si">}</span><span class="s2"> (device_ids[0]) but found one of &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;them on device: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
 
     <span class="n">inputs</span><span class="p">,</span> <span class="n">module_kwargs</span> <span class="o">=</span> <span class="n">scatter_kwargs</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">module_kwargs</span><span class="p">,</span> <span class="n">device_ids</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
     <span class="c1"># for module without any inputs, empty list and dict will be created</span>
@@ -789,7 +805,7 @@
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">device_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">module</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">module_kwargs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">used_device_ids</span> <span class="o">=</span> <span class="n">device_ids</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)]</span>
+    <span class="n">used_device_ids</span> <span class="o">=</span> <span class="n">device_ids</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)]</span>
     <span class="n">replicas</span> <span class="o">=</span> <span class="n">replicate</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">used_device_ids</span><span class="p">)</span>
     <span class="n">outputs</span> <span class="o">=</span> <span class="n">parallel_apply</span><span class="p">(</span><span class="n">replicas</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">module_kwargs</span><span class="p">,</span> <span class="n">used_device_ids</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">gather</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">output_device</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span></div>

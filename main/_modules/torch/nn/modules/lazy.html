@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf9dae86 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
     </div>
     
 
@@ -525,12 +525,14 @@
   <h1>Source code for torch.nn.modules.lazy</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Type</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">..parameter</span> <span class="kn">import</span> <span class="n">is_lazy</span>
+<span class="kn">from</span> <span class="nn">torch.nn.parameter</span> <span class="kn">import</span> <span class="n">is_lazy</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LazyModuleMixin&#39;</span><span class="p">]</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;LazyModuleMixin&quot;</span><span class="p">]</span>
+
 
 <span class="k">class</span> <span class="nc">_LazyProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This class is used to avoid errors with mypy checks for the attributes in a mixin.</span>
@@ -545,8 +547,15 @@
         <span class="o">...</span>
 
     <span class="k">def</span> <span class="nf">_lazy_load_hook</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="n">strict</span><span class="p">,</span>
-            <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">state_dict</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="p">,</span>
+        <span class="n">local_metadata</span><span class="p">,</span>
+        <span class="n">strict</span><span class="p">,</span>
+        <span class="n">missing_keys</span><span class="p">,</span>
+        <span class="n">unexpected_keys</span><span class="p">,</span>
+        <span class="n">error_msgs</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="o">...</span>
 
     <span class="k">def</span> <span class="nf">_get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -702,7 +711,9 @@
         <span class="c1"># Mypy doesnt like this super call in a mixin</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_load_state_dict_pre_hook</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lazy_load_hook</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_infer_parameters</span><span class="p">,</span> <span class="n">with_kwargs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_infer_parameters</span><span class="p">,</span> <span class="n">with_kwargs</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_save_to_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_LazyProtocol</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">keep_vars</span><span class="p">):</span>
         <span class="c1"># This should be ideally implemented as a hook,</span>
@@ -720,8 +731,15 @@
                 <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">buf</span>
 
     <span class="k">def</span> <span class="nf">_lazy_load_hook</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">:</span> <span class="n">_LazyProtocol</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="n">strict</span><span class="p">,</span>
-            <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">_LazyProtocol</span><span class="p">,</span>
+        <span class="n">state_dict</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="p">,</span>
+        <span class="n">local_metadata</span><span class="p">,</span>
+        <span class="n">strict</span><span class="p">,</span>
+        <span class="n">missing_keys</span><span class="p">,</span>
+        <span class="n">unexpected_keys</span><span class="p">,</span>
+        <span class="n">error_msgs</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;load_state_dict pre-hook function for lazy buffers and parameters.</span>
 
 <span class="sd">        The purpose of this hook is to adjust the current state and/or</span>
@@ -731,7 +749,9 @@
 <span class="sd">        See comment in ``torch.nn.Module._register_load_state_dict_pre_hook``</span>
 <span class="sd">        for the details of the hook specification.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">):</span>
             <span class="n">key</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">name</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">state_dict</span> <span class="ow">and</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">input_param</span> <span class="o">=</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
@@ -748,7 +768,9 @@
 <span class="sd">        This adds an interface to isolate parameter initialization from the</span>
 <span class="sd">        forward pass when doing parameter shape inference.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;initialize_parameters is not implemented for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;initialize_parameters is not implemented for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="LazyModuleMixin.has_uninitialized_params"><a class="viewcode-back" href="../../../../generated/torch.nn.modules.lazy.LazyModuleMixin.html#torch.nn.modules.lazy.LazyModuleMixin.has_uninitialized_params">[docs]</a>    <span class="k">def</span> <span class="nf">has_uninitialized_params</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_LazyProtocol</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if a module has parameters that are not initialized.&quot;&quot;&quot;</span>
@@ -774,18 +796,21 @@
         <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="n">module</span><span class="o">.</span><span class="n">initialize_parameters</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">has_uninitialized_params</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;module </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_name</span><span class="p">()</span><span class="si">}</span><span class="s1"> has not been fully initialized&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;module </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_name</span><span class="p">()</span><span class="si">}</span><span class="s2"> has not been fully initialized&quot;</span>
+            <span class="p">)</span>
         <span class="n">module</span><span class="o">.</span><span class="n">_initialize_hook</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
         <span class="n">module</span><span class="o">.</span><span class="n">_load_hook</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
-        <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;_initialize_hook&#39;</span><span class="p">)</span>
-        <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;_load_hook&#39;</span><span class="p">)</span>
+        <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;_initialize_hook&quot;</span><span class="p">)</span>
+        <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;_load_hook&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">cls_to_become</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">module</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">cls_to_become</span>
 
-
     <span class="k">def</span> <span class="nf">_replicate_for_data_parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">_LazyProtocol</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Modules with uninitialized parameters can</span><span class="se">\&#39;</span><span class="s1">t be used with `DataParallel`. &#39;</span>
-                           <span class="s1">&#39;Run a dummy forward pass to correctly initialize the modules&#39;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Modules with uninitialized parameters can&#39;t be used with `DataParallel`. &quot;</span>
+            <span class="s2">&quot;Run a dummy forward pass to correctly initialize the modules&quot;</span>
+        <span class="p">)</span></div>
 </pre></div>
 
              </article>

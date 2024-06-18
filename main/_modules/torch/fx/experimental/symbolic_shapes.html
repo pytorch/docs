@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf9dae86 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
     </div>
     
 
@@ -1541,7 +1541,9 @@
     <span class="c1"># dynamic dimension, unify the two symbols (&quot;duck sizing&quot;)</span>
     <span class="n">DUCK</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="c1"># Treat the dimension statically based on its hint</span>
-    <span class="n">STATIC</span> <span class="o">=</span> <span class="mi">2</span></div>
+    <span class="n">STATIC</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="c1"># Treat the dimension as a size-like unbacked</span>
+    <span class="n">SIZE_LIKE_UNBACKED</span> <span class="o">=</span> <span class="mi">3</span></div>
 
 
 <span class="c1"># NB: These constraints affect both clients and backends: given some</span>
@@ -3958,6 +3960,12 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new symbol which is tracked by this ShapeEnv</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">dynamic_dim</span> <span class="ow">is</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">SIZE_LIKE_UNBACKED</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_unbacked_symint</span><span class="p">()</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constrain_range_for_size</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="c1"># TODO: maybe put the hint somewhere</span>
+            <span class="k">return</span> <span class="n">r</span>
+
         <span class="c1"># check if constraint_dim is actually static integer</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint_dim</span><span class="p">,</span> <span class="n">StrictMinMaxConstraint</span><span class="p">)</span> <span class="ow">and</span> <span class="n">constraint_dim</span><span class="o">.</span><span class="n">vr</span><span class="o">.</span><span class="n">lower</span> <span class="o">==</span> <span class="n">constraint_dim</span><span class="o">.</span><span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="p">:</span>
             <span class="n">dynamic_dim</span> <span class="o">=</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">STATIC</span>

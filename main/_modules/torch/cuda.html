@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf9dae86 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
     </div>
     
 
@@ -858,9 +858,62 @@
         <span class="n">_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
 
-<span class="k">def</span> <span class="nf">cudart</span><span class="p">():</span>
+<div class="viewcode-block" id="cudart"><a class="viewcode-back" href="../../generated/torch.cuda.cudart.html#torch.cuda.cudart">[docs]</a><span class="k">def</span> <span class="nf">cudart</span><span class="p">():</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Retrieves the CUDA runtime API module.</span>
+
+
+<span class="sd">    This function initializes the CUDA runtime environment if it is not already</span>
+<span class="sd">    initialized and returns the CUDA runtime API module (_cudart). The CUDA</span>
+<span class="sd">    runtime API module provides access to various CUDA runtime functions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ``None``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        module: The CUDA runtime API module (_cudart).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: If CUDA cannot be re-initialized in a forked subprocess.</span>
+<span class="sd">        AssertionError: If PyTorch is not compiled with CUDA support or if libcudart functions are unavailable.</span>
+
+<span class="sd">    Example of CUDA operations with profiling:</span>
+<span class="sd">        &gt;&gt;&gt; import torch</span>
+<span class="sd">        &gt;&gt;&gt; from torch.cuda import cudart, check_error</span>
+<span class="sd">        &gt;&gt;&gt; import os</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; os.environ[&#39;CUDA_PROFILE&#39;] = &#39;1&#39;</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; def perform_cuda_operations_with_streams():</span>
+<span class="sd">        &gt;&gt;&gt;     stream = torch.cuda.Stream()</span>
+<span class="sd">        &gt;&gt;&gt;     with torch.cuda.stream(stream):</span>
+<span class="sd">        &gt;&gt;&gt;         x = torch.randn(100, 100, device=&#39;cuda&#39;)</span>
+<span class="sd">        &gt;&gt;&gt;         y = torch.randn(100, 100, device=&#39;cuda&#39;)</span>
+<span class="sd">        &gt;&gt;&gt;         z = torch.mul(x, y)</span>
+<span class="sd">        &gt;&gt;&gt;     return z</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; torch.cuda.synchronize()</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;====== Start nsys profiling ======&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; check_error(cudart().cudaProfilerStart())</span>
+<span class="sd">        &gt;&gt;&gt; with torch.autograd.profiler.emit_nvtx():</span>
+<span class="sd">        &gt;&gt;&gt;     result = perform_cuda_operations_with_streams()</span>
+<span class="sd">        &gt;&gt;&gt;     print(&quot;CUDA operations completed.&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; check_error(torch.cuda.cudart().cudaProfilerStop())</span>
+<span class="sd">        &gt;&gt;&gt; print(&quot;====== End nsys profiling ======&quot;)</span>
+
+<span class="sd">    To run this example and save the profiling information, execute:</span>
+<span class="sd">        &gt;&gt;&gt; $ nvprof --profile-from-start off --csv --print-summary -o trace_name.prof -f -- python cudart_test.py</span>
+
+<span class="sd">    This command profiles the CUDA operations in the provided script and saves</span>
+<span class="sd">    the profiling information to a file named `trace_name.prof`.</span>
+<span class="sd">    The `--profile-from-start off` option ensures that profiling starts only</span>
+<span class="sd">    after the `cudaProfilerStart` call in the script.</span>
+<span class="sd">    The `--csv` and `--print-summary` options format the profiling output as a</span>
+<span class="sd">    CSV file and print a summary, respectively.</span>
+<span class="sd">    The `-o` option specifies the output file name, and the `-f` option forces the</span>
+<span class="sd">    overwrite of the output file if it already exists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_lazy_init</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">_cudart</span>
+    <span class="k">return</span> <span class="n">_cudart</span></div>
 
 
 <span class="k">class</span> <span class="nc">cudaStatus</span><span class="p">:</span>

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf9dae86 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
     </div>
     
 
@@ -524,11 +524,8 @@
               
   <h1>Source code for torch.distributed</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">import</span> <span class="nn">pdb</span>
-<span class="kn">import</span> <span class="nn">io</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 
@@ -668,7 +665,11 @@
 
     <span class="k">class</span> <span class="nc">_ProcessGroupStub</span><span class="p">:</span>
         <span class="k">pass</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s2">&quot;torch.distributed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ProcessGroup</span> <span class="o">=</span> <span class="n">_ProcessGroupStub</span>  <span class="c1"># type: ignore[attr-defined]</span>
+
+    <span class="n">ProcessGroup</span> <span class="o">=</span> <span class="n">_ProcessGroupStub</span>  <span class="c1"># type: ignore[misc,assignment]</span>
+
+
+<span class="kn">from</span> <span class="nn">torch.distributed</span> <span class="kn">import</span> <span class="n">rpc</span> <span class="k">as</span> <span class="n">rpc</span>
 </pre></div>
 
              </article>
