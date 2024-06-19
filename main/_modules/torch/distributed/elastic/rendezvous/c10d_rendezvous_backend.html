@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git670b94c ) &#x25BC</a>
     </div>
     
 
@@ -538,13 +538,10 @@
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span><span class="p">,</span> <span class="n">b64encode</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">from</span> <span class="nn">torch.distributed</span> <span class="kn">import</span> <span class="n">FileStore</span><span class="p">,</span> <span class="n">Store</span><span class="p">,</span> <span class="n">TCPStore</span>
-<span class="kn">from</span> <span class="nn">torch.distributed.elastic.events</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">NodeState</span><span class="p">,</span>
-    <span class="n">construct_and_record_rdzv_event</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.elastic.events</span> <span class="kn">import</span> <span class="n">construct_and_record_rdzv_event</span><span class="p">,</span> <span class="n">NodeState</span>
 
 <span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">RendezvousConnectionError</span><span class="p">,</span>
@@ -554,6 +551,7 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.dynamic_rendezvous</span> <span class="kn">import</span> <span class="n">RendezvousBackend</span><span class="p">,</span> <span class="n">Token</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_matches_machine_hostname</span><span class="p">,</span> <span class="n">parse_rendezvous_endpoint</span>
+
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -623,7 +621,9 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NULL_SENTINEL</span>
 
-        <span class="n">base64_state</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_store</span><span class="p">(</span><span class="s2">&quot;compare_set&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">base64_state_str</span><span class="p">)</span>
+        <span class="n">base64_state</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_store</span><span class="p">(</span>
+            <span class="s2">&quot;compare_set&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">base64_state_str</span>
+        <span class="p">)</span>
 
         <span class="n">state_token_pair</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode_state</span><span class="p">(</span><span class="n">base64_state</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">state_token_pair</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -783,7 +783,9 @@
         <span class="k">elif</span> <span class="n">store_type</span> <span class="o">==</span> <span class="s2">&quot;tcp&quot;</span><span class="p">:</span>
             <span class="n">store</span> <span class="o">=</span> <span class="n">_create_tcp_store</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid store type given. Currently only supports file and tcp.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid store type given. Currently only supports file and tcp.&quot;</span>
+            <span class="p">)</span>
 
         <span class="n">backend</span> <span class="o">=</span> <span class="n">C10dRendezvousBackend</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">run_id</span><span class="p">)</span>
 

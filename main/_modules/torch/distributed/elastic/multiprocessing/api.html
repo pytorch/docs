@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git670b94c ) &#x25BC</a>
     </div>
     
 
@@ -546,13 +546,13 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">nullcontext</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntFlag</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">synchronize</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FrameType</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
 <span class="kn">import</span> <span class="nn">torch.multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.elastic.multiprocessing.errors</span> <span class="kn">import</span> <span class="n">ProcessFailure</span><span class="p">,</span> <span class="n">record</span>
@@ -560,9 +560,12 @@
     <span class="n">redirect_stderr</span><span class="p">,</span>
     <span class="n">redirect_stdout</span><span class="p">,</span>
 <span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">torch.distributed.elastic.multiprocessing.subprocess_handler</span> <span class="kn">import</span> <span class="n">SubprocessHandler</span><span class="p">,</span> <span class="n">get_subprocess_handler</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.elastic.multiprocessing.subprocess_handler</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_subprocess_handler</span><span class="p">,</span>
+    <span class="n">SubprocessHandler</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.elastic.multiprocessing.tail_log</span> <span class="kn">import</span> <span class="n">TailLog</span>
+
 
 <span class="n">IS_WINDOWS</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span>
 <span class="n">IS_MACOS</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span>
@@ -583,6 +586,7 @@
     <span class="s2">&quot;LogsDest&quot;</span><span class="p">,</span>
     <span class="s2">&quot;LogsSpecs&quot;</span><span class="p">,</span>
 <span class="p">]</span>
+
 
 <span class="k">class</span> <span class="nc">SignalException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -707,6 +711,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    For each log type, holds mapping of local rank ids to file paths.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">stdouts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">stderrs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">tee_stdouts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
@@ -744,7 +749,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_local_ranks_filter</span> <span class="o">=</span> <span class="n">local_ranks_filter</span>
 
 <div class="viewcode-block" id="LogsSpecs.reify"><a class="viewcode-back" href="../../../../../elastic/multiprocessing.html#torch.distributed.elastic.multiprocessing.api.LogsSpecs.reify">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">reify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">envs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],)</span> <span class="o">-&gt;</span> <span class="n">LogsDest</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">reify</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">envs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LogsDest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given the environment variables, builds destination of log files for each of the local ranks.</span>
 
@@ -758,6 +766,7 @@
     <span class="k">def</span> <span class="nf">root_log_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">pass</span></div>
 
+
 <div class="viewcode-block" id="DefaultLogsSpecs"><a class="viewcode-back" href="../../../../../elastic/multiprocessing.html#torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs">[docs]</a><span class="k">class</span> <span class="nc">DefaultLogsSpecs</span><span class="p">(</span><span class="n">LogsSpecs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Default LogsSpecs implementation:</span>
@@ -765,6 +774,7 @@
 <span class="sd">    - `log_dir` will be created if it doesn&#39;t exist</span>
 <span class="sd">    - Generates nested folders for each attempt and rank.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">log_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -795,7 +805,10 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;log directory set to: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">dir</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">dir</span>
 
-<div class="viewcode-block" id="DefaultLogsSpecs.reify"><a class="viewcode-back" href="../../../../../elastic/multiprocessing.html#torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs.reify">[docs]</a>    <span class="k">def</span> <span class="nf">reify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">envs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],)</span> <span class="o">-&gt;</span> <span class="n">LogsDest</span><span class="p">:</span>
+<div class="viewcode-block" id="DefaultLogsSpecs.reify"><a class="viewcode-back" href="../../../../../elastic/multiprocessing.html#torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs.reify">[docs]</a>    <span class="k">def</span> <span class="nf">reify</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">envs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LogsDest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Uses following scheme to build log destination paths:</span>
 
@@ -808,7 +821,9 @@
         <span class="k">if</span> <span class="n">nprocs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">global_env</span> <span class="o">=</span> <span class="n">envs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Empty envs map provided when defining logging destinations.&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Empty envs map provided when defining logging destinations.&quot;</span>
+            <span class="p">)</span>
         <span class="c1"># Keys are always defined, but values can be missing in unit tests</span>
         <span class="n">run_id</span> <span class="o">=</span> <span class="n">global_env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TORCHELASTIC_RUN_ID&quot;</span><span class="p">,</span> <span class="s2">&quot;test_run_id&quot;</span><span class="p">)</span>
         <span class="n">restart_count</span> <span class="o">=</span> <span class="n">global_env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TORCHELASTIC_RESTART_COUNT&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
@@ -850,7 +865,6 @@
         <span class="n">error_files</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">for</span> <span class="n">local_rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nprocs</span><span class="p">):</span>
-
             <span class="k">if</span> <span class="n">attempt_log_dir</span> <span class="o">==</span> <span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">:</span>
                 <span class="n">tee_stdouts</span><span class="p">[</span><span class="n">local_rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">devnull</span>
                 <span class="n">tee_stderrs</span><span class="p">[</span><span class="n">local_rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">devnull</span>
@@ -872,7 +886,10 @@
                 <span class="k">if</span> <span class="n">t</span> <span class="o">&amp;</span> <span class="n">Std</span><span class="o">.</span><span class="n">ERR</span> <span class="o">==</span> <span class="n">Std</span><span class="o">.</span><span class="n">ERR</span><span class="p">:</span>
                     <span class="n">tee_stderrs</span><span class="p">[</span><span class="n">local_rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">stderrs</span><span class="p">[</span><span class="n">local_rank</span><span class="p">]</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_ranks_filter</span> <span class="ow">and</span> <span class="n">local_rank</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_ranks_filter</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_local_ranks_filter</span>
+                    <span class="ow">and</span> <span class="n">local_rank</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_ranks_filter</span>
+                <span class="p">):</span>
                     <span class="c1"># If stream is tee&#39;d, only write to file, but don&#39;t tail</span>
                     <span class="k">if</span> <span class="n">local_rank</span> <span class="ow">in</span> <span class="n">tee_stdouts</span><span class="p">:</span>
                         <span class="n">tee_stdouts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">local_rank</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -887,7 +904,9 @@
 
                 <span class="n">error_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clogdir</span><span class="p">,</span> <span class="s2">&quot;error.json&quot;</span><span class="p">)</span>
                 <span class="n">error_files</span><span class="p">[</span><span class="n">local_rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">error_file</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Setting worker</span><span class="si">%s</span><span class="s2"> reply file to: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">local_rank</span><span class="p">,</span> <span class="n">error_file</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Setting worker</span><span class="si">%s</span><span class="s2"> reply file to: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">local_rank</span><span class="p">,</span> <span class="n">error_file</span>
+                <span class="p">)</span>
                 <span class="n">envs</span><span class="p">[</span><span class="n">local_rank</span><span class="p">][</span><span class="s2">&quot;TORCHELASTIC_ERROR_FILE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">error_file</span>
 
         <span class="k">return</span> <span class="n">LogsDest</span><span class="p">(</span><span class="n">stdouts</span><span class="p">,</span> <span class="n">stderrs</span><span class="p">,</span> <span class="n">tee_stdouts</span><span class="p">,</span> <span class="n">tee_stderrs</span><span class="p">,</span> <span class="n">error_files</span><span class="p">)</span></div>
@@ -952,7 +971,6 @@
         <span class="n">envs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
         <span class="n">logs_specs</span><span class="p">:</span> <span class="n">LogsSpecs</span><span class="p">,</span>
         <span class="n">log_line_prefixes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="c1"># validate that all mappings have the same number of keys and</span>
@@ -973,8 +991,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">error_files</span> <span class="o">=</span> <span class="n">logs_dest</span><span class="o">.</span><span class="n">error_files</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nprocs</span> <span class="o">=</span> <span class="n">nprocs</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_tail</span> <span class="o">=</span> <span class="n">TailLog</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">logs_dest</span><span class="o">.</span><span class="n">tee_stdouts</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">log_line_prefixes</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_tail</span> <span class="o">=</span> <span class="n">TailLog</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">logs_dest</span><span class="o">.</span><span class="n">tee_stderrs</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">log_line_prefixes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_tail</span> <span class="o">=</span> <span class="n">TailLog</span><span class="p">(</span>
+            <span class="n">name</span><span class="p">,</span> <span class="n">logs_dest</span><span class="o">.</span><span class="n">tee_stdouts</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">log_line_prefixes</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_tail</span> <span class="o">=</span> <span class="n">TailLog</span><span class="p">(</span>
+            <span class="n">name</span><span class="p">,</span> <span class="n">logs_dest</span><span class="o">.</span><span class="n">tee_stderrs</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">log_line_prefixes</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Start processes using parameters defined in the constructor.&quot;&quot;&quot;</span>
@@ -1207,7 +1229,9 @@
                 <span class="c1"># But the child process might still have not exited. Wait for them.</span>
                 <span class="c1"># pc.join() blocks [forever] until &quot;a&quot; proc exits. Loop until all of them exits.</span>
                 <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pc</span><span class="o">.</span><span class="n">join</span><span class="p">():</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;entrypoint fn finished, waiting for all child procs to exit...&quot;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                        <span class="s2">&quot;entrypoint fn finished, waiting for all child procs to exit...&quot;</span>
+                    <span class="p">)</span>
 
                 <span class="n">_validate_full_rank</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_return_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nprocs</span><span class="p">,</span> <span class="s2">&quot;return_value queue&quot;</span>
@@ -1233,8 +1257,10 @@
                 <span class="s2">&quot; local_rank: </span><span class="si">%s</span><span class="s2"> (pid: </span><span class="si">%s</span><span class="s2">)&quot;</span>
                 <span class="s2">&quot; of fn: </span><span class="si">%s</span><span class="s2"> (start_method: </span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
                 <span class="n">failed_proc</span><span class="o">.</span><span class="n">exitcode</span><span class="p">,</span>
-                <span class="n">failed_local_rank</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span>
-                <span class="n">fn_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_method</span><span class="p">,</span>
+                <span class="n">failed_local_rank</span><span class="p">,</span>
+                <span class="n">e</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span>
+                <span class="n">fn_name</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">start_method</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -1260,7 +1286,9 @@
             <span class="k">return</span>
         <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pc</span><span class="o">.</span><span class="n">processes</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Closing process </span><span class="si">%s</span><span class="s2"> via signal </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">death_sig</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;Closing process </span><span class="si">%s</span><span class="s2"> via signal </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">death_sig</span><span class="o">.</span><span class="n">name</span>
+                <span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">death_sig</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">ProcessLookupError</span><span class="p">:</span>
@@ -1277,7 +1305,9 @@
             <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                     <span class="s2">&quot;Unable to shutdown process </span><span class="si">%s</span><span class="s2"> via </span><span class="si">%s</span><span class="s2">, forcefully exiting via </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">death_sig</span><span class="p">,</span> <span class="n">_get_kill_signal</span><span class="p">()</span>
+                    <span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span>
+                    <span class="n">death_sig</span><span class="p">,</span>
+                    <span class="n">_get_kill_signal</span><span class="p">(),</span>
                 <span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">_get_kill_signal</span><span class="p">())</span>
@@ -1286,6 +1316,7 @@
                     <span class="c1"># `ProcessLookupError` will be raised, it is safe to ignore it.</span>
                     <span class="k">pass</span>
             <span class="n">proc</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="SubprocessContext"><a class="viewcode-back" href="../../../../../elastic/multiprocessing.html#torch.distributed.elastic.multiprocessing.api.SubprocessContext">[docs]</a><span class="k">class</span> <span class="nc">SubprocessContext</span><span class="p">(</span><span class="n">PContext</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;``PContext`` holding worker processes invoked as a binary.&quot;&quot;&quot;</span>
@@ -1298,7 +1329,6 @@
         <span class="n">envs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
         <span class="n">logs_specs</span><span class="p">:</span> <span class="n">LogsSpecs</span><span class="p">,</span>
         <span class="n">log_line_prefixes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">name</span><span class="p">,</span>
@@ -1363,7 +1393,10 @@
                     <span class="s2">&quot;failed (exitcode: </span><span class="si">%s</span><span class="s2">)&quot;</span>
                     <span class="s2">&quot; local_rank: </span><span class="si">%s</span><span class="s2"> (pid: </span><span class="si">%s</span><span class="s2">)&quot;</span>
                     <span class="s2">&quot; of binary: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="n">first_failure</span><span class="o">.</span><span class="n">exitcode</span><span class="p">,</span> <span class="n">first_failure</span><span class="o">.</span><span class="n">local_rank</span><span class="p">,</span> <span class="n">first_failure</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span>
+                    <span class="n">first_failure</span><span class="o">.</span><span class="n">exitcode</span><span class="p">,</span>
+                    <span class="n">first_failure</span><span class="o">.</span><span class="n">local_rank</span><span class="p">,</span>
+                    <span class="n">first_failure</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Populate return with dummy values. This provides consistency with MultiprocessingHandler</span>
@@ -1385,7 +1418,9 @@
         <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subprocess_handlers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="s2">&quot;Sending process </span><span class="si">%s</span><span class="s2"> closing signal </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">handler</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">death_sig</span><span class="o">.</span><span class="n">name</span>
+                    <span class="s2">&quot;Sending process </span><span class="si">%s</span><span class="s2"> closing signal </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span>
+                    <span class="n">death_sig</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="n">handler</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">death_sig</span><span class="o">=</span><span class="n">death_sig</span><span class="p">)</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">+</span> <span class="n">timeout</span>
@@ -1403,7 +1438,9 @@
             <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                     <span class="s2">&quot;Unable to shutdown process </span><span class="si">%s</span><span class="s2"> via </span><span class="si">%s</span><span class="s2">, forcefully exiting via </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="n">handler</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">death_sig</span><span class="p">,</span> <span class="n">_get_kill_signal</span><span class="p">()</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span>
+                    <span class="n">death_sig</span><span class="p">,</span>
+                    <span class="n">_get_kill_signal</span><span class="p">(),</span>
                 <span class="p">)</span>
                 <span class="n">handler</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">death_sig</span><span class="o">=</span><span class="n">_get_kill_signal</span><span class="p">())</span>
                 <span class="n">handler</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>

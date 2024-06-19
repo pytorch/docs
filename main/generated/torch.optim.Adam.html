@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git670b94c ) &#x25BC</a>
     </div>
     
 
@@ -649,6 +649,10 @@ typically faster. We attempt to use the fastest, so the hierarchy goes fused -&g
 foreach -&gt; for-loop. HOWEVER, since the fused implementation is relatively new,
 we want to give it sufficient bake-in time, so we default to foreach and NOT
 fused when the user has not specified either flag.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A prototype implementation of Adam and AdamW for MPS supports <cite>torch.float32</cite> and <cite>torch.float16</cite>.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adam.add_param_group">

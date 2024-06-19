@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git670b94c ) &#x25BC</a>
     </div>
     
 
@@ -542,6 +542,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">etcd</span>  <span class="c1"># type: ignore[import]</span>
+
 <span class="kn">from</span> <span class="nn">torch.distributed.elastic.rendezvous</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">RendezvousClosedError</span><span class="p">,</span>
     <span class="n">RendezvousError</span><span class="p">,</span>
@@ -552,15 +553,16 @@
     <span class="n">RendezvousTimeoutError</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="kn">from</span> <span class="nn">.etcd_store</span> <span class="kn">import</span> <span class="n">cas_delay</span><span class="p">,</span> <span class="n">EtcdStore</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">parse_rendezvous_endpoint</span>
-<span class="kn">from</span> <span class="nn">.etcd_store</span> <span class="kn">import</span> <span class="n">EtcdStore</span><span class="p">,</span> <span class="n">cas_delay</span>
+
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;EtcdRendezvousRetryableFailure&quot;</span><span class="p">,</span>
     <span class="s2">&quot;EtcdRendezvousRetryImmediately&quot;</span><span class="p">,</span>
     <span class="s2">&quot;EtcdRendezvousHandler&quot;</span><span class="p">,</span>
     <span class="s2">&quot;EtcdRendezvous&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;create_rdzv_handler&quot;</span>
+    <span class="s2">&quot;create_rdzv_handler&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">_log_fmt</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(levelname)s</span><span class="s2"> </span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -900,7 +902,9 @@
         <span class="n">state</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">active_version</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="s2">&quot;Joined rendezvous version </span><span class="si">%s</span><span class="s2"> as rank </span><span class="si">%s</span><span class="s2">. Full state: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span> <span class="n">this_rank</span><span class="p">,</span> <span class="n">state</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
+            <span class="n">this_rank</span><span class="p">,</span>
+            <span class="n">state</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># If this worker was first to reach num_min_workers requirement,</span>
@@ -945,7 +949,8 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="s2">&quot;Rendezvous version </span><span class="si">%s</span><span class="s2"> is complete. Final state: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span> <span class="n">state</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
+            <span class="n">state</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Rendezvous version number; our rank in it; world size</span>
@@ -963,12 +968,13 @@
         <span class="c1">#   2. if keep alives are missing, destroy it and bail out.</span>
         <span class="n">active_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">announce_self_waiting</span><span class="p">(</span><span class="n">expected_version</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="s2">&quot;Added self to waiting list. Rendezvous full state: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">active_state</span><span class="o">.</span><span class="n">value</span>
+            <span class="s2">&quot;Added self to waiting list. Rendezvous full state: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">active_state</span><span class="o">.</span><span class="n">value</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">wait_for_rendezvous_to_free</span><span class="p">(</span><span class="n">expected_version</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Previously existing rendezvous state changed. Will re-try joining.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Previously existing rendezvous state changed. Will re-try joining.&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">try_create_rendezvous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1215,8 +1221,7 @@
                     <span class="c1"># rendezvous version as dead (but only if it hadn&#39;t changed)</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Keep-alive key </span><span class="si">%s</span><span class="s2"> is not renewed.&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                        <span class="s2">&quot;Rendezvous version </span><span class="si">%s</span><span class="s2"> is incomplete. &quot;</span><span class="p">,</span>
-                        <span class="n">expected_version</span>
+                        <span class="s2">&quot;Rendezvous version </span><span class="si">%s</span><span class="s2"> is incomplete. &quot;</span><span class="p">,</span> <span class="n">expected_version</span>
                     <span class="p">)</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Attempting to destroy it.&quot;</span><span class="p">)</span>
 
@@ -1230,7 +1235,7 @@
 
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                         <span class="s2">&quot;Destroyed rendezvous version </span><span class="si">%s</span><span class="s2"> successfully.&quot;</span><span class="p">,</span>
-                        <span class="n">expected_version</span>
+                        <span class="n">expected_version</span><span class="p">,</span>
                     <span class="p">)</span>
 
                     <span class="c1"># We can return (and retry) immediately</span>
@@ -1297,7 +1302,9 @@
                     <span class="c1"># We successfully made this rendezvous frozen.</span>
                     <span class="k">return</span>
                 <span class="k">except</span> <span class="n">etcd</span><span class="o">.</span><span class="n">EtcdCompareFailed</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Join last-call transition CAS unsuccessful. Will retry&quot;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="s2">&quot;Join last-call transition CAS unsuccessful. Will retry&quot;</span>
+                    <span class="p">)</span>
                     <span class="n">cas_delay</span><span class="p">()</span>
                     <span class="n">active_version</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rdzv_state</span><span class="p">()</span>
                     <span class="k">continue</span>
@@ -1578,7 +1585,9 @@
         <span class="n">num_min_workers</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">min_nodes</span><span class="p">,</span>
         <span class="n">num_max_workers</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">max_nodes</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get_as_int</span><span class="p">(</span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="n">_DEFAULT_TIMEOUT</span><span class="p">),</span>
-        <span class="n">last_call_timeout</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get_as_int</span><span class="p">(</span><span class="s2">&quot;last_call_timeout&quot;</span><span class="p">,</span> <span class="n">_DEFAULT_LAST_CALL_TIMEOUT</span><span class="p">),</span>
+        <span class="n">last_call_timeout</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get_as_int</span><span class="p">(</span>
+            <span class="s2">&quot;last_call_timeout&quot;</span><span class="p">,</span> <span class="n">_DEFAULT_LAST_CALL_TIMEOUT</span>
+        <span class="p">),</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">EtcdRendezvousHandler</span><span class="p">(</span><span class="n">rdzv_impl</span><span class="o">=</span><span class="n">rdzv</span><span class="p">)</span>
 </pre></div>

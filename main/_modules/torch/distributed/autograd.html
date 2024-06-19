@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git670b94c ) &#x25BC</a>
     </div>
     
 
@@ -527,7 +527,6 @@
   <h1>Source code for torch.distributed.autograd</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 
 
@@ -540,22 +539,22 @@
 
 <span class="k">if</span> <span class="n">is_available</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">torch._C._distributed_autograd</span> <span class="kn">import</span> <span class="p">(</span>
-        <span class="n">get_gradients</span><span class="p">,</span>
-        <span class="n">backward</span><span class="p">,</span>
-        <span class="n">_init</span><span class="p">,</span>
-        <span class="n">_new_context</span><span class="p">,</span>
-        <span class="n">_release_context</span><span class="p">,</span>
-        <span class="n">_get_max_id</span><span class="p">,</span>
-        <span class="n">_is_valid_context</span><span class="p">,</span>
-        <span class="n">_retrieve_context</span><span class="p">,</span>
         <span class="n">_current_context</span><span class="p">,</span>
         <span class="n">_get_debug_info</span><span class="p">,</span>
+        <span class="n">_get_max_id</span><span class="p">,</span>
+        <span class="n">_init</span><span class="p">,</span>
+        <span class="n">_is_valid_context</span><span class="p">,</span>
+        <span class="n">_new_context</span><span class="p">,</span>
+        <span class="n">_release_context</span><span class="p">,</span>
+        <span class="n">_retrieve_context</span><span class="p">,</span>
+        <span class="n">backward</span><span class="p">,</span>
         <span class="n">DistAutogradContext</span><span class="p">,</span>
+        <span class="n">get_gradients</span><span class="p">,</span>
     <span class="p">)</span>
 
 
 <div class="viewcode-block" id="context"><a class="viewcode-back" href="../../../rpc.html#torch.distributed.autograd.context">[docs]</a><span class="k">class</span> <span class="nc">context</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Context object to wrap forward and backward passes when using</span>
 <span class="sd">    distributed autograd. The ``context_id`` generated in the ``with``</span>
 <span class="sd">    statement  is required to uniquely identify a distributed backward pass</span>
@@ -571,7 +570,8 @@
 <span class="sd">        &gt;&gt;&gt;     t2 = torch.rand((3, 3), requires_grad=True)</span>
 <span class="sd">        &gt;&gt;&gt;     loss = rpc.rpc_sync(&quot;worker1&quot;, torch.add, args=(t1, t2)).sum()</span>
 <span class="sd">        &gt;&gt;&gt;     dist_autograd.backward(context_id, [loss])</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">autograd_context</span> <span class="o">=</span> <span class="n">_new_context</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">autograd_context</span><span class="o">.</span><span class="n">_context_id</span><span class="p">()</span>

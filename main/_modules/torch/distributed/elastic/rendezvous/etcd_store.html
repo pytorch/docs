@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git670b94c ) &#x25BC</a>
     </div>
     
 
@@ -705,7 +705,9 @@
             <span class="c1"># Read whole directory (of keys), filter only the ones waited for</span>
             <span class="n">all_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
             <span class="n">req_nodes</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">all_nodes</span><span class="o">.</span><span class="n">children</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="n">b64_keys</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">value</span>
+                <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">all_nodes</span><span class="o">.</span><span class="n">children</span>
+                <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="n">b64_keys</span>
             <span class="p">}</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">req_nodes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">b64_keys</span><span class="p">):</span>

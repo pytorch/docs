@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git11ff534 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git670b94c ) &#x25BC</a>
     </div>
     
 
@@ -541,9 +541,22 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MetricsConfig&#39;</span><span class="p">,</span> <span class="s1">&#39;MetricHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;ConsoleMetricHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;NullMetricHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;MetricStream&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;configure&#39;</span><span class="p">,</span> <span class="s1">&#39;getStream&#39;</span><span class="p">,</span> <span class="s1">&#39;prof&#39;</span><span class="p">,</span> <span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="s1">&#39;put_metric&#39;</span><span class="p">,</span> <span class="s1">&#39;publish_metric&#39;</span><span class="p">,</span> <span class="s1">&#39;get_elapsed_time_ms&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;MetricData&#39;</span><span class="p">]</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;MetricsConfig&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MetricHandler&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ConsoleMetricHandler&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NullMetricHandler&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MetricStream&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;configure&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;getStream&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;prof&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;profile&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;put_metric&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;publish_metric&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_elapsed_time_ms&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MetricData&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 <span class="n">MetricData</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;MetricData&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;group_name&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">])</span>
 
@@ -677,6 +690,7 @@
 <span class="sd">     @metrics.profile(&quot;my_metric_group&quot;)</span>
 <span class="sd">     def some_function(&lt;arguments&gt;):</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
