@@ -599,7 +599,7 @@
         <span class="n">decompressed_tensor</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">decompressed_tensor</span>
 
-    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">():</span>
         <span class="n">grad</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">_functional_collectives</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span>
             <span class="n">compressed_tensor</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="n">group_to_use</span>
         <span class="p">)</span>
@@ -648,7 +648,7 @@
         <span class="n">decompressed_tensor</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">decompressed_tensor</span>
 
-    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">():</span>
         <span class="n">grad</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">_functional_collectives</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span>
             <span class="n">compressed_tensor</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="n">group_to_use</span>
         <span class="p">)</span>
