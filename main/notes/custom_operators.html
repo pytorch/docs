@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9dd8f8c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc5b9ee7 ) &#x25BC</a>
     </div>
     
 
@@ -525,45 +525,7 @@
               
   <div class="section" id="pytorch-custom-operators-landing-page">
 <span id="custom-ops-landing-page"></span><h1>PyTorch Custom Operators Landing Page<a class="headerlink" href="#pytorch-custom-operators-landing-page" title="Permalink to this heading">¶</a></h1>
-<p>PyTorch offers a large library of operators that work on Tensors (e.g. <a class="reference internal" href="../generated/torch.add.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a>,
-<a class="reference internal" href="../generated/torch.sum.html#torch.sum" title="torch.sum"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sum()</span></code></a>, etc). However, you may wish to bring a new custom operation to PyTorch
-and get it to work with subsystems like <a class="reference internal" href="../generated/torch.compile.html#torch.compile" title="torch.compile"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code></a>, autograd, and <a class="reference internal" href="../generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>.
-In order to do so, you must register the custom operation with PyTorch via the Python
-<a class="reference internal" href="../library.html#torch-library-docs"><span class="std std-ref">torch.library</span></a> or C++ TORCH_LIBRARY APIs.</p>
-<div class="section" id="tl-dr">
-<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="how-do-i-author-a-custom-op-from-python">
-<h3>How do I author a custom op from Python?<a class="headerlink" href="#how-do-i-author-a-custom-op-from-python" title="Permalink to this heading">¶</a></h3>
-<p>Please see the <a class="reference external" href="https://colab.research.google.com/drive/1xCh5BNHxGnutqGLMHaHwm47cbDL9CB1g#scrollTo=gg6WorNtKzeh">Python Custom Operators tutorial</a></p>
-</div>
-<div class="section" id="how-do-i-integrate-custom-c-and-or-cuda-code-with-pytorch">
-<h3>How do I integrate custom C++ and/or CUDA code with PyTorch?<a class="headerlink" href="#how-do-i-integrate-custom-c-and-or-cuda-code-with-pytorch" title="Permalink to this heading">¶</a></h3>
-<p>Please see the <a class="reference external" href="https://docs.google.com/document/d/1-LdJZBzlxiF0Tm-8NfbyFvRJaofdwRgLcycXGmlIpS0">Custom C++ and CUDA Operators tutorial</a></p>
-</div>
-<div class="section" id="for-more-details">
-<h3>For more details<a class="headerlink" href="#for-more-details" title="Permalink to this heading">¶</a></h3>
-<p>Please see <a class="reference external" href="https://docs.google.com/document/d/1_W62p8WJOQQUzPsJYa7s701JXt0qf2OfLub2sbkHOaU">The Custom Operators Manual (gdoc)</a>
-(we’re working on moving the information to our docs site). We recommend that you
-first read one of the tutorials above and then use the Custom Operators Manual as a reference;
-it is not meant to be read head to toe.</p>
-</div>
-</div>
-<div class="section" id="when-should-i-create-a-custom-operator">
-<h2>When should I create a Custom Operator?<a class="headerlink" href="#when-should-i-create-a-custom-operator" title="Permalink to this heading">¶</a></h2>
-<p>If your operation is expressible as a composition of built-in PyTorch operators
-then please write it as a Python function and call it instead of creating a
-custom operator. Use the operator registration APIs to create a custom op if you
-are calling into some library that PyTorch doesn’t understand (e.g. custom C/C++ code,
-a custom CUDA kernel, or Python bindings to C/C++/CUDA extensions).</p>
-</div>
-<div class="section" id="why-should-i-create-a-custom-operator">
-<h2>Why should I create a Custom Operator?<a class="headerlink" href="#why-should-i-create-a-custom-operator" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to use a C/C++/CUDA kernel by grabbing a Tensor’s data pointer
-and passing it to a pybind’ed kernel. However, this approach doesn’t compose with
-PyTorch subsystems like autograd, torch.compile, vmap, and more. In order
-for an operation to compose with PyTorch subsystems, it must be registered
-via the operator registration APIs.</p>
-</div>
+<p><a class="reference external" href="https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html">This page has moved. Click here for the new page.</a></p>
 </div>
 
 
@@ -620,17 +582,7 @@ if (url)
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">PyTorch Custom Operators Landing Page</a><ul>
-<li><a class="reference internal" href="#tl-dr">TL;DR</a><ul>
-<li><a class="reference internal" href="#how-do-i-author-a-custom-op-from-python">How do I author a custom op from Python?</a></li>
-<li><a class="reference internal" href="#how-do-i-integrate-custom-c-and-or-cuda-code-with-pytorch">How do I integrate custom C++ and/or CUDA code with PyTorch?</a></li>
-<li><a class="reference internal" href="#for-more-details">For more details</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#when-should-i-create-a-custom-operator">When should I create a Custom Operator?</a></li>
-<li><a class="reference internal" href="#why-should-i-create-a-custom-operator">Why should I create a Custom Operator?</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">PyTorch Custom Operators Landing Page</a></li>
 </ul>
 
             </div>

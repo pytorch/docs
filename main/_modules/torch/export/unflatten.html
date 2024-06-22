@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9dd8f8c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc5b9ee7 ) &#x25BC</a>
     </div>
     
 
@@ -548,6 +548,7 @@
     <span class="n">TensorArgument</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.fx._symbolic_trace</span> <span class="kn">import</span> <span class="n">is_fx_tracing</span>
+<span class="kn">from</span> <span class="nn">torch.fx.experimental.proxy_tensor</span> <span class="kn">import</span> <span class="n">py_sym_types</span>
 <span class="kn">from</span> <span class="nn">torch.utils._pytree</span> <span class="kn">import</span> <span class="n">GetAttrKey</span><span class="p">,</span> <span class="n">SequenceKey</span>
 
 <span class="kn">from</span> <span class="nn">._remove_effect_tokens_pass</span> <span class="kn">import</span> <span class="n">_remove_effect_tokens</span>
@@ -1319,16 +1320,55 @@
         <span class="n">placeholder_node</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">node_to_placeholder</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">placeholder_node</span>
 
+    <span class="k">def</span> <span class="nf">copy_sym_call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># This only exists because we deduplicate sym_size nodes in the flat export graph,</span>
+        <span class="c1"># and if preserve_module_call_signature is set, we may not be able to pass sym_size</span>
+        <span class="c1"># nodes, or their downstream users, as inputs to submodule calls.</span>
+        <span class="c1"># To avoid this we copy these call_function nodes with sym_type results.</span>
+        <span class="c1"># This should however only be done for sym_type nodes - call_function nodes on tensors</span>
+        <span class="c1"># should not be deduplicated in the first place.</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">],</span> <span class="n">py_sym_types</span><span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remap_input</span><span class="p">(</span><span class="n">_x</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="k">else</span> <span class="n">_x</span>
+            <span class="k">for</span> <span class="n">_x</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span>
+        <span class="p">)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">remap_input</span><span class="p">(</span><span class="n">_x</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="k">else</span> <span class="n">_x</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">_x</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">call_function</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">return</span> <span class="n">node</span>
+
     <span class="k">def</span> <span class="nf">remap_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">graph</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">flat_graph</span>
         <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_map</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_to_placeholder</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;remap_input(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_to_placeholder</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_to_placeholder</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_call_graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="c1"># allow placeholder creation if we are not preserving module call signature</span>
+        <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_placeholder</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># Important to *prepend* the output to match how we are</span>
                 <span class="c1"># inserting placeholder nodes.</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span><span class="o">.</span><span class="n">insert_arg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">remap_input</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">inserting_before</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span><span class="o">.</span><span class="n">insert_arg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">remap_input</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_to_placeholder</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span><span class="p">:</span>
+            <span class="c1"># export deduplicates sym_size nodes, and may need to re-copy them</span>
+            <span class="c1"># if module call signature needs to be preserved</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy_sym_call_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Could not run remap_input() on op type: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">op</span><span class="si">}</span><span class="s2"> for node </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_to_placeholder</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">finalize_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

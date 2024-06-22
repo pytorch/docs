@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9dd8f8c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc5b9ee7 ) &#x25BC</a>
     </div>
     
 
@@ -525,69 +525,28 @@
   <h1>Source code for torch.nn.modules.pooling</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
-<span class="kn">from</span> <span class="nn">torch.nn.common_types</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_ratio_2_t</span><span class="p">,</span>
-    <span class="n">_ratio_3_t</span><span class="p">,</span>
-    <span class="n">_size_1_t</span><span class="p">,</span>
-    <span class="n">_size_2_opt_t</span><span class="p">,</span>
-    <span class="n">_size_2_t</span><span class="p">,</span>
-    <span class="n">_size_3_opt_t</span><span class="p">,</span>
-    <span class="n">_size_3_t</span><span class="p">,</span>
-    <span class="n">_size_any_opt_t</span><span class="p">,</span>
-    <span class="n">_size_any_t</span><span class="p">,</span>
-<span class="p">)</span>
-
 <span class="kn">from</span> <span class="nn">.module</span> <span class="kn">import</span> <span class="n">Module</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_pair</span><span class="p">,</span> <span class="n">_single</span><span class="p">,</span> <span class="n">_triple</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_single</span><span class="p">,</span> <span class="n">_pair</span><span class="p">,</span> <span class="n">_triple</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
 
+<span class="kn">from</span> <span class="nn">..common_types</span> <span class="kn">import</span> <span class="p">(</span><span class="n">_size_any_t</span><span class="p">,</span> <span class="n">_size_1_t</span><span class="p">,</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">_size_3_t</span><span class="p">,</span>
+                            <span class="n">_ratio_3_t</span><span class="p">,</span> <span class="n">_ratio_2_t</span><span class="p">,</span> <span class="n">_size_any_opt_t</span><span class="p">,</span> <span class="n">_size_2_opt_t</span><span class="p">,</span> <span class="n">_size_3_opt_t</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;MaxPool1d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MaxPool2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MaxPool3d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MaxUnpool1d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MaxUnpool2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MaxUnpool3d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AvgPool1d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AvgPool2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AvgPool3d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;FractionalMaxPool2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;FractionalMaxPool3d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;LPPool1d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;LPPool2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;LPPool3d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AdaptiveMaxPool1d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AdaptiveMaxPool2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AdaptiveMaxPool3d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AdaptiveAvgPool1d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AdaptiveAvgPool2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AdaptiveAvgPool3d&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MaxPool1d&#39;</span><span class="p">,</span> <span class="s1">&#39;MaxPool2d&#39;</span><span class="p">,</span> <span class="s1">&#39;MaxPool3d&#39;</span><span class="p">,</span> <span class="s1">&#39;MaxUnpool1d&#39;</span><span class="p">,</span> <span class="s1">&#39;MaxUnpool2d&#39;</span><span class="p">,</span> <span class="s1">&#39;MaxUnpool3d&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;AvgPool1d&#39;</span><span class="p">,</span> <span class="s1">&#39;AvgPool2d&#39;</span><span class="p">,</span> <span class="s1">&#39;AvgPool3d&#39;</span><span class="p">,</span> <span class="s1">&#39;FractionalMaxPool2d&#39;</span><span class="p">,</span> <span class="s1">&#39;FractionalMaxPool3d&#39;</span><span class="p">,</span> <span class="s1">&#39;LPPool1d&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;LPPool2d&#39;</span><span class="p">,</span> <span class="s1">&#39;LPPool3d&#39;</span><span class="p">,</span> <span class="s1">&#39;AdaptiveMaxPool1d&#39;</span><span class="p">,</span> <span class="s1">&#39;AdaptiveMaxPool2d&#39;</span><span class="p">,</span> <span class="s1">&#39;AdaptiveMaxPool3d&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;AdaptiveAvgPool1d&#39;</span><span class="p">,</span> <span class="s1">&#39;AdaptiveAvgPool2d&#39;</span><span class="p">,</span> <span class="s1">&#39;AdaptiveAvgPool3d&#39;</span><span class="p">]</span>
 
 <span class="k">class</span> <span class="nc">_MaxPoolNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;kernel_size&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;stride&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;padding&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;dilation&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;return_indices&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ceil_mode&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;kernel_size&#39;</span><span class="p">,</span> <span class="s1">&#39;stride&#39;</span><span class="p">,</span> <span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="s1">&#39;dilation&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;return_indices&#39;</span><span class="p">,</span> <span class="s1">&#39;ceil_mode&#39;</span><span class="p">]</span>
     <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_any_t</span><span class="p">,</span>
-        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_any_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">padding</span><span class="p">:</span> <span class="n">_size_any_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_any_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_any_t</span><span class="p">,</span> <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_any_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">padding</span><span class="p">:</span> <span class="n">_size_any_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_any_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                 <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">kernel_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span> <span class="k">if</span> <span class="p">(</span><span class="n">stride</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">kernel_size</span>
@@ -597,10 +556,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span> <span class="o">=</span> <span class="n">ceil_mode</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="s2">&quot;kernel_size=</span><span class="si">{kernel_size}</span><span class="s2">, stride=</span><span class="si">{stride}</span><span class="s2">, padding=</span><span class="si">{padding}</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;, dilation=</span><span class="si">{dilation}</span><span class="s2">, ceil_mode=</span><span class="si">{ceil_mode}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;kernel_size=</span><span class="si">{kernel_size}</span><span class="s1">, stride=</span><span class="si">{stride}</span><span class="s1">, padding=</span><span class="si">{padding}</span><span class="s1">&#39;</span> \
+            <span class="s1">&#39;, dilation=</span><span class="si">{dilation}</span><span class="s1">, ceil_mode=</span><span class="si">{ceil_mode}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="MaxPool1d"><a class="viewcode-back" href="../../../../generated/torch.nn.MaxPool1d.html#torch.nn.MaxPool1d">[docs]</a><span class="k">class</span> <span class="nc">MaxPool1d</span><span class="p">(</span><span class="n">_MaxPoolNd</span><span class="p">):</span>
@@ -656,15 +613,9 @@
     <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_1_t</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool1d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
-            <span class="n">ceil_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
-            <span class="n">return_indices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool1d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
+                            <span class="n">return_indices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MaxPool2d"><a class="viewcode-back" href="../../../../generated/torch.nn.MaxPool2d.html#torch.nn.MaxPool2d">[docs]</a><span class="k">class</span> <span class="nc">MaxPool2d</span><span class="p">(</span><span class="n">_MaxPoolNd</span><span class="p">):</span>
@@ -735,15 +686,9 @@
     <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_2_t</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
-            <span class="n">ceil_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
-            <span class="n">return_indices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
+                            <span class="n">return_indices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MaxPool3d"><a class="viewcode-back" href="../../../../generated/torch.nn.MaxPool3d.html#torch.nn.MaxPool3d">[docs]</a><span class="k">class</span> <span class="nc">MaxPool3d</span><span class="p">(</span><span class="n">_MaxPoolNd</span><span class="p">):</span>
@@ -818,20 +763,15 @@
     <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_3_t</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool3d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
-            <span class="n">ceil_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
-            <span class="n">return_indices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
+                            <span class="n">return_indices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_MaxUnpoolNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;kernel_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="si">}</span><span class="s2">, stride=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="si">}</span><span class="s2">, padding=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;kernel_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="si">}</span><span class="s1">, stride=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="si">}</span><span class="s1">, padding=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">&#39;</span>
 
 
 <div class="viewcode-block" id="MaxUnpool1d"><a class="viewcode-back" href="../../../../generated/torch.nn.MaxUnpool1d.html#torch.nn.MaxUnpool1d">[docs]</a><span class="k">class</span> <span class="nc">MaxUnpool1d</span><span class="p">(</span><span class="n">_MaxUnpoolNd</span><span class="p">):</span>
@@ -897,23 +837,15 @@
     <span class="n">stride</span><span class="p">:</span> <span class="n">_size_1_t</span>
     <span class="n">padding</span><span class="p">:</span> <span class="n">_size_1_t</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_1_t</span><span class="p">,</span>
-        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_1_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">padding</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_1_t</span><span class="p">,</span> <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_1_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">stride</span> <span class="k">if</span> <span class="p">(</span><span class="n">stride</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_unpool1d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span>
-        <span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_unpool1d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MaxUnpool2d"><a class="viewcode-back" href="../../../../generated/torch.nn.MaxUnpool2d.html#torch.nn.MaxUnpool2d">[docs]</a><span class="k">class</span> <span class="nc">MaxUnpool2d</span><span class="p">(</span><span class="n">_MaxUnpoolNd</span><span class="p">):</span>
@@ -992,23 +924,15 @@
     <span class="n">stride</span><span class="p">:</span> <span class="n">_size_2_t</span>
     <span class="n">padding</span><span class="p">:</span> <span class="n">_size_2_t</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_2_t</span><span class="p">,</span>
-        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_2_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">padding</span><span class="p">:</span> <span class="n">_size_2_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_2_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_2_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">stride</span> <span class="k">if</span> <span class="p">(</span><span class="n">stride</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_unpool2d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span>
-        <span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_unpool2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MaxUnpool3d"><a class="viewcode-back" href="../../../../generated/torch.nn.MaxUnpool3d.html#torch.nn.MaxUnpool3d">[docs]</a><span class="k">class</span> <span class="nc">MaxUnpool3d</span><span class="p">(</span><span class="n">_MaxUnpoolNd</span><span class="p">):</span>
@@ -1070,36 +994,22 @@
     <span class="n">stride</span><span class="p">:</span> <span class="n">_size_3_t</span>
     <span class="n">padding</span><span class="p">:</span> <span class="n">_size_3_t</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_3_t</span><span class="p">,</span>
-        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_3_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">padding</span><span class="p">:</span> <span class="n">_size_3_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_3_t</span><span class="p">,</span> <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_3_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_3_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">stride</span> <span class="k">if</span> <span class="p">(</span><span class="n">stride</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_unpool3d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span>
-        <span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">max_unpool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_AvgPoolNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;kernel_size&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;stride&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;padding&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ceil_mode&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;count_include_pad&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;kernel_size&#39;</span><span class="p">,</span> <span class="s1">&#39;stride&#39;</span><span class="p">,</span> <span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="s1">&#39;ceil_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;count_include_pad&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;kernel_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="si">}</span><span class="s2">, stride=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="si">}</span><span class="s2">, padding=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;kernel_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="si">}</span><span class="s1">, stride=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="si">}</span><span class="s1">, padding=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">&#39;</span>
 
 
 <div class="viewcode-block" id="AvgPool1d"><a class="viewcode-back" href="../../../../generated/torch.nn.AvgPool1d.html#torch.nn.AvgPool1d">[docs]</a><span class="k">class</span> <span class="nc">AvgPool1d</span><span class="p">(</span><span class="n">_AvgPoolNd</span><span class="p">):</span>
@@ -1157,14 +1067,8 @@
     <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_1_t</span><span class="p">,</span>
-        <span class="n">stride</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">padding</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_1_t</span><span class="p">,</span> <span class="n">stride</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">stride</span> <span class="k">if</span> <span class="n">stride</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">kernel_size</span><span class="p">)</span>
@@ -1174,13 +1078,8 @@
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">avg_pool1d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">,</span>
-        <span class="p">)</span></div>
+            <span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="AvgPool2d"><a class="viewcode-back" href="../../../../generated/torch.nn.AvgPool2d.html#torch.nn.AvgPool2d">[docs]</a><span class="k">class</span> <span class="nc">AvgPool2d</span><span class="p">(</span><span class="n">_AvgPoolNd</span><span class="p">):</span>
@@ -1245,14 +1144,7 @@
 <span class="sd">        &gt;&gt;&gt; output = m(input)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;kernel_size&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;stride&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;padding&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ceil_mode&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;count_include_pad&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;divisor_override&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;kernel_size&#39;</span><span class="p">,</span> <span class="s1">&#39;stride&#39;</span><span class="p">,</span> <span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="s1">&#39;ceil_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;count_include_pad&#39;</span><span class="p">,</span> <span class="s1">&#39;divisor_override&#39;</span><span class="p">]</span>
 
     <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_2_t</span>
     <span class="n">stride</span><span class="p">:</span> <span class="n">_size_2_t</span>
@@ -1260,15 +1152,8 @@
     <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_2_t</span><span class="p">,</span>
-        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_2_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">padding</span><span class="p">:</span> <span class="n">_size_2_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">divisor_override</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_2_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_2_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">divisor_override</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">kernel_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span> <span class="k">if</span> <span class="p">(</span><span class="n">stride</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">kernel_size</span>
@@ -1278,15 +1163,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">divisor_override</span> <span class="o">=</span> <span class="n">divisor_override</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">avg_pool2d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">divisor_override</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">avg_pool2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">divisor_override</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="AvgPool3d"><a class="viewcode-back" href="../../../../generated/torch.nn.AvgPool3d.html#torch.nn.AvgPool3d">[docs]</a><span class="k">class</span> <span class="nc">AvgPool3d</span><span class="p">(</span><span class="n">_AvgPoolNd</span><span class="p">):</span>
@@ -1358,14 +1236,7 @@
 <span class="sd">        &gt;&gt;&gt; output = m(input)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;kernel_size&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;stride&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;padding&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ceil_mode&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;count_include_pad&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;divisor_override&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;kernel_size&#39;</span><span class="p">,</span> <span class="s1">&#39;stride&#39;</span><span class="p">,</span> <span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="s1">&#39;ceil_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;count_include_pad&#39;</span><span class="p">,</span> <span class="s1">&#39;divisor_override&#39;</span><span class="p">]</span>
 
     <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_3_t</span>
     <span class="n">stride</span><span class="p">:</span> <span class="n">_size_3_t</span>
@@ -1373,15 +1244,8 @@
     <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_3_t</span><span class="p">,</span>
-        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_3_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">padding</span><span class="p">:</span> <span class="n">_size_3_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">divisor_override</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_3_t</span><span class="p">,</span> <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_3_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_3_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">count_include_pad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">divisor_override</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">kernel_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span> <span class="k">if</span> <span class="p">(</span><span class="n">stride</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">kernel_size</span>
@@ -1391,21 +1255,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">divisor_override</span> <span class="o">=</span> <span class="n">divisor_override</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">avg_pool3d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">divisor_override</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">avg_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">divisor_override</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;padding&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;ceil_mode&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;count_include_pad&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;ceil_mode&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;count_include_pad&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FractionalMaxPool2d"><a class="viewcode-back" href="../../../../generated/torch.nn.FractionalMaxPool2d.html#torch.nn.FractionalMaxPool2d">[docs]</a><span class="k">class</span> <span class="nc">FractionalMaxPool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
@@ -1450,51 +1307,37 @@
 <span class="sd">        https://arxiv.org/abs/1412.6071</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kernel_size&quot;</span><span class="p">,</span> <span class="s2">&quot;return_indices&quot;</span><span class="p">,</span> <span class="s2">&quot;output_size&quot;</span><span class="p">,</span> <span class="s2">&quot;output_ratio&quot;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;kernel_size&#39;</span><span class="p">,</span> <span class="s1">&#39;return_indices&#39;</span><span class="p">,</span> <span class="s1">&#39;output_size&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;output_ratio&#39;</span><span class="p">]</span>
 
     <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_2_t</span>
     <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">output_size</span><span class="p">:</span> <span class="n">_size_2_t</span>
     <span class="n">output_ratio</span><span class="p">:</span> <span class="n">_ratio_2_t</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_2_t</span><span class="p">,</span>
-        <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_2_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">output_ratio</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ratio_2_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">_random_samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_2_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">output_ratio</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ratio_2_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">_random_samples</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span> <span class="o">=</span> <span class="n">return_indices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;_random_samples&quot;</span><span class="p">,</span> <span class="n">_random_samples</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;_random_samples&#39;</span><span class="p">,</span> <span class="n">_random_samples</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">output_size</span><span class="p">)</span> <span class="k">if</span> <span class="n">output_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">output_ratio</span><span class="p">)</span> <span class="k">if</span> <span class="n">output_ratio</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">output_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_ratio</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;FractionalMaxPool2d requires specifying either &quot;</span>
-                <span class="s2">&quot;an output size, or a pooling ratio&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;FractionalMaxPool2d requires specifying either &quot;</span>
+                             <span class="s2">&quot;an output size, or a pooling ratio&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">output_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_ratio</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;only one of output_size and output_ratio may be specified&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;only one of output_size and output_ratio may be specified&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;output_ratio must be between 0 and 1 (got </span><span class="si">{</span><span class="n">output_ratio</span><span class="si">}</span><span class="s2">)&quot;</span>
-                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output_ratio must be between 0 and 1 (got </span><span class="si">{</span><span class="n">output_ratio</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">fractional_max_pool2d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">,</span>
+            <span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">,</span>
-            <span class="n">_random_samples</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_samples</span><span class="p">,</span>
-        <span class="p">)</span></div>
+            <span class="n">_random_samples</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_samples</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FractionalMaxPool3d"><a class="viewcode-back" href="../../../../generated/torch.nn.FractionalMaxPool3d.html#torch.nn.FractionalMaxPool3d">[docs]</a><span class="k">class</span> <span class="nc">FractionalMaxPool3d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
@@ -1536,69 +1379,46 @@
 <span class="sd">        https://arxiv.org/abs/1412.6071</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kernel_size&quot;</span><span class="p">,</span> <span class="s2">&quot;return_indices&quot;</span><span class="p">,</span> <span class="s2">&quot;output_size&quot;</span><span class="p">,</span> <span class="s2">&quot;output_ratio&quot;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;kernel_size&#39;</span><span class="p">,</span> <span class="s1">&#39;return_indices&#39;</span><span class="p">,</span> <span class="s1">&#39;output_size&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;output_ratio&#39;</span><span class="p">]</span>
     <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_3_t</span>
     <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">output_size</span><span class="p">:</span> <span class="n">_size_3_t</span>
     <span class="n">output_ratio</span><span class="p">:</span> <span class="n">_ratio_3_t</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_3_t</span><span class="p">,</span>
-        <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_3_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">output_ratio</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ratio_3_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">_random_samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_3_t</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_3_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">output_ratio</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ratio_3_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">_random_samples</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span> <span class="o">=</span> <span class="n">return_indices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;_random_samples&quot;</span><span class="p">,</span> <span class="n">_random_samples</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;_random_samples&#39;</span><span class="p">,</span> <span class="n">_random_samples</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">output_size</span><span class="p">)</span> <span class="k">if</span> <span class="n">output_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">output_ratio</span><span class="p">)</span> <span class="k">if</span> <span class="n">output_ratio</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">output_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_ratio</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;FractionalMaxPool3d requires specifying either &quot;</span>
-                <span class="s2">&quot;an output size, or a pooling ratio&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;FractionalMaxPool3d requires specifying either &quot;</span>
+                             <span class="s2">&quot;an output size, or a pooling ratio&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">output_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_ratio</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;only one of output_size and output_ratio may be specified&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;only one of output_size and output_ratio may be specified&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
-                <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span>
-                <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span>
-                <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span>
-            <span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;output_ratio must be between 0 and 1 (got </span><span class="si">{</span><span class="n">output_ratio</span><span class="si">}</span><span class="s2">)&quot;</span>
-                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output_ratio must be between 0 and 1 (got </span><span class="si">{</span><span class="n">output_ratio</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">fractional_max_pool3d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">,</span>
+            <span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ratio</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">,</span>
-            <span class="n">_random_samples</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_samples</span><span class="p">,</span>
-        <span class="p">)</span></div>
+            <span class="n">_random_samples</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_samples</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_LPPoolNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;norm_type&quot;</span><span class="p">,</span> <span class="s2">&quot;kernel_size&quot;</span><span class="p">,</span> <span class="s2">&quot;stride&quot;</span><span class="p">,</span> <span class="s2">&quot;ceil_mode&quot;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;norm_type&#39;</span><span class="p">,</span> <span class="s1">&#39;kernel_size&#39;</span><span class="p">,</span> <span class="s1">&#39;stride&#39;</span><span class="p">,</span> <span class="s1">&#39;ceil_mode&#39;</span><span class="p">]</span>
 
     <span class="n">norm_type</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">norm_type</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_any_t</span><span class="p">,</span>
-        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_any_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">norm_type</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_size_any_t</span><span class="p">,</span> <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_size_any_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ceil_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span> <span class="o">=</span> <span class="n">norm_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">kernel_size</span>
@@ -1606,10 +1426,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span> <span class="o">=</span> <span class="n">ceil_mode</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="s2">&quot;norm_type=</span><span class="si">{norm_type}</span><span class="s2">, kernel_size=</span><span class="si">{kernel_size}</span><span class="s2">, stride=</span><span class="si">{stride}</span><span class="s2">, &quot;</span>
-            <span class="s2">&quot;ceil_mode=</span><span class="si">{ceil_mode}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;norm_type=</span><span class="si">{norm_type}</span><span class="s1">, kernel_size=</span><span class="si">{kernel_size}</span><span class="s1">, stride=</span><span class="si">{stride}</span><span class="s1">, &#39;</span> \
+            <span class="s1">&#39;ceil_mode=</span><span class="si">{ceil_mode}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="LPPool1d"><a class="viewcode-back" href="../../../../generated/torch.nn.LPPool1d.html#torch.nn.LPPool1d">[docs]</a><span class="k">class</span> <span class="nc">LPPool1d</span><span class="p">(</span><span class="n">_LPPoolNd</span><span class="p">):</span>
@@ -1649,9 +1467,8 @@
     <span class="n">stride</span><span class="p">:</span> <span class="n">_size_1_t</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">lp_pool1d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">lp_pool1d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LPPool2d"><a class="viewcode-back" href="../../../../generated/torch.nn.LPPool2d.html#torch.nn.LPPool2d">[docs]</a><span class="k">class</span> <span class="nc">LPPool2d</span><span class="p">(</span><span class="n">_LPPoolNd</span><span class="p">):</span>
@@ -1704,9 +1521,8 @@
     <span class="n">stride</span><span class="p">:</span> <span class="n">_size_2_t</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">lp_pool2d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">lp_pool2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LPPool3d"><a class="viewcode-back" href="../../../../generated/torch.nn.LPPool3d.html#torch.nn.LPPool3d">[docs]</a><span class="k">class</span> <span class="nc">LPPool3d</span><span class="p">(</span><span class="n">_LPPoolNd</span><span class="p">):</span>
@@ -1763,25 +1579,21 @@
     <span class="n">stride</span><span class="p">:</span> <span class="n">_size_3_t</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">lp_pool3d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">lp_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_AdaptiveMaxPoolNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;output_size&quot;</span><span class="p">,</span> <span class="s2">&quot;return_indices&quot;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;output_size&#39;</span><span class="p">,</span> <span class="s1">&#39;return_indices&#39;</span><span class="p">]</span>
     <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">_size_any_opt_t</span><span class="p">,</span> <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">_size_any_opt_t</span><span class="p">,</span> <span class="n">return_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">output_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span> <span class="o">=</span> <span class="n">return_indices</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;output_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="si">}</span><span class="s2">&quot;</span>
-
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;output_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="c1"># FIXME (by @ssnl): Improve adaptive pooling docs: specify what the input and</span>
 <span class="c1">#   output shapes are, and how the operation computes output.</span>
@@ -1903,14 +1715,14 @@
 
 
 <span class="k">class</span> <span class="nc">_AdaptiveAvgPoolNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;output_size&quot;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;output_size&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">_size_any_opt_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">output_size</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;output_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;output_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="si">}</span><span class="s1">&#39;</span>
 
 
 <div class="viewcode-block" id="AdaptiveAvgPool1d"><a class="viewcode-back" href="../../../../generated/torch.nn.AdaptiveAvgPool1d.html#torch.nn.AdaptiveAvgPool1d">[docs]</a><span class="k">class</span> <span class="nc">AdaptiveAvgPool1d</span><span class="p">(</span><span class="n">_AdaptiveAvgPoolNd</span><span class="p">):</span>

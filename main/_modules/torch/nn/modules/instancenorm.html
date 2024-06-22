@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9dd8f8c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc5b9ee7 ) &#x25BC</a>
     </div>
     
 
@@ -526,22 +526,13 @@
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
 
 <span class="kn">from</span> <span class="nn">.batchnorm</span> <span class="kn">import</span> <span class="n">_LazyNormBase</span><span class="p">,</span> <span class="n">_NormBase</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
 
-
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;InstanceNorm1d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;InstanceNorm2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;InstanceNorm3d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;LazyInstanceNorm1d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;LazyInstanceNorm2d&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;LazyInstanceNorm3d&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;InstanceNorm1d&#39;</span><span class="p">,</span> <span class="s1">&#39;InstanceNorm2d&#39;</span><span class="p">,</span> <span class="s1">&#39;InstanceNorm3d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyInstanceNorm1d&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;LazyInstanceNorm2d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyInstanceNorm3d&#39;</span><span class="p">]</span>
 
 <span class="k">class</span> <span class="nc">_InstanceNorm</span><span class="p">(</span><span class="n">_NormBase</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -552,12 +543,11 @@
         <span class="n">affine</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">track_running_stats</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">num_features</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">momentum</span><span class="p">,</span> <span class="n">affine</span><span class="p">,</span> <span class="n">track_running_stats</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
-        <span class="p">)</span>
+            <span class="n">num_features</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">momentum</span><span class="p">,</span> <span class="n">affine</span><span class="p">,</span> <span class="n">track_running_stats</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
@@ -580,51 +570,35 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_load_from_state_dict</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">state_dict</span><span class="p">,</span>
-        <span class="n">prefix</span><span class="p">,</span>
-        <span class="n">local_metadata</span><span class="p">,</span>
-        <span class="n">strict</span><span class="p">,</span>
-        <span class="n">missing_keys</span><span class="p">,</span>
-        <span class="n">unexpected_keys</span><span class="p">,</span>
-        <span class="n">error_msgs</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="n">version</span> <span class="o">=</span> <span class="n">local_metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_load_from_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="n">strict</span><span class="p">,</span>
+                              <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">):</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">local_metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="c1"># at version 1: removed running_mean and running_var when</span>
         <span class="c1"># track_running_stats=False (default)</span>
         <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_running_stats</span><span class="p">:</span>
             <span class="n">running_stats_keys</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;running_mean&quot;</span><span class="p">,</span> <span class="s2">&quot;running_var&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;running_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;running_var&#39;</span><span class="p">):</span>
                 <span class="n">key</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">name</span>
                 <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">state_dict</span><span class="p">:</span>
                     <span class="n">running_stats_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">running_stats_keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">error_msgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="s2">&quot;Unexpected running stats buffer(s) </span><span class="si">{names}</span><span class="s2"> for </span><span class="si">{klass}</span><span class="s2"> &quot;</span>
-                    <span class="s2">&quot;with track_running_stats=False. If state_dict is a &quot;</span>
-                    <span class="s2">&quot;checkpoint saved before 0.4.0, this may be expected &quot;</span>
-                    <span class="s2">&quot;because </span><span class="si">{klass}</span><span class="s2"> does not track running stats by default &quot;</span>
-                    <span class="s2">&quot;since 0.4.0. Please remove these keys from state_dict. If &quot;</span>
-                    <span class="s2">&quot;the running stats are actually needed, instead set &quot;</span>
-                    <span class="s2">&quot;track_running_stats=True in </span><span class="si">{klass}</span><span class="s2"> to enable them. See &quot;</span>
-                    <span class="s2">&quot;the documentation of </span><span class="si">{klass}</span><span class="s2"> for details.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">names</span><span class="o">=</span><span class="s2">&quot; and &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">&quot;&#39;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">running_stats_keys</span><span class="p">),</span>
-                        <span class="n">klass</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
+                    <span class="s1">&#39;Unexpected running stats buffer(s) </span><span class="si">{names}</span><span class="s1"> for </span><span class="si">{klass}</span><span class="s1"> &#39;</span>
+                    <span class="s1">&#39;with track_running_stats=False. If state_dict is a &#39;</span>
+                    <span class="s1">&#39;checkpoint saved before 0.4.0, this may be expected &#39;</span>
+                    <span class="s1">&#39;because </span><span class="si">{klass}</span><span class="s1"> does not track running stats by default &#39;</span>
+                    <span class="s1">&#39;since 0.4.0. Please remove these keys from state_dict. If &#39;</span>
+                    <span class="s1">&#39;the running stats are actually needed, instead set &#39;</span>
+                    <span class="s1">&#39;track_running_stats=True in </span><span class="si">{klass}</span><span class="s1"> to enable them. See &#39;</span>
+                    <span class="s1">&#39;the documentation of </span><span class="si">{klass}</span><span class="s1"> for details.&#39;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s2">&quot; and &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">&quot;&#39;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">running_stats_keys</span><span class="p">),</span>
+                            <span class="n">klass</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">running_stats_keys</span><span class="p">:</span>
                     <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_load_from_state_dict</span><span class="p">(</span>
-            <span class="n">state_dict</span><span class="p">,</span>
-            <span class="n">prefix</span><span class="p">,</span>
-            <span class="n">local_metadata</span><span class="p">,</span>
-            <span class="n">strict</span><span class="p">,</span>
-            <span class="n">missing_keys</span><span class="p">,</span>
-            <span class="n">unexpected_keys</span><span class="p">,</span>
-            <span class="n">error_msgs</span><span class="p">,</span>
-        <span class="p">)</span>
+            <span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="n">strict</span><span class="p">,</span>
+            <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_input_dim</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
@@ -634,14 +608,11 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">affine</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;expected input&#39;s size at dim=</span><span class="si">{</span><span class="n">feature_dim</span><span class="si">}</span><span class="s2"> to match num_features&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot; (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="si">}</span><span class="s2">), but got: </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">feature_dim</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
-                <span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot; (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_features</span><span class="si">}</span><span class="s2">), but got: </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">feature_dim</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;input&#39;s size at dim=</span><span class="si">{</span><span class="n">feature_dim</span><span class="si">}</span><span class="s2"> does not match num_features. &quot;</span>
-                    <span class="s2">&quot;You can silence this warning by not passing in num_features, &quot;</span>
-                    <span class="s2">&quot;which is not used because affine=False&quot;</span>
-                <span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;input&#39;s size at dim=</span><span class="si">{</span><span class="n">feature_dim</span><span class="si">}</span><span class="s2"> does not match num_features. &quot;</span>
+                              <span class="s2">&quot;You can silence this warning by not passing in num_features, &quot;</span>
+                              <span class="s2">&quot;which is not used because affine=False&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_no_batch_dim</span><span class="p">():</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_no_batch_input</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
@@ -723,7 +694,7 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 2D or 3D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;expected 2D or 3D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s1">D input)&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LazyInstanceNorm1d"><a class="viewcode-back" href="../../../../generated/torch.nn.LazyInstanceNorm1d.html#torch.nn.LazyInstanceNorm1d">[docs]</a><span class="k">class</span> <span class="nc">LazyInstanceNorm1d</span><span class="p">(</span><span class="n">_LazyNormBase</span><span class="p">,</span> <span class="n">_InstanceNorm</span><span class="p">):</span>
@@ -760,7 +731,7 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 2D or 3D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;expected 2D or 3D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s1">D input)&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InstanceNorm2d"><a class="viewcode-back" href="../../../../generated/torch.nn.InstanceNorm2d.html#torch.nn.InstanceNorm2d">[docs]</a><span class="k">class</span> <span class="nc">InstanceNorm2d</span><span class="p">(</span><span class="n">_InstanceNorm</span><span class="p">):</span>
@@ -839,7 +810,7 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 3D or 4D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;expected 3D or 4D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s1">D input)&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LazyInstanceNorm2d"><a class="viewcode-back" href="../../../../generated/torch.nn.LazyInstanceNorm2d.html#torch.nn.LazyInstanceNorm2d">[docs]</a><span class="k">class</span> <span class="nc">LazyInstanceNorm2d</span><span class="p">(</span><span class="n">_LazyNormBase</span><span class="p">,</span> <span class="n">_InstanceNorm</span><span class="p">):</span>
@@ -877,7 +848,7 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 3D or 4D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;expected 3D or 4D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s1">D input)&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InstanceNorm3d"><a class="viewcode-back" href="../../../../generated/torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d">[docs]</a><span class="k">class</span> <span class="nc">InstanceNorm3d</span><span class="p">(</span><span class="n">_InstanceNorm</span><span class="p">):</span>
@@ -955,7 +926,7 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 4D or 5D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;expected 4D or 5D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s1">D input)&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LazyInstanceNorm3d"><a class="viewcode-back" href="../../../../generated/torch.nn.LazyInstanceNorm3d.html#torch.nn.LazyInstanceNorm3d">[docs]</a><span class="k">class</span> <span class="nc">LazyInstanceNorm3d</span><span class="p">(</span><span class="n">_LazyNormBase</span><span class="p">,</span> <span class="n">_InstanceNorm</span><span class="p">):</span>
@@ -993,7 +964,7 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 4D or 5D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;expected 4D or 5D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s1">D input)&#39;</span><span class="p">)</span></div>
 </pre></div>
 
              </article>
