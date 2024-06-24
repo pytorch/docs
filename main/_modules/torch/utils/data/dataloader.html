@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git856541c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7b9e643 ) &#x25BC</a>
     </div>
     
 
@@ -536,34 +536,34 @@
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">python_multiprocessing</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">queue</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
-
-<span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">python_multiprocessing</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
-<span class="kn">import</span> <span class="nn">torch.multiprocessing</span> <span class="k">as</span> <span class="nn">multiprocessing</span>
 <span class="kn">import</span> <span class="nn">torch.utils.data.graph_settings</span>
-
 <span class="kn">from</span> <span class="nn">torch._utils</span> <span class="kn">import</span> <span class="n">ExceptionWrapper</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data.datapipes.datapipe</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_IterDataPipeSerializationWrapper</span><span class="p">,</span>
+    <span class="n">_MapDataPipeSerializationWrapper</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_utils</span><span class="p">,</span>
+    <span class="n">BatchSampler</span><span class="p">,</span>
+    <span class="n">Dataset</span><span class="p">,</span>
+    <span class="n">IterableDataset</span><span class="p">,</span>
     <span class="n">IterDataPipe</span><span class="p">,</span>
     <span class="n">MapDataPipe</span><span class="p">,</span>
-    <span class="n">IterableDataset</span><span class="p">,</span>
+    <span class="n">RandomSampler</span><span class="p">,</span>
     <span class="n">Sampler</span><span class="p">,</span>
     <span class="n">SequentialSampler</span><span class="p">,</span>
-    <span class="n">RandomSampler</span><span class="p">,</span>
-    <span class="n">BatchSampler</span><span class="p">,</span>
-    <span class="n">Dataset</span><span class="p">,)</span>
+<span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">torch.utils.data.datapipes.datapipe</span> <span class="kn">import</span> <span class="n">_IterDataPipeSerializationWrapper</span><span class="p">,</span> <span class="n">_MapDataPipeSerializationWrapper</span>
-
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">_utils</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;DataLoader&quot;</span><span class="p">,</span>
@@ -923,13 +923,13 @@
         <span class="k">if</span> <span class="n">multiprocessing_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">multiprocessing_context</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                    <span class="n">valid_start_methods</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">get_all_start_methods</span><span class="p">()</span>
+                    <span class="n">valid_start_methods</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">get_all_start_methods</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">multiprocessing_context</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_start_methods</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                             <span class="s1">&#39;multiprocessing_context option &#39;</span>
                             <span class="sa">f</span><span class="s1">&#39;should specify a valid start method in </span><span class="si">{</span><span class="n">valid_start_methods</span><span class="si">!r}</span><span class="s1">, but got &#39;</span>
                             <span class="sa">f</span><span class="s1">&#39;multiprocessing_context=</span><span class="si">{</span><span class="n">multiprocessing_context</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span>
-                    <span class="n">multiprocessing_context</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="n">multiprocessing_context</span><span class="p">)</span>
+                    <span class="n">multiprocessing_context</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="n">multiprocessing_context</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">multiprocessing_context</span><span class="p">,</span> <span class="n">python_multiprocessing</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">BaseContext</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;multiprocessing_context option should be a valid context &#39;</span>
@@ -1522,7 +1522,7 @@
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefetch_factor</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
         <span class="k">if</span> <span class="n">loader</span><span class="o">.</span><span class="n">multiprocessing_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">multiprocessing_context</span> <span class="o">=</span> <span class="n">multiprocessing</span>
+            <span class="n">multiprocessing_context</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multiprocessing</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">multiprocessing_context</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">multiprocessing_context</span>
 
@@ -1671,8 +1671,10 @@
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DataLoader worker (pid(s) </span><span class="si">{</span><span class="n">pids_str</span><span class="si">}</span><span class="s1">) exited unexpectedly&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">):</span>
                 <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="kn">import</span> <span class="nn">tempfile</span>
+
             <span class="kn">import</span> <span class="nn">errno</span>
+            <span class="kn">import</span> <span class="nn">tempfile</span>
+
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1"># Raise an exception if we are this close to the FDs limit.</span>
                 <span class="c1"># Apparently, trying to open only one file is not a sufficient</span>

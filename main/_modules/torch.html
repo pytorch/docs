@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git856541c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7b9e643 ) &#x25BC</a>
     </div>
     
 
@@ -2437,7 +2437,7 @@
 <span class="c1">################################################################################</span>
 
 <span class="c1"># needs to be after the above ATen bindings so we can overwrite from Python side</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">functional</span>  <span class="c1"># usort: skip</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_VF</span> <span class="k">as</span> <span class="n">_VF</span><span class="p">,</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">functional</span>  <span class="c1"># usort: skip</span>
 <span class="kn">from</span> <span class="nn">torch.functional</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># usort: skip # noqa: F403</span>
 
 <span class="c1">################################################################################</span>
@@ -2488,6 +2488,7 @@
     <span class="n">backends</span> <span class="k">as</span> <span class="n">backends</span><span class="p">,</span>
     <span class="n">cpu</span> <span class="k">as</span> <span class="n">cpu</span><span class="p">,</span>
     <span class="n">cuda</span> <span class="k">as</span> <span class="n">cuda</span><span class="p">,</span>
+    <span class="n">distributed</span> <span class="k">as</span> <span class="n">distributed</span><span class="p">,</span>
     <span class="n">distributions</span> <span class="k">as</span> <span class="n">distributions</span><span class="p">,</span>
     <span class="n">fft</span> <span class="k">as</span> <span class="n">fft</span><span class="p">,</span>
     <span class="n">futures</span> <span class="k">as</span> <span class="n">futures</span><span class="p">,</span>
@@ -2534,7 +2535,7 @@
     <span class="k">return</span> <span class="n">_C</span><span class="o">.</span><span class="n">_GLIBCXX_USE_CXX11_ABI</span></div>
 
 
-<span class="kn">import</span> <span class="nn">torch._library</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_library</span> <span class="k">as</span> <span class="n">_library</span><span class="p">,</span> <span class="n">_ops</span> <span class="k">as</span> <span class="n">_ops</span>
 
 <span class="c1"># Import the ops &quot;namespace&quot;</span>
 <span class="kn">from</span> <span class="nn">torch._classes</span> <span class="kn">import</span> <span class="n">classes</span> <span class="k">as</span> <span class="n">classes</span>

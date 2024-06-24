@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git856541c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7b9e643 ) &#x25BC</a>
     </div>
     
 
@@ -524,24 +524,39 @@
               
   <h1>Source code for torch.nn.modules.padding</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">from</span> <span class="nn">.module</span> <span class="kn">import</span> <span class="n">Module</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_pair</span><span class="p">,</span> <span class="n">_quadruple</span><span class="p">,</span> <span class="n">_ntuple</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
-
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
-<span class="kn">from</span> <span class="nn">..common_types</span> <span class="kn">import</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">_size_4_t</span><span class="p">,</span> <span class="n">_size_6_t</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">torch.nn.common_types</span> <span class="kn">import</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">_size_4_t</span><span class="p">,</span> <span class="n">_size_6_t</span>
+
+<span class="kn">from</span> <span class="nn">.module</span> <span class="kn">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_ntuple</span><span class="p">,</span> <span class="n">_pair</span><span class="p">,</span> <span class="n">_quadruple</span>
 
 
 <span class="c1"># TODO: grad_output size asserts in THNN</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CircularPad1d&#39;</span><span class="p">,</span> <span class="s1">&#39;CircularPad2d&#39;</span><span class="p">,</span> <span class="s1">&#39;CircularPad3d&#39;</span><span class="p">,</span> <span class="s1">&#39;ConstantPad1d&#39;</span><span class="p">,</span> <span class="s1">&#39;ConstantPad2d&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;ConstantPad3d&#39;</span><span class="p">,</span> <span class="s1">&#39;ReflectionPad1d&#39;</span><span class="p">,</span> <span class="s1">&#39;ReflectionPad2d&#39;</span><span class="p">,</span> <span class="s1">&#39;ReflectionPad3d&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;ReplicationPad1d&#39;</span><span class="p">,</span> <span class="s1">&#39;ReplicationPad2d&#39;</span><span class="p">,</span> <span class="s1">&#39;ReplicationPad3d&#39;</span><span class="p">,</span> <span class="s1">&#39;ZeroPad1d&#39;</span><span class="p">,</span> <span class="s1">&#39;ZeroPad2d&#39;</span><span class="p">,</span> <span class="s1">&#39;ZeroPad3d&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;CircularPad1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CircularPad2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CircularPad3d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ConstantPad1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ConstantPad2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ConstantPad3d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ReflectionPad1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ReflectionPad2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ReflectionPad3d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ReplicationPad1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ReplicationPad2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ReplicationPad3d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ZeroPad1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ZeroPad2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ZeroPad3d&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">_CircularPadNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;padding&#39;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;padding&quot;</span><span class="p">]</span>
     <span class="n">padding</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
@@ -549,10 +564,10 @@
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_input_dim</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="s1">&#39;circular&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="s2">&quot;circular&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
 <div class="viewcode-block" id="CircularPad1d"><a class="viewcode-back" href="../../../../generated/torch.nn.CircularPad1d.html#torch.nn.CircularPad1d">[docs]</a><span class="k">class</span> <span class="nc">CircularPad1d</span><span class="p">(</span><span class="n">_CircularPadNd</span><span class="p">):</span>
@@ -601,9 +616,7 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;expected 2D or 3D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span>
-            <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 2D or 3D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CircularPad2d"><a class="viewcode-back" href="../../../../generated/torch.nn.CircularPad2d.html#torch.nn.CircularPad2d">[docs]</a><span class="k">class</span> <span class="nc">CircularPad2d</span><span class="p">(</span><span class="n">_CircularPadNd</span><span class="p">):</span>
@@ -662,9 +675,7 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;expected 3D or 4D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span>
-            <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 3D or 4D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CircularPad3d"><a class="viewcode-back" href="../../../../generated/torch.nn.CircularPad3d.html#torch.nn.CircularPad3d">[docs]</a><span class="k">class</span> <span class="nc">CircularPad3d</span><span class="p">(</span><span class="n">_CircularPadNd</span><span class="p">):</span>
@@ -713,13 +724,11 @@
 
     <span class="k">def</span> <span class="nf">_check_input_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">and</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;expected 4D or 5D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span>
-            <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected 4D or 5D input (got </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input)&quot;</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_ConstantPadNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;padding&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">]</span>
     <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">padding</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 
@@ -728,10 +737,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;padding=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">, value=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;padding=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">, value=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
 <div class="viewcode-block" id="ConstantPad1d"><a class="viewcode-back" href="../../../../generated/torch.nn.ConstantPad1d.html#torch.nn.ConstantPad1d">[docs]</a><span class="k">class</span> <span class="nc">ConstantPad1d</span><span class="p">(</span><span class="n">_ConstantPadNd</span><span class="p">):</span>
@@ -828,7 +837,7 @@
 <span class="sd">                 [ 3.5000,  3.5000,  3.5000,  3.5000,  3.5000]]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;padding&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">]</span>
     <span class="n">padding</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_4_t</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -877,14 +886,14 @@
 
 
 <span class="k">class</span> <span class="nc">_ReflectionPadNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;padding&#39;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;padding&quot;</span><span class="p">]</span>
     <span class="n">padding</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="s1">&#39;reflect&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="s2">&quot;reflect&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
 <div class="viewcode-block" id="ReflectionPad1d"><a class="viewcode-back" href="../../../../generated/torch.nn.ReflectionPad1d.html#torch.nn.ReflectionPad1d">[docs]</a><span class="k">class</span> <span class="nc">ReflectionPad1d</span><span class="p">(</span><span class="n">_ReflectionPadNd</span><span class="p">):</span>
@@ -1036,14 +1045,14 @@
 
 
 <span class="k">class</span> <span class="nc">_ReplicationPadNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;padding&#39;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;padding&quot;</span><span class="p">]</span>
     <span class="n">padding</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="s1">&#39;replicate&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="s2">&quot;replicate&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
 <div class="viewcode-block" id="ReplicationPad1d"><a class="viewcode-back" href="../../../../generated/torch.nn.ReplicationPad1d.html#torch.nn.ReplicationPad1d">[docs]</a><span class="k">class</span> <span class="nc">ReplicationPad1d</span><span class="p">(</span><span class="n">_ReplicationPadNd</span><span class="p">):</span>
@@ -1227,10 +1236,11 @@
     <span class="n">padding</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_2_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">&#39;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
 
 <div class="viewcode-block" id="ZeroPad2d"><a class="viewcode-back" href="../../../../generated/torch.nn.ZeroPad2d.html#torch.nn.ZeroPad2d">[docs]</a><span class="k">class</span> <span class="nc">ZeroPad2d</span><span class="p">(</span><span class="n">ConstantPad2d</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Pads the input tensor boundaries with zero.</span>
@@ -1280,10 +1290,11 @@
     <span class="n">padding</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_4_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">&#39;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
 
 <div class="viewcode-block" id="ZeroPad3d"><a class="viewcode-back" href="../../../../generated/torch.nn.ZeroPad3d.html#torch.nn.ZeroPad3d">[docs]</a><span class="k">class</span> <span class="nc">ZeroPad3d</span><span class="p">(</span><span class="n">ConstantPad3d</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Pads the input tensor boundaries with zero.</span>
@@ -1321,10 +1332,10 @@
     <span class="n">padding</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">padding</span><span class="p">:</span> <span class="n">_size_6_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s1">&#39;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="si">}</span><span class="s2">&quot;</span></div>
 </pre></div>
 
              </article>

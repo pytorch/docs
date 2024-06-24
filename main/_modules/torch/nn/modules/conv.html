@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git856541c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7b9e643 ) &#x25BC</a>
     </div>
     
 
@@ -525,27 +525,38 @@
   <h1>Source code for torch.nn.modules.conv</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">torch._torch_docs</span> <span class="kn">import</span> <span class="n">reproducibility_notes</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span><span class="p">,</span> <span class="n">init</span>
+<span class="kn">from</span> <span class="nn">torch.nn.common_types</span> <span class="kn">import</span> <span class="n">_size_1_t</span><span class="p">,</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">_size_3_t</span>
 <span class="kn">from</span> <span class="nn">torch.nn.parameter</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">UninitializedParameter</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">init</span>
+
 <span class="kn">from</span> <span class="nn">.lazy</span> <span class="kn">import</span> <span class="n">LazyModuleMixin</span>
 <span class="kn">from</span> <span class="nn">.module</span> <span class="kn">import</span> <span class="n">Module</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_single</span><span class="p">,</span> <span class="n">_pair</span><span class="p">,</span> <span class="n">_triple</span><span class="p">,</span> <span class="n">_reverse_repeat_tuple</span>
-<span class="kn">from</span> <span class="nn">torch._torch_docs</span> <span class="kn">import</span> <span class="n">reproducibility_notes</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_pair</span><span class="p">,</span> <span class="n">_reverse_repeat_tuple</span><span class="p">,</span> <span class="n">_single</span><span class="p">,</span> <span class="n">_triple</span>
 
-<span class="kn">from</span> <span class="nn">..common_types</span> <span class="kn">import</span> <span class="n">_size_1_t</span><span class="p">,</span> <span class="n">_size_2_t</span><span class="p">,</span> <span class="n">_size_3_t</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Conv1d&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv2d&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv3d&#39;</span><span class="p">,</span> <span class="s1">&#39;ConvTranspose1d&#39;</span><span class="p">,</span> <span class="s1">&#39;ConvTranspose2d&#39;</span><span class="p">,</span> <span class="s1">&#39;ConvTranspose3d&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;LazyConv1d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyConv2d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyConv3d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyConvTranspose1d&#39;</span><span class="p">,</span> <span class="s1">&#39;LazyConvTranspose2d&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;LazyConvTranspose3d&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Conv1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Conv2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Conv3d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ConvTranspose1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ConvTranspose2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ConvTranspose3d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LazyConv1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LazyConv2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LazyConv3d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LazyConvTranspose1d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LazyConvTranspose2d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LazyConvTranspose3d&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
-<span class="n">convolution_notes</span> <span class="o">=</span> \
-    <span class="p">{</span><span class="s2">&quot;groups_note&quot;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;* :attr:`groups` controls the connections between inputs and outputs.</span>
+<span class="n">convolution_notes</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;groups_note&quot;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;* :attr:`groups` controls the connections between inputs and outputs.</span>
 <span class="s2">      :attr:`in_channels` and :attr:`out_channels` must both be divisible by</span>
 <span class="s2">      :attr:`groups`. For example,</span>
 
@@ -557,21 +568,28 @@
 <span class="s2">        * At groups= :attr:`in_channels`, each input channel is convolved with</span>
 <span class="s2">          its own set of filters (of size</span>
 <span class="s2">          :math:`\frac{\text{out\_channels}}{\text{in\_channels}}`).&quot;&quot;&quot;</span><span class="p">,</span>
-
-        <span class="s2">&quot;depthwise_separable_note&quot;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;When `groups == in_channels` and `out_channels == K * in_channels`,</span>
+    <span class="s2">&quot;depthwise_separable_note&quot;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;When `groups == in_channels` and `out_channels == K * in_channels`,</span>
 <span class="s2">        where `K` is a positive integer, this operation is also known as a &quot;depthwise convolution&quot;.</span>
 
 <span class="s2">        In other words, for an input of size :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, L_</span><span class="si">{in}</span><span class="s2">)`,</span>
 <span class="s2">        a depthwise convolution with a depthwise multiplier `K` can be performed with the arguments</span>
-<span class="s2">        :math:`(C_\text</span><span class="si">{in}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2">, C_\text</span><span class="si">{out}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2"> \times \text</span><span class="si">{K}</span><span class="s2">, ..., \text</span><span class="si">{groups}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2">)`.&quot;&quot;&quot;</span><span class="p">}</span>  <span class="c1"># noqa: B950</span>
+<span class="s2">        :math:`(C_\text</span><span class="si">{in}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2">, C_\text</span><span class="si">{out}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2"> \times \text</span><span class="si">{K}</span><span class="s2">, ..., \text</span><span class="si">{groups}</span><span class="s2">=C_\text</span><span class="si">{in}</span><span class="s2">)`.&quot;&quot;&quot;</span><span class="p">,</span>
+<span class="p">}</span>  <span class="c1"># noqa: B950</span>
 
 
 <span class="k">class</span> <span class="nc">_ConvNd</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;stride&#39;</span><span class="p">,</span> <span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="s1">&#39;dilation&#39;</span><span class="p">,</span> <span class="s1">&#39;groups&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;padding_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;output_padding&#39;</span><span class="p">,</span> <span class="s1">&#39;in_channels&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;out_channels&#39;</span><span class="p">,</span> <span class="s1">&#39;kernel_size&#39;</span><span class="p">]</span>
-    <span class="vm">__annotations__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bias&#39;</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]}</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;stride&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;padding&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dilation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;groups&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;padding_mode&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;output_padding&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;in_channels&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;out_channels&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;kernel_size&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="vm">__annotations__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;bias&quot;</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]}</span>
 
     <span class="k">def</span> <span class="nf">_conv_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>  <span class="c1"># type: ignore[empty-body]</span>
         <span class="o">...</span>
@@ -590,39 +608,46 @@
     <span class="n">weight</span><span class="p">:</span> <span class="n">Tensor</span>
     <span class="n">bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">in_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                 <span class="n">out_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                 <span class="n">kernel_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-                 <span class="n">stride</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-                 <span class="n">padding</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-                 <span class="n">dilation</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-                 <span class="n">transposed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                 <span class="n">output_padding</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-                 <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                 <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                 <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                 <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">stride</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">padding</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">dilation</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">transposed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">output_padding</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">groups</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;groups must be a positive integer&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;groups must be a positive integer&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">in_channels</span> <span class="o">%</span> <span class="n">groups</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;in_channels must be divisible by groups&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;in_channels must be divisible by groups&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">out_channels</span> <span class="o">%</span> <span class="n">groups</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;out_channels must be divisible by groups&#39;</span><span class="p">)</span>
-        <span class="n">valid_padding_strings</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="s1">&#39;valid&#39;</span><span class="p">}</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;out_channels must be divisible by groups&quot;</span><span class="p">)</span>
+        <span class="n">valid_padding_strings</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="s2">&quot;valid&quot;</span><span class="p">}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">padding</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_padding_strings</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Invalid padding string </span><span class="si">{</span><span class="n">padding</span><span class="si">!r}</span><span class="s2">, should be one of </span><span class="si">{</span><span class="n">valid_padding_strings</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">padding</span> <span class="o">==</span> <span class="s1">&#39;same&#39;</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">stride</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;padding=&#39;same&#39; is not supported for strided convolutions&quot;</span><span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;Invalid padding string </span><span class="si">{</span><span class="n">padding</span><span class="si">!r}</span><span class="s2">, should be one of </span><span class="si">{</span><span class="n">valid_padding_strings</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">padding</span> <span class="o">==</span> <span class="s2">&quot;same&quot;</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">stride</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;padding=&#39;same&#39; is not supported for strided convolutions&quot;</span>
+                <span class="p">)</span>
 
-        <span class="n">valid_padding_modes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;zeros&#39;</span><span class="p">,</span> <span class="s1">&#39;reflect&#39;</span><span class="p">,</span> <span class="s1">&#39;replicate&#39;</span><span class="p">,</span> <span class="s1">&#39;circular&#39;</span><span class="p">}</span>
+        <span class="n">valid_padding_modes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;zeros&quot;</span><span class="p">,</span> <span class="s2">&quot;reflect&quot;</span><span class="p">,</span> <span class="s2">&quot;replicate&quot;</span><span class="p">,</span> <span class="s2">&quot;circular&quot;</span><span class="p">}</span>
         <span class="k">if</span> <span class="n">padding_mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_padding_modes</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;padding_mode must be one of </span><span class="si">{</span><span class="n">valid_padding_modes</span><span class="si">}</span><span class="s2">, but got padding_mode=&#39;</span><span class="si">{</span><span class="n">padding_mode</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;padding_mode must be one of </span><span class="si">{</span><span class="n">valid_padding_modes</span><span class="si">}</span><span class="s2">, but got padding_mode=&#39;</span><span class="si">{</span><span class="n">padding_mode</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_channels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">kernel_size</span>
@@ -639,27 +664,39 @@
         <span class="c1"># reverse order than the dimension.</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">padding</span> <span class="o">==</span> <span class="s1">&#39;same&#39;</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dilation</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span>
-                                   <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">padding</span> <span class="o">==</span> <span class="s2">&quot;same&quot;</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                    <span class="n">dilation</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="p">):</span>
                     <span class="n">total_padding</span> <span class="o">=</span> <span class="n">d</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
                     <span class="n">left_pad</span> <span class="o">=</span> <span class="n">total_padding</span> <span class="o">//</span> <span class="mi">2</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_pad</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">total_padding</span> <span class="o">-</span> <span class="n">left_pad</span><span class="p">)</span>
+                        <span class="n">total_padding</span> <span class="o">-</span> <span class="n">left_pad</span>
+                    <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span> <span class="o">=</span> <span class="n">_reverse_repeat_tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span> <span class="o">=</span> <span class="n">_reverse_repeat_tuple</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="mi">2</span>
+            <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">transposed</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
-                <span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span> <span class="o">//</span> <span class="n">groups</span><span class="p">,</span> <span class="o">*</span><span class="n">kernel_size</span><span class="p">),</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span> <span class="o">//</span> <span class="n">groups</span><span class="p">,</span> <span class="o">*</span><span class="n">kernel_size</span><span class="p">),</span>
+                    <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
-                <span class="p">(</span><span class="n">out_channels</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">//</span> <span class="n">groups</span><span class="p">,</span> <span class="o">*</span><span class="n">kernel_size</span><span class="p">),</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">out_channels</span><span class="p">,</span> <span class="n">in_channels</span> <span class="o">//</span> <span class="n">groups</span><span class="p">,</span> <span class="o">*</span><span class="n">kernel_size</span><span class="p">),</span>
+                    <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">out_channels</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s1">&#39;bias&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s2">&quot;bias&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">reset_parameters</span><span class="p">()</span>
 
@@ -675,45 +712,49 @@
                 <span class="n">init</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="o">-</span><span class="n">bound</span><span class="p">,</span> <span class="n">bound</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{in_channels}</span><span class="s1">, </span><span class="si">{out_channels}</span><span class="s1">, kernel_size=</span><span class="si">{kernel_size}</span><span class="s1">&#39;</span>
-             <span class="s1">&#39;, stride=</span><span class="si">{stride}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{in_channels}</span><span class="s2">, </span><span class="si">{out_channels}</span><span class="s2">, kernel_size=</span><span class="si">{kernel_size}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;, stride=</span><span class="si">{stride}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">):</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;, padding=</span><span class="si">{padding}</span><span class="s1">&#39;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;, padding=</span><span class="si">{padding}</span><span class="s2">&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">):</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;, dilation=</span><span class="si">{dilation}</span><span class="s1">&#39;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;, dilation=</span><span class="si">{dilation}</span><span class="s2">&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_padding</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_padding</span><span class="p">):</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;, output_padding=</span><span class="si">{output_padding}</span><span class="s1">&#39;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;, output_padding=</span><span class="si">{output_padding}</span><span class="s2">&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;, groups=</span><span class="si">{groups}</span><span class="s1">&#39;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;, groups=</span><span class="si">{groups}</span><span class="s2">&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;, bias=False&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;, padding_mode=</span><span class="si">{padding_mode}</span><span class="s1">&#39;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;, bias=False&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;, padding_mode=</span><span class="si">{padding_mode}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;padding_mode&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;padding_mode&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span>
 
 
 <div class="viewcode-block" id="Conv1d"><a class="viewcode-back" href="../../../../generated/torch.nn.Conv1d.html#torch.nn.Conv1d">[docs]</a><span class="k">class</span> <span class="nc">Conv1d</span><span class="p">(</span><span class="n">_ConvNd</span><span class="p">):</span>
-    <span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;Applies a 1D convolution over an input signal composed of several input</span>
-<span class="s2">    planes.</span>
+    <span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 1D convolution over an input signal composed of several input</span>
+<span class="sd">    planes.</span>
 
-<span class="s2">    In the simplest case, the output value of the layer with input size</span>
-<span class="s2">    :math:`(N, C_{\text</span><span class="si">{in}</span><span class="s2">}, L)` and output :math:`(N, C_{\text</span><span class="si">{out}</span><span class="s2">}, L_{\text</span><span class="si">{out}</span><span class="s2">})` can be</span>
-<span class="s2">    precisely described as:</span>
+<span class="sd">    In the simplest case, the output value of the layer with input size</span>
+<span class="sd">    :math:`(N, C_{\text{in}}, L)` and output :math:`(N, C_{\text{out}}, L_{\text{out}})` can be</span>
+<span class="sd">    precisely described as:</span>
 
-<span class="s2">    .. math::</span>
-<span class="s2">        \text</span><span class="si">{out}</span><span class="s2">(N_i, C_{\text</span><span class="si">{out}</span><span class="s2">_j}) = \text</span><span class="si">{bias}</span><span class="s2">(C_{\text</span><span class="si">{out}</span><span class="s2">_j}) +</span>
-<span class="s2">        \sum_{k = 0}^{C_</span><span class="si">{in}</span><span class="s2"> - 1} \text</span><span class="si">{weight}</span><span class="s2">(C_{\text</span><span class="si">{out}</span><span class="s2">_j}, k)</span>
-<span class="s2">        \star \text</span><span class="si">{input}</span><span class="s2">(N_i, k)</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{out}(N_i, C_{\text{out}_j}) = \text{bias}(C_{\text{out}_j}) +</span>
+<span class="sd">        \sum_{k = 0}^{C_{in} - 1} \text{weight}(C_{\text{out}_j}, k)</span>
+<span class="sd">        \star \text{input}(N_i, k)</span>
 
-<span class="s2">    where :math:`\star` is the valid `cross-correlation`_ operator,</span>
-<span class="s2">    :math:`N` is a batch size, :math:`C` denotes a number of channels,</span>
-<span class="s2">    :math:`L` is a length of signal sequence.</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="sd">    where :math:`\star` is the valid `cross-correlation`_ operator,</span>
+<span class="sd">    :math:`N` is a batch size, :math:`C` denotes a number of channels,</span>
+<span class="sd">    :math:`L` is a length of signal sequence.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
 
@@ -761,7 +802,10 @@
 <span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
 <span class="s2">            output. Default: ``True``</span>
 
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    Shape:</span>
 <span class="s2">        - Input: :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, L_</span><span class="si">{in}</span><span class="s2">)` or :math:`(C_</span><span class="si">{in}</span><span class="s2">, L_</span><span class="si">{in}</span><span class="s2">)`</span>
@@ -795,6 +839,7 @@
 <span class="s2">    .. _link:</span>
 <span class="s2">        https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md</span>
 <span class="s2">    &quot;&quot;&quot;</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -806,11 +851,11 @@
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>  <span class="c1"># TODO: refine this type</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>  <span class="c1"># TODO: refine this type</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="c1"># we create new variables below to make mypy happy since kernel_size has</span>
         <span class="c1"># type Union[int, Tuple[int]] and kernel_size_ has type Tuple[int]</span>
         <span class="n">kernel_size_</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
@@ -818,39 +863,61 @@
         <span class="n">padding_</span> <span class="o">=</span> <span class="n">padding</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">_single</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
         <span class="n">dilation_</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size_</span><span class="p">,</span> <span class="n">stride_</span><span class="p">,</span> <span class="n">padding_</span><span class="p">,</span> <span class="n">dilation_</span><span class="p">,</span>
-            <span class="kc">False</span><span class="p">,</span> <span class="n">_single</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">groups</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">padding_mode</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+            <span class="n">in_channels</span><span class="p">,</span>
+            <span class="n">out_channels</span><span class="p">,</span>
+            <span class="n">kernel_size_</span><span class="p">,</span>
+            <span class="n">stride_</span><span class="p">,</span>
+            <span class="n">padding_</span><span class="p">,</span>
+            <span class="n">dilation_</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
+            <span class="n">_single</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">groups</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">padding_mode</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_conv_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span><span class="p">),</span>
-                            <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-                            <span class="n">_single</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span>
+                <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+                    <span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="p">,</span>
+                <span class="n">bias</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                <span class="n">_single</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span>
+            <span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conv_forward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Conv2d"><a class="viewcode-back" href="../../../../generated/torch.nn.Conv2d.html#torch.nn.Conv2d">[docs]</a><span class="k">class</span> <span class="nc">Conv2d</span><span class="p">(</span><span class="n">_ConvNd</span><span class="p">):</span>
-    <span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;Applies a 2D convolution over an input signal composed of several input</span>
-<span class="s2">    planes.</span>
+    <span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 2D convolution over an input signal composed of several input</span>
+<span class="sd">    planes.</span>
 
-<span class="s2">    In the simplest case, the output value of the layer with input size</span>
-<span class="s2">    :math:`(N, C_{\text</span><span class="si">{in}</span><span class="s2">}, H, W)` and output :math:`(N, C_{\text</span><span class="si">{out}</span><span class="s2">}, H_{\text</span><span class="si">{out}</span><span class="s2">}, W_{\text</span><span class="si">{out}</span><span class="s2">})`</span>
-<span class="s2">    can be precisely described as:</span>
+<span class="sd">    In the simplest case, the output value of the layer with input size</span>
+<span class="sd">    :math:`(N, C_{\text{in}}, H, W)` and output :math:`(N, C_{\text{out}}, H_{\text{out}}, W_{\text{out}})`</span>
+<span class="sd">    can be precisely described as:</span>
 
-<span class="s2">    .. math::</span>
-<span class="s2">        \text</span><span class="si">{out}</span><span class="s2">(N_i, C_{\text</span><span class="si">{out}</span><span class="s2">_j}) = \text</span><span class="si">{bias}</span><span class="s2">(C_{\text</span><span class="si">{out}</span><span class="s2">_j}) +</span>
-<span class="s2">        \sum_{k = 0}^{C_{\text</span><span class="si">{in}</span><span class="s2">} - 1} \text</span><span class="si">{weight}</span><span class="s2">(C_{\text</span><span class="si">{out}</span><span class="s2">_j}, k) \star \text</span><span class="si">{input}</span><span class="s2">(N_i, k)</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{out}(N_i, C_{\text{out}_j}) = \text{bias}(C_{\text{out}_j}) +</span>
+<span class="sd">        \sum_{k = 0}^{C_{\text{in}} - 1} \text{weight}(C_{\text{out}_j}, k) \star \text{input}(N_i, k)</span>
 
 
-<span class="s2">    where :math:`\star` is the valid 2D `cross-correlation`_ operator,</span>
-<span class="s2">    :math:`N` is a batch size, :math:`C` denotes a number of channels,</span>
-<span class="s2">    :math:`H` is a height of input planes in pixels, and :math:`W` is</span>
-<span class="s2">    width in pixels.</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="sd">    where :math:`\star` is the valid 2D `cross-correlation`_ operator,</span>
+<span class="sd">    :math:`N` is a batch size, :math:`C` denotes a number of channels,</span>
+<span class="sd">    :math:`H` is a height of input planes in pixels, and :math:`W` is</span>
+<span class="sd">    width in pixels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
 
@@ -903,7 +970,10 @@
 <span class="s2">            channels to output channels. Default: 1</span>
 <span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
 <span class="s2">            output. Default: ``True``</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    Shape:</span>
 <span class="s2">        - Input: :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, H_</span><span class="si">{in}</span><span class="s2">, W_</span><span class="si">{in}</span><span class="s2">)` or :math:`(C_</span><span class="si">{in}</span><span class="s2">, H_</span><span class="si">{in}</span><span class="s2">, W_</span><span class="si">{in}</span><span class="s2">)`</span>
@@ -947,6 +1017,7 @@
 <span class="s2">    .. _link:</span>
 <span class="s2">        https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md</span>
 <span class="s2">    &quot;&quot;&quot;</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -958,43 +1029,66 @@
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_2_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>  <span class="c1"># TODO: refine this type</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>  <span class="c1"># TODO: refine this type</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="n">kernel_size_</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="n">stride_</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
         <span class="n">padding_</span> <span class="o">=</span> <span class="n">padding</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">_pair</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
         <span class="n">dilation_</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size_</span><span class="p">,</span> <span class="n">stride_</span><span class="p">,</span> <span class="n">padding_</span><span class="p">,</span> <span class="n">dilation_</span><span class="p">,</span>
-            <span class="kc">False</span><span class="p">,</span> <span class="n">_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">groups</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">padding_mode</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+            <span class="n">in_channels</span><span class="p">,</span>
+            <span class="n">out_channels</span><span class="p">,</span>
+            <span class="n">kernel_size_</span><span class="p">,</span>
+            <span class="n">stride_</span><span class="p">,</span>
+            <span class="n">padding_</span><span class="p">,</span>
+            <span class="n">dilation_</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
+            <span class="n">_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">groups</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">padding_mode</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_conv_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span><span class="p">),</span>
-                            <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-                            <span class="n">_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span>
+                <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+                    <span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reversed_padding_repeated_twice</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="p">,</span>
+                <span class="n">bias</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                <span class="n">_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span>
+            <span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conv_forward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
 
+
 <div class="viewcode-block" id="Conv3d"><a class="viewcode-back" href="../../../../generated/torch.nn.Conv3d.html#torch.nn.Conv3d">[docs]</a><span class="k">class</span> <span class="nc">Conv3d</span><span class="p">(</span><span class="n">_ConvNd</span><span class="p">):</span>
-    <span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;Applies a 3D convolution over an input signal composed of several input</span>
-<span class="s2">    planes.</span>
+    <span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 3D convolution over an input signal composed of several input</span>
+<span class="sd">    planes.</span>
 
-<span class="s2">    In the simplest case, the output value of the layer with input size :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, D, H, W)`</span>
-<span class="s2">    and output :math:`(N, C_</span><span class="si">{out}</span><span class="s2">, D_</span><span class="si">{out}</span><span class="s2">, H_</span><span class="si">{out}</span><span class="s2">, W_</span><span class="si">{out}</span><span class="s2">)` can be precisely described as:</span>
+<span class="sd">    In the simplest case, the output value of the layer with input size :math:`(N, C_{in}, D, H, W)`</span>
+<span class="sd">    and output :math:`(N, C_{out}, D_{out}, H_{out}, W_{out})` can be precisely described as:</span>
 
-<span class="s2">    .. math::</span>
-<span class="s2">        out(N_i, C_</span><span class="si">{out_j}</span><span class="s2">) = bias(C_</span><span class="si">{out_j}</span><span class="s2">) +</span>
-<span class="s2">                                \sum_{k = 0}^{C_</span><span class="si">{in}</span><span class="s2"> - 1} weight(C_</span><span class="si">{out_j}</span><span class="s2">, k) \star input(N_i, k)</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        out(N_i, C_{out_j}) = bias(C_{out_j}) +</span>
+<span class="sd">                                \sum_{k = 0}^{C_{in} - 1} weight(C_{out_j}, k) \star input(N_i, k)</span>
 
-<span class="s2">    where :math:`\star` is the valid 3D `cross-correlation`_ operator</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="sd">    where :math:`\star` is the valid 3D `cross-correlation`_ operator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
 
@@ -1042,7 +1136,10 @@
 <span class="s2">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
 <span class="s2">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
 <span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    Shape:</span>
 <span class="s2">        - Input: :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, D_</span><span class="si">{in}</span><span class="s2">, H_</span><span class="si">{in}</span><span class="s2">, W_</span><span class="si">{in}</span><span class="s2">)` or :math:`(C_</span><span class="si">{in}</span><span class="s2">, D_</span><span class="si">{in}</span><span class="s2">, H_</span><span class="si">{in}</span><span class="s2">, W_</span><span class="si">{in}</span><span class="s2">)`</span>
@@ -1088,6 +1185,7 @@
 <span class="s2">    .. _link:</span>
 <span class="s2">        https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md</span>
 <span class="s2">    &quot;&quot;&quot;</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1099,18 +1197,29 @@
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_3_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="n">kernel_size_</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="n">stride_</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
         <span class="n">padding_</span> <span class="o">=</span> <span class="n">padding</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">_triple</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
         <span class="n">dilation_</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size_</span><span class="p">,</span> <span class="n">stride_</span><span class="p">,</span> <span class="n">padding_</span><span class="p">,</span> <span class="n">dilation_</span><span class="p">,</span>
-            <span class="kc">False</span><span class="p">,</span> <span class="n">_triple</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">groups</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">padding_mode</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+            <span class="n">in_channels</span><span class="p">,</span>
+            <span class="n">out_channels</span><span class="p">,</span>
+            <span class="n">kernel_size_</span><span class="p">,</span>
+            <span class="n">stride_</span><span class="p">,</span>
+            <span class="n">padding_</span><span class="p">,</span>
+            <span class="n">dilation_</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
+            <span class="n">_triple</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">groups</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">padding_mode</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_conv_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
@@ -1134,23 +1243,55 @@
 
 
 <span class="k">class</span> <span class="nc">_ConvTransposeNd</span><span class="p">(</span><span class="n">_ConvNd</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span>
-                 <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">,</span> <span class="n">transposed</span><span class="p">,</span> <span class="n">output_padding</span><span class="p">,</span>
-                 <span class="n">groups</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">padding_mode</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">padding_mode</span> <span class="o">!=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Only &quot;zeros&quot; padding mode is supported for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_channels</span><span class="p">,</span>
+        <span class="n">out_channels</span><span class="p">,</span>
+        <span class="n">kernel_size</span><span class="p">,</span>
+        <span class="n">stride</span><span class="p">,</span>
+        <span class="n">padding</span><span class="p">,</span>
+        <span class="n">dilation</span><span class="p">,</span>
+        <span class="n">transposed</span><span class="p">,</span>
+        <span class="n">output_padding</span><span class="p">,</span>
+        <span class="n">groups</span><span class="p">,</span>
+        <span class="n">bias</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;Only &quot;zeros&quot; padding mode is supported for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="p">)</span>
 
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span>
-            <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">,</span> <span class="n">transposed</span><span class="p">,</span> <span class="n">output_padding</span><span class="p">,</span>
-            <span class="n">groups</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">padding_mode</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+            <span class="n">in_channels</span><span class="p">,</span>
+            <span class="n">out_channels</span><span class="p">,</span>
+            <span class="n">kernel_size</span><span class="p">,</span>
+            <span class="n">stride</span><span class="p">,</span>
+            <span class="n">padding</span><span class="p">,</span>
+            <span class="n">dilation</span><span class="p">,</span>
+            <span class="n">transposed</span><span class="p">,</span>
+            <span class="n">output_padding</span><span class="p">,</span>
+            <span class="n">groups</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">padding_mode</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="c1"># dilation being an optional parameter is for backwards</span>
     <span class="c1"># compatibility</span>
-    <span class="k">def</span> <span class="nf">_output_padding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
-                        <span class="n">stride</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">padding</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">kernel_size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-                        <span class="n">num_spatial_dims</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dilation</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_output_padding</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+        <span class="n">stride</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">padding</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">num_spatial_dims</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">dilation</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">output_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_padding</span><span class="p">)</span>  <span class="c1"># converting to list if was not already</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1161,14 +1302,19 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output_size</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_spatial_dims</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;ConvTranspose</span><span class="si">{</span><span class="n">num_spatial_dims</span><span class="si">}</span><span class="s2">D: for </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D input, output_size must have </span><span class="si">{</span><span class="n">num_spatial_dims</span><span class="si">}</span><span class="s2"> &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;or </span><span class="si">{</span><span class="n">num_non_spatial_dims</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">num_spatial_dims</span><span class="si">}</span><span class="s2"> elements (got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">output_size</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;or </span><span class="si">{</span><span class="n">num_non_spatial_dims</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">num_spatial_dims</span><span class="si">}</span><span class="s2"> elements (got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">output_size</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span>
 
             <span class="n">min_sizes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
             <span class="n">max_sizes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_spatial_dims</span><span class="p">):</span>
-                <span class="n">dim_size</span> <span class="o">=</span> <span class="p">((</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">num_non_spatial_dims</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">-</span>
-                            <span class="mi">2</span> <span class="o">*</span> <span class="n">padding</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+</span>
-                            <span class="p">(</span><span class="n">dilation</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">if</span> <span class="n">dilation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">dim_size</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">num_non_spatial_dims</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                    <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">padding</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="n">dilation</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="k">if</span> <span class="n">dilation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="mi">1</span>
+                <span class="p">)</span>
                 <span class="n">min_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dim_size</span><span class="p">)</span>
                 <span class="n">max_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">min_sizes</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+</span> <span class="n">stride</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
@@ -1179,7 +1325,8 @@
                 <span class="k">if</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="n">min_size</span> <span class="ow">or</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">max_size</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">&quot;requested an output size of </span><span class="si">{</span><span class="n">output_size</span><span class="si">}</span><span class="s2">, but valid sizes range &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;from </span><span class="si">{</span><span class="n">min_sizes</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">max_sizes</span><span class="si">}</span><span class="s2"> (for an input of </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">2</span><span class="p">:]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                        <span class="sa">f</span><span class="s2">&quot;from </span><span class="si">{</span><span class="n">min_sizes</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">max_sizes</span><span class="si">}</span><span class="s2"> (for an input of </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">2</span><span class="p">:]</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="p">)</span>
 
             <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_spatial_dims</span><span class="p">):</span>
@@ -1190,67 +1337,71 @@
 
 
 <div class="viewcode-block" id="ConvTranspose1d"><a class="viewcode-back" href="../../../../generated/torch.nn.ConvTranspose1d.html#torch.nn.ConvTranspose1d">[docs]</a><span class="k">class</span> <span class="nc">ConvTranspose1d</span><span class="p">(</span><span class="n">_ConvTransposeNd</span><span class="p">):</span>
-    <span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;Applies a 1D transposed convolution operator over an input image</span>
-<span class="s2">    composed of several input planes.</span>
+    <span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 1D transposed convolution operator over an input image</span>
+<span class="sd">    composed of several input planes.</span>
 
-<span class="s2">    This module can be seen as the gradient of Conv1d with respect to its input.</span>
-<span class="s2">    It is also known as a fractionally-strided convolution or</span>
-<span class="s2">    a deconvolution (although it is not an actual deconvolution operation as it does</span>
-<span class="s2">    not compute a true inverse of convolution). For more information, see the visualizations</span>
-<span class="s2">    `here`_ and the `Deconvolutional Networks`_ paper.</span>
+<span class="sd">    This module can be seen as the gradient of Conv1d with respect to its input.</span>
+<span class="sd">    It is also known as a fractionally-strided convolution or</span>
+<span class="sd">    a deconvolution (although it is not an actual deconvolution operation as it does</span>
+<span class="sd">    not compute a true inverse of convolution). For more information, see the visualizations</span>
+<span class="sd">    `here`_ and the `Deconvolutional Networks`_ paper.</span>
 
-<span class="s2">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
+<span class="sd">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
 
-<span class="s2">    On certain ROCm devices, when using float16 inputs this module will use :ref:`different precision&lt;fp16_on_mi200&gt;` for backward.</span>
+<span class="sd">    On certain ROCm devices, when using float16 inputs this module will use :ref:`different precision&lt;fp16_on_mi200&gt;` for backward.</span>
 
-<span class="s2">    * :attr:`stride` controls the stride for the cross-correlation.</span>
+<span class="sd">    * :attr:`stride` controls the stride for the cross-correlation.</span>
 
-<span class="s2">    * :attr:`padding` controls the amount of implicit zero padding on both</span>
-<span class="s2">      sides for ``dilation * (kernel_size - 1) - padding`` number of points. See note</span>
-<span class="s2">      below for details.</span>
+<span class="sd">    * :attr:`padding` controls the amount of implicit zero padding on both</span>
+<span class="sd">      sides for ``dilation * (kernel_size - 1) - padding`` number of points. See note</span>
+<span class="sd">      below for details.</span>
 
-<span class="s2">    * :attr:`output_padding` controls the additional size added to one side</span>
-<span class="s2">      of the output shape. See note below for details.</span>
+<span class="sd">    * :attr:`output_padding` controls the additional size added to one side</span>
+<span class="sd">      of the output shape. See note below for details.</span>
 
-<span class="s2">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
-<span class="s2">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
+<span class="sd">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
 
-<span class="s2">    </span><span class="si">{groups_note}</span>
+<span class="sd">    {groups_note}</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        The :attr:`padding` argument effectively adds ``dilation * (kernel_size - 1) - padding``</span>
-<span class="s2">        amount of zero padding to both sizes of the input. This is set so that</span>
-<span class="s2">        when a :class:`~torch.nn.Conv1d` and a :class:`~torch.nn.ConvTranspose1d`</span>
-<span class="s2">        are initialized with same parameters, they are inverses of each other in</span>
-<span class="s2">        regard to the input and output shapes. However, when ``stride &gt; 1``,</span>
-<span class="s2">        :class:`~torch.nn.Conv1d` maps multiple input shapes to the same output</span>
-<span class="s2">        shape. :attr:`output_padding` is provided to resolve this ambiguity by</span>
-<span class="s2">        effectively increasing the calculated output shape on one side. Note</span>
-<span class="s2">        that :attr:`output_padding` is only used to find output shape, but does</span>
-<span class="s2">        not actually add zero-padding to output.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        The :attr:`padding` argument effectively adds ``dilation * (kernel_size - 1) - padding``</span>
+<span class="sd">        amount of zero padding to both sizes of the input. This is set so that</span>
+<span class="sd">        when a :class:`~torch.nn.Conv1d` and a :class:`~torch.nn.ConvTranspose1d`</span>
+<span class="sd">        are initialized with same parameters, they are inverses of each other in</span>
+<span class="sd">        regard to the input and output shapes. However, when ``stride &gt; 1``,</span>
+<span class="sd">        :class:`~torch.nn.Conv1d` maps multiple input shapes to the same output</span>
+<span class="sd">        shape. :attr:`output_padding` is provided to resolve this ambiguity by</span>
+<span class="sd">        effectively increasing the calculated output shape on one side. Note</span>
+<span class="sd">        that :attr:`output_padding` is only used to find output shape, but does</span>
+<span class="sd">        not actually add zero-padding to output.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        In some circumstances when using the CUDA backend with CuDNN, this operator</span>
-<span class="s2">        may select a nondeterministic algorithm to increase performance. If this is</span>
-<span class="s2">        undesirable, you can try to make the operation deterministic (potentially at</span>
-<span class="s2">        a performance cost) by setting ``torch.backends.cudnn.deterministic =</span>
-<span class="s2">        True``.</span>
-<span class="s2">        Please see the notes on :doc:`/notes/randomness` for background.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        In some circumstances when using the CUDA backend with CuDNN, this operator</span>
+<span class="sd">        may select a nondeterministic algorithm to increase performance. If this is</span>
+<span class="sd">        undesirable, you can try to make the operation deterministic (potentially at</span>
+<span class="sd">        a performance cost) by setting ``torch.backends.cudnn.deterministic =</span>
+<span class="sd">        True``.</span>
+<span class="sd">        Please see the notes on :doc:`/notes/randomness` for background.</span>
 
 
-<span class="s2">    Args:</span>
-<span class="s2">        in_channels (int): Number of channels in the input image</span>
-<span class="s2">        out_channels (int): Number of channels produced by the convolution</span>
-<span class="s2">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="s2">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
-<span class="s2">        padding (int or tuple, optional): ``dilation * (kernel_size - 1) - padding`` zero-padding</span>
-<span class="s2">            will be added to both sides of the input. Default: 0</span>
-<span class="s2">        output_padding (int or tuple, optional): Additional size added to one side</span>
-<span class="s2">            of the output shape. Default: 0</span>
-<span class="s2">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
-<span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
-<span class="s2">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        in_channels (int): Number of channels in the input image</span>
+<span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
+<span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int or tuple, optional): ``dilation * (kernel_size - 1) - padding`` zero-padding</span>
+<span class="sd">            will be added to both sides of the input. Default: 0</span>
+<span class="sd">        output_padding (int or tuple, optional): Additional size added to one side</span>
+<span class="sd">            of the output shape. Default: 0</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    Shape:</span>
 <span class="s2">        - Input: :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, L_</span><span class="si">{in}</span><span class="s2">)` or :math:`(C_</span><span class="si">{in}</span><span class="s2">, L_</span><span class="si">{in}</span><span class="s2">)`</span>
@@ -1278,6 +1429,7 @@
 <span class="s2">    .. _`Deconvolutional Networks`:</span>
 <span class="s2">        https://www.matthewzeiler.com/mattzeiler/deconvolutionalnetworks.pdf</span>
 <span class="s2">    &quot;&quot;&quot;</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1290,99 +1442,129 @@
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="n">stride</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
         <span class="n">padding</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
         <span class="n">dilation</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
         <span class="n">output_padding</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">output_padding</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">,</span>
-            <span class="kc">True</span><span class="p">,</span> <span class="n">output_padding</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">padding_mode</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+            <span class="n">in_channels</span><span class="p">,</span>
+            <span class="n">out_channels</span><span class="p">,</span>
+            <span class="n">kernel_size</span><span class="p">,</span>
+            <span class="n">stride</span><span class="p">,</span>
+            <span class="n">padding</span><span class="p">,</span>
+            <span class="n">dilation</span><span class="p">,</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="n">output_padding</span><span class="p">,</span>
+            <span class="n">groups</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">padding_mode</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only `zeros` padding mode is supported for ConvTranspose1d&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Only `zeros` padding mode is supported for ConvTranspose1d&quot;</span>
+            <span class="p">)</span>
 
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
         <span class="c1"># One cannot replace List by Tuple or Sequence in &quot;_output_padding&quot; because</span>
         <span class="c1"># TorchScript does not support `Sequence[T]` or `Tuple[T, ...]`.</span>
         <span class="n">num_spatial_dims</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">output_padding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_padding</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="n">output_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
-            <span class="n">num_spatial_dims</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="nb">input</span><span class="p">,</span>
+            <span class="n">output_size</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">num_spatial_dims</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv_transpose1d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="n">output_padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span></div>
+            <span class="nb">input</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
+            <span class="n">output_padding</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ConvTranspose2d"><a class="viewcode-back" href="../../../../generated/torch.nn.ConvTranspose2d.html#torch.nn.ConvTranspose2d">[docs]</a><span class="k">class</span> <span class="nc">ConvTranspose2d</span><span class="p">(</span><span class="n">_ConvTransposeNd</span><span class="p">):</span>
-    <span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;Applies a 2D transposed convolution operator over an input image</span>
-<span class="s2">    composed of several input planes.</span>
+    <span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 2D transposed convolution operator over an input image</span>
+<span class="sd">    composed of several input planes.</span>
 
-<span class="s2">    This module can be seen as the gradient of Conv2d with respect to its input.</span>
-<span class="s2">    It is also known as a fractionally-strided convolution or</span>
-<span class="s2">    a deconvolution (although it is not an actual deconvolution operation as it does</span>
-<span class="s2">    not compute a true inverse of convolution). For more information, see the visualizations</span>
-<span class="s2">    `here`_ and the `Deconvolutional Networks`_ paper.</span>
+<span class="sd">    This module can be seen as the gradient of Conv2d with respect to its input.</span>
+<span class="sd">    It is also known as a fractionally-strided convolution or</span>
+<span class="sd">    a deconvolution (although it is not an actual deconvolution operation as it does</span>
+<span class="sd">    not compute a true inverse of convolution). For more information, see the visualizations</span>
+<span class="sd">    `here`_ and the `Deconvolutional Networks`_ paper.</span>
 
-<span class="s2">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
+<span class="sd">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
 
-<span class="s2">    On certain ROCm devices, when using float16 inputs this module will use :ref:`different precision&lt;fp16_on_mi200&gt;` for backward.</span>
+<span class="sd">    On certain ROCm devices, when using float16 inputs this module will use :ref:`different precision&lt;fp16_on_mi200&gt;` for backward.</span>
 
-<span class="s2">    * :attr:`stride` controls the stride for the cross-correlation.</span>
+<span class="sd">    * :attr:`stride` controls the stride for the cross-correlation.</span>
 
-<span class="s2">    * :attr:`padding` controls the amount of implicit zero padding on both</span>
-<span class="s2">      sides for ``dilation * (kernel_size - 1) - padding`` number of points. See note</span>
-<span class="s2">      below for details.</span>
+<span class="sd">    * :attr:`padding` controls the amount of implicit zero padding on both</span>
+<span class="sd">      sides for ``dilation * (kernel_size - 1) - padding`` number of points. See note</span>
+<span class="sd">      below for details.</span>
 
-<span class="s2">    * :attr:`output_padding` controls the additional size added to one side</span>
-<span class="s2">      of the output shape. See note below for details.</span>
+<span class="sd">    * :attr:`output_padding` controls the additional size added to one side</span>
+<span class="sd">      of the output shape. See note below for details.</span>
 
-<span class="s2">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
-<span class="s2">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
+<span class="sd">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
 
-<span class="s2">    </span><span class="si">{groups_note}</span>
+<span class="sd">    {groups_note}</span>
 
-<span class="s2">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`output_padding`</span>
-<span class="s2">    can either be:</span>
+<span class="sd">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`output_padding`</span>
+<span class="sd">    can either be:</span>
 
-<span class="s2">        - a single ``int`` -- in which case the same value is used for the height and width dimensions</span>
-<span class="s2">        - a ``tuple`` of two ints -- in which case, the first `int` is used for the height dimension,</span>
-<span class="s2">          and the second `int` for the width dimension</span>
+<span class="sd">        - a single ``int`` -- in which case the same value is used for the height and width dimensions</span>
+<span class="sd">        - a ``tuple`` of two ints -- in which case, the first `int` is used for the height dimension,</span>
+<span class="sd">          and the second `int` for the width dimension</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        The :attr:`padding` argument effectively adds ``dilation * (kernel_size - 1) - padding``</span>
-<span class="s2">        amount of zero padding to both sizes of the input. This is set so that</span>
-<span class="s2">        when a :class:`~torch.nn.Conv2d` and a :class:`~torch.nn.ConvTranspose2d`</span>
-<span class="s2">        are initialized with same parameters, they are inverses of each other in</span>
-<span class="s2">        regard to the input and output shapes. However, when ``stride &gt; 1``,</span>
-<span class="s2">        :class:`~torch.nn.Conv2d` maps multiple input shapes to the same output</span>
-<span class="s2">        shape. :attr:`output_padding` is provided to resolve this ambiguity by</span>
-<span class="s2">        effectively increasing the calculated output shape on one side. Note</span>
-<span class="s2">        that :attr:`output_padding` is only used to find output shape, but does</span>
-<span class="s2">        not actually add zero-padding to output.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        The :attr:`padding` argument effectively adds ``dilation * (kernel_size - 1) - padding``</span>
+<span class="sd">        amount of zero padding to both sizes of the input. This is set so that</span>
+<span class="sd">        when a :class:`~torch.nn.Conv2d` and a :class:`~torch.nn.ConvTranspose2d`</span>
+<span class="sd">        are initialized with same parameters, they are inverses of each other in</span>
+<span class="sd">        regard to the input and output shapes. However, when ``stride &gt; 1``,</span>
+<span class="sd">        :class:`~torch.nn.Conv2d` maps multiple input shapes to the same output</span>
+<span class="sd">        shape. :attr:`output_padding` is provided to resolve this ambiguity by</span>
+<span class="sd">        effectively increasing the calculated output shape on one side. Note</span>
+<span class="sd">        that :attr:`output_padding` is only used to find output shape, but does</span>
+<span class="sd">        not actually add zero-padding to output.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        </span><span class="si">{cudnn_reproducibility_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        {cudnn_reproducibility_note}</span>
 
-<span class="s2">    Args:</span>
-<span class="s2">        in_channels (int): Number of channels in the input image</span>
-<span class="s2">        out_channels (int): Number of channels produced by the convolution</span>
-<span class="s2">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="s2">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
-<span class="s2">        padding (int or tuple, optional): ``dilation * (kernel_size - 1) - padding`` zero-padding</span>
-<span class="s2">            will be added to both sides of each dimension in the input. Default: 0</span>
-<span class="s2">        output_padding (int or tuple, optional): Additional size added to one side</span>
-<span class="s2">            of each dimension in the output shape. Default: 0</span>
-<span class="s2">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
-<span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
-<span class="s2">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        in_channels (int): Number of channels in the input image</span>
+<span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
+<span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int or tuple, optional): ``dilation * (kernel_size - 1) - padding`` zero-padding</span>
+<span class="sd">            will be added to both sides of each dimension in the input. Default: 0</span>
+<span class="sd">        output_padding (int or tuple, optional): Additional size added to one side</span>
+<span class="sd">            of each dimension in the output shape. Default: 0</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    Shape:</span>
 <span class="s2">        - Input: :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, H_</span><span class="si">{in}</span><span class="s2">, W_</span><span class="si">{in}</span><span class="s2">)` or :math:`(C_</span><span class="si">{in}</span><span class="s2">, H_</span><span class="si">{in}</span><span class="s2">, W_</span><span class="si">{in}</span><span class="s2">)`</span>
@@ -1432,6 +1614,7 @@
 <span class="s2">    .. _`Deconvolutional Networks`:</span>
 <span class="s2">        https://www.matthewzeiler.com/mattzeiler/deconvolutionalnetworks.pdf</span>
 <span class="s2">    &quot;&quot;&quot;</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1444,102 +1627,132 @@
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_2_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="n">stride</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
         <span class="n">padding</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
         <span class="n">dilation</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
         <span class="n">output_padding</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">output_padding</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">,</span>
-            <span class="kc">True</span><span class="p">,</span> <span class="n">output_padding</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">padding_mode</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+            <span class="n">in_channels</span><span class="p">,</span>
+            <span class="n">out_channels</span><span class="p">,</span>
+            <span class="n">kernel_size</span><span class="p">,</span>
+            <span class="n">stride</span><span class="p">,</span>
+            <span class="n">padding</span><span class="p">,</span>
+            <span class="n">dilation</span><span class="p">,</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="n">output_padding</span><span class="p">,</span>
+            <span class="n">groups</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">padding_mode</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only `zeros` padding mode is supported for ConvTranspose2d&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Only `zeros` padding mode is supported for ConvTranspose2d&quot;</span>
+            <span class="p">)</span>
 
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
         <span class="c1"># One cannot replace List by Tuple or Sequence in &quot;_output_padding&quot; because</span>
         <span class="c1"># TorchScript does not support `Sequence[T]` or `Tuple[T, ...]`.</span>
         <span class="n">num_spatial_dims</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">output_padding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_padding</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="n">output_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
-            <span class="n">num_spatial_dims</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="nb">input</span><span class="p">,</span>
+            <span class="n">output_size</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">num_spatial_dims</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv_transpose2d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="n">output_padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span></div>
+            <span class="nb">input</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
+            <span class="n">output_padding</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ConvTranspose3d"><a class="viewcode-back" href="../../../../generated/torch.nn.ConvTranspose3d.html#torch.nn.ConvTranspose3d">[docs]</a><span class="k">class</span> <span class="nc">ConvTranspose3d</span><span class="p">(</span><span class="n">_ConvTransposeNd</span><span class="p">):</span>
-    <span class="vm">__doc__</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;Applies a 3D transposed convolution operator over an input image composed of several input</span>
-<span class="s2">    planes.</span>
-<span class="s2">    The transposed convolution operator multiplies each input value element-wise by a learnable kernel,</span>
-<span class="s2">    and sums over the outputs from all input feature planes.</span>
+    <span class="vm">__doc__</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 3D transposed convolution operator over an input image composed of several input</span>
+<span class="sd">    planes.</span>
+<span class="sd">    The transposed convolution operator multiplies each input value element-wise by a learnable kernel,</span>
+<span class="sd">    and sums over the outputs from all input feature planes.</span>
 
-<span class="s2">    This module can be seen as the gradient of Conv3d with respect to its input.</span>
-<span class="s2">    It is also known as a fractionally-strided convolution or</span>
-<span class="s2">    a deconvolution (although it is not an actual deconvolution operation as it does</span>
-<span class="s2">    not compute a true inverse of convolution). For more information, see the visualizations</span>
-<span class="s2">    `here`_ and the `Deconvolutional Networks`_ paper.</span>
+<span class="sd">    This module can be seen as the gradient of Conv3d with respect to its input.</span>
+<span class="sd">    It is also known as a fractionally-strided convolution or</span>
+<span class="sd">    a deconvolution (although it is not an actual deconvolution operation as it does</span>
+<span class="sd">    not compute a true inverse of convolution). For more information, see the visualizations</span>
+<span class="sd">    `here`_ and the `Deconvolutional Networks`_ paper.</span>
 
-<span class="s2">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
+<span class="sd">    This module supports :ref:`TensorFloat32&lt;tf32_on_ampere&gt;`.</span>
 
-<span class="s2">    On certain ROCm devices, when using float16 inputs this module will use :ref:`different precision&lt;fp16_on_mi200&gt;` for backward.</span>
+<span class="sd">    On certain ROCm devices, when using float16 inputs this module will use :ref:`different precision&lt;fp16_on_mi200&gt;` for backward.</span>
 
-<span class="s2">    * :attr:`stride` controls the stride for the cross-correlation.</span>
+<span class="sd">    * :attr:`stride` controls the stride for the cross-correlation.</span>
 
-<span class="s2">    * :attr:`padding` controls the amount of implicit zero padding on both</span>
-<span class="s2">      sides for ``dilation * (kernel_size - 1) - padding`` number of points. See note</span>
-<span class="s2">      below for details.</span>
+<span class="sd">    * :attr:`padding` controls the amount of implicit zero padding on both</span>
+<span class="sd">      sides for ``dilation * (kernel_size - 1) - padding`` number of points. See note</span>
+<span class="sd">      below for details.</span>
 
-<span class="s2">    * :attr:`output_padding` controls the additional size added to one side</span>
-<span class="s2">      of the output shape. See note below for details.</span>
+<span class="sd">    * :attr:`output_padding` controls the additional size added to one side</span>
+<span class="sd">      of the output shape. See note below for details.</span>
 
-<span class="s2">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
-<span class="s2">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
+<span class="sd">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
 
-<span class="s2">    </span><span class="si">{groups_note}</span>
+<span class="sd">    {groups_note}</span>
 
-<span class="s2">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`output_padding`</span>
-<span class="s2">    can either be:</span>
+<span class="sd">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`output_padding`</span>
+<span class="sd">    can either be:</span>
 
-<span class="s2">        - a single ``int`` -- in which case the same value is used for the depth, height and width dimensions</span>
-<span class="s2">        - a ``tuple`` of three ints -- in which case, the first `int` is used for the depth dimension,</span>
-<span class="s2">          the second `int` for the height dimension and the third `int` for the width dimension</span>
+<span class="sd">        - a single ``int`` -- in which case the same value is used for the depth, height and width dimensions</span>
+<span class="sd">        - a ``tuple`` of three ints -- in which case, the first `int` is used for the depth dimension,</span>
+<span class="sd">          the second `int` for the height dimension and the third `int` for the width dimension</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        The :attr:`padding` argument effectively adds ``dilation * (kernel_size - 1) - padding``</span>
-<span class="s2">        amount of zero padding to both sizes of the input. This is set so that</span>
-<span class="s2">        when a :class:`~torch.nn.Conv3d` and a :class:`~torch.nn.ConvTranspose3d`</span>
-<span class="s2">        are initialized with same parameters, they are inverses of each other in</span>
-<span class="s2">        regard to the input and output shapes. However, when ``stride &gt; 1``,</span>
-<span class="s2">        :class:`~torch.nn.Conv3d` maps multiple input shapes to the same output</span>
-<span class="s2">        shape. :attr:`output_padding` is provided to resolve this ambiguity by</span>
-<span class="s2">        effectively increasing the calculated output shape on one side. Note</span>
-<span class="s2">        that :attr:`output_padding` is only used to find output shape, but does</span>
-<span class="s2">        not actually add zero-padding to output.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        The :attr:`padding` argument effectively adds ``dilation * (kernel_size - 1) - padding``</span>
+<span class="sd">        amount of zero padding to both sizes of the input. This is set so that</span>
+<span class="sd">        when a :class:`~torch.nn.Conv3d` and a :class:`~torch.nn.ConvTranspose3d`</span>
+<span class="sd">        are initialized with same parameters, they are inverses of each other in</span>
+<span class="sd">        regard to the input and output shapes. However, when ``stride &gt; 1``,</span>
+<span class="sd">        :class:`~torch.nn.Conv3d` maps multiple input shapes to the same output</span>
+<span class="sd">        shape. :attr:`output_padding` is provided to resolve this ambiguity by</span>
+<span class="sd">        effectively increasing the calculated output shape on one side. Note</span>
+<span class="sd">        that :attr:`output_padding` is only used to find output shape, but does</span>
+<span class="sd">        not actually add zero-padding to output.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        </span><span class="si">{cudnn_reproducibility_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        {cudnn_reproducibility_note}</span>
 
-<span class="s2">    Args:</span>
-<span class="s2">        in_channels (int): Number of channels in the input image</span>
-<span class="s2">        out_channels (int): Number of channels produced by the convolution</span>
-<span class="s2">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="s2">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
-<span class="s2">        padding (int or tuple, optional): ``dilation * (kernel_size - 1) - padding`` zero-padding</span>
-<span class="s2">            will be added to both sides of each dimension in the input. Default: 0</span>
-<span class="s2">        output_padding (int or tuple, optional): Additional size added to one side</span>
-<span class="s2">            of each dimension in the output shape. Default: 0</span>
-<span class="s2">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
-<span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
-<span class="s2">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        in_channels (int): Number of channels in the input image</span>
+<span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
+<span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int or tuple, optional): ``dilation * (kernel_size - 1) - padding`` zero-padding</span>
+<span class="sd">            will be added to both sides of each dimension in the input. Default: 0</span>
+<span class="sd">        output_padding (int or tuple, optional): Additional size added to one side</span>
+<span class="sd">            of each dimension in the output shape. Default: 0</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">    Shape:</span>
 <span class="s2">        - Input: :math:`(N, C_</span><span class="si">{in}</span><span class="s2">, D_</span><span class="si">{in}</span><span class="s2">, H_</span><span class="si">{in}</span><span class="s2">, W_</span><span class="si">{in}</span><span class="s2">)` or :math:`(C_</span><span class="si">{in}</span><span class="s2">, D_</span><span class="si">{in}</span><span class="s2">, H_</span><span class="si">{in}</span><span class="s2">, W_</span><span class="si">{in}</span><span class="s2">)`</span>
@@ -1584,6 +1797,7 @@
 <span class="s2">    .. _`Deconvolutional Networks`:</span>
 <span class="s2">        https://www.matthewzeiler.com/mattzeiler/deconvolutionalnetworks.pdf</span>
 <span class="s2">    &quot;&quot;&quot;</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1596,35 +1810,61 @@
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_3_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
         <span class="n">stride</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
         <span class="n">padding</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
         <span class="n">dilation</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
         <span class="n">output_padding</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">output_padding</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">,</span>
-            <span class="kc">True</span><span class="p">,</span> <span class="n">output_padding</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">padding_mode</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+            <span class="n">in_channels</span><span class="p">,</span>
+            <span class="n">out_channels</span><span class="p">,</span>
+            <span class="n">kernel_size</span><span class="p">,</span>
+            <span class="n">stride</span><span class="p">,</span>
+            <span class="n">padding</span><span class="p">,</span>
+            <span class="n">dilation</span><span class="p">,</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="n">output_padding</span><span class="p">,</span>
+            <span class="n">groups</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">padding_mode</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only `zeros` padding mode is supported for ConvTranspose3d&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Only `zeros` padding mode is supported for ConvTranspose3d&quot;</span>
+            <span class="p">)</span>
 
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
         <span class="c1"># One cannot replace List by Tuple or Sequence in &quot;_output_padding&quot; because</span>
         <span class="c1"># TorchScript does not support `Sequence[T]` or `Tuple[T, ...]`.</span>
         <span class="n">num_spatial_dims</span> <span class="o">=</span> <span class="mi">3</span>
         <span class="n">output_padding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_padding</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="n">output_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
-            <span class="n">num_spatial_dims</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="nb">input</span><span class="p">,</span>
+            <span class="n">output_size</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">num_spatial_dims</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv_transpose3d</span><span class="p">(</span>
-            <span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-            <span class="n">output_padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span></div>
+            <span class="nb">input</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
+            <span class="n">output_padding</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 <span class="c1"># TODO: Deprecate and remove the following alias `_ConvTransposeMixin`.</span>
@@ -1643,7 +1883,6 @@
 <span class="c1"># `_ConvTransposeNd` is really not a mixin anymore (but multiple inheritance as</span>
 <span class="c1"># above would still work).</span>
 <span class="k">class</span> <span class="nc">_ConvTransposeMixin</span><span class="p">(</span><span class="n">_ConvTransposeNd</span><span class="p">):</span>
-
     <span class="nd">@deprecated</span><span class="p">(</span>
         <span class="s2">&quot;`_ConvTransposeMixin` is a deprecated internal class. &quot;</span>
         <span class="s2">&quot;Please consider using public APIs.&quot;</span><span class="p">,</span>
@@ -1681,14 +1920,24 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_uninitialized_params</span><span class="p">():</span>  <span class="c1"># type: ignore[misc]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_in_channels</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;in_channels must be divisible by groups&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;in_channels must be divisible by groups&quot;</span><span class="p">)</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">UninitializedParameter</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">materialize</span><span class="p">((</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">materialize</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span>
+                        <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">materialize</span><span class="p">((</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">materialize</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span>
+                        <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="n">UninitializedParameter</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">materialize</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span><span class="p">,))</span>
@@ -1700,9 +1949,11 @@
         <span class="n">num_dims_no_batch</span> <span class="o">=</span> <span class="n">num_spatial_dims</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># +1 for channels dim</span>
         <span class="n">num_dims_batch</span> <span class="o">=</span> <span class="n">num_dims_no_batch</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">num_dims_no_batch</span><span class="p">,</span> <span class="n">num_dims_batch</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">num_dims_no_batch</span><span class="si">}</span><span class="s2">D (unbatched) or </span><span class="si">{</span><span class="n">num_dims_batch</span><span class="si">}</span><span class="s2">D (batched) input &quot;</span>
-                               <span class="sa">f</span><span class="s2">&quot;to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">, but &quot;</span>
-                               <span class="sa">f</span><span class="s2">&quot;got input of size: </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">num_dims_no_batch</span><span class="si">}</span><span class="s2">D (unbatched) or </span><span class="si">{</span><span class="n">num_dims_batch</span><span class="si">}</span><span class="s2">D (batched) input &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">, but &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;got input of size: </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="n">num_dims_batch</span> <span class="k">else</span> <span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># Function to return the number of spatial dims expected for inputs to the module.</span>
@@ -1752,11 +2003,11 @@
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="mi">0</span><span class="p">,</span>
             <span class="mi">0</span><span class="p">,</span>
@@ -1769,7 +2020,7 @@
             <span class="c1"># that will soon be overwritten.</span>
             <span class="kc">False</span><span class="p">,</span>
             <span class="n">padding_mode</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">UninitializedParameter</span><span class="p">(</span><span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>
@@ -1821,11 +2072,11 @@
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_2_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>  <span class="c1"># TODO: refine this type</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>  <span class="c1"># TODO: refine this type</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="mi">0</span><span class="p">,</span>
             <span class="mi">0</span><span class="p">,</span>
@@ -1838,7 +2089,7 @@
             <span class="c1"># that will soon be overwritten.</span>
             <span class="kc">False</span><span class="p">,</span>
             <span class="n">padding_mode</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">UninitializedParameter</span><span class="p">(</span><span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>
@@ -1891,11 +2142,11 @@
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_3_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="mi">0</span><span class="p">,</span>
             <span class="mi">0</span><span class="p">,</span>
@@ -1908,7 +2159,7 @@
             <span class="c1"># that will soon be overwritten.</span>
             <span class="kc">False</span><span class="p">,</span>
             <span class="n">padding_mode</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">UninitializedParameter</span><span class="p">(</span><span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>
@@ -1959,11 +2210,11 @@
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_1_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="mi">0</span><span class="p">,</span>
             <span class="mi">0</span><span class="p">,</span>
@@ -1977,7 +2228,7 @@
             <span class="kc">False</span><span class="p">,</span>
             <span class="n">dilation</span><span class="p">,</span>
             <span class="n">padding_mode</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">UninitializedParameter</span><span class="p">(</span><span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>
@@ -2028,11 +2279,11 @@
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dilation</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="mi">0</span><span class="p">,</span>
             <span class="mi">0</span><span class="p">,</span>
@@ -2046,7 +2297,7 @@
             <span class="kc">False</span><span class="p">,</span>
             <span class="n">dilation</span><span class="p">,</span>
             <span class="n">padding_mode</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">UninitializedParameter</span><span class="p">(</span><span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>
@@ -2097,11 +2348,11 @@
         <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dilation</span><span class="p">:</span> <span class="n">_size_3_t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="mi">0</span><span class="p">,</span>
             <span class="mi">0</span><span class="p">,</span>
@@ -2115,7 +2366,7 @@
             <span class="kc">False</span><span class="p">,</span>
             <span class="n">dilation</span><span class="p">,</span>
             <span class="n">padding_mode</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">UninitializedParameter</span><span class="p">(</span><span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>

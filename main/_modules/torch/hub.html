@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git856541c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7b9e643 ) &#x25BC</a>
     </div>
     
 
@@ -740,7 +740,12 @@
 
 
 <span class="k">def</span> <span class="nf">_get_cache_or_reload</span><span class="p">(</span>
-    <span class="n">github</span><span class="p">,</span> <span class="n">force_reload</span><span class="p">,</span> <span class="n">trust_repo</span><span class="p">,</span> <span class="n">calling_fn</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_validation</span><span class="o">=</span><span class="kc">False</span>
+    <span class="n">github</span><span class="p">,</span>
+    <span class="n">force_reload</span><span class="p">,</span>
+    <span class="n">trust_repo</span><span class="p">,</span>
+    <span class="n">calling_fn</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">skip_validation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="c1"># Setup hub_dir to save downloaded files</span>
     <span class="n">hub_dir</span> <span class="o">=</span> <span class="n">get_dir</span><span class="p">()</span>
@@ -819,7 +824,11 @@
 
 
 <span class="k">def</span> <span class="nf">_check_repo_is_trusted</span><span class="p">(</span>
-    <span class="n">repo_owner</span><span class="p">,</span> <span class="n">repo_name</span><span class="p">,</span> <span class="n">owner_name_branch</span><span class="p">,</span> <span class="n">trust_repo</span><span class="p">,</span> <span class="n">calling_fn</span><span class="o">=</span><span class="s2">&quot;load&quot;</span>
+    <span class="n">repo_owner</span><span class="p">,</span>
+    <span class="n">repo_name</span><span class="p">,</span>
+    <span class="n">owner_name_branch</span><span class="p">,</span>
+    <span class="n">trust_repo</span><span class="p">,</span>
+    <span class="n">calling_fn</span><span class="o">=</span><span class="s2">&quot;load&quot;</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="n">hub_dir</span> <span class="o">=</span> <span class="n">get_dir</span><span class="p">()</span>
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hub_dir</span><span class="p">,</span> <span class="s2">&quot;trusted_list&quot;</span><span class="p">)</span>
@@ -936,7 +945,11 @@
 
 
 <div class="viewcode-block" id="list"><a class="viewcode-back" href="../../hub.html#torch.hub.list">[docs]</a><span class="k">def</span> <span class="nf">list</span><span class="p">(</span>
-    <span class="n">github</span><span class="p">,</span> <span class="n">force_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_validation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">trust_repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">github</span><span class="p">,</span>
+    <span class="n">force_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">skip_validation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">trust_repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    List all callable entrypoints available in the repo specified by ``github``.</span>
@@ -1189,7 +1202,10 @@
 
 
 <div class="viewcode-block" id="download_url_to_file"><a class="viewcode-back" href="../../hub.html#torch.hub.download_url_to_file">[docs]</a><span class="k">def</span> <span class="nf">download_url_to_file</span><span class="p">(</span>
-    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dst</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hash_prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">dst</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hash_prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Download object at the given URL to a local path.</span>
 
