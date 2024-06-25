@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7b9e643 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git14dc08d ) &#x25BC</a>
     </div>
     
 
@@ -537,7 +537,6 @@
 <span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">importlib</span>
-<span class="kn">import</span> <span class="nn">importlib.util</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -545,13 +544,24 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">threading</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span> <span class="k">as</span> <span class="n">_Any</span><span class="p">,</span>
+    <span class="n">Callable</span> <span class="k">as</span> <span class="n">_Callable</span><span class="p">,</span>
+    <span class="n">Dict</span> <span class="k">as</span> <span class="n">_Dict</span><span class="p">,</span>
+    <span class="n">Optional</span> <span class="k">as</span> <span class="n">_Optional</span><span class="p">,</span>
+    <span class="n">Set</span> <span class="k">as</span> <span class="n">_Set</span><span class="p">,</span>
+    <span class="n">Tuple</span> <span class="k">as</span> <span class="n">_Tuple</span><span class="p">,</span>
+    <span class="n">Type</span> <span class="k">as</span> <span class="n">_Type</span><span class="p">,</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Union</span> <span class="k">as</span> <span class="n">_Union</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeGuard</span> <span class="k">as</span> <span class="n">_TypeGuard</span>
 
 
 <span class="c1"># multipy/deploy is setting this import before importing torch, this is the most</span>
 <span class="c1"># reliable way we have to detect if we&#39;re running within deploy.</span>
 <span class="c1"># https://github.com/pytorch/multipy/blob/d60f34ad38c371e441fe7ffdb77a3c3dda5a5d19/multipy/runtime/interpreter/interpreter_impl.cpp#L134-L137</span>
-<span class="k">def</span> <span class="nf">_running_with_deploy</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">_running_with_deploy</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;torch._meta_registrations&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">object</span>
 
 
@@ -654,7 +664,7 @@
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">_load_dll_libraries</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">_load_dll_libraries</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">sysconfig</span>
 
         <span class="kn">from</span> <span class="nn">torch.version</span> <span class="kn">import</span> <span class="n">cuda</span> <span class="k">as</span> <span class="n">cuda_version</span>
@@ -769,7 +779,7 @@
     <span class="k">del</span> <span class="n">_load_dll_libraries</span>
 
 
-<span class="k">def</span> <span class="nf">_preload_cuda_deps</span><span class="p">(</span><span class="n">lib_folder</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_preload_cuda_deps</span><span class="p">(</span><span class="n">lib_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lib_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Preloads cuda deps if they could not be found otherwise.&quot;&quot;&quot;</span>
     <span class="c1"># Should only be called on Linux if default path resolution have failed</span>
     <span class="k">assert</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">,</span> <span class="s2">&quot;Should only be called on Linux&quot;</span>
@@ -807,7 +817,7 @@
     <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
         <span class="c1"># Can only happen for wheel with cuda libs as PYPI deps</span>
         <span class="c1"># As PyTorch is not purelib, but nvidia-*-cu12 is</span>
-        <span class="n">cuda_libs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">cuda_libs</span><span class="p">:</span> <span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;cublas&quot;</span><span class="p">:</span> <span class="s2">&quot;libcublas.so.*[0-9]&quot;</span><span class="p">,</span>
             <span class="s2">&quot;cudnn&quot;</span><span class="p">:</span> <span class="s2">&quot;libcudnn.so.*[0-9]&quot;</span><span class="p">,</span>
             <span class="s2">&quot;cuda_nvrtc&quot;</span><span class="p">:</span> <span class="s2">&quot;libnvrtc.so.*[0-9]&quot;</span><span class="p">,</span>
@@ -914,14 +924,14 @@
 
     <span class="k">def</span> <span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">/</span> <span class="n">other</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">/</span> <span class="n">other</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__int_floordiv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__rfloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">other</span> <span class="o">/</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>
+            <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">other</span> <span class="o">/</span> <span class="n">sym_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rint_floordiv__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
@@ -1051,12 +1061,12 @@
     <span class="k">def</span> <span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span> <span class="o">/</span> <span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span> <span class="o">/</span> <span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="fm">__rfloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">sym_float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sym_float</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">bool_</span><span class="p">()</span>
@@ -1381,7 +1391,7 @@
     <span class="n">__name</span><span class="p">,</span> <span class="n">__candidate</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">__name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">_C</span><span class="p">):</span>
         <span class="n">__candidate</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_C</span><span class="p">,</span> <span class="n">__name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">__candidate</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="n">_C</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismodule</span><span class="p">(</span><span class="n">__candidate</span><span class="p">):</span>
             <span class="c1"># submodule</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">._C.</span><span class="si">{</span><span class="n">__name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">__candidate</span><span class="p">)</span>
 
@@ -1393,44 +1403,42 @@
 <span class="c1">################################################################################</span>
 
 
-<span class="k">def</span> <span class="nf">typename</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">typename</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">_Any</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    String representation of the type of an object.</span>
 
 <span class="sd">    This function returns a fully qualified string representation of an object&#39;s type.</span>
 <span class="sd">    Args:</span>
-<span class="sd">        o (Object): The object whose type to represent</span>
+<span class="sd">        obj (object): The object whose type to represent</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        str: the type of the object `o`</span>
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1,2,3])</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1, 2, 3])</span>
 <span class="sd">        &gt;&gt;&gt; torch.typename(x)</span>
 <span class="sd">        &#39;torch.LongTensor&#39;</span>
+<span class="sd">        &gt;&gt;&gt; torch.typename(torch.nn.Parameter)</span>
+<span class="sd">        &#39;torch.nn.parameter.Parameter&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="n">type</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">type</span><span class="p">()</span>
 
-    <span class="n">module</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">class_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">hasattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;__module__&quot;</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="n">o</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">!=</span> <span class="s2">&quot;builtins&quot;</span>
-        <span class="ow">and</span> <span class="n">o</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">!=</span> <span class="s2">&quot;__builtin__&quot;</span>
-        <span class="ow">and</span> <span class="n">o</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>
-        <span class="n">module</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__module__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">qualname</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;__qualname__&quot;</span><span class="p">):</span>
-        <span class="n">class_name</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="vm">__qualname__</span>
-    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;__name__&quot;</span><span class="p">):</span>
-        <span class="n">class_name</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__qualname__&quot;</span><span class="p">):</span>
+        <span class="n">qualname</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__qualname__</span>
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__name__&quot;</span><span class="p">):</span>
+        <span class="n">qualname</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">class_name</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">qualname</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__qualname__</span>
 
-    <span class="k">return</span> <span class="n">module</span> <span class="o">+</span> <span class="n">class_name</span>
+    <span class="k">if</span> <span class="n">module</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;builtins&quot;</span><span class="p">}:</span>
+        <span class="k">return</span> <span class="n">qualname</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">qualname</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
-<div class="viewcode-block" id="is_tensor"><a class="viewcode-back" href="../generated/torch.is_tensor.html#torch.is_tensor">[docs]</a><span class="k">def</span> <span class="nf">is_tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="is_tensor"><a class="viewcode-back" href="../generated/torch.is_tensor.html#torch.is_tensor">[docs]</a><span class="k">def</span> <span class="nf">is_tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">_Any</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_TypeGuard</span><span class="p">[</span><span class="s2">&quot;torch.Tensor&quot;</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns True if `obj` is a PyTorch tensor.</span>
 
 <span class="sd">    Note that this function is simply doing ``isinstance(obj, Tensor)``.</span>
@@ -1439,7 +1447,7 @@
 <span class="sd">    ``is_tensor``.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        obj (Object): Object to test</span>
+<span class="sd">        obj (object): Object to test</span>
 <span class="sd">    Example::</span>
 
 <span class="sd">        &gt;&gt;&gt; x = torch.tensor([1, 2, 3])</span>
@@ -1450,7 +1458,7 @@
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="is_storage"><a class="viewcode-back" href="../generated/torch.is_storage.html#torch.is_storage">[docs]</a><span class="k">def</span> <span class="nf">is_storage</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="is_storage"><a class="viewcode-back" href="../generated/torch.is_storage.html#torch.is_storage">[docs]</a><span class="k">def</span> <span class="nf">is_storage</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">_Any</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_TypeGuard</span><span class="p">[</span><span class="n">_Union</span><span class="p">[</span><span class="s2">&quot;TypedStorage&quot;</span><span class="p">,</span> <span class="s2">&quot;UntypedStorage&quot;</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns True if `obj` is a PyTorch storage object.</span>
 
 <span class="sd">    Args:</span>
@@ -1465,6 +1473,7 @@
 <div class="viewcode-block" id="get_default_device"><a class="viewcode-back" href="../generated/torch.get_default_device.html#torch.get_default_device">[docs]</a><span class="k">def</span> <span class="nf">get_default_device</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;torch.device&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gets the default ``torch.Tensor`` to be allocated on ``device``&quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">_GLOBAL_DEVICE_CONTEXT</span>
+
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_GLOBAL_DEVICE_CONTEXT</span><span class="p">,</span> <span class="s2">&quot;device_context&quot;</span><span class="p">):</span>
         <span class="n">device</span> <span class="o">=</span> <span class="n">_GLOBAL_DEVICE_CONTEXT</span><span class="o">.</span><span class="n">device_context</span><span class="o">.</span><span class="n">device</span>
         <span class="k">if</span> <span class="n">device</span><span class="o">.</span><span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1477,7 +1486,9 @@
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_default_device"><a class="viewcode-back" href="../generated/torch.set_default_device.html#torch.set_default_device">[docs]</a><span class="k">def</span> <span class="nf">set_default_device</span><span class="p">(</span><span class="n">device</span><span class="p">):</span>
+<div class="viewcode-block" id="set_default_device"><a class="viewcode-back" href="../generated/torch.set_default_device.html#torch.set_default_device">[docs]</a><span class="k">def</span> <span class="nf">set_default_device</span><span class="p">(</span>
+    <span class="n">device</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">_Union</span><span class="p">[</span><span class="s2">&quot;torch.device&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets the default ``torch.Tensor`` to be allocated on ``device``.  This</span>
 <span class="sd">    does not affect factory function calls which are called with an explicit</span>
 <span class="sd">    ``device`` argument.  Factory calls will be performed as if they</span>
@@ -1539,7 +1550,7 @@
     <span class="n">_GLOBAL_DEVICE_CONTEXT</span><span class="o">.</span><span class="n">device_context</span> <span class="o">=</span> <span class="n">device_context</span></div>
 
 
-<div class="viewcode-block" id="set_default_tensor_type"><a class="viewcode-back" href="../generated/torch.set_default_tensor_type.html#torch.set_default_tensor_type">[docs]</a><span class="k">def</span> <span class="nf">set_default_tensor_type</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<div class="viewcode-block" id="set_default_tensor_type"><a class="viewcode-back" href="../generated/torch.set_default_tensor_type.html#torch.set_default_tensor_type">[docs]</a><span class="k">def</span> <span class="nf">set_default_tensor_type</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">_Union</span><span class="p">[</span><span class="n">_Type</span><span class="p">[</span><span class="s2">&quot;torch.Tensor&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">],</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. warning::</span>
 
@@ -1570,7 +1581,7 @@
     <span class="n">_C</span><span class="o">.</span><span class="n">_set_default_tensor_type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_default_dtype"><a class="viewcode-back" href="../generated/torch.set_default_dtype.html#torch.set_default_dtype">[docs]</a><span class="k">def</span> <span class="nf">set_default_dtype</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+<div class="viewcode-block" id="set_default_dtype"><a class="viewcode-back" href="../generated/torch.set_default_dtype.html#torch.set_default_dtype">[docs]</a><span class="k">def</span> <span class="nf">set_default_dtype</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="s2">&quot;torch.dtype&quot;</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Sets the default floating point dtype to :attr:`d`. Supports floating point dtype</span>
@@ -1780,7 +1791,7 @@
     <span class="k">return</span> <span class="n">_C</span><span class="o">.</span><span class="n">_get_deterministic_algorithms_warn_only</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="set_deterministic_debug_mode"><a class="viewcode-back" href="../generated/torch.set_deterministic_debug_mode.html#torch.set_deterministic_debug_mode">[docs]</a><span class="k">def</span> <span class="nf">set_deterministic_debug_mode</span><span class="p">(</span><span class="n">debug_mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="set_deterministic_debug_mode"><a class="viewcode-back" href="../generated/torch.set_deterministic_debug_mode.html#torch.set_deterministic_debug_mode">[docs]</a><span class="k">def</span> <span class="nf">set_deterministic_debug_mode</span><span class="p">(</span><span class="n">debug_mode</span><span class="p">:</span> <span class="n">_Union</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets the debug mode for deterministic operations.</span>
 
 <span class="sd">    .. note:: This is an alternative interface for</span>
@@ -1839,7 +1850,7 @@
         <span class="k">return</span> <span class="mi">0</span></div>
 
 
-<div class="viewcode-block" id="get_float32_matmul_precision"><a class="viewcode-back" href="../generated/torch.get_float32_matmul_precision.html#torch.get_float32_matmul_precision">[docs]</a><span class="k">def</span> <span class="nf">get_float32_matmul_precision</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">builtins</span><span class="o">.</span><span class="n">str</span><span class="p">:</span>
+<div class="viewcode-block" id="get_float32_matmul_precision"><a class="viewcode-back" href="../generated/torch.get_float32_matmul_precision.html#torch.get_float32_matmul_precision">[docs]</a><span class="k">def</span> <span class="nf">get_float32_matmul_precision</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the current value of float32 matrix multiplication precision. Refer to</span>
 <span class="sd">    :func:`torch.set_float32_matmul_precision` documentation for more details.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1912,7 +1923,7 @@
     <span class="n">_C</span><span class="o">.</span><span class="n">_set_float32_matmul_precision</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_warn_always"><a class="viewcode-back" href="../generated/torch.set_warn_always.html#torch.set_warn_always">[docs]</a><span class="k">def</span> <span class="nf">set_warn_always</span><span class="p">(</span><span class="n">b</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="set_warn_always"><a class="viewcode-back" href="../generated/torch.set_warn_always.html#torch.set_warn_always">[docs]</a><span class="k">def</span> <span class="nf">set_warn_always</span><span class="p">(</span><span class="n">b</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;When this flag is False (default) then some PyTorch warnings may only</span>
 <span class="sd">    appear once per process. This helps avoid excessive warning information.</span>
 <span class="sd">    Setting it to True causes these warnings to always appear, which may be</span>
@@ -1942,10 +1953,10 @@
 
 <span class="k">def</span> <span class="nf">_check_with</span><span class="p">(</span>
     <span class="n">error_type</span><span class="p">,</span>
-    <span class="n">cond</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">SymBool</span><span class="p">],</span>
-    <span class="n">message</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">cond</span><span class="p">:</span> <span class="n">_Union</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">SymBool</span><span class="p">],</span>
+    <span class="n">message</span><span class="p">:</span> <span class="n">_Callable</span><span class="p">[[],</span> <span class="nb">str</span><span class="p">],</span>
 <span class="p">):</span>  <span class="c1"># noqa: F811</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cond</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymBool</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cond</span><span class="p">,</span> <span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">SymBool</span><span class="p">)):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cond must be a bool, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="kn">from</span> <span class="nn">torch.fx.experimental.symbolic_shapes</span> <span class="kn">import</span> <span class="n">expect_true</span>
@@ -2080,13 +2091,13 @@
 
 
 <span class="k">def</span> <span class="nf">_check_tensor_all_with</span><span class="p">(</span><span class="n">error_type</span><span class="p">,</span> <span class="n">cond</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa: F811</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">cond</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_tensor</span><span class="p">(</span><span class="n">cond</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cond must be a tensor, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">cond</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cond tensor must have dtype torch.bool, but got </span><span class="si">{</span><span class="n">cond</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">_check_with</span><span class="p">(</span><span class="n">error_type</span><span class="p">,</span> <span class="n">cond</span><span class="o">.</span><span class="n">_is_all_true</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">message</span><span class="p">)</span>
+    <span class="n">_check_with</span><span class="p">(</span><span class="n">error_type</span><span class="p">,</span> <span class="n">cond</span><span class="o">.</span><span class="n">_is_all_true</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">message</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
 
 
 <span class="c1"># C++ equivalent: `TORCH_CHECK_TENSOR_ALL`</span>
@@ -2137,10 +2148,9 @@
     <span class="n">UntypedStorage</span><span class="p">,</span>
 <span class="p">)</span>
 
+
 <span class="c1"># NOTE: New &lt;type&gt;Storage classes should never be added. When adding a new</span>
 <span class="c1"># dtype, use torch.storage.TypedStorage directly.</span>
-
-
 <div class="viewcode-block" id="ByteStorage"><a class="viewcode-back" href="../storage.html#torch.ByteStorage">[docs]</a><span class="k">class</span> <span class="nc">ByteStorage</span><span class="p">(</span><span class="n">_LegacyStorage</span><span class="p">):</span>
 <div class="viewcode-block" id="ByteStorage.dtype"><a class="viewcode-back" href="../storage.html#torch.ByteStorage.dtype">[docs]</a>    <span class="nd">@classproperty</span>
     <span class="k">def</span> <span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2328,7 +2338,7 @@
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">quint2x4</span></div>
 
 
-<span class="n">_storage_classes</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">_storage_classes</span><span class="p">:</span> <span class="n">_Set</span><span class="p">[</span><span class="n">_Type</span><span class="p">[</span><span class="n">_Union</span><span class="p">[</span><span class="n">TypedStorage</span><span class="p">,</span> <span class="n">UntypedStorage</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">UntypedStorage</span><span class="p">,</span>
     <span class="n">DoubleStorage</span><span class="p">,</span>
     <span class="n">FloatStorage</span><span class="p">,</span>
@@ -2351,7 +2361,7 @@
 <span class="p">}</span>
 
 <span class="c1"># The _tensor_classes set is initialized by the call to initialize_python_bindings.</span>
-<span class="n">_tensor_classes</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Type</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">_tensor_classes</span><span class="p">:</span> <span class="n">_Set</span><span class="p">[</span><span class="n">_Type</span><span class="p">[</span><span class="s2">&quot;torch.Tensor&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
 <span class="c1"># If you edit these imports, please update torch/__init__.py.in as well</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">amp</span> <span class="k">as</span> <span class="n">amp</span><span class="p">,</span> <span class="n">random</span> <span class="k">as</span> <span class="n">random</span><span class="p">,</span> <span class="n">serialization</span> <span class="k">as</span> <span class="n">serialization</span>
@@ -2590,7 +2600,7 @@
     <span class="n">compiler_name</span> <span class="o">=</span> <span class="s2">&quot;inductor&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">dynamic</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> <span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dynamic</span> <span class="o">=</span> <span class="n">dynamic</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">apply_mode</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">apply_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
@@ -2614,7 +2624,7 @@
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dynamic</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dynamic</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">apply_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">apply_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">elif</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;reduce-overhead&quot;</span><span class="p">,</span> <span class="s2">&quot;max-autotune&quot;</span><span class="p">,</span> <span class="s2">&quot;max-autotune-no-cudagraphs&quot;</span><span class="p">}:</span>
@@ -2626,13 +2636,13 @@
                 <span class="sa">f</span><span class="s2">&quot;Unrecognized mode=</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">, should be one of: default, reduce-overhead, max-autotune, max-autotune-no-cudagraphs&quot;</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">apply_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]):</span>
+    <span class="k">def</span> <span class="nf">apply_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Any</span><span class="p">]]):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="kn">from</span> <span class="nn">torch._inductor</span> <span class="kn">import</span> <span class="n">config</span>
 
-        <span class="n">current_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">shallow_copy_dict</span><span class="p">()</span>
+        <span class="n">current_config</span><span class="p">:</span> <span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">shallow_copy_dict</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">attr_name</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
@@ -2704,15 +2714,15 @@
 
 
 <div class="viewcode-block" id="compile"><a class="viewcode-back" href="../generated/torch.compile.html#torch.compile">[docs]</a><span class="k">def</span> <span class="nf">compile</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">_Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">fullgraph</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">dynamic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">backend</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;inductor&quot;</span><span class="p">,</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dynamic</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">backend</span><span class="p">:</span> <span class="n">_Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Callable</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;inductor&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="n">_Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">options</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">disable</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Callable</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Optimizes given model/function using TorchDynamo and specified backend.</span>
 <span class="sd">    If you are compiling an :class:`torch.nn.Module`, you can also use :meth:`torch.nn.Module.compile`</span>
@@ -2804,7 +2814,7 @@
     <span class="c1"># Decorator mode</span>
     <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 
-        <span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">Callable</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">_Callable</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Model can&#39;t be None&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="nb">compile</span><span class="p">(</span>
@@ -2838,11 +2848,6 @@
     <span class="p">)(</span><span class="n">model</span><span class="p">)</span></div>
 
 
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">export</span> <span class="k">as</span> <span class="n">export</span>
-
-<span class="kn">from</span> <span class="nn">torch._higher_order_ops</span> <span class="kn">import</span> <span class="n">cond</span><span class="p">,</span> <span class="n">while_loop</span>
-
-
 <span class="k">def</span> <span class="nf">_register_device_module</span><span class="p">(</span><span class="n">device_type</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Register an external runtime module of the specific :attr:`device_type`</span>
 <span class="sd">    supported by torch.</span>
@@ -2863,8 +2868,14 @@
     <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">torch_module_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">module</span>
 
 
-<span class="c1"># expose return_types</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">library</span> <span class="k">as</span> <span class="n">library</span><span class="p">,</span> <span class="n">return_types</span> <span class="k">as</span> <span class="n">return_types</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">export</span> <span class="k">as</span> <span class="n">export</span><span class="p">,</span>
+    <span class="n">func</span> <span class="k">as</span> <span class="n">func</span><span class="p">,</span>
+    <span class="n">library</span> <span class="k">as</span> <span class="n">library</span><span class="p">,</span>
+    <span class="n">return_types</span> <span class="k">as</span> <span class="n">return_types</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch._higher_order_ops</span> <span class="kn">import</span> <span class="n">cond</span> <span class="k">as</span> <span class="n">cond</span><span class="p">,</span> <span class="n">while_loop</span> <span class="k">as</span> <span class="n">while_loop</span>
+<span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">vmap</span> <span class="k">as</span> <span class="n">vmap</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_meta_registrations</span>
@@ -2878,10 +2889,6 @@
 <span class="c1"># Populate magic methods on SymInt and SymFloat</span>
 <span class="kn">import</span> <span class="nn">torch.fx.experimental.sym_node</span>
 
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">func</span> <span class="k">as</span> <span class="n">func</span>
-<span class="kn">from</span> <span class="nn">torch.func</span> <span class="kn">import</span> <span class="n">vmap</span> <span class="k">as</span> <span class="n">vmap</span>
-
-
 <span class="c1"># Register MPS specific decomps</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">_init</span><span class="p">()</span>
 
@@ -2890,7 +2897,7 @@
 
     <span class="k">class</span> <span class="nc">_TritonLibrary</span><span class="p">:</span>
         <span class="n">lib</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">Library</span><span class="p">(</span><span class="s2">&quot;triton&quot;</span><span class="p">,</span> <span class="s2">&quot;DEF&quot;</span><span class="p">)</span>
-        <span class="n">ops_table</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ops_table</span><span class="p">:</span> <span class="n">_Dict</span><span class="p">[</span><span class="n">_Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">_Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="nd">@classmethod</span>
         <span class="k">def</span> <span class="nf">registerOp</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">op_key</span><span class="p">,</span> <span class="n">full_schema</span><span class="p">,</span> <span class="n">op_impl</span><span class="p">,</span> <span class="n">dispatch_key</span><span class="p">):</span>
@@ -2944,7 +2951,7 @@
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;module &#39;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; has no attribute &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="get_device_module"><a class="viewcode-back" href="../generated/torch.get_device_module.html#torch.get_device_module">[docs]</a><span class="k">def</span> <span class="nf">get_device_module</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_device_module"><a class="viewcode-back" href="../generated/torch.get_device_module.html#torch.get_device_module">[docs]</a><span class="k">def</span> <span class="nf">get_device_module</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">_Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the module associated with a given device(e.g., torch.device(&#39;cuda&#39;), &quot;mtia:0&quot;, &quot;xpu&quot;, ...).</span>
 <span class="sd">    If no device is given, return the module for the current accelerator or CPU if none is present.</span>
@@ -2970,8 +2977,8 @@
 
 <span class="k">def</span> <span class="nf">_constrain_as_size</span><span class="p">(</span>
     <span class="n">symbol</span><span class="p">,</span>
-    <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="nb">min</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="nb">max</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This indicates that a given int is size-like, and can be used in any context where a size is expected.</span>
