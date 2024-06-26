@@ -16,21 +16,24 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
+    from torch._export.db.case import SupportLevel
     from torch.export import Dim
-    
-    x = torch.randn(3, 2)
-    dim0_x = Dim("dim0_x")
     
     class DynamicShapeRound(torch.nn.Module):
         """
         Calling round on dynamic shapes is not supported.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             return x[: round(x.shape[0] / 2)]
+    
+    x = torch.randn(3, 2)
+    dim0_x = Dim("dim0_x")
+    example_inputs = (x,)
+    tags = {"torch.dynamic-shape", "python.builtin"}
+    support_level = SupportLevel.NOT_SUPPORTED_YET
+    dynamic_shapes = {"x": {0: dim0_x}}
+    model = DynamicShapeRound()
     
 
 Result:
@@ -57,7 +60,6 @@ Original source code:
     import torch
     
     
-    
     class TensorSetattr(torch.nn.Module):
         """
         setattr() call onto tensors is not supported.
@@ -65,6 +67,10 @@ Original source code:
         def forward(self, x, attr):
             setattr(x, attr, torch.randn(3, 2))
             return x + 4
+    
+    example_inputs = (torch.randn(3, 2), "attr")
+    tags = {"python.builtin"}
+    model = TensorSetattr()
     
 
 Result:
@@ -74,7 +80,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", attr):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/tensor_setattr.py:18 in forward, code: return x + 4[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/tensor_setattr.py:11 in forward, code: return x + 4[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m4[0m);  [2mx = None[0m
                 return (add,)
                 
@@ -99,13 +105,10 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class A:
         @classmethod
         def func(cls, x):
             return 1 + x
-    
     
     class TypeReflectionMethod(torch.nn.Module):
         """
@@ -113,14 +116,14 @@ Original source code:
         due to its overly dynamic nature.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             a = A()
             return type(a).func(x)
     
     
+    example_inputs = (torch.randn(3, 4),)
+    tags = {"python.builtin"}
+    model = TypeReflectionMethod()
     
 
 Result:
@@ -130,28 +133,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 4][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/type_reflection_method.py:10 in func, code: return 1 + x[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/type_reflection_method.py:7 in func, code: return 1 + x[0m
                 add: "[31mf32[0m[34m[3, 4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m1[0m);  [2mx = None[0m
                 return (add,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
     Range constraints: {}
     
-
-
-You can rewrite the example above to something like the following:
-
-.. code-block:: python
-
-    class TypeReflectionMethodRewrite(torch.nn.Module):
-        """
-        Custom object class methods will be inlined.
-        """
-    
-        def __init__(self):
-            super().__init__()
-    
-        def forward(self, x):
-            return A.func(x)
-    
-

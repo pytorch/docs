@@ -18,7 +18,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondClosedOverVariable(torch.nn.Module):
         """
         torch.cond() supports branches closed over arbitrary variables.
@@ -32,6 +31,10 @@ Original source code:
                 return x - 2
     
             return cond(pred, true_fn, false_fn, [x + 1])
+    
+    example_inputs = (torch.tensor(True), torch.randn(3, 2))
+    tags = {"torch.cond", "python.closure"}
+    model = CondClosedOverVariable()
     
 
 Result:
@@ -79,15 +82,11 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class NestedFunction(torch.nn.Module):
         """
         Nested functions are traced through. Side effects on global captures
         are not supported though.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, a, b):
             x = a + b
@@ -100,6 +99,10 @@ Original source code:
     
             return closure(x)
     
+    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    tags = {"python.closure"}
+    model = NestedFunction()
+    
 
 Result:
 
@@ -108,16 +111,16 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, a: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", b: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:20 in forward, code: x = a + b[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:11 in forward, code: x = a + b[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(a, b)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:21 in forward, code: z = a - b[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:12 in forward, code: z = a - b[0m
                 sub: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sub.Tensor(a, b);  [2ma = b = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:25 in closure, code: x += 1[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:16 in closure, code: x += 1[0m
                 add_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(add, [34m1[0m);  [2madd = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:26 in closure, code: return x * y + z[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:17 in closure, code: return x * y + z[0m
                 mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(add_1, add_1);  [2madd_1 = None[0m
                 add_2: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(mul, sub);  [2mmul = sub = None[0m
                 return (add_2,)

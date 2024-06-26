@@ -18,20 +18,20 @@ Original source code:
     
     from functorch.experimental.control_flow import map
     
-    
     class DynamicShapeMap(torch.nn.Module):
         """
         functorch map() maps a function over the first tensor dimension.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, xs, y):
             def body(x, y):
                 return x + y
     
             return map(body, xs, y)
+    
+    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    tags = {"torch.dynamic-shape", "torch.map"}
+    model = DynamicShapeMap()
     
 
 Result:
@@ -41,7 +41,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, xs: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_map.py:24 in forward, code: return map(body, xs, y)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_map.py:15 in forward, code: return map(body, xs, y)[0m
                 body_graph_0 = self.body_graph_0
                 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [34m[xs][0m, [34m[y][0m);  [2mbody_graph_0 = xs = y = None[0m
                 getitem: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = map_impl[[34m0[0m];  [2mmap_impl = None[0m

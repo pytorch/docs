@@ -17,7 +17,6 @@ Original source code:
     import torch
     
     
-    
     class UserInputMutation(torch.nn.Module):
         """
         Directly mutate user input in forward
@@ -27,6 +26,11 @@ Original source code:
             x.mul_(2)
             return x.cos()
     
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.mutation"}
+    model = UserInputMutation()
+    
 
 Result:
 
@@ -35,10 +39,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/user_input_mutation.py:18 in forward, code: x.mul_(2)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/user_input_mutation.py:11 in forward, code: x.mul_(2)[0m
                 mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(x, [34m2[0m);  [2mx = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/user_input_mutation.py:19 in forward, code: return x.cos()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/user_input_mutation.py:12 in forward, code: return x.cos()[0m
                 cos: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.cos.default(mul)
                 return (mul, cos)
                 

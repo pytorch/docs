@@ -18,15 +18,10 @@ Original source code:
     
     import torch
     
-    
-    
     class NullContextManager(torch.nn.Module):
         """
         Null context manager in Python will be traced out.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             """
@@ -36,6 +31,10 @@ Original source code:
             with ctx:
                 return x.sin() + x.cos()
     
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"python.context-manager"}
+    model = NullContextManager()
+    
 
 Result:
 
@@ -44,7 +43,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/null_context_manager.py:27 in forward, code: return x.sin() + x.cos()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/null_context_manager.py:17 in forward, code: return x.sin() + x.cos()[0m
                 sin: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sin.default(x)
                 cos: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.cos.default(x);  [2mx = None[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(sin, cos);  [2msin = cos = None[0m

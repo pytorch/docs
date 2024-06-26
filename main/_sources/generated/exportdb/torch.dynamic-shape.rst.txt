@@ -18,14 +18,12 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class MySubModule(torch.nn.Module):
         def foo(self, x):
             return x.cos()
     
         def forward(self, x):
             return self.foo(x)
-    
     
     class CondBranchClassMethod(torch.nn.Module):
         """
@@ -52,6 +50,13 @@ Original source code:
     
         def forward(self, x):
             return cond(x.shape[0] <= 2, self.subm.forward, self.bar, [x])
+    
+    example_inputs = (torch.randn(3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchClassMethod()
     
 
 Result:
@@ -101,7 +106,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondBranchNestedFunction(torch.nn.Module):
         """
         The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules:
@@ -116,8 +120,6 @@ Original source code:
     
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             def true_fn(x):
@@ -133,6 +135,13 @@ Original source code:
                 return inner_false_fn(x)
     
             return cond(x.shape[0] < 10, true_fn, false_fn, [x])
+    
+    example_inputs = (torch.randn(3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchNestedFunction()
     
 
 Result:
@@ -182,7 +191,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondBranchNonlocalVariables(torch.nn.Module):
         """
         The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules:
@@ -214,9 +222,6 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             my_tensor_var = x + 100
             my_primitive_var = 3.14
@@ -234,6 +239,13 @@ Original source code:
                 [x, my_tensor_var, torch.tensor(my_primitive_var)],
             )
     
+    example_inputs = (torch.randn(6),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchNonlocalVariables()
+    
 
 Result:
 
@@ -242,10 +254,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, c_lifted_tensor_0: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m", x: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:50 in forward, code: my_tensor_var = x + 100[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:38 in forward, code: my_tensor_var = x + 100[0m
                 add: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m100[0m)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:63 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:51 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
                 lift_fresh_copy: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  [2mc_lifted_tensor_0 = None[0m
                 detach: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.detach.default(lift_fresh_copy);  [2mlift_fresh_copy = None[0m
                 
@@ -305,9 +317,6 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x, y):
             def true_fn(x, y):
                 return x + y
@@ -316,6 +325,15 @@ Original source code:
                 return x - y
     
             return cond(x.shape[0] > 2, true_fn, false_fn, [x, y])
+    
+    example_inputs = (x, y)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    extra_inputs = (torch.randn(2, 2), torch.randn(2))
+    dynamic_shapes = {"x": {0: dim0_x}, "y": None}
+    model = CondOperands()
     
 
 Result:
@@ -367,7 +385,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondPredicate(torch.nn.Module):
         """
         The conditional statement (aka predicate) passed to cond() must be one of the following:
@@ -377,13 +394,17 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             pred = x.dim() > 2 and x.shape[2] > 10
     
             return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x])
+    
+    example_inputs = (torch.randn(6, 4, 3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondPredicate()
     
 
 Result:
@@ -431,18 +452,18 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class DynamicShapeConstructor(torch.nn.Module):
         """
         Tensor constructors should be captured with dynamic shape inputs rather
         than being baked in with static shape.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             return torch.zeros(x.shape[0] * 2)
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.dynamic-shape"}
+    model = DynamicShapeConstructor()
     
 
 Result:
@@ -452,7 +473,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_constructor.py:20 in forward, code: return torch.zeros(x.shape[0] * 2)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_constructor.py:11 in forward, code: return torch.zeros(x.shape[0] * 2)[0m
                 zeros: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.zeros.default([34m[6][0m, device = [34mdevice(type='cpu')[0m, pin_memory = [34mFalse[0m)
                 return (zeros,)
                 
@@ -466,7 +487,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -476,8 +497,6 @@ Original source code:
 
     # mypy: allow-untyped-defs
     import torch
-    
-    
     
     class DynamicShapeIfGuard(torch.nn.Module):
         """
@@ -492,6 +511,10 @@ Original source code:
     
             return x.sin()
     
+    example_inputs = (torch.randn(3, 2, 2),)
+    tags = {"torch.dynamic-shape", "python.control-flow"}
+    model = DynamicShapeIfGuard()
+    
 
 Result:
 
@@ -500,7 +523,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_if_guard.py:20 in forward, code: return x.cos()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_if_guard.py:13 in forward, code: return x.cos()[0m
                 cos: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.cos.default(x);  [2mx = None[0m
                 return (cos,)
                 
@@ -527,20 +550,20 @@ Original source code:
     
     from functorch.experimental.control_flow import map
     
-    
     class DynamicShapeMap(torch.nn.Module):
         """
         functorch map() maps a function over the first tensor dimension.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, xs, y):
             def body(x, y):
                 return x + y
     
             return map(body, xs, y)
+    
+    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    tags = {"torch.dynamic-shape", "torch.map"}
+    model = DynamicShapeMap()
     
 
 Result:
@@ -550,7 +573,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, xs: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_map.py:24 in forward, code: return map(body, xs, y)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_map.py:15 in forward, code: return map(body, xs, y)[0m
                 body_graph_0 = self.body_graph_0
                 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [34m[xs][0m, [34m[y][0m);  [2mbody_graph_0 = xs = y = None[0m
                 getitem: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = map_impl[[34m0[0m];  [2mmap_impl = None[0m
@@ -582,21 +605,24 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
+    from torch._export.db.case import SupportLevel
     from torch.export import Dim
-    
-    x = torch.randn(3, 2)
-    dim0_x = Dim("dim0_x")
     
     class DynamicShapeRound(torch.nn.Module):
         """
         Calling round on dynamic shapes is not supported.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             return x[: round(x.shape[0] / 2)]
+    
+    x = torch.randn(3, 2)
+    dim0_x = Dim("dim0_x")
+    example_inputs = (x,)
+    tags = {"torch.dynamic-shape", "python.builtin"}
+    support_level = SupportLevel.NOT_SUPPORTED_YET
+    dynamic_shapes = {"x": {0: dim0_x}}
+    model = DynamicShapeRound()
     
 
 Result:
@@ -622,19 +648,18 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class DynamicShapeSlicing(torch.nn.Module):
         """
         Slices with dynamic shape arguments should be captured into the graph
         rather than being baked in.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2]
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.dynamic-shape"}
+    model = DynamicShapeSlicing()
     
 
 Result:
@@ -644,7 +669,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_slicing.py:21 in forward, code: return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_slicing.py:11 in forward, code: return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2][0m
                 slice_1: "[31mf32[0m[34m[1, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.slice.Tensor(x, [34m0[0m, [34m0[0m, [34m1[0m);  [2mx = None[0m
                 slice_2: "[31mf32[0m[34m[1, 1][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.slice.Tensor(slice_1, [34m1[0m, [34m1[0m, [34m9223372036854775807[0m, [34m2[0m);  [2mslice_1 = None[0m
                 return (slice_2,)
@@ -670,21 +695,20 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class DynamicShapeView(torch.nn.Module):
         """
         Dynamic shapes should be propagated to view arguments instead of being
         baked into the exported graph.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             new_x_shape = x.size()[:-1] + (2, 5)
             x = x.view(*new_x_shape)
             return x.permute(0, 2, 1)
+    
+    example_inputs = (torch.randn(10, 10),)
+    tags = {"torch.dynamic-shape"}
+    model = DynamicShapeView()
     
 
 Result:
@@ -694,10 +718,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[10, 10][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_view.py:22 in forward, code: x = x.view(*new_x_shape)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_view.py:12 in forward, code: x = x.view(*new_x_shape)[0m
                 view: "[31mf32[0m[34m[10, 2, 5][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.view.default(x, [34m[10, 2, 5][0m);  [2mx = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_view.py:23 in forward, code: return x.permute(0, 2, 1)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_view.py:13 in forward, code: return x.permute(0, 2, 1)[0m
                 permute: "[31mf32[0m[34m[10, 5, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.permute.default(view, [34m[0, 2, 1][0m);  [2mview = None[0m
                 return (permute,)
                 
@@ -711,7 +735,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -722,20 +746,20 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class ListContains(torch.nn.Module):
         """
         List containment relation can be checked on a dynamic shape or constants.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             assert x.size(-1) in [6, 2]
             assert x.size(0) not in [4, 5, 6]
             assert "monkey" not in ["cow", "pig"]
             return x + x
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.dynamic-shape", "python.data-structure", "python.assert"}
+    model = ListContains()
     
 
 Result:
@@ -745,7 +769,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_contains.py:22 in forward, code: return x + x[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_contains.py:13 in forward, code: return x + x[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, x);  [2mx = None[0m
                 return (add,)
                 
@@ -785,6 +809,11 @@ Original source code:
     
         def forward(self, x):
             return x.shape[1] + 1
+    
+    example_inputs = (x,)
+    tags = {"torch.dynamic-shape"}
+    dynamic_shapes = {"x": {1: dim1_x}}
+    model = ScalarOutput()
     
 
 Result:

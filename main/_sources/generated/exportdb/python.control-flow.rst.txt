@@ -5,7 +5,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -15,8 +15,6 @@ Original source code:
 
     # mypy: allow-untyped-defs
     import torch
-    
-    
     
     class DynamicShapeIfGuard(torch.nn.Module):
         """
@@ -31,6 +29,10 @@ Original source code:
     
             return x.sin()
     
+    example_inputs = (torch.randn(3, 2, 2),)
+    tags = {"torch.dynamic-shape", "python.control-flow"}
+    model = DynamicShapeIfGuard()
+    
 
 Result:
 
@@ -39,7 +41,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_if_guard.py:20 in forward, code: return x.cos()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_if_guard.py:13 in forward, code: return x.cos()[0m
                 cos: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.cos.default(x);  [2mx = None[0m
                 return (cos,)
                 
@@ -66,16 +68,11 @@ Original source code:
     
     import torch
     
-    
-    
     class ListUnpack(torch.nn.Module):
         """
         Lists are treated as static construct, therefore unpacking should be
         erased after tracing.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, args: List[torch.Tensor]):
             """
@@ -85,6 +82,10 @@ Original source code:
             x, *y = args
             return x + y[0]
     
+    example_inputs = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],)
+    tags = {"python.control-flow", "python.data-structure"}
+    model = ListUnpack()
+    
 
 Result:
 
@@ -93,7 +94,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, args_0: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", args_1: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m", args_2: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_unpack.py:28 in forward, code: return x + y[0][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_unpack.py:18 in forward, code: return x + y[0][0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(args_0, args_1);  [2margs_0 = args_1 = None[0m
                 return (add,)
                 
@@ -118,21 +119,20 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class StaticForLoop(torch.nn.Module):
         """
         A for loop with constant number of iterations should be unrolled in the exported graph.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             ret = []
             for i in range(10):  # constant
                 ret.append(i + x)
             return ret
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"python.control-flow"}
+    model = StaticForLoop()
     
 
 Result:
@@ -142,7 +142,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_for_loop.py:22 in forward, code: ret.append(i + x)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_for_loop.py:12 in forward, code: ret.append(i + x)[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m0[0m)
                 add_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m1[0m)
                 add_2: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m2[0m)
@@ -176,22 +176,21 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class StaticIf(torch.nn.Module):
         """
         `if` statement with static predicate value should be traced through with the
         taken branch.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             if len(x.shape) == 3:
                 return x + torch.ones(1, 1, 1)
     
             return x
+    
+    example_inputs = (torch.randn(3, 2, 2),)
+    tags = {"python.control-flow"}
+    model = StaticIf()
     
 
 Result:
@@ -201,7 +200,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_if.py:22 in forward, code: return x + torch.ones(1, 1, 1)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_if.py:12 in forward, code: return x + torch.ones(1, 1, 1)[0m
                 ones: "[31mf32[0m[34m[1, 1, 1][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.ones.default([34m[1, 1, 1][0m, device = [34mdevice(type='cpu')[0m, pin_memory = [34mFalse[0m)
                 add: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, ones);  [2mx = ones = None[0m
                 return (add,)

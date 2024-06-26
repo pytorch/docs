@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git14dc08d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git0d0d42c ) &#x25BC</a>
     </div>
     
 
@@ -542,14 +542,12 @@
 
 <span class="kn">from</span> <span class="nn">functorch.experimental.control_flow</span> <span class="kn">import</span> <span class="n">cond</span>
 
-
 <span class="k">class</span> <span class="nc">MySubModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
 
 <span class="k">class</span> <span class="nc">CondBranchClassMethod</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -576,6 +574,13 @@
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subm</span><span class="o">.</span><span class="n">forward</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bar</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
+
+<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),)</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CondBranchClassMethod</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -617,7 +622,6 @@ Range constraints: {}
 
 <span class="kn">from</span> <span class="nn">functorch.experimental.control_flow</span> <span class="kn">import</span> <span class="n">cond</span>
 
-
 <span class="k">class</span> <span class="nc">CondBranchNestedFunction</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules:</span>
@@ -632,8 +636,6 @@ Range constraints: {}
 
 <span class="sd">    NOTE: If the `pred` is test on a dim with batch size &lt; 2, it will be specialized.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -649,6 +651,13 @@ Range constraints: {}
             <span class="k">return</span> <span class="n">inner_false_fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
+
+<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),)</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CondBranchNestedFunction</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -690,7 +699,6 @@ Range constraints: {}
 
 <span class="kn">from</span> <span class="nn">functorch.experimental.control_flow</span> <span class="kn">import</span> <span class="n">cond</span>
 
-
 <span class="k">class</span> <span class="nc">CondBranchNonlocalVariables</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules:</span>
@@ -722,9 +730,6 @@ Range constraints: {}
 <span class="sd">    NOTE: If the `pred` is test on a dim with batch size &lt; 2, it will be specialized.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">my_tensor_var</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">100</span>
         <span class="n">my_primitive_var</span> <span class="o">=</span> <span class="mf">3.14</span>
@@ -741,16 +746,23 @@ Range constraints: {}
             <span class="n">false_fn</span><span class="p">,</span>
             <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">my_tensor_var</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">my_primitive_var</span><span class="p">)],</span>
         <span class="p">)</span>
+
+<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">),)</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CondBranchNonlocalVariables</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Result:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, c_lifted_tensor_0: &quot;[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m&quot;, x: &quot;[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m&quot;):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:50 in forward, code: my_tensor_var = x + 100[0m
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:38 in forward, code: my_tensor_var = x + 100[0m
             add: &quot;[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.add.Tensor(x, [34m100[0m)
 
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:63 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:51 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
             lift_fresh_copy: &quot;[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  [2mc_lifted_tensor_0 = None[0m
             detach: &quot;[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.detach.default(lift_fresh_copy);  [2mlift_fresh_copy = None[0m
 
@@ -791,7 +803,6 @@ Range constraints: {}
 
 <span class="kn">from</span> <span class="nn">functorch.experimental.control_flow</span> <span class="kn">import</span> <span class="n">cond</span>
 
-
 <span class="k">class</span> <span class="nc">CondClosedOverVariable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    torch.cond() supports branches closed over arbitrary variables.</span>
@@ -805,6 +816,10 @@ Range constraints: {}
             <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">2</span>
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span> <span class="s2">&quot;python.closure&quot;</span><span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CondClosedOverVariable</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -860,9 +875,6 @@ Range constraints: {}
 <span class="sd">    NOTE: If the `pred` is test on a dim with batch size &lt; 2, it will be specialized.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">true_fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
@@ -871,6 +883,15 @@ Range constraints: {}
             <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+
+<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">extra_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">dim0_x</span><span class="p">},</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CondOperands</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -914,7 +935,6 @@ Range constraints: {s0: VR[0, int_oo]}
 
 <span class="kn">from</span> <span class="nn">functorch.experimental.control_flow</span> <span class="kn">import</span> <span class="n">cond</span>
 
-
 <span class="k">class</span> <span class="nc">CondPredicate</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The conditional statement (aka predicate) passed to cond() must be one of the following:</span>
@@ -924,13 +944,17 @@ Range constraints: {s0: VR[0, int_oo]}
 <span class="sd">    NOTE: If the `pred` is test on a dim with batch size &lt; 2, it will be specialized.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">pred</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10</span>
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">(),</span> <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span><span class="o">.</span><span class="n">sin</span><span class="p">(),</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
+
+<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),)</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CondPredicate</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Result:</p>

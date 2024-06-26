@@ -18,14 +18,12 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class MySubModule(torch.nn.Module):
         def foo(self, x):
             return x.cos()
     
         def forward(self, x):
             return self.foo(x)
-    
     
     class CondBranchClassMethod(torch.nn.Module):
         """
@@ -52,6 +50,13 @@ Original source code:
     
         def forward(self, x):
             return cond(x.shape[0] <= 2, self.subm.forward, self.bar, [x])
+    
+    example_inputs = (torch.randn(3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchClassMethod()
     
 
 Result:
@@ -101,7 +106,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondBranchNestedFunction(torch.nn.Module):
         """
         The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules:
@@ -116,8 +120,6 @@ Original source code:
     
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             def true_fn(x):
@@ -133,6 +135,13 @@ Original source code:
                 return inner_false_fn(x)
     
             return cond(x.shape[0] < 10, true_fn, false_fn, [x])
+    
+    example_inputs = (torch.randn(3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchNestedFunction()
     
 
 Result:
@@ -182,7 +191,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondBranchNonlocalVariables(torch.nn.Module):
         """
         The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules:
@@ -214,9 +222,6 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             my_tensor_var = x + 100
             my_primitive_var = 3.14
@@ -234,6 +239,13 @@ Original source code:
                 [x, my_tensor_var, torch.tensor(my_primitive_var)],
             )
     
+    example_inputs = (torch.randn(6),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchNonlocalVariables()
+    
 
 Result:
 
@@ -242,10 +254,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, c_lifted_tensor_0: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m", x: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:50 in forward, code: my_tensor_var = x + 100[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:38 in forward, code: my_tensor_var = x + 100[0m
                 add: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m100[0m)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:63 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:51 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
                 lift_fresh_copy: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  [2mc_lifted_tensor_0 = None[0m
                 detach: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.detach.default(lift_fresh_copy);  [2mlift_fresh_copy = None[0m
                 
@@ -291,7 +303,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondClosedOverVariable(torch.nn.Module):
         """
         torch.cond() supports branches closed over arbitrary variables.
@@ -305,6 +316,10 @@ Original source code:
                 return x - 2
     
             return cond(pred, true_fn, false_fn, [x + 1])
+    
+    example_inputs = (torch.tensor(True), torch.randn(3, 2))
+    tags = {"torch.cond", "python.closure"}
+    model = CondClosedOverVariable()
     
 
 Result:
@@ -368,9 +383,6 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x, y):
             def true_fn(x, y):
                 return x + y
@@ -379,6 +391,15 @@ Original source code:
                 return x - y
     
             return cond(x.shape[0] > 2, true_fn, false_fn, [x, y])
+    
+    example_inputs = (x, y)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    extra_inputs = (torch.randn(2, 2), torch.randn(2))
+    dynamic_shapes = {"x": {0: dim0_x}, "y": None}
+    model = CondOperands()
     
 
 Result:
@@ -430,7 +451,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondPredicate(torch.nn.Module):
         """
         The conditional statement (aka predicate) passed to cond() must be one of the following:
@@ -440,13 +460,17 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             pred = x.dim() > 2 and x.shape[2] > 10
     
             return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x])
+    
+    example_inputs = (torch.randn(6, 4, 3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondPredicate()
     
 
 Result:

@@ -55,14 +55,10 @@ Original source code:
     import torch._dynamo as torchdynamo
     
     
-    
     class AssumeConstantResult(torch.nn.Module):
         """
         Applying `assume_constant_result` decorator to burn make non-tracable code as constant.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         @torchdynamo.assume_constant_result
         def get_item(self, y):
@@ -70,6 +66,10 @@ Original source code:
     
         def forward(self, x, y):
             return x[: self.get_item(y)]
+    
+    example_inputs = (torch.randn(3, 2), torch.tensor(4))
+    tags = {"torch.escape-hatch"}
+    model = AssumeConstantResult()
     
 
 Result:
@@ -79,7 +79,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/assume_constant_result.py:25 in forward, code: return x[: self.get_item(y)][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/assume_constant_result.py:16 in forward, code: return x[: self.get_item(y)][0m
                 slice_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.slice.Tensor(x, [34m0[0m, [34m0[0m, [34m4[0m);  [2mx = None[0m
                 return (slice_1,)
                 
@@ -104,8 +104,6 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class MyAutogradFunction(torch.autograd.Function):
         @staticmethod
         def forward(ctx, x):
@@ -114,7 +112,6 @@ Original source code:
         @staticmethod
         def backward(ctx, grad_output):
             return grad_output + 1
-    
     
     class AutogradFunction(torch.nn.Module):
         """
@@ -125,6 +122,9 @@ Original source code:
         def forward(self, x):
             return MyAutogradFunction.apply(x)
     
+    example_inputs = (torch.randn(3, 2),)
+    model = AutogradFunction()
+    
 
 Result:
 
@@ -133,7 +133,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/autograd_function.py:10 in forward, code: return x.clone()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/autograd_function.py:7 in forward, code: return x.clone()[0m
                 clone: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.clone.default(x);  [2mx = None[0m
                 return (clone,)
                 
@@ -158,8 +158,6 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class ClassMethod(torch.nn.Module):
         """
         Class methods are inlined during tracing.
@@ -177,6 +175,9 @@ Original source code:
             x = self.linear(x)
             return self.method(x) * self.__class__.method(x) * type(self).method(x)
     
+    example_inputs = (torch.randn(3, 4),)
+    model = ClassMethod()
+    
 
 Result:
 
@@ -185,20 +186,20 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, p_linear_weight: "[31mf32[0m[34m[2, 4][0m[2m[34m[0m[2m[32m[0m", p_linear_bias: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m", x: "[31mf32[0m[34m[3, 4][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:24 in forward, code: x = self.linear(x)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:18 in forward, code: x = self.linear(x)[0m
                 linear: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.linear.default(x, p_linear_weight, p_linear_bias);  [2mx = p_linear_weight = p_linear_bias = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:17 in method, code: return x + 1[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:11 in method, code: return x + 1[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(linear, [34m1[0m)
                 add_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(linear, [34m1[0m)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:25 in forward, code: return self.method(x) * self.__class__.method(x) * type(self).method(x)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:19 in forward, code: return self.method(x) * self.__class__.method(x) * type(self).method(x)[0m
                 mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(add, add_1);  [2madd = add_1 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:17 in method, code: return x + 1[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:11 in method, code: return x + 1[0m
                 add_2: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(linear, [34m1[0m);  [2mlinear = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:25 in forward, code: return self.method(x) * self.__class__.method(x) * type(self).method(x)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/class_method.py:19 in forward, code: return self.method(x) * self.__class__.method(x) * type(self).method(x)[0m
                 mul_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul, add_2);  [2mmul = add_2 = None[0m
                 return (mul_1,)
                 
@@ -225,14 +226,12 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class MySubModule(torch.nn.Module):
         def foo(self, x):
             return x.cos()
     
         def forward(self, x):
             return self.foo(x)
-    
     
     class CondBranchClassMethod(torch.nn.Module):
         """
@@ -259,6 +258,13 @@ Original source code:
     
         def forward(self, x):
             return cond(x.shape[0] <= 2, self.subm.forward, self.bar, [x])
+    
+    example_inputs = (torch.randn(3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchClassMethod()
     
 
 Result:
@@ -308,7 +314,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondBranchNestedFunction(torch.nn.Module):
         """
         The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules:
@@ -323,8 +328,6 @@ Original source code:
     
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             def true_fn(x):
@@ -340,6 +343,13 @@ Original source code:
                 return inner_false_fn(x)
     
             return cond(x.shape[0] < 10, true_fn, false_fn, [x])
+    
+    example_inputs = (torch.randn(3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchNestedFunction()
     
 
 Result:
@@ -389,7 +399,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondBranchNonlocalVariables(torch.nn.Module):
         """
         The branch functions (`true_fn` and `false_fn`) passed to cond() must follow these rules:
@@ -421,9 +430,6 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             my_tensor_var = x + 100
             my_primitive_var = 3.14
@@ -441,6 +447,13 @@ Original source code:
                 [x, my_tensor_var, torch.tensor(my_primitive_var)],
             )
     
+    example_inputs = (torch.randn(6),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondBranchNonlocalVariables()
+    
 
 Result:
 
@@ -449,10 +462,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, c_lifted_tensor_0: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m", x: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:50 in forward, code: my_tensor_var = x + 100[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:38 in forward, code: my_tensor_var = x + 100[0m
                 add: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m100[0m)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:63 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:51 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
                 lift_fresh_copy: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  [2mc_lifted_tensor_0 = None[0m
                 detach: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.detach.default(lift_fresh_copy);  [2mlift_fresh_copy = None[0m
                 
@@ -498,7 +511,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondClosedOverVariable(torch.nn.Module):
         """
         torch.cond() supports branches closed over arbitrary variables.
@@ -512,6 +524,10 @@ Original source code:
                 return x - 2
     
             return cond(pred, true_fn, false_fn, [x + 1])
+    
+    example_inputs = (torch.tensor(True), torch.randn(3, 2))
+    tags = {"torch.cond", "python.closure"}
+    model = CondClosedOverVariable()
     
 
 Result:
@@ -575,9 +591,6 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x, y):
             def true_fn(x, y):
                 return x + y
@@ -586,6 +599,15 @@ Original source code:
                 return x - y
     
             return cond(x.shape[0] > 2, true_fn, false_fn, [x, y])
+    
+    example_inputs = (x, y)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    extra_inputs = (torch.randn(2, 2), torch.randn(2))
+    dynamic_shapes = {"x": {0: dim0_x}, "y": None}
+    model = CondOperands()
     
 
 Result:
@@ -637,7 +659,6 @@ Original source code:
     
     from functorch.experimental.control_flow import cond
     
-    
     class CondPredicate(torch.nn.Module):
         """
         The conditional statement (aka predicate) passed to cond() must be one of the following:
@@ -647,13 +668,17 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             pred = x.dim() > 2 and x.shape[2] > 10
     
             return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x])
+    
+    example_inputs = (torch.randn(6, 4, 3),)
+    tags = {
+        "torch.cond",
+        "torch.dynamic-shape",
+    }
+    model = CondPredicate()
     
 
 Result:
@@ -690,7 +715,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
+    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
 
     Support Level: SUPPORTED
 
@@ -702,7 +727,6 @@ Original source code:
     import torch
     
     
-    
     class ConstrainAsSizeExample(torch.nn.Module):
         """
         If the value is not known at tracing time, you can provide hint so that we
@@ -711,14 +735,19 @@ Original source code:
         tensor.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             a = x.item()
             torch._check_is_size(a)
             torch._check(a <= 5)
             return torch.zeros((a, 5))
+    
+    
+    example_inputs = (torch.tensor(4),)
+    tags = {
+        "torch.dynamic-value",
+        "torch.escape-hatch",
+    }
+    model = ConstrainAsSizeExample()
     
 
 Result:
@@ -728,7 +757,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_size_example.py:26 in forward, code: a = x.item()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_size_example.py:14 in forward, code: a = x.item()[0m
                 item: "Sym(u0)" = torch.ops.aten.item.default(x);  [2mx = None[0m
                 
                  [2m# [0m
@@ -741,7 +770,7 @@ Result:
                 le: "Sym(u0 <= 5)" = item <= [34m5[0m
                 _assert_scalar_1 = torch.ops.aten._assert_scalar.default(le, [34m"Runtime assertion failed for expression u0 <= 5 on node 'le_1'"[0m);  [2mle = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_size_example.py:29 in forward, code: return torch.zeros((a, 5))[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_size_example.py:17 in forward, code: return torch.zeros((a, 5))[0m
                 zeros: "[31mf32[0m[34m[u0, 5][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.zeros.default([34m[item, 5][0m, device = [34mdevice(type='cpu')[0m, pin_memory = [34mFalse[0m);  [2mitem = None[0m
                 return (zeros,)
                 
@@ -755,7 +784,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
+    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
 
     Support Level: SUPPORTED
 
@@ -767,7 +796,6 @@ Original source code:
     import torch
     
     
-    
     class ConstrainAsValueExample(torch.nn.Module):
         """
         If the value is not known at tracing time, you can provide hint so that we
@@ -775,9 +803,6 @@ Original source code:
         torch._check is used for values that don't need to be used for constructing
         tensor.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x, y):
             a = x.item()
@@ -788,6 +813,14 @@ Original source code:
                 return y.sin()
             return y.cos()
     
+    
+    example_inputs = (torch.tensor(4), torch.randn(5, 5))
+    tags = {
+        "torch.dynamic-value",
+        "torch.escape-hatch",
+    }
+    model = ConstrainAsValueExample()
+    
 
 Result:
 
@@ -796,7 +829,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[5, 5][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_value_example.py:26 in forward, code: a = x.item()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_value_example.py:14 in forward, code: a = x.item()[0m
                 item: "Sym(u0)" = torch.ops.aten.item.default(x);  [2mx = None[0m
                 
                 [2m# No stacktrace found for following nodes[0m
@@ -806,7 +839,7 @@ Result:
                 le: "Sym(u0 <= 5)" = item <= [34m5[0m;  [2mitem = None[0m
                 _assert_scalar_1 = torch.ops.aten._assert_scalar.default(le, [34m"Runtime assertion failed for expression u0 <= 5 on node 'le_1'"[0m);  [2mle = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_value_example.py:31 in forward, code: return y.sin()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_value_example.py:19 in forward, code: return y.sin()[0m
                 sin: "[31mf32[0m[34m[5, 5][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sin.default(y);  [2my = None[0m
                 return (sin,)
                 
@@ -833,15 +866,12 @@ Original source code:
     
     import torch
     
-    
-    
     def test_decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs) + 1
     
         return wrapper
-    
     
     class Decorator(torch.nn.Module):
         """
@@ -852,6 +882,9 @@ Original source code:
         def forward(self, x, y):
             return x + y
     
+    example_inputs = (torch.randn(3, 2), torch.randn(3, 2))
+    model = Decorator()
+    
 
 Result:
 
@@ -860,10 +893,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/decorator.py:27 in forward, code: return x + y[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/decorator.py:20 in forward, code: return x + y[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, y);  [2mx = y = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/decorator.py:12 in wrapper, code: return func(*args, **kwargs) + 1[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/decorator.py:9 in wrapper, code: return func(*args, **kwargs) + 1[0m
                 add_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(add, [34m1[0m);  [2madd = None[0m
                 return (add_1,)
                 
@@ -888,20 +921,20 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class Dictionary(torch.nn.Module):
         """
         Dictionary structures are inlined and flattened along tracing.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x, y):
             elements = {}
             elements["x2"] = x * x
             y = y * elements["x2"]
             return {"y": y}
+    
+    example_inputs = (torch.randn(3, 2), torch.tensor(4))
+    tags = {"python.data-structure"}
+    model = Dictionary()
     
 
 Result:
@@ -911,10 +944,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dictionary.py:20 in forward, code: elements["x2"] = x * x[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dictionary.py:11 in forward, code: elements["x2"] = x * x[0m
                 mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(x, x);  [2mx = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dictionary.py:21 in forward, code: y = y * elements["x2"][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dictionary.py:12 in forward, code: y = y * elements["x2"][0m
                 mul_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(y, mul);  [2my = mul = None[0m
                 return (mul_1,)
                 
@@ -939,14 +972,10 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class DynamicShapeAssert(torch.nn.Module):
         """
         A basic usage of python assertion.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             # assertion with error message
@@ -954,6 +983,10 @@ Original source code:
             # assertion without error message
             assert x.shape[0] > 1
             return x
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"python.assert"}
+    model = DynamicShapeAssert()
     
 
 Result:
@@ -986,18 +1019,18 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class DynamicShapeConstructor(torch.nn.Module):
         """
         Tensor constructors should be captured with dynamic shape inputs rather
         than being baked in with static shape.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             return torch.zeros(x.shape[0] * 2)
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.dynamic-shape"}
+    model = DynamicShapeConstructor()
     
 
 Result:
@@ -1007,7 +1040,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_constructor.py:20 in forward, code: return torch.zeros(x.shape[0] * 2)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_constructor.py:11 in forward, code: return torch.zeros(x.shape[0] * 2)[0m
                 zeros: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.zeros.default([34m[6][0m, device = [34mdevice(type='cpu')[0m, pin_memory = [34mFalse[0m)
                 return (zeros,)
                 
@@ -1021,7 +1054,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
 
     Support Level: SUPPORTED
 
@@ -1031,8 +1064,6 @@ Original source code:
 
     # mypy: allow-untyped-defs
     import torch
-    
-    
     
     class DynamicShapeIfGuard(torch.nn.Module):
         """
@@ -1047,6 +1078,10 @@ Original source code:
     
             return x.sin()
     
+    example_inputs = (torch.randn(3, 2, 2),)
+    tags = {"torch.dynamic-shape", "python.control-flow"}
+    model = DynamicShapeIfGuard()
+    
 
 Result:
 
@@ -1055,7 +1090,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_if_guard.py:20 in forward, code: return x.cos()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_if_guard.py:13 in forward, code: return x.cos()[0m
                 cos: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.cos.default(x);  [2mx = None[0m
                 return (cos,)
                 
@@ -1082,20 +1117,20 @@ Original source code:
     
     from functorch.experimental.control_flow import map
     
-    
     class DynamicShapeMap(torch.nn.Module):
         """
         functorch map() maps a function over the first tensor dimension.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, xs, y):
             def body(x, y):
                 return x + y
     
             return map(body, xs, y)
+    
+    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    tags = {"torch.dynamic-shape", "torch.map"}
+    model = DynamicShapeMap()
     
 
 Result:
@@ -1105,7 +1140,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, xs: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_map.py:24 in forward, code: return map(body, xs, y)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_map.py:15 in forward, code: return map(body, xs, y)[0m
                 body_graph_0 = self.body_graph_0
                 map_impl = torch.ops.higher_order.map_impl(body_graph_0, [34m[xs][0m, [34m[y][0m);  [2mbody_graph_0 = xs = y = None[0m
                 getitem: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = map_impl[[34m0[0m];  [2mmap_impl = None[0m
@@ -1137,19 +1172,18 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class DynamicShapeSlicing(torch.nn.Module):
         """
         Slices with dynamic shape arguments should be captured into the graph
         rather than being baked in.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2]
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.dynamic-shape"}
+    model = DynamicShapeSlicing()
     
 
 Result:
@@ -1159,7 +1193,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_slicing.py:21 in forward, code: return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_slicing.py:11 in forward, code: return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2][0m
                 slice_1: "[31mf32[0m[34m[1, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.slice.Tensor(x, [34m0[0m, [34m0[0m, [34m1[0m);  [2mx = None[0m
                 slice_2: "[31mf32[0m[34m[1, 1][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.slice.Tensor(slice_1, [34m1[0m, [34m1[0m, [34m9223372036854775807[0m, [34m2[0m);  [2mslice_1 = None[0m
                 return (slice_2,)
@@ -1185,21 +1219,20 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class DynamicShapeView(torch.nn.Module):
         """
         Dynamic shapes should be propagated to view arguments instead of being
         baked into the exported graph.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             new_x_shape = x.size()[:-1] + (2, 5)
             x = x.view(*new_x_shape)
             return x.permute(0, 2, 1)
+    
+    example_inputs = (torch.randn(10, 10),)
+    tags = {"torch.dynamic-shape"}
+    model = DynamicShapeView()
     
 
 Result:
@@ -1209,10 +1242,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[10, 10][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_view.py:22 in forward, code: x = x.view(*new_x_shape)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_view.py:12 in forward, code: x = x.view(*new_x_shape)[0m
                 view: "[31mf32[0m[34m[10, 2, 5][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.view.default(x, [34m[10, 2, 5][0m);  [2mx = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_view.py:23 in forward, code: return x.permute(0, 2, 1)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_view.py:13 in forward, code: return x.permute(0, 2, 1)[0m
                 permute: "[31mf32[0m[34m[10, 5, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.permute.default(view, [34m[0, 2, 1][0m);  [2mview = None[0m
                 return (permute,)
                 
@@ -1237,18 +1270,12 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
+    from torch._export.db.case import ExportArgs
     
-    
-        ),
-        tags={"python.data-structure"},
-        support_level=SupportLevel.SUPPORTED,
-    )
     class FnWithKwargs(torch.nn.Module):
         """
         Keyword arguments are not supported at the moment.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, pos0, tuple0, *myargs, mykw0, **mykwargs):
             out = pos0
@@ -1260,6 +1287,16 @@ Original source code:
             out = out * mykwargs["input0"] * mykwargs["input1"]
             return out
     
+    example_inputs = ExportArgs(
+        torch.randn(4),
+        (torch.randn(4), torch.randn(4)),
+        *[torch.randn(4), torch.randn(4)],
+        mykw0=torch.randn(4),
+        input0=torch.randn(4), input1=torch.randn(4)
+    )
+    tags = {"python.data-structure"}
+    model = FnWithKwargs()
+    
 
 Result:
 
@@ -1268,18 +1305,18 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, pos0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", tuple0_0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", tuple0_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", myargs_0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", myargs_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", mykw0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", input0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", input1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:28 in forward, code: out = out * arg[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:14 in forward, code: out = out * arg[0m
                 mul: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(pos0, tuple0_0);  [2mpos0 = tuple0_0 = None[0m
                 mul_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul, tuple0_1);  [2mmul = tuple0_1 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:30 in forward, code: out = out * arg[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:16 in forward, code: out = out * arg[0m
                 mul_2: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_1, myargs_0);  [2mmul_1 = myargs_0 = None[0m
                 mul_3: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_2, myargs_1);  [2mmul_2 = myargs_1 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:31 in forward, code: out = out * mykw0[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:17 in forward, code: out = out * mykw0[0m
                 mul_4: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_3, mykw0);  [2mmul_3 = mykw0 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:32 in forward, code: out = out * mykwargs["input0"] * mykwargs["input1"][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:18 in forward, code: out = out * mykwargs["input0"] * mykwargs["input1"][0m
                 mul_5: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_4, input0);  [2mmul_4 = input0 = None[0m
                 mul_6: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_5, input1);  [2mmul_5 = input1 = None[0m
                 return (mul_6,)
@@ -1294,7 +1331,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1305,20 +1342,20 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class ListContains(torch.nn.Module):
         """
         List containment relation can be checked on a dynamic shape or constants.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             assert x.size(-1) in [6, 2]
             assert x.size(0) not in [4, 5, 6]
             assert "monkey" not in ["cow", "pig"]
             return x + x
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.dynamic-shape", "python.data-structure", "python.assert"}
+    model = ListContains()
     
 
 Result:
@@ -1328,7 +1365,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_contains.py:22 in forward, code: return x + x[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_contains.py:13 in forward, code: return x + x[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, x);  [2mx = None[0m
                 return (add,)
                 
@@ -1355,16 +1392,11 @@ Original source code:
     
     import torch
     
-    
-    
     class ListUnpack(torch.nn.Module):
         """
         Lists are treated as static construct, therefore unpacking should be
         erased after tracing.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, args: List[torch.Tensor]):
             """
@@ -1374,6 +1406,10 @@ Original source code:
             x, *y = args
             return x + y[0]
     
+    example_inputs = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],)
+    tags = {"python.control-flow", "python.data-structure"}
+    model = ListUnpack()
+    
 
 Result:
 
@@ -1382,7 +1418,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, args_0: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", args_1: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m", args_2: "[31mi64[0m[34m[][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_unpack.py:28 in forward, code: return x + y[0][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/list_unpack.py:18 in forward, code: return x + y[0][0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(args_0, args_1);  [2margs_0 = args_1 = None[0m
                 return (add,)
                 
@@ -1407,15 +1443,11 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class NestedFunction(torch.nn.Module):
         """
         Nested functions are traced through. Side effects on global captures
         are not supported though.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, a, b):
             x = a + b
@@ -1428,6 +1460,10 @@ Original source code:
     
             return closure(x)
     
+    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    tags = {"python.closure"}
+    model = NestedFunction()
+    
 
 Result:
 
@@ -1436,16 +1472,16 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, a: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", b: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:20 in forward, code: x = a + b[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:11 in forward, code: x = a + b[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(a, b)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:21 in forward, code: z = a - b[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:12 in forward, code: z = a - b[0m
                 sub: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sub.Tensor(a, b);  [2ma = b = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:25 in closure, code: x += 1[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:16 in closure, code: x += 1[0m
                 add_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(add, [34m1[0m);  [2madd = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:26 in closure, code: return x * y + z[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/nested_function.py:17 in closure, code: return x * y + z[0m
                 mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(add_1, add_1);  [2madd_1 = None[0m
                 add_2: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(mul, sub);  [2mmul = sub = None[0m
                 return (add_2,)
@@ -1473,15 +1509,10 @@ Original source code:
     
     import torch
     
-    
-    
     class NullContextManager(torch.nn.Module):
         """
         Null context manager in Python will be traced out.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             """
@@ -1491,6 +1522,10 @@ Original source code:
             with ctx:
                 return x.sin() + x.cos()
     
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"python.context-manager"}
+    model = NullContextManager()
+    
 
 Result:
 
@@ -1499,7 +1534,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/null_context_manager.py:27 in forward, code: return x.sin() + x.cos()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/null_context_manager.py:17 in forward, code: return x.sin() + x.cos()[0m
                 sin: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sin.default(x)
                 cos: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.cos.default(x);  [2mx = None[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(sin, cos);  [2msin = cos = None[0m
@@ -1528,17 +1563,17 @@ Original source code:
     
     from torch.utils import _pytree as pytree
     
-    
     class PytreeFlatten(torch.nn.Module):
         """
         Pytree from PyTorch can be captured by TorchDynamo.
         """
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             y, spec = pytree.tree_flatten(x)
             return y[0] + 1
+    
+    example_inputs = ({1: torch.randn(3, 2), 2: torch.randn(3, 2)},),
+    model = PytreeFlatten()
     
 
 Result:
@@ -1547,12 +1582,12 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", x_2: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/pytree_flatten.py:21 in forward, code: return y[0] + 1[0m
-                add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x_1, [34m1[0m);  [2mx_1 = None[0m
+            def forward(self, x_0_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", x_0_2: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/pytree_flatten.py:13 in forward, code: return y[0] + 1[0m
+                add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x_0_1, [34m1[0m);  [2mx_0_1 = None[0m
                 return (add,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x_1'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x_2'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x_0_1'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x_0_2'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
     Range constraints: {}
     
 
@@ -1588,6 +1623,11 @@ Original source code:
     
         def forward(self, x):
             return x.shape[1] + 1
+    
+    example_inputs = (x,)
+    tags = {"torch.dynamic-shape"}
+    dynamic_shapes = {"x": {1: dim1_x}}
+    model = ScalarOutput()
     
 
 Result:
@@ -1625,11 +1665,8 @@ Original source code:
     
     import torch
     
-    
-    
     class Animal(Enum):
         COW = "moo"
-    
     
     class SpecializedAttribute(torch.nn.Module):
         """
@@ -1647,6 +1684,9 @@ Original source code:
             else:
                 raise ValueError("bad")
     
+    example_inputs = (torch.randn(3, 2),)
+    model = SpecializedAttribute()
+    
 
 Result:
 
@@ -1655,7 +1695,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/specialized_attribute.py:28 in forward, code: return x * x + self.b[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/specialized_attribute.py:21 in forward, code: return x * x + self.b[0m
                 mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(x, x);  [2mx = None[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(mul, [34m4[0m);  [2mmul = None[0m
                 return (add,)
@@ -1681,21 +1721,20 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class StaticForLoop(torch.nn.Module):
         """
         A for loop with constant number of iterations should be unrolled in the exported graph.
         """
-    
-        def __init__(self):
-            super().__init__()
     
         def forward(self, x):
             ret = []
             for i in range(10):  # constant
                 ret.append(i + x)
             return ret
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"python.control-flow"}
+    model = StaticForLoop()
     
 
 Result:
@@ -1705,7 +1744,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_for_loop.py:22 in forward, code: ret.append(i + x)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_for_loop.py:12 in forward, code: ret.append(i + x)[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m0[0m)
                 add_1: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m1[0m)
                 add_2: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m2[0m)
@@ -1739,22 +1778,21 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class StaticIf(torch.nn.Module):
         """
         `if` statement with static predicate value should be traced through with the
         taken branch.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             if len(x.shape) == 3:
                 return x + torch.ones(1, 1, 1)
     
             return x
+    
+    example_inputs = (torch.randn(3, 2, 2),)
+    tags = {"python.control-flow"}
+    model = StaticIf()
     
 
 Result:
@@ -1764,7 +1802,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_if.py:22 in forward, code: return x + torch.ones(1, 1, 1)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/static_if.py:12 in forward, code: return x + torch.ones(1, 1, 1)[0m
                 ones: "[31mf32[0m[34m[1, 1, 1][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.ones.default([34m[1, 1, 1][0m, device = [34mdevice(type='cpu')[0m, pin_memory = [34mFalse[0m)
                 add: "[31mf32[0m[34m[3, 2, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, ones);  [2mx = ones = None[0m
                 return (add,)
@@ -1791,7 +1829,6 @@ Original source code:
     import torch
     
     
-    
     class TensorSetattr(torch.nn.Module):
         """
         setattr() call onto tensors is not supported.
@@ -1799,6 +1836,10 @@ Original source code:
         def forward(self, x, attr):
             setattr(x, attr, torch.randn(3, 2))
             return x + 4
+    
+    example_inputs = (torch.randn(3, 2), "attr")
+    tags = {"python.builtin"}
+    model = TensorSetattr()
     
 
 Result:
@@ -1808,7 +1849,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m", attr):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/tensor_setattr.py:18 in forward, code: return x + 4[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/tensor_setattr.py:11 in forward, code: return x + 4[0m
                 add: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m4[0m);  [2mx = None[0m
                 return (add,)
                 
@@ -1833,13 +1874,10 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    
-    
     class A:
         @classmethod
         def func(cls, x):
             return 1 + x
-    
     
     class TypeReflectionMethod(torch.nn.Module):
         """
@@ -1847,14 +1885,14 @@ Original source code:
         due to its overly dynamic nature.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             a = A()
             return type(a).func(x)
     
     
+    example_inputs = (torch.randn(3, 4),)
+    tags = {"python.builtin"}
+    model = TypeReflectionMethod()
     
 
 Result:
@@ -1864,31 +1902,13 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 4][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/type_reflection_method.py:10 in func, code: return 1 + x[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/type_reflection_method.py:7 in func, code: return 1 + x[0m
                 add: "[31mf32[0m[34m[3, 4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m1[0m);  [2mx = None[0m
                 return (add,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
     Range constraints: {}
     
-
-
-You can rewrite the example above to something like the following:
-
-.. code-block:: python
-
-    class TypeReflectionMethodRewrite(torch.nn.Module):
-        """
-        Custom object class methods will be inlined.
-        """
-    
-        def __init__(self):
-            super().__init__()
-    
-        def forward(self, x):
-            return A.func(x)
-    
-
 
 
 user_input_mutation
@@ -1908,7 +1928,6 @@ Original source code:
     import torch
     
     
-    
     class UserInputMutation(torch.nn.Module):
         """
         Directly mutate user input in forward
@@ -1918,6 +1937,11 @@ Original source code:
             x.mul_(2)
             return x.cos()
     
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.mutation"}
+    model = UserInputMutation()
+    
 
 Result:
 
@@ -1926,10 +1950,10 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/user_input_mutation.py:18 in forward, code: x.mul_(2)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/user_input_mutation.py:11 in forward, code: x.mul_(2)[0m
                 mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(x, [34m2[0m);  [2mx = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/user_input_mutation.py:19 in forward, code: return x.cos()[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/user_input_mutation.py:12 in forward, code: return x.cos()[0m
                 cos: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.cos.default(mul)
                 return (mul, cos)
                 
@@ -1957,21 +1981,24 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
+    from torch._export.db.case import SupportLevel
     from torch.export import Dim
-    
-    x = torch.randn(3, 2)
-    dim0_x = Dim("dim0_x")
     
     class DynamicShapeRound(torch.nn.Module):
         """
         Calling round on dynamic shapes is not supported.
         """
     
-        def __init__(self):
-            super().__init__()
-    
         def forward(self, x):
             return x[: round(x.shape[0] / 2)]
+    
+    x = torch.randn(3, 2)
+    dim0_x = Dim("dim0_x")
+    example_inputs = (x,)
+    tags = {"torch.dynamic-shape", "python.builtin"}
+    support_level = SupportLevel.NOT_SUPPORTED_YET
+    dynamic_shapes = {"x": {0: dim0_x}}
+    model = DynamicShapeRound()
     
 
 Result:
@@ -1997,6 +2024,7 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
+    from torch._export.db.case import SupportLevel
     
     
     class ModelAttrMutation(torch.nn.Module):
@@ -2014,6 +2042,12 @@ Original source code:
         def forward(self, x):
             self.attr_list = self.recreate_list()
             return x.sum() + self.attr_list[0].sum()
+    
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"python.object-model"}
+    support_level = SupportLevel.NOT_SUPPORTED_YET
+    model = ModelAttrMutation()
     
 
 Result:
@@ -2039,6 +2073,7 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
+    from torch._export.db.case import SupportLevel
     
     
     class OptionalInput(torch.nn.Module):
@@ -2050,6 +2085,12 @@ Original source code:
             if y is not None:
                 return x + y
             return x
+    
+    
+    example_inputs = (torch.randn(2, 3),)
+    tags = {"python.object-model"}
+    support_level = SupportLevel.NOT_SUPPORTED_YET
+    model = OptionalInput()
     
 
 Result:
@@ -2075,6 +2116,7 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
+    from torch._export.db.case import SupportLevel
     
     
     class TorchSymMin(torch.nn.Module):
@@ -2085,11 +2127,17 @@ Original source code:
         def forward(self, x):
             return x.sum() + torch.sym_min(x.size(0), 100)
     
+    
+    example_inputs = (torch.randn(3, 2),)
+    tags = {"torch.operator"}
+    support_level = SupportLevel.NOT_SUPPORTED_YET
+    model = TorchSymMin()
+    
 
 Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7fe6d7c95160>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f19653190d0>
 
 
