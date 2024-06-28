@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git90f6043 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd4b6ff6 ) &#x25BC</a>
     </div>
     
 
@@ -547,18 +547,16 @@
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
 <span class="kn">import</span> <span class="nn">torch.utils.data.graph_settings</span>
 <span class="kn">from</span> <span class="nn">torch._utils</span> <span class="kn">import</span> <span class="n">ExceptionWrapper</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">_utils</span>
 <span class="kn">from</span> <span class="nn">torch.utils.data.datapipes.datapipe</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_IterDataPipeSerializationWrapper</span><span class="p">,</span>
     <span class="n">_MapDataPipeSerializationWrapper</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_utils</span><span class="p">,</span>
-    <span class="n">BatchSampler</span><span class="p">,</span>
-    <span class="n">Dataset</span><span class="p">,</span>
-    <span class="n">IterableDataset</span><span class="p">,</span>
     <span class="n">IterDataPipe</span><span class="p">,</span>
     <span class="n">MapDataPipe</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">IterableDataset</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data.sampler</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BatchSampler</span><span class="p">,</span>
     <span class="n">RandomSampler</span><span class="p">,</span>
     <span class="n">Sampler</span><span class="p">,</span>
     <span class="n">SequentialSampler</span><span class="p">,</span>
@@ -572,8 +570,8 @@
     <span class="s2">&quot;default_convert&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
-<span class="n">T_co</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T_co&#39;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+<span class="n">T_co</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_co&quot;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
 <span class="n">_worker_init_fn_t</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
 
 <span class="c1"># Ideally we would parameterize `DataLoader` by the return type of `collate_fn`, but there is currently no way to have that</span>
@@ -602,9 +600,13 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">create_fetcher</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">Map</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">_utils</span><span class="o">.</span><span class="n">fetch</span><span class="o">.</span><span class="n">_MapDatasetFetcher</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">_utils</span><span class="o">.</span><span class="n">fetch</span><span class="o">.</span><span class="n">_MapDatasetFetcher</span><span class="p">(</span>
+                <span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">_utils</span><span class="o">.</span><span class="n">fetch</span><span class="o">.</span><span class="n">_IterableDatasetFetcher</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">_utils</span><span class="o">.</span><span class="n">fetch</span><span class="o">.</span><span class="n">_IterableDatasetFetcher</span><span class="p">(</span>
+                <span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span>
+            <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_InfiniteConstantSampler</span><span class="p">(</span><span class="n">Sampler</span><span class="p">):</span>
@@ -637,7 +639,9 @@
     <span class="n">total_workers</span> <span class="o">*=</span> <span class="n">world_size</span>
     <span class="n">global_worker_id</span> <span class="o">=</span> <span class="n">global_worker_id</span> <span class="o">*</span> <span class="n">world_size</span> <span class="o">+</span> <span class="n">rank_id</span>
     <span class="c1"># For BC, use default SHARDING_PRIORITIES</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_sharding</span><span class="p">(</span><span class="n">datapipe</span><span class="p">,</span> <span class="n">total_workers</span><span class="p">,</span> <span class="n">global_worker_id</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_sharding</span><span class="p">(</span>
+        <span class="n">datapipe</span><span class="p">,</span> <span class="n">total_workers</span><span class="p">,</span> <span class="n">global_worker_id</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="n">worker_init_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">worker_init_fn</span><span class="p">(</span><span class="n">worker_id</span><span class="p">)</span>
 
@@ -748,38 +752,52 @@
     <span class="n">sampler</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sampler</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">]</span>
     <span class="n">pin_memory_device</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">prefetch_factor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
-    <span class="n">_iterator</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;_BaseDataLoaderIter&#39;</span><span class="p">]</span>
+    <span class="n">_iterator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;_BaseDataLoaderIter&quot;</span><span class="p">]</span>
     <span class="n">__initialized</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">[</span><span class="n">T_co</span><span class="p">],</span> <span class="n">batch_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-                 <span class="n">shuffle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sampler</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sampler</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">batch_sampler</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sampler</span><span class="p">[</span><span class="n">List</span><span class="p">],</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">List</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_collate_fn_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">pin_memory</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">drop_last</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">worker_init_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_worker_init_fn_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">multiprocessing_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="o">*</span><span class="p">,</span> <span class="n">prefetch_factor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">persistent_workers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">pin_memory_device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">[</span><span class="n">T_co</span><span class="p">],</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sampler</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sampler</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">batch_sampler</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sampler</span><span class="p">[</span><span class="n">List</span><span class="p">],</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">List</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">collate_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_collate_fn_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">pin_memory</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">drop_last</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">worker_init_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_worker_init_fn_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">multiprocessing_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">generator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">prefetch_factor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">persistent_workers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">pin_memory_device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;python.data_loader&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">num_workers</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;num_workers option should be non-negative; &#39;</span>
-                             <span class="s1">&#39;use num_workers=0 to disable multiprocessing.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;num_workers option should be non-negative; &quot;</span>
+                <span class="s2">&quot;use num_workers=0 to disable multiprocessing.&quot;</span>
+            <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">timeout</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;timeout option should be non-negative&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;timeout option should be non-negative&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">num_workers</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">prefetch_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;prefetch_factor option could only be specified in multiprocessing.&#39;</span>
-                             <span class="s1">&#39;let num_workers &gt; 0 to enable multiprocessing, otherwise set prefetch_factor to None.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;prefetch_factor option could only be specified in multiprocessing.&quot;</span>
+                <span class="s2">&quot;let num_workers &gt; 0 to enable multiprocessing, otherwise set prefetch_factor to None.&quot;</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="n">num_workers</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">prefetch_factor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">prefetch_factor</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="k">elif</span> <span class="n">prefetch_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">prefetch_factor</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;prefetch_factor option should be non-negative&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;prefetch_factor option should be non-negative&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">persistent_workers</span> <span class="ow">and</span> <span class="n">num_workers</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;persistent_workers option needs num_workers &gt; 0&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;persistent_workers option needs num_workers &gt; 0&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">=</span> <span class="n">num_workers</span>
@@ -830,44 +848,50 @@
             <span class="c1"># specific workers.</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">IterDataPipe</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">shuffle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_shuffle_settings</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
+                    <span class="n">dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_shuffle_settings</span><span class="p">(</span>
+                        <span class="n">dataset</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span>
+                    <span class="p">)</span>
             <span class="c1"># We cannot check `shuffle is not None` here, since previously `shuffle=False` was the default.</span>
             <span class="k">elif</span> <span class="n">shuffle</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">}:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;DataLoader with IterableDataset: expected unspecified shuffle option, but got shuffle=</span><span class="si">{</span><span class="n">shuffle</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;DataLoader with IterableDataset: expected unspecified shuffle option, but got shuffle=</span><span class="si">{</span><span class="n">shuffle</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">sampler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># See NOTE [ Custom Samplers and IterableDataset ]</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;DataLoader with IterableDataset: expected unspecified sampler option, but got sampler=</span><span class="si">{</span><span class="n">sampler</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;DataLoader with IterableDataset: expected unspecified sampler option, but got sampler=</span><span class="si">{</span><span class="n">sampler</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
             <span class="k">elif</span> <span class="n">batch_sampler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># See NOTE [ Custom Samplers and IterableDataset ]</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;DataLoader with IterableDataset: expected unspecified &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;batch_sampler option, but got batch_sampler=</span><span class="si">{</span><span class="n">batch_sampler</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;batch_sampler option, but got batch_sampler=</span><span class="si">{</span><span class="n">batch_sampler</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">shuffle</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">shuffle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span> <span class="o">=</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">Map</span>
 
-
-
         <span class="k">if</span> <span class="n">sampler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">shuffle</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;sampler option is mutually exclusive with &#39;</span>
-                             <span class="s1">&#39;shuffle&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sampler option is mutually exclusive with &quot;</span> <span class="s2">&quot;shuffle&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">batch_sampler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># auto_collation with custom batch_sampler</span>
             <span class="k">if</span> <span class="n">batch_size</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">shuffle</span> <span class="ow">or</span> <span class="n">sampler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">drop_last</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;batch_sampler option is mutually exclusive &#39;</span>
-                                 <span class="s1">&#39;with batch_size, shuffle, sampler, and &#39;</span>
-                                 <span class="s1">&#39;drop_last&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;batch_sampler option is mutually exclusive &quot;</span>
+                    <span class="s2">&quot;with batch_size, shuffle, sampler, and &quot;</span>
+                    <span class="s2">&quot;drop_last&quot;</span>
+                <span class="p">)</span>
             <span class="n">batch_size</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">drop_last</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">elif</span> <span class="n">batch_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># no auto_collation</span>
             <span class="k">if</span> <span class="n">drop_last</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;batch_size=None option disables auto-batching &#39;</span>
-                                 <span class="s1">&#39;and is mutually exclusive with drop_last&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;batch_size=None option disables auto-batching &quot;</span>
+                    <span class="s2">&quot;and is mutually exclusive with drop_last&quot;</span>
+                <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">sampler</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># give default samplers</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span> <span class="o">==</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">Iterable</span><span class="p">:</span>
@@ -899,15 +923,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">persistent_workers</span> <span class="o">=</span> <span class="n">persistent_workers</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__initialized</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># See NOTE [ IterableDataset and __len__ ]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="kc">None</span>  <span class="c1"># See NOTE [ IterableDataset and __len__ ]</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_iterator</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">check_worker_number_rationality</span><span class="p">()</span>
 
-        <span class="n">torch</span><span class="o">.</span><span class="n">set_vital</span><span class="p">(</span><span class="s1">&#39;Dataloader&#39;</span><span class="p">,</span> <span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">set_vital</span><span class="p">(</span><span class="s2">&quot;Dataloader&quot;</span><span class="p">,</span> <span class="s2">&quot;enabled&quot;</span><span class="p">,</span> <span class="s2">&quot;True&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
-    <span class="k">def</span> <span class="nf">_get_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_BaseDataLoaderIter&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_get_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_BaseDataLoaderIter&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_SingleProcessDataLoaderIter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -926,32 +952,49 @@
                     <span class="n">valid_start_methods</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">get_all_start_methods</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">multiprocessing_context</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_start_methods</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                            <span class="s1">&#39;multiprocessing_context option &#39;</span>
-                            <span class="sa">f</span><span class="s1">&#39;should specify a valid start method in </span><span class="si">{</span><span class="n">valid_start_methods</span><span class="si">!r}</span><span class="s1">, but got &#39;</span>
-                            <span class="sa">f</span><span class="s1">&#39;multiprocessing_context=</span><span class="si">{</span><span class="n">multiprocessing_context</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span>
-                    <span class="n">multiprocessing_context</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="n">multiprocessing_context</span><span class="p">)</span>
+                            <span class="s2">&quot;multiprocessing_context option &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;should specify a valid start method in </span><span class="si">{</span><span class="n">valid_start_methods</span><span class="si">!r}</span><span class="s2">, but got &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;multiprocessing_context=</span><span class="si">{</span><span class="n">multiprocessing_context</span><span class="si">!r}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
+                    <span class="n">multiprocessing_context</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span>
+                        <span class="n">multiprocessing_context</span>
+                    <span class="p">)</span>
 
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">multiprocessing_context</span><span class="p">,</span> <span class="n">python_multiprocessing</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">BaseContext</span><span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;multiprocessing_context option should be a valid context &#39;</span>
-                                    <span class="s1">&#39;object or a string specifying the start method, but got &#39;</span>
-                                    <span class="sa">f</span><span class="s1">&#39;multiprocessing_context=</span><span class="si">{</span><span class="n">multiprocessing_context</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+                    <span class="n">multiprocessing_context</span><span class="p">,</span> <span class="n">python_multiprocessing</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">BaseContext</span>
+                <span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s2">&quot;multiprocessing_context option should be a valid context &quot;</span>
+                        <span class="s2">&quot;object or a string specifying the start method, but got &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;multiprocessing_context=</span><span class="si">{</span><span class="n">multiprocessing_context</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;multiprocessing_context can only be used with &#39;</span>
-                                 <span class="s1">&#39;multi-process loading (num_workers &gt; 0), but got &#39;</span>
-                                 <span class="sa">f</span><span class="s1">&#39;num_workers=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;multiprocessing_context can only be used with &quot;</span>
+                    <span class="s2">&quot;multi-process loading (num_workers &gt; 0), but got &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;num_workers=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__multiprocessing_context</span> <span class="o">=</span> <span class="n">multiprocessing_context</span>
 
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__initialized</span> <span class="ow">and</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="s1">&#39;batch_size&#39;</span><span class="p">,</span> <span class="s1">&#39;batch_sampler&#39;</span><span class="p">,</span> <span class="s1">&#39;sampler&#39;</span><span class="p">,</span> <span class="s1">&#39;drop_last&#39;</span><span class="p">,</span> <span class="s1">&#39;dataset&#39;</span><span class="p">,</span> <span class="s1">&#39;persistent_workers&#39;</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s1"> attribute should not be set after </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> is initialized&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;batch_size&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;batch_sampler&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sampler&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drop_last&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dataset&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;persistent_workers&quot;</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2"> attribute should not be set after </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> is initialized&quot;</span>
+            <span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
 
     <span class="c1"># We quote &#39;_BaseDataLoaderIter&#39; since it isn&#39;t defined yet and the definition can&#39;t be moved up</span>
     <span class="c1"># since &#39;_BaseDataLoaderIter&#39; references &#39;DataLoader&#39;.</span>
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_BaseDataLoaderIter&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_BaseDataLoaderIter&quot;</span><span class="p">:</span>
         <span class="c1"># When using a single worker the returned iterator should be</span>
         <span class="c1"># created everytime to avoid resetting its state</span>
         <span class="c1"># However, in the case of a multiple workers iterator</span>
@@ -1001,8 +1044,11 @@
 
             <span class="c1"># Cannot statically verify that dataset is Sized</span>
             <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment, arg-type]</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># IterableDataset doesn&#39;t allow custom sampler or batch_sampler</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="p">):</span>  <span class="c1"># IterableDataset doesn&#39;t allow custom sampler or batch_sampler</span>
                 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span>
+
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last</span><span class="p">:</span>
                     <span class="n">length</span> <span class="o">=</span> <span class="n">length</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -1039,19 +1085,31 @@
         <span class="c1">#        how many thread to create (eg. numpy, etc), then it is caller&#39;s responsibility to</span>
         <span class="c1">#        set those flags correctly.</span>
         <span class="k">def</span> <span class="nf">_create_warning_msg</span><span class="p">(</span><span class="n">num_worker_suggest</span><span class="p">,</span> <span class="n">num_worker_created</span><span class="p">,</span> <span class="n">cpuset_checked</span><span class="p">):</span>
-
-            <span class="n">suggested_max_worker_msg</span> <span class="o">=</span> <span class="p">((</span>
-                <span class="s2">&quot;Our suggested max number of worker in current system is </span><span class="si">{}{}</span><span class="s2">, which is smaller &quot;</span>
-                <span class="s2">&quot;than what this DataLoader is going to create.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">num_worker_suggest</span><span class="p">,</span>
-                    <span class="p">(</span><span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">cpuset_checked</span> <span class="k">else</span> <span class="s2">&quot; (`cpuset` is not taken into account)&quot;</span><span class="p">))</span>
-            <span class="p">)</span> <span class="k">if</span> <span class="n">num_worker_suggest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span>
-                <span class="s2">&quot;DataLoader is not able to compute a suggested max number of worker in current system.&quot;</span><span class="p">)</span>
+            <span class="n">suggested_max_worker_msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="s2">&quot;Our suggested max number of worker in current system is </span><span class="si">{}{}</span><span class="s2">, which is smaller &quot;</span>
+                        <span class="s2">&quot;than what this DataLoader is going to create.&quot;</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">num_worker_suggest</span><span class="p">,</span>
+                        <span class="p">(</span>
+                            <span class="s2">&quot;&quot;</span>
+                            <span class="k">if</span> <span class="n">cpuset_checked</span>
+                            <span class="k">else</span> <span class="s2">&quot; (`cpuset` is not taken into account)&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">num_worker_suggest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="k">else</span> <span class="p">(</span>
+                    <span class="s2">&quot;DataLoader is not able to compute a suggested max number of worker in current system.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
 
             <span class="n">warn_msg</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;This DataLoader will create </span><span class="si">{</span><span class="n">num_worker_created</span><span class="si">}</span><span class="s2"> worker processes in total. </span><span class="si">{</span><span class="n">suggested_max_worker_msg</span><span class="si">}</span><span class="s2"> &quot;</span>
                 <span class="s2">&quot;Please be aware that excessive worker creation might get DataLoader running slow or even freeze, &quot;</span>
-                <span class="s2">&quot;lower the worker number to avoid potential slowness/freeze if necessary.&quot;</span><span class="p">)</span>
+                <span class="s2">&quot;lower the worker number to avoid potential slowness/freeze if necessary.&quot;</span>
+            <span class="p">)</span>
             <span class="k">return</span> <span class="n">warn_msg</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1060,7 +1118,7 @@
         <span class="c1"># try to compute a suggested max number of worker based on system&#39;s resource</span>
         <span class="n">max_num_worker_suggest</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">cpuset_checked</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">os</span><span class="p">,</span> <span class="s1">&#39;sched_getaffinity&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">os</span><span class="p">,</span> <span class="s2">&quot;sched_getaffinity&quot;</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">max_num_worker_suggest</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sched_getaffinity</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
                 <span class="n">cpuset_checked</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1074,17 +1132,19 @@
                 <span class="n">max_num_worker_suggest</span> <span class="o">=</span> <span class="n">cpu_count</span>
 
         <span class="k">if</span> <span class="n">max_num_worker_suggest</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">_create_warning_msg</span><span class="p">(</span>
-                <span class="n">max_num_worker_suggest</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span>
-                <span class="n">cpuset_checked</span><span class="p">))</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">_create_warning_msg</span><span class="p">(</span>
+                    <span class="n">max_num_worker_suggest</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">cpuset_checked</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">&gt;</span> <span class="n">max_num_worker_suggest</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">_create_warning_msg</span><span class="p">(</span>
-                <span class="n">max_num_worker_suggest</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span>
-                <span class="n">cpuset_checked</span><span class="p">))</span></div>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">_create_warning_msg</span><span class="p">(</span>
+                    <span class="n">max_num_worker_suggest</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">cpuset_checked</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_BaseDataLoaderIter</span><span class="p">:</span>
@@ -1098,7 +1158,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_shared_seed</span> <span class="o">=</span> <span class="n">_share_dist_seed</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">generator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pg</span><span class="p">)</span>
             <span class="n">shared_rng</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">()</span>
             <span class="n">shared_rng</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shared_seed</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_random_seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="n">shared_rng</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_random_seed</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="n">shared_rng</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">_dataset_kind</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_auto_collation</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">_auto_collation</span>
@@ -1111,13 +1173,15 @@
         <span class="c1"># for other backends, pin_memory_device need to set. if not set</span>
         <span class="c1"># default behaviour is CUDA device. if pin_memory_device is selected</span>
         <span class="c1"># and pin_memory is not set, the default behaviour false.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">pin_memory_device</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">pin_memory_device</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">pin_memory</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_device</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">loader</span><span class="o">.</span><span class="n">pin_memory</span><span class="p">:</span>
-                <span class="n">warn_msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;pin memory device is set and pin_memory flag is not used then device pinned memory won&#39;t be used&quot;</span>
-                            <span class="s2">&quot;please set pin_memory to true, if you need to use the device pin memory&quot;</span><span class="p">)</span>
+                <span class="n">warn_msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="s2">&quot;pin memory device is set and pin_memory flag is not used then device pinned memory won&#39;t be used&quot;</span>
+                    <span class="s2">&quot;please set pin_memory to true, if you need to use the device pin memory&quot;</span>
+                <span class="p">)</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warn_msg</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">pin_memory</span>
@@ -1125,12 +1189,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">timeout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_collate_fn</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">collate_fn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sampler_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_index_sampler</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_base_seed</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">((),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">random_</span><span class="p">(</span><span class="n">generator</span><span class="o">=</span><span class="n">loader</span><span class="o">.</span><span class="n">generator</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_seed</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">((),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">random_</span><span class="p">(</span><span class="n">generator</span><span class="o">=</span><span class="n">loader</span><span class="o">.</span><span class="n">generator</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_persistent_workers</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">persistent_workers</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_yielded</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_profile_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;enumerate(DataLoader)#</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.__next__&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_BaseDataLoaderIter&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_BaseDataLoaderIter&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">first_iter</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -1141,7 +1209,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_shared_seed</span> <span class="o">=</span> <span class="n">_share_dist_seed</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">generator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pg</span><span class="p">)</span>
             <span class="n">shared_rng</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">()</span>
             <span class="n">shared_rng</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shared_seed</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_random_seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="n">shared_rng</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_random_seed</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="n">shared_rng</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_next_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sampler_iter</span><span class="p">)</span>  <span class="c1"># may raise StopIteration</span>
@@ -1156,15 +1226,21 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">()</span>  <span class="c1"># type: ignore[call-arg]</span>
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_data</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_yielded</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span> <span class="o">==</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">Iterable</span> <span class="ow">and</span> \
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> \
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_num_yielded</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span><span class="p">:</span>
-                <span class="n">warn_msg</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length of IterableDataset </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="si">}</span><span class="s2"> was reported to be </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span><span class="si">}</span><span class="s2">&quot;</span>
-                            <span class="sa">f</span><span class="s2">&quot;(when accessing len(dataloader)), but </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_yielded</span><span class="si">}</span><span class="s2"> samples have been fetched. &quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span> <span class="o">==</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">Iterable</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_yielded</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span>
+            <span class="p">):</span>
+                <span class="n">warn_msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Length of IterableDataset </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="si">}</span><span class="s2"> was reported to be </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_IterableDataset_len_called</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;(when accessing len(dataloader)), but </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_yielded</span><span class="si">}</span><span class="s2"> samples have been fetched. &quot;</span>
+                <span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_workers</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">warn_msg</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;For multiprocessing data-loading, this could be caused by not properly configuring the &quot;</span>
-                                 <span class="s2">&quot;IterableDataset replica at each worker. Please see &quot;</span>
-                                 <span class="s2">&quot;https://pytorch.org/docs/stable/data.html#torch.utils.data.IterableDataset for examples.&quot;</span><span class="p">)</span>
+                    <span class="n">warn_msg</span> <span class="o">+=</span> <span class="p">(</span>
+                        <span class="s2">&quot;For multiprocessing data-loading, this could be caused by not properly configuring the &quot;</span>
+                        <span class="s2">&quot;IterableDataset replica at each worker. Please see &quot;</span>
+                        <span class="s2">&quot;https://pytorch.org/docs/stable/data.html#torch.utils.data.IterableDataset for examples.&quot;</span>
+                    <span class="p">)</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warn_msg</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">data</span>
 
@@ -1190,10 +1266,17 @@
         <span class="c1">#   Taking care of distributed sharding</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="p">(</span><span class="n">IterDataPipe</span><span class="p">,</span> <span class="n">MapDataPipe</span><span class="p">)):</span>
             <span class="c1"># For BC, use default SHARDING_PRIORITIES</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_sharding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="p">)</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">graph_settings</span><span class="o">.</span><span class="n">apply_sharding</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span>
+            <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_fetcher</span> <span class="o">=</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">create_fetcher</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_collation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collate_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drop_last</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_auto_collation</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_collate_fn</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_drop_last</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_next_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_index</span><span class="p">()</span>  <span class="c1"># may raise StopIteration</span>
@@ -1532,7 +1615,11 @@
         <span class="c1">#   Additional worker init function will take care of sharding in MP and Distributed</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="p">(</span><span class="n">IterDataPipe</span><span class="p">,</span> <span class="n">MapDataPipe</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_worker_init_fn</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
-                <span class="n">_sharding_worker_init_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_worker_init_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_world_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="p">)</span>
+                <span class="n">_sharding_worker_init_fn</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_worker_init_fn</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_world_size</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="c1"># No certainty which module multiprocessing_context is</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_worker_result_queue</span> <span class="o">=</span> <span class="n">multiprocessing_context</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>  <span class="c1"># type: ignore[var-annotated]</span>
@@ -1550,11 +1637,23 @@
             <span class="n">index_queue</span><span class="o">.</span><span class="n">cancel_join_thread</span><span class="p">()</span>
             <span class="n">w</span> <span class="o">=</span> <span class="n">multiprocessing_context</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span>
                 <span class="n">target</span><span class="o">=</span><span class="n">_utils</span><span class="o">.</span><span class="n">worker</span><span class="o">.</span><span class="n">_worker_loop</span><span class="p">,</span>
-                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span> <span class="n">index_queue</span><span class="p">,</span>
-                      <span class="bp">self</span><span class="o">.</span><span class="n">_worker_result_queue</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_workers_done_event</span><span class="p">,</span>
-                      <span class="bp">self</span><span class="o">.</span><span class="n">_auto_collation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collate_fn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drop_last</span><span class="p">,</span>
-                      <span class="bp">self</span><span class="o">.</span><span class="n">_base_seed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_worker_init_fn</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_workers</span><span class="p">,</span>
-                      <span class="bp">self</span><span class="o">.</span><span class="n">_persistent_workers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_seed</span><span class="p">))</span>
+                <span class="n">args</span><span class="o">=</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_kind</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">,</span>
+                    <span class="n">index_queue</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_worker_result_queue</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_workers_done_event</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_auto_collation</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_collate_fn</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_drop_last</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_base_seed</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_worker_init_fn</span><span class="p">,</span>
+                    <span class="n">i</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_num_workers</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_persistent_workers</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_shared_seed</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
             <span class="n">w</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="c1"># NB: Process.start() actually take some time as it needs to</span>
             <span class="c1">#     start a process and pass the arguments over via a pipe.</span>
@@ -1574,15 +1673,22 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_device</span> <span class="o">==</span> <span class="s2">&quot;xpu&quot;</span><span class="p">:</span>
                 <span class="n">current_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">current_device</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_device</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_get_privateuse1_backend_name</span><span class="p">():</span>
-                <span class="n">custom_device_mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_get_privateuse1_backend_name</span><span class="p">())</span>
+                <span class="n">custom_device_mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">torch</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_get_privateuse1_backend_name</span><span class="p">()</span>
+                <span class="p">)</span>
                 <span class="n">current_device</span> <span class="o">=</span> <span class="n">custom_device_mod</span><span class="o">.</span><span class="n">current_device</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">current_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">current_device</span><span class="p">()</span>  <span class="c1"># choose cuda for default</span>
             <span class="n">pin_memory_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
                 <span class="n">target</span><span class="o">=</span><span class="n">_utils</span><span class="o">.</span><span class="n">pin_memory</span><span class="o">.</span><span class="n">_pin_memory_loop</span><span class="p">,</span>
-                <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_worker_result_queue</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_queue</span><span class="p">,</span>
-                      <span class="n">current_device</span><span class="p">,</span>
-                      <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_thread_done_event</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_device</span><span class="p">))</span>
+                <span class="n">args</span><span class="o">=</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_worker_result_queue</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_data_queue</span><span class="p">,</span>
+                    <span class="n">current_device</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_thread_done_event</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_device</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
             <span class="n">pin_memory_thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">pin_memory_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
             <span class="c1"># Similar to workers (see comment above), we only register</span>
@@ -1600,6 +1706,7 @@
         <span class="c1"># right sequence before main process exits</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_persistent_workers</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">atexit</span>
+
             <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_workers</span><span class="p">:</span>
                 <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_MultiProcessingDataLoaderIter</span><span class="o">.</span><span class="n">_clean_up_worker</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 
@@ -1617,7 +1724,9 @@
         <span class="c1"># map: task idx =&gt; - (worker_id,)        if data isn&#39;t fetched (outstanding)</span>
         <span class="c1">#                  \ (worker_id, data)   if data is already fetched (out-of-order)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_task_info</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks_outstanding</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># always equal to count(v for v in task_info.values() if len(v) == 1)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks_outstanding</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">0</span>  <span class="c1"># always equal to count(v for v in task_info.values() if len(v) == 1)</span>
+        <span class="p">)</span>
         <span class="c1"># A list of booleans representing whether each worker still has work to</span>
         <span class="c1"># do, i.e., not having exhausted its iterable dataset object. It always</span>
         <span class="c1"># contains all `True`s if not using an iterable-style dataset</span>
@@ -1631,7 +1740,9 @@
         <span class="c1"># We resume the prefetching in case it was enabled</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">first_iter</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_workers</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_index_queues</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">_utils</span><span class="o">.</span><span class="n">worker</span><span class="o">.</span><span class="n">_ResumeIteration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shared_seed</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_index_queues</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+                    <span class="n">_utils</span><span class="o">.</span><span class="n">worker</span><span class="o">.</span><span class="n">_ResumeIteration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shared_seed</span><span class="p">)</span>
+                <span class="p">)</span>
             <span class="n">resume_iteration_cnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_workers</span>
             <span class="k">while</span> <span class="n">resume_iteration_cnt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">return_idx</span><span class="p">,</span> <span class="n">return_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">()</span>
@@ -1667,8 +1778,10 @@
                     <span class="n">failed_workers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_mark_worker_as_unavailable</span><span class="p">(</span><span class="n">worker_id</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">failed_workers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">pids_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">failed_workers</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DataLoader worker (pid(s) </span><span class="si">{</span><span class="n">pids_str</span><span class="si">}</span><span class="s1">) exited unexpectedly&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+                <span class="n">pids_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">failed_workers</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;DataLoader worker (pid(s) </span><span class="si">{</span><span class="n">pids_str</span><span class="si">}</span><span class="s2">) exited unexpectedly&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">):</span>
                 <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
@@ -1690,105 +1803,106 @@
                         <span class="s2">&quot; limit using `ulimit -n` in the shell or change the&quot;</span>
                         <span class="s2">&quot; sharing strategy by calling&quot;</span>
                         <span class="s2">&quot; `torch.multiprocessing.set_sharing_strategy(&#39;file_system&#39;)`&quot;</span>
-                        <span class="s2">&quot; at the beginning of your code&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span>
+                        <span class="s2">&quot; at the beginning of your code&quot;</span>
+                    <span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span>
             <span class="k">raise</span>
 
-<span class="c1"># NOTE [ DataLoader on Linux and open files limit ]</span>
-<span class="c1">#</span>
-<span class="c1"># On Linux when DataLoader is used with multiprocessing we pass the data between</span>
-<span class="c1"># the root process and the workers through SHM files. We remove those files from</span>
-<span class="c1"># the filesystem as soon as they are created and keep them alive by</span>
-<span class="c1"># passing around their file descriptors through AF_UNIX sockets. (See</span>
-<span class="c1"># docs/source/multiprocessing.rst and &#39;Multiprocessing Technical Notes` in</span>
-<span class="c1"># the wiki (https://github.com/pytorch/pytorch/wiki).)</span>
-<span class="c1">#</span>
-<span class="c1"># This sometimes leads us to exceeding the open files limit. When that happens,</span>
-<span class="c1"># and the offending file descriptor is coming over a socket, the `socket` Python</span>
-<span class="c1"># package silently strips the file descriptor from the message, setting only the</span>
-<span class="c1"># `MSG_CTRUNC` flag (which might be a bit misleading since the manpage says that</span>
-<span class="c1"># it _indicates that some control data were discarded due to lack of space in</span>
-<span class="c1"># the buffer for ancillary data_). This might reflect the C implementation of</span>
-<span class="c1"># AF_UNIX sockets.</span>
-<span class="c1">#</span>
-<span class="c1"># This behaviour can be reproduced with the script and instructions at the</span>
-<span class="c1"># bottom of this note.</span>
-<span class="c1">#</span>
-<span class="c1"># When that happens, the standard Python `multiprocessing` (and not</span>
-<span class="c1"># `torch.multiprocessing`) raises a `RuntimeError: received 0 items of ancdata`</span>
-<span class="c1">#</span>
-<span class="c1"># Sometimes, instead of the FD being stripped, you may get an `OSError:</span>
-<span class="c1"># Too many open files`, both in the script below and in DataLoader. However,</span>
-<span class="c1"># this is rare and seems to be nondeterministic.</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#   #!/usr/bin/env python3</span>
-<span class="c1">#   import sys</span>
-<span class="c1">#   import socket</span>
-<span class="c1">#   import os</span>
-<span class="c1">#   import array</span>
-<span class="c1">#   import shutil</span>
-<span class="c1">#   import socket</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#   if len(sys.argv) != 4:</span>
-<span class="c1">#       print(&quot;Usage: &quot;, sys.argv[0], &quot; tmp_dirname iteration (send|recv)&quot;)</span>
-<span class="c1">#       sys.exit(1)</span>
-<span class="c1">#</span>
-<span class="c1">#   if __name__ == &#39;__main__&#39;:</span>
-<span class="c1">#       dirname = sys.argv[1]</span>
-<span class="c1">#       sock_path = dirname + &quot;/sock&quot;</span>
-<span class="c1">#       iterations = int(sys.argv[2])</span>
-<span class="c1">#       def dummy_path(i):</span>
-<span class="c1">#           return dirname + &quot;/&quot; + str(i) + &quot;.dummy&quot;</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#       if sys.argv[3] == &#39;send&#39;:</span>
-<span class="c1">#           while not os.path.exists(sock_path):</span>
-<span class="c1">#               pass</span>
-<span class="c1">#           client = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)</span>
-<span class="c1">#           client.connect(sock_path)</span>
-<span class="c1">#           for i in range(iterations):</span>
-<span class="c1">#               fd = os.open(dummy_path(i), os.O_WRONLY | os.O_CREAT)</span>
-<span class="c1">#               ancdata = array.array(&#39;i&#39;, [fd])</span>
-<span class="c1">#               msg = bytes([i % 256])</span>
-<span class="c1">#               print(&quot;Sending fd &quot;, fd, &quot; (iteration #&quot;, i, &quot;)&quot;)</span>
-<span class="c1">#               client.sendmsg([msg], [(socket.SOL_SOCKET, socket.SCM_RIGHTS, ancdata)])</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#       else:</span>
-<span class="c1">#           assert sys.argv[3] == &#39;recv&#39;</span>
-<span class="c1">#</span>
-<span class="c1">#           if os.path.exists(dirname):</span>
-<span class="c1">#               raise Exception(&quot;Directory exists&quot;)</span>
-<span class="c1">#</span>
-<span class="c1">#           os.mkdir(dirname)</span>
-<span class="c1">#</span>
-<span class="c1">#           print(&quot;Opening socket...&quot;)</span>
-<span class="c1">#           server = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)</span>
-<span class="c1">#           server.bind(sock_path)</span>
-<span class="c1">#</span>
-<span class="c1">#           print(&quot;Listening...&quot;)</span>
-<span class="c1">#           for i in range(iterations):</span>
-<span class="c1">#               a = array.array(&#39;i&#39;)</span>
-<span class="c1">#               msg, ancdata, flags, addr = server.recvmsg(1, socket.CMSG_SPACE(a.itemsize))</span>
-<span class="c1">#               assert(len(ancdata) == 1)</span>
-<span class="c1">#               cmsg_level, cmsg_type, cmsg_data = ancdata[0]</span>
-<span class="c1">#               a.frombytes(cmsg_data)</span>
-<span class="c1">#               print(&quot;Received fd &quot;, a[0], &quot; (iteration #&quot;, i, &quot;)&quot;)</span>
-<span class="c1">#</span>
-<span class="c1">#           shutil.rmtree(dirname)</span>
-<span class="c1">#</span>
-<span class="c1"># Steps to reproduce:</span>
-<span class="c1">#</span>
-<span class="c1"># 1. Run two shells and set lower file descriptor limit in the receiving one:</span>
-<span class="c1"># (shell1) ulimit -n 1020</span>
-<span class="c1"># (shell2) ulimit -n 1022</span>
-<span class="c1">#</span>
-<span class="c1"># 2. Run the script above with the `recv` option in the first shell</span>
-<span class="c1"># (shell1) ./test_socket.py sock_tmp 1017 recv</span>
-<span class="c1">#</span>
-<span class="c1"># 3. Run the script with the `send` option in the second shell:</span>
-<span class="c1"># (shell2) ./test_socket.py sock_tmp 1017 send</span>
+    <span class="c1"># NOTE [ DataLoader on Linux and open files limit ]</span>
+    <span class="c1">#</span>
+    <span class="c1"># On Linux when DataLoader is used with multiprocessing we pass the data between</span>
+    <span class="c1"># the root process and the workers through SHM files. We remove those files from</span>
+    <span class="c1"># the filesystem as soon as they are created and keep them alive by</span>
+    <span class="c1"># passing around their file descriptors through AF_UNIX sockets. (See</span>
+    <span class="c1"># docs/source/multiprocessing.rst and &#39;Multiprocessing Technical Notes` in</span>
+    <span class="c1"># the wiki (https://github.com/pytorch/pytorch/wiki).)</span>
+    <span class="c1">#</span>
+    <span class="c1"># This sometimes leads us to exceeding the open files limit. When that happens,</span>
+    <span class="c1"># and the offending file descriptor is coming over a socket, the `socket` Python</span>
+    <span class="c1"># package silently strips the file descriptor from the message, setting only the</span>
+    <span class="c1"># `MSG_CTRUNC` flag (which might be a bit misleading since the manpage says that</span>
+    <span class="c1"># it _indicates that some control data were discarded due to lack of space in</span>
+    <span class="c1"># the buffer for ancillary data_). This might reflect the C implementation of</span>
+    <span class="c1"># AF_UNIX sockets.</span>
+    <span class="c1">#</span>
+    <span class="c1"># This behaviour can be reproduced with the script and instructions at the</span>
+    <span class="c1"># bottom of this note.</span>
+    <span class="c1">#</span>
+    <span class="c1"># When that happens, the standard Python `multiprocessing` (and not</span>
+    <span class="c1"># `torch.multiprocessing`) raises a `RuntimeError: received 0 items of ancdata`</span>
+    <span class="c1">#</span>
+    <span class="c1"># Sometimes, instead of the FD being stripped, you may get an `OSError:</span>
+    <span class="c1"># Too many open files`, both in the script below and in DataLoader. However,</span>
+    <span class="c1"># this is rare and seems to be nondeterministic.</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#   #!/usr/bin/env python3</span>
+    <span class="c1">#   import sys</span>
+    <span class="c1">#   import socket</span>
+    <span class="c1">#   import os</span>
+    <span class="c1">#   import array</span>
+    <span class="c1">#   import shutil</span>
+    <span class="c1">#   import socket</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#   if len(sys.argv) != 4:</span>
+    <span class="c1">#       print(&quot;Usage: &quot;, sys.argv[0], &quot; tmp_dirname iteration (send|recv)&quot;)</span>
+    <span class="c1">#       sys.exit(1)</span>
+    <span class="c1">#</span>
+    <span class="c1">#   if __name__ == &#39;__main__&#39;:</span>
+    <span class="c1">#       dirname = sys.argv[1]</span>
+    <span class="c1">#       sock_path = dirname + &quot;/sock&quot;</span>
+    <span class="c1">#       iterations = int(sys.argv[2])</span>
+    <span class="c1">#       def dummy_path(i):</span>
+    <span class="c1">#           return dirname + &quot;/&quot; + str(i) + &quot;.dummy&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#       if sys.argv[3] == &#39;send&#39;:</span>
+    <span class="c1">#           while not os.path.exists(sock_path):</span>
+    <span class="c1">#               pass</span>
+    <span class="c1">#           client = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)</span>
+    <span class="c1">#           client.connect(sock_path)</span>
+    <span class="c1">#           for i in range(iterations):</span>
+    <span class="c1">#               fd = os.open(dummy_path(i), os.O_WRONLY | os.O_CREAT)</span>
+    <span class="c1">#               ancdata = array.array(&#39;i&#39;, [fd])</span>
+    <span class="c1">#               msg = bytes([i % 256])</span>
+    <span class="c1">#               print(&quot;Sending fd &quot;, fd, &quot; (iteration #&quot;, i, &quot;)&quot;)</span>
+    <span class="c1">#               client.sendmsg([msg], [(socket.SOL_SOCKET, socket.SCM_RIGHTS, ancdata)])</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#       else:</span>
+    <span class="c1">#           assert sys.argv[3] == &#39;recv&#39;</span>
+    <span class="c1">#</span>
+    <span class="c1">#           if os.path.exists(dirname):</span>
+    <span class="c1">#               raise Exception(&quot;Directory exists&quot;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#           os.mkdir(dirname)</span>
+    <span class="c1">#</span>
+    <span class="c1">#           print(&quot;Opening socket...&quot;)</span>
+    <span class="c1">#           server = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)</span>
+    <span class="c1">#           server.bind(sock_path)</span>
+    <span class="c1">#</span>
+    <span class="c1">#           print(&quot;Listening...&quot;)</span>
+    <span class="c1">#           for i in range(iterations):</span>
+    <span class="c1">#               a = array.array(&#39;i&#39;)</span>
+    <span class="c1">#               msg, ancdata, flags, addr = server.recvmsg(1, socket.CMSG_SPACE(a.itemsize))</span>
+    <span class="c1">#               assert(len(ancdata) == 1)</span>
+    <span class="c1">#               cmsg_level, cmsg_type, cmsg_data = ancdata[0]</span>
+    <span class="c1">#               a.frombytes(cmsg_data)</span>
+    <span class="c1">#               print(&quot;Received fd &quot;, a[0], &quot; (iteration #&quot;, i, &quot;)&quot;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#           shutil.rmtree(dirname)</span>
+    <span class="c1">#</span>
+    <span class="c1"># Steps to reproduce:</span>
+    <span class="c1">#</span>
+    <span class="c1"># 1. Run two shells and set lower file descriptor limit in the receiving one:</span>
+    <span class="c1"># (shell1) ulimit -n 1020</span>
+    <span class="c1"># (shell2) ulimit -n 1022</span>
+    <span class="c1">#</span>
+    <span class="c1"># 2. Run the script above with the `recv` option in the first shell</span>
+    <span class="c1"># (shell1) ./test_socket.py sock_tmp 1017 recv</span>
+    <span class="c1">#</span>
+    <span class="c1"># 3. Run the script with the `send` option in the second shell:</span>
+    <span class="c1"># (shell2) ./test_socket.py sock_tmp 1017 send</span>
 
     <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Fetches data from `self._data_queue`.</span>
@@ -1806,7 +1920,9 @@
             <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">data</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DataLoader timed out after </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="si">}</span><span class="s1"> seconds&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;DataLoader timed out after </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span><span class="si">}</span><span class="s2"> seconds&quot;</span>
+                <span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory</span><span class="p">:</span>
             <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
                 <span class="n">success</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_try_get_data</span><span class="p">()</span>
@@ -1814,7 +1930,7 @@
                     <span class="k">return</span> <span class="n">data</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># while condition is false, i.e., pin_memory_thread died.</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Pin memory thread exited unexpectedly&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Pin memory thread exited unexpectedly&quot;</span><span class="p">)</span>
             <span class="c1"># In this case, `self._data_queue` is a `queue.Queue`,. But we don&#39;t</span>
             <span class="c1"># need to call `.task_done()` because we don&#39;t use `.join()`.</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1835,7 +1951,9 @@
             <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rcvd_idx</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_idx</span><span class="p">:</span>
                 <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_rcvd_idx</span><span class="p">]</span>
                 <span class="n">worker_id</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_workers_status</span><span class="p">[</span><span class="n">worker_id</span><span class="p">]:</span>  <span class="c1"># has data or is still active</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_workers_status</span><span class="p">[</span><span class="n">worker_id</span><span class="p">]</span>
+                <span class="p">):</span>  <span class="c1"># has data or is still active</span>
                     <span class="k">break</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_rcvd_idx</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_rcvd_idx</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1904,7 +2022,9 @@
         <span class="c1"># exhausting an `IterableDataset`. This should be used only when this</span>
         <span class="c1"># `_MultiProcessingDataLoaderIter` is going to continue running.</span>
 
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_workers_status</span><span class="p">[</span><span class="n">worker_id</span><span class="p">]</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_persistent_workers</span> <span class="ow">and</span> <span class="n">shutdown</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_workers_status</span><span class="p">[</span><span class="n">worker_id</span><span class="p">]</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_persistent_workers</span> <span class="ow">and</span> <span class="n">shutdown</span>
+        <span class="p">)</span>
 
         <span class="c1"># Signal termination to that specific worker.</span>
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_queues</span><span class="p">[</span><span class="n">worker_id</span><span class="p">]</span>
@@ -1929,7 +2049,11 @@
         <span class="c1"># Called when shutting down this `_MultiProcessingDataLoaderIter`.</span>
         <span class="c1"># See NOTE [ Data Loader Multiprocessing Shutdown Logic ] for details on</span>
         <span class="c1"># the logic of this function.</span>
-        <span class="k">if</span> <span class="n">_utils</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">_utils</span><span class="o">.</span><span class="n">python_exit_status</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">_utils</span><span class="o">.</span><span class="n">python_exit_status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">_utils</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">or</span> <span class="n">_utils</span><span class="o">.</span><span class="n">python_exit_status</span> <span class="ow">is</span> <span class="kc">True</span>
+            <span class="ow">or</span> <span class="n">_utils</span><span class="o">.</span><span class="n">python_exit_status</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="p">):</span>
             <span class="c1"># See (2) of the note. If Python is shutting down, do no-op.</span>
             <span class="k">return</span>
         <span class="c1"># Normal exit when last reference is gone / iterator is depleted.</span>
@@ -1943,7 +2067,7 @@
                 <span class="c1"># Exit `pin_memory_thread` first because exiting workers may leave</span>
                 <span class="c1"># corrupted data in `worker_result_queue` which `pin_memory_thread`</span>
                 <span class="c1"># reads from.</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_pin_memory_thread&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_pin_memory_thread&quot;</span><span class="p">):</span>
                     <span class="c1"># Use hasattr in case error happens before we set the attribute.</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_pin_memory_thread_done_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
                     <span class="c1"># Send something to pin_memory_thread in case it is waiting</span>

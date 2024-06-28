@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git90f6043 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd4b6ff6 ) &#x25BC</a>
     </div>
     
 
@@ -1248,6 +1248,63 @@
                 <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;`&quot;</span> <span class="o">+</span> <span class="n">item</span> <span class="o">+</span> <span class="s2">&quot;` is not &quot;</span> <span class="s2">&quot;an nn.Module&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">mod</span></div>
+
+<div class="viewcode-block" id="Module.set_submodule"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.set_submodule">[docs]</a>    <span class="k">def</span> <span class="nf">set_submodule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;Module&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the submodule given by ``target`` if it exists, otherwise throw an error.</span>
+
+<span class="sd">        For example, let&#39;s say you have an ``nn.Module`` ``A`` that</span>
+<span class="sd">        looks like this:</span>
+
+<span class="sd">        .. code-block:: text</span>
+
+<span class="sd">            A(</span>
+<span class="sd">                (net_b): Module(</span>
+<span class="sd">                    (net_c): Module(</span>
+<span class="sd">                        (conv): Conv2d(16, 33, kernel_size=(3, 3), stride=(2, 2))</span>
+<span class="sd">                    )</span>
+<span class="sd">                    (linear): Linear(in_features=100, out_features=200, bias=True)</span>
+<span class="sd">                )</span>
+<span class="sd">            )</span>
+
+<span class="sd">        (The diagram shows an ``nn.Module`` ``A``. ``A`` has a nested</span>
+<span class="sd">        submodule ``net_b``, which itself has two submodules ``net_c``</span>
+<span class="sd">        and ``linear``. ``net_c`` then has a submodule ``conv``.)</span>
+
+<span class="sd">        To overide the ``Conv2d`` with a new submodule ``Linear``, you</span>
+<span class="sd">        would call</span>
+<span class="sd">        ``set_submodule(&quot;net_b.net_c.conv&quot;, nn.Linear(33, 16))``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target: The fully-qualified string name of the submodule</span>
+<span class="sd">                to look for. (See above example for how to specify a</span>
+<span class="sd">                fully-qualified string.)</span>
+<span class="sd">            module: The module to set the submodule to.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the target string is empty</span>
+<span class="sd">            AttributeError: If the target string references an invalid</span>
+<span class="sd">                path or resolves to something that is not an</span>
+<span class="sd">                ``nn.Module``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot set the submodule without a target name!&quot;</span><span class="p">)</span>
+
+        <span class="n">atoms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">_get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; has no attribute `&quot;</span> <span class="o">+</span> <span class="n">item</span> <span class="o">+</span> <span class="s2">&quot;`&quot;</span>
+                <span class="p">)</span>
+
+            <span class="n">mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;`&quot;</span> <span class="o">+</span> <span class="n">item</span> <span class="o">+</span> <span class="s2">&quot;` is not an nn.Module&quot;</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Module.get_parameter"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.get_parameter">[docs]</a>    <span class="k">def</span> <span class="nf">get_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Parameter&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the parameter given by ``target`` if it exists, otherwise throw an error.</span>

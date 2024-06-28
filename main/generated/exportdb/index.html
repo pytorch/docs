@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git90f6043 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd4b6ff6 ) &#x25BC</a>
     </div>
     
 
@@ -761,24 +761,11 @@ Range constraints: {}
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, x: &quot;[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m&quot;):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-            true_graph_0 = self.true_graph_0
-            false_graph_0 = self.false_graph_0
-            conditional = torch.ops.higher_order.cond([34mFalse[0m, true_graph_0, false_graph_0, [34m[x][0m);  [2mtrue_graph_0 = false_graph_0 = x = None[0m
-            getitem: &quot;[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m&quot; = conditional[[34m0[0m];  [2mconditional = None[0m
-            return (getitem,)
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_class_method.py:34 in bar, code: return x.sin()[0m
+            sin: &quot;[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.sin.default(x);  [2mx = None[0m
+            return (sin,)
 
-        class &lt;lambda&gt;(torch.nn.Module):
-            def forward(self, x: &quot;f32[3]&quot;):
-                         cos: &quot;f32[3]&quot; = torch.ops.aten.cos.default(x);  x = None
-                return (cos,)
-
-        class &lt;lambda&gt;(torch.nn.Module):
-            def forward(self, x: &quot;f32[3]&quot;):
-                         sin: &quot;f32[3]&quot; = torch.ops.aten.sin.default(x);  x = None
-                return (sin,)
-
-Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;getitem&#39;), target=None)])
+Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;sin&#39;), target=None)])
 Range constraints: {}
 </pre></div>
 </div>
@@ -838,24 +825,11 @@ Range constraints: {}
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, x: &quot;[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m&quot;):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-            true_graph_0 = self.true_graph_0
-            false_graph_0 = self.false_graph_0
-            conditional = torch.ops.higher_order.cond([34mTrue[0m, true_graph_0, false_graph_0, [34m[x][0m);  [2mtrue_graph_0 = false_graph_0 = x = None[0m
-            getitem: &quot;[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m&quot; = conditional[[34m0[0m];  [2mconditional = None[0m
-            return (getitem,)
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nested_function.py:24 in inner_true_fn, code: return x + y[0m
+            add: &quot;[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.add.Tensor(x, x);  [2mx = None[0m
+            return (add,)
 
-        class &lt;lambda&gt;(torch.nn.Module):
-            def forward(self, x: &quot;f32[3]&quot;):
-                         add: &quot;f32[3]&quot; = torch.ops.aten.add.Tensor(x, x);  x = None
-                return (add,)
-
-        class &lt;lambda&gt;(torch.nn.Module):
-            def forward(self, x: &quot;f32[3]&quot;):
-                         sub: &quot;f32[3]&quot; = torch.ops.aten.sub.Tensor(x, x);  x = None
-                return (sub,)
-
-Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;getitem&#39;), target=None)])
+Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;add&#39;), target=None)])
 Range constraints: {}
 </pre></div>
 </div>
@@ -940,26 +914,12 @@ Range constraints: {}
             lift_fresh_copy: &quot;[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  [2mc_lifted_tensor_0 = None[0m
             detach: &quot;[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.detach.default(lift_fresh_copy);  [2mlift_fresh_copy = None[0m
 
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-            true_graph_0 = self.true_graph_0
-            false_graph_0 = self.false_graph_0
-            conditional = torch.ops.higher_order.cond([34mTrue[0m, true_graph_0, false_graph_0, [34m[x, add, detach][0m);  [2mtrue_graph_0 = false_graph_0 = x = add = detach = None[0m
-            getitem: &quot;[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m&quot; = conditional[[34m0[0m];  [2mconditional = None[0m
-            return (getitem,)
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:42 in true_fn, code: return x + y + z[0m
+            add_1: &quot;[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.add.Tensor(x, add);  [2mx = add = None[0m
+            add_2: &quot;[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.add.Tensor(add_1, detach);  [2madd_1 = detach = None[0m
+            return (add_2,)
 
-        class &lt;lambda&gt;(torch.nn.Module):
-            def forward(self, x: &quot;f32[6]&quot;, add: &quot;f32[6]&quot;, detach: &quot;f32[]&quot;):
-                         add_1: &quot;f32[6]&quot; = torch.ops.aten.add.Tensor(x, add);  x = add = None
-                add_2: &quot;f32[6]&quot; = torch.ops.aten.add.Tensor(add_1, detach);  add_1 = detach = None
-                return (add_2,)
-
-        class &lt;lambda&gt;(torch.nn.Module):
-            def forward(self, x: &quot;f32[6]&quot;, add: &quot;f32[6]&quot;, detach: &quot;f32[]&quot;):
-                         sub: &quot;f32[6]&quot; = torch.ops.aten.sub.Tensor(x, add);  x = add = None
-                sub_1: &quot;f32[6]&quot; = torch.ops.aten.sub.Tensor(sub, detach);  sub = detach = None
-                return (sub_1,)
-
-Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.CONSTANT_TENSOR: 4&gt;, arg=TensorArgument(name=&#39;c_lifted_tensor_0&#39;), target=&#39;lifted_tensor_0&#39;, persistent=None), InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;getitem&#39;), target=None)])
+Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.CONSTANT_TENSOR: 4&gt;, arg=TensorArgument(name=&#39;c_lifted_tensor_0&#39;), target=&#39;lifted_tensor_0&#39;, persistent=None), InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;add_2&#39;), target=None)])
 Range constraints: {}
 </pre></div>
 </div>
@@ -1000,11 +960,11 @@ Range constraints: {}
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, pred: &quot;[31mb8[0m[34m[][0m[2m[34m[0m[2m[32m[0m&quot;, x: &quot;[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m&quot;):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
             true_graph_0 = self.true_graph_0
             false_graph_0 = self.false_graph_0
-            conditional = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [34m[x][0m);  [2mpred = true_graph_0 = false_graph_0 = x = None[0m
-            getitem: &quot;[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m&quot; = conditional[[34m0[0m];  [2mconditional = None[0m
+            cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [34m[x][0m);  [2mpred = true_graph_0 = false_graph_0 = x = None[0m
+            getitem: &quot;[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m&quot; = cond[[34m0[0m];  [2mcond = None[0m
             return (getitem,)
 
         class &lt;lambda&gt;(torch.nn.Module):
@@ -1072,13 +1032,13 @@ Range constraints: {}
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, x: &quot;[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m&quot;, y: &quot;[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m&quot;):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
             sym_size_int: &quot;Sym(s0)&quot; = torch.ops.aten.sym_size.int(x, [34m0[0m)
             gt: &quot;Sym(s0 &gt; 2)&quot; = sym_size_int &gt; [34m2[0m;  [2msym_size_int = None[0m
             true_graph_0 = self.true_graph_0
             false_graph_0 = self.false_graph_0
-            conditional = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [34m[x, y][0m);  [2mgt = true_graph_0 = false_graph_0 = x = y = None[0m
-            getitem: &quot;[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m&quot; = conditional[[34m0[0m];  [2mconditional = None[0m
+            cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [34m[x, y][0m);  [2mgt = true_graph_0 = false_graph_0 = x = y = None[0m
+            getitem: &quot;[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m&quot; = cond[[34m0[0m];  [2mcond = None[0m
             return (getitem,)
 
         class &lt;lambda&gt;(torch.nn.Module):
@@ -1135,24 +1095,11 @@ Range constraints: {s0: VR[0, int_oo]}
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, x: &quot;[31mf32[0m[34m[6, 4, 3][0m[2m[34m[0m[2m[32m[0m&quot;):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-            true_graph_0 = self.true_graph_0
-            false_graph_0 = self.false_graph_0
-            conditional = torch.ops.higher_order.cond([34mFalse[0m, true_graph_0, false_graph_0, [34m[x][0m);  [2mtrue_graph_0 = false_graph_0 = x = None[0m
-            getitem: &quot;[31mf32[0m[34m[6, 4, 3][0m[2m[34m[0m[2m[32m[0m&quot; = conditional[[34m0[0m];  [2mconditional = None[0m
-            return (getitem,)
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_predicate.py:18 in &lt;lambda&gt;, code: return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x])[0m
+            sin: &quot;[31mf32[0m[34m[6, 4, 3][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.sin.default(x);  [2mx = None[0m
+            return (sin,)
 
-        class &lt;lambda&gt;(torch.nn.Module):
-            def forward(self, x: &quot;f32[6, 4, 3]&quot;):
-                         cos: &quot;f32[6, 4, 3]&quot; = torch.ops.aten.cos.default(x);  x = None
-                return (cos,)
-
-        class &lt;lambda&gt;(torch.nn.Module):
-            def forward(self, x: &quot;f32[6, 4, 3]&quot;):
-                         sin: &quot;f32[6, 4, 3]&quot; = torch.ops.aten.sin.default(x);  x = None
-                return (sin,)
-
-Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;getitem&#39;), target=None)])
+Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;sin&#39;), target=None)])
 Range constraints: {}
 </pre></div>
 </div>
@@ -1161,7 +1108,7 @@ Range constraints: {}
 <h3>constrain_as_size_example<a class="headerlink" href="#constrain-as-size-example" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a>, <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a>, <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -1222,7 +1169,7 @@ Range constraints: {u0: VR[0, 5], u1: VR[0, 5], u2: VR[0, 5]}
 <h3>constrain_as_value_example<a class="headerlink" href="#constrain-as-value-example" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a>, <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a>, <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -1689,7 +1636,7 @@ Range constraints: {}
 <h3>list_contains<a class="headerlink" href="#list-contains" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -2372,7 +2319,7 @@ Range constraints: {}
 </pre></div>
 </div>
 <p>Result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unsupported</span><span class="p">:</span> <span class="n">torch</span><span class="o">.*</span> <span class="n">op</span> <span class="n">returned</span> <span class="n">non</span><span class="o">-</span><span class="n">Tensor</span> <span class="nb">int</span> <span class="n">call_function</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">sym_min</span> <span class="n">at</span> <span class="mh">0x7f7bdea970d0</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unsupported</span><span class="p">:</span> <span class="n">torch</span><span class="o">.*</span> <span class="n">op</span> <span class="n">returned</span> <span class="n">non</span><span class="o">-</span><span class="n">Tensor</span> <span class="nb">int</span> <span class="n">call_function</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">sym_min</span> <span class="n">at</span> <span class="mh">0x7f2086b190d0</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </div>

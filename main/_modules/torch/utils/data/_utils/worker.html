@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git90f6043 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd4b6ff6 ) &#x25BC</a>
     </div>
     
 
@@ -532,21 +532,24 @@
 <span class="sd">static methods.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">queue</span>
+<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch._utils</span> <span class="kn">import</span> <span class="n">ExceptionWrapper</span>
-<span class="kn">import</span> <span class="nn">torch.multiprocessing</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">signal_handling</span><span class="p">,</span> <span class="n">MP_STATUS_CHECK_INTERVAL</span><span class="p">,</span> <span class="n">IS_WINDOWS</span><span class="p">,</span> <span class="n">HAS_NUMPY</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">HAS_NUMPY</span><span class="p">,</span> <span class="n">IS_WINDOWS</span><span class="p">,</span> <span class="n">MP_STATUS_CHECK_INTERVAL</span><span class="p">,</span> <span class="n">signal_handling</span>
+
+
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
 
 <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">ctypes</span>
-    <span class="kn">from</span> <span class="nn">ctypes.wintypes</span> <span class="kn">import</span> <span class="n">DWORD</span><span class="p">,</span> <span class="n">BOOL</span><span class="p">,</span> <span class="n">HANDLE</span>
+    <span class="kn">from</span> <span class="nn">ctypes.wintypes</span> <span class="kn">import</span> <span class="n">BOOL</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">,</span> <span class="n">HANDLE</span>
 
     <span class="c1"># On Windows, the parent ID of the worker process remains unchanged when the manager process</span>
     <span class="c1"># is gone, and the only way to check it through OS is to let the worker have a process handle</span>
@@ -556,7 +559,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">manager_pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getppid</span><span class="p">()</span>
 
             <span class="c1"># mypy cannot detect this code is windows only</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">WinDLL</span><span class="p">(</span><span class="s1">&#39;kernel32&#39;</span><span class="p">,</span> <span class="n">use_last_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">WinDLL</span><span class="p">(</span><span class="s2">&quot;kernel32&quot;</span><span class="p">,</span> <span class="n">use_last_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span><span class="o">.</span><span class="n">OpenProcess</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">(</span><span class="n">DWORD</span><span class="p">,</span> <span class="n">BOOL</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span><span class="o">.</span><span class="n">OpenProcess</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">HANDLE</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span><span class="o">.</span><span class="n">WaitForSingleObject</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">(</span><span class="n">HANDLE</span><span class="p">,</span> <span class="n">DWORD</span><span class="p">)</span>
@@ -564,7 +567,9 @@
 
             <span class="c1"># Value obtained from https://msdn.microsoft.com/en-us/library/ms684880.aspx</span>
             <span class="n">SYNCHRONIZE</span> <span class="o">=</span> <span class="mh">0x00100000</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">manager_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span><span class="o">.</span><span class="n">OpenProcess</span><span class="p">(</span><span class="n">SYNCHRONIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_pid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">manager_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span><span class="o">.</span><span class="n">OpenProcess</span><span class="p">(</span>
+                <span class="n">SYNCHRONIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_pid</span>
+            <span class="p">)</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_handle</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">WinError</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">())</span>  <span class="c1"># type: ignore[attr-defined]</span>
@@ -574,9 +579,13 @@
         <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_dead</span><span class="p">:</span>
                 <span class="c1"># Value obtained from https://msdn.microsoft.com/en-us/library/windows/desktop/ms687032.aspx</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">manager_dead</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span><span class="o">.</span><span class="n">WaitForSingleObject</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manager_handle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">manager_dead</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">kernel32</span><span class="o">.</span><span class="n">WaitForSingleObject</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manager_handle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+                <span class="p">)</span>
             <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_dead</span>
+
 <span class="k">else</span><span class="p">:</span>
+
     <span class="k">class</span> <span class="nc">ManagerWatchdog</span><span class="p">:</span>  <span class="c1"># type: ignore[no-redef]</span>
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">manager_pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getppid</span><span class="p">()</span>
@@ -587,6 +596,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">manager_dead</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getppid</span><span class="p">()</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_pid</span>
             <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_dead</span>
 
+
 <span class="n">_worker_info</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;WorkerInfo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
 
@@ -594,7 +604,7 @@
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">dataset</span><span class="p">:</span> <span class="s1">&#39;Dataset&#39;</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="s2">&quot;Dataset&quot;</span>
     <span class="n">__initialized</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -605,13 +615,15 @@
 
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__initialized</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot assign attributes to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> objects&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Cannot assign attributes to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> objects&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keys</span><span class="p">:</span>
-            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
 
 
@@ -645,14 +657,20 @@
 
 
 <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Dummy class used to signal the end of an IterableDataset&quot;&quot;&quot;</span>
+
+
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">_IterableDatasetStopIteration</span><span class="p">:</span>
     <span class="n">worker_id</span><span class="p">:</span> <span class="nb">int</span>
 
+
 <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Dummy class used to resume the fetching when worker reuse is enabled&quot;&quot;&quot;</span>
+
+
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">_ResumeIteration</span><span class="p">:</span>
     <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
 
 <span class="c1"># The function `_generate_state` is adapted from `numpy.random.SeedSequence`</span>
 <span class="c1"># from https://github.com/numpy/numpy/blob/main/numpy/random/bit_generator.pyx</span>
@@ -679,17 +697,18 @@
 <span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
 <span class="c1"># SOFTWARE.</span>
 
+
 <span class="c1"># This function generates an array of int32 as the seed for</span>
 <span class="c1"># `numpy.random`, in order to prevent state collision due to same</span>
 <span class="c1"># seed and algorithm for `numpy.random` and `random` modules.</span>
 <span class="c1"># TODO: Implement `SeedSequence` like object for `torch.random`</span>
 <span class="k">def</span> <span class="nf">_generate_state</span><span class="p">(</span><span class="n">base_seed</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">):</span>
-    <span class="n">INIT_A</span> <span class="o">=</span> <span class="mh">0x43b0d7e5</span>
-    <span class="n">MULT_A</span> <span class="o">=</span> <span class="mh">0x931e8875</span>
-    <span class="n">INIT_B</span> <span class="o">=</span> <span class="mh">0x8b51f9dd</span>
-    <span class="n">MULT_B</span> <span class="o">=</span> <span class="mh">0x58f38ded</span>
-    <span class="n">MIX_MULT_L</span> <span class="o">=</span> <span class="mh">0xca01f9dd</span>
-    <span class="n">MIX_MULT_R</span> <span class="o">=</span> <span class="mh">0x4973f715</span>
+    <span class="n">INIT_A</span> <span class="o">=</span> <span class="mh">0x43B0D7E5</span>
+    <span class="n">MULT_A</span> <span class="o">=</span> <span class="mh">0x931E8875</span>
+    <span class="n">INIT_B</span> <span class="o">=</span> <span class="mh">0x8B51F9DD</span>
+    <span class="n">MULT_B</span> <span class="o">=</span> <span class="mh">0x58F38DED</span>
+    <span class="n">MIX_MULT_L</span> <span class="o">=</span> <span class="mh">0xCA01F9DD</span>
+    <span class="n">MIX_MULT_R</span> <span class="o">=</span> <span class="mh">0x4973F715</span>
     <span class="n">XSHIFT</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">//</span> <span class="mi">2</span>
     <span class="n">MASK32</span> <span class="o">=</span> <span class="mh">0xFFFFFFFF</span>
 
@@ -734,9 +753,23 @@
         <span class="n">state</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_val</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">state</span>
 
-<span class="k">def</span> <span class="nf">_worker_loop</span><span class="p">(</span><span class="n">dataset_kind</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">index_queue</span><span class="p">,</span> <span class="n">data_queue</span><span class="p">,</span> <span class="n">done_event</span><span class="p">,</span>
-                 <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span><span class="p">,</span> <span class="n">base_seed</span><span class="p">,</span> <span class="n">init_fn</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">,</span>
-                 <span class="n">num_workers</span><span class="p">,</span> <span class="n">persistent_workers</span><span class="p">,</span> <span class="n">shared_seed</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">_worker_loop</span><span class="p">(</span>
+    <span class="n">dataset_kind</span><span class="p">,</span>
+    <span class="n">dataset</span><span class="p">,</span>
+    <span class="n">index_queue</span><span class="p">,</span>
+    <span class="n">data_queue</span><span class="p">,</span>
+    <span class="n">done_event</span><span class="p">,</span>
+    <span class="n">auto_collation</span><span class="p">,</span>
+    <span class="n">collate_fn</span><span class="p">,</span>
+    <span class="n">drop_last</span><span class="p">,</span>
+    <span class="n">base_seed</span><span class="p">,</span>
+    <span class="n">init_fn</span><span class="p">,</span>
+    <span class="n">worker_id</span><span class="p">,</span>
+    <span class="n">num_workers</span><span class="p">,</span>
+    <span class="n">persistent_workers</span><span class="p">,</span>
+    <span class="n">shared_seed</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="c1"># See NOTE [ Data Loader Multiprocessing Shutdown Logic ] for details on the</span>
     <span class="c1"># logic of this function.</span>
 
@@ -757,6 +790,7 @@
         <span class="k">if</span> <span class="n">HAS_NUMPY</span><span class="p">:</span>
             <span class="n">np_seed</span> <span class="o">=</span> <span class="n">_generate_state</span><span class="p">(</span><span class="n">base_seed</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">)</span>
             <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
             <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">np_seed</span><span class="p">)</span>
 
         <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">IterDataPipe</span>
@@ -769,8 +803,9 @@
             <span class="n">dataset</span> <span class="o">=</span> <span class="n">apply_random_seed</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">shared_rng</span><span class="p">)</span>
 
         <span class="k">global</span> <span class="n">_worker_info</span>
-        <span class="n">_worker_info</span> <span class="o">=</span> <span class="n">WorkerInfo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">worker_id</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
-                                  <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">_worker_info</span> <span class="o">=</span> <span class="n">WorkerInfo</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">worker_id</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span>
+        <span class="p">)</span>
 
         <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">_DatasetKind</span>
 
@@ -780,10 +815,13 @@
             <span class="k">if</span> <span class="n">init_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">init_fn</span><span class="p">(</span><span class="n">worker_id</span><span class="p">)</span>
 
-            <span class="n">fetcher</span> <span class="o">=</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">create_fetcher</span><span class="p">(</span><span class="n">dataset_kind</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span><span class="p">)</span>
+            <span class="n">fetcher</span> <span class="o">=</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">create_fetcher</span><span class="p">(</span>
+                <span class="n">dataset_kind</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span>
+            <span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="n">init_exception</span> <span class="o">=</span> <span class="n">ExceptionWrapper</span><span class="p">(</span>
-                <span class="n">where</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;in DataLoader worker process </span><span class="si">{</span><span class="n">worker_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">where</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;in DataLoader worker process </span><span class="si">{</span><span class="n">worker_id</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
 
         <span class="c1"># When using Iterable mode, some worker can exit earlier than others due</span>
         <span class="c1"># to the IterableDataset behaving differently for different workers.</span>
@@ -818,7 +856,8 @@
 
                 <span class="c1"># Recreate the fetcher for worker-reuse policy</span>
                 <span class="n">fetcher</span> <span class="o">=</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">create_fetcher</span><span class="p">(</span>
-                    <span class="n">dataset_kind</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span><span class="p">)</span>
+                    <span class="n">dataset_kind</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">auto_collation</span><span class="p">,</span> <span class="n">collate_fn</span><span class="p">,</span> <span class="n">drop_last</span>
+                <span class="p">)</span>
                 <span class="k">continue</span>
             <span class="k">elif</span> <span class="n">r</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># Received the final signal</span>
@@ -838,7 +877,10 @@
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">fetcher</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="ne">StopIteration</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dataset_kind</span> <span class="o">==</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">Iterable</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="ne">StopIteration</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="n">dataset_kind</span> <span class="o">==</span> <span class="n">_DatasetKind</span><span class="o">.</span><span class="n">Iterable</span>
+                    <span class="p">):</span>
                         <span class="n">data</span> <span class="o">=</span> <span class="n">_IterableDatasetStopIteration</span><span class="p">(</span><span class="n">worker_id</span><span class="p">)</span>
                         <span class="c1"># Set `iteration_end`</span>
                         <span class="c1">#   (1) to save future `next(...)` calls, and</span>
@@ -849,7 +891,8 @@
                         <span class="c1"># `ExceptionWrapper` does the correct thing.</span>
                         <span class="c1"># See NOTE [ Python Traceback Reference Cycle Problem ]</span>
                         <span class="n">data</span> <span class="o">=</span> <span class="n">ExceptionWrapper</span><span class="p">(</span>
-                            <span class="n">where</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;in DataLoader worker process </span><span class="si">{</span><span class="n">worker_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="n">where</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;in DataLoader worker process </span><span class="si">{</span><span class="n">worker_id</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
             <span class="n">data_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="n">idx</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
             <span class="k">del</span> <span class="n">data</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">r</span>  <span class="c1"># save memory</span>
     <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
