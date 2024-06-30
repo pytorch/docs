@@ -44,11 +44,11 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, pred: "[31mb8[0m[34m[][0m[2m[34m[0m[2m[32m[0m", x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
                 true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [34m[x][0m);  [2mpred = true_graph_0 = false_graph_0 = x = None[0m
-                getitem: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = cond[[34m0[0m];  [2mcond = None[0m
+                conditional = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [34m[x][0m);  [2mpred = true_graph_0 = false_graph_0 = x = None[0m
+                getitem: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = conditional[[34m0[0m];  [2mconditional = None[0m
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):

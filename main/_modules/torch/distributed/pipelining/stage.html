@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitfa6c0fe ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git2effbcf ) &#x25BC</a>
     </div>
     
 
@@ -530,7 +530,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
@@ -618,6 +618,7 @@
         <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dw_builder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -628,6 +629,13 @@
 <span class="sd">            group (Optional[dist.ProcessGroup]): The process group to use for communication.</span>
 <span class="sd">                If `None`, the default process group will be used.</span>
 <span class="sd">                Default: `None`.</span>
+<span class="sd">            dw_builder (Optional[Callable[[], Callable[[], None]]): If provided, dw_runner is a builder function</span>
+<span class="sd">                that will build a new dw_runner function that will run parts of module backward that were intentionally</span>
+<span class="sd">                skipped during the module&#39;s actual backward pass.  builder must be invoked by stage after stage runs</span>
+<span class="sd">                model backwards, and stage should save the latest dw_runner to run during weight pass.</span>
+<span class="sd">                When used with schedules that only have F and B steps, the fresh dw_runner function will be called as</span>
+<span class="sd">                part of B.</span>
+<span class="sd">                When used with F,B,W schedules, the dw_runner function implements &#39;W&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">stage_index</span> <span class="o">&gt;=</span> <span class="n">num_stages</span><span class="p">:</span>
@@ -640,6 +648,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span> <span class="o">=</span> <span class="n">num_stages</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">group</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span> <span class="o">=</span> <span class="n">dw_builder</span>
+
+        <span class="c1"># store dw_runner per microbatch_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># `group_rank` is rank in process group `group`.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">)</span>
@@ -655,15 +668,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fwd_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Caching chunk outputs for final output merge or reduction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_chunks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># Create stage id to group rank mapping</span>
-        <span class="c1"># In interleaved case, `group_rank` is stage index % group size.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">pg_world_size</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_world_size</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span><span class="p">):</span>
-            <span class="c1"># We only support wrapped-around interleaving</span>
-            <span class="n">peer_rank</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="n">pg_world_size</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">peer_rank</span><span class="p">)</span>
 
         <span class="c1"># Initialize has_backward to false; this will be set to true if loss</span>
         <span class="c1"># function is passed to pipeline schedule</span>
@@ -684,8 +688,11 @@
         <span class="c1"># grad reduction in DDP or FSDP.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="c1"># To be populated later</span>
+        <span class="c1"># To be populated later by the Schedule</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_size</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span><span class="p">)</span>
+        <span class="p">}</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">has_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1082,14 +1089,22 @@
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">def</span> <span class="nf">backward_one_chunk</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">loss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">full_backward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform backward pass on the module.</span>
 <span class="sd">        This should only be called once per microbatch.</span>
+
+<span class="sd">        If full_backward is True (the default), the full backward pass including weight and input gradients will be run,</span>
+<span class="sd">        and it is an error to call `backward_weight_one_chunk` for this bwd_chunk_id.</span>
+
+<span class="sd">        If full_backward is False, it is required that `dw_runner` was provided to the PipelineStage at __init__ time,</span>
+<span class="sd">        and a subsequent call to `backward_weight_one_chunk` is required to invoke dw_runner and complete the backward.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_backward</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">,</span> <span class="s2">&quot;Must provide dw_builder to run partial backward&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_chunk_id</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
 
         <span class="p">(</span>
@@ -1120,6 +1135,24 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Backwarded chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># noqa: G004</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_backward</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">,</span> <span class="s2">&quot;Must provide dw_builder to run partial backward&quot;</span>
+            <span class="k">assert</span> <span class="n">bwd_chunk_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">,</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Attempted to run partial backward for chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot; repeatedly without calling `backward_weight_one_chunk`&quot;</span>
+            <span class="p">)</span>
+            <span class="n">dw_runner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">dw_runner</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()()</span>
+
+    <span class="k">def</span> <span class="nf">backward_weight_one_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">bwd_chunk_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">,</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Attempted to run backward_weight_one_chunk for chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot; without first calling `backward_one_chunk(full_backward=False)`&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)()</span>
 
     <span class="k">def</span> <span class="nf">_validate_fwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Raises a RuntimeError if shapes of input args/kwargs do not match the shapes configured for this stage.&quot;&quot;&quot;</span>
@@ -1630,6 +1663,7 @@
 <span class="sd">        input_args (Union[torch.Tensor, Tuple[torch.tensor]], optional): The input arguments for the submodule.</span>
 <span class="sd">        output_args (Union[torch.Tensor, Tuple[torch.tensor]], optional): The output arguments for the submodule.</span>
 <span class="sd">        group (dist.ProcessGroup, optional): The process group for distributed training. If None, default group.</span>
+<span class="sd">        dw_builder: TODO clean up comments</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1641,8 +1675,9 @@
         <span class="n">input_args</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
         <span class="n">output_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dw_builder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">submodule</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">num_stages</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">submodule</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">num_stages</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">dw_builder</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="c1"># When we materialize the model partition on cuda, we call reset_parameters() if it is available</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
