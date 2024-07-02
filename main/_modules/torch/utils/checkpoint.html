@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gite62073d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7e4329c ) &#x25BC</a>
     </div>
     
 
@@ -1575,6 +1575,7 @@
 <span class="k">class</span> <span class="nc">_recomputation_hook</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">saved_tensors_hooks</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_frame_ref</span><span class="p">:</span> <span class="n">ReferenceType</span><span class="p">,</span> <span class="n">gid</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">pack_hook</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">requires_grad</span> <span class="k">else</span> <span class="n">x</span>
             <span class="n">target_frame</span> <span class="o">=</span> <span class="n">target_frame_ref</span><span class="p">()</span>
             <span class="k">assert</span> <span class="n">target_frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>  <span class="c1"># appease mypy</span>
             <span class="n">recomp_idx</span> <span class="o">=</span> <span class="n">target_frame</span><span class="o">.</span><span class="n">recomp_counter</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span>
@@ -1589,7 +1590,7 @@
                     <span class="c1"># we check if the number of tensors saved during forward and</span>
                     <span class="c1"># recomputation match.</span>
                     <span class="n">target_frame</span><span class="o">.</span><span class="n">ignore_saved_mismatch</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">x</span>
                 <span class="k">raise</span> <span class="n">CheckpointError</span><span class="p">(</span>
                     <span class="s2">&quot;torch.utils.checkpoint: trying to save more tensors during &quot;</span>
                     <span class="s2">&quot;recomputation than during the original forward pass.&quot;</span>
@@ -1602,14 +1603,14 @@
             <span class="k">if</span> <span class="n">holder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">_internal_assert</span><span class="p">(</span><span class="n">holder</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">gid</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
                 <span class="n">holder</span><span class="o">.</span><span class="n">handles</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">=</span> <span class="n">_Handle</span><span class="p">()</span>
-                <span class="n">target_frame</span><span class="o">.</span><span class="n">recomputed</span><span class="p">[</span><span class="n">gid</span><span class="p">][</span><span class="n">holder</span><span class="o">.</span><span class="n">handles</span><span class="p">[</span><span class="n">gid</span><span class="p">]]</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+                <span class="n">target_frame</span><span class="o">.</span><span class="n">recomputed</span><span class="p">[</span><span class="n">gid</span><span class="p">][</span><span class="n">holder</span><span class="o">.</span><span class="n">handles</span><span class="p">[</span><span class="n">gid</span><span class="p">]]</span> <span class="o">=</span> <span class="n">x</span>
 
             <span class="k">if</span> <span class="n">target_frame</span><span class="o">.</span><span class="n">early_stop</span> <span class="ow">and</span> <span class="n">target_frame</span><span class="o">.</span><span class="n">recomp_counter</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
                 <span class="n">target_frame</span><span class="o">.</span><span class="n">weak_holders</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="n">_StopRecomputationError</span>
             <span class="c1"># See Rule 6: [ retain_graph is True ] above</span>
-            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">x</span>
 
         <span class="k">def</span> <span class="nf">unpack_hook</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="c1"># See Rule 6: [ retain_graph is True ] above for an example of when</span>
