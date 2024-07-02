@@ -311,7 +311,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amp_examples.html">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
@@ -322,6 +322,7 @@
 <li class="toctree-l1"><a class="reference internal" href="extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -958,12 +959,30 @@ Please open an issue if you need any other option to be added here.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.serialization.add_safe_globals">
 <span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">add_safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/serialization.html#add_safe_globals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.add_safe_globals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Marks the given globals as safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
+<dd><p>Marks the given globals as safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load. For example, functions
+added to this list can be called during unpickling, classes could be instantiated
+and have state set.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>safe_globals</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – list of globals to mark as safe</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="go"># Running `torch.load(f.name, weights_only=True)` will fail with</span>
+<span class="go"># Unsupported global: GLOBAL __main__.MyTensor was not an allowed global by default.</span>
+<span class="go"># Check the code and make sure MyTensor is safe to be used when loaded from an arbitrary checkpoint.</span>
+<span class="gp">... </span>    <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">add_safe_globals</span><span class="p">([</span><span class="n">MyTensor</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go"># MyTensor([[-0.5024, -1.8152, -0.5455],</span>
+<span class="go">#          [-0.8234,  2.0500, -0.3657]])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">

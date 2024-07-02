@@ -310,7 +310,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../notes/amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
@@ -321,6 +321,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -514,6 +515,7 @@
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">struct</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -677,10 +679,28 @@
 
 <div class="viewcode-block" id="add_safe_globals"><a class="viewcode-back" href="../../notes/serialization.html#torch.add_safe_globals">[docs]</a><span class="k">def</span> <span class="nf">add_safe_globals</span><span class="p">(</span><span class="n">safe_globals</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Marks the given globals as safe for ``weights_only`` load.</span>
+<span class="sd">    Marks the given globals as safe for ``weights_only`` load. For example, functions</span>
+<span class="sd">    added to this list can be called during unpickling, classes could be instantiated</span>
+<span class="sd">    and have state set.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        safe_globals (List[Any]): list of globals to mark as safe</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(&quot;Can&#39;t torch.save(t, ...) as doctest thinks MyTensor is defined on torch.serialization&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; import tempfile</span>
+<span class="sd">        &gt;&gt;&gt; class MyTensor(torch.Tensor):</span>
+<span class="sd">        ...     pass</span>
+<span class="sd">        &gt;&gt;&gt; t = MyTensor(torch.randn(2, 3))</span>
+<span class="sd">        &gt;&gt;&gt; with tempfile.NamedTemporaryFile() as f:</span>
+<span class="sd">        ...     torch.save(t, f.name)</span>
+<span class="sd">        # Running `torch.load(f.name, weights_only=True)` will fail with</span>
+<span class="sd">        # Unsupported global: GLOBAL __main__.MyTensor was not an allowed global by default.</span>
+<span class="sd">        # Check the code and make sure MyTensor is safe to be used when loaded from an arbitrary checkpoint.</span>
+<span class="sd">        ...     torch.serialization.add_safe_globals([MyTensor])</span>
+<span class="sd">        ...     torch.load(f.name, weights_only=True)</span>
+<span class="sd">        # MyTensor([[-0.5024, -1.8152, -0.5455],</span>
+<span class="sd">        #          [-0.8234,  2.0500, -0.3657]])</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">_weights_only_unpickler</span><span class="o">.</span><span class="n">_add_safe_globals</span><span class="p">(</span><span class="n">safe_globals</span><span class="p">)</span></div>
 
@@ -1383,7 +1403,7 @@
     <span class="n">map_location</span><span class="p">:</span> <span class="n">MAP_LOCATION</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">pickle_module</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">weights_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">weights_only</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mmap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">:</span> <span class="n">Any</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -1487,12 +1507,38 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;torch.load&quot;</span><span class="p">)</span>
     <span class="n">UNSAFE_MESSAGE</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;Weights only load failed. Re-running `torch.load` with `weights_only` set to `False`&quot;</span>
-        <span class="s2">&quot; will likely succeed, but it can result in arbitrary code execution.&quot;</span>
-        <span class="s2">&quot; Do it only if you get the file from a trusted source. Alternatively, to load&quot;</span>
-        <span class="s2">&quot; with `weights_only` please check the recommended steps in the following error message.&quot;</span>
-        <span class="s2">&quot; WeightsUnpickler error: &quot;</span>
+        <span class="s2">&quot;Re-running `torch.load` with `weights_only` set to `False` will likely succeed, &quot;</span>
+        <span class="s2">&quot;but it can result in arbitrary code execution. Do it only if you got the file from a &quot;</span>
+        <span class="s2">&quot;trusted source.&quot;</span>
     <span class="p">)</span>
+    <span class="n">DOCS_MESSAGE</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Check the documentation of torch.load to learn more about types accepted by default with &quot;</span>
+        <span class="s2">&quot;weights_only https://pytorch.org/docs/stable/generated/torch.load.html.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_wo_message</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;GLOBAL (\S+) was not an allowed global by default.&quot;</span>
+        <span class="n">has_unsafe_global</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">has_unsafe_global</span><span class="p">:</span>
+            <span class="n">updated_message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Weights only load failed. This file can still be loaded, to do so you have two options &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">(1) </span><span class="si">{</span><span class="n">UNSAFE_MESSAGE</span><span class="si">}</span><span class="se">\n\t</span><span class="s2">(2) Alternatively, to load with `weights_only=True` please check &quot;</span>
+                <span class="s2">&quot;the recommended steps in the following error message.</span><span class="se">\n\t</span><span class="s2">WeightsUnpickler error: &quot;</span>
+                <span class="o">+</span> <span class="n">message</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">updated_message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Weights only load failed. </span><span class="si">{</span><span class="n">UNSAFE_MESSAGE</span><span class="si">}</span><span class="se">\n</span><span class="s2"> Please file an issue with the following &quot;</span>
+                <span class="s2">&quot;so that we can make `weights_only=True` compatible with your use case: WeightsUnpickler &quot;</span>
+                <span class="s2">&quot;error: &quot;</span> <span class="o">+</span> <span class="n">message</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">updated_message</span> <span class="o">+</span> <span class="n">DOCS_MESSAGE</span>
+
+    <span class="k">if</span> <span class="n">weights_only</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">weights_only</span><span class="p">,</span> <span class="n">warn_weights_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">warn_weights_only</span> <span class="o">=</span> <span class="kc">False</span>
+
     <span class="c1"># Add ability to force safe only weight loads via environment variable</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TORCH_FORCE_WEIGHTS_ONLY_LOAD&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">]:</span>
         <span class="n">weights_only</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1502,6 +1548,21 @@
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can not safely load weights when explicit pickle_module is specified&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">pickle_module</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">warn_weights_only</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;You are using `torch.load` with `weights_only=False` (the current default value), which uses &quot;</span>
+                    <span class="s2">&quot;the default pickle module implicitly. It is possible to construct malicious pickle data &quot;</span>
+                    <span class="s2">&quot;which will execute arbitrary code during unpickling (See &quot;</span>
+                    <span class="s2">&quot;https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). &quot;</span>
+                    <span class="s2">&quot;In a future release, the default value for `weights_only` will be flipped to `True`. This &quot;</span>
+                    <span class="s2">&quot;limits the functions that could be executed during unpickling. Arbitrary objects will no &quot;</span>
+                    <span class="s2">&quot;longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the &quot;</span>
+                    <span class="s2">&quot;user via `torch.serialization.add_safe_globals`. We recommend you start setting &quot;</span>
+                    <span class="s2">&quot;`weights_only=True` for any use case where you don&#39;t have full control of the loaded file. &quot;</span>
+                    <span class="s2">&quot;Please open an issue on GitHub for any issues related to this experimental feature.&quot;</span><span class="p">,</span>
+                    <span class="ne">FutureWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="n">pickle_module</span> <span class="o">=</span> <span class="n">pickle</span>
 
     <span class="c1"># make flipping default BC-compatible</span>
@@ -1544,12 +1605,14 @@
                                      <span class="n">overall_storage</span><span class="o">=</span><span class="n">overall_storage</span><span class="p">,</span>
                                      <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="n">pickle</span><span class="o">.</span><span class="n">UnpicklingError</span><span class="p">(</span><span class="n">UNSAFE_MESSAGE</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="kn">from</span> <span class="kc">None</span>
-                <span class="k">return</span> <span class="n">_load</span><span class="p">(</span><span class="n">opened_zipfile</span><span class="p">,</span>
-                             <span class="n">map_location</span><span class="p">,</span>
-                             <span class="n">pickle_module</span><span class="p">,</span>
-                             <span class="n">overall_storage</span><span class="o">=</span><span class="n">overall_storage</span><span class="p">,</span>
-                             <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">)</span>
+                        <span class="k">raise</span> <span class="n">pickle</span><span class="o">.</span><span class="n">UnpicklingError</span><span class="p">(</span><span class="n">_get_wo_message</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span> <span class="kn">from</span> <span class="kc">None</span>
+                <span class="k">return</span> <span class="n">_load</span><span class="p">(</span>
+                    <span class="n">opened_zipfile</span><span class="p">,</span>
+                    <span class="n">map_location</span><span class="p">,</span>
+                    <span class="n">pickle_module</span><span class="p">,</span>
+                    <span class="n">overall_storage</span><span class="o">=</span><span class="n">overall_storage</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">,</span>
+                <span class="p">)</span>
         <span class="k">if</span> <span class="n">mmap</span><span class="p">:</span>
             <span class="n">f_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;mmap can only be used with files saved with &quot;</span>
@@ -1559,8 +1622,10 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">_legacy_load</span><span class="p">(</span><span class="n">opened_file</span><span class="p">,</span> <span class="n">map_location</span><span class="p">,</span> <span class="n">_weights_only_unpickler</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">pickle</span><span class="o">.</span><span class="n">UnpicklingError</span><span class="p">(</span><span class="n">UNSAFE_MESSAGE</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="kn">from</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">_legacy_load</span><span class="p">(</span><span class="n">opened_file</span><span class="p">,</span> <span class="n">map_location</span><span class="p">,</span> <span class="n">pickle_module</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">)</span></div>
+                <span class="k">raise</span> <span class="n">pickle</span><span class="o">.</span><span class="n">UnpicklingError</span><span class="p">(</span><span class="n">_get_wo_message</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span> <span class="kn">from</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">_legacy_load</span><span class="p">(</span>
+            <span class="n">opened_file</span><span class="p">,</span> <span class="n">map_location</span><span class="p">,</span> <span class="n">pickle_module</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_load_args</span>
+        <span class="p">)</span></div>
 
 
 <span class="c1"># Register pickling support for layout instances such as</span>

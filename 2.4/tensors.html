@@ -311,7 +311,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="notes/amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
@@ -322,6 +322,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -2444,7 +2445,10 @@ the dimensions of a tensor.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.Tensor.xlogy_.html#torch.Tensor.xlogy_" title="torch.Tensor.xlogy_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor.xlogy_</span></code></a></p></td>
 <td><p>In-place version of <a class="reference internal" href="generated/torch.Tensor.xlogy.html#torch.Tensor.xlogy" title="torch.Tensor.xlogy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">xlogy()</span></code></a></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.zero_.html#torch.Tensor.zero_" title="torch.Tensor.zero_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor.zero_</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.xpu.html#torch.Tensor.xpu" title="torch.Tensor.xpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor.xpu</span></code></a></p></td>
+<td><p>Returns a copy of this object in XPU memory.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.Tensor.zero_.html#torch.Tensor.zero_" title="torch.Tensor.zero_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor.zero_</span></code></a></p></td>
 <td><p>Fills <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor with zeros.</p></td>
 </tr>
 </tbody>

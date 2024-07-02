@@ -310,7 +310,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../notes/amp_examples.html">CUDA Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/broadcasting.html">Broadcasting semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
@@ -321,6 +321,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -1474,6 +1475,9 @@
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch&#39;</span><span class="p">)</span>
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_cpu&#39;</span><span class="p">)</span>
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_python&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+        <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;sleef&quot;</span><span class="p">)</span>
+
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;libraries&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">libraries</span>
 
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;c++&#39;</span>
