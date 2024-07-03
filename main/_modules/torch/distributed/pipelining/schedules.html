@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7e4329c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git111f9b5 ) &#x25BC</a>
     </div>
     
 
@@ -528,7 +528,9 @@
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
 
+<span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
@@ -546,6 +548,7 @@
     <span class="s2">&quot;PipelineScheduleSingle&quot;</span><span class="p">,</span>
     <span class="s2">&quot;PipelineScheduleMulti&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Schedule1F1B&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ScheduleFlexibleInterleaved1F1B&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ScheduleGPipe&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ScheduleInterleaved1F1B&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ScheduleLoopedBFS&quot;</span><span class="p">,</span>
@@ -567,6 +570,25 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">str_map</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span>
 
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_str</span><span class="p">(</span><span class="n">action</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;W&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid computation type </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">F</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span>
+
+
+<span class="n">_action_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\d+)([F,B,W])(\d+)&quot;</span><span class="p">)</span>
+
 
 <span class="k">class</span> <span class="nc">_Action</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
     <span class="n">computation_type</span><span class="p">:</span> <span class="n">_ComputationType</span>
@@ -574,7 +596,27 @@
     <span class="n">stage_index</span><span class="p">:</span> <span class="nb">int</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">computation_type</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">microbatch_index</span><span class="si">}</span><span class="s2">_s</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">computation_type</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">microbatch_index</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_str</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reverse of __repr__</span>
+
+<span class="sd">        String should be formatted as [stage][action type][microbatch] e.g. `2F0`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="o">:=</span> <span class="n">_action_regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+            <span class="n">stage_index</span><span class="p">,</span> <span class="n">computation_type</span><span class="p">,</span> <span class="n">microbatch_index</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">_Action</span><span class="p">(</span>
+                <span class="n">_ComputationType</span><span class="o">.</span><span class="n">from_str</span><span class="p">(</span><span class="n">computation_type</span><span class="p">),</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">microbatch_index</span><span class="p">),</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">stage_index</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">str</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid action string: </span><span class="si">{</span><span class="nb">str</span><span class="si">}</span><span class="s2">, should be formatted as [stage][action type][microbatch] e.g. 2F0&quot;</span>
+        <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_PipelineSchedule</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
@@ -1139,6 +1181,88 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
                 <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="n">n_microbatches</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_dump_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dump a CSV representation of the schedule into a file with the provided filename.</span>
+<span class="sd">        This API will most likely get renamed/refactored so is marked as internal for now.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">:</span>
+                <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_validate_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO(whc) this should be merged with the logic in test_schedule.py#L453-L554</span>
+        <span class="k">def</span> <span class="nf">_validate_rank_actions</span><span class="p">(</span>
+            <span class="n">actions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">_Action</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]],</span>
+            <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="c1"># We will count all the actions per stage and ensure they happen in a valid order</span>
+            <span class="c1"># (e.g. F before B before W for a given microbatch)</span>
+            <span class="n">stage_actions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="n">_ComputationType</span><span class="p">,</span> <span class="n">Set</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">stage_id</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="n">F</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+                    <span class="n">B</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+                    <span class="n">W</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">stage_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_stages</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+                        <span class="n">action</span><span class="p">,</span> <span class="n">_Action</span>
+                    <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Got an invalid action: </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2">, expected instance of _Action&quot;</span>
+                    <span class="n">s_id</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span>
+                    <span class="n">ctype</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span>
+                    <span class="n">mb_id</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span>
+                    <span class="k">if</span> <span class="n">ctype</span> <span class="o">==</span> <span class="n">F</span><span class="p">:</span>
+                        <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mb_id</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">ctype</span> <span class="o">==</span> <span class="n">B</span><span class="p">:</span>
+                        <span class="k">assert</span> <span class="p">(</span>
+                            <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">]</span>
+                        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Running Backward for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Forward&quot;</span>
+                        <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">B</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mb_id</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">ctype</span> <span class="o">==</span> <span class="n">W</span><span class="p">:</span>
+                        <span class="k">assert</span> <span class="p">(</span>
+                            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_full_backward</span>
+                        <span class="p">),</span> <span class="s2">&quot;Schedule contains &#39;W&#39; actions, but is configured to use full backward&quot;</span>
+                        <span class="k">assert</span> <span class="p">(</span>
+                            <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">B</span><span class="p">]</span>
+                        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Running Weight for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Backward&quot;</span>
+                        <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">W</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mb_id</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">s_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">ctype</span> <span class="ow">in</span> <span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">W</span><span class="p">):</span>
+                    <span class="n">stage_mb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">ctype</span><span class="p">])</span>
+                    <span class="k">assert</span> <span class="p">(</span>
+                        <span class="n">stage_mb</span> <span class="o">==</span> <span class="n">num_microbatches</span>
+                    <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="n">stage_mb</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ctype</span><span class="si">}</span><span class="s2"> microbatches for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">num_microbatches</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Schedule has incorrect number of ranks - expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="si">}</span><span class="s2">, actual </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="n">rank</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Schedule is missing actions for rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">_validate_rank_actions</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_load_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a CSV representation of the schedule from a file with the provided filename.</span>
+<span class="sd">        This API will most likely get renamed/refactored so is marked as internal for now.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+            <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reader</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">_Action</span><span class="o">.</span><span class="n">from_str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_schedule</span><span class="p">()</span>
+
 <div class="viewcode-block" id="PipelineScheduleMulti.step"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleMulti.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">losses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run one iteration of the pipeline schedule with *whole-batch* input.</span>
@@ -1359,6 +1483,82 @@
         <span class="k">return</span> <span class="n">rank_ops</span></div>
 
 
+<span class="k">def</span> <span class="nf">_get_1f1b_rank_ops</span><span class="p">(</span>
+    <span class="n">n_local_stages</span><span class="p">,</span>
+    <span class="n">pp_group_size</span><span class="p">,</span>
+    <span class="n">warmup_ops</span><span class="p">,</span>
+    <span class="n">fwd_bwd_ops</span><span class="p">,</span>
+    <span class="n">cooldown_ops</span><span class="p">,</span>
+    <span class="n">rank</span><span class="p">,</span>
+    <span class="n">forward_stage_index</span><span class="p">,</span>
+    <span class="n">backward_stage_index</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># All stages start with handling microbatch 0</span>
+    <span class="n">fwd_stage_mb_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">bwd_stage_mb_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="c1"># Store the list of operations used for that rank</span>
+    <span class="n">rank_ops</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Pre-padding, rank starts with no-ops based on the warmup.</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rank</span><span class="p">):</span>
+        <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="c1"># These are used to calculate the number of slots to fill with no-ops, to account for the delay in warmup</span>
+    <span class="c1"># when we want to wait for the backward to trickle back up and start 1f1b to align all ranks.</span>
+    <span class="c1"># Formula:</span>
+    <span class="c1"># pre-padding + warmup_ops + post_warmup_ops = earliest time step of first backward</span>
+    <span class="c1"># post_warmup_ops = [earliest time step of first backward] - (warmup_ops + pre-padding)</span>
+    <span class="c1"># earliest time step of first backward = [local_stages * group_size + 2 * (group_size - 1 - rank)]</span>
+    <span class="c1"># warmup_ops = calculated above</span>
+    <span class="n">post_warmup_ops</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">n_local_stages</span> <span class="o">*</span> <span class="n">pp_group_size</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">pp_group_size</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">rank</span><span class="p">)</span>
+    <span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">warmup_ops</span> <span class="o">+</span> <span class="n">rank</span><span class="p">)</span>
+
+    <span class="n">total_ops</span> <span class="o">=</span> <span class="n">warmup_ops</span> <span class="o">+</span> <span class="n">fwd_bwd_ops</span> <span class="o">+</span> <span class="n">cooldown_ops</span>
+
+    <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_ops</span><span class="p">):</span>
+        <span class="c1"># Warmup phase</span>
+        <span class="k">if</span> <span class="n">op</span> <span class="o">&lt;</span> <span class="n">warmup_ops</span><span class="p">:</span>
+            <span class="n">fwd_stage_index</span> <span class="o">=</span> <span class="n">forward_stage_index</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+            <span class="c1"># This will assign the current microbatch index and update it as well</span>
+            <span class="n">fwd_stage_mb_index</span><span class="p">[</span><span class="n">fwd_stage_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">mb_index</span> <span class="o">:=</span> <span class="n">fwd_stage_mb_index</span><span class="p">[</span><span class="n">fwd_stage_index</span><span class="p">]</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">,</span> <span class="n">fwd_stage_index</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="n">warmup_ops</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># This is the last step in the warmup phase, so we need to wait for the backward to trickle back up</span>
+                <span class="n">rank_ops</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">post_warmup_ops</span><span class="p">)</span>
+        <span class="c1"># 1F1B Phase (forward and backward)</span>
+        <span class="k">elif</span> <span class="n">warmup_ops</span> <span class="o">&lt;=</span> <span class="n">op</span> <span class="o">&lt;</span> <span class="n">warmup_ops</span> <span class="o">+</span> <span class="n">fwd_bwd_ops</span><span class="p">:</span>
+            <span class="n">fwd_stage_index</span> <span class="o">=</span> <span class="n">forward_stage_index</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+            <span class="n">fwd_stage_mb_index</span><span class="p">[</span><span class="n">fwd_stage_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">fwd_mb_index</span> <span class="o">:=</span> <span class="n">fwd_stage_mb_index</span><span class="p">[</span><span class="n">fwd_stage_index</span><span class="p">]</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">,</span> <span class="n">fwd_mb_index</span><span class="p">,</span> <span class="n">fwd_stage_index</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">bwd_stage_index</span> <span class="o">=</span> <span class="n">backward_stage_index</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+            <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">bwd_mb_index</span> <span class="o">:=</span> <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">,</span> <span class="n">bwd_stage_index</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="c1"># Cooldown phase</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># During cooldown phase, we need steps to align with 1f1b happening in other ranks</span>
+            <span class="c1"># TODO: we don&#39;t need to always append, after all 1f1b are finished we can stop appending None</span>
+            <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">bwd_stage_index</span> <span class="o">=</span> <span class="n">backward_stage_index</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+            <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">bwd_mb_index</span> <span class="o">:=</span> <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">,</span> <span class="n">bwd_stage_index</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">rank_ops</span>
+
+
 <div class="viewcode-block" id="ScheduleInterleaved1F1B"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B">[docs]</a><span class="k">class</span> <span class="nc">ScheduleInterleaved1F1B</span><span class="p">(</span><span class="n">PipelineScheduleMulti</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Interleaved 1F1B schedule.</span>
@@ -1450,77 +1650,122 @@
             <span class="p">)</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">local_index</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">rank</span>
 
-        <span class="c1"># Dictionary for tracking {stage index : current microbatch index}</span>
-        <span class="c1"># All stages start with handling microbatch 0</span>
-        <span class="n">fwd_stage_mb_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        <span class="n">bwd_stage_mb_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_get_1f1b_rank_ops</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">,</span>
+            <span class="n">warmup_ops</span><span class="p">,</span>
+            <span class="n">fwd_bwd_ops</span><span class="p">,</span>
+            <span class="n">cooldown_ops</span><span class="p">,</span>
+            <span class="n">rank</span><span class="p">,</span>
+            <span class="n">forward_stage_index</span><span class="p">,</span>
+            <span class="n">backward_stage_index</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
-        <span class="c1"># Store the list of operations used for that rank</span>
-        <span class="n">rank_ops</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="c1"># Pre-padding, rank starts with no-ops based on the warmup.</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rank</span><span class="p">):</span>
-            <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
-        <span class="c1"># These are used to calculate the number of slots to fill with no-ops, to account for the delay in warmup</span>
-        <span class="c1"># when we want to wait for the backward to trickle back up and start 1f1b to align all ranks.</span>
-        <span class="c1"># Formula:</span>
-        <span class="c1"># pre-padding + warmup_ops + post_warmup_ops = earliest time step of first backward</span>
-        <span class="c1"># post_warmup_ops = [earliest time step of first backward] - (warmup_ops + pre-padding)</span>
-        <span class="c1"># earliest time step of first backward = [local_stages * group_size + 2 * (group_size - 1 - rank)]</span>
-        <span class="c1"># warmup_ops = calculated above</span>
-        <span class="n">post_warmup_ops</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span>
-            <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">rank</span><span class="p">)</span>
-        <span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">warmup_ops</span> <span class="o">+</span> <span class="n">rank</span><span class="p">)</span>
+<div class="viewcode-block" id="ScheduleFlexibleInterleaved1F1B"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.ScheduleFlexibleInterleaved1F1B">[docs]</a><span class="k">class</span> <span class="nc">ScheduleFlexibleInterleaved1F1B</span><span class="p">(</span><span class="n">PipelineScheduleMulti</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The Flexible Interleaved 1F1B schedule.</span>
 
-        <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_ops</span><span class="p">):</span>
-            <span class="c1"># Warmup phase</span>
-            <span class="k">if</span> <span class="n">op</span> <span class="o">&lt;</span> <span class="n">warmup_ops</span><span class="p">:</span>
-                <span class="n">fwd_stage_index</span> <span class="o">=</span> <span class="n">forward_stage_index</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
-                <span class="c1"># This will assign the current microbatch index and update it as well</span>
-                <span class="n">fwd_stage_mb_index</span><span class="p">[</span><span class="n">fwd_stage_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">mb_index</span> <span class="o">:=</span> <span class="n">fwd_stage_mb_index</span><span class="p">[</span><span class="n">fwd_stage_index</span><span class="p">]</span>
-                <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">_Action</span><span class="p">(</span><span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">,</span> <span class="n">fwd_stage_index</span><span class="p">)</span>
-                <span class="p">)</span>
-                <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="n">warmup_ops</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="c1"># This is the last step in the warmup phase, so we need to wait for the backward to trickle back up</span>
-                    <span class="n">rank_ops</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">post_warmup_ops</span><span class="p">)</span>
-            <span class="c1"># 1F1B Phase (forward and backward)</span>
-            <span class="k">elif</span> <span class="n">warmup_ops</span> <span class="o">&lt;=</span> <span class="n">op</span> <span class="o">&lt;</span> <span class="n">warmup_ops</span> <span class="o">+</span> <span class="n">fwd_bwd_ops</span><span class="p">:</span>
-                <span class="n">fwd_stage_index</span> <span class="o">=</span> <span class="n">forward_stage_index</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
-                <span class="n">fwd_stage_mb_index</span><span class="p">[</span><span class="n">fwd_stage_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">fwd_mb_index</span> <span class="o">:=</span> <span class="n">fwd_stage_mb_index</span><span class="p">[</span><span class="n">fwd_stage_index</span><span class="p">]</span>
-                <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">_Action</span><span class="p">(</span><span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">,</span> <span class="n">fwd_mb_index</span><span class="p">,</span> <span class="n">fwd_stage_index</span><span class="p">)</span>
-                <span class="p">)</span>
+<span class="sd">    This schedule is mostly similar to the interleaved 1F1B schedule.</span>
+<span class="sd">    It differs by being relaxing the requirement of num_microbatch % pp_size == 0.</span>
+<span class="sd">    Using the flex_pp schedule, we will have num_rounds = max(1, n_microbatches // pp_group_size) and</span>
+<span class="sd">    it works as long as n_microbatches % num_rounds is 0. As a few examples, support</span>
 
-                <span class="n">bwd_stage_index</span> <span class="o">=</span> <span class="n">backward_stage_index</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
-                <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">bwd_mb_index</span> <span class="o">:=</span> <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span>
-                <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">_Action</span><span class="p">(</span><span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">,</span> <span class="n">bwd_stage_index</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="c1"># Cooldown phase</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># During cooldown phase, we need steps to align with 1f1b happening in other ranks</span>
-                <span class="c1"># TODO: we don&#39;t need to always append, after all 1f1b are finished we can stop appending None</span>
-                <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-                <span class="n">bwd_stage_index</span> <span class="o">=</span> <span class="n">backward_stage_index</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
-                <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">bwd_mb_index</span> <span class="o">:=</span> <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span>
-                <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">_Action</span><span class="p">(</span><span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">,</span> <span class="n">bwd_stage_index</span><span class="p">)</span>
-                <span class="p">)</span>
+<span class="sd">    1. pp_group_size = 4, n_microbatches = 10. We will have num_rounds = 2 and n_microbatches % 2 is 0.</span>
+<span class="sd">    2. pp_group_size = 4, n_microbatches = 3. We will have num_rounds = 1 and n_microbatches % 1 is 0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-        <span class="c1"># Post padding</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span> <span class="o">-</span> <span class="n">rank</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">rank_ops</span></div>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">stages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_PipelineStageBase</span><span class="p">],</span>
+        <span class="n">n_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">loss_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">args_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">TensorChunkSpec</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kwargs_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TensorChunkSpec</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_merge_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">group_size</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">stages</span><span class="o">=</span><span class="n">stages</span><span class="p">,</span>
+            <span class="n">n_microbatches</span><span class="o">=</span><span class="n">n_microbatches</span><span class="p">,</span>
+            <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+            <span class="n">args_chunk_spec</span><span class="o">=</span><span class="n">args_chunk_spec</span><span class="p">,</span>
+            <span class="n">kwargs_chunk_spec</span><span class="o">=</span><span class="n">kwargs_chunk_spec</span><span class="p">,</span>
+            <span class="n">output_merge_spec</span><span class="o">=</span><span class="n">output_merge_spec</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stages</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">group_rank</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_rounds</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_microbatches</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">microbatches_per_round</span> <span class="o">=</span> <span class="n">n_microbatches</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_rounds</span>
+        <span class="k">if</span> <span class="n">n_microbatches</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_rounds</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Flexible Interleaved 1F1B requires the number of microbatches to be a &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;multiple of the number of rounds (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_rounds</span><span class="si">}</span><span class="s2">), &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;but got </span><span class="si">{</span><span class="n">n_microbatches</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># 1. Create the pipeline_order (all ranks do this calculation)</span>
+        <span class="c1"># This will be used to keep track of the current state of the entire pipeline</span>
+        <span class="c1"># pipeline_order[rank] = [Action(computation_type, microbatch_index, stage_index), ...]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">):</span>
+            <span class="n">rank_ops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_single_rank_operations</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank_ops</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_single_rank_operations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]:</span>
+        <span class="k">def</span> <span class="nf">get_rank_warmup_ops</span><span class="p">(</span><span class="n">rank</span><span class="p">):</span>
+            <span class="c1"># Warms up operations for last stage</span>
+            <span class="n">warmups_ops_last_stage</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">microbatches_per_round</span>
+            <span class="c1"># Increment warmup operations by 2 for each hop away from the last stage</span>
+            <span class="n">warmup_ops</span> <span class="o">=</span> <span class="n">warmups_ops_last_stage</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">rank</span><span class="p">)</span>
+            <span class="c1"># We cannot have more warmup operations than there are number of microbatches, so cap it there</span>
+            <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">warmup_ops</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span><span class="p">)</span>
+
+        <span class="n">warmup_ops</span> <span class="o">=</span> <span class="n">get_rank_warmup_ops</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span>
+        <span class="n">microbatch_ops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span>
+        <span class="c1"># fwd_bwd_ops should encompass the remaining forwards</span>
+        <span class="n">fwd_bwd_ops</span> <span class="o">=</span> <span class="n">microbatch_ops</span> <span class="o">-</span> <span class="n">warmup_ops</span>
+        <span class="c1"># cooldown_ops should encompass the remaining backwards</span>
+        <span class="n">cooldown_ops</span> <span class="o">=</span> <span class="n">microbatch_ops</span> <span class="o">-</span> <span class="n">fwd_bwd_ops</span>
+        <span class="c1"># total ops encompass both forward and backward ops</span>
+        <span class="n">total_ops</span> <span class="o">=</span> <span class="n">warmup_ops</span> <span class="o">+</span> <span class="n">fwd_bwd_ops</span> <span class="o">+</span> <span class="n">cooldown_ops</span>
+        <span class="c1"># warmup_ops + fwd_bwd_ops * 2 + cooldown_ops == microbatch_ops * 2</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;rank </span><span class="si">%s</span><span class="s2">, warmup_ops </span><span class="si">%s</span><span class="s2">, 1f1b </span><span class="si">%s</span><span class="s2">, cooldown_ops </span><span class="si">%s</span><span class="s2"> total_ops </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">rank</span><span class="p">,</span>
+            <span class="n">warmup_ops</span><span class="p">,</span>
+            <span class="n">fwd_bwd_ops</span><span class="p">,</span>
+            <span class="n">cooldown_ops</span><span class="p">,</span>
+            <span class="n">total_ops</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Calculates the stage index based on step and pp_group_size</span>
+
+        <span class="k">def</span> <span class="nf">forward_stage_index</span><span class="p">(</span><span class="n">step</span><span class="p">):</span>
+            <span class="c1"># Get the local index from 0 to n_local_stages-1</span>
+            <span class="n">local_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">step</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">microbatches_per_round</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">local_index</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">rank</span>
+
+        <span class="k">def</span> <span class="nf">backward_stage_index</span><span class="p">(</span><span class="n">step</span><span class="p">):</span>
+            <span class="n">local_index</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span>
+                <span class="o">-</span> <span class="mi">1</span>
+                <span class="o">-</span> <span class="p">((</span><span class="n">step</span> <span class="o">-</span> <span class="n">warmup_ops</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">microbatches_per_round</span><span class="p">)</span>
+                <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">local_index</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">)</span> <span class="o">+</span> <span class="n">rank</span>
+
+        <span class="k">return</span> <span class="n">_get_1f1b_rank_ops</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">,</span>
+            <span class="n">warmup_ops</span><span class="p">,</span>
+            <span class="n">fwd_bwd_ops</span><span class="p">,</span>
+            <span class="n">cooldown_ops</span><span class="p">,</span>
+            <span class="n">rank</span><span class="p">,</span>
+            <span class="n">forward_stage_index</span><span class="p">,</span>
+            <span class="n">backward_stage_index</span><span class="p">,</span>
+        <span class="p">)</span></div>
 </pre></div>
 
              </article>

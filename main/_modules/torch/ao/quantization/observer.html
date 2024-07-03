@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7e4329c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git111f9b5 ) &#x25BC</a>
     </div>
     
 
@@ -1465,8 +1465,6 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        bins: Number of bins to use for the histogram</span>
-<span class="sd">        upsample_rate: Factor by which the histograms are upsampled, this is</span>
-<span class="sd">                       used to interpolate histograms with varying ranges across observations</span>
 <span class="sd">        dtype: dtype argument to the `quantize` node needed to implement the</span>
 <span class="sd">               reference model spec</span>
 <span class="sd">        qscheme: Quantization scheme to be used</span>
@@ -1491,7 +1489,6 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2048</span><span class="p">,</span>
-        <span class="n">upsample_rate</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
         <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">,</span>
         <span class="n">qscheme</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">per_tensor_affine</span><span class="p">,</span>
         <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1521,7 +1518,7 @@
             <span class="n">factory_kwargs</span><span class="o">=</span><span class="n">factory_kwargs</span><span class="p">,</span>
             <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
             <span class="n">is_dynamic</span><span class="o">=</span><span class="n">is_dynamic</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">factory_kwargs</span><span class="p">(</span><span class="n">factory_kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">=</span> <span class="n">bins</span>
@@ -1529,7 +1526,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;min_val&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">),</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;max_val&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">),</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dst_nbins</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">torch</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">bits</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span> <span class="o">=</span> <span class="n">upsample_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">16</span>  <span class="c1"># used to reduce quantization errors when upscaling histogram</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_norm</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">delta_begin</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">delta_end</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">density</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
@@ -1566,12 +1565,16 @@
 
         <span class="c1"># which dst_bins the beginning and end of src_bin belong to?</span>
         <span class="n">dst_bin_of_begin</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">src_bin_begin</span><span class="p">,</span> <span class="n">dst_bin_width</span><span class="p">,</span> <span class="n">rounding_mode</span><span class="o">=</span><span class="s1">&#39;floor&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dst_nbins</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">src_bin_begin</span><span class="p">,</span> <span class="n">dst_bin_width</span><span class="p">,</span> <span class="n">rounding_mode</span><span class="o">=</span><span class="s2">&quot;floor&quot;</span><span class="p">),</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dst_nbins</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">dst_bin_of_begin_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">dst_bin_of_begin</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">dst_bin_width</span>
 
         <span class="n">dst_bin_of_end</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">src_bin_end</span><span class="p">,</span> <span class="n">dst_bin_width</span><span class="p">,</span> <span class="n">rounding_mode</span><span class="o">=</span><span class="s1">&#39;floor&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dst_nbins</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">src_bin_end</span><span class="p">,</span> <span class="n">dst_bin_width</span><span class="p">,</span> <span class="n">rounding_mode</span><span class="o">=</span><span class="s2">&quot;floor&quot;</span><span class="p">),</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dst_nbins</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">density</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span> <span class="o">/</span> <span class="n">bin_width</span>
 
@@ -1579,9 +1582,11 @@
 
         <span class="n">delta_begin</span> <span class="o">=</span> <span class="n">src_bin_begin</span> <span class="o">-</span> <span class="n">dst_bin_of_begin_center</span>
         <span class="n">delta_end</span> <span class="o">=</span> <span class="n">dst_bin_width</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">norm</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_norm</span><span class="p">(</span><span class="n">delta_begin</span><span class="p">,</span>
-                               <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">*</span> <span class="n">delta_end</span><span class="p">,</span>
-                               <span class="n">density</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_norm</span><span class="p">(</span>
+            <span class="n">delta_begin</span><span class="p">,</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">*</span> <span class="n">delta_end</span><span class="p">,</span>
+            <span class="n">density</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="n">norm</span> <span class="o">+=</span> <span class="p">(</span><span class="n">dst_bin_of_end</span> <span class="o">-</span> <span class="n">dst_bin_of_begin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_norm</span><span class="p">(</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="o">-</span><span class="n">dst_bin_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">dst_bin_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">density</span>
@@ -1658,68 +1663,82 @@
         <span class="n">new_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span> <span class="o">+</span> <span class="n">bin_width</span> <span class="o">*</span> <span class="p">(</span><span class="n">end_bin</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">new_min</span><span class="p">,</span> <span class="n">new_max</span>
 
-    <span class="k">def</span> <span class="nf">_adjust_min_max</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">combined_min</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">combined_max</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">upsample_rate</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-        <span class="c1"># We ensure that:</span>
-        <span class="c1"># (combined_max - combined_min)/(downsample_rate*Nbins) = (max - min)/(upsample_rate*Nbins)</span>
-        <span class="c1"># This allows us to have a common grid of resolution s, where we can align</span>
-        <span class="c1"># the input histogram</span>
-        <span class="c1"># start_idx maps min_val to the histogram bin index.</span>
+    <span class="k">def</span> <span class="nf">_upscale_histogram</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">histogram</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">orig_min</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">orig_max</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">update_min</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">update_max</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="c1"># this turns the histogram into a more fine-coarsed histogram to reduce</span>
+        <span class="c1"># bin quantization errors</span>
+        <span class="n">histogram</span> <span class="o">=</span> <span class="n">histogram</span><span class="o">.</span><span class="n">repeat_interleave</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span>
+        <span class="n">bin_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">orig_max</span> <span class="o">-</span> <span class="n">orig_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span><span class="p">)</span>
+        <span class="n">mid_points_histogram</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">orig_min</span><span class="p">,</span> <span class="n">orig_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">orig_min</span><span class="o">.</span><span class="n">device</span><span class="p">)[</span>
+                <span class="p">:</span><span class="o">-</span><span class="mi">1</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">histogram</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">bin_size</span>
+        <span class="p">)</span>
+        <span class="n">new_bin_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">update_min</span> <span class="o">-</span> <span class="n">update_max</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span>
+        <span class="n">boundaries_new_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">update_min</span><span class="p">,</span> <span class="n">update_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">update_min</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span>
+            <span class="n">histogram</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span>
+        <span class="c1"># this maps the mid-poits of the histogram to the new histogram&#39;s space</span>
+        <span class="n">bucket_assignments</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">bucketize</span><span class="p">(</span><span class="n">mid_points_histogram</span><span class="p">,</span> <span class="n">boundaries_new_histogram</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="c1"># this then maps the histogram mid-points in the new space, weighted by the original histogram&#39;s values</span>
+        <span class="c1"># this is just the old histogram in the new histogram&#39;s space</span>
 
-        <span class="c1"># Compute the width of histogram bins is a straightforward solution, where</span>
-        <span class="c1"># hist_bin_width = (self.max_val - self.min_val) / (self.bins * upsample_rate)</span>
-        <span class="c1"># Underflow happens if the numerator is close to the smallest positive subnormal number of FP32</span>
-        <span class="c1"># Therefore, we avoid such division operation.</span>
-        <span class="n">downsample_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
-                <span class="p">((</span><span class="n">combined_max</span> <span class="o">-</span> <span class="n">combined_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_val</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="p">))</span> <span class="o">*</span> <span class="n">upsample_rate</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">update_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span>
+            <span class="n">bucket_assignments</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">histogram</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span>
         <span class="p">)</span>
-        <span class="n">e</span> <span class="o">=</span> <span class="n">downsample_rate</span> <span class="o">/</span> <span class="n">upsample_rate</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_val</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">combined_max</span> <span class="o">-</span> <span class="n">combined_min</span><span class="p">)</span>
-        <span class="n">start_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">min_val</span> <span class="o">-</span> <span class="n">combined_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_val</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">*</span> <span class="n">upsample_rate</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="p">)</span>
-        <span class="n">combined_max</span> <span class="o">=</span> <span class="n">combined_max</span> <span class="o">+</span> <span class="n">e</span>
-        <span class="k">return</span> <span class="n">combined_min</span><span class="p">,</span> <span class="n">combined_max</span><span class="p">,</span> <span class="n">downsample_rate</span><span class="p">,</span> <span class="n">start_idx</span>
+        <span class="k">return</span> <span class="n">update_histogram</span>
 
     <span class="k">def</span> <span class="nf">_combine_histograms</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">orig_hist</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-        <span class="n">new_hist</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-        <span class="n">upsample_rate</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">downsample_rate</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">start_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">Nbins</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">orig_min</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">orig_max</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">update_hist</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">update_min</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">update_max</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="c1"># First up-sample the histogram with new data by a factor of L</span>
-        <span class="c1"># This creates an approximate probability density thats piecewise constant</span>
-        <span class="n">upsampled_histogram</span> <span class="o">=</span> <span class="n">new_hist</span><span class="o">.</span><span class="n">repeat_interleave</span><span class="p">(</span><span class="n">upsample_rate</span><span class="p">)</span>
-        <span class="c1"># Now insert the upsampled histogram into the output</span>
-        <span class="c1"># histogram, which is initialized with zeros.</span>
-        <span class="c1"># The offset at which the histogram is introduced is determined</span>
-        <span class="c1"># by the start index as the output histogram can cover a wider range</span>
-        <span class="n">histogram_with_output_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">Nbins</span> <span class="o">*</span> <span class="n">downsample_rate</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">orig_hist</span><span class="o">.</span><span class="n">device</span>
-        <span class="p">)</span>
-        <span class="n">histogram_with_output_range</span><span class="p">[</span>
-            <span class="n">start_idx</span> <span class="p">:</span> <span class="n">Nbins</span> <span class="o">*</span> <span class="n">upsample_rate</span> <span class="o">+</span> <span class="n">start_idx</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="n">upsampled_histogram</span>
-        <span class="c1"># Compute integral histogram, double precision is needed to ensure</span>
-        <span class="c1"># that there are no overflows</span>
-        <span class="n">integral_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span>
-            <span class="n">histogram_with_output_range</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">double</span>
-        <span class="p">)[</span><span class="n">downsample_rate</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">::</span> <span class="n">downsample_rate</span><span class="p">]</span>
-        <span class="c1"># Finally perform interpolation</span>
-        <span class="n">shifted_integral_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nbins</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">orig_hist</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-        <span class="n">shifted_integral_histogram</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Nbins</span><span class="p">]</span> <span class="o">=</span> <span class="n">integral_histogram</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">interpolated_histogram</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">integral_histogram</span> <span class="o">-</span> <span class="n">shifted_integral_histogram</span>
-        <span class="p">)</span> <span class="o">/</span> <span class="n">upsample_rate</span>
-        <span class="n">orig_hist</span> <span class="o">=</span> <span class="n">orig_hist</span> <span class="o">+</span> <span class="n">interpolated_histogram</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">orig_hist</span>
+        <span class="c1"># If the new min and max are the same as the current min and max,</span>
+        <span class="c1"># we can just add the new histogram to the original histogram</span>
+        <span class="k">if</span> <span class="n">update_min</span> <span class="o">==</span> <span class="n">orig_min</span> <span class="ow">and</span> <span class="n">update_max</span> <span class="o">==</span> <span class="n">orig_max</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">orig_hist</span> <span class="o">+</span> <span class="n">update_hist</span>
 
-    <span class="k">def</span> <span class="nf">reset_histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">min_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">max_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># If the orig hist only has one value (i.e., the min and max are the same)</span>
+        <span class="c1"># we can just add it into new histogram</span>
+        <span class="k">if</span> <span class="n">orig_min</span> <span class="o">==</span> <span class="n">orig_max</span><span class="p">:</span>
+            <span class="n">bin_value</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">update_hist</span><span class="p">)</span>
+            <span class="n">transformed_orig_hist</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">histc</span><span class="p">(</span><span class="n">orig_min</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">update_min</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">update_max</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+                <span class="o">*</span> <span class="n">bin_value</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">transformed_orig_hist</span> <span class="o">+</span> <span class="n">update_hist</span>
+
+        <span class="c1"># We assume the update_hist is already in the target range, we will map the orig_max to it</span>
+        <span class="k">assert</span> <span class="n">update_min</span> <span class="o">&lt;=</span> <span class="n">orig_min</span>
+        <span class="k">assert</span> <span class="n">update_max</span> <span class="o">&gt;=</span> <span class="n">orig_max</span>
+
+        <span class="c1"># Now we need to turn the old_histogram, into the range of the new histogram</span>
+        <span class="n">transformed_orig_hist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_upscale_histogram</span><span class="p">(</span>
+            <span class="n">orig_hist</span><span class="p">,</span>
+            <span class="n">orig_min</span><span class="p">,</span>
+            <span class="n">orig_max</span><span class="p">,</span>
+            <span class="n">update_min</span><span class="p">,</span>
+            <span class="n">update_max</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">update_hist</span> <span class="o">+</span> <span class="n">transformed_orig_hist</span>
+
+    <span class="k">def</span> <span class="nf">reset_histogram</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">min_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">max_val</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">min_val</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">min_val</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">max_val</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -1727,11 +1746,11 @@
         <span class="k">assert</span> <span class="p">(</span>
             <span class="n">min_val</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">max_val</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
         <span class="p">),</span> <span class="s2">&quot;histogram min/max values must be scalar.&quot;</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">histc</span><span class="p">(</span>
-            <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">min_val</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">max_val</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">histogram</span>  <span class="c1"># type: ignore[arg-type]</span>
-        <span class="p">)</span>
+        <span class="n">new_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">histc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">min_val</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">max_val</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">new_histogram</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">new_histogram</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_orig</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_orig</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>  <span class="c1"># pyre-ignore[14]</span>
         <span class="k">if</span> <span class="n">x_orig</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x_orig</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x_orig</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
@@ -1745,65 +1764,43 @@
             <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">x_orig</span>
             <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">aminmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">min_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span>
-        <span class="n">max_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span>
-        <span class="n">same_values</span> <span class="o">=</span> <span class="n">min_val</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">==</span> <span class="n">max_val</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="c1"># When (max_val - min_val) is very small, downsample_rate will be large.</span>
-        <span class="c1"># This can cause OOM issue in the allocation of histogram_with_output_range tensor.</span>
-        <span class="n">close_values</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_val</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-6</span>
-        <span class="n">is_uninitialized</span> <span class="o">=</span> <span class="n">min_val</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">max_val</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">is_uninitialized</span> <span class="ow">or</span> <span class="n">same_values</span> <span class="ow">or</span> <span class="n">close_values</span><span class="p">:</span>
-            <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">=</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reset_histogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
+
+        <span class="n">current_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span>
+        <span class="n">current_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span>
+
+        <span class="n">is_uninitialized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_uninitialized</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_histogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">new_min</span><span class="p">,</span> <span class="n">new_max</span> <span class="o">=</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span>
-            <span class="n">combined_min</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">new_min</span><span class="p">,</span> <span class="n">min_val</span><span class="p">)</span>
-            <span class="n">combined_max</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">new_max</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
-            <span class="c1"># combine the existing histogram and new histogram into 1 histogram</span>
-            <span class="c1"># We do this by first upsampling the histogram to a dense grid</span>
-            <span class="c1"># and then downsampling the histogram efficiently</span>
-            <span class="p">(</span>
-                <span class="n">combined_min</span><span class="p">,</span>
-                <span class="n">combined_max</span><span class="p">,</span>
-                <span class="n">downsample_rate</span><span class="p">,</span>
-                <span class="n">start_idx</span><span class="p">,</span>
-            <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_min_max</span><span class="p">(</span><span class="n">combined_min</span><span class="p">,</span> <span class="n">combined_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="p">(</span>
-                <span class="n">combined_min</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">combined_max</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
-            <span class="p">),</span> <span class="s2">&quot;histogram min/max values must be scalar.&quot;</span>
+            <span class="n">update_min</span><span class="p">,</span> <span class="n">update_max</span> <span class="o">=</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span>
+            <span class="n">new_min</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">current_min</span><span class="p">,</span> <span class="n">update_min</span><span class="p">)</span>
+            <span class="n">new_max</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">current_max</span><span class="p">,</span> <span class="n">update_max</span><span class="p">)</span>
 
             <span class="c1"># TODO: For some reason, this is required for it to pass torchscript test</span>
-            <span class="c1"># combined_min and combined_max should already have requires_grad set to False</span>
-            <span class="n">combined_min</span><span class="p">,</span> <span class="n">combined_max</span> <span class="o">=</span> <span class="n">combined_min</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">combined_max</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
-
-            <span class="n">combined_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">histc</span><span class="p">(</span>
-                <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">combined_min</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">combined_max</span>  <span class="c1"># type: ignore[arg-type]</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="n">combined_min</span> <span class="o">==</span> <span class="n">min_val</span> <span class="ow">and</span> <span class="n">combined_max</span> <span class="o">==</span> <span class="n">max_val</span><span class="p">:</span>
-                <span class="n">combined_histogram</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span>
+            <span class="c1"># new_min and new_max should already have requires_grad set to False</span>
+            <span class="n">new_min</span><span class="p">,</span> <span class="n">new_max</span> <span class="o">=</span> <span class="n">new_min</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">new_max</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+            <span class="n">update_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">histc</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">new_min</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="n">new_max</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">new_min</span> <span class="o">==</span> <span class="n">current_min</span> <span class="ow">and</span> <span class="n">new_max</span> <span class="o">==</span> <span class="n">current_max</span><span class="p">:</span>
+                <span class="n">combined_histogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span> <span class="o">+</span> <span class="n">update_histogram</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">combined_histogram</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">combined_histogram</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">MAX_HISTOGRAM_SIZE</span> <span class="o">=</span> <span class="mf">1e9</span>  <span class="c1"># 1 GB</span>
-                <span class="n">histogram_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">*</span> <span class="n">downsample_rate</span> <span class="o">*</span> <span class="mi">4</span>
-                <span class="k">if</span> <span class="n">histogram_size</span> <span class="o">&gt;</span> <span class="n">MAX_HISTOGRAM_SIZE</span><span class="p">:</span>
-                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                        <span class="s2">&quot;Fail to combine histograms. Fall back to reset histogram.&quot;</span>
-                    <span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">reset_histogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">combined_histogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_combine_histograms</span><span class="p">(</span>
-                        <span class="n">combined_histogram</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span><span class="p">,</span>
-                        <span class="n">downsample_rate</span><span class="p">,</span>
-                        <span class="n">start_idx</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span>
-                    <span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">combined_histogram</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">combined_histogram</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">combined_min</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">combined_min</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">combined_max</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">combined_max</span><span class="p">)</span>
+                <span class="n">combined_histogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_combine_histograms</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="p">,</span>
+                    <span class="n">current_min</span><span class="p">,</span>
+                    <span class="n">current_max</span><span class="p">,</span>
+                    <span class="n">update_histogram</span><span class="p">,</span>
+                    <span class="n">new_min</span><span class="p">,</span>
+                    <span class="n">new_max</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">combined_histogram</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">combined_histogram</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">new_min</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">new_min</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">new_max</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">new_max</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">x_orig</span>
 
@@ -1817,7 +1814,9 @@
                 <span class="s2">&quot;must run observer before calling calculate_qparams.</span><span class="se">\</span>
 <span class="s2">                                    Returning default scale and zero point &quot;</span>
             <span class="p">)</span>
-            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span>
+            <span class="p">)</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="p">),</span> <span class="p">(</span>
             <span class="s2">&quot;The number of bins in histogram should be equal to the number of bins &quot;</span>
             <span class="s2">&quot;supplied while making this observer&quot;</span>

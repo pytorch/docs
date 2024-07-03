@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7e4329c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git111f9b5 ) &#x25BC</a>
     </div>
     
 
@@ -539,7 +539,7 @@ Pipeline parallelism can be an effective technique for:</p>
 <ul class="simple">
 <li><p>large-scale training</p></li>
 <li><p>bandwidth-limited clusters</p></li>
-<li><p>large model inference.</p></li>
+<li><p>large model inference</p></li>
 </ul>
 <p>The above scenarios share a commonality that the computation per device cannot
 hide the communication of conventional parallelism, for example, the weight
@@ -879,7 +879,17 @@ change.</p>
 <p><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code> is for schedules that assigns <em>only one</em> stage per rank.
 <code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code> is for schedules that assigns multiple stages per rank.</p>
 <p>For example, <code class="docutils literal notranslate"><span class="pre">ScheduleGPipe</span></code> and <code class="docutils literal notranslate"><span class="pre">Schedule1F1B</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code>.
-Whereas, <code class="docutils literal notranslate"><span class="pre">ScheduleInterleaved1F1B</span></code> and <code class="docutils literal notranslate"><span class="pre">ScheduleLoopedBFS</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code>.</p>
+Whereas, <code class="docutils literal notranslate"><span class="pre">ScheduleFlexibleInterleaved1F1B</span></code>, <code class="docutils literal notranslate"><span class="pre">ScheduleInterleaved1F1B</span></code> and <code class="docutils literal notranslate"><span class="pre">ScheduleLoopedBFS</span></code>
+are subclasses of <code class="docutils literal notranslate"><span class="pre">PipelineScheduleMulti</span></code>.</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this heading">¶</a></h2>
+<p>You can turn on additional logging using the <cite>TORCH_LOGS</cite> environment variable from [<cite>torch._logging</cite>](<a class="reference external" href="https://pytorch.org/docs/main/logging.html#module-torch._logging">https://pytorch.org/docs/main/logging.html#module-torch._logging</a>):</p>
+<ul class="simple">
+<li><p><cite>TORCH_LOGS=+pp</cite> will display <cite>logging.DEBUG</cite> messages and all levels above it.</p></li>
+<li><p><cite>TORCH_LOGS=pp</cite> will display <cite>logging.INFO</cite> messages and above.</p></li>
+<li><p><cite>TORCH_LOGS=-pp</cite> will display <cite>logging.WARNING</cite> messages and above.</p></li>
+</ul>
 </div>
 <div class="section" id="module-torch.distributed.pipelining">
 <span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-torch.distributed.pipelining" title="Permalink to this heading">¶</a></h2>
@@ -1068,6 +1078,22 @@ Will perform one forward and one backward on the microbatches in steady state.</
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.pipelining.schedules.ScheduleFlexibleInterleaved1F1B">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.schedules.</span></span><span class="sig-name descname"><span class="pre">ScheduleFlexibleInterleaved1F1B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/schedules.html#ScheduleFlexibleInterleaved1F1B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.schedules.ScheduleFlexibleInterleaved1F1B" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Flexible Interleaved 1F1B schedule.</p>
+<p>This schedule is mostly similar to the interleaved 1F1B schedule.
+It differs by being relaxing the requirement of num_microbatch % pp_size == 0.
+Using the flex_pp schedule, we will have num_rounds = max(1, n_microbatches // pp_group_size) and
+it works as long as n_microbatches % num_rounds is 0. As a few examples, support</p>
+<ol class="arabic simple">
+<li><p>pp_group_size = 4, n_microbatches = 10. We will have num_rounds = 2 and n_microbatches % 2 is 0.</p></li>
+<li><p>pp_group_size = 4, n_microbatches = 3. We will have num_rounds = 1 and n_microbatches % 1 is 0.</p></li>
+</ol>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.pipelining.schedules.</span></span><span class="sig-name descname"><span class="pre">ScheduleInterleaved1F1B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_microbatches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_chunk_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_merge_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/pipelining/schedules.html#ScheduleInterleaved1F1B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Interleaved 1F1B schedule.
@@ -1214,6 +1240,7 @@ if (url)
 </ul>
 </li>
 <li><a class="reference internal" href="#implementing-your-own-schedule">Implementing Your Own Schedule</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
 <li><a class="reference internal" href="#module-torch.distributed.pipelining">API Reference</a><ul>
 <li><a class="reference internal" href="#model-split-apis">Model Split APIs</a><ul>
 <li><a class="reference internal" href="#torch.distributed.pipelining.SplitPoint"><code class="docutils literal notranslate"><span class="pre">SplitPoint</span></code></a></li>
@@ -1236,6 +1263,7 @@ if (url)
 <li><a class="reference internal" href="#module-torch.distributed.pipelining.schedules">Pipeline Schedules</a><ul>
 <li><a class="reference internal" href="#torch.distributed.pipelining.schedules.ScheduleGPipe"><code class="docutils literal notranslate"><span class="pre">ScheduleGPipe</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.schedules.Schedule1F1B"><code class="docutils literal notranslate"><span class="pre">Schedule1F1B</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.pipelining.schedules.ScheduleFlexibleInterleaved1F1B"><code class="docutils literal notranslate"><span class="pre">ScheduleFlexibleInterleaved1F1B</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B"><code class="docutils literal notranslate"><span class="pre">ScheduleInterleaved1F1B</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.schedules.ScheduleLoopedBFS"><code class="docutils literal notranslate"><span class="pre">ScheduleLoopedBFS</span></code></a></li>
 <li><a class="reference internal" href="#torch.distributed.pipelining.schedules.PipelineScheduleSingle"><code class="docutils literal notranslate"><span class="pre">PipelineScheduleSingle</span></code></a><ul>

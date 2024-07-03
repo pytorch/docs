@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7e4329c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git111f9b5 ) &#x25BC</a>
     </div>
     
 
@@ -845,18 +845,25 @@
         <span class="k">for</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">static_input_surface</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
             <span class="n">callables</span><span class="p">,</span> <span class="n">sample_args</span><span class="p">,</span> <span class="n">per_callable_static_input_surfaces</span>
         <span class="p">):</span>
+            <span class="n">grad_inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">outputs_grad</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
             <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_warmup_iters</span><span class="p">):</span>
                 <span class="n">outputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">_pytree</span><span class="o">.</span><span class="n">tree_leaves</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span>
-                <span class="n">grad_inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
-                    <span class="n">outputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">),</span>
-                    <span class="n">inputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">static_input_surface</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">),</span>
-                    <span class="n">grad_outputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span>
-                        <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">requires_grad</span>
-                    <span class="p">),</span>
-                    <span class="n">only_inputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">allow_unused</span><span class="o">=</span><span class="n">allow_unused_input</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">del</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">grad_inputs</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+                <span class="n">outputs_grad</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs_grad</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">grad_inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+                        <span class="n">outputs</span><span class="o">=</span><span class="n">outputs_grad</span><span class="p">,</span>
+                        <span class="n">inputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span>
+                            <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">static_input_surface</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">requires_grad</span>
+                        <span class="p">),</span>
+                        <span class="n">grad_outputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span>
+                            <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">requires_grad</span>
+                        <span class="p">),</span>
+                        <span class="n">only_inputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">allow_unused</span><span class="o">=</span><span class="n">allow_unused_input</span><span class="p">,</span>
+                    <span class="p">)</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="n">outputs</span><span class="p">,</span> <span class="n">outputs_grad</span><span class="p">,</span> <span class="n">grad_inputs</span><span class="p">]:</span>
+                <span class="k">del</span> <span class="n">v</span>
+
     <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
 
     <span class="c1"># All captures here share a mempool. To avoid replays corrupting each other&#39;s memory,</span>
@@ -889,14 +896,17 @@
             <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">requires_grad</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">static_outputs</span>
         <span class="p">)</span>
 
-        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">bwd_graph</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="n">mempool</span><span class="p">):</span>
-            <span class="n">grad_inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
-                <span class="n">outputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">static_outputs</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">),</span>
-                <span class="n">inputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">static_input_surface</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">),</span>
-                <span class="n">grad_outputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">static_grad_outputs</span> <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
-                <span class="n">only_inputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">allow_unused</span><span class="o">=</span><span class="n">allow_unused_input</span><span class="p">,</span>
-            <span class="p">)</span>
+        <span class="n">outputs_grad</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">static_outputs</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+        <span class="n">grad_inputs</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs_grad</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">bwd_graph</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="n">mempool</span><span class="p">):</span>
+                <span class="n">grad_inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+                    <span class="n">outputs</span><span class="o">=</span><span class="n">outputs_grad</span><span class="p">,</span>
+                    <span class="n">inputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">static_input_surface</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">),</span>
+                    <span class="n">grad_outputs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">static_grad_outputs</span> <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="n">only_inputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">allow_unused</span><span class="o">=</span><span class="n">allow_unused_input</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="c1"># Constructs a tuple suitable for returning from Graphed.backward:</span>
         <span class="c1"># Pads out the actually-needed grads with Nones in gradient slots for inputs that don&#39;t require grad.</span>
@@ -904,7 +914,7 @@
         <span class="n">static_grad_inputs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">grad_idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">static_input_surface</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">requires_grad</span> <span class="ow">and</span> <span class="n">grad_inputs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">static_grad_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grad_inputs</span><span class="p">[</span><span class="n">grad_idx</span><span class="p">])</span>
                 <span class="n">grad_idx</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
