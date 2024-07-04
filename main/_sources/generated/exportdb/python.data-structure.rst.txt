@@ -27,10 +27,12 @@ Original source code:
             y = y * elements["x2"]
             return {"y": y}
     
-    example_inputs = (torch.randn(3, 2), torch.tensor(4))
+    example_args = (torch.randn(3, 2), torch.tensor(4))
     tags = {"python.data-structure"}
     model = Dictionary()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -67,8 +69,6 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    from torch._export.db.case import ExportArgs
-    
     class FnWithKwargs(torch.nn.Module):
         """
         Keyword arguments are not supported at the moment.
@@ -84,16 +84,21 @@ Original source code:
             out = out * mykwargs["input0"] * mykwargs["input1"]
             return out
     
-    example_inputs = ExportArgs(
+    example_args = (
         torch.randn(4),
         (torch.randn(4), torch.randn(4)),
-        *[torch.randn(4), torch.randn(4)],
-        mykw0=torch.randn(4),
-        input0=torch.randn(4), input1=torch.randn(4)
+        *[torch.randn(4), torch.randn(4)]
     )
+    example_kwargs = {
+        "mykw0": torch.randn(4),
+        "input0": torch.randn(4),
+        "input1": torch.randn(4),
+    }
     tags = {"python.data-structure"}
     model = FnWithKwargs()
     
+
+    torch.export.export(model, example_args, example_kwargs)
 
 Result:
 
@@ -102,18 +107,18 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, pos0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", tuple0_0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", tuple0_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", myargs_0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", myargs_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", mykw0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", input0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", input1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:14 in forward, code: out = out * arg[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:12 in forward, code: out = out * arg[0m
                 mul: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(pos0, tuple0_0);  [2mpos0 = tuple0_0 = None[0m
                 mul_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul, tuple0_1);  [2mmul = tuple0_1 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:16 in forward, code: out = out * arg[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:14 in forward, code: out = out * arg[0m
                 mul_2: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_1, myargs_0);  [2mmul_1 = myargs_0 = None[0m
                 mul_3: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_2, myargs_1);  [2mmul_2 = myargs_1 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:17 in forward, code: out = out * mykw0[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:15 in forward, code: out = out * mykw0[0m
                 mul_4: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_3, mykw0);  [2mmul_3 = mykw0 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:18 in forward, code: out = out * mykwargs["input0"] * mykwargs["input1"][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:16 in forward, code: out = out * mykwargs["input0"] * mykwargs["input1"][0m
                 mul_5: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_4, input0);  [2mmul_4 = input0 = None[0m
                 mul_6: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_5, input1);  [2mmul_5 = input1 = None[0m
                 return (mul_6,)
@@ -128,7 +133,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`
 
     Support Level: SUPPORTED
 
@@ -150,10 +155,12 @@ Original source code:
             assert "monkey" not in ["cow", "pig"]
             return x + x
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"torch.dynamic-shape", "python.data-structure", "python.assert"}
     model = ListContains()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -203,10 +210,12 @@ Original source code:
             x, *y = args
             return x + y[0]
     
-    example_inputs = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],)
+    example_args = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],)
     tags = {"python.control-flow", "python.data-structure"}
     model = ListUnpack()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 

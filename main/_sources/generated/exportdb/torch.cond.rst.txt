@@ -5,7 +5,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -51,13 +51,15 @@ Original source code:
         def forward(self, x):
             return cond(x.shape[0] <= 2, self.subm.forward, self.bar, [x])
     
-    example_inputs = (torch.randn(3),)
+    example_args = (torch.randn(3),)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
     }
     model = CondBranchClassMethod()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -93,7 +95,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -136,13 +138,15 @@ Original source code:
     
             return cond(x.shape[0] < 10, true_fn, false_fn, [x])
     
-    example_inputs = (torch.randn(3),)
+    example_args = (torch.randn(3),)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
     }
     model = CondBranchNestedFunction()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -178,7 +182,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -239,13 +243,15 @@ Original source code:
                 [x, my_tensor_var, torch.tensor(my_primitive_var)],
             )
     
-    example_inputs = (torch.randn(6),)
+    example_args = (torch.randn(6),)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
     }
     model = CondBranchNonlocalVariables()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -317,10 +323,12 @@ Original source code:
     
             return cond(pred, true_fn, false_fn, [x + 1])
     
-    example_inputs = (torch.tensor(True), torch.randn(3, 2))
+    example_args = (torch.tensor(True), torch.randn(3, 2))
     tags = {"torch.cond", "python.closure"}
     model = CondClosedOverVariable()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -356,7 +364,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -392,7 +400,7 @@ Original source code:
     
             return cond(x.shape[0] > 2, true_fn, false_fn, [x, y])
     
-    example_inputs = (x, y)
+    example_args = (x, y)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
@@ -401,6 +409,8 @@ Original source code:
     dynamic_shapes = {"x": {0: dim0_x}, "y": None}
     model = CondOperands()
     
+
+    torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes)
 
 Result:
 
@@ -438,7 +448,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -465,13 +475,15 @@ Original source code:
     
             return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x])
     
-    example_inputs = (torch.randn(6, 4, 3),)
+    example_args = (torch.randn(6, 4, 3),)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
     }
     model = CondPredicate()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 

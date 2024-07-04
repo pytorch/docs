@@ -29,10 +29,12 @@ Original source code:
     
             return x.sin()
     
-    example_inputs = (torch.randn(3, 2, 2),)
+    example_args = (torch.randn(3, 2, 2),)
     tags = {"torch.dynamic-shape", "python.control-flow"}
     model = DynamicShapeIfGuard()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -82,10 +84,12 @@ Original source code:
             x, *y = args
             return x + y[0]
     
-    example_inputs = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],)
+    example_args = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],)
     tags = {"python.control-flow", "python.data-structure"}
     model = ListUnpack()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -130,10 +134,12 @@ Original source code:
                 ret.append(i + x)
             return ret
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"python.control-flow"}
     model = StaticForLoop()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -188,10 +194,12 @@ Original source code:
     
             return x
     
-    example_inputs = (torch.randn(3, 2, 2),)
+    example_args = (torch.randn(3, 2, 2),)
     tags = {"python.control-flow"}
     model = StaticIf()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 

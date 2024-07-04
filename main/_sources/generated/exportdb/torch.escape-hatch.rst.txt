@@ -30,10 +30,12 @@ Original source code:
         def forward(self, x, y):
             return x[: self.get_item(y)]
     
-    example_inputs = (torch.randn(3, 2), torch.tensor(4))
+    example_args = (torch.randn(3, 2), torch.tensor(4))
     tags = {"torch.escape-hatch"}
     model = AssumeConstantResult()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -56,7 +58,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -83,13 +85,15 @@ Original source code:
             return torch.zeros((a, 5))
     
     
-    example_inputs = (torch.tensor(4),)
+    example_args = (torch.tensor(4),)
     tags = {
         "torch.dynamic-value",
         "torch.escape-hatch",
     }
     model = ConstrainAsSizeExample()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -125,7 +129,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -155,13 +159,15 @@ Original source code:
             return y.cos()
     
     
-    example_inputs = (torch.tensor(4), torch.randn(5, 5))
+    example_args = (torch.tensor(4), torch.randn(5, 5))
     tags = {
         "torch.dynamic-value",
         "torch.escape-hatch",
     }
     model = ConstrainAsValueExample()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 

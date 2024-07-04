@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo wih a modul
     :caption: Tags
 
     torch.escape-hatch
-    torch.cond
     torch.dynamic-shape
+    torch.cond
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -67,10 +67,12 @@ Original source code:
         def forward(self, x, y):
             return x[: self.get_item(y)]
     
-    example_inputs = (torch.randn(3, 2), torch.tensor(4))
+    example_args = (torch.randn(3, 2), torch.tensor(4))
     tags = {"torch.escape-hatch"}
     model = AssumeConstantResult()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -122,9 +124,11 @@ Original source code:
         def forward(self, x):
             return MyAutogradFunction.apply(x)
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     model = AutogradFunction()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -175,9 +179,11 @@ Original source code:
             x = self.linear(x)
             return self.method(x) * self.__class__.method(x) * type(self).method(x)
     
-    example_inputs = (torch.randn(3, 4),)
+    example_args = (torch.randn(3, 4),)
     model = ClassMethod()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -213,7 +219,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -259,13 +265,15 @@ Original source code:
         def forward(self, x):
             return cond(x.shape[0] <= 2, self.subm.forward, self.bar, [x])
     
-    example_inputs = (torch.randn(3),)
+    example_args = (torch.randn(3),)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
     }
     model = CondBranchClassMethod()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -301,7 +309,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -344,13 +352,15 @@ Original source code:
     
             return cond(x.shape[0] < 10, true_fn, false_fn, [x])
     
-    example_inputs = (torch.randn(3),)
+    example_args = (torch.randn(3),)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
     }
     model = CondBranchNestedFunction()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -386,7 +396,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -447,13 +457,15 @@ Original source code:
                 [x, my_tensor_var, torch.tensor(my_primitive_var)],
             )
     
-    example_inputs = (torch.randn(6),)
+    example_args = (torch.randn(6),)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
     }
     model = CondBranchNonlocalVariables()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -525,10 +537,12 @@ Original source code:
     
             return cond(pred, true_fn, false_fn, [x + 1])
     
-    example_inputs = (torch.tensor(True), torch.randn(3, 2))
+    example_args = (torch.tensor(True), torch.randn(3, 2))
     tags = {"torch.cond", "python.closure"}
     model = CondClosedOverVariable()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -564,7 +578,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -600,7 +614,7 @@ Original source code:
     
             return cond(x.shape[0] > 2, true_fn, false_fn, [x, y])
     
-    example_inputs = (x, y)
+    example_args = (x, y)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
@@ -609,6 +623,8 @@ Original source code:
     dynamic_shapes = {"x": {0: dim0_x}, "y": None}
     model = CondOperands()
     
+
+    torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes)
 
 Result:
 
@@ -646,7 +662,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -673,13 +689,15 @@ Original source code:
     
             return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x])
     
-    example_inputs = (torch.randn(6, 4, 3),)
+    example_args = (torch.randn(6, 4, 3),)
     tags = {
         "torch.cond",
         "torch.dynamic-shape",
     }
     model = CondPredicate()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -715,7 +733,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -742,13 +760,15 @@ Original source code:
             return torch.zeros((a, 5))
     
     
-    example_inputs = (torch.tensor(4),)
+    example_args = (torch.tensor(4),)
     tags = {
         "torch.dynamic-value",
         "torch.escape-hatch",
     }
     model = ConstrainAsSizeExample()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -784,7 +804,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -814,13 +834,15 @@ Original source code:
             return y.cos()
     
     
-    example_inputs = (torch.tensor(4), torch.randn(5, 5))
+    example_args = (torch.tensor(4), torch.randn(5, 5))
     tags = {
         "torch.dynamic-value",
         "torch.escape-hatch",
     }
     model = ConstrainAsValueExample()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -882,9 +904,11 @@ Original source code:
         def forward(self, x, y):
             return x + y
     
-    example_inputs = (torch.randn(3, 2), torch.randn(3, 2))
+    example_args = (torch.randn(3, 2), torch.randn(3, 2))
     model = Decorator()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -932,10 +956,12 @@ Original source code:
             y = y * elements["x2"]
             return {"y": y}
     
-    example_inputs = (torch.randn(3, 2), torch.tensor(4))
+    example_args = (torch.randn(3, 2), torch.tensor(4))
     tags = {"python.data-structure"}
     model = Dictionary()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -984,10 +1010,12 @@ Original source code:
             assert x.shape[0] > 1
             return x
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"python.assert"}
     model = DynamicShapeAssert()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1028,10 +1056,12 @@ Original source code:
         def forward(self, x):
             return torch.zeros(x.shape[0] * 2)
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"torch.dynamic-shape"}
     model = DynamicShapeConstructor()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1078,10 +1108,12 @@ Original source code:
     
             return x.sin()
     
-    example_inputs = (torch.randn(3, 2, 2),)
+    example_args = (torch.randn(3, 2, 2),)
     tags = {"torch.dynamic-shape", "python.control-flow"}
     model = DynamicShapeIfGuard()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1104,7 +1136,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
 
     Support Level: SUPPORTED
 
@@ -1128,10 +1160,12 @@ Original source code:
     
             return map(body, xs, y)
     
-    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    example_args = (torch.randn(3, 2), torch.randn(2))
     tags = {"torch.dynamic-shape", "torch.map"}
     model = DynamicShapeMap()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1181,10 +1215,12 @@ Original source code:
         def forward(self, x):
             return x[: x.shape[0] - 2, x.shape[1] - 1 :: 2]
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"torch.dynamic-shape"}
     model = DynamicShapeSlicing()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1230,10 +1266,12 @@ Original source code:
             x = x.view(*new_x_shape)
             return x.permute(0, 2, 1)
     
-    example_inputs = (torch.randn(10, 10),)
+    example_args = (torch.randn(10, 10),)
     tags = {"torch.dynamic-shape"}
     model = DynamicShapeView()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1270,8 +1308,6 @@ Original source code:
     # mypy: allow-untyped-defs
     import torch
     
-    from torch._export.db.case import ExportArgs
-    
     class FnWithKwargs(torch.nn.Module):
         """
         Keyword arguments are not supported at the moment.
@@ -1287,16 +1323,21 @@ Original source code:
             out = out * mykwargs["input0"] * mykwargs["input1"]
             return out
     
-    example_inputs = ExportArgs(
+    example_args = (
         torch.randn(4),
         (torch.randn(4), torch.randn(4)),
-        *[torch.randn(4), torch.randn(4)],
-        mykw0=torch.randn(4),
-        input0=torch.randn(4), input1=torch.randn(4)
+        *[torch.randn(4), torch.randn(4)]
     )
+    example_kwargs = {
+        "mykw0": torch.randn(4),
+        "input0": torch.randn(4),
+        "input1": torch.randn(4),
+    }
     tags = {"python.data-structure"}
     model = FnWithKwargs()
     
+
+    torch.export.export(model, example_args, example_kwargs)
 
 Result:
 
@@ -1305,18 +1346,18 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, pos0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", tuple0_0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", tuple0_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", myargs_0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", myargs_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", mykw0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", input0: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m", input1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:14 in forward, code: out = out * arg[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:12 in forward, code: out = out * arg[0m
                 mul: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(pos0, tuple0_0);  [2mpos0 = tuple0_0 = None[0m
                 mul_1: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul, tuple0_1);  [2mmul = tuple0_1 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:16 in forward, code: out = out * arg[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:14 in forward, code: out = out * arg[0m
                 mul_2: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_1, myargs_0);  [2mmul_1 = myargs_0 = None[0m
                 mul_3: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_2, myargs_1);  [2mmul_2 = myargs_1 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:17 in forward, code: out = out * mykw0[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:15 in forward, code: out = out * mykw0[0m
                 mul_4: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_3, mykw0);  [2mmul_3 = mykw0 = None[0m
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:18 in forward, code: out = out * mykwargs["input0"] * mykwargs["input1"][0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:16 in forward, code: out = out * mykwargs["input0"] * mykwargs["input1"][0m
                 mul_5: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_4, input0);  [2mmul_4 = input0 = None[0m
                 mul_6: "[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(mul_5, input1);  [2mmul_5 = input1 = None[0m
                 return (mul_6,)
@@ -1331,7 +1372,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`
 
     Support Level: SUPPORTED
 
@@ -1353,10 +1394,12 @@ Original source code:
             assert "monkey" not in ["cow", "pig"]
             return x + x
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"torch.dynamic-shape", "python.data-structure", "python.assert"}
     model = ListContains()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1406,10 +1449,12 @@ Original source code:
             x, *y = args
             return x + y[0]
     
-    example_inputs = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],)
+    example_args = ([torch.randn(3, 2), torch.tensor(4), torch.tensor(5)],)
     tags = {"python.control-flow", "python.data-structure"}
     model = ListUnpack()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1460,10 +1505,12 @@ Original source code:
     
             return closure(x)
     
-    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    example_args = (torch.randn(3, 2), torch.randn(2))
     tags = {"python.closure"}
     model = NestedFunction()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1522,10 +1569,12 @@ Original source code:
             with ctx:
                 return x.sin() + x.cos()
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"python.context-manager"}
     model = NullContextManager()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1572,9 +1621,11 @@ Original source code:
             y, spec = pytree.tree_flatten(x)
             return y[0] + 1
     
-    example_inputs = ({1: torch.randn(3, 2), 2: torch.randn(3, 2)},),
+    example_args = ({1: torch.randn(3, 2), 2: torch.randn(3, 2)},),
     model = PytreeFlatten()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1624,11 +1675,13 @@ Original source code:
         def forward(self, x):
             return x.shape[1] + 1
     
-    example_inputs = (x,)
+    example_args = (x,)
     tags = {"torch.dynamic-shape"}
     dynamic_shapes = {"x": {1: dim1_x}}
     model = ScalarOutput()
     
+
+    torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes)
 
 Result:
 
@@ -1684,9 +1737,11 @@ Original source code:
             else:
                 raise ValueError("bad")
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     model = SpecializedAttribute()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1732,10 +1787,12 @@ Original source code:
                 ret.append(i + x)
             return ret
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"python.control-flow"}
     model = StaticForLoop()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1790,10 +1847,12 @@ Original source code:
     
             return x
     
-    example_inputs = (torch.randn(3, 2, 2),)
+    example_args = (torch.randn(3, 2, 2),)
     tags = {"python.control-flow"}
     model = StaticIf()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1837,10 +1896,12 @@ Original source code:
             setattr(x, attr, torch.randn(3, 2))
             return x + 4
     
-    example_inputs = (torch.randn(3, 2), "attr")
+    example_args = (torch.randn(3, 2), "attr")
     tags = {"python.builtin"}
     model = TensorSetattr()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1890,10 +1951,12 @@ Original source code:
             return type(a).func(x)
     
     
-    example_inputs = (torch.randn(3, 4),)
+    example_args = (torch.randn(3, 4),)
     tags = {"python.builtin"}
     model = TypeReflectionMethod()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1938,10 +2001,12 @@ Original source code:
             return x.cos()
     
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"torch.mutation"}
     model = UserInputMutation()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -1970,7 +2035,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
+    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -1994,12 +2059,14 @@ Original source code:
     
     x = torch.randn(3, 2)
     dim0_x = Dim("dim0_x")
-    example_inputs = (x,)
+    example_args = (x,)
     tags = {"torch.dynamic-shape", "python.builtin"}
     support_level = SupportLevel.NOT_SUPPORTED_YET
     dynamic_shapes = {"x": {0: dim0_x}}
     model = DynamicShapeRound()
     
+
+    torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes)
 
 Result:
 
@@ -2044,11 +2111,13 @@ Original source code:
             return x.sum() + self.attr_list[0].sum()
     
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"python.object-model"}
     support_level = SupportLevel.NOT_SUPPORTED_YET
     model = ModelAttrMutation()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -2087,11 +2156,13 @@ Original source code:
             return x
     
     
-    example_inputs = (torch.randn(2, 3),)
+    example_args = (torch.randn(2, 3),)
     tags = {"python.object-model"}
     support_level = SupportLevel.NOT_SUPPORTED_YET
     model = OptionalInput()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -2128,16 +2199,18 @@ Original source code:
             return x.sum() + torch.sym_min(x.size(0), 100)
     
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"torch.operator"}
     support_level = SupportLevel.NOT_SUPPORTED_YET
     model = TorchSymMin()
     
 
+    torch.export.export(model, example_args)
+
 Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f13e1d9b310>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f159e99f310>
 
 

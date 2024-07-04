@@ -32,10 +32,12 @@ Original source code:
     
             return cond(pred, true_fn, false_fn, [x + 1])
     
-    example_inputs = (torch.tensor(True), torch.randn(3, 2))
+    example_args = (torch.tensor(True), torch.randn(3, 2))
     tags = {"torch.cond", "python.closure"}
     model = CondClosedOverVariable()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -99,10 +101,12 @@ Original source code:
     
             return closure(x)
     
-    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    example_args = (torch.randn(3, 2), torch.randn(2))
     tags = {"python.closure"}
     model = NestedFunction()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 

@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git111f9b5 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git2fe7c1f ) &#x25BC</a>
     </div>
     
 
@@ -539,8 +539,8 @@ support in export please create an issue in the pytorch/pytorch repo wih a modul
 <p class="caption" role="heading"><span class="caption-text">Tags</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.cond.html">torch.cond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python.closure.html">python.closure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python.data-structure.html">python.data-structure</a></li>
@@ -581,9 +581,12 @@ support in export please create an issue in the pytorch/pytorch repo wih a modul
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_item</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.escape-hatch&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">AssumeConstantResult</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -628,8 +631,11 @@ Range constraints: {}
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">MyAutogradFunction</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">AutogradFunction</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -673,8 +679,11 @@ Range constraints: {}
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ClassMethod</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -707,7 +716,7 @@ Range constraints: {}
 <h3>cond_branch_class_method<a class="headerlink" href="#cond-branch-class-method" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -749,12 +758,15 @@ Range constraints: {}
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subm</span><span class="o">.</span><span class="n">forward</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bar</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
     <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">CondBranchClassMethod</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -787,7 +799,7 @@ Range constraints: {}
 <h3>cond_branch_nested_function<a class="headerlink" href="#cond-branch-nested-function" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -826,12 +838,15 @@ Range constraints: {}
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
     <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">CondBranchNestedFunction</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -864,7 +879,7 @@ Range constraints: {}
 <h3>cond_branch_nonlocal_variables<a class="headerlink" href="#cond-branch-nonlocal-variables" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -921,12 +936,15 @@ Range constraints: {}
             <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">my_tensor_var</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">my_primitive_var</span><span class="p">)],</span>
         <span class="p">)</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
     <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">CondBranchNonlocalVariables</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -991,9 +1009,12 @@ Range constraints: {}
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span> <span class="s2">&quot;python.closure&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">CondClosedOverVariable</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1026,7 +1047,7 @@ Range constraints: {}
 <h3>cond_operands<a class="headerlink" href="#cond-operands" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -1058,7 +1079,7 @@ Range constraints: {}
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
     <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
@@ -1066,6 +1087,9 @@ Range constraints: {}
 <span class="n">extra_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">dim0_x</span><span class="p">},</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">CondOperands</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="o">=</span><span class="n">dynamic_shapes</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1100,7 +1124,7 @@ Range constraints: {s0: VR[0, int_oo]}
 <h3>cond_predicate<a class="headerlink" href="#cond-predicate" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.cond.html"><span class="doc">torch.cond</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -1123,12 +1147,15 @@ Range constraints: {s0: VR[0, int_oo]}
 
         <span class="k">return</span> <span class="n">cond</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">(),</span> <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span><span class="o">.</span><span class="n">sin</span><span class="p">(),</span> <span class="p">[</span><span class="n">x</span><span class="p">])</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;torch.cond&quot;</span><span class="p">,</span>
     <span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">CondPredicate</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1161,7 +1188,7 @@ Range constraints: {}
 <h3>constrain_as_size_example<a class="headerlink" href="#constrain-as-size-example" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a>, <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a>, <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -1184,12 +1211,15 @@ Range constraints: {}
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;torch.dynamic-value&quot;</span><span class="p">,</span>
     <span class="s2">&quot;torch.escape-hatch&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ConstrainAsSizeExample</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1222,7 +1252,7 @@ Range constraints: {u0: VR[0, 5], u1: VR[0, 5], u2: VR[0, 5]}
 <h3>constrain_as_value_example<a class="headerlink" href="#constrain-as-value-example" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a>, <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-value.html"><span class="doc">torch.dynamic-value</span></a>, <a class="reference internal" href="torch.escape-hatch.html"><span class="doc">torch.escape-hatch</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -1248,12 +1278,15 @@ Range constraints: {u0: VR[0, 5], u1: VR[0, 5], u2: VR[0, 5]}
         <span class="k">return</span> <span class="n">y</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;torch.dynamic-value&quot;</span><span class="p">,</span>
     <span class="s2">&quot;torch.escape-hatch&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ConstrainAsValueExample</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1308,8 +1341,11 @@ Range constraints: {u0: VR[0, 5], u1: VR[0, 5], u2: VR[0, 5]}
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Decorator</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1350,9 +1386,12 @@ Range constraints: {}
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">elements</span><span class="p">[</span><span class="s2">&quot;x2&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">y</span><span class="p">}</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.data-structure&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Dictionary</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1394,9 +1433,12 @@ Range constraints: {}
         <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">x</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.assert&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">DynamicShapeAssert</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1430,9 +1472,12 @@ Range constraints: {}
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">DynamicShapeConstructor</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1472,9 +1517,12 @@ Range constraints: {}
 
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span> <span class="s2">&quot;python.control-flow&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">DynamicShapeIfGuard</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1494,7 +1542,7 @@ Range constraints: {}
 <h3>dynamic_shape_map<a class="headerlink" href="#dynamic-shape-map" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.map.html"><span class="doc">torch.map</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="torch.map.html"><span class="doc">torch.map</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -1514,9 +1562,12 @@ Range constraints: {}
 
         <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span> <span class="s2">&quot;torch.map&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">DynamicShapeMap</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1559,9 +1610,12 @@ Range constraints: {}
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span><span class="p">[:</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">::</span> <span class="mi">2</span><span class="p">]</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">DynamicShapeSlicing</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1600,9 +1654,12 @@ Range constraints: {}
         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">new_x_shape</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">DynamicShapeView</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1632,8 +1689,6 @@ Range constraints: {}
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 
-<span class="kn">from</span> <span class="nn">torch._export.db.case</span> <span class="kn">import</span> <span class="n">ExportArgs</span>
-
 <span class="k">class</span> <span class="nc">FnWithKwargs</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Keyword arguments are not supported at the moment.</span>
@@ -1649,33 +1704,39 @@ Range constraints: {}
         <span class="n">out</span> <span class="o">=</span> <span class="n">out</span> <span class="o">*</span> <span class="n">mykwargs</span><span class="p">[</span><span class="s2">&quot;input0&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">mykwargs</span><span class="p">[</span><span class="s2">&quot;input1&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">out</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="n">ExportArgs</span><span class="p">(</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
     <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span>
-    <span class="o">*</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span>
-    <span class="n">mykw0</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
-    <span class="n">input0</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">input1</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="o">*</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
 <span class="p">)</span>
+<span class="n">example_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;mykw0&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;input0&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;input1&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+<span class="p">}</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.data-structure&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">FnWithKwargs</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">,</span> <span class="n">example_kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
     class GraphModule(torch.nn.Module):
         def forward(self, pos0: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot;, tuple0_0: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot;, tuple0_1: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot;, myargs_0: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot;, myargs_1: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot;, mykw0: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot;, input0: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot;, input1: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot;):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:14 in forward, code: out = out * arg[0m
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:12 in forward, code: out = out * arg[0m
             mul: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.mul.Tensor(pos0, tuple0_0);  [2mpos0 = tuple0_0 = None[0m
             mul_1: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.mul.Tensor(mul, tuple0_1);  [2mmul = tuple0_1 = None[0m
 
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:16 in forward, code: out = out * arg[0m
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:14 in forward, code: out = out * arg[0m
             mul_2: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.mul.Tensor(mul_1, myargs_0);  [2mmul_1 = myargs_0 = None[0m
             mul_3: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.mul.Tensor(mul_2, myargs_1);  [2mmul_2 = myargs_1 = None[0m
 
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:17 in forward, code: out = out * mykw0[0m
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:15 in forward, code: out = out * mykw0[0m
             mul_4: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.mul.Tensor(mul_3, mykw0);  [2mmul_3 = mykw0 = None[0m
 
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:18 in forward, code: out = out * mykwargs[&quot;input0&quot;] * mykwargs[&quot;input1&quot;][0m
+             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/fn_with_kwargs.py:16 in forward, code: out = out * mykwargs[&quot;input0&quot;] * mykwargs[&quot;input1&quot;][0m
             mul_5: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.mul.Tensor(mul_4, input0);  [2mmul_4 = input0 = None[0m
             mul_6: &quot;[31mf32[0m[34m[4][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.mul.Tensor(mul_5, input1);  [2mmul_5 = input1 = None[0m
             return (mul_6,)
@@ -1689,7 +1750,7 @@ Range constraints: {}
 <h3>list_contains<a class="headerlink" href="#list-contains" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
+<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.data-structure.html"><span class="doc">python.data-structure</span></a>, <a class="reference internal" href="python.assert.html"><span class="doc">python.assert</span></a></p>
 <p>Support Level: SUPPORTED</p>
 </div>
 <p>Original source code:</p>
@@ -1707,9 +1768,12 @@ Range constraints: {}
         <span class="k">assert</span> <span class="s2">&quot;monkey&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;cow&quot;</span><span class="p">,</span> <span class="s2">&quot;pig&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span> <span class="s2">&quot;python.data-structure&quot;</span><span class="p">,</span> <span class="s2">&quot;python.assert&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ListContains</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1752,9 +1816,12 @@ Range constraints: {}
         <span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="n">args</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">5</span><span class="p">)],)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">5</span><span class="p">)],)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.control-flow&quot;</span><span class="p">,</span> <span class="s2">&quot;python.data-structure&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ListUnpack</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1798,9 +1865,12 @@ Range constraints: {}
 
         <span class="k">return</span> <span class="n">closure</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.closure&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">NestedFunction</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1852,9 +1922,12 @@ Range constraints: {}
         <span class="k">with</span> <span class="n">ctx</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.context-manager&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">NullContextManager</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1894,8 +1967,11 @@ Range constraints: {}
         <span class="n">y</span><span class="p">,</span> <span class="n">spec</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_flatten</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)},),</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)},),</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">PytreeFlatten</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1938,10 +2014,13 @@ Range constraints: {}
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">}</span>
 <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="n">dim1_x</span><span class="p">}}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ScalarOutput</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="o">=</span><span class="n">dynamic_shapes</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -1990,8 +2069,11 @@ Range constraints: {s0: VR[0, int_oo]}
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;bad&quot;</span><span class="p">)</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">SpecializedAttribute</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2030,9 +2112,12 @@ Range constraints: {}
             <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.control-flow&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">StaticForLoop</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2080,9 +2165,12 @@ Range constraints: {}
 
         <span class="k">return</span> <span class="n">x</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.control-flow&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">StaticIf</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2119,9 +2207,12 @@ Range constraints: {}
         <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;attr&quot;</span><span class="p">)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;attr&quot;</span><span class="p">)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.builtin&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">TensorSetattr</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2164,9 +2255,12 @@ Range constraints: {}
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.builtin&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">TypeReflectionMethod</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2204,9 +2298,12 @@ Range constraints: {}
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
 
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.mutation&quot;</span><span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">UserInputMutation</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2232,7 +2329,7 @@ Range constraints: {}
 <h3>dynamic_shape_round<a class="headerlink" href="#dynamic-shape-round" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tags: <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a>, <a class="reference internal" href="python.builtin.html"><span class="doc">python.builtin</span></a></p>
+<p>Tags: <a class="reference internal" href="python.builtin.html"><span class="doc">python.builtin</span></a>, <a class="reference internal" href="torch.dynamic-shape.html"><span class="doc">torch.dynamic-shape</span></a></p>
 <p>Support Level: NOT_SUPPORTED_YET</p>
 </div>
 <p>Original source code:</p>
@@ -2252,11 +2349,14 @@ Range constraints: {}
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">dim0_x</span> <span class="o">=</span> <span class="n">Dim</span><span class="p">(</span><span class="s2">&quot;dim0_x&quot;</span><span class="p">)</span>
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.dynamic-shape&quot;</span><span class="p">,</span> <span class="s2">&quot;python.builtin&quot;</span><span class="p">}</span>
 <span class="n">support_level</span> <span class="o">=</span> <span class="n">SupportLevel</span><span class="o">.</span><span class="n">NOT_SUPPORTED_YET</span>
 <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">dim0_x</span><span class="p">}}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">DynamicShapeRound</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="o">=</span><span class="n">dynamic_shapes</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2295,10 +2395,13 @@ Range constraints: {}
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.object-model&quot;</span><span class="p">}</span>
 <span class="n">support_level</span> <span class="o">=</span> <span class="n">SupportLevel</span><span class="o">.</span><span class="n">NOT_SUPPORTED_YET</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ModelAttrMutation</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2331,10 +2434,13 @@ Range constraints: {}
         <span class="k">return</span> <span class="n">x</span>
 
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;python.object-model&quot;</span><span class="p">}</span>
 <span class="n">support_level</span> <span class="o">=</span> <span class="n">SupportLevel</span><span class="o">.</span><span class="n">NOT_SUPPORTED_YET</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">OptionalInput</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
@@ -2365,14 +2471,17 @@ Range constraints: {}
         <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_min</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
 
 
-<span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
+<span class="n">example_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch.operator&quot;</span><span class="p">}</span>
 <span class="n">support_level</span> <span class="o">=</span> <span class="n">SupportLevel</span><span class="o">.</span><span class="n">NOT_SUPPORTED_YET</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">TorchSymMin</span><span class="p">()</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_args</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unsupported</span><span class="p">:</span> <span class="n">torch</span><span class="o">.*</span> <span class="n">op</span> <span class="n">returned</span> <span class="n">non</span><span class="o">-</span><span class="n">Tensor</span> <span class="nb">int</span> <span class="n">call_function</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">sym_min</span> <span class="n">at</span> <span class="mh">0x7f13e1d9b310</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unsupported</span><span class="p">:</span> <span class="n">torch</span><span class="o">.*</span> <span class="n">op</span> <span class="n">returned</span> <span class="n">non</span><span class="o">-</span><span class="n">Tensor</span> <span class="nb">int</span> <span class="n">call_function</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">sym_min</span> <span class="n">at</span> <span class="mh">0x7f159e99f310</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </div>

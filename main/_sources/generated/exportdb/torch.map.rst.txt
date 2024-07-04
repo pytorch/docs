@@ -5,7 +5,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
 
     Support Level: SUPPORTED
 
@@ -29,10 +29,12 @@ Original source code:
     
             return map(body, xs, y)
     
-    example_inputs = (torch.randn(3, 2), torch.randn(2))
+    example_args = (torch.randn(3, 2), torch.randn(2))
     tags = {"torch.dynamic-shape", "torch.map"}
     model = DynamicShapeMap()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 

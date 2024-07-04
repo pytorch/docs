@@ -5,7 +5,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
+    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -29,12 +29,14 @@ Original source code:
     
     x = torch.randn(3, 2)
     dim0_x = Dim("dim0_x")
-    example_inputs = (x,)
+    example_args = (x,)
     tags = {"torch.dynamic-shape", "python.builtin"}
     support_level = SupportLevel.NOT_SUPPORTED_YET
     dynamic_shapes = {"x": {0: dim0_x}}
     model = DynamicShapeRound()
     
+
+    torch.export.export(model, example_args, dynamic_shapes=dynamic_shapes)
 
 Result:
 
@@ -68,10 +70,12 @@ Original source code:
             setattr(x, attr, torch.randn(3, 2))
             return x + 4
     
-    example_inputs = (torch.randn(3, 2), "attr")
+    example_args = (torch.randn(3, 2), "attr")
     tags = {"python.builtin"}
     model = TensorSetattr()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -121,10 +125,12 @@ Original source code:
             return type(a).func(x)
     
     
-    example_inputs = (torch.randn(3, 4),)
+    example_args = (torch.randn(3, 4),)
     tags = {"python.builtin"}
     model = TypeReflectionMethod()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 

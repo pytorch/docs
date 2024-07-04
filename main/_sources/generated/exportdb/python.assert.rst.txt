@@ -28,10 +28,12 @@ Original source code:
             assert x.shape[0] > 1
             return x
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"python.assert"}
     model = DynamicShapeAssert()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
@@ -52,7 +54,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`
 
     Support Level: SUPPORTED
 
@@ -74,10 +76,12 @@ Original source code:
             assert "monkey" not in ["cow", "pig"]
             return x + x
     
-    example_inputs = (torch.randn(3, 2),)
+    example_args = (torch.randn(3, 2),)
     tags = {"torch.dynamic-shape", "python.data-structure", "python.assert"}
     model = ListContains()
     
+
+    torch.export.export(model, example_args)
 
 Result:
 
