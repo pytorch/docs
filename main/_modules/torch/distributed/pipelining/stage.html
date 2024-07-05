@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git2fe7c1f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc9f1db2 ) &#x25BC</a>
     </div>
     
 
@@ -912,7 +912,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">grad_recv_stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">}</span><span class="s2">] for chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> has gradients </span><span class="si">{</span><span class="n">grad</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">}</span><span class="s2">] for chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2"> has gradients </span><span class="si">{</span><span class="n">grad</span><span class="si">}</span><span class="s2"> &quot;</span>
                         <span class="sa">f</span><span class="s2">&quot;and is expecting to send gradients to stage </span><span class="si">{</span><span class="n">grad_recv_stage</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="p">)</span>
         <span class="k">return</span> <span class="n">ops</span>
