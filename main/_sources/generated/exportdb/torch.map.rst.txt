@@ -5,7 +5,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
+    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -50,8 +50,9 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, xs: "f32[2]", y: "f32[2]"):
-                             add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
+                def forward(self, xs: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
+                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/dynamic_shape_map.py:15 in forward, code: return map(body, xs, y)[0m
+                    add: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(xs, y);  [2mxs = y = None[0m
                     return (add,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='xs'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])

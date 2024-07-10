@@ -54,13 +54,15 @@ Result:
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, x: "f32[3, 2]"):
-                             mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
+                def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
+                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                    mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(x, [34m2[0m);  [2mx = None[0m
                     return (mul,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, x: "f32[3, 2]"):
-                             sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
+                def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
+                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:108 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                    sub: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sub.Tensor(x, [34m2[0m);  [2mx = None[0m
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='pred'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
