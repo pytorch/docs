@@ -5,7 +5,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -54,13 +54,10 @@ Result:
                 
                  [2m# [0m
                 sym_constrain_range_for_size_default = torch.ops.aten.sym_constrain_range_for_size.default(item)
-                
-                [2m# No stacktrace found for following nodes[0m
-                sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = [34m0[0m, max = [34m5[0m)
-                ge: "Sym(u0 >= 0)" = item >= [34m0[0m
-                _assert_scalar = torch.ops.aten._assert_scalar.default(ge, [34m"Runtime assertion failed for expression 0 <= u0 on node 'ge'"[0m);  [2mge = None[0m
-                le: "Sym(u0 <= 5)" = item <= [34m5[0m
-                _assert_scalar_1 = torch.ops.aten._assert_scalar.default(le, [34m"Runtime assertion failed for expression u0 <= 5 on node 'le_1'"[0m);  [2mle = None[0m
+                ge_1: "Sym(u0 >= 0)" = item >= [34m0[0m
+                _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, [34m"Runtime assertion failed for expression u0 >= 0 on node 'ge_1'"[0m);  [2mge_1 = None[0m
+                le_1: "Sym(u0 <= 5)" = item <= [34m5[0m
+                _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, [34m"Runtime assertion failed for expression u0 <= 5 on node 'le_1'"[0m);  [2mle_1 = None[0m
                 
                  [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_size_example.py:17 in forward, code: return torch.zeros((a, 5))[0m
                 zeros: "[31mf32[0m[34m[u0, 5][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.zeros.default([34m[item, 5][0m, device = [34mdevice(type='cpu')[0m, pin_memory = [34mFalse[0m);  [2mitem = None[0m
@@ -76,7 +73,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
+    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
 
     Support Level: SUPPORTED
 
@@ -126,12 +123,11 @@ Result:
                  [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_value_example.py:14 in forward, code: a = x.item()[0m
                 item: "Sym(u0)" = torch.ops.aten.item.default(x);  [2mx = None[0m
                 
-                [2m# No stacktrace found for following nodes[0m
-                sym_constrain_range = torch.ops.aten.sym_constrain_range.default(item, min = [34m0[0m, max = [34m5[0m)
-                ge: "Sym(u0 >= 0)" = item >= [34m0[0m
-                _assert_scalar = torch.ops.aten._assert_scalar.default(ge, [34m"Runtime assertion failed for expression 0 <= u0 on node 'ge_1'"[0m);  [2mge = None[0m
-                le: "Sym(u0 <= 5)" = item <= [34m5[0m;  [2mitem = None[0m
-                _assert_scalar_1 = torch.ops.aten._assert_scalar.default(le, [34m"Runtime assertion failed for expression u0 <= 5 on node 'le_1'"[0m);  [2mle = None[0m
+                 [2m# [0m
+                ge_1: "Sym(u0 >= 0)" = item >= [34m0[0m
+                _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, [34m"Runtime assertion failed for expression u0 >= 0 on node 'ge_1'"[0m);  [2mge_1 = None[0m
+                le_1: "Sym(u0 <= 5)" = item <= [34m5[0m;  [2mitem = None[0m
+                _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, [34m"Runtime assertion failed for expression u0 <= 5 on node 'le_1'"[0m);  [2mle_1 = None[0m
                 
                  [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/constrain_as_value_example.py:19 in forward, code: return y.sin()[0m
                 sin: "[31mf32[0m[34m[5, 5][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sin.default(y);  [2my = None[0m
