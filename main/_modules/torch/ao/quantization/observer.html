@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git6adc725 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb5b91b4 ) &#x25BC</a>
     </div>
     
 
@@ -1681,16 +1681,19 @@
             <span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">histogram</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
             <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">bin_size</span>
         <span class="p">)</span>
-        <span class="n">new_bin_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">update_min</span> <span class="o">-</span> <span class="n">update_max</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span>
         <span class="n">boundaries_new_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">update_min</span><span class="p">,</span> <span class="n">update_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">update_min</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span>
             <span class="n">histogram</span><span class="o">.</span><span class="n">device</span>
         <span class="p">)</span>
         <span class="c1"># this maps the mid-poits of the histogram to the new histogram&#39;s space</span>
         <span class="n">bucket_assignments</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">bucketize</span><span class="p">(</span><span class="n">mid_points_histogram</span><span class="p">,</span> <span class="n">boundaries_new_histogram</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">bucketize</span><span class="p">(</span><span class="n">mid_points_histogram</span><span class="p">,</span> <span class="n">boundaries_new_histogram</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="p">)</span>
         <span class="c1"># this then maps the histogram mid-points in the new space, weighted by the original histogram&#39;s values</span>
         <span class="c1"># this is just the old histogram in the new histogram&#39;s space</span>
+
+        <span class="c1"># In case due to numerical issues the values land higher/lower than the maximum/minimum</span>
+        <span class="n">bucket_assignments</span><span class="p">[</span><span class="n">bucket_assignments</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">bucket_assignments</span><span class="p">[</span><span class="n">bucket_assignments</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="n">update_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span>
             <span class="n">bucket_assignments</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">histogram</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span>
