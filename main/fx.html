@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb5b91b4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf44739c ) &#x25BC</a>
     </div>
     
 
@@ -2148,16 +2148,24 @@ Python type the output of this node will have.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.Graph.eliminate_dead_code">
-<span class="sig-name descname"><span class="pre">eliminate_dead_code</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/fx/graph.html#Graph.eliminate_dead_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.Graph.eliminate_dead_code" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">eliminate_dead_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_impure_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/fx/graph.html#Graph.eliminate_dead_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.Graph.eliminate_dead_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove all dead code from the graph, based on each node’s number of
 users, and whether the nodes have any side effects. The graph must be
 topologically sorted before calling.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Whether the graph was changed as a result of the pass.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>is_impure_node</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="#torch.fx.Node" title="torch.fx.Node"><em>Node</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>]</em><em>]</em>) – A function that returns</p></li>
+<li><p><strong>None</strong> (<em>whether a node is impure. If this is</em>) – </p></li>
+<li><p><strong>to</strong> (<em>then the default behavior is</em>) – </p></li>
+<li><p><strong>Node.is_impure.</strong> (<em>use</em>) – </p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether the graph was changed as a result of the pass.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -2180,7 +2188,8 @@ of <cite>forward</cite> remains.</p>
 side-effectful nodes (see Node.is_impure) but in general coverage
 is very bad, so you should assume that this method is not sound
 to call unless you know that your FX graph consists entirely
-of functional operations.</p>
+of functional operations or you supply your own custom
+function for detecting side-effectful nodes.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

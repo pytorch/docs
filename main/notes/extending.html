@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb5b91b4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf44739c ) &#x25BC</a>
     </div>
     
 
@@ -1386,6 +1386,26 @@ Most of these functions are defined in <code class="docutils literal notranslate
 Some more exotic functions or features are also registered in other places in the C++ codebase or in user-defined C++ extensions.</p>
 <p>It is also possible to add <cite>new</cite> native functions using <a class="reference internal" href="../library.html#module-torch.library" title="torch.library"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.library</span></code></a>. This Python feature allows defining and/or adding new implementations to native functions. This can be used to add missing kernels, replace existing ones or define brand new native functions.</p>
 <p>You can find many examples of <code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code>-based subclasses in the <a class="reference external" href="https://github.com/albanD/subclass_zoo">subclass zoo</a> repo.</p>
+<div class="section" id="torch-dispatch-calling-convention">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code> calling convention<a class="headerlink" href="#torch-dispatch-calling-convention" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">__torch_dispatch__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>When a user calls an operator with inputs that have <code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code>, that call
+may be forwarded to the <code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code>. args and kwargs get normalized before
+the call to <code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code>, that is:</p>
+<ul class="simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> consist of keyword-only arguments in the operator’s schema.
+If a kwarg is equal to its default value (in the schema), it will not be passed.</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">args</span></code> consists of all other arguments, no matter how they were passed
+to the operator (positional vs keyword).
+If an arg is equal to its default value, and
+it is the right-most positional arg or all the args to the right of it
+are not passed, it will not be passed.</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="extending-all-torch-api-with-modes">
 <h2>Extending all <a class="reference internal" href="../torch.html#module-torch" title="torch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code></a> API with Modes<a class="headerlink" href="#extending-all-torch-api-with-modes" title="Permalink to this heading">¶</a></h2>
@@ -1530,7 +1550,10 @@ if (url)
 <li><a class="reference internal" href="#testing-coverage-of-overrides-for-the-pytorch-api">Testing Coverage of Overrides for the PyTorch API</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#extending-torch-native-api">Extending <code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code> native API</a></li>
+<li><a class="reference internal" href="#extending-torch-native-api">Extending <code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code> native API</a><ul>
+<li><a class="reference internal" href="#torch-dispatch-calling-convention"><code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code> calling convention</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#extending-all-torch-api-with-modes">Extending all <code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code> API with Modes</a></li>
 </ul>
 </li>

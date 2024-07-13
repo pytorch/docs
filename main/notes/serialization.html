@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb5b91b4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf44739c ) &#x25BC</a>
     </div>
     
 
@@ -1017,6 +1017,34 @@ and have state set.</p>
 </dl>
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.serialization.safe_globals">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">safe_globals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">safe_globals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/serialization.html#safe_globals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.safe_globals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context-manager that adds certain globals as safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>safe_globals</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – List of globals for weights_only load.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">MyTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="go"># Running `torch.load(f.name, weights_only=True)` will fail with</span>
+<span class="go"># Unsupported global: GLOBAL __main__.MyTensor was not an allowed global by default.</span>
+<span class="go"># Check the code and make sure MyTensor is safe to be used when loaded from an arbitrary checkpoint.</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">safe_globals</span><span class="p">([</span><span class="n">MyTensor</span><span class="p">]):</span>
+<span class="gp">... </span>        <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go"># MyTensor([[-0.5024, -1.8152, -0.5455],</span>
+<span class="go">#          [-0.8234,  2.0500, -0.3657]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">get_safe_globals</span><span class="p">()</span> <span class="o">==</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 
@@ -1094,6 +1122,7 @@ if (url)
 <li><a class="reference internal" href="#torch.serialization.add_safe_globals"><code class="docutils literal notranslate"><span class="pre">add_safe_globals()</span></code></a></li>
 <li><a class="reference internal" href="#torch.serialization.clear_safe_globals"><code class="docutils literal notranslate"><span class="pre">clear_safe_globals()</span></code></a></li>
 <li><a class="reference internal" href="#torch.serialization.get_safe_globals"><code class="docutils literal notranslate"><span class="pre">get_safe_globals()</span></code></a></li>
+<li><a class="reference internal" href="#torch.serialization.safe_globals"><code class="docutils literal notranslate"><span class="pre">safe_globals</span></code></a></li>
 </ul>
 </li>
 </ul>
