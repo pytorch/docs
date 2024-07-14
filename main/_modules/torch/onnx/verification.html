@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf44739c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitcbb7e26 ) &#x25BC</a>
     </div>
     
 
@@ -567,7 +567,7 @@
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_C</span>
 <span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">_constants</span><span class="p">,</span> <span class="n">_experimental</span><span class="p">,</span> <span class="n">_exporter_states</span><span class="p">,</span> <span class="n">utils</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._globals</span> <span class="kn">import</span> <span class="n">GLOBALS</span>
-<span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">onnx_proto_utils</span>
+<span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">_beartype</span><span class="p">,</span> <span class="n">onnx_proto_utils</span>
 <span class="kn">from</span> <span class="nn">torch.types</span> <span class="kn">import</span> <span class="n">Number</span>
 
 <span class="n">_ORT_PROVIDERS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;CPUExecutionProvider&quot;</span><span class="p">,)</span>
@@ -626,6 +626,7 @@
     <span class="n">acceptable_error_percentage</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_flatten_tuples</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
     <span class="n">flattened</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">elem</span><span class="p">:</span>
@@ -655,6 +656,7 @@
     <span class="k">return</span> <span class="n">elem</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_inline_flatten_list</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">res_list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
         <span class="n">res_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
@@ -663,6 +665,7 @@
     <span class="k">return</span> <span class="n">res_list</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_unpack_to_numpy</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">cast_onnx_accepted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="n">value_unpacked</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
@@ -672,6 +675,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">_to_numpy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_unpacked</span><span class="p">]</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_run_onnx</span><span class="p">(</span><span class="n">onnx_session</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_OutputsType</span><span class="p">:</span>
     <span class="n">kw_inputs</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">if</span> <span class="n">inputs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
@@ -702,6 +706,7 @@
     <span class="k">return</span> <span class="n">onnx_outs</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_ort_session</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">],</span> <span class="n">ort_providers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">_ORT_PROVIDERS</span>
 <span class="p">):</span>
@@ -725,6 +730,7 @@
     <span class="k">return</span> <span class="n">ort_session</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_onnx_reference_evaluator_session</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">]):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">onnx</span>
@@ -741,6 +747,7 @@
     <span class="k">return</span> <span class="n">onnx_session</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_onnx_backend_session</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">],</span> <span class="n">backend</span><span class="p">:</span> <span class="n">OnnxBackend</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="n">OnnxBackend</span><span class="o">.</span><span class="n">REFERENCE</span><span class="p">:</span>
         <span class="n">onnx_session</span> <span class="o">=</span> <span class="n">_onnx_reference_evaluator_session</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
@@ -751,6 +758,7 @@
     <span class="k">return</span> <span class="n">onnx_session</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_compare_onnx_pytorch_outputs_in_np</span><span class="p">(</span>
     <span class="n">onnx_outs</span><span class="p">:</span> <span class="n">_OutputsType</span><span class="p">,</span>
     <span class="n">pt_outs</span><span class="p">:</span> <span class="n">_OutputsType</span><span class="p">,</span>
@@ -800,6 +808,7 @@
             <span class="k">raise</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_compare_onnx_pytorch_outputs</span><span class="p">(</span>
     <span class="n">onnx_outs</span><span class="p">:</span> <span class="n">_OutputsType</span><span class="p">,</span>
     <span class="n">pt_outs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -828,6 +837,7 @@
     <span class="n">_compare_onnx_pytorch_outputs_in_np</span><span class="p">(</span><span class="n">onnx_outs</span><span class="p">,</span> <span class="n">pt_outs_np</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_prepare_input_for_pytorch</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare input for PyTorch model execution.</span>
 
@@ -854,6 +864,7 @@
     <span class="k">return</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_prepare_input_for_export</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare input for ONNX model export.</span>
 
@@ -878,6 +889,7 @@
     <span class="k">return</span> <span class="n">onnx_inputs</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_prepare_input_for_onnx</span><span class="p">(</span>
     <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">remained_onnx_input_idx</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">flatten</span><span class="p">:</span> <span class="nb">bool</span>
 <span class="p">):</span>
@@ -907,6 +919,7 @@
         <span class="k">return</span> <span class="n">onnx_inputs</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_try_clone_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Used for preserving original model in case forward mutates model states.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
@@ -918,6 +931,7 @@
         <span class="k">return</span> <span class="n">model</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_compare_onnx_pytorch_model</span><span class="p">(</span>
     <span class="n">pt_model</span><span class="p">:</span> <span class="n">_ModelType</span><span class="p">,</span>
     <span class="n">onnx_model_f</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">],</span>
@@ -943,6 +957,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">onnx_session</span> <span class="o">=</span> <span class="n">_onnx_backend_session</span><span class="p">(</span><span class="n">onnx_model_f</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">backend</span><span class="p">)</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">compare_onnx_pytorch_model_with_input</span><span class="p">(</span><span class="n">input_args</span><span class="p">,</span> <span class="n">input_kwargs</span><span class="p">):</span>
         <span class="n">pt_args</span><span class="p">,</span> <span class="n">pt_kwargs</span> <span class="o">=</span> <span class="n">_prepare_input_for_pytorch</span><span class="p">(</span><span class="n">input_args</span><span class="p">,</span> <span class="n">input_kwargs</span><span class="p">)</span>
         <span class="c1"># TODO: remove this and treat mutating model separately. See #77679</span>
@@ -971,6 +986,7 @@
 <span class="k">class</span> <span class="nc">_GraphDiff</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A class to represent the difference between two graphs.&quot;&quot;&quot;</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_a</span><span class="p">:</span> <span class="n">_C</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">graph_b</span><span class="p">:</span> <span class="n">_C</span><span class="o">.</span><span class="n">Graph</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a _GraphDiff object.</span>
 
@@ -981,13 +997,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">graph_a</span> <span class="o">=</span> <span class="n">graph_a</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph_b</span> <span class="o">=</span> <span class="n">graph_b</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;See function :func:`diff_report`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff_report</span><span class="p">()</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_indent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()])</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">diff_report</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string representation of the graph difference.</span>
 
@@ -1037,6 +1056,7 @@
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">graph_diff_report</span><span class="p">)</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_check_graph_diff</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">],</span>
     <span class="n">test_input_groups</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]],</span>
@@ -1078,6 +1098,7 @@
     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_traced_graph_from_model</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">],</span>
     <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
@@ -1105,6 +1126,7 @@
         <span class="k">return</span> <span class="n">jit_graph</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_onnx_graph_from_model</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">],</span>
     <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
@@ -1169,6 +1191,7 @@
         <span class="k">return</span> <span class="n">onnx_graph</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_onnx_graph_from_aten_graph</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
     <span class="n">export_options</span><span class="p">:</span> <span class="n">_experimental</span><span class="o">.</span><span class="n">ExportOptions</span><span class="p">,</span>
@@ -1232,6 +1255,7 @@
     <span class="k">return</span> <span class="n">graph</span><span class="p">,</span> <span class="n">params_dict</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_onnx_proto_from_onnx_graph</span><span class="p">(</span>
     <span class="n">onnx_graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
     <span class="n">export_options</span><span class="p">:</span> <span class="n">_experimental</span><span class="o">.</span><span class="n">ExportOptions</span><span class="p">,</span>
@@ -1265,6 +1289,7 @@
     <span class="k">return</span> <span class="n">proto</span><span class="p">,</span> <span class="n">export_map</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">check_export_model_diff</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">],</span>
     <span class="n">test_input_groups</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]],</span>
@@ -1308,6 +1333,7 @@
     <span class="p">)</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">_ModelType</span><span class="p">,</span>
     <span class="n">input_args</span><span class="p">:</span> <span class="n">_InputArgsType</span><span class="p">,</span>
@@ -1396,6 +1422,7 @@
         <span class="p">)</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">verify_aten_graph</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
     <span class="n">input_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
@@ -1496,6 +1523,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">upper_printer</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lower_printer</span> <span class="o">=</span> <span class="kc">None</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_total_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">1</span>
@@ -1505,6 +1533,7 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="mi">2</span>  <span class="c1"># Two lines: node count + id.</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_node_count_segment_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;...&quot;</span>
@@ -1518,16 +1547,19 @@
 
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">node_count</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;X&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">has_mismatch</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">chr</span><span class="p">(</span><span class="mh">0x2713</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">error_node_kind</span><span class="si">}</span><span class="s2">&quot;</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_graph_id_segment_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;id: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_info</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_max_segment_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span>
             <span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_node_count_segment_str</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph_id_segment_str</span><span class="p">()))</span>
         <span class="p">)</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_graph_segment_str_at_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the string representation of the graph segment at the given line.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1542,6 +1574,7 @@
             <span class="k">return</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_segment_columns</span><span class="p">()</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_connector_segment_str_at_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the connector segment string at the given line.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_printer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_printer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1558,6 +1591,7 @@
             <span class="k">return</span> <span class="s2">&quot;    &quot;</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_children_str_at_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the string representation of the children at the given line.</span>
 
@@ -1579,6 +1613,7 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_str_at_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the string representation of the graph at the given line.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span>
@@ -1628,6 +1663,7 @@
         <span class="p">)</span>
 
     <span class="nd">@classmethod</span>
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">create_test_case_repro</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">proto</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>
@@ -1665,6 +1701,7 @@
             <span class="nb">dir</span><span class="p">,</span>
         <span class="p">)</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">VerificationOptions</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the ONNX test case with options.backend, and compare with the expected outputs.</span>
 
@@ -1776,17 +1813,20 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; No mismatch &quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="GraphInfo.has_mismatch"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.has_mismatch">[docs]</a>    <span class="k">def</span> <span class="nf">has_mismatch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="GraphInfo.has_mismatch"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.has_mismatch">[docs]</a>    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+    <span class="k">def</span> <span class="nf">has_mismatch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if the subgraph has output mismatch between torch and ONNX.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mismatch_error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="GraphInfo.essential_node_count"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.essential_node_count">[docs]</a>    <span class="k">def</span> <span class="nf">essential_node_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="GraphInfo.essential_node_count"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.essential_node_count">[docs]</a>    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+    <span class="k">def</span> <span class="nf">essential_node_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of nodes in the subgraph excluding those in `_EXCLUDED_NODE_KINDS`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span>
             <span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">kind</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EXCLUDED_NODE_KINDS</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="GraphInfo.essential_node_kinds"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.essential_node_kinds">[docs]</a>    <span class="k">def</span> <span class="nf">essential_node_kinds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="GraphInfo.essential_node_kinds"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.essential_node_kinds">[docs]</a>    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+    <span class="k">def</span> <span class="nf">essential_node_kinds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the set of node kinds in the subgraph excluding those in `_EXCLUDED_NODE_KINDS`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">n</span><span class="o">.</span><span class="n">kind</span><span class="p">()</span>
@@ -1794,7 +1834,8 @@
             <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">kind</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EXCLUDED_NODE_KINDS</span>
         <span class="p">}</span></div>
 
-<div class="viewcode-block" id="GraphInfo.all_mismatch_leaf_graph_info"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.all_mismatch_leaf_graph_info">[docs]</a>    <span class="k">def</span> <span class="nf">all_mismatch_leaf_graph_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">GraphInfo</span><span class="p">]:</span>
+<div class="viewcode-block" id="GraphInfo.all_mismatch_leaf_graph_info"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.all_mismatch_leaf_graph_info">[docs]</a>    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+    <span class="k">def</span> <span class="nf">all_mismatch_leaf_graph_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;GraphInfo&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of all leaf `GraphInfo` objects that have mismatch.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_mismatch</span><span class="p">():</span>
             <span class="k">return</span> <span class="p">[]</span>
@@ -1816,7 +1857,8 @@
 
         <span class="k">return</span> <span class="n">results</span></div>
 
-<div class="viewcode-block" id="GraphInfo.find_partition"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.find_partition">[docs]</a>    <span class="k">def</span> <span class="nf">find_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">GraphInfo</span><span class="p">]:</span>
+<div class="viewcode-block" id="GraphInfo.find_partition"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.find_partition">[docs]</a>    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+    <span class="k">def</span> <span class="nf">find_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;GraphInfo&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the `GraphInfo` object with the given id.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
@@ -1828,7 +1870,8 @@
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span><span class="o">.</span><span class="n">find_partition</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="GraphInfo.export_repro"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.export_repro">[docs]</a>    <span class="k">def</span> <span class="nf">export_repro</span><span class="p">(</span>
+<div class="viewcode-block" id="GraphInfo.export_repro"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.export_repro">[docs]</a>    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+    <span class="k">def</span> <span class="nf">export_repro</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">repro_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Export the subgraph to ONNX along with the input/output data for repro.</span>
@@ -1868,6 +1911,7 @@
             <span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_outs</span><span class="p">,</span> <span class="n">repro_dir</span><span class="p">,</span> <span class="n">name</span>
         <span class="p">)</span></div>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_graph_partition_pivot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the pivot index to partition the graph.</span>
 
@@ -1890,6 +1934,7 @@
             <span class="k">return</span> <span class="n">included_node_indices</span><span class="p">[</span><span class="n">half_idx</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_partition_upper_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
         <span class="n">pivot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph_partition_pivot</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">pivot</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -1933,6 +1978,7 @@
 
         <span class="k">return</span> <span class="n">graph</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_partition_lower_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
         <span class="n">pivot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph_partition_pivot</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">pivot</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -1987,6 +2033,7 @@
 
         <span class="k">return</span> <span class="n">graph</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_partition_node</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">node</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span>
@@ -2025,6 +2072,7 @@
                 <span class="p">):</span>
                     <span class="n">covered_bridge_values</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">process_bridge_value</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_partition_nodes</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
@@ -2064,6 +2112,7 @@
             <span class="n">complete_lower_nodes_set</span><span class="p">,</span>
         <span class="p">)</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_bridge_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pt_outs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_outs</span>
         <span class="n">graph_outputs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">outputs</span><span class="p">())</span>
@@ -2073,6 +2122,7 @@
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">graph_outputs</span><span class="p">)</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pt_outs</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">Graph: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">v</span><span class="o">.</span><span class="n">debugName</span><span class="p">():</span> <span class="n">o</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">graph_outputs</span><span class="p">,</span> <span class="n">pt_outs</span><span class="p">)}</span>
 
+    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
     <span class="k">def</span> <span class="nf">_args_and_params_for_partition_graph</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
@@ -2089,7 +2139,8 @@
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">input_names</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">input_names</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">args</span><span class="p">,</span> <span class="n">params</span>
 
-<div class="viewcode-block" id="GraphInfo.verify_export"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.verify_export">[docs]</a>    <span class="k">def</span> <span class="nf">verify_export</span><span class="p">(</span>
+<div class="viewcode-block" id="GraphInfo.verify_export"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.verify_export">[docs]</a>    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+    <span class="k">def</span> <span class="nf">verify_export</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">VerificationOptions</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="ne">AssertionError</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">_OutputsType</span><span class="p">,</span> <span class="n">_OutputsType</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2118,7 +2169,8 @@
             <span class="n">verification_options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="GraphInfo.find_mismatch"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.find_mismatch">[docs]</a>    <span class="k">def</span> <span class="nf">find_mismatch</span><span class="p">(</span>
+<div class="viewcode-block" id="GraphInfo.find_mismatch"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.find_mismatch">[docs]</a>    <span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+    <span class="k">def</span> <span class="nf">find_mismatch</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">VerificationOptions</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -2197,6 +2249,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span><span class="o">.</span><span class="n">find_mismatch</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></div></div>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_all_nodes</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="n">all_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
@@ -2205,12 +2258,14 @@
     <span class="k">return</span> <span class="n">all_nodes</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_has_uses_by_nodes</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Value</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">use</span><span class="o">.</span><span class="n">user</span> <span class="ow">in</span> <span class="n">nodes</span> <span class="k">for</span> <span class="n">use</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">uses</span><span class="p">()):</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="kc">False</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_node_has_uses_by</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">outputs</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">_has_uses_by_nodes</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
@@ -2218,11 +2273,13 @@
     <span class="k">return</span> <span class="kc">False</span>
 
 
+<span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
 <span class="k">def</span> <span class="nf">_produced_by</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Value</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">node</span><span class="p">()</span> <span class="ow">in</span> <span class="n">nodes</span>
 
 
-<div class="viewcode-block" id="find_mismatch"><a class="viewcode-back" href="../../../onnx_torchscript.html#torch.onnx.verification.find_mismatch">[docs]</a><span class="k">def</span> <span class="nf">find_mismatch</span><span class="p">(</span>
+<div class="viewcode-block" id="find_mismatch"><a class="viewcode-back" href="../../../onnx_torchscript.html#torch.onnx.verification.find_mismatch">[docs]</a><span class="nd">@_beartype</span><span class="o">.</span><span class="n">beartype</span>
+<span class="k">def</span> <span class="nf">find_mismatch</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">],</span>
     <span class="n">input_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
     <span class="n">do_constant_folding</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
