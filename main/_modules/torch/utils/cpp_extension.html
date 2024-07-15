@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitcbb7e26 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git774ca93 ) &#x25BC</a>
     </div>
     
 
@@ -1962,10 +1962,7 @@
             <span class="c1"># read all content of a file</span>
             <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="c1"># check if string present in a file</span>
-            <span class="k">if</span> <span class="n">signature</span> <span class="o">==</span> <span class="n">content</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">True</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="n">signature</span> <span class="o">==</span> <span class="n">content</span>
 
     <span class="k">def</span> <span class="nf">_create_if_not_exist</span><span class="p">(</span><span class="n">path_dir</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path_dir</span><span class="p">):</span>
