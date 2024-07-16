@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git774ca93 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ab8d47 ) &#x25BC</a>
     </div>
     
 
@@ -529,8 +529,130 @@
 <h1>Event<a class="headerlink" href="#event" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.mtia.Event">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.mtia.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><a class="headerlink" href="#torch.mtia.Event" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.mtia.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_timing</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.mtia.Event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query and record Stream status to identify or control dependencies across Stream and measure timing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code></a>, optional) – the desired device for the Event.
+If not given, the current <a class="reference internal" href="../torch.html#accelerators"><span class="std std-ref">accelerator</span></a> type will be used.</p></li>
+<li><p><strong>enable_timing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – indicates if the event should measure time (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An torch.Event object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.mtia.Event" title="torch.mtia.Event">Event</a></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.mtia.Event.elapsed_time">
+<span class="sig-name descname"><span class="pre">elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_event</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#torch.mtia.Event.elapsed_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the elapsed time in milliseconds between when this event and the <code class="xref py py-attr docutils literal notranslate"><span class="pre">end_event</span></code> are
+each recorded via <a class="reference internal" href="torch.Stream.html#torch.Stream.record_event" title="torch.Stream.record_event"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Stream.record_event()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>end_event</strong> (<a class="reference internal" href="torch.Event.html#torch.Event" title="torch.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Event</span></code></a>) – The ending event has been recorded.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Time between starting and ending event in milliseconds.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e1_cuda</span> <span class="o">=</span> <span class="n">s_cuda</span><span class="o">.</span><span class="n">record_event</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e2_cuda</span> <span class="o">=</span> <span class="n">s_cuda</span><span class="o">.</span><span class="n">record_event</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ms</span> <span class="o">=</span> <span class="n">e1_cuda</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">(</span><span class="n">e2_cuda</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.mtia.Event.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#torch.mtia.Event.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the stream where this event was recorded already moved past the point where the event was recorded.
+Always returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the Event was not recorded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A boolean indicating if all work currently captured by event has completed.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span> <span class="o">=</span> <span class="n">s_cuda</span><span class="o">.</span><span class="n">record_event</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.mtia.Event.record">
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.mtia.Event.record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record the event in a given stream. The stream’s device must match the event’s device.
+This function is equivalent to <code class="docutils literal notranslate"><span class="pre">stream.record_event(self)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<a class="reference internal" href="torch.Stream.html#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to be recorded.</p></li>
+<li><p><strong>given</strong> (<em>If not</em>) – </p></li>
+<li><p><strong>used.</strong> (<em>the current stream will be</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span><span class="o">.</span><span class="n">record</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.mtia.Event.synchronize">
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.mtia.Event.synchronize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for the event to complete. This prevents the CPU thread from proceeding until the event completes.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span> <span class="o">=</span> <span class="n">s_cuda</span><span class="o">.</span><span class="n">record_event</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.mtia.Event.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#torch.mtia.Event.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make all future work submitted to the given stream wait for this event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<a class="reference internal" href="torch.Stream.html#torch.Stream" title="torch.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Stream</span></code></a>, optional) – A stream to synchronize.</p></li>
+<li><p><strong>given</strong> (<em>If not</em>) – </p></li>
+<li><p><strong>used.</strong> (<em>the current stream will be</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span> <span class="o">=</span> <span class="n">s1_cuda</span><span class="o">.</span><span class="n">record</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_cuda</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 
@@ -589,7 +711,14 @@ if (url)
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
 <li><a class="reference internal" href="#">Event</a><ul>
-<li><a class="reference internal" href="#torch.mtia.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a></li>
+<li><a class="reference internal" href="#torch.mtia.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
+<li><a class="reference internal" href="#torch.mtia.Event.elapsed_time"><code class="docutils literal notranslate"><span class="pre">Event.elapsed_time()</span></code></a></li>
+<li><a class="reference internal" href="#torch.mtia.Event.query"><code class="docutils literal notranslate"><span class="pre">Event.query()</span></code></a></li>
+<li><a class="reference internal" href="#torch.mtia.Event.record"><code class="docutils literal notranslate"><span class="pre">Event.record()</span></code></a></li>
+<li><a class="reference internal" href="#torch.mtia.Event.synchronize"><code class="docutils literal notranslate"><span class="pre">Event.synchronize()</span></code></a></li>
+<li><a class="reference internal" href="#torch.mtia.Event.wait"><code class="docutils literal notranslate"><span class="pre">Event.wait()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

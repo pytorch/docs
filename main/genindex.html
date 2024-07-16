@@ -279,7 +279,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git774ca93 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ab8d47 ) &#x25BC</a>
     </div>
     
 
@@ -3107,7 +3107,11 @@
       <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event.elapsed_time">elapsed_time() (torch.cuda.Event method)</a>
 
       <ul>
+        <li><a href="generated/torch.Event.html#torch.Event.elapsed_time">(torch.Event method)</a>
+</li>
         <li><a href="generated/torch.mps.event.Event.html#torch.mps.event.Event.elapsed_time">(torch.mps.event.Event method)</a>
+</li>
+        <li><a href="generated/torch.mtia.Event.html#torch.mtia.Event.elapsed_time">(torch.mtia.Event method)</a>
 </li>
         <li><a href="generated/torch.xpu.Event.html#torch.xpu.Event.elapsed_time">(torch.xpu.Event method)</a>
 </li>
@@ -3377,9 +3381,11 @@
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_symexpr">evaluate_symexpr() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
-      <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event">Event (class in torch.cuda)</a>
+      <li><a href="generated/torch.Event.html#torch.Event">Event (class in torch)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event">(class in torch.cuda)</a>
+</li>
         <li><a href="elastic/events.html#torch.distributed.elastic.events.api.Event">(class in torch.distributed.elastic.events.api)</a>
 </li>
         <li><a href="monitor.html#torch.monitor.Event">(class in torch.monitor)</a>
@@ -6823,9 +6829,9 @@
 </li>
         <li><a href="quantization.html#module-torch.ao.quantization.pt2e.export_utils">torch.ao.quantization.pt2e.export_utils</a>
 </li>
-        <li><a href="quantization-support.html#module-torch.ao.quantization.pt2e.generate_numeric_debug_handle">torch.ao.quantization.pt2e.generate_numeric_debug_handle</a>
-</li>
         <li><a href="quantization.html#module-torch.ao.quantization.pt2e.graph_utils">torch.ao.quantization.pt2e.graph_utils</a>
+</li>
+        <li><a href="quantization-support.html#module-torch.ao.quantization.pt2e.numeric_debugger">torch.ao.quantization.pt2e.numeric_debugger</a>
 </li>
         <li><a href="quantization.html#module-torch.ao.quantization.pt2e.port_metadata_pass">torch.ao.quantization.pt2e.port_metadata_pass</a>
 </li>
@@ -9186,12 +9192,12 @@
       </ul></li>
       <li><a href="generated/torch.ao.quantization.quantize.html#torch.ao.quantization.quantize">quantize (class in torch.ao.quantization)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.ao.quantization.quantize_dynamic.html#torch.ao.quantization.quantize_dynamic">quantize_dynamic (class in torch.ao.quantization)</a>
 </li>
       <li><a href="generated/torch.quantize_per_channel.html#torch.quantize_per_channel">quantize_per_channel() (in module torch)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.quantize_per_tensor.html#torch.quantize_per_tensor">quantize_per_tensor() (in module torch)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.quantize_qat.html#torch.ao.quantization.quantize_qat">quantize_qat (class in torch.ao.quantization)</a>
@@ -9213,7 +9219,15 @@
 </li>
         <li><a href="generated/torch.cuda.Stream.html#torch.cuda.Stream.query">(torch.cuda.Stream method)</a>
 </li>
+        <li><a href="generated/torch.Event.html#torch.Event.query">(torch.Event method)</a>
+</li>
         <li><a href="generated/torch.mps.event.Event.html#torch.mps.event.Event.query">(torch.mps.event.Event method)</a>
+</li>
+        <li><a href="generated/torch.mtia.Event.html#torch.mtia.Event.query">(torch.mtia.Event method)</a>
+</li>
+        <li><a href="generated/torch.mtia.Stream.html#torch.mtia.Stream.query">(torch.mtia.Stream method)</a>
+</li>
+        <li><a href="generated/torch.Stream.html#torch.Stream.query">(torch.Stream method)</a>
 </li>
         <li><a href="generated/torch.xpu.Event.html#torch.xpu.Event.query">(torch.xpu.Event method)</a>
 </li>
@@ -9335,7 +9349,11 @@
 </li>
         <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event.record">(torch.cuda.Event method)</a>
 </li>
+        <li><a href="generated/torch.Event.html#torch.Event.record">(torch.Event method)</a>
+</li>
         <li><a href="generated/torch.mps.event.Event.html#torch.mps.event.Event.record">(torch.mps.event.Event method)</a>
+</li>
+        <li><a href="generated/torch.mtia.Event.html#torch.mtia.Event.record">(torch.mtia.Event method)</a>
 </li>
         <li><a href="generated/torch.xpu.Event.html#torch.xpu.Event.record">(torch.xpu.Event method)</a>
 </li>
@@ -9344,6 +9362,10 @@
 
       <ul>
         <li><a href="generated/torch.cuda.Stream.html#torch.cuda.Stream.record_event">(torch.cuda.Stream method)</a>
+</li>
+        <li><a href="generated/torch.mtia.Stream.html#torch.mtia.Stream.record_event">(torch.mtia.Stream method)</a>
+</li>
+        <li><a href="generated/torch.Stream.html#torch.Stream.record_event">(torch.Stream method)</a>
 </li>
         <li><a href="generated/torch.xpu.Stream.html#torch.xpu.Stream.record_event">(torch.xpu.Stream method)</a>
 </li>
@@ -9642,6 +9664,8 @@
         <li><a href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam.register_step_post_hook">(torch.optim.SparseAdam method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_step_pre_hook">register_step_pre_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
@@ -9670,8 +9694,6 @@
         <li><a href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam.register_step_pre_hook">(torch.optim.SparseAdam method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="elastic/timer.html#torch.distributed.elastic.timer.TimerServer.register_timers">register_timers() (torch.distributed.elastic.timer.TimerServer method)</a>
 </li>
       <li><a href="library.html#torch.library.register_torch_dispatch">register_torch_dispatch() (in module torch.library)</a>
@@ -10748,14 +10770,14 @@
         <li><a href="generated/torch.Tensor.slogdet.html#torch.Tensor.slogdet">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.smm.html#torch.smm">smm() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.smm.html#torch.Tensor.smm">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.functional.smooth_l1_loss.html#torch.nn.functional.smooth_l1_loss">smooth_l1_loss() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.SmoothL1Loss.html#torch.nn.SmoothL1Loss">SmoothL1Loss (class in torch.nn)</a>
@@ -11142,9 +11164,11 @@
 </li>
       <li><a href="backends.html#torch.backends.opt_einsum.strategy">strategy (in module torch.backends.opt_einsum)</a>
 </li>
-      <li><a href="generated/torch.cpu.Stream.html#torch.cpu.Stream">Stream (class in torch.cpu)</a>
+      <li><a href="generated/torch.Stream.html#torch.Stream">Stream (class in torch)</a>
 
       <ul>
+        <li><a href="generated/torch.cpu.Stream.html#torch.cpu.Stream">(class in torch.cpu)</a>
+</li>
         <li><a href="generated/torch.cuda.Stream.html#torch.cuda.Stream">(class in torch.cuda)</a>
 </li>
         <li><a href="generated/torch.mtia.Stream.html#torch.mtia.Stream">(class in torch.mtia)</a>
@@ -11375,7 +11399,15 @@
 </li>
         <li><a href="generated/torch.cuda.Stream.html#torch.cuda.Stream.synchronize">(torch.cuda.Stream method)</a>
 </li>
+        <li><a href="generated/torch.Event.html#torch.Event.synchronize">(torch.Event method)</a>
+</li>
         <li><a href="generated/torch.mps.event.Event.html#torch.mps.event.Event.synchronize">(torch.mps.event.Event method)</a>
+</li>
+        <li><a href="generated/torch.mtia.Event.html#torch.mtia.Event.synchronize">(torch.mtia.Event method)</a>
+</li>
+        <li><a href="generated/torch.mtia.Stream.html#torch.mtia.Stream.synchronize">(torch.mtia.Stream method)</a>
+</li>
+        <li><a href="generated/torch.Stream.html#torch.Stream.synchronize">(torch.Stream method)</a>
 </li>
         <li><a href="generated/torch.xpu.Event.html#torch.xpu.Event.synchronize">(torch.xpu.Event method)</a>
 </li>
@@ -12478,17 +12510,17 @@
 </li>
       </ul></li>
       <li>
-    torch.ao.quantization.pt2e.generate_numeric_debug_handle
-
-      <ul>
-        <li><a href="quantization-support.html#module-torch.ao.quantization.pt2e.generate_numeric_debug_handle">module</a>
-</li>
-      </ul></li>
-      <li>
     torch.ao.quantization.pt2e.graph_utils
 
       <ul>
         <li><a href="quantization.html#module-torch.ao.quantization.pt2e.graph_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.ao.quantization.pt2e.numeric_debugger
+
+      <ul>
+        <li><a href="quantization-support.html#module-torch.ao.quantization.pt2e.numeric_debugger">module</a>
 </li>
       </ul></li>
       <li>
@@ -17777,9 +17809,13 @@
 </li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.wait">(torch.distributed.elastic.rendezvous.etcd_store.EtcdStore method)</a>
 </li>
+        <li><a href="generated/torch.Event.html#torch.Event.wait">(torch.Event method)</a>
+</li>
         <li><a href="futures.html#torch.futures.Future.wait">(torch.futures.Future method)</a>
 </li>
         <li><a href="generated/torch.mps.event.Event.html#torch.mps.event.Event.wait">(torch.mps.event.Event method)</a>
+</li>
+        <li><a href="generated/torch.mtia.Event.html#torch.mtia.Event.wait">(torch.mtia.Event method)</a>
 </li>
         <li><a href="generated/torch.xpu.Event.html#torch.xpu.Event.wait">(torch.xpu.Event method)</a>
 </li>
@@ -17791,6 +17827,10 @@
       <ul>
         <li><a href="generated/torch.cuda.Stream.html#torch.cuda.Stream.wait_event">(torch.cuda.Stream method)</a>
 </li>
+        <li><a href="generated/torch.mtia.Stream.html#torch.mtia.Stream.wait_event">(torch.mtia.Stream method)</a>
+</li>
+        <li><a href="generated/torch.Stream.html#torch.Stream.wait_event">(torch.Stream method)</a>
+</li>
         <li><a href="generated/torch.xpu.Stream.html#torch.xpu.Stream.wait_event">(torch.xpu.Stream method)</a>
 </li>
       </ul></li>
@@ -17799,11 +17839,17 @@
       <ul>
         <li><a href="generated/torch.cuda.Stream.html#torch.cuda.Stream.wait_stream">(torch.cuda.Stream method)</a>
 </li>
+        <li><a href="generated/torch.mtia.Stream.html#torch.mtia.Stream.wait_stream">(torch.mtia.Stream method)</a>
+</li>
+        <li><a href="generated/torch.Stream.html#torch.Stream.wait_stream">(torch.Stream method)</a>
+</li>
         <li><a href="generated/torch.xpu.Stream.html#torch.xpu.Stream.wait_stream">(torch.xpu.Stream method)</a>
 </li>
       </ul></li>
       <li><a href="distributions.html#torch.distributions.weibull.Weibull">Weibull (class in torch.distributions.weibull)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.utils.weight_norm.html#torch.nn.utils.weight_norm">weight_norm() (in module torch.nn.utils)</a>
 
       <ul>
@@ -17812,8 +17858,6 @@
       </ul></li>
       <li><a href="data.html#torch.utils.data.WeightedRandomSampler">WeightedRandomSampler (class in torch.utils.data)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.where.html#torch.where">where() (in module torch)</a>
 
       <ul>

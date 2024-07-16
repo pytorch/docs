@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git774ca93 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ab8d47 ) &#x25BC</a>
     </div>
     
 
@@ -650,6 +650,7 @@
     <span class="s2">&quot;all_gather_into_tensor&quot;</span><span class="p">,</span>
     <span class="s2">&quot;reduce_scatter_tensor&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_node_local_rank&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;split_group&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">_MPI_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
@@ -4822,6 +4823,202 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">backend</span><span class="p">:</span>
         <span class="n">backend</span> <span class="o">=</span> <span class="n">get_backend</span><span class="p">(</span><span class="n">_get_default_group</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">Backend</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_is_safe_to_split</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if it is safe to split the any process group in the world.</span>
+<span class="sd">    This is only safe if the default pg has a bound device id, otherwise</span>
+<span class="sd">    users must be aware that a pg is only splittable after the first collective is</span>
+<span class="sd">    issued.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">_get_default_group</span><span class="p">()</span><span class="o">.</span><span class="n">bound_device_id</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">True</span>
+
+
+<span class="nd">@_time_logger</span>
+<span class="k">def</span> <span class="nf">split_group</span><span class="p">(</span>
+    <span class="n">parent_pg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">split_ranks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">timedelta</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pg_options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_desc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new process group splitted from the given parent process group.</span>
+
+<span class="sd">    warning:: This is an experimental API and only the ``NCCL`` backend supports this API.</span>
+<span class="sd">    Other backends will raise an error.</span>
+<span class="sd">    Users of this API must gurantee that all ranks in the parent group enter this API call,</span>
+<span class="sd">    and the split of the sub groups is the same accross all ranks in the parent group.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        parent_pg (ProcessGroup, optional): The parent process group. If None,</span>
+<span class="sd">            the default process group will be used. Users need to gurantee that</span>
+<span class="sd">            the parent group is fully initialized (e.g, communicators are initialized)</span>
+<span class="sd">        split_ranks (list[list[int]]): the split ranks, which is a list of list of ranks.</span>
+<span class="sd">            Users need to make sure the validity of the split ranks such that one</span>
+<span class="sd">            split (represented by one inner list of ints) does not overlap with any other split.</span>
+<span class="sd">            Note that the ranks in each split is the group rank (instead of global rank)</span>
+<span class="sd">            in the parent pg. For example, if the parent group has 4 ranks, and split_ranks can be</span>
+<span class="sd">            [[0, 1], [2, 3]]. Note [[0,1]] is also a valid split, in which case ranks 2, 3 would</span>
+<span class="sd">            return a non-group member.</span>
+<span class="sd">        timeout (timedelta, optional): see `init_process_group` for details and default value.</span>
+<span class="sd">        pg_options (ProcessGroupOptions, optional): only ProcessGroupNCCLOptions is supported now.</span>
+<span class="sd">            specifying what additional options need to be passed in during</span>
+<span class="sd">            the construction of specific process groups. i.e.``is_high_priority_stream``</span>
+<span class="sd">            can be specified so that process group can pick up high priority cuda streams.</span>
+<span class="sd">        group_desc (str, optional): a string to describe the process group.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ProcessGroup if the current rank is within one split/subgroup given by split_ranks,</span>
+<span class="sd">        or None if the current rank is not part of any split_ranks`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check inputs</span>
+    <span class="k">if</span> <span class="n">split_ranks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;split_ranks cannot be None&quot;</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">_world</span>
+    <span class="n">default_pg</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
+    <span class="n">device_id</span> <span class="o">=</span> <span class="n">default_pg</span><span class="o">.</span><span class="n">bound_device_id</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">device_id</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;No device associated with the default pg, not safe to split any process groups&quot;</span>
+        <span class="p">)</span>
+    <span class="n">default_backend</span><span class="p">,</span> <span class="n">default_store</span> <span class="o">=</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_map</span><span class="p">[</span><span class="n">default_pg</span><span class="p">]</span>
+    <span class="n">global_rank</span> <span class="o">=</span> <span class="n">default_pg</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span>
+    <span class="n">global_world_size</span> <span class="o">=</span> <span class="n">default_pg</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parent_pg</span><span class="p">:</span>
+        <span class="n">parent_pg</span> <span class="o">=</span> <span class="n">default_pg</span>
+    <span class="k">if</span> <span class="n">parent_pg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_group_ranks</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Group </span><span class="si">{</span><span class="n">parent_pg</span><span class="si">}</span><span class="s2"> is not registered&quot;</span><span class="p">)</span>
+
+    <span class="n">parent_global_to_group_ranks</span> <span class="o">=</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_group_ranks</span><span class="p">[</span><span class="n">parent_pg</span><span class="p">]</span>
+    <span class="n">parent_group_to_global_ranks</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">group_rank</span><span class="p">:</span> <span class="n">global_rank</span>
+        <span class="k">for</span> <span class="n">global_rank</span><span class="p">,</span> <span class="n">group_rank</span> <span class="ow">in</span> <span class="n">parent_global_to_group_ranks</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">global_rank</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parent_global_to_group_ranks</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Global rank </span><span class="si">{</span><span class="n">global_rank</span><span class="si">}</span><span class="s2"> is not part of the parent group </span><span class="si">{</span><span class="n">parent_pg</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">parent_group_rank</span> <span class="o">=</span> <span class="n">parent_global_to_group_ranks</span><span class="p">[</span><span class="n">global_rank</span><span class="p">]</span>
+    <span class="n">parent_backend</span> <span class="o">=</span> <span class="n">parent_pg</span><span class="o">.</span><span class="n">_get_backend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">))</span>
+
+    <span class="c1"># if the parent backend does not support splitting, raise error</span>
+    <span class="c1"># currently this API only support NCCL backend</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="n">parent_backend</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">parent_backend</span><span class="o">.</span><span class="n">supports_splitting</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent_backend</span><span class="p">,</span> <span class="n">ProcessGroupNCCL</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;No backend for the parent process group or its backend does not support splitting&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># set the group_desc before the color or no_cloor split</span>
+    <span class="n">group_desc</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parent_pg</span><span class="o">.</span><span class="n">group_desc</span><span class="si">}</span><span class="s2">:split:</span><span class="si">{</span><span class="n">parent_backend</span><span class="o">.</span><span class="n">comm_split_count</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">group_desc</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">group_desc</span>
+    <span class="p">)</span>
+
+    <span class="n">parent_backend_str</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_map</span><span class="p">[</span><span class="n">parent_pg</span><span class="p">]</span>
+    <span class="c1"># same type of backend as the parent process group</span>
+    <span class="n">backend</span> <span class="o">=</span> <span class="n">Backend</span><span class="p">(</span><span class="n">parent_backend_str</span><span class="p">)</span>
+    <span class="n">backend_config</span> <span class="o">=</span> <span class="n">BackendConfig</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pg_options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">pg_options</span><span class="p">,</span> <span class="n">ProcessGroupNCCL</span><span class="o">.</span><span class="n">Options</span>
+        <span class="p">),</span> <span class="s2">&quot;Expected pg_options argument to be of type ProcessGroupNCCL.Options&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># default pg_options same as the parent process group</span>
+        <span class="n">pg_options</span> <span class="o">=</span> <span class="n">parent_backend</span><span class="o">.</span><span class="n">options</span>
+
+    <span class="c1"># this timeout defaulting/validation is used for all the new_groups/new_subgroups variants,</span>
+    <span class="c1"># which may just pass their timeout value (or None)</span>
+    <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">timeout</span> <span class="o">=</span> <span class="n">_get_default_timeout</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+    <span class="n">_check_valid_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+
+    <span class="c1"># find my group of ranks and my group local rank in split_ranks</span>
+    <span class="n">my_group</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">group_rank</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">split_group</span> <span class="ow">in</span> <span class="n">split_ranks</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_group</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;the split group cannot be empty&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_group</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">global_world_size</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;the split group&#39;s size should be less or equal to the world_size set by init_process_group&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_group</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">split_group</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;the split group cannot have duplicate ranks&quot;</span><span class="p">)</span>
+        <span class="n">split_group</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">split_group</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parent_group_rank</span> <span class="ow">in</span> <span class="n">split_group</span><span class="p">:</span>
+            <span class="n">my_group</span> <span class="o">=</span> <span class="n">split_group</span>
+            <span class="n">group_rank</span> <span class="o">=</span> <span class="n">split_group</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parent_group_rank</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="c1"># if my rank does not belong to any sub group or my rank is the only member in the subgroup,</span>
+    <span class="c1"># no_color split should be called</span>
+    <span class="k">if</span> <span class="n">my_group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group_rank</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_group</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">parent_backend</span><span class="o">.</span><span class="n">perform_nocolor_split</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">group_name</span> <span class="o">=</span> <span class="n">_process_group_name</span><span class="p">(</span><span class="n">my_group</span><span class="p">,</span> <span class="n">use_hashed_name</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">global_ranks_in_my_group</span> <span class="o">=</span> <span class="p">[</span><span class="n">parent_group_to_global_ranks</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">my_group</span><span class="p">]</span>
+
+    <span class="n">prefix_store</span> <span class="o">=</span> <span class="n">PrefixStore</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">,</span> <span class="n">default_store</span><span class="p">)</span>
+    <span class="n">base_pg_options</span> <span class="o">=</span> <span class="n">ProcessGroup</span><span class="o">.</span><span class="n">Options</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">backend</span><span class="p">))</span>
+    <span class="n">base_pg_options</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+    <span class="n">pg</span><span class="p">:</span> <span class="n">ProcessGroup</span> <span class="o">=</span> <span class="n">ProcessGroup</span><span class="p">(</span>
+        <span class="n">prefix_store</span><span class="p">,</span> <span class="n">group_rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_group</span><span class="p">),</span> <span class="n">base_pg_options</span>
+    <span class="p">)</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">bound_device_id</span> <span class="o">=</span> <span class="n">device_id</span>
+
+    <span class="n">pg_options</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+    <span class="n">pg_options</span><span class="o">.</span><span class="n">split_from</span> <span class="o">=</span> <span class="n">parent_backend</span>
+    <span class="n">pg_options</span><span class="o">.</span><span class="n">split_color</span> <span class="o">=</span> <span class="n">_process_group_color</span><span class="p">(</span><span class="n">my_group</span><span class="p">)</span>
+    <span class="n">pg_options</span><span class="o">.</span><span class="n">global_ranks_in_group</span> <span class="o">=</span> <span class="n">global_ranks_in_my_group</span>
+    <span class="n">pg_options</span><span class="o">.</span><span class="n">group_name</span> <span class="o">=</span> <span class="n">group_name</span>
+    <span class="n">backend_class</span> <span class="o">=</span> <span class="n">ProcessGroupNCCL</span><span class="p">(</span>
+        <span class="n">prefix_store</span><span class="p">,</span> <span class="n">group_rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_group</span><span class="p">),</span> <span class="n">pg_options</span>
+    <span class="p">)</span>
+    <span class="n">backend_type</span> <span class="o">=</span> <span class="n">ProcessGroup</span><span class="o">.</span><span class="n">BackendType</span><span class="o">.</span><span class="n">NCCL</span>
+    <span class="n">backend_class</span><span class="o">.</span><span class="n">_set_sequence_number_for_group</span><span class="p">()</span>
+
+    <span class="n">pg</span><span class="o">.</span><span class="n">_register_backend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">),</span> <span class="n">backend_type</span><span class="p">,</span> <span class="n">backend_class</span><span class="p">)</span>
+
+    <span class="c1"># set group_name and group_desc to backend</span>
+    <span class="k">assert</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">group_desc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">_set_group_name</span><span class="p">(</span><span class="n">group_name</span><span class="p">)</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">_set_group_desc</span><span class="p">(</span><span class="n">group_desc</span><span class="p">)</span>
+
+    <span class="c1"># always eagerly initialize the backend in split_group</span>
+    <span class="n">eager_backend</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">_get_backend</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span>
+    <span class="n">eager_backend</span><span class="o">.</span><span class="n">eager_connect_single_device</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span>
+
+    <span class="c1"># update global state</span>
+    <span class="n">_world</span><span class="o">.</span><span class="n">pg_map</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">prefix_store</span><span class="p">)</span>
+    <span class="n">_world</span><span class="o">.</span><span class="n">pg_names</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_name</span>
+    <span class="n">_register_process_group</span><span class="p">(</span><span class="n">group_name</span><span class="p">,</span> <span class="n">pg</span><span class="p">)</span>
+    <span class="n">_world</span><span class="o">.</span><span class="n">pg_backend_config</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">backend_config</span><span class="p">)</span>
+    <span class="n">pg_tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ptd:</span><span class="si">{</span><span class="n">group_name</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">_world</span><span class="o">.</span><span class="n">tags_to_pg</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">pg_tag</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pg</span><span class="p">)</span>
+    <span class="n">_world</span><span class="o">.</span><span class="n">pg_to_tag</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span> <span class="o">=</span> <span class="n">pg_tag</span>
+
+    <span class="c1"># Create the global rank to group rank mapping</span>
+    <span class="n">_world</span><span class="o">.</span><span class="n">pg_group_ranks</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">global_rank</span><span class="p">:</span> <span class="n">group_rank</span>
+        <span class="k">for</span> <span class="n">group_rank</span><span class="p">,</span> <span class="n">global_rank</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">global_ranks_in_my_group</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">pg</span>
 
 
 <div class="viewcode-block" id="new_group"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.new_group">[docs]</a><span class="nd">@_time_logger</span>
