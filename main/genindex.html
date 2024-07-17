@@ -279,7 +279,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ab8d47 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd7a8e8f ) &#x25BC</a>
     </div>
     
 
@@ -1330,6 +1330,8 @@
 </li>
       <li><a href="generated/torch.as_tensor.html#torch.as_tensor">as_tensor() (in module torch)</a>
 </li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.as_tuple">as_tuple() (torch.nn.attention.flex_attention.BlockMask method)</a>
+</li>
       <li><a href="generated/torch.asarray.html#torch.asarray">asarray() (in module torch)</a>
 </li>
       <li><a href="generated/torch.optim.ASGD.html#torch.optim.ASGD">ASGD (class in torch.optim)</a>
@@ -1615,6 +1617,8 @@
       <li><a href="benchmark_utils.html#torch.utils.benchmark.Timer.blocked_autorange">blocked_autorange() (torch.utils.benchmark.Timer method)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.BlockingAsyncStager">BlockingAsyncStager (class in torch.distributed.checkpoint.staging)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask">BlockMask (class in torch.nn.attention.flex_attention)</a>
 </li>
       <li><a href="generated/torch.bmm.html#torch.bmm">bmm() (in module torch)</a>
 
@@ -2462,6 +2466,8 @@
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.create_backend">(in module torch.distributed.elastic.rendezvous.etcd_rendezvous_backend)</a>
 </li>
       </ul></li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.create_block_mask">create_block_mask() (in module torch.nn.attention.flex_attention)</a>
+</li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.create_global_plan">create_global_plan() (torch.distributed.checkpoint.LoadPlanner method)</a>
 
       <ul>
@@ -2478,6 +2484,8 @@
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.SavePlanner.create_local_plan">(torch.distributed.checkpoint.SavePlanner method)</a>
 </li>
       </ul></li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.create_mask">create_mask() (in module torch.nn.attention.flex_attention)</a>
+</li>
       <li><a href="fx.html#torch.fx.Graph.create_node">create_node() (torch.fx.Graph method)</a>
 
       <ul>
@@ -3735,6 +3743,8 @@
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.flatten_sharded_optim_state_dict">flatten_sharded_optim_state_dict() (torch.distributed.fsdp.FullyShardedDataParallel static method)</a>
 </li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.flex_attention">flex_attention() (in module torch.nn.attention.flex_attention)</a>
+</li>
       <li><a href="generated/torch.flip.html#torch.flip">flip() (in module torch)</a>
 
       <ul>
@@ -3855,10 +3865,10 @@
 </li>
       <li><a href="random.html#torch.random.fork_rng">fork_rng() (in module torch.random)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards">format_guards() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="fx.html#torch.fx.Node.format_node">format_node() (torch.fx.Node method)</a>
 </li>
       <li><a href="generated/torch.ao.nn.quantizable.MultiheadAttention.html#torch.ao.nn.quantizable.MultiheadAttention.forward">forward() (torch.ao.nn.quantizable.MultiheadAttention method)</a>
@@ -4037,9 +4047,17 @@
 </li>
       <li><a href="generated/torch.full.html#torch.full">full() (in module torch)</a>
 </li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.full_kv_indices">full_kv_indices (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.full_kv_num_blocks">full_kv_num_blocks (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
       <li><a href="generated/torch.full_like.html#torch.full_like">full_like() (in module torch)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.full_optim_state_dict">full_optim_state_dict() (torch.distributed.fsdp.FullyShardedDataParallel static method)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.full_q_indices">full_q_indices (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.full_q_num_blocks">full_q_num_blocks (torch.nn.attention.flex_attention.BlockMask attribute)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullOptimStateDictConfig">FullOptimStateDictConfig (class in torch.distributed.fsdp)</a>
 </li>
@@ -5539,6 +5557,12 @@
       </ul></li>
       <li><a href="distributions.html#torch.distributions.kumaraswamy.Kumaraswamy">Kumaraswamy (class in torch.distributions.kumaraswamy)</a>
 </li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.KV_BLOCK_SIZE">KV_BLOCK_SIZE (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.kv_indices">kv_indices (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.kv_num_blocks">kv_num_blocks (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
       <li><a href="fx.html#torch.fx.Node.kwargs">kwargs (torch.fx.Node property)</a>
 </li>
   </ul></td>
@@ -6247,6 +6271,8 @@
         <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction.mark_non_differentiable">(torch.autograd.function.NestedIOFunction method)</a>
 </li>
       </ul></li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.mask_fn">mask_fn (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
       <li><a href="generated/torch.Tensor.masked_fill.html#torch.Tensor.masked_fill">masked_fill() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.Tensor.masked_fill_.html#torch.Tensor.masked_fill_">masked_fill_() (torch.Tensor method)</a>
@@ -7633,6 +7659,8 @@
 </li>
         <li><a href="nn.attention.bias.html#module-torch.nn.attention.bias">torch.nn.attention.bias</a>
 </li>
+        <li><a href="nn.attention.flex_attention.html#module-torch.nn.attention.flex_attention">torch.nn.attention.flex_attention</a>
+</li>
         <li><a href="nn.html#module-torch.nn.backends">torch.nn.backends</a>
 </li>
         <li><a href="nn.html#module-torch.nn.backends.thnn">torch.nn.backends.thnn</a>
@@ -8484,14 +8512,14 @@
       </ul></li>
       <li><a href="generated/torch.Tensor.neg_.html#torch.Tensor.neg_">neg_() (torch.Tensor method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.negative.html#torch.negative">negative() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.negative.html#torch.Tensor.negative">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.negative_.html#torch.Tensor.negative_">negative_() (torch.Tensor method)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.negative_binomial.NegativeBinomial">NegativeBinomial (class in torch.distributions.negative_binomial)</a>
@@ -8603,6 +8631,8 @@
       <li><a href="generated/torch.numel.html#torch.numel">numel() (in module torch)</a>
 
       <ul>
+        <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.numel">(torch.nn.attention.flex_attention.BlockMask method)</a>
+</li>
         <li><a href="size.html#torch.Size.numel">(torch.Size method)</a>
 </li>
         <li><a href="generated/torch.Tensor.numel.html#torch.Tensor.numel">(torch.Tensor method)</a>
@@ -9154,6 +9184,12 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.Q_BLOCK_SIZE">Q_BLOCK_SIZE (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.q_indices">q_indices (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.q_num_blocks">q_num_blocks (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
       <li><a href="generated/torch.Tensor.q_per_channel_axis.html#torch.Tensor.q_per_channel_axis">q_per_channel_axis() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.Tensor.q_per_channel_scales.html#torch.Tensor.q_per_channel_scales">q_per_channel_scales() (torch.Tensor method)</a>
@@ -9194,10 +9230,10 @@
 </li>
       <li><a href="generated/torch.ao.quantization.quantize_dynamic.html#torch.ao.quantization.quantize_dynamic">quantize_dynamic (class in torch.ao.quantization)</a>
 </li>
-      <li><a href="generated/torch.quantize_per_channel.html#torch.quantize_per_channel">quantize_per_channel() (in module torch)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/torch.quantize_per_channel.html#torch.quantize_per_channel">quantize_per_channel() (in module torch)</a>
+</li>
       <li><a href="generated/torch.quantize_per_tensor.html#torch.quantize_per_tensor">quantize_per_tensor() (in module torch)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.quantize_qat.html#torch.ao.quantization.quantize_qat">quantize_qat (class in torch.ao.quantization)</a>
@@ -10618,8 +10654,12 @@
 </li>
       <li><a href="torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.ShadowLogger">ShadowLogger (class in torch.ao.ns._numeric_suite)</a>
 </li>
-      <li><a href="generated/torch.Tensor.shape.html#torch.Tensor.shape">shape (torch.Tensor attribute)</a>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.shape">shape (torch.nn.attention.flex_attention.BlockMask property)</a>
+
+      <ul>
+        <li><a href="generated/torch.Tensor.shape.html#torch.Tensor.shape">(torch.Tensor attribute)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv">ShapeEnv (class in torch.fx.experimental.symbolic_shapes)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnvSettings.html#torch.fx.experimental.symbolic_shapes.ShapeEnvSettings">ShapeEnvSettings (class in torch.fx.experimental.symbolic_shapes)</a>
@@ -10865,6 +10905,8 @@
       <li><a href="generated/torch.Tensor.sparse_resize_and_clear_.html#torch.Tensor.sparse_resize_and_clear_">sparse_resize_and_clear_() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam">SparseAdam (class in torch.optim)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.sparsity">sparsity() (torch.nn.attention.flex_attention.BlockMask method)</a>
 </li>
       <li><a href="multiprocessing.html#torch.multiprocessing.spawn.spawn">spawn() (in module torch.multiprocessing.spawn)</a>
 </li>
@@ -11560,8 +11602,12 @@
       </ul></li>
       <li><a href="fx.html#torch.fx.Tracer.to_bool">to_bool() (torch.fx.Tracer method)</a>
 </li>
-      <li><a href="generated/torch.Tensor.to_dense.html#torch.Tensor.to_dense">to_dense() (torch.Tensor method)</a>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.to_dense">to_dense() (torch.nn.attention.flex_attention.BlockMask method)</a>
+
+      <ul>
+        <li><a href="generated/torch.Tensor.to_dense.html#torch.Tensor.to_dense">(torch.Tensor method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendConfig.html#torch.ao.quantization.backend_config.BackendConfig.to_dict">to_dict() (torch.ao.quantization.backend_config.BackendConfig method)</a>
 
       <ul>
@@ -11605,6 +11651,8 @@
       <li><a href="generated/torch.Tensor.to_sparse_csc.html#torch.Tensor.to_sparse_csc">to_sparse_csc() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.Tensor.to_sparse_csr.html#torch.Tensor.to_sparse_csr">to_sparse_csr() (torch.Tensor method)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.to_string">to_string() (torch.nn.attention.flex_attention.BlockMask method)</a>
 </li>
       <li><a href="generated/torch.Tensor.tolist.html#torch.Tensor.tolist">tolist() (torch.Tensor method)</a>
 
@@ -15327,6 +15375,13 @@
 
       <ul>
         <li><a href="nn.attention.bias.html#module-torch.nn.attention.bias">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.nn.attention.flex_attention
+
+      <ul>
+        <li><a href="nn.attention.flex_attention.html#module-torch.nn.attention.flex_attention">module</a>
 </li>
       </ul></li>
       <li>

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git9ab8d47 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd7a8e8f ) &#x25BC</a>
     </div>
     
 
@@ -857,7 +857,7 @@
 <span class="sd">    &gt;&gt;&gt;</span>
 <span class="sd">    &gt;&gt;&gt;     def load_bytes(self, read_item, value):</span>
 <span class="sd">    &gt;&gt;&gt;         # Remove the &quot;foo_&quot; prefix</span>
-<span class="sd">    &gt;&gt;&gt;         self.original_state_dict[read_item.dest_index.fqn[4:]] = torch.load(value)</span>
+<span class="sd">    &gt;&gt;&gt;         self.original_state_dict[read_item.dest_index.fqn[4:]] = torch.load(value, weights_only=False)</span>
 
 
 <span class="sd">    Modifying resolve_tensor and commit_tensor to handle load time transformation.</span>
