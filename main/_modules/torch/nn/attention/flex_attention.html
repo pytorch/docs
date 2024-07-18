@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd7a8e8f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd77af49 ) &#x25BC</a>
     </div>
     
 
@@ -566,18 +566,18 @@
 
 <span class="n">_score_mod_signature</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">]</span>
 
-<span class="n">_mask_fn_signature</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">]</span>
+<span class="n">_mask_mod_signature</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">_ModificationType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum for the type of modification function.</span>
 <span class="sd">    - SCORE_MOD: score_mod function which accepts a score as the first argument</span>
-<span class="sd">    - MASK_FN: mask function which does not accept a score and is only used for generating</span>
+<span class="sd">    - mask_mod: mask function which does not accept a score and is only used for generating</span>
 <span class="sd">    block mask</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">SCORE_MOD</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">MASK_FN</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">MASK_MOD</span> <span class="o">=</span> <span class="mi">2</span>
 
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">assume_constant_result</span>
@@ -597,7 +597,7 @@
     <span class="k">if</span> <span class="n">num_positional_args</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">SCORE_MOD</span>
     <span class="k">elif</span> <span class="n">num_positional_args</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">MASK_FN</span>
+        <span class="k">return</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">MASK_MOD</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">AssertionError</span>
 
@@ -648,6 +648,51 @@
 <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span> <span class="o">=</span> <span class="mi">128</span>
 
 
+<span class="k">def</span> <span class="nf">_ordered_to_dense</span><span class="p">(</span><span class="n">num_blocks_in_row</span><span class="p">,</span> <span class="n">col_indices</span><span class="p">):</span>
+    <span class="n">num_rows</span> <span class="o">=</span> <span class="n">col_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">num_cols</span> <span class="o">=</span> <span class="n">col_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">batch_dims</span> <span class="o">=</span> <span class="n">num_blocks_in_row</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">num_blocks_in_row</span><span class="o">.</span><span class="n">device</span>
+
+    <span class="k">def</span> <span class="nf">create_dense_one</span><span class="p">(</span><span class="n">kv_num_blocks</span><span class="p">,</span> <span class="n">kv_indices</span><span class="p">):</span>
+        <span class="n">dense_mask</span> <span class="o">=</span> <span class="n">kv_indices</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+        <span class="n">row_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="n">col_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_cols</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">index_mask</span> <span class="o">=</span> <span class="n">col_range</span> <span class="o">&lt;</span> <span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># We write to one spot &quot;out of bounds&quot;</span>
+        <span class="n">valid_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">index_mask</span><span class="p">,</span> <span class="n">kv_indices</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">)</span>
+
+        <span class="c1"># set the values in &#39;a&#39; to 1 where the indices are valid</span>
+        <span class="n">dense_mask</span><span class="p">[</span><span class="n">row_indices</span><span class="p">,</span> <span class="n">valid_indices</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">dense_mask</span><span class="p">[:,</span> <span class="p">:</span><span class="n">num_cols</span><span class="p">]</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
+    <span class="n">create_dense_batched</span> <span class="o">=</span> <span class="n">create_dense_one</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">batch_dims</span><span class="p">)):</span>
+        <span class="n">create_dense_batched</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">create_dense_batched</span><span class="p">,</span> <span class="n">in_dims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">create_dense_batched</span><span class="p">(</span><span class="n">num_blocks_in_row</span><span class="p">,</span> <span class="n">col_indices</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">_dense_to_ordered</span><span class="p">(</span><span class="n">dense_mask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+    <span class="n">dense_mask</span> <span class="o">=</span> <span class="n">dense_mask</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">num_blocks_in_row</span> <span class="o">=</span> <span class="n">dense_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">col_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">dense_mask</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">num_blocks_in_row</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span>
+        <span class="n">col_indices</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_transpose_ordered</span><span class="p">(</span><span class="n">num_blocks_in_row</span><span class="p">,</span> <span class="n">col_indices</span><span class="p">):</span>
+    <span class="n">dense</span> <span class="o">=</span> <span class="n">_ordered_to_dense</span><span class="p">(</span><span class="n">num_blocks_in_row</span><span class="p">,</span> <span class="n">col_indices</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_dense_to_ordered</span><span class="p">(</span><span class="n">dense</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+
 <div class="viewcode-block" id="BlockMask"><a class="viewcode-back" href="../../../../nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask">[docs]</a><span class="k">class</span> <span class="nc">BlockMask</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    BlockMask is our format for representing a block-sparse attention mask.</span>
@@ -662,8 +707,9 @@
 <span class="sd">    contiguous loads and computation.</span>
 
 <span class="sd">    This format is primarily optimized for 1. simplicity, and 2. kernel</span>
-<span class="sd">    efficiency. Notably, it is *not* optimized for size, as we believe the mask</span>
-<span class="sd">    is sufficiently small that its size is not a concern.</span>
+<span class="sd">    efficiency. Notably, it is *not* optimized for size, as this mask is always</span>
+<span class="sd">    reduced by a factor of KV_BLOCK_SIZE * Q_BLOCK_SIZE. If the size is a</span>
+<span class="sd">    concern, the tensors can be reduced in size by increasing the block size.</span>
 
 <span class="sd">    The essentials of our format are:</span>
 
@@ -694,74 +740,76 @@
 <span class="sd">    1. (kv_num_blocks, kv_indices): Used for the forwards pass of attention, as</span>
 <span class="sd">    we reduce along the KV dimension.</span>
 
-<span class="sd">    2. (q_num_blocks, q_indices): Required for the backwards pass, as computing</span>
-<span class="sd">    dKV requires iterating along the mask along the Q dimension.</span>
-
-<span class="sd">    3. [OPTIONAL] (full_kv_num_blocks, full_kv_indices): This is optional and</span>
+<span class="sd">    2. [OPTIONAL] (full_kv_num_blocks, full_kv_indices): This is optional and</span>
 <span class="sd">    purely an optimization. As it turns out, applying masking to every block</span>
 <span class="sd">    is quite expensive! If we specifically know which blocks are &quot;full&quot; and</span>
 <span class="sd">    don&#39;t require masking at all, then we can skip applying mask_mod to these</span>
 <span class="sd">    blocks. This requires the user to split out a separate mask_mod from the</span>
 <span class="sd">    score_mod. For causal masks, this is about a 15% speedup.</span>
 
-<span class="sd">    4. [OPTIONAL] (full_q_num_blocks, full_q_indices): Same as above, but for</span>
-<span class="sd">    the backwards pass.</span>
+<span class="sd">    3. [GENERATED] (q_num_blocks, q_indices): Required for the backwards pass,</span>
+<span class="sd">    as computing dKV requires iterating along the mask along the Q dimension. These are autogenerated from 1.</span>
+
+<span class="sd">    4. [GENERATED] (full_q_num_blocks, full_q_indices): Same as above, but for</span>
+<span class="sd">    the backwards pass. These are autogenerated from 2.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kv_num_blocks</span><span class="p">:</span> <span class="n">Tensor</span>
     <span class="n">kv_indices</span><span class="p">:</span> <span class="n">Tensor</span>
-    <span class="n">q_num_blocks</span><span class="p">:</span> <span class="n">Tensor</span>
-    <span class="n">q_indices</span><span class="p">:</span> <span class="n">Tensor</span>
     <span class="n">full_kv_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
     <span class="n">full_kv_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
+    <span class="n">q_num_blocks</span><span class="p">:</span> <span class="n">Tensor</span>
+    <span class="n">q_indices</span><span class="p">:</span> <span class="n">Tensor</span>
     <span class="n">full_q_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
     <span class="n">full_q_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
-    <span class="n">KV_BLOCK_SIZE</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">Q_BLOCK_SIZE</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">mask_fn</span><span class="p">:</span> <span class="n">_mask_fn_signature</span>
+    <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">mask_mod</span><span class="p">:</span> <span class="n">_mask_mod_signature</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">kv_num_blocks</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
         <span class="n">kv_indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-        <span class="n">q_num_blocks</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-        <span class="n">q_indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-        <span class="n">full_kv_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-        <span class="n">full_kv_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-        <span class="n">full_q_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-        <span class="n">full_q_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-        <span class="n">KV_BLOCK_SIZE</span><span class="o">=</span><span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
-        <span class="n">Q_BLOCK_SIZE</span><span class="o">=</span><span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
-        <span class="n">mask_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_mask_fn_signature</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">full_kv_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">full_kv_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
+        <span class="n">mask_mod</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_mask_mod_signature</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">kv_indices</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;BlockMask must have at least 2 dimensions&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span> <span class="o">=</span> <span class="n">kv_num_blocks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span> <span class="o">=</span> <span class="n">kv_indices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">q_num_blocks</span> <span class="o">=</span> <span class="n">q_num_blocks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">q_indices</span> <span class="o">=</span> <span class="n">q_indices</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span> <span class="o">=</span> <span class="n">full_kv_num_blocks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_indices</span> <span class="o">=</span> <span class="n">full_kv_indices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">full_q_num_blocks</span> <span class="o">=</span> <span class="n">full_q_num_blocks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">full_q_indices</span> <span class="o">=</span> <span class="n">full_q_indices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">KV_BLOCK_SIZE</span> <span class="o">=</span> <span class="n">KV_BLOCK_SIZE</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Q_BLOCK_SIZE</span> <span class="o">=</span> <span class="n">Q_BLOCK_SIZE</span>
-        <span class="k">if</span> <span class="n">mask_fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">mask_fn</span> <span class="o">=</span> <span class="n">_no_mask</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mask_fn</span> <span class="o">=</span> <span class="n">mask_fn</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_num_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_indices</span> <span class="o">=</span> <span class="n">_transpose_ordered</span><span class="p">(</span>
+            <span class="n">kv_num_blocks</span><span class="p">,</span> <span class="n">kv_indices</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">full_kv_num_blocks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">full_q_num_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_q_indices</span> <span class="o">=</span> <span class="n">_transpose_ordered</span><span class="p">(</span>
+                <span class="n">full_kv_num_blocks</span><span class="p">,</span> <span class="n">full_kv_indices</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">full_q_num_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_q_indices</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">BLOCK_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">,</span> <span class="n">BLOCK_SIZE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span> <span class="o">=</span> <span class="n">BLOCK_SIZE</span>
+        <span class="k">if</span> <span class="n">mask_mod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mask_mod</span> <span class="o">=</span> <span class="n">_no_mask</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_mod</span> <span class="o">=</span> <span class="n">mask_mod</span>
 
 <div class="viewcode-block" id="BlockMask.as_tuple"><a class="viewcode-back" href="../../../../nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.as_tuple">[docs]</a>    <span class="k">def</span> <span class="nf">as_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">q_num_blocks</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">q_indices</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_indices</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">q_num_blocks</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">q_indices</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">full_q_num_blocks</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">full_q_indices</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">KV_BLOCK_SIZE</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Q_BLOCK_SIZE</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mask_fn</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask_mod</span><span class="p">,</span>
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -772,8 +820,14 @@
         <span class="k">return</span> <span class="n">s</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BlockMask&quot;</span><span class="p">:</span>
-        <span class="n">new_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_tuple</span><span class="p">()]</span>
-        <span class="k">return</span> <span class="n">BlockMask</span><span class="p">(</span><span class="o">*</span><span class="n">new_values</span><span class="p">)</span>
+        <span class="n">new_kv_num_blocks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">new_kv_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">BlockMask</span><span class="p">(</span>
+            <span class="n">new_kv_num_blocks</span><span class="p">,</span>
+            <span class="n">new_kv_indices</span><span class="p">,</span>
+            <span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+            <span class="n">mask_mod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_mod</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -781,8 +835,8 @@
 <span class="sd">        Returns the shape of the mask.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">*</span><span class="n">batch_dims</span><span class="p">,</span> <span class="n">q_length</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">q_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">KV_BLOCK_SIZE</span>
-        <span class="n">kv_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_num_blocks</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q_BLOCK_SIZE</span>
+        <span class="n">q_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">kv_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">batch_dims</span> <span class="o">+</span> <span class="p">[</span><span class="n">q_length</span><span class="p">,</span> <span class="n">kv_length</span><span class="p">])</span>
 
 <div class="viewcode-block" id="BlockMask.numel"><a class="viewcode-back" href="../../../../nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.numel">[docs]</a>    <span class="k">def</span> <span class="nf">numel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -805,7 +859,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">computed_blocks</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
-        <span class="n">computed_size</span> <span class="o">=</span> <span class="n">computed_blocks</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">KV_BLOCK_SIZE</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q_BLOCK_SIZE</span>
+        <span class="n">computed_size</span> <span class="o">=</span> <span class="n">computed_blocks</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">dense_ratio</span> <span class="o">=</span> <span class="n">computed_size</span> <span class="o">/</span> <span class="n">total_size</span>
         <span class="k">return</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">dense_ratio</span><span class="p">)</span></div>
 
@@ -813,37 +867,12 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dense block that is equivalent to the block mask.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">num_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">num_cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_num_blocks</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">batch_dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">device</span>
-
-        <span class="k">def</span> <span class="nf">create_dense_one</span><span class="p">(</span><span class="n">kv_num_blocks</span><span class="p">,</span> <span class="n">kv_indices</span><span class="p">):</span>
-            <span class="n">dense_mask</span> <span class="o">=</span> <span class="n">kv_indices</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
-
-            <span class="n">row_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span>
-                <span class="n">num_rows</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">col_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_cols</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
-            <span class="n">index_mask</span> <span class="o">=</span> <span class="n">col_indices</span> <span class="o">&lt;</span> <span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-
-            <span class="c1"># We write to one spot &quot;out of bounds&quot;</span>
-            <span class="n">valid_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">index_mask</span><span class="p">,</span> <span class="n">kv_indices</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">)</span>
-
-            <span class="c1"># set the values in &#39;a&#39; to 1 where the indices are valid</span>
-            <span class="n">dense_mask</span><span class="p">[</span><span class="n">row_indices</span><span class="p">,</span> <span class="n">valid_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
-                <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dense_mask</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dense_mask</span><span class="o">.</span><span class="n">dtype</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="n">dense_mask</span><span class="p">[:,</span> <span class="p">:</span><span class="n">num_cols</span><span class="p">]</span>
-
-        <span class="n">create_dense_batched</span> <span class="o">=</span> <span class="n">create_dense_one</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">batch_dims</span><span class="p">)):</span>
-            <span class="n">create_dense_batched</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">create_dense_batched</span><span class="p">,</span> <span class="n">in_dims</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-
-        <span class="n">out</span> <span class="o">=</span> <span class="n">create_dense_batched</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="p">)</span>
+        <span class="n">partial_dense</span> <span class="o">=</span> <span class="n">_ordered_to_dense</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">|=</span> <span class="n">create_dense_batched</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_indices</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">out</span></div>
+            <span class="k">return</span> <span class="n">partial_dense</span> <span class="o">|</span> <span class="n">_ordered_to_dense</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_indices</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">partial_dense</span></div>
 
 <div class="viewcode-block" id="BlockMask.to_string"><a class="viewcode-back" href="../../../../nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.to_string">[docs]</a>    <span class="k">def</span> <span class="nf">to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">limit</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -968,44 +997,30 @@
 
 <span class="k">def</span> <span class="nf">_create_sparse_block_from_block_mask</span><span class="p">(</span>
     <span class="n">block_mask</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
-    <span class="n">mask_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">],</span>
+    <span class="n">mask_mod</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">],</span>
     <span class="n">KV_BLOCK_SIZE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
     <span class="n">Q_BLOCK_SIZE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockMask</span><span class="p">:</span>
     <span class="n">full_blocks</span><span class="p">,</span> <span class="n">partial_blocks</span> <span class="o">=</span> <span class="n">block_mask</span>
 
-    <span class="k">def</span> <span class="nf">create_sparse_block_from_block_mask_inner</span><span class="p">(</span><span class="n">block_mask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
-        <span class="n">block_mask</span> <span class="o">=</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
-        <span class="n">kv_num_blocks</span> <span class="o">=</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-        <span class="n">kv_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">block_mask</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">q_num_blocks</span> <span class="o">=</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">q_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span>
-            <span class="n">block_mask</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">block_mask</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span>
-            <span class="n">kv_indices</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">block_mask</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span>
-            <span class="n">q_num_blocks</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">block_mask</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span>
-            <span class="n">q_indices</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">block_mask</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span>
-        <span class="p">)</span>
-
-    <span class="n">full_bm</span> <span class="o">=</span> <span class="n">create_sparse_block_from_block_mask_inner</span><span class="p">(</span><span class="n">full_blocks</span><span class="p">)</span>
+    <span class="n">full_bm</span> <span class="o">=</span> <span class="n">_dense_to_ordered</span><span class="p">(</span><span class="n">full_blocks</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">partial_blocks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">partial_bm</span> <span class="o">=</span> <span class="n">create_sparse_block_from_block_mask_inner</span><span class="p">(</span><span class="n">partial_blocks</span><span class="p">)</span>
+        <span class="n">partial_bm</span> <span class="o">=</span> <span class="n">_dense_to_ordered</span><span class="p">(</span><span class="n">partial_blocks</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">partial_bm</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">partial_bm</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">BlockMask</span><span class="p">(</span>  <span class="c1"># type: ignore[call-arg]</span>
-        <span class="o">*</span><span class="n">full_bm</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">partial_bm</span><span class="p">,</span>
-        <span class="n">KV_BLOCK_SIZE</span><span class="p">,</span>
-        <span class="n">Q_BLOCK_SIZE</span><span class="p">,</span>
-        <span class="n">mask_fn</span><span class="p">,</span>
+        <span class="n">full_bm</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">full_bm</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">partial_bm</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">partial_bm</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="p">(</span><span class="n">KV_BLOCK_SIZE</span><span class="p">,</span> <span class="n">Q_BLOCK_SIZE</span><span class="p">),</span>
+        <span class="n">mask_mod</span><span class="o">=</span><span class="n">mask_mod</span><span class="p">,</span>
     <span class="p">)</span>
 
 
 <div class="viewcode-block" id="create_mask"><a class="viewcode-back" href="../../../../nn.attention.flex_attention.html#torch.nn.attention.flex_attention.create_mask">[docs]</a><span class="k">def</span> <span class="nf">create_mask</span><span class="p">(</span>
-    <span class="n">mod_fn</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">_score_mod_signature</span><span class="p">,</span> <span class="n">_mask_fn_signature</span><span class="p">],</span>
+    <span class="n">mod_fn</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">_score_mod_signature</span><span class="p">,</span> <span class="n">_mask_mod_signature</span><span class="p">],</span>
     <span class="n">B</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">H</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">M</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -1016,7 +1031,7 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This function creates a mask tensor from a mod_fn function.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        mod_fn (Union[_score_mod_signature, _mask_fn_signature]): Function to modify attention scores.</span>
+<span class="sd">        mod_fn (Union[_score_mod_signature, _mask_mod_signature]): Function to modify attention scores.</span>
 <span class="sd">        B (int): Batch size.</span>
 <span class="sd">        H (int): Number of heads.</span>
 <span class="sd">        M (int): Sequence length of query.</span>
@@ -1047,10 +1062,10 @@
             <span class="n">out</span> <span class="o">=</span> <span class="n">score_mod</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">),</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">isneginf</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">mask</span>
-        <span class="k">elif</span> <span class="n">mod_type</span> <span class="o">==</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">MASK_FN</span><span class="p">:</span>
-            <span class="n">mask_fn</span> <span class="o">=</span> <span class="n">mod_fn</span>
-            <span class="n">mask_fn</span> <span class="o">=</span> <span class="n">_vmap_for_bhqkv</span><span class="p">(</span><span class="n">mask_fn</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="p">())</span>
-            <span class="n">mask</span> <span class="o">=</span> <span class="n">mask_fn</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">mod_type</span> <span class="o">==</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">MASK_MOD</span><span class="p">:</span>
+            <span class="n">mask_mod</span> <span class="o">=</span> <span class="n">mod_fn</span>
+            <span class="n">mask_mod</span> <span class="o">=</span> <span class="n">_vmap_for_bhqkv</span><span class="p">(</span><span class="n">mask_mod</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="p">())</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">mask_mod</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">mask</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span></div>
@@ -1063,18 +1078,18 @@
 <span class="p">):</span>
     <span class="n">mask_tensor</span> <span class="o">=</span> <span class="n">create_mask</span><span class="p">(</span><span class="n">mod_fn</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">_compile</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">mod_type</span> <span class="o">=</span> <span class="n">_get_mod_type</span><span class="p">(</span><span class="n">mod_fn</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">mod_type</span> <span class="o">==</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">MASK_FN</span><span class="p">:</span>
-        <span class="n">mask_fn</span> <span class="o">=</span> <span class="n">mod_fn</span>
+    <span class="k">if</span> <span class="n">mod_type</span> <span class="o">==</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">MASK_MOD</span><span class="p">:</span>
+        <span class="n">mask_mod</span> <span class="o">=</span> <span class="n">mod_fn</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">mask_fn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">mask_mod</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">full_block_mask</span><span class="p">,</span> <span class="n">partial_block_mask</span> <span class="o">=</span> <span class="n">_convert_mask_to_block_mask</span><span class="p">(</span>
         <span class="n">mask_tensor</span><span class="p">,</span>
         <span class="n">KV_BLOCK_SIZE</span><span class="o">=</span><span class="n">KV_BLOCK_SIZE</span><span class="p">,</span>
         <span class="n">Q_BLOCK_SIZE</span><span class="o">=</span><span class="n">Q_BLOCK_SIZE</span><span class="p">,</span>
-        <span class="n">separate_full_blocks</span><span class="o">=</span><span class="p">(</span><span class="n">mask_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">separate_full_blocks</span><span class="o">=</span><span class="p">(</span><span class="n">mask_mod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">_create_sparse_block_from_block_mask</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">full_block_mask</span><span class="p">,</span> <span class="n">partial_block_mask</span><span class="p">),</span> <span class="n">mask_fn</span>
+        <span class="p">(</span><span class="n">full_block_mask</span><span class="p">,</span> <span class="n">partial_block_mask</span><span class="p">),</span> <span class="n">mask_mod</span>
     <span class="p">)</span>
 
 
@@ -1132,14 +1147,9 @@
     <span class="k">return</span> <span class="n">BlockMask</span><span class="p">(</span>
         <span class="n">kv_num_blocks</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">),</span>
         <span class="n">kv_indices</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">),</span>
-        <span class="n">q_num_blocks</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">),</span>
-        <span class="n">q_indices</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">),</span>
         <span class="n">full_kv_num_blocks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">full_kv_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">full_q_num_blocks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">full_q_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">KV_BLOCK_SIZE</span><span class="o">=</span><span class="n">kv_len</span><span class="p">,</span>
-        <span class="n">Q_BLOCK_SIZE</span><span class="o">=</span><span class="n">q_len</span><span class="p">,</span>
+        <span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="p">(</span><span class="n">kv_len</span><span class="p">,</span> <span class="n">q_len</span><span class="p">),</span>
     <span class="p">)</span>
 
 

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd7a8e8f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd77af49 ) &#x25BC</a>
     </div>
     
 
@@ -1633,7 +1633,11 @@
 
 <span class="k">def</span> <span class="nf">_get_amdsmi_power_draw</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Device</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">handle</span> <span class="o">=</span> <span class="n">_get_amdsmi_handler</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">amdsmi</span><span class="o">.</span><span class="n">amdsmi_get_power_info</span><span class="p">(</span><span class="n">handle</span><span class="p">)[</span><span class="s2">&quot;current_socket_power&quot;</span><span class="p">]</span>
+    <span class="n">socket_power</span> <span class="o">=</span> <span class="n">amdsmi</span><span class="o">.</span><span class="n">amdsmi_get_power_info</span><span class="p">(</span><span class="n">handle</span><span class="p">)[</span><span class="s2">&quot;average_socket_power&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">socket_power</span> <span class="o">!=</span> <span class="s2">&quot;N/A&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">socket_power</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">amdsmi</span><span class="o">.</span><span class="n">amdsmi_get_power_info</span><span class="p">(</span><span class="n">handle</span><span class="p">)[</span><span class="s2">&quot;current_socket_power&quot;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_get_amdsmi_clock_rate</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Device</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
