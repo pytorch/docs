@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git6e7b9ee ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitcd8bbdc ) &#x25BC</a>
     </div>
     
 
@@ -661,17 +661,17 @@ Visual Studio Code’s <a class="reference external" href="https://marketplace.v
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><em>Module</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a><em>, </em><a class="reference internal" href="export.html#torch.export.ExportedProgram" title="torch.export.exported_program.ExportedProgram"><em>ExportedProgram</em></a><em>]</em>) – The PyTorch model to be exported to ONNX.</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a><em> | </em><em>Callable</em><em> | </em><em>torch_export.ExportedProgram</em>) – The PyTorch model to be exported to ONNX.</p></li>
 <li><p><strong>model_args</strong> – Positional inputs to <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
 <li><p><strong>model_kwargs</strong> – Keyword inputs to <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
-<li><p><strong>export_options</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference internal" href="#torch.onnx.ExportOptions" title="torch.onnx.ExportOptions"><em>ExportOptions</em></a><em>]</em>) – Options to influence the export to ONNX.</p></li>
+<li><p><strong>export_options</strong> (<a class="reference internal" href="#torch.onnx.ExportOptions" title="torch.onnx.ExportOptions"><em>ExportOptions</em></a><em> | </em><em>None</em>) – Options to influence the export to ONNX.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>An in-memory representation of the exported ONNX model.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><em>ONNXProgram</em></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram">ONNXProgram</a></p>
 </dd>
 </dl>
 <p><strong>Example 1 - Simplest export</strong></p>
@@ -733,14 +733,14 @@ Visual Studio Code’s <a class="reference external" href="https://marketplace.v
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dynamic_shapes</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>]</em>) – Shape information hint for input/output tensors.
+<li><p><strong>dynamic_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> | </em><em>None</em>) – Shape information hint for input/output tensors.
 When <code class="docutils literal notranslate"><span class="pre">None</span></code>, the exporter determines the most compatible setting.
 When <code class="docutils literal notranslate"><span class="pre">True</span></code>, all input shapes are considered dynamic.
 When <code class="docutils literal notranslate"><span class="pre">False</span></code>, all input shapes are considered static.</p></li>
-<li><p><strong>op_level_debug</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>]</em>) – Whether to export the model with op-level debug information</p></li>
+<li><p><strong>op_level_debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> | </em><em>None</em>) – Whether to export the model with op-level debug information</p></li>
 <li><p><strong>diagnostic_options</strong> (<a class="reference internal" href="#torch.onnx.DiagnosticOptions" title="torch.onnx.DiagnosticOptions"><em>DiagnosticOptions</em></a>) – The diagnostic options for the exporter.</p></li>
-<li><p><strong>fake_context</strong> (<em>Optional</em><em>[</em><em>ONNXFakeContext</em><em>]</em>) – The fake context used for symbolic tracing.</p></li>
-<li><p><strong>onnx_registry</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.onnx.OnnxRegistry" title="torch.onnx.OnnxRegistry"><em>OnnxRegistry</em></a><em>]</em>) – The ONNX registry used to register ATen operators to ONNX functions.</p></li>
+<li><p><strong>fake_context</strong> (<em>ONNXFakeContext</em><em> | </em><em>None</em>) – The fake context used for symbolic tracing.</p></li>
+<li><p><strong>onnx_registry</strong> (<a class="reference internal" href="#torch.onnx.OnnxRegistry" title="torch.onnx.OnnxRegistry"><em>OnnxRegistry</em></a><em> | </em><em>None</em>) – The ONNX registry used to register ATen operators to ONNX functions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -808,9 +808,9 @@ through the <code class="xref py py-attr docutils literal notranslate"><span cla
 <li><p><strong>input_adapter</strong> (<em>io_adapter.InputAdapter</em>) – The input adapter used to convert PyTorch inputs into ONNX inputs.</p></li>
 <li><p><strong>output_adapter</strong> (<em>io_adapter.OutputAdapter</em>) – The output adapter used to convert PyTorch outputs into ONNX outputs.</p></li>
 <li><p><strong>diagnostic_context</strong> (<em>diagnostics.DiagnosticContext</em>) – Context object for the SARIF diagnostic system responsible for logging errors and metadata.</p></li>
-<li><p><strong>fake_context</strong> (<em>Optional</em><em>[</em><em>ONNXFakeContext</em><em>]</em>) – The fake context used for symbolic tracing.</p></li>
-<li><p><strong>export_exception</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.12)"><em>Exception</em></a><em>]</em>) – The exception that occurred during export, if any.</p></li>
-<li><p><strong>model_signature</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="export.html#torch.export.ExportGraphSignature" title="torch.export.ExportGraphSignature"><em>torch.export.ExportGraphSignature</em></a><em>]</em>) – The model signature for the exported ONNX graph.</p></li>
+<li><p><strong>fake_context</strong> (<em>ONNXFakeContext</em><em> | </em><em>None</em>) – The fake context used for symbolic tracing.</p></li>
+<li><p><strong>export_exception</strong> (<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.12)"><em>Exception</em></a><em> | </em><em>None</em>) – The exception that occurred during export, if any.</p></li>
+<li><p><strong>model_signature</strong> (<a class="reference internal" href="export.html#torch.export.ExportGraphSignature" title="torch.export.ExportGraphSignature"><em>torch.export.ExportGraphSignature</em></a><em> | </em><em>None</em>) – The model signature for the exported ONNX graph.</p></li>
 </ul>
 </dd>
 </dl>
@@ -830,7 +830,7 @@ used for the export, and export options.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_args</strong> – The PyTorch model inputs.</p></li>
-<li><p><strong>model_with_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><em>Module</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a><em>, </em><a class="reference internal" href="export.html#torch.export.ExportedProgram" title="torch.export.exported_program.ExportedProgram"><em>ExportedProgram</em></a><em>]</em><em>]</em>) – The PyTorch model to get extra state from.
+<li><p><strong>model_with_state_dict</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a><em> | </em><em>Callable</em><em> | </em><em>torch_export.ExportedProgram</em><em> | </em><em>None</em>) – The PyTorch model to get extra state from.
 If not specified, the model used during export is used.
 Required when <a class="reference internal" href="#torch.onnx.enable_fake_mode" title="torch.onnx.enable_fake_mode"><code class="xref py py-func docutils literal notranslate"><span class="pre">enable_fake_mode()</span></code></a> is used to extract real initializers as needed by the ONNX graph.</p></li>
 <li><p><strong>model_kwargs</strong> – The PyTorch model keyword inputs.</p></li>
@@ -840,7 +840,7 @@ Required when <a class="reference internal" href="#torch.onnx.enable_fake_mode" 
 <dd class="field-even"><p>A sequence of tensors converted from PyTorch model inputs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a>, <a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><em>dtype</em></a>]]</p>
+<dd class="field-odd"><p>Sequence[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor">torch.Tensor</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a> | <a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype">torch.dtype</a>]</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -892,8 +892,8 @@ used for the export, and export options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model_outputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The PyTorch model outputs.</p></li>
-<li><p><strong>model_with_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><em>Module</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a><em>, </em><a class="reference internal" href="export.html#torch.export.ExportedProgram" title="torch.export.exported_program.ExportedProgram"><em>ExportedProgram</em></a><em>]</em><em>]</em>) – The PyTorch model to get extra state from.
+<li><p><strong>model_outputs</strong> (<em>Any</em>) – The PyTorch model outputs.</p></li>
+<li><p><strong>model_with_state_dict</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a><em> | </em><em>Callable</em><em> | </em><em>torch_export.ExportedProgram</em><em> | </em><em>None</em>) – The PyTorch model to get extra state from.
 If not specified, the model used during export is used.
 Required when <a class="reference internal" href="#torch.onnx.enable_fake_mode" title="torch.onnx.enable_fake_mode"><code class="xref py py-func docutils literal notranslate"><span class="pre">enable_fake_mode()</span></code></a> is used to extract real initializers as needed by the ONNX graph.</p></li>
 </ul>
@@ -902,7 +902,7 @@ Required when <a class="reference internal" href="#torch.onnx.enable_fake_mode" 
 <dd class="field-even"><p>PyTorch model outputs in exported ONNX model outputs format.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a>]]</p>
+<dd class="field-odd"><p>Sequence[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor">torch.Tensor</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a>]</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -939,7 +939,7 @@ Required when <a class="reference internal" href="#torch.onnx.enable_fake_mode" 
 
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.fake_context">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fake_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ONNXFakeContext</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.onnx.ONNXProgram.fake_context" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fake_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ONNXFakeContext</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.onnx.ONNXProgram.fake_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The fake context associated with the export.</p>
 </dd></dl>
 
@@ -951,7 +951,7 @@ Required when <a class="reference internal" href="#torch.onnx.enable_fake_mode" 
 
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.model_signature">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model_signature</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="export.html#torch.export.graph_signature.ExportGraphSignature" title="torch.export.graph_signature.ExportGraphSignature"><span class="pre">ExportGraphSignature</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.onnx.ONNXProgram.model_signature" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model_signature</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="export.html#torch.export.ExportGraphSignature" title="torch.export.ExportGraphSignature"><span class="pre">torch.export.ExportGraphSignature</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.onnx.ONNXProgram.model_signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>The model signature for the exported ONNX graph.</p>
 <p>This information is relevant because ONNX specification often differs from PyTorch’s, resulting
 in a ONNX graph with input and output schema different from the actual PyTorch model implementation.
@@ -1046,18 +1046,18 @@ The first output is a buffer mutation (namely my_buffer2) and the last output is
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>destination</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/io.html#io.BufferedIOBase" title="(in Python v3.12)"><em>io.BufferedIOBase</em></a><em>]</em>) – The destination to save the ONNX model. It can be either a string or a file-like object.
+<li><p><strong>destination</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/io.html#io.BufferedIOBase" title="(in Python v3.12)"><em>io.BufferedIOBase</em></a>) – The destination to save the ONNX model. It can be either a string or a file-like object.
 When used with <code class="docutils literal notranslate"><span class="pre">model_state</span></code>, it must be a string with a full path to the destination.
 If <cite>destination</cite> is a string, besides saving the ONNX model into a file, model weights are also stored
 in separate files in the same directory as the ONNX model. E.g. for <cite>destination=”/path/model.onnx”</cite>,
 the initializers are saved in “/path/” folder along with “onnx.model”.</p></li>
 <li><p><strong>include_initializers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether to include initializers in the ONNX graph as external data.
 Cannot be combined with <cite>model_state_dict</cite>.</p></li>
-<li><p><strong>model_state</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em><em>]</em>) – The state_dict of the PyTorch model containing all weights on it.
+<li><p><strong>model_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>) – The state_dict of the PyTorch model containing all weights on it.
 It can be either a string with the path to a checkpoint or a dictionary with the actual model state.
 The supported file formats are the same as those supported by <cite>torch.load</cite> and <cite>safetensors.safe_open</cite>.
 Required when <a class="reference internal" href="#torch.onnx.enable_fake_mode" title="torch.onnx.enable_fake_mode"><code class="xref py py-func docutils literal notranslate"><span class="pre">enable_fake_mode()</span></code></a> is used but real initializers are needed on the ONNX graph.</p></li>
-<li><p><strong>serializer</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.onnx.ONNXProgramSerializer" title="torch.onnx.ONNXProgramSerializer"><em>ONNXProgramSerializer</em></a><em>]</em>) – The serializer to use. If not specified, the model will be serialized as Protobuf.</p></li>
+<li><p><strong>serializer</strong> (<a class="reference internal" href="#torch.onnx.ONNXProgramSerializer" title="torch.onnx.ONNXProgramSerializer"><em>ONNXProgramSerializer</em></a><em> | </em><em>None</em>) – The serializer to use. If not specified, the model will be serialized as Protobuf.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1136,9 +1136,9 @@ format to <code class="docutils literal notranslate"><span class="pre">destinati
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>session_options</strong> (<em>Optional</em><em>[</em><em>Sequence</em><em>[</em><em>onnxruntime.SessionOptions</em><em>]</em><em>]</em>) – ONNX Runtime session options.</p></li>
-<li><p><strong>execution_providers</strong> (<em>Optional</em><em>[</em><em>Sequence</em><em>[</em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em><em>]</em><em>]</em>) – ONNX Runtime execution providers to use during model execution.</p></li>
-<li><p><strong>execution_provider_options</strong> (<em>Optional</em><em>[</em><em>Sequence</em><em>[</em><em>Dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em>) – ONNX Runtime execution provider options.</p></li>
+<li><p><strong>session_options</strong> (<em>Sequence</em><em>[</em><em>onnxruntime.SessionOptions</em><em>] </em><em>| </em><em>None</em>) – ONNX Runtime session options.</p></li>
+<li><p><strong>execution_providers</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>] </em><em>| </em><em>None</em>) – ONNX Runtime execution providers to use during model execution.</p></li>
+<li><p><strong>execution_provider_options</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>] </em><em>| </em><em>None</em>) – ONNX Runtime execution provider options.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1181,7 +1181,7 @@ in the second half of the list.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>namespace</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The namespace of the operator to get.</p></li>
 <li><p><strong>op_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The name of the operator to get.</p></li>
-<li><p><strong>overload</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The overload of the operator to get. If it’s default overload,
+<li><p><strong>overload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>) – The overload of the operator to get. If it’s default overload,
 leave it to None.</p></li>
 </ul>
 </dd>
@@ -1190,7 +1190,7 @@ leave it to None.</p></li>
 the name is not in the registry.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<em>ONNXFunction</em>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[registration.ONNXFunction] | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1204,7 +1204,7 @@ the name is not in the registry.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>namespace</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The namespace of the operator to check.</p></li>
 <li><p><strong>op_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The name of the operator to check.</p></li>
-<li><p><strong>overload</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The overload of the operator to check. If it’s default overload,
+<li><p><strong>overload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>) – The overload of the operator to check. If it’s default overload,
 leave it to None.</p></li>
 </ul>
 </dd>
@@ -1232,10 +1232,10 @@ ONNX continues to evolve.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>function</strong> (<em>Union</em><em>[</em><em>onnxscript.OnnxFunction</em><em>, </em><em>onnxscript.TracedOnnxFunction</em><em>]</em>) – The onnx-sctip function to register.</p></li>
+<li><p><strong>function</strong> (<em>onnxscript.OnnxFunction</em><em> | </em><em>onnxscript.TracedOnnxFunction</em>) – The onnx-sctip function to register.</p></li>
 <li><p><strong>namespace</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The namespace of the operator to register.</p></li>
 <li><p><strong>op_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The name of the operator to register.</p></li>
-<li><p><strong>overload</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The overload of the operator to register. If it’s default overload,
+<li><p><strong>overload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>) – The overload of the operator to register. If it’s default overload,
 leave it to None.</p></li>
 <li><p><strong>is_complex</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether the function is a function that handles complex valued inputs.</p></li>
 </ul>
