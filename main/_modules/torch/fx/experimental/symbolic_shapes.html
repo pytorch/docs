@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git1d1d074 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc2425a3 ) &#x25BC</a>
     </div>
     
 
@@ -1543,7 +1543,9 @@
     <span class="c1"># Treat the dimension statically based on its hint</span>
     <span class="n">STATIC</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="c1"># Treat the dimension as a size-like unbacked</span>
-    <span class="n">SIZE_LIKE_UNBACKED</span> <span class="o">=</span> <span class="mi">3</span></div>
+    <span class="n">SIZE_LIKE_UNBACKED</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="c1"># Infer the strides from stride. If size is static, strides will be static as well.</span>
+    <span class="n">INFER_STRIDE</span> <span class="o">=</span> <span class="mi">4</span></div>
 
 
 <span class="c1"># NB: These constraints affect both clients and backends: given some</span>
@@ -1755,7 +1757,9 @@
 <span class="sd">    This will cause fresh symbols to be allocated</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dynamic_sizes</span><span class="p">:</span> <span class="n">DimList</span><span class="p">[</span><span class="n">DimDynamic</span><span class="p">]</span>
+    <span class="n">dynamic_strides</span><span class="p">:</span> <span class="n">DimList</span><span class="p">[</span><span class="n">DimDynamic</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">constraint_sizes</span><span class="p">:</span> <span class="n">DimList</span><span class="p">[</span><span class="n">DimConstraint</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">constraint_strides</span><span class="p">:</span> <span class="n">DimList</span><span class="p">[</span><span class="n">DimConstraint</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="c1"># If the tensor is a view, this should be populated for the base. It contains</span>
     <span class="c1"># information on how to allocate symbols when recursively fakeifying the base</span>
     <span class="c1"># during view fake-ification.</span>
@@ -1763,8 +1767,13 @@
     <span class="c1"># TODO: add storage offset and stride symbolic_context</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dynamic_strides</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;dynamic_strides&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">DimDynamic</span><span class="o">.</span><span class="n">INFER_STRIDE</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dynamic_sizes</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraint_sizes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;constraint_sizes&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dynamic_sizes</span><span class="p">))</span></div>
+            <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;constraint_sizes&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dynamic_sizes</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraint_strides</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;constraint_strides&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dynamic_sizes</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">stride</span> <span class="ow">in</span> <span class="p">(</span><span class="n">DimDynamic</span><span class="o">.</span><span class="n">INFER_STRIDE</span><span class="p">,</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">DYNAMIC</span><span class="p">,</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">DUCK</span><span class="p">)</span> <span class="k">for</span> <span class="n">stride</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dynamic_strides</span><span class="p">)</span></div>
 
 
 <span class="c1"># note [Tensor Fakification and Symbol Caching]</span>
@@ -1816,6 +1825,7 @@
     <span class="n">shape_env_to_source_to_symbol_cache</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="s2">&quot;TensorPropertySource&quot;</span><span class="p">,</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
         <span class="c1"># The None default is annoying, but required because of dataclass limitations</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensor_source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_env_to_source_to_symbol_cache</span><span class="p">:</span>
@@ -2902,6 +2912,16 @@
             <span class="p">[</span><span class="n">ShapeEnvEvent</span><span class="p">(</span><span class="n">ShapeEnv</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_record_events</span> <span class="k">else</span> <span class="p">[]</span>
         <span class="p">)</span>
 
+        <span class="c1"># FakeTensor per-ShapeEnv operation cache. This is used for caching</span>
+        <span class="c1"># operations that contain symbolic shapes which have guards on the</span>
+        <span class="c1"># ShapeEnv (so are ShapeEnv-dependent).</span>
+        <span class="c1">#</span>
+        <span class="c1"># NOTE: It&#39;s important that SymNodes in this cache have their ShapeEnv</span>
+        <span class="c1"># stripped otherwise you end up with cycles which can only be cleaned</span>
+        <span class="c1"># with the GC.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_tensor_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_subclasses</span><span class="o">.</span><span class="n">fake_tensor</span><span class="o">.</span><span class="n">_DispatchCacheKey</span><span class="p">,</span>
+                                     <span class="n">torch</span><span class="o">.</span><span class="n">_subclasses</span><span class="o">.</span><span class="n">fake_tensor</span><span class="o">.</span><span class="n">_DispatchCacheEntry</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
     <span class="c1"># Pro-tip: if you add new field to ShapeEnv, this affects some accept</span>
     <span class="c1"># tests.  Accept their output with:</span>
     <span class="c1">#</span>
@@ -3199,7 +3219,7 @@
             <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;name_to_node&quot;</span><span class="p">:</span>
                 <span class="c1"># Compare just the set of keys is the same.</span>
                 <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-            <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;symbol_guard_counter&quot;</span><span class="p">,</span> <span class="s2">&quot;pending_fresh_unbacked_symbols&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;symbol_guard_counter&quot;</span><span class="p">,</span> <span class="s2">&quot;pending_fresh_unbacked_symbols&quot;</span><span class="p">,</span> <span class="s2">&quot;fake_tensor_cache&quot;</span><span class="p">):</span>
                 <span class="c1"># Skip this for comparisons</span>
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="n">value</span>
@@ -3618,8 +3638,10 @@
 
         <span class="c1"># Reimplement the legacy behavior</span>
         <span class="k">if</span> <span class="n">symbolic_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">constraint_dims</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
+            <span class="n">constraint_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
+            <span class="n">constraint_strides</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
             <span class="n">dynamic_dims</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">dynamic_strides</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
                 <span class="c1"># NB: This is encapsulation breaking!  Legacy behavior was</span>
                 <span class="c1"># bad.</span>
@@ -3630,13 +3652,22 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">r</span> <span class="o">=</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">DUCK</span>
                 <span class="n">dynamic_dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+                <span class="n">dynamic_strides</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
             <span class="n">dynamic_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">DimDynamic</span><span class="o">.</span><span class="n">DUCK</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
+            <span class="n">dynamic_strides</span> <span class="o">=</span> <span class="p">[</span><span class="n">DimDynamic</span><span class="o">.</span><span class="n">INFER_STRIDE</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
             <span class="c1"># symbolic_context is None - set one</span>
-            <span class="n">symbolic_context</span> <span class="o">=</span> <span class="n">StatelessSymbolicContext</span><span class="p">(</span><span class="n">dynamic_sizes</span><span class="o">=</span><span class="n">dynamic_dims</span><span class="p">,</span> <span class="n">constraint_sizes</span><span class="o">=</span><span class="n">constraint_dims</span><span class="p">)</span>
+            <span class="n">symbolic_context</span> <span class="o">=</span> <span class="n">StatelessSymbolicContext</span><span class="p">(</span>
+                <span class="n">dynamic_sizes</span><span class="o">=</span><span class="n">dynamic_dims</span><span class="p">,</span>
+                <span class="n">dynamic_strides</span><span class="o">=</span><span class="n">dynamic_strides</span><span class="p">,</span>
+                <span class="n">constraint_sizes</span><span class="o">=</span><span class="n">constraint_sizes</span><span class="p">,</span>
+                <span class="n">constraint_strides</span><span class="o">=</span><span class="n">constraint_strides</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="c1"># We got a StatelessSymbolicContext</span>
         <span class="n">_assert_symbol_context</span><span class="p">(</span><span class="n">symbolic_context</span><span class="p">)</span>
-        <span class="n">constraint_dims</span> <span class="o">=</span> <span class="n">symbolic_context</span><span class="o">.</span><span class="n">constraint_sizes</span>
-        <span class="n">dynamic_dims</span> <span class="o">=</span> <span class="n">symbolic_context</span><span class="o">.</span><span class="n">dynamic_sizes</span>
+        <span class="n">constraint_sizes</span> <span class="o">=</span> <span class="n">symbolic_context</span><span class="o">.</span><span class="n">constraint_sizes</span>
+        <span class="n">constraint_strides</span> <span class="o">=</span> <span class="n">symbolic_context</span><span class="o">.</span><span class="n">constraint_strides</span>
+        <span class="n">dynamic_sizes</span> <span class="o">=</span> <span class="n">symbolic_context</span><span class="o">.</span><span class="n">dynamic_sizes</span>
+        <span class="n">dynamic_strides</span> <span class="o">=</span> <span class="n">symbolic_context</span><span class="o">.</span><span class="n">dynamic_strides</span>
 
         <span class="c1"># TODO: make this configurable from outside symbolic_context; we made a symbolic_context</span>
         <span class="c1"># decision here where if all sizes are static, we are going to</span>
@@ -3644,10 +3675,13 @@
         <span class="c1"># do this, and arguably we should ALWAYS allow for dynamic offset,</span>
         <span class="c1"># this is cheap.</span>
         <span class="c1"># TODO: This should be DYNAMIC, using DUCK for BC</span>
-        <span class="n">dynamic_strides_offset</span> <span class="o">=</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">STATIC</span> <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">STATIC</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dynamic_dims</span><span class="p">)</span> <span class="k">else</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">DUCK</span>
+        <span class="n">dynamic_offset</span> <span class="o">=</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">STATIC</span> <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">STATIC</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dynamic_sizes</span><span class="p">)</span> <span class="k">else</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">DUCK</span>
+        <span class="n">are_sizes_static</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">STATIC</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dynamic_sizes</span><span class="p">)</span>
 
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dynamic_dims</span><span class="p">)</span> <span class="o">==</span> <span class="n">dim</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">dynamic_dims</span><span class="p">)</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">constraint_dims</span><span class="p">)</span> <span class="o">==</span> <span class="n">dim</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dynamic_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="n">dim</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">dynamic_sizes</span><span class="p">)</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dynamic_strides</span><span class="p">)</span> <span class="o">==</span> <span class="n">dim</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">dynamic_sizes</span><span class="p">)</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">constraint_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="n">dim</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">constraint_strides</span><span class="p">)</span> <span class="o">==</span> <span class="n">dim</span>
 
         <span class="kn">from</span> <span class="nn">torch._dynamo.source</span> <span class="kn">import</span> <span class="n">TensorPropertySource</span><span class="p">,</span> <span class="n">TensorProperty</span>
         <span class="n">size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_produce_dyn_sizes_from_int_tuple</span><span class="p">(</span><span class="n">ex_size</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">symbolic_context</span><span class="p">)</span>
@@ -3675,7 +3709,8 @@
                 <span class="n">key</span><span class="o">=</span><span class="n">_nested_int_aware_sort</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">val_list</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ex_stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+                <span class="c1"># Set stride to a candidate only for DimDynamic.INFER_STRIDE</span>
+                <span class="k">if</span> <span class="n">stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dynamic_strides</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">INFER_STRIDE</span> <span class="ow">and</span> <span class="n">ex_stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
                     <span class="n">stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="n">ex_stride</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
                     <span class="n">candidates</span><span class="p">[</span><span class="n">ex_size</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">ex_stride</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
@@ -3688,11 +3723,15 @@
                         <span class="k">if</span> <span class="n">stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
                     <span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="n">_nested_int_aware_sort</span>
                 <span class="p">)</span>
+                <span class="c1"># Set INFER_STRIDE to STATIC or DUCK depending on sizes</span>
+                <span class="n">dyn_stride</span> <span class="o">=</span> <span class="n">dynamic_strides</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">dynamic_strides</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">INFER_STRIDE</span><span class="p">:</span>
+                    <span class="n">dyn_stride</span> <span class="o">=</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">STATIC</span> <span class="k">if</span> <span class="n">are_sizes_static</span> <span class="k">else</span> <span class="n">DimDynamic</span><span class="o">.</span><span class="n">DUCK</span>
                 <span class="n">stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_symbol</span><span class="p">(</span>
                     <span class="n">val</span><span class="p">,</span>
                     <span class="n">TensorPropertySource</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">TensorProperty</span><span class="o">.</span><span class="n">STRIDE</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
-                    <span class="n">dynamic_dim</span><span class="o">=</span><span class="n">dynamic_strides_offset</span><span class="p">,</span>
-                    <span class="n">constraint_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">dynamic_dim</span><span class="o">=</span><span class="n">dyn_stride</span><span class="p">,</span>
+                    <span class="n">constraint_dim</span><span class="o">=</span><span class="n">constraint_strides</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
                     <span class="n">symbolic_context</span><span class="o">=</span><span class="n">symbolic_context</span><span class="p">,</span>
                 <span class="p">)</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">stride</span><span class="p">)</span>
@@ -3716,7 +3755,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">create_symbol</span><span class="p">(</span>
                 <span class="n">ex_storage_offset</span><span class="p">,</span>
                 <span class="n">TensorPropertySource</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">TensorProperty</span><span class="o">.</span><span class="n">STORAGE_OFFSET</span><span class="p">),</span>
-                <span class="n">dynamic_dim</span><span class="o">=</span><span class="n">dynamic_strides_offset</span><span class="p">,</span>
+                <span class="n">dynamic_dim</span><span class="o">=</span><span class="n">dynamic_offset</span><span class="p">,</span>
                 <span class="n">constraint_dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">symbolic_context</span><span class="o">=</span><span class="n">symbolic_context</span>
             <span class="p">),</span>
@@ -4181,7 +4220,9 @@
             <span class="k">return</span> <span class="n">StatelessSymbolicContext</span><span class="p">(</span>
                 <span class="c1"># Ignored; only the constraints part is relevant below.</span>
                 <span class="n">dynamic_sizes</span><span class="o">=</span><span class="p">[</span><span class="n">DimDynamic</span><span class="o">.</span><span class="n">DYNAMIC</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="o">.</span><span class="n">dim</span><span class="p">(),</span>
-                <span class="n">constraint_sizes</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span>
+                <span class="n">dynamic_strides</span><span class="o">=</span><span class="p">[</span><span class="n">DimDynamic</span><span class="o">.</span><span class="n">INFER_STRIDE</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="o">.</span><span class="n">dim</span><span class="p">(),</span>
+                <span class="n">constraint_sizes</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="o">.</span><span class="n">dim</span><span class="p">(),</span>
+                <span class="n">constraint_strides</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span>
             <span class="p">)</span>
 
         <span class="c1"># Expand optional inputs, or verify invariants are upheld</span>
@@ -4443,7 +4484,7 @@
                 <span class="c1"># For subclasses, we need to track symints on BOTH the outer</span>
                 <span class="c1"># and inner tensors.</span>
                 <span class="n">sources_tensors_constraints</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">constraint_sizes</span><span class="p">)</span>
+                    <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">constraint_sizes</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">constraint_strides</span><span class="p">)</span>
                 <span class="p">]</span>
                 <span class="n">attrs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">__tensor_flatten__</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
@@ -4452,22 +4493,24 @@
                     <span class="n">sources_tensors_constraints</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
                         <span class="n">AttrSource</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
                         <span class="n">inner_t</span><span class="p">,</span>
-                        <span class="n">inner_context</span><span class="o">.</span><span class="n">constraint_sizes</span>
+                        <span class="n">inner_context</span><span class="o">.</span><span class="n">constraint_sizes</span><span class="p">,</span>
+                        <span class="n">inner_context</span><span class="o">.</span><span class="n">constraint_strides</span>
                     <span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">sources_tensors_constraints</span> <span class="o">=</span> <span class="p">[(</span><span class="n">source</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">constraint_sizes</span><span class="p">)]</span>
+                <span class="n">sources_tensors_constraints</span> <span class="o">=</span> <span class="p">[(</span><span class="n">source</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">constraint_sizes</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">constraint_strides</span><span class="p">)]</span>
 
-            <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">curr_t</span><span class="p">,</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="n">sources_tensors_constraints</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">curr_t</span><span class="p">,</span> <span class="n">constraint_size</span><span class="p">,</span> <span class="n">constraint_stride</span> <span class="ow">in</span> <span class="n">sources_tensors_constraints</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">is_sparse_any</span><span class="p">(</span><span class="n">curr_t</span><span class="p">):</span>
                     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ss</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">curr_t</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
                         <span class="n">property_source</span> <span class="o">=</span> <span class="n">TensorPropertySource</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">TensorProperty</span><span class="o">.</span><span class="n">SIZE</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-                        <span class="n">track_symint</span><span class="p">(</span><span class="n">property_source</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">constraint</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">track_symint</span><span class="p">(</span><span class="n">property_source</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">constraint_size</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ss</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">curr_t</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
                         <span class="n">property_source</span> <span class="o">=</span> <span class="n">TensorPropertySource</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">TensorProperty</span><span class="o">.</span><span class="n">SIZE</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-                        <span class="n">track_symint</span><span class="p">(</span><span class="n">property_source</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">constraint</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">track_symint</span><span class="p">(</span><span class="n">property_source</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">constraint_size</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ss</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">curr_t</span><span class="o">.</span><span class="n">stride</span><span class="p">()):</span>
-                        <span class="n">track_symint</span><span class="p">(</span><span class="n">TensorPropertySource</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">TensorProperty</span><span class="o">.</span><span class="n">STRIDE</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">ss</span><span class="p">)</span>
+                        <span class="n">property_source</span> <span class="o">=</span> <span class="n">TensorPropertySource</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">TensorProperty</span><span class="o">.</span><span class="n">STRIDE</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                        <span class="n">track_symint</span><span class="p">(</span><span class="n">property_source</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">constraint_stride</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                     <span class="n">track_symint</span><span class="p">(</span><span class="n">TensorPropertySource</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">TensorProperty</span><span class="o">.</span><span class="n">STORAGE_OFFSET</span><span class="p">),</span> <span class="n">curr_t</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">())</span>
 
         <span class="c1"># 1. Every input must equal the final simplified symbolic expression</span>
