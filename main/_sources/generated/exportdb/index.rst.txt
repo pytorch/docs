@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo wih a modul
     :caption: Tags
 
     torch.escape-hatch
-    torch.cond
     torch.dynamic-shape
+    torch.cond
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -219,7 +219,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -296,7 +296,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -370,7 +370,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -470,7 +470,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
+    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -511,7 +511,7 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, pred: "[31mb8[0m[34m[][0m[2m[34m[0m[2m[32m[0m", x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
                 true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [34m[x][0m);  [2mpred = true_graph_0 = false_graph_0 = x = None[0m
@@ -520,13 +520,13 @@ Result:
                 
             class <lambda>(torch.nn.Module):
                 def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
                     mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(x, [34m2[0m);  [2mx = None[0m
                     return (mul,)
                     
             class <lambda>(torch.nn.Module):
                 def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
                     sub: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sub.Tensor(x, [34m2[0m);  [2mx = None[0m
                     return (sub,)
                     
@@ -540,7 +540,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -598,7 +598,7 @@ Result:
                  [2m# [0m
                 sym_size_int_1: "Sym(s0)" = torch.ops.aten.sym_size.int(x, [34m0[0m)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
                 gt: "Sym(s0 > 2)" = sym_size_int_1 > [34m2[0m;  [2msym_size_int_1 = None[0m
                 true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
@@ -608,13 +608,13 @@ Result:
                 
             class <lambda>(torch.nn.Module):
                 def forward(self, x: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
                     add: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, y);  [2mx = y = None[0m
                     return (add,)
                     
             class <lambda>(torch.nn.Module):
                 def forward(self, x: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:111 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
+                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
                     sub: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sub.Tensor(x, y);  [2mx = y = None[0m
                     return (sub,)
                     
@@ -628,7 +628,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -1322,7 +1322,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -2163,6 +2163,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f787c51b8b0>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f5dc035b940>
 
 
