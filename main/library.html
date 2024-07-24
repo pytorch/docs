@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git69b1999 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitfdc9a14 ) &#x25BC</a>
     </div>
     
 
@@ -940,6 +940,84 @@ intermediate Tensors).</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="torch.library.register_vmap">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_vmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_vmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a vmap implementation to support <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a> for this custom op.</p>
+<p>This API may be used as a decorator (see examples).</p>
+<p>In order for an operator to work with <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>, you may need to register a
+vmap implementation in the following signature:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">vmap_func(info,</span> <span class="pre">in_dims:</span> <span class="pre">Tuple[Optional[int]],</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code>,</p>
+</div></blockquote>
+<p>where <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> are the arguments and kwargs for <code class="docutils literal notranslate"><span class="pre">op</span></code>.
+We do not support kwarg-only Tensor args.</p>
+<p>It specifies how do we compute the batched version of <code class="docutils literal notranslate"><span class="pre">op</span></code> given inputs with an additional
+dimension (specified by <code class="docutils literal notranslate"><span class="pre">in_dims</span></code>).</p>
+<p>For each arg in <code class="docutils literal notranslate"><span class="pre">args</span></code>, <code class="docutils literal notranslate"><span class="pre">in_dims</span></code> has a corresponding <code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>. It is <code class="docutils literal notranslate"><span class="pre">None</span></code>
+if the arg is not a Tensor or if the arg is not being vmapped over, otherwise, it is an integer
+specifying what dimension of the Tensor is being vmapped over.</p>
+<p><code class="docutils literal notranslate"><span class="pre">info</span></code> is a collection of additional metadata that may be helpful:
+<code class="docutils literal notranslate"><span class="pre">info.batch_size</span></code> specifies the size of the dimension being vmapped over, while
+<code class="docutils literal notranslate"><span class="pre">info.randomness</span></code> is the <code class="docutils literal notranslate"><span class="pre">randomness</span></code> option that was passed to <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>.</p>
+<p>The return of the function <code class="docutils literal notranslate"><span class="pre">func</span></code> is a tuple of <code class="docutils literal notranslate"><span class="pre">(output,</span> <span class="pre">out_dims)</span></code>. Similar to <code class="docutils literal notranslate"><span class="pre">in_dims</span></code>,
+<code class="docutils literal notranslate"><span class="pre">out_dims</span></code> should be of the same structure as <code class="docutils literal notranslate"><span class="pre">output</span></code> and contain one <code class="docutils literal notranslate"><span class="pre">out_dim</span></code>
+per output that specifies if the output has the vmapped dimension and what index it is in.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">to_numpy</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lib</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">Library</span><span class="p">(</span><span class="s2">&quot;mylib&quot;</span><span class="p">,</span> <span class="s2">&quot;FRAGMENT&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_cube&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_cube</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">dx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x_np</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x_np</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="n">dx</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_cube_vmap</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">in_dims</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">numpy_cube</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="p">(</span><span class="n">in_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">in_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_vmap</span><span class="p">(</span><span class="n">numpy_cube</span><span class="p">,</span> <span class="n">numpy_cube_vmap</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">numpy_cube</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_mul&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_mul</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_vmap</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_mul&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_mul_vmap</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">in_dims</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_bdim</span><span class="p">,</span> <span class="n">y_bdim</span> <span class="o">=</span> <span class="n">in_dims</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">movedim</span><span class="p">(</span><span class="n">x_bdim</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">x_bdim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">movedim</span><span class="p">(</span><span class="n">y_bdim</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">y_bdim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">movedim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="mi">0</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">numpy_mul</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The vmap function should aim to preserve the semantics of the entire custom operator.
+That is, <code class="docutils literal notranslate"><span class="pre">grad(vmap(op))</span></code> should be replaceable with a <code class="docutils literal notranslate"><span class="pre">grad(map(op))</span></code>.</p>
+<p>If your custom operator has any custom behavior in the backward pass, please
+keep this in mind.</p>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="torch.library.impl_abstract">
 <span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl_abstract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#impl_abstract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl_abstract" title="Permalink to this definition">¶</a></dt>
 <dd><p>This API was renamed to <a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a> in PyTorch 2.4.
@@ -1371,6 +1449,7 @@ if (url)
 <li><a class="reference internal" href="#torch.library.register_kernel"><code class="docutils literal notranslate"><span class="pre">register_kernel()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.register_autograd"><code class="docutils literal notranslate"><span class="pre">register_autograd()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.register_fake"><code class="docutils literal notranslate"><span class="pre">register_fake()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.register_vmap"><code class="docutils literal notranslate"><span class="pre">register_vmap()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.impl_abstract"><code class="docutils literal notranslate"><span class="pre">impl_abstract()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.get_ctx"><code class="docutils literal notranslate"><span class="pre">get_ctx()</span></code></a></li>
 <li><a class="reference internal" href="#torch.library.register_torch_dispatch"><code class="docutils literal notranslate"><span class="pre">register_torch_dispatch()</span></code></a></li>

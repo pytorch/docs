@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git69b1999 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitfdc9a14 ) &#x25BC</a>
     </div>
     
 
@@ -597,15 +597,14 @@
 </pre></div>
 </div>
 <p>Result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
-    class GraphModule(torch.nn.Module):
-        def forward(self, x: &quot;[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m&quot;, attr):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/tensor_setattr.py:11 in forward, code: return x + 4[0m
-            add: &quot;[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.add.Tensor(x, [34m4[0m);  [2mx = None[0m
-            return (add,)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExportedProgram</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+                 <span class="n">add</span><span class="p">:</span> <span class="s2">&quot;f32[3, 2]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>  <span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">add</span><span class="p">,)</span>
 
-Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None), InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=ConstantArgument(name=&#39;attr&#39;, value=&#39;attr&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;add&#39;), target=None)])
-Range constraints: {}
+<span class="n">Graph</span> <span class="n">signature</span><span class="p">:</span> <span class="n">ExportGraphSignature</span><span class="p">(</span><span class="n">input_specs</span><span class="o">=</span><span class="p">[</span><span class="n">InputSpec</span><span class="p">(</span><span class="n">kind</span><span class="o">=&lt;</span><span class="n">InputKind</span><span class="o">.</span><span class="n">USER_INPUT</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="n">TensorArgument</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">),</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">InputSpec</span><span class="p">(</span><span class="n">kind</span><span class="o">=&lt;</span><span class="n">InputKind</span><span class="o">.</span><span class="n">USER_INPUT</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="n">ConstantArgument</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;attr&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;attr&#39;</span><span class="p">),</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">output_specs</span><span class="o">=</span><span class="p">[</span><span class="n">OutputSpec</span><span class="p">(</span><span class="n">kind</span><span class="o">=&lt;</span><span class="n">OutputKind</span><span class="o">.</span><span class="n">USER_OUTPUT</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="n">TensorArgument</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">),</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">)])</span>
+<span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
 </div>
@@ -645,15 +644,14 @@ Range constraints: {}
 </pre></div>
 </div>
 <p>Result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ExportedProgram:
-    class GraphModule(torch.nn.Module):
-        def forward(self, x: &quot;[31mf32[0m[34m[3, 4][0m[2m[34m[0m[2m[32m[0m&quot;):
-             [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/type_reflection_method.py:7 in func, code: return 1 + x[0m
-            add: &quot;[31mf32[0m[34m[3, 4][0m[2m[34m[0m[2m[32m[0m&quot; = torch.ops.aten.add.Tensor(x, [34m1[0m);  [2mx = None[0m
-            return (add,)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExportedProgram</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;f32[3, 4]&quot;</span><span class="p">):</span>
+                 <span class="n">add</span><span class="p">:</span> <span class="s2">&quot;f32[3, 4]&quot;</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>  <span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">add</span><span class="p">,)</span>
 
-Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=&lt;InputKind.USER_INPUT: 1&gt;, arg=TensorArgument(name=&#39;x&#39;), target=None, persistent=None)], output_specs=[OutputSpec(kind=&lt;OutputKind.USER_OUTPUT: 1&gt;, arg=TensorArgument(name=&#39;add&#39;), target=None)])
-Range constraints: {}
+<span class="n">Graph</span> <span class="n">signature</span><span class="p">:</span> <span class="n">ExportGraphSignature</span><span class="p">(</span><span class="n">input_specs</span><span class="o">=</span><span class="p">[</span><span class="n">InputSpec</span><span class="p">(</span><span class="n">kind</span><span class="o">=&lt;</span><span class="n">InputKind</span><span class="o">.</span><span class="n">USER_INPUT</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="n">TensorArgument</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">),</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="kc">None</span><span class="p">)],</span> <span class="n">output_specs</span><span class="o">=</span><span class="p">[</span><span class="n">OutputSpec</span><span class="p">(</span><span class="n">kind</span><span class="o">=&lt;</span><span class="n">OutputKind</span><span class="o">.</span><span class="n">USER_OUTPUT</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="n">TensorArgument</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">),</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">)])</span>
+<span class="n">Range</span> <span class="n">constraints</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
 </div>

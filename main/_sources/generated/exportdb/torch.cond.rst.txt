@@ -5,7 +5,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -67,9 +67,8 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_class_method.py:34 in bar, code: return x.sin()[0m
-                sin: "[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sin.default(x);  [2mx = None[0m
+            def forward(self, x: "f32[3]"):
+                     sin: "f32[3]" = torch.ops.aten.sin.default(x);  x = None
                 return (sin,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='sin'), target=None)])
@@ -82,7 +81,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -141,9 +140,8 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nested_function.py:24 in inner_true_fn, code: return x + y[0m
-                add: "[31mf32[0m[34m[3][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, x);  [2mx = None[0m
+            def forward(self, x: "f32[3]"):
+                     add: "f32[3]" = torch.ops.aten.add.Tensor(x, x);  x = None
                 return (add,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add'), target=None)])
@@ -156,7 +154,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -233,17 +231,14 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, c_lifted_tensor_0: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m", x: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:38 in forward, code: my_tensor_var = x + 100[0m
-                add: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, [34m100[0m)
+            def forward(self, c_lifted_tensor_0: "f32[]", x: "f32[6]"):
+                     add: "f32[6]" = torch.ops.aten.add.Tensor(x, 100)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:51 in forward, code: [x, my_tensor_var, torch.tensor(my_primitive_var)],[0m
-                lift_fresh_copy: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  [2mc_lifted_tensor_0 = None[0m
-                detach: "[31mf32[0m[34m[][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.detach.default(lift_fresh_copy);  [2mlift_fresh_copy = None[0m
+                     lift_fresh_copy: "f32[]" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  c_lifted_tensor_0 = None
+                detach: "f32[]" = torch.ops.aten.detach.default(lift_fresh_copy);  lift_fresh_copy = None
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_branch_nonlocal_variables.py:42 in true_fn, code: return x + y + z[0m
-                add_1: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, add);  [2mx = add = None[0m
-                add_2: "[31mf32[0m[34m[6][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(add_1, detach);  [2madd_1 = detach = None[0m
+                     add_1: "f32[6]" = torch.ops.aten.add.Tensor(x, add);  x = add = None
+                add_2: "f32[6]" = torch.ops.aten.add.Tensor(add_1, detach);  add_1 = detach = None
                 return (add_2,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.CONSTANT_TENSOR: 4>, arg=TensorArgument(name='c_lifted_tensor_0'), target='lifted_tensor_0', persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_2'), target=None)])
@@ -256,7 +251,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
 
     Support Level: SUPPORTED
 
@@ -296,24 +291,21 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, pred: "[31mb8[0m[34m[][0m[2m[34m[0m[2m[32m[0m", x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-                true_graph_0 = self.true_graph_0
+            def forward(self, pred: "b8[]", x: "f32[3, 2]"):
+                     true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [34m[x][0m);  [2mpred = true_graph_0 = false_graph_0 = x = None[0m
-                getitem: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = cond[[34m0[0m];  [2mcond = None[0m
+                cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [x]);  pred = true_graph_0 = false_graph_0 = x = None
+                getitem: "f32[3, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-                    mul: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.mul.Tensor(x, [34m2[0m);  [2mx = None[0m
+                def forward(self, x: "f32[3, 2]"):
+                             mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, x: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m"):
-                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-                    sub: "[31mf32[0m[34m[3, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sub.Tensor(x, [34m2[0m);  [2mx = None[0m
+                def forward(self, x: "f32[3, 2]"):
+                             sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='pred'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -326,7 +318,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -380,28 +372,25 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# [0m
-                sym_size_int_1: "Sym(s0)" = torch.ops.aten.sym_size.int(x, [34m0[0m)
+            def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
+                 # 
+                sym_size_int_1: "Sym(s0)" = torch.ops.aten.sym_size.int(x, 0)
                 
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-                gt: "Sym(s0 > 2)" = sym_size_int_1 > [34m2[0m;  [2msym_size_int_1 = None[0m
+                     gt: "Sym(s0 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
                 true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
-                cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [34m[x, y][0m);  [2mgt = true_graph_0 = false_graph_0 = x = y = None[0m
-                getitem: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m" = cond[[34m0[0m];  [2mcond = None[0m
+                cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [x, y]);  gt = true_graph_0 = false_graph_0 = x = y = None
+                getitem: "f32[s0, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
             class <lambda>(torch.nn.Module):
-                def forward(self, x: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-                    add: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.add.Tensor(x, y);  [2mx = y = None[0m
+                def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
+                             add: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
                     return (add,)
                     
             class <lambda>(torch.nn.Module):
-                def forward(self, x: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m", y: "[31mf32[0m[34m[2][0m[2m[34m[0m[2m[32m[0m"):
-                     [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_higher_order_ops/cond.py:112 in cond, code: return cond_op(pred, true_fn, false_fn, operands)[0m
-                    sub: "[31mf32[0m[34m[s0, 2][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sub.Tensor(x, y);  [2mx = y = None[0m
+                def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
+                             sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
                     return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
@@ -414,7 +403,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -457,9 +446,8 @@ Result:
 
     ExportedProgram:
         class GraphModule(torch.nn.Module):
-            def forward(self, x: "[31mf32[0m[34m[6, 4, 3][0m[2m[34m[0m[2m[32m[0m"):
-                 [2m# File: /opt/conda/envs/py_3.8/lib/python3.8/site-packages/torch/_export/db/examples/cond_predicate.py:18 in <lambda>, code: return cond(pred, lambda x: x.cos(), lambda y: y.sin(), [x])[0m
-                sin: "[31mf32[0m[34m[6, 4, 3][0m[2m[34m[0m[2m[32m[0m" = torch.ops.aten.sin.default(x);  [2mx = None[0m
+            def forward(self, x: "f32[6, 4, 3]"):
+                     sin: "f32[6, 4, 3]" = torch.ops.aten.sin.default(x);  x = None
                 return (sin,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='sin'), target=None)])
