@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitfdc9a14 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
     </div>
     
 
@@ -1143,7 +1143,6 @@
     <span class="n">new_range_constraints</span> <span class="o">=</span> <span class="n">_get_updated_range_constraints</span><span class="p">(</span>
         <span class="n">gm</span><span class="p">,</span>
         <span class="n">ep</span><span class="o">.</span><span class="n">range_constraints</span><span class="p">,</span>
-        <span class="n">_is_executorch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">exported_program</span> <span class="o">=</span> <span class="n">ExportedProgram</span><span class="p">(</span>
@@ -1612,7 +1611,6 @@
             <span class="n">range_constraints</span><span class="o">=</span><span class="n">_get_updated_range_constraints</span><span class="p">(</span>
                 <span class="n">transformed_gm</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">range_constraints</span><span class="p">,</span>
-                <span class="n">_is_executorch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">module_call_graph</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_module_call_graph</span><span class="p">),</span>
             <span class="n">example_inputs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">example_inputs</span><span class="p">,</span>
@@ -1680,27 +1678,7 @@
 <span class="k">def</span> <span class="nf">_get_updated_range_constraints</span><span class="p">(</span>
     <span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span>
     <span class="n">old_range_constraints</span><span class="p">:</span> <span class="s2">&quot;Optional[Dict[sympy.Symbol, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">_is_executorch</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Dict[sympy.Symbol, Any]&quot;</span><span class="p">:</span>
-    <span class="c1"># FIXME(tmanlaibaatar) Remove this whole branch once https://github.com/pytorch/pytorch/pull/123764</span>
-    <span class="k">if</span> <span class="n">_is_executorch</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="n">old_range_constraints</span> <span class="ow">is</span> <span class="kc">None</span>
-        <span class="n">shape_env</span> <span class="o">=</span> <span class="n">_get_shape_env</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">shape_env</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">{}</span>
-        <span class="n">range_constraints</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_range</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span>
-        <span class="p">}</span>
-        <span class="c1"># Only when we have an unbacked symint, and it&#39;s used as constructor inputs,</span>
-        <span class="c1"># runtime_var_to_range will make a difference compated to var_to_range.</span>
-        <span class="c1"># e.g. [2, oo) -&gt; [0, oo)</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_range</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">replacements</span><span class="p">:</span>
-                <span class="n">range_constraints</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-        <span class="k">return</span> <span class="n">range_constraints</span>
-
     <span class="k">assert</span> <span class="n">old_range_constraints</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
     <span class="n">shape_env</span> <span class="o">=</span> <span class="n">_get_shape_env</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span>
