@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -525,8 +525,7 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.ao.quantization.observer</h1><div class="highlight"><pre>
-<span></span><span class="c1"># mypy: allow-untyped-decorators</span>
-<span class="c1"># mypy: allow-untyped-defs</span>
+<span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module implements observers which are used to collect statistics about</span>
 <span class="sd">the values observed during calibration (PTQ) or training (QAT).</span>
@@ -537,12 +536,18 @@
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.ao.quantization.utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">check_min_max_valid</span><span class="p">,</span> <span class="n">calculate_qmin_qmax</span><span class="p">,</span> <span class="n">is_per_tensor</span><span class="p">,</span> <span class="n">is_per_channel</span><span class="p">,</span> <span class="n">validate_qmin_qmax</span><span class="p">)</span>
+    <span class="n">calculate_qmin_qmax</span><span class="p">,</span>
+    <span class="n">check_min_max_valid</span><span class="p">,</span>
+    <span class="n">is_per_channel</span><span class="p">,</span>
+    <span class="n">is_per_tensor</span><span class="p">,</span>
+    <span class="n">validate_qmin_qmax</span><span class="p">,</span>
+<span class="p">)</span>
+
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;default_affine_fixed_qparams_observer&quot;</span><span class="p">,</span>
@@ -622,6 +627,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">_PartialWrapper</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">cls_or_self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">r</span>
+
 
 <span class="k">def</span> <span class="nf">_with_callable_args</span><span class="p">(</span><span class="n">cls_or_self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Wrapper that allows creation of class factories args that need to be</span>
@@ -751,9 +757,7 @@
 <span class="s2">                    reduce_range will be deprecated in a future release of PyTorch.&quot;</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reduce_range</span> <span class="o">=</span> <span class="n">reduce_range</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span>
-            <span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">eps</span><span class="p">],</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">eps</span><span class="p">],</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">))</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">qscheme</span> <span class="ow">in</span> <span class="p">(</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">per_tensor_affine</span><span class="p">,</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">per_tensor_symmetric</span><span class="p">,</span>
@@ -777,12 +781,19 @@
             <span class="n">torch</span><span class="o">.</span><span class="n">float8_e4m3fn</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="n">_ALLOWED_DTYPES</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Default Observer only works for </span><span class="si">{</span><span class="n">_ALLOWED_DTYPES</span><span class="si">}</span><span class="s2"> data type&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="n">_ALLOWED_DTYPES</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Default Observer only works for </span><span class="si">{</span><span class="n">_ALLOWED_DTYPES</span><span class="si">}</span><span class="s2"> data type&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">has_customized_qrange</span> <span class="o">=</span> <span class="p">(</span><span class="n">quant_min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">quant_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_customized_qrange</span><span class="p">:</span>
             <span class="n">validate_qmin_qmax</span><span class="p">(</span><span class="n">quant_min</span><span class="p">,</span> <span class="n">quant_max</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">quant_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quant_max</span> <span class="o">=</span> \
-            <span class="n">calculate_qmin_qmax</span><span class="p">(</span><span class="n">quant_min</span><span class="p">,</span> <span class="n">quant_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_customized_qrange</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_range</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quant_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quant_max</span> <span class="o">=</span> <span class="n">calculate_qmin_qmax</span><span class="p">(</span>
+            <span class="n">quant_min</span><span class="p">,</span>
+            <span class="n">quant_max</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">has_customized_qrange</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reduce_range</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_from_state_dict</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -794,7 +805,6 @@
         <span class="n">unexpected_keys</span><span class="p">,</span>
         <span class="n">error_msgs</span><span class="p">,</span>
     <span class="p">):</span>
-
         <span class="n">version</span> <span class="o">=</span> <span class="n">local_metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -857,7 +867,9 @@
         <span class="c1"># seems unlikey to change (last update over 1 year ago) and when torchscript is fully deprecated we can refactor.</span>
         <span class="c1"># TODO(jakeszwe, jerryzh168)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">check_min_max_valid</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">min_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">min_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">min_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">min_val</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span>
+            <span class="p">)</span>
 
         <span class="n">quant_min</span><span class="p">,</span> <span class="n">quant_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quant_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quant_max</span>
         <span class="n">min_val_neg</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">min_val</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">min_val</span><span class="p">))</span>
@@ -1069,6 +1081,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)))</span></div></div>
 
+
 <div class="viewcode-block" id="MovingAverageMinMaxObserver"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.observer.MovingAverageMinMaxObserver.html#torch.ao.quantization.observer.MovingAverageMinMaxObserver">[docs]</a><span class="k">class</span> <span class="nc">MovingAverageMinMaxObserver</span><span class="p">(</span><span class="n">MinMaxObserver</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Observer module for computing the quantization parameters based on the</span>
 <span class="sd">    moving average of the min and max values.</span>
@@ -1125,7 +1138,7 @@
         <span class="n">quant_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">eps</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
         <span class="n">is_dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_per_tensor</span><span class="p">(</span><span class="n">qscheme</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
@@ -1147,7 +1160,7 @@
             <span class="n">quant_max</span><span class="o">=</span><span class="n">quant_max</span><span class="p">,</span>
             <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
             <span class="n">is_dynamic</span><span class="o">=</span><span class="n">is_dynamic</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_orig</span><span class="p">):</span>
@@ -1314,7 +1327,9 @@
                 <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="n">expected_max_name</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Observer load_from_state_dict got unexpected name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Observer load_from_state_dict got unexpected name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
                 <span class="c1"># For torchscript module we need to update the attributes here since we do not</span>
                 <span class="c1"># call the `_load_from_state_dict` function defined module.py</span>
                 <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
@@ -1323,7 +1338,9 @@
                     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="n">expected_max_name</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Observer load_from_state_dict got unexpected name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Observer load_from_state_dict got unexpected name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
             <span class="k">elif</span> <span class="n">strict</span><span class="p">:</span>
                 <span class="n">missing_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
@@ -1348,7 +1365,6 @@
         <span class="n">unexpected_keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">error_msgs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="p">):</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_from_state_dict</span><span class="p">(</span>
             <span class="n">state_dict</span><span class="p">,</span>
             <span class="n">prefix</span><span class="p">,</span>
@@ -1365,8 +1381,12 @@
         <span class="c1"># This used to be torch.ones but that does not work because</span>
         <span class="c1"># JIT compiler can optimize it via common subexpression elimination</span>
         <span class="c1"># in which case both min_val and max_val point to the same tensor.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="MovingAveragePerChannelMinMaxObserver"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver.html#torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver">[docs]</a><span class="k">class</span> <span class="nc">MovingAveragePerChannelMinMaxObserver</span><span class="p">(</span><span class="n">PerChannelMinMaxObserver</span><span class="p">):</span>
@@ -1408,7 +1428,7 @@
         <span class="n">quant_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">eps</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
         <span class="n">is_dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_per_channel</span><span class="p">(</span><span class="n">qscheme</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
@@ -1428,7 +1448,7 @@
             <span class="n">quant_max</span><span class="o">=</span><span class="n">quant_max</span><span class="p">,</span>
             <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
             <span class="n">is_dynamic</span><span class="o">=</span><span class="n">is_dynamic</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">averaging_constant</span> <span class="o">=</span> <span class="n">averaging_constant</span>
 
@@ -1677,17 +1697,21 @@
         <span class="n">histogram</span> <span class="o">=</span> <span class="n">histogram</span><span class="o">.</span><span class="n">repeat_interleave</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span>
         <span class="n">bin_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">orig_max</span> <span class="o">-</span> <span class="n">orig_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span><span class="p">)</span>
         <span class="n">mid_points_histogram</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">orig_min</span><span class="p">,</span> <span class="n">orig_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">orig_min</span><span class="o">.</span><span class="n">device</span><span class="p">)[</span>
-                <span class="p">:</span><span class="o">-</span><span class="mi">1</span>
-            <span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">histogram</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+                <span class="n">orig_min</span><span class="p">,</span>
+                <span class="n">orig_max</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample_rate</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">device</span><span class="o">=</span><span class="n">orig_min</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+            <span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">histogram</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
             <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">bin_size</span>
         <span class="p">)</span>
-        <span class="n">boundaries_new_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">update_min</span><span class="p">,</span> <span class="n">update_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">update_min</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span>
-            <span class="n">histogram</span><span class="o">.</span><span class="n">device</span>
-        <span class="p">)</span>
+        <span class="n">boundaries_new_histogram</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="n">update_min</span><span class="p">,</span> <span class="n">update_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">update_min</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">histogram</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="c1"># this maps the mid-poits of the histogram to the new histogram&#39;s space</span>
         <span class="n">bucket_assignments</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">bucketize</span><span class="p">(</span><span class="n">mid_points_histogram</span><span class="p">,</span> <span class="n">boundaries_new_histogram</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">bucketize</span><span class="p">(</span><span class="n">mid_points_histogram</span><span class="p">,</span> <span class="n">boundaries_new_histogram</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="o">-</span> <span class="mi">1</span>
         <span class="p">)</span>
         <span class="c1"># this then maps the histogram mid-points in the new space, weighted by the original histogram&#39;s values</span>
         <span class="c1"># this is just the old histogram in the new histogram&#39;s space</span>
@@ -1913,8 +1937,8 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="o">=</span><span class="n">is_dynamic</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quant_min</span> <span class="o">=</span> <span class="n">quant_min</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quant_max</span> <span class="o">=</span> <span class="n">quant_max</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;scale&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">scale</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;zero_point&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">zero_point</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">scale</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;zero_point&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">zero_point</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">qscheme</span> <span class="o">=</span> <span class="n">qscheme</span>
 
@@ -1950,8 +1974,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">custom_op_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">compute_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">quant_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qscheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="n">custom_op_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">compute_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">quant_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">quant_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">qscheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">eps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">is_dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="o">=</span><span class="n">is_dynamic</span><span class="p">)</span>
@@ -2012,7 +2042,9 @@
 
     <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">export</span>
     <span class="k">def</span> <span class="nf">calculate_qparams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;calculate_qparams should not be called for RecordingObserver&quot;</span><span class="p">)</span>  <span class="c1"># noqa: TRY002</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>  <span class="c1"># noqa: TRY002</span>
+            <span class="s2">&quot;calculate_qparams should not be called for RecordingObserver&quot;</span>
+        <span class="p">)</span>
 
     <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">export</span>
     <span class="k">def</span> <span class="nf">get_tensor_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2043,10 +2075,13 @@
 
     <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">export</span>
     <span class="k">def</span> <span class="nf">calculate_qparams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;calculate_qparams should not be called for NoopObserver&quot;</span><span class="p">)</span>  <span class="c1"># noqa: TRY002</span></div>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>  <span class="c1"># noqa: TRY002</span>
+            <span class="s2">&quot;calculate_qparams should not be called for NoopObserver&quot;</span>
+        <span class="p">)</span></div>
+
 
 <span class="k">class</span> <span class="nc">ReuseInputObserver</span><span class="p">(</span><span class="n">ObserverBase</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; This observer is used when we want to reuse the observer from the operator</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This observer is used when we want to reuse the observer from the operator</span>
 <span class="sd">    that produces the input Tensor, typically used for operators like reshape, e.g.</span>
 <span class="sd">    ```</span>
 <span class="sd">    x0 = ...</span>
@@ -2058,6 +2093,7 @@
 
 <span class="sd">    Note: this is only enabled in FX Graph Mode Quantization</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -2066,7 +2102,10 @@
 
     <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">export</span>
     <span class="k">def</span> <span class="nf">calculate_qparams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;calculate_qparams should not be called for ReuseInputObserver&quot;</span><span class="p">)</span>  <span class="c1"># noqa: TRY002</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>  <span class="c1"># noqa: TRY002</span>
+            <span class="s2">&quot;calculate_qparams should not be called for ReuseInputObserver&quot;</span>
+        <span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">_is_observer_script_module</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">obs_type_name</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns true if given mod is an instance of Observer script module.&quot;&quot;&quot;</span>
@@ -2079,10 +2118,10 @@
 
 
 <span class="k">def</span> <span class="nf">_is_activation_post_process</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">ObserverBase</span><span class="p">,</span>
-                            <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">FakeQuantizeBase</span><span class="p">))</span> <span class="ow">or</span> <span class="n">_is_observer_script_module</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;quantization.observer&quot;</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span>
+        <span class="n">module</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">ObserverBase</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">FakeQuantizeBase</span><span class="p">),</span>
+    <span class="p">)</span> <span class="ow">or</span> <span class="n">_is_observer_script_module</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;quantization.observer&quot;</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_is_per_channel_script_obs_instance</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
@@ -2137,10 +2176,14 @@
                 <span class="p">)</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">missing_keys</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;observer&quot;</span> <span class="ow">in</span> <span class="n">k</span> <span class="ow">or</span> <span class="s2">&quot;activation_post_process&quot;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing keys for observer </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> in state_dict&quot;</span><span class="p">)</span>  <span class="c1"># noqa: TRY002</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>  <span class="c1"># noqa: TRY002</span>
+                <span class="sa">f</span><span class="s2">&quot;Missing keys for observer </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> in state_dict&quot;</span>
+            <span class="p">)</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">unexpected_keys</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;observer&quot;</span> <span class="ow">in</span> <span class="n">k</span> <span class="ow">or</span> <span class="s2">&quot;activation_post_process&quot;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected keys for observer </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> in state_dict&quot;</span><span class="p">)</span>  <span class="c1"># noqa: TRY002</span></div>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>  <span class="c1"># noqa: TRY002</span>
+                <span class="sa">f</span><span class="s2">&quot;Unexpected keys for observer </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> in state_dict&quot;</span>
+            <span class="p">)</span></div>
 
 
 <span class="c1"># Restrict activations to be in the range (0,127)</span>
@@ -2167,8 +2210,12 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">weight_observer_range_neg_127_to_127</span> <span class="o">=</span> <span class="n">MinMaxObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
-    <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span> <span class="n">qscheme</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">per_tensor_symmetric</span><span class="p">,</span>
-    <span class="n">quant_min</span><span class="o">=-</span><span class="mi">127</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="o">-</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
+    <span class="n">qscheme</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">per_tensor_symmetric</span><span class="p">,</span>
+    <span class="n">quant_min</span><span class="o">=-</span><span class="mi">127</span><span class="p">,</span>
+    <span class="n">quant_max</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span>
+    <span class="n">eps</span><span class="o">=</span><span class="mi">2</span><span class="o">**-</span><span class="mi">12</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Symmetric weight observer with the 8-bit values restricted to [-127, +127], excluding -128.</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -2187,14 +2234,21 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">per_channel_weight_observer_range_neg_127_to_127</span> <span class="o">=</span> <span class="n">PerChannelMinMaxObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
-    <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span> <span class="n">qscheme</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">per_channel_symmetric</span><span class="p">,</span>
-    <span class="n">quant_min</span><span class="o">=-</span><span class="mi">127</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="o">-</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
+    <span class="n">qscheme</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">per_channel_symmetric</span><span class="p">,</span>
+    <span class="n">quant_min</span><span class="o">=-</span><span class="mi">127</span><span class="p">,</span>
+    <span class="n">quant_max</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span>
+    <span class="n">eps</span><span class="o">=</span><span class="mi">2</span><span class="o">**-</span><span class="mi">12</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Per-channel, symmetric weight observer with the 8-bit values restricted to [-127, +127], excluding -128.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">default_dynamic_quant_observer</span> <span class="o">=</span> <span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
-    <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">,</span> <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">,</span>
+    <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
+    <span class="n">is_dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default observer for dynamic quantization.</span>
@@ -2217,9 +2271,11 @@
 <span class="c1"># TODO(future PR): remove these defaults and enforce activation functions</span>
 <span class="c1"># to explicitly specify their output range</span>
 <span class="n">default_fixed_qparams_range_neg1to1_observer</span> <span class="o">=</span> <span class="n">FixedQParamsObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
-    <span class="n">scale</span><span class="o">=</span><span class="mf">2.0</span> <span class="o">/</span> <span class="mf">256.0</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">,</span> <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mf">2.0</span> <span class="o">/</span> <span class="mf">256.0</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">,</span> <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span>
+<span class="p">)</span>
 <span class="n">default_fixed_qparams_range_0to1_observer</span> <span class="o">=</span> <span class="n">FixedQParamsObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
-    <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">256.0</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">,</span> <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">256.0</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">,</span> <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span>
+<span class="p">)</span>
 <span class="c1"># TODO: the following 2 variables are kept for backwards compatibility; remove after a few releases</span>
 <span class="n">default_symmetric_fixed_qparams_observer</span> <span class="o">=</span> <span class="n">default_fixed_qparams_range_neg1to1_observer</span>
 <span class="n">default_affine_fixed_qparams_observer</span> <span class="o">=</span> <span class="n">default_fixed_qparams_range_0to1_observer</span>

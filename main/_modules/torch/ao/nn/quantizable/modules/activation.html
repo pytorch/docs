@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -524,19 +524,17 @@
               
   <h1>Source code for torch.ao.nn.quantizable.modules.activation</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.jit</span>  <span class="c1"># this is needed to avoid a circular import</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
-<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">nnF</span>
-
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.jit</span>  <span class="c1"># this is needed to avoid a circular import</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span><span class="p">,</span> <span class="n">Tensor</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;MultiheadAttention&quot;</span>
-<span class="p">]</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MultiheadAttention&quot;</span><span class="p">]</span>
+
 
 <div class="viewcode-block" id="MultiheadAttention"><a class="viewcode-back" href="../../../../../../generated/torch.ao.nn.quantizable.MultiheadAttention.html#torch.ao.nn.quantizable.MultiheadAttention">[docs]</a><span class="k">class</span> <span class="nc">MultiheadAttention</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">):</span>
     <span class="n">_FLOAT_MODULE</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MultiheadAttention</span>
@@ -584,21 +582,44 @@
 <span class="sd">    Note::</span>
 <span class="sd">        Please, follow the quantization flow to convert the quantizable MHA.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;batch_first&#39;</span><span class="p">]</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;batch_first&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                 <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                 <span class="n">add_bias_kv</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">add_zero_attn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">kdim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vdim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">batch_first</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">dropout</span><span class="p">,</span>
-                         <span class="n">bias</span><span class="p">,</span> <span class="n">add_bias_kv</span><span class="p">,</span>
-                         <span class="n">add_zero_attn</span><span class="p">,</span> <span class="n">kdim</span><span class="p">,</span> <span class="n">vdim</span><span class="p">,</span> <span class="n">batch_first</span><span class="p">,</span>
-                         <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">linear_Q</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">linear_K</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kdim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">linear_V</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vdim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">embed_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">num_heads</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">add_bias_kv</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">add_zero_attn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">kdim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">vdim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">batch_first</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">embed_dim</span><span class="p">,</span>
+            <span class="n">num_heads</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">add_bias_kv</span><span class="p">,</span>
+            <span class="n">add_zero_attn</span><span class="p">,</span>
+            <span class="n">kdim</span><span class="p">,</span>
+            <span class="n">vdim</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear_Q</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear_K</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kdim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear_V</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vdim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+        <span class="p">)</span>
         <span class="c1"># for the type: ignore, see https://github.com/pytorch/pytorch/issues/58969</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_proj</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
 
@@ -614,18 +635,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dequant_v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">DeQuantStub</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;QuantizableMultiheadAttention&#39;</span>
+        <span class="k">return</span> <span class="s2">&quot;QuantizableMultiheadAttention&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_float</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span>
-        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;qconfig&#39;</span><span class="p">),</span> <span class="s2">&quot;The float module must have &#39;qconfig&#39;&quot;</span>
+        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">),</span> <span class="s2">&quot;The float module must have &#39;qconfig&#39;&quot;</span>
         <span class="c1"># Setting the dropout to 0.0!</span>
-        <span class="n">observed</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
-                       <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
-                       <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">bias_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
-                       <span class="n">other</span><span class="o">.</span><span class="n">add_zero_attn</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">kdim</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">vdim</span><span class="p">,</span>
-                       <span class="n">other</span><span class="o">.</span><span class="n">batch_first</span><span class="p">)</span>
+        <span class="n">observed</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">bias_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">add_zero_attn</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">kdim</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">vdim</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">batch_first</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">observed</span><span class="o">.</span><span class="n">bias_k</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">bias_k</span>
         <span class="n">observed</span><span class="o">.</span><span class="n">bias_v</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">bias_v</span>
         <span class="n">observed</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">qconfig</span>
@@ -642,8 +669,7 @@
             <span class="n">weight</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">in_proj_weight</span><span class="p">[</span><span class="n">_start</span><span class="p">:</span><span class="n">_end</span><span class="p">,</span> <span class="p">:]</span>
             <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">bias</span><span class="p">[</span><span class="n">_start</span><span class="p">:</span><span class="n">_end</span><span class="p">],</span> <span class="n">bias</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
-            <span class="n">observed</span><span class="o">.</span><span class="n">linear_Q</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span>
-                                                          <span class="n">weight</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+            <span class="n">observed</span><span class="o">.</span><span class="n">linear_Q</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">weight</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
             <span class="n">observed</span><span class="o">.</span><span class="n">linear_Q</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
 
             <span class="n">bias</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span>
@@ -652,8 +678,7 @@
             <span class="n">weight</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">in_proj_weight</span><span class="p">[</span><span class="n">_start</span><span class="p">:</span><span class="n">_end</span><span class="p">,</span> <span class="p">:]</span>
             <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">bias</span><span class="p">[</span><span class="n">_start</span><span class="p">:</span><span class="n">_end</span><span class="p">],</span> <span class="n">bias</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
-            <span class="n">observed</span><span class="o">.</span><span class="n">linear_K</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span>
-                                                          <span class="n">weight</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+            <span class="n">observed</span><span class="o">.</span><span class="n">linear_K</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">weight</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
             <span class="n">observed</span><span class="o">.</span><span class="n">linear_K</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
 
             <span class="n">bias</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span>
@@ -661,8 +686,7 @@
             <span class="n">weight</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">in_proj_weight</span><span class="p">[</span><span class="n">_start</span><span class="p">:,</span> <span class="p">:]</span>
             <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">bias</span><span class="p">[</span><span class="n">_start</span><span class="p">:],</span> <span class="n">bias</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
-            <span class="n">observed</span><span class="o">.</span><span class="n">linear_V</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span>
-                                                          <span class="n">weight</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+            <span class="n">observed</span><span class="o">.</span><span class="n">linear_V</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">weight</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
             <span class="n">observed</span><span class="o">.</span><span class="n">linear_V</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">observed</span><span class="o">.</span><span class="n">linear_Q</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">q_proj_weight</span><span class="p">)</span>
@@ -673,9 +697,15 @@
                 <span class="n">observed</span><span class="o">.</span><span class="n">linear_K</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
                 <span class="n">observed</span><span class="o">.</span><span class="n">linear_V</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">observed</span><span class="o">.</span><span class="n">linear_Q</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">])</span>
-                <span class="n">observed</span><span class="o">.</span><span class="n">linear_K</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[</span><span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">:(</span><span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)])</span>
-                <span class="n">observed</span><span class="o">.</span><span class="n">linear_V</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[(</span><span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">*</span> <span class="mi">2</span><span class="p">):])</span>
+                <span class="n">observed</span><span class="o">.</span><span class="n">linear_Q</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+                    <span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">observed</span><span class="o">.</span><span class="n">linear_K</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+                    <span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[</span><span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span> <span class="p">:</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)]</span>
+                <span class="p">)</span>
+                <span class="n">observed</span><span class="o">.</span><span class="n">linear_V</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+                    <span class="n">other</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[(</span><span class="n">other</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="p">:]</span>
+                <span class="p">)</span>
         <span class="n">observed</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
         <span class="c1"># Explicit prepare</span>
         <span class="n">observed</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -689,10 +719,17 @@
 <span class="sd">        from the format that is used in the quantized version back to the</span>
 <span class="sd">        float.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
-                                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear_Q</span><span class="o">.</span><span class="n">_weight_bias</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
-                                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">add_zero_attn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kdim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vdim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_first</span><span class="p">)</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear_Q</span><span class="o">.</span><span class="n">_weight_bias</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_zero_attn</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kdim</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vdim</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">batch_first</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">assert</span> <span class="n">fp</span><span class="o">.</span><span class="n">_qkv_same_embed_dim</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qkv_same_embed_dim</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">fp</span><span class="o">.</span><span class="n">bias_k</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_k</span><span class="o">.</span><span class="n">dequantize</span><span class="p">())</span>
@@ -744,9 +781,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">linear_K</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">linear_V</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">fp</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">fp</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">bQ</span>
-                <span class="n">fp</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[</span><span class="n">fp</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">:(</span><span class="n">fp</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bK</span>
-                <span class="n">fp</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[(</span><span class="n">fp</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">*</span> <span class="mi">2</span><span class="p">):]</span> <span class="o">=</span> <span class="n">bV</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">fp</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">bQ</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[</span><span class="n">fp</span><span class="o">.</span><span class="n">embed_dim</span> <span class="p">:</span> <span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bK</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">in_proj_bias</span><span class="p">[(</span><span class="n">fp</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">bV</span>
 
         <span class="k">return</span> <span class="n">fp</span></div>
 
@@ -755,78 +792,91 @@
         <span class="c1"># The whole flow is float -&gt; observed -&gt; quantized</span>
         <span class="c1"># This class does float -&gt; observed only</span>
         <span class="c1"># See nn.quantized.MultiheadAttention</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;It looks like you are trying to prepare an &quot;</span>
-                                  <span class="s2">&quot;MHA module. Please, see &quot;</span>
-                                  <span class="s2">&quot;the examples on quantizable MHAs.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;It looks like you are trying to prepare an &quot;</span>
+            <span class="s2">&quot;MHA module. Please, see &quot;</span>
+            <span class="s2">&quot;the examples on quantizable MHAs.&quot;</span>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="MultiheadAttention.forward"><a class="viewcode-back" href="../../../../../../generated/torch.ao.nn.quantizable.MultiheadAttention.html#torch.ao.nn.quantizable.MultiheadAttention.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                <span class="n">query</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                <span class="n">key</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                <span class="n">key_padding_mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="n">need_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="n">attn_mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="n">average_attn_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="n">is_causal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]:</span>
+<div class="viewcode-block" id="MultiheadAttention.forward"><a class="viewcode-back" href="../../../../../../generated/torch.ao.nn.quantizable.MultiheadAttention.html#torch.ao.nn.quantizable.MultiheadAttention.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">key_padding_mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">need_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">attn_mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">average_attn_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">is_causal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Note::</span>
-<span class="sd">        Please, refer to :func:`~torch.nn.MultiheadAttention.forward` for more</span>
-<span class="sd">        information</span>
+<span class="sd">        Note::</span>
+<span class="sd">            Please, refer to :func:`~torch.nn.MultiheadAttention.forward` for more</span>
+<span class="sd">            information</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        query, key, value: map a query and a set of key-value pairs to an output.</span>
-<span class="sd">            See &quot;Attention Is All You Need&quot; for more details.</span>
-<span class="sd">        key_padding_mask: if provided, specified padding elements in the key will</span>
-<span class="sd">            be ignored by the attention. When given a binary mask and a value is True,</span>
-<span class="sd">            the corresponding value on the attention layer will be ignored.</span>
-<span class="sd">        need_weights: output attn_output_weights.</span>
-<span class="sd">        attn_mask: 2D or 3D mask that prevents attention to certain positions. A 2D mask will be broadcasted for all</span>
-<span class="sd">            the batches while a 3D mask allows to specify a different mask for the entries of each batch.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            query, key, value: map a query and a set of key-value pairs to an output.</span>
+<span class="sd">                See &quot;Attention Is All You Need&quot; for more details.</span>
+<span class="sd">            key_padding_mask: if provided, specified padding elements in the key will</span>
+<span class="sd">                be ignored by the attention. When given a binary mask and a value is True,</span>
+<span class="sd">                the corresponding value on the attention layer will be ignored.</span>
+<span class="sd">            need_weights: output attn_output_weights.</span>
+<span class="sd">            attn_mask: 2D or 3D mask that prevents attention to certain positions. A 2D mask will be broadcasted for all</span>
+<span class="sd">                the batches while a 3D mask allows to specify a different mask for the entries of each batch.</span>
 
-<span class="sd">    Shape:</span>
-<span class="sd">        - Inputs:</span>
-<span class="sd">        - query: :math:`(L, N, E)` where L is the target sequence length, N is the batch size, E is</span>
-<span class="sd">          the embedding dimension. :math:`(N, L, E)` if ``batch_first`` is ``True``.</span>
-<span class="sd">        - key: :math:`(S, N, E)`, where S is the source sequence length, N is the batch size, E is</span>
-<span class="sd">          the embedding dimension. :math:`(N, S, E)` if ``batch_first`` is ``True``.</span>
-<span class="sd">        - value: :math:`(S, N, E)` where S is the source sequence length, N is the batch size, E is</span>
-<span class="sd">          the embedding dimension. :math:`(N, S, E)` if ``batch_first`` is ``True``.</span>
-<span class="sd">        - key_padding_mask: :math:`(N, S)` where N is the batch size, S is the source sequence length.</span>
-<span class="sd">          If a BoolTensor is provided, the positions with the</span>
-<span class="sd">          value of ``True`` will be ignored while the position with the value of ``False`` will be unchanged.</span>
-<span class="sd">        - attn_mask: 2D mask :math:`(L, S)` where L is the target sequence length, S is the source sequence length.</span>
-<span class="sd">          3D mask :math:`(N*num_heads, L, S)` where N is the batch size, L is the target sequence length,</span>
-<span class="sd">          S is the source sequence length. attn_mask ensure that position i is allowed to attend the unmasked</span>
-<span class="sd">          positions. If a BoolTensor is provided, positions with ``True``</span>
-<span class="sd">          is not allowed to attend while ``False`` values will be unchanged. If a FloatTensor</span>
-<span class="sd">          is provided, it will be added to the attention weight.</span>
-<span class="sd">        - is_causal: If specified, applies a causal mask as attention mask. Mutually exclusive with providing attn_mask.</span>
-<span class="sd">          Default: ``False``.</span>
-<span class="sd">        - average_attn_weights: If true, indicates that the returned ``attn_weights`` should be averaged across</span>
-<span class="sd">          heads. Otherwise, ``attn_weights`` are provided separately per head. Note that this flag only has an</span>
-<span class="sd">          effect when ``need_weights=True.``. Default: True (i.e. average weights across heads)</span>
+<span class="sd">        Shape:</span>
+<span class="sd">            - Inputs:</span>
+<span class="sd">            - query: :math:`(L, N, E)` where L is the target sequence length, N is the batch size, E is</span>
+<span class="sd">              the embedding dimension. :math:`(N, L, E)` if ``batch_first`` is ``True``.</span>
+<span class="sd">            - key: :math:`(S, N, E)`, where S is the source sequence length, N is the batch size, E is</span>
+<span class="sd">              the embedding dimension. :math:`(N, S, E)` if ``batch_first`` is ``True``.</span>
+<span class="sd">            - value: :math:`(S, N, E)` where S is the source sequence length, N is the batch size, E is</span>
+<span class="sd">              the embedding dimension. :math:`(N, S, E)` if ``batch_first`` is ``True``.</span>
+<span class="sd">            - key_padding_mask: :math:`(N, S)` where N is the batch size, S is the source sequence length.</span>
+<span class="sd">              If a BoolTensor is provided, the positions with the</span>
+<span class="sd">              value of ``True`` will be ignored while the position with the value of ``False`` will be unchanged.</span>
+<span class="sd">            - attn_mask: 2D mask :math:`(L, S)` where L is the target sequence length, S is the source sequence length.</span>
+<span class="sd">              3D mask :math:`(N*num_heads, L, S)` where N is the batch size, L is the target sequence length,</span>
+<span class="sd">              S is the source sequence length. attn_mask ensure that position i is allowed to attend the unmasked</span>
+<span class="sd">              positions. If a BoolTensor is provided, positions with ``True``</span>
+<span class="sd">              is not allowed to attend while ``False`` values will be unchanged. If a FloatTensor</span>
+<span class="sd">              is provided, it will be added to the attention weight.</span>
+<span class="sd">            - is_causal: If specified, applies a causal mask as attention mask. Mutually exclusive with providing attn_mask.</span>
+<span class="sd">              Default: ``False``.</span>
+<span class="sd">            - average_attn_weights: If true, indicates that the returned ``attn_weights`` should be averaged across</span>
+<span class="sd">              heads. Otherwise, ``attn_weights`` are provided separately per head. Note that this flag only has an</span>
+<span class="sd">              effect when ``need_weights=True.``. Default: True (i.e. average weights across heads)</span>
 
-<span class="sd">        - Outputs:</span>
-<span class="sd">        - attn_output: :math:`(L, N, E)` where L is the target sequence length, N is the batch size,</span>
-<span class="sd">          E is the embedding dimension. :math:`(N, L, E)` if ``batch_first`` is ``True``.</span>
-<span class="sd">        - attn_output_weights: If ``average_attn_weights=True``, returns attention weights averaged</span>
-<span class="sd">          across heads of shape :math:`(N, L, S)`, where N is the batch size, L is the target sequence length,</span>
-<span class="sd">          S is the source sequence length. If ``average_attn_weights=False``, returns attention weights per</span>
-<span class="sd">          head of shape :math:`(N, num_heads, L, S)`.</span>
+<span class="sd">            - Outputs:</span>
+<span class="sd">            - attn_output: :math:`(L, N, E)` where L is the target sequence length, N is the batch size,</span>
+<span class="sd">              E is the embedding dimension. :math:`(N, L, E)` if ``batch_first`` is ``True``.</span>
+<span class="sd">            - attn_output_weights: If ``average_attn_weights=True``, returns attention weights averaged</span>
+<span class="sd">              across heads of shape :math:`(N, L, S)`, where N is the batch size, L is the target sequence length,</span>
+<span class="sd">              S is the source sequence length. If ``average_attn_weights=False``, returns attention weights per</span>
+<span class="sd">              head of shape :math:`(N, num_heads, L, S)`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_impl</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">key_padding_mask</span><span class="p">,</span>
-                                  <span class="n">need_weights</span><span class="p">,</span> <span class="n">attn_mask</span><span class="p">,</span> <span class="n">average_attn_weights</span><span class="p">,</span>
-                                  <span class="n">is_causal</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_impl</span><span class="p">(</span>
+            <span class="n">query</span><span class="p">,</span>
+            <span class="n">key</span><span class="p">,</span>
+            <span class="n">value</span><span class="p">,</span>
+            <span class="n">key_padding_mask</span><span class="p">,</span>
+            <span class="n">need_weights</span><span class="p">,</span>
+            <span class="n">attn_mask</span><span class="p">,</span>
+            <span class="n">average_attn_weights</span><span class="p">,</span>
+            <span class="n">is_causal</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_forward_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                      <span class="n">query</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                      <span class="n">key</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                      <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                      <span class="n">key_padding_mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                      <span class="n">need_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                      <span class="n">attn_mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                      <span class="n">average_attn_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                      <span class="n">is_causal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">_forward_impl</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">key_padding_mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">need_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">attn_mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">average_attn_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">is_causal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]:</span>
         <span class="c1"># This version will not deal with the static key/value pairs.</span>
         <span class="c1"># Keeping it here for future changes.</span>
         <span class="c1">#</span>
@@ -850,7 +900,9 @@
         <span class="k">assert</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">value</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">value</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="n">head_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span>
-        <span class="k">assert</span> <span class="n">head_dim</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span> <span class="s2">&quot;embed_dim must be divisible by num_heads&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">head_dim</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span>
+        <span class="p">),</span> <span class="s2">&quot;embed_dim must be divisible by num_heads&quot;</span>
         <span class="n">scaling</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">head_dim</span><span class="p">)</span> <span class="o">**</span> <span class="o">-</span><span class="mf">0.5</span>
 
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear_Q</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
@@ -867,18 +919,25 @@
                     <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="n">attn_mask</span> <span class="o">=</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">is_floating_point</span><span class="p">()</span> <span class="ow">or</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> \
-                <span class="sa">f</span><span class="s1">&#39;Only float and bool types are supported for attn_mask, not </span><span class="si">{</span><span class="n">attn_mask</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="n">attn_mask</span><span class="o">.</span><span class="n">is_floating_point</span><span class="p">()</span> <span class="ow">or</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Only float and bool types are supported for attn_mask, not </span><span class="si">{</span><span class="n">attn_mask</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span>
 
             <span class="k">if</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="n">attn_mask</span> <span class="o">=</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">attn_mask</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">!=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)]:</span>
-                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;The size of the 2D attn_mask is not correct.&#39;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;The size of the 2D attn_mask is not correct.&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">attn_mask</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">!=</span> <span class="p">[</span><span class="n">bsz</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)]:</span>
-                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;The size of the 3D attn_mask is not correct.&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">attn_mask</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">!=</span> <span class="p">[</span>
+                    <span class="n">bsz</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
+                    <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                    <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                <span class="p">]:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;The size of the 3D attn_mask is not correct.&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;attn_mask&#39;s dimension </span><span class="si">{</span><span class="n">attn_mask</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2"> is not supported&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;attn_mask&#39;s dimension </span><span class="si">{</span><span class="n">attn_mask</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2"> is not supported&quot;</span>
+                <span class="p">)</span>
             <span class="c1"># attn_mask&#39;s dim is 3 now.</span>
 
         <span class="c1"># convert ByteTensor key_padding_mask to bool</span>
@@ -891,7 +950,6 @@
             <span class="n">key_padding_mask</span> <span class="o">=</span> <span class="n">key_padding_mask</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">static_k</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">static_v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-
                 <span class="c1"># Explicitly assert that bias_k and bias_v are not None</span>
                 <span class="c1"># in a way that TorchScript can understand.</span>
                 <span class="n">bias_k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_k</span>
@@ -902,9 +960,9 @@
                 <span class="n">k</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">k</span><span class="p">,</span> <span class="n">bias_k</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bsz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">v</span><span class="p">,</span> <span class="n">bias_v</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bsz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
                 <span class="k">if</span> <span class="n">attn_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">attn_mask</span> <span class="o">=</span> <span class="n">nnF</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">attn_mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                    <span class="n">attn_mask</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">attn_mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
                 <span class="k">if</span> <span class="n">key_padding_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">key_padding_mask</span> <span class="o">=</span> <span class="n">nnF</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">key_padding_mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                    <span class="n">key_padding_mask</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">key_padding_mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">assert</span> <span class="n">static_k</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;bias cannot be added to static key.&quot;</span>
                 <span class="k">assert</span> <span class="n">static_v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;bias cannot be added to static value.&quot;</span>
@@ -938,49 +996,66 @@
             <span class="n">src_len</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">k_zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">k</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">2</span><span class="p">:])</span>
             <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">:</span>
-                <span class="n">k_zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">quantize_per_tensor</span><span class="p">(</span><span class="n">k_zeros</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">q_scale</span><span class="p">(),</span> <span class="n">k</span><span class="o">.</span><span class="n">q_zero_point</span><span class="p">(),</span> <span class="n">k</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="n">k_zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">quantize_per_tensor</span><span class="p">(</span>
+                    <span class="n">k_zeros</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">q_scale</span><span class="p">(),</span> <span class="n">k</span><span class="o">.</span><span class="n">q_zero_point</span><span class="p">(),</span> <span class="n">k</span><span class="o">.</span><span class="n">dtype</span>
+                <span class="p">)</span>
             <span class="n">k</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">k</span><span class="p">,</span> <span class="n">k_zeros</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">v_zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">v</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">k</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">2</span><span class="p">:])</span>
             <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">:</span>
-                <span class="n">v_zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">quantize_per_tensor</span><span class="p">(</span><span class="n">v_zeros</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">q_scale</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">q_zero_point</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="n">v_zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">quantize_per_tensor</span><span class="p">(</span>
+                    <span class="n">v_zeros</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">q_scale</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">q_zero_point</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">dtype</span>
+                <span class="p">)</span>
             <span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">v</span><span class="p">,</span> <span class="n">v_zeros</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">attn_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">attn_mask</span> <span class="o">=</span> <span class="n">nnF</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">attn_mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="n">attn_mask</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">attn_mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">key_padding_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">key_padding_mask</span> <span class="o">=</span> <span class="n">nnF</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">key_padding_mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="n">key_padding_mask</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">key_padding_mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
         <span class="c1"># Leaving the quantized zone here</span>
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dequant_q</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
         <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dequant_k</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
         <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dequant_v</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
         <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-        <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">attn_output_weights</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">==</span> <span class="p">[</span><span class="n">bsz</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="n">src_len</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">attn_output_weights</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">==</span> <span class="p">[</span>
+            <span class="n">bsz</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
+            <span class="n">tgt_len</span><span class="p">,</span>
+            <span class="n">src_len</span><span class="p">,</span>
+        <span class="p">]</span>
 
         <span class="k">if</span> <span class="n">attn_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">:</span>
-                <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">masked_fill_</span><span class="p">(</span><span class="n">attn_mask</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">))</span>
+                <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">masked_fill_</span><span class="p">(</span><span class="n">attn_mask</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">attn_output_weights</span> <span class="o">+=</span> <span class="n">attn_mask</span>
 
         <span class="k">if</span> <span class="n">key_padding_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">bsz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="n">src_len</span><span class="p">)</span>
+            <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
+                <span class="n">bsz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="n">src_len</span>
+            <span class="p">)</span>
             <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span>
                 <span class="n">key_padding_mask</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
-                <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">),</span>
             <span class="p">)</span>
-            <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">bsz</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="n">src_len</span><span class="p">)</span>
+            <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
+                <span class="n">bsz</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="n">src_len</span>
+            <span class="p">)</span>
 
-        <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">nnF</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span>
-            <span class="n">attn_output_weights</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">nnF</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">attn_output_weights</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">)</span>
+        <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">attn_output_weights</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span>
+            <span class="n">attn_output_weights</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">training</span>
+        <span class="p">)</span>
 
         <span class="n">attn_output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">attn_output_weights</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">attn_output</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">==</span> <span class="p">[</span><span class="n">bsz</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="n">head_dim</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_first</span><span class="p">:</span>
             <span class="n">attn_output</span> <span class="o">=</span> <span class="n">attn_output</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">bsz</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">attn_output</span> <span class="o">=</span> <span class="n">attn_output</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">tgt_len</span><span class="p">,</span> <span class="n">bsz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">)</span>
+            <span class="n">attn_output</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">attn_output</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">tgt_len</span><span class="p">,</span> <span class="n">bsz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="c1"># Reentering the quantized zone</span>
         <span class="n">attn_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quant_attn_output</span><span class="p">(</span><span class="n">attn_output</span><span class="p">)</span>
@@ -990,7 +1065,9 @@
 
         <span class="k">if</span> <span class="n">need_weights</span><span class="p">:</span>
             <span class="c1"># average attention weights over heads</span>
-            <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">bsz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="n">src_len</span><span class="p">)</span>
+            <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
+                <span class="n">bsz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">tgt_len</span><span class="p">,</span> <span class="n">src_len</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="n">average_attn_weights</span><span class="p">:</span>
                 <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">attn_output_weights</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">attn_output</span><span class="p">,</span> <span class="n">attn_output_weights</span>

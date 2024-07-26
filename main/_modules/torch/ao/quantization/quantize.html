@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -527,40 +527,38 @@
   <h1>Source code for torch.ao.quantization.quantize</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">import</span> <span class="nn">torch.ao.nn.quantized</span> <span class="k">as</span> <span class="nn">nnq</span>
-<span class="kn">from</span> <span class="nn">torch.ao.nn.intrinsic</span> <span class="kn">import</span> <span class="n">_FusedModule</span>
 
-<span class="kn">from</span> <span class="nn">torch.ao.quantization.quantization_mappings</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">get_default_dynamic_quant_module_mappings</span><span class="p">,</span>
-    <span class="n">get_default_static_quant_module_mappings</span><span class="p">,</span>
-    <span class="n">get_default_static_quant_reference_module_mappings</span><span class="p">,</span>
-    <span class="n">get_default_qat_module_mappings</span><span class="p">,</span>
-    <span class="n">get_default_qconfig_propagation_list</span><span class="p">,</span>
-    <span class="n">no_observer_set</span><span class="p">,</span>
-    <span class="n">_has_special_act_post_process</span><span class="p">,</span>
-    <span class="n">_get_special_act_post_process</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">get_qparam_dict</span><span class="p">,</span> <span class="n">has_no_children_ignoring_parametrizations</span>
-<span class="kn">from</span> <span class="nn">torch.ao.quantization.stubs</span> <span class="kn">import</span> <span class="n">DeQuantStub</span><span class="p">,</span> <span class="n">QuantWrapper</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.ao.nn.quantized</span> <span class="k">as</span> <span class="nn">nnq</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch.ao.nn.intrinsic</span> <span class="kn">import</span> <span class="n">_FusedModule</span>
+<span class="kn">from</span> <span class="nn">torch.ao.quantization.observer</span> <span class="kn">import</span> <span class="n">_is_activation_post_process</span>
 <span class="kn">from</span> <span class="nn">torch.ao.quantization.qconfig</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_activation_is_memoryless</span><span class="p">,</span>
     <span class="n">_add_module_to_qconfig_obs_ctr</span><span class="p">,</span>
     <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
     <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
     <span class="n">float_qparams_weight_only_qconfig</span><span class="p">,</span>
     <span class="n">float_qparams_weight_only_qconfig_4bit</span><span class="p">,</span>
-    <span class="n">_activation_is_memoryless</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">torch.nn.utils.parametrize</span> <span class="kn">import</span> <span class="n">type_before_parametrizations</span>
-<span class="kn">from</span> <span class="nn">torch.ao.quantization.observer</span> <span class="kn">import</span> <span class="n">_is_activation_post_process</span>
-
-<span class="c1"># TODO remove this once BC is no longer required to avoid a SEV</span>
-<span class="kn">from</span> <span class="nn">torch.ao.quantization.observer</span> <span class="kn">import</span> <span class="p">(</span>   <span class="c1"># noqa: F401</span>
-    <span class="n">_is_activation_post_process</span> <span class="k">as</span> <span class="n">is_activation_post_process</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.ao.quantization.quantization_mappings</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_get_special_act_post_process</span><span class="p">,</span>
+    <span class="n">_has_special_act_post_process</span><span class="p">,</span>
+    <span class="n">get_default_dynamic_quant_module_mappings</span><span class="p">,</span>
+    <span class="n">get_default_qat_module_mappings</span><span class="p">,</span>
+    <span class="n">get_default_qconfig_propagation_list</span><span class="p">,</span>
+    <span class="n">get_default_static_quant_module_mappings</span><span class="p">,</span>
+    <span class="n">get_default_static_quant_reference_module_mappings</span><span class="p">,</span>
+    <span class="n">no_observer_set</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.ao.quantization.stubs</span> <span class="kn">import</span> <span class="n">DeQuantStub</span><span class="p">,</span> <span class="n">QuantWrapper</span>
+<span class="kn">from</span> <span class="nn">torch.nn.utils.parametrize</span> <span class="kn">import</span> <span class="n">type_before_parametrizations</span>
+
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">get_qparam_dict</span><span class="p">,</span> <span class="n">has_no_children_ignoring_parametrizations</span>
+
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;get_default_custom_config_dict&quot;</span><span class="p">,</span>
@@ -575,24 +573,35 @@
     <span class="s2">&quot;swap_module&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
+
+<span class="c1"># TODO remove this once BC is no longer required to avoid a SEV</span>
+<span class="n">is_activation_post_process</span> <span class="o">=</span> <span class="n">_is_activation_post_process</span>
+
+
 <span class="n">_DEFAULT_CUSTOM_CONFIG_DICT</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;float_to_observed_custom_module_class&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;float_to_observed_custom_module_class&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">quantizable</span><span class="o">.</span><span class="n">LSTM</span><span class="p">,</span>
         <span class="n">nn</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">quantizable</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">,</span>
     <span class="p">},</span>
-    <span class="s1">&#39;observed_to_quantized_custom_module_class&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;observed_to_quantized_custom_module_class&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">nn</span><span class="o">.</span><span class="n">quantizable</span><span class="o">.</span><span class="n">LSTM</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">LSTM</span><span class="p">,</span>
         <span class="n">nn</span><span class="o">.</span><span class="n">quantizable</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">MultiheadAttention</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
 <span class="p">}</span>
 
+
 <span class="k">def</span> <span class="nf">get_default_custom_config_dict</span><span class="p">():</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Defines the default custom config dict.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Defines the default custom config dict.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_DEFAULT_CUSTOM_CONFIG_DICT</span>
 
-<span class="k">def</span> <span class="nf">_propagate_qconfig_helper</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">qconfig_dict</span><span class="p">,</span>
-                              <span class="n">qconfig_parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">_propagate_qconfig_helper</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">qconfig_dict</span><span class="p">,</span>
+    <span class="n">qconfig_parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a helper function for `propagate_qconfig_`</span>
 
 <span class="sd">    Args:</span>
@@ -611,9 +620,11 @@
 <span class="sd">        None, module is modified inplace with qconfig attached</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">module_qconfig</span> <span class="o">=</span> <span class="n">qconfig_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">),</span> <span class="n">qconfig_parent</span><span class="p">)</span>
+    <span class="n">module_qconfig</span> <span class="o">=</span> <span class="n">qconfig_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">),</span> <span class="n">qconfig_parent</span>
+    <span class="p">)</span>
     <span class="n">module_qconfig</span> <span class="o">=</span> <span class="n">qconfig_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">module_qconfig</span><span class="p">)</span>
-    <span class="n">module_qconfig</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;qconfig&#39;</span><span class="p">,</span> <span class="n">module_qconfig</span><span class="p">)</span>
+    <span class="n">module_qconfig</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">,</span> <span class="n">module_qconfig</span><span class="p">)</span>
 
     <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">qconfig</span><span class="o">.</span><span class="n">_assert_valid_qconfig</span><span class="p">(</span><span class="n">module_qconfig</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
 
@@ -621,15 +632,17 @@
     <span class="n">module</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">qconfig_with_device_check</span>
 
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
-        <span class="n">module_prefix</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="n">name</span>
+        <span class="n">module_prefix</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="n">name</span>
         <span class="c1">#  do no not propagate qconfig to child if child is non traceable</span>
         <span class="k">if</span> <span class="n">prepare_custom_config_dict</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span>
             <span class="n">name</span> <span class="ow">in</span> <span class="n">prepare_custom_config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;non_traceable_module_name&quot;</span><span class="p">,</span> <span class="p">[])</span>
-            <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="ow">in</span> <span class="n">prepare_custom_config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;non_traceable_module_class&quot;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="ow">in</span> <span class="n">prepare_custom_config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;non_traceable_module_class&quot;</span><span class="p">,</span> <span class="p">[])</span>
         <span class="p">):</span>
             <span class="n">_propagate_qconfig_helper</span><span class="p">(</span>
                 <span class="n">child</span><span class="p">,</span> <span class="n">qconfig_dict</span><span class="p">,</span> <span class="n">qconfig_with_device_check</span><span class="p">,</span> <span class="n">module_prefix</span>
             <span class="p">)</span>
+
 
 <div class="viewcode-block" id="propagate_qconfig_"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.propagate_qconfig_.html#torch.ao.quantization.propagate_qconfig_">[docs]</a><span class="k">def</span> <span class="nf">propagate_qconfig_</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">qconfig_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Propagate qconfig through the module hierarchy and assign `qconfig`</span>
@@ -651,32 +664,40 @@
         <span class="n">qconfig_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">if</span> <span class="n">prepare_custom_config_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">prepare_custom_config_dict</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">_propagate_qconfig_helper</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">qconfig_dict</span><span class="p">,</span> <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="n">prepare_custom_config_dict</span><span class="p">)</span></div>
+    <span class="n">_propagate_qconfig_helper</span><span class="p">(</span>
+        <span class="n">module</span><span class="p">,</span> <span class="n">qconfig_dict</span><span class="p">,</span> <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="n">prepare_custom_config_dict</span>
+    <span class="p">)</span></div>
+
 
 <span class="k">def</span> <span class="nf">_observer_forward_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Forward hook that calls observer on the output</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Forward hook that calls observer on the output&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_post_process</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">_observer_forward_pre_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Forward pre hook that calls observer on the output</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Forward pre hook that calls observer on the output&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_post_process</span><span class="p">(</span><span class="nb">input</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
+
 <span class="k">def</span> <span class="nf">_register_activation_post_process_hook</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">pre_hook</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;activation_post_process&#39;</span><span class="p">),</span> \
-        <span class="s1">&#39;Expect activation_post_process attribute already attached to the module&#39;</span>
+    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span>
+        <span class="n">module</span><span class="p">,</span> <span class="s2">&quot;activation_post_process&quot;</span>
+    <span class="p">),</span> <span class="s2">&quot;Expect activation_post_process attribute already attached to the module&quot;</span>
     <span class="k">if</span> <span class="n">pre_hook</span><span class="p">:</span>
         <span class="n">handle</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span>
             <span class="n">_observer_forward_pre_hook</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">handle</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span>
-            <span class="n">_observer_forward_hook</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+        <span class="n">handle</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="n">_observer_forward_hook</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_add_observer_</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">qconfig_propagation_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">non_leaf_module_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_add_observer_</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">qconfig_propagation_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">non_leaf_module_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">custom_module_class_mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Add observer for the leaf child of the module.</span>
 
 <span class="sd">    This function insert observer module to all leaf child module that</span>
@@ -701,79 +722,119 @@
     <span class="c1"># respect device affinity when adding observers</span>
     <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">devices</span> <span class="o">=</span> <span class="n">_get_unique_devices_</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;_add_observer_ only works with cpu or single-device CUDA modules, but got devices </span><span class="si">{</span><span class="n">devices</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;_add_observer_ only works with cpu or single-device CUDA modules, but got devices </span><span class="si">{</span><span class="n">devices</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">devices</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">get_activation_post_process</span><span class="p">(</span><span class="n">qconfig</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">special_act_post_process</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">activation</span> <span class="o">=</span> <span class="n">qconfig</span><span class="o">.</span><span class="n">activation</span><span class="p">()</span> <span class="k">if</span> <span class="n">special_act_post_process</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">special_act_post_process</span><span class="p">()</span>
+        <span class="n">activation</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">qconfig</span><span class="o">.</span><span class="n">activation</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">special_act_post_process</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">special_act_post_process</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">activation</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">activation</span>
 
     <span class="k">def</span> <span class="nf">needs_observation</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">&#39;qconfig&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">qconfig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">qconfig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">insert_activation_post_process</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">special_act_post_process</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Adds an activation post process module and register</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds an activation post process module and register</span>
 <span class="sd">        a pre or post hook that calls the module</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># We don&#39;t insert observer/fake_quantize for DeQuantStub</span>
         <span class="k">if</span> <span class="n">needs_observation</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">DeQuantStub</span><span class="p">):</span>
             <span class="c1"># observer and hook will be gone after we swap the module</span>
-            <span class="n">m</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="s1">&#39;activation_post_process&#39;</span><span class="p">,</span> <span class="n">get_activation_post_process</span><span class="p">(</span>
-                <span class="n">m</span><span class="o">.</span><span class="n">qconfig</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">special_act_post_process</span><span class="p">))</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span>
+                <span class="s2">&quot;activation_post_process&quot;</span><span class="p">,</span>
+                <span class="n">get_activation_post_process</span><span class="p">(</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">qconfig</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">special_act_post_process</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
             <span class="c1"># Register observer as the first entry in the hook list</span>
             <span class="c1"># All post forward hooks are preserved and will be executed after the observer before convert</span>
-            <span class="n">_register_activation_post_process_hook</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pre_hook</span><span class="o">=</span><span class="n">_activation_is_memoryless</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">qconfig</span><span class="p">))</span>
+            <span class="n">_register_activation_post_process_hook</span><span class="p">(</span>
+                <span class="n">m</span><span class="p">,</span> <span class="n">pre_hook</span><span class="o">=</span><span class="n">_activation_is_memoryless</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">qconfig</span><span class="p">)</span>
+            <span class="p">)</span>
 
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
         <span class="c1"># TODO remove Dropout special after codebase stable</span>
         <span class="k">if</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">]:</span>
             <span class="k">continue</span>
-        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">),</span> <span class="p">(</span><span class="n">nnq</span><span class="o">.</span><span class="n">FloatFunctional</span><span class="p">,</span> <span class="n">nnq</span><span class="o">.</span><span class="n">QFunctional</span><span class="p">)):</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span>
+            <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">),</span> <span class="p">(</span><span class="n">nnq</span><span class="o">.</span><span class="n">FloatFunctional</span><span class="p">,</span> <span class="n">nnq</span><span class="o">.</span><span class="n">QFunctional</span><span class="p">)</span>
+        <span class="p">):</span>
             <span class="k">if</span> <span class="n">needs_observation</span><span class="p">(</span><span class="n">child</span><span class="p">):</span>
-                <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="s2">&quot;activation_post_process&quot;</span><span class="p">),</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;functional class </span><span class="si">{</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)</span><span class="si">}</span><span class="s2"> has no pre-defined `activation_post_process`&quot;</span>
+                <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span>
+                    <span class="n">child</span><span class="p">,</span> <span class="s2">&quot;activation_post_process&quot;</span>
+                <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;functional class </span><span class="si">{</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)</span><span class="si">}</span><span class="s2"> has no pre-defined `activation_post_process`&quot;</span>
+                <span class="n">child</span><span class="o">.</span><span class="n">activation_post_process</span> <span class="o">=</span> <span class="n">get_activation_post_process</span><span class="p">(</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">qconfig</span><span class="p">,</span> <span class="n">device</span>
                 <span class="p">)</span>
-                <span class="n">child</span><span class="o">.</span><span class="n">activation_post_process</span> <span class="o">=</span> <span class="n">get_activation_post_process</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">qconfig</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">_FusedModule</span><span class="p">):</span>
             <span class="c1"># activation_post_process are now added directly to nn.Sequential/_FusedModule</span>
             <span class="k">if</span> <span class="n">needs_observation</span><span class="p">(</span><span class="n">child</span><span class="p">):</span>
                 <span class="n">insert_activation_post_process</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">non_leaf_module_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="ow">in</span> <span class="n">non_leaf_module_list</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="n">non_leaf_module_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="ow">in</span> <span class="n">non_leaf_module_list</span>
+        <span class="p">):</span>
             <span class="k">if</span> <span class="n">needs_observation</span><span class="p">(</span><span class="n">child</span><span class="p">):</span>
                 <span class="n">insert_activation_post_process</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">_has_special_act_post_process</span><span class="p">(</span><span class="n">child</span><span class="p">):</span>
             <span class="n">special_act_post_process</span> <span class="o">=</span> <span class="n">_get_special_act_post_process</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
             <span class="n">insert_activation_post_process</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">special_act_post_process</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">needs_observation</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="ow">in</span> <span class="n">custom_module_class_mapping</span><span class="p">:</span>
-            <span class="n">observed_child</span> <span class="o">=</span> <span class="n">custom_module_class_mapping</span><span class="p">[</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="n">needs_observation</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="ow">in</span> <span class="n">custom_module_class_mapping</span>
+        <span class="p">):</span>
+            <span class="n">observed_child</span> <span class="o">=</span> <span class="n">custom_module_class_mapping</span><span class="p">[</span>
+                <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">observed_child</span><span class="p">)</span>
             <span class="c1"># TODO: These are the modules that cannot be observed</span>
             <span class="c1">#       Once there are more, we should move them to a separate list</span>
-            <span class="k">if</span> <span class="n">custom_module_class_mapping</span><span class="p">[</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">no_observer_set</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">custom_module_class_mapping</span><span class="p">[</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span>
+                <span class="ow">not</span> <span class="ow">in</span> <span class="n">no_observer_set</span><span class="p">()</span>
+            <span class="p">):</span>
                 <span class="n">insert_activation_post_process</span><span class="p">(</span><span class="n">observed_child</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">_add_observer_</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">qconfig_propagation_list</span><span class="p">,</span> <span class="n">non_leaf_module_list</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">)</span>
+            <span class="n">_add_observer_</span><span class="p">(</span>
+                <span class="n">child</span><span class="p">,</span>
+                <span class="n">qconfig_propagation_list</span><span class="p">,</span>
+                <span class="n">non_leaf_module_list</span><span class="p">,</span>
+                <span class="n">device</span><span class="p">,</span>
+                <span class="n">custom_module_class_mapping</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="c1"># Insert observers only for leaf nodes, note that this observer is for</span>
     <span class="c1"># the output of the module, for input QuantStub will observe them</span>
-    <span class="k">if</span> <span class="n">has_no_children_ignoring_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">)</span> \
-       <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">in</span> <span class="n">qconfig_propagation_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">has_no_children_ignoring_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">in</span> <span class="n">qconfig_propagation_list</span>
+    <span class="p">):</span>
         <span class="n">insert_activation_post_process</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
     <span class="c1"># This is a special case for AdaRound eager mode</span>
     <span class="c1"># AdaRound contains weight_fake_quant to be propagated from API to convert</span>
     <span class="c1"># leaf node check with a number of children looks naive assumption that blocks</span>
     <span class="c1"># Adding an exception case for AdaRound</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;weight_fake_quant&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">)</span> \
-       <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">in</span> <span class="n">qconfig_propagation_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;weight_fake_quant&quot;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">in</span> <span class="n">qconfig_propagation_list</span>
+    <span class="p">):</span>
         <span class="n">insert_activation_post_process</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">_get_unique_devices_</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">()}</span> <span class="o">|</span> \
-        <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">buffers</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">()}</span> <span class="o">|</span> <span class="p">{</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">buffers</span><span class="p">()</span>
+    <span class="p">}</span>
+
 
 <div class="viewcode-block" id="add_quant_dequant"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.add_quant_dequant.html#torch.ao.quantization.add_quant_dequant">[docs]</a><span class="k">def</span> <span class="nf">add_quant_dequant</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Wrap the leaf child module in QuantWrapper if it has a valid qconfig</span>
@@ -790,16 +851,25 @@
 <span class="sd">        wraps the input module, the latter case only happens when the input</span>
 <span class="sd">        module is a leaf module and we want to quantize it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">has_no_children_ignoring_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;qconfig&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">module</span><span class="o">.</span><span class="n">qconfig</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">has_no_children_ignoring_parametrizations</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">module</span><span class="o">.</span><span class="n">qconfig</span>
+    <span class="p">):</span>
         <span class="k">return</span> <span class="n">QuantWrapper</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
         <span class="n">module</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">add_quant_dequant</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">module</span></div>
 
-<div class="viewcode-block" id="prepare"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.prepare.html#torch.ao.quantization.prepare">[docs]</a><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">observer_non_leaf_module_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="prepare"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.prepare.html#torch.ao.quantization.prepare">[docs]</a><span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">allow_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">observer_non_leaf_module_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Prepares a copy of the model for quantization calibration or quantization-aware training.</span>
 
 <span class="sd">    Quantization configuration should be assigned preemptively</span>
@@ -831,7 +901,9 @@
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;quantization_api.quantize.prepare&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">prepare_custom_config_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">prepare_custom_config_dict</span> <span class="o">=</span> <span class="n">get_default_custom_config_dict</span><span class="p">()</span>
-    <span class="n">custom_module_class_mapping</span> <span class="o">=</span> <span class="n">prepare_custom_config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;float_to_observed_custom_module_class&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">custom_module_class_mapping</span> <span class="o">=</span> <span class="n">prepare_custom_config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;float_to_observed_custom_module_class&quot;</span><span class="p">,</span> <span class="p">{}</span>
+    <span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
@@ -843,27 +915,36 @@
     <span class="n">propagate_qconfig_</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">qconfig_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="c1"># sanity check common API misusage</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">&#39;qconfig&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">qconfig</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">modules</span><span class="p">()):</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;None of the submodule got qconfig applied. Make sure you &quot;</span>
-                      <span class="s2">&quot;passed correct configuration through `qconfig_dict` or &quot;</span>
-                      <span class="s2">&quot;by assigning the `.qconfig` attribute directly on submodules&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">qconfig</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">modules</span><span class="p">()):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;None of the submodule got qconfig applied. Make sure you &quot;</span>
+            <span class="s2">&quot;passed correct configuration through `qconfig_dict` or &quot;</span>
+            <span class="s2">&quot;by assigning the `.qconfig` attribute directly on submodules&quot;</span>
+        <span class="p">)</span>
 
     <span class="n">_add_observer_</span><span class="p">(</span>
-        <span class="n">model</span><span class="p">,</span> <span class="n">qconfig_propagation_list</span><span class="p">,</span> <span class="n">observer_non_leaf_module_list</span><span class="p">,</span>
-        <span class="n">custom_module_class_mapping</span><span class="o">=</span><span class="n">custom_module_class_mapping</span><span class="p">)</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">qconfig_propagation_list</span><span class="p">,</span>
+        <span class="n">observer_non_leaf_module_list</span><span class="p">,</span>
+        <span class="n">custom_module_class_mapping</span><span class="o">=</span><span class="n">custom_module_class_mapping</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span></div>
+
 
 <span class="k">def</span> <span class="nf">_remove_activation_post_process</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
     <span class="c1"># TODO: maybe we should change activation_post_process to _activation_post_process</span>
     <span class="c1"># to prevent it from being used by user</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;activation_post_process&#39;</span><span class="p">)</span> <span class="ow">and</span> \
-       <span class="n">_is_activation_post_process</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">activation_post_process</span><span class="p">):</span>
-        <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;activation_post_process&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;activation_post_process&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_is_activation_post_process</span><span class="p">(</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">activation_post_process</span>
+    <span class="p">):</span>
+        <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;activation_post_process&quot;</span><span class="p">)</span>
 
     <span class="c1"># remove activation_post_process pre and post hooks</span>
     <span class="k">def</span> <span class="nf">remove_hooks</span><span class="p">(</span><span class="n">pre_hook</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">hook_map</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">_forward_pre_hooks</span> <span class="k">if</span> <span class="n">pre_hook</span> <span class="k">else</span> <span class="n">module</span><span class="o">.</span><span class="n">_forward_hooks</span>
-        <span class="n">observer_hook</span> <span class="o">=</span> <span class="n">_observer_forward_pre_hook</span> <span class="k">if</span> <span class="n">pre_hook</span> <span class="k">else</span> <span class="n">_observer_forward_hook</span>
+        <span class="n">observer_hook</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">_observer_forward_pre_hook</span> <span class="k">if</span> <span class="n">pre_hook</span> <span class="k">else</span> <span class="n">_observer_forward_hook</span>
+        <span class="p">)</span>
         <span class="n">handle_ids_to_remove</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">handle_id</span><span class="p">,</span> <span class="n">hook_fn</span> <span class="ow">in</span> <span class="n">hook_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">hook_fn</span> <span class="ow">is</span> <span class="n">observer_hook</span><span class="p">:</span>
@@ -873,6 +954,7 @@
 
     <span class="n">remove_hooks</span><span class="p">(</span><span class="n">pre_hook</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">remove_hooks</span><span class="p">(</span><span class="n">pre_hook</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
 
 <span class="c1"># TODO: rename to something more general</span>
 <span class="k">def</span> <span class="nf">_remove_qconfig</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
@@ -889,6 +971,7 @@
         <span class="k">del</span> <span class="n">module</span><span class="o">.</span><span class="n">qconfig</span>
 
     <span class="n">_remove_activation_post_process</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="quantize"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.quantize.html#torch.ao.quantization.quantize">[docs]</a><span class="k">def</span> <span class="nf">quantize</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">run_fn</span><span class="p">,</span> <span class="n">run_args</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Quantize the input float model with post training static quantization.</span>
@@ -918,8 +1001,10 @@
     <span class="n">convert</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span></div>
 
-<div class="viewcode-block" id="quantize_dynamic"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.quantize_dynamic.html#torch.ao.quantization.quantize_dynamic">[docs]</a><span class="k">def</span> <span class="nf">quantize_dynamic</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">qconfig_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
-                     <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="quantize_dynamic"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.quantize_dynamic.html#torch.ao.quantization.quantize_dynamic">[docs]</a><span class="k">def</span> <span class="nf">quantize_dynamic</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">qconfig_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts a float model to dynamic (i.e. weights-only) quantized model.</span>
 
 <span class="sd">    Replaces specified modules with dynamic weight-only quantized versions and output the quantized model.</span>
@@ -952,34 +1037,35 @@
     <span class="k">if</span> <span class="n">qconfig_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">:</span>
             <span class="n">qconfig_spec</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span> <span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span> <span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">GRU</span> <span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">LSTMCell</span> <span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">RNNCell</span> <span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">GRUCell</span> <span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">GRU</span><span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">LSTMCell</span><span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">RNNCell</span><span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">GRUCell</span><span class="p">:</span> <span class="n">default_dynamic_qconfig</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span>
             <span class="n">qconfig_spec</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span> <span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span> <span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">GRU</span> <span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">LSTMCell</span> <span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">RNNCell</span> <span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">GRUCell</span> <span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">GRU</span><span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">LSTMCell</span><span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">RNNCell</span><span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">GRUCell</span><span class="p">:</span> <span class="n">float16_dynamic_qconfig</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">quint8</span><span class="p">:</span>
             <span class="n">qconfig_spec</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">EmbeddingBag</span> <span class="p">:</span> <span class="n">float_qparams_weight_only_qconfig</span><span class="p">,</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span> <span class="p">:</span> <span class="n">float_qparams_weight_only_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">EmbeddingBag</span><span class="p">:</span> <span class="n">float_qparams_weight_only_qconfig</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">:</span> <span class="n">float_qparams_weight_only_qconfig</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">quint4x2</span><span class="p">:</span>
             <span class="n">qconfig_spec</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">nn</span><span class="o">.</span><span class="n">EmbeddingBag</span> <span class="p">:</span> <span class="n">float_qparams_weight_only_qconfig_4bit</span><span class="p">,</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">EmbeddingBag</span><span class="p">:</span> <span class="n">float_qparams_weight_only_qconfig_4bit</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Don&#39;t know how to quantize with default settings for </span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s2">. Provide full qconfig please&quot;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Don&#39;t know how to quantize with default settings for </span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s2">. Provide full qconfig please&quot;</span>
+            <span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">qconfig_spec</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">:</span>
             <span class="n">default_qconfig</span> <span class="o">=</span> <span class="n">default_dynamic_qconfig</span>
@@ -990,7 +1076,9 @@
         <span class="k">elif</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="n">torch</span><span class="o">.</span><span class="n">quint4x2</span><span class="p">:</span>
             <span class="n">default_qconfig</span> <span class="o">=</span> <span class="n">float_qparams_weight_only_qconfig_4bit</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unknown dtype specified for quantize_dynamic: &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Unknown dtype specified for quantize_dynamic: &quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
         <span class="n">qconfig_spec</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">qconfig_spec</span><span class="p">,</span> <span class="n">itertools</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">default_qconfig</span><span class="p">)))</span>
 
     <span class="k">if</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1002,6 +1090,7 @@
     <span class="n">propagate_qconfig_</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">qconfig_spec</span><span class="p">)</span>
     <span class="n">convert</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span></div>
+
 
 <div class="viewcode-block" id="prepare_qat"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.prepare_qat.html#torch.ao.quantization.prepare_qat">[docs]</a><span class="k">def</span> <span class="nf">prepare_qat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -1031,6 +1120,7 @@
     <span class="n">prepare</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">observer_non_leaf_module_list</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">mapping</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span></div>
 
+
 <div class="viewcode-block" id="quantize_qat"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.quantize_qat.html#torch.ao.quantization.quantize_qat">[docs]</a><span class="k">def</span> <span class="nf">quantize_qat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">run_fn</span><span class="p">,</span> <span class="n">run_args</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Do quantization aware training and output a quantized model</span>
 
@@ -1053,10 +1143,16 @@
     <span class="n">convert</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span></div>
 
+
 <div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.convert.html#torch.ao.quantization.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span>
-        <span class="n">module</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">remove_qconfig</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">is_reference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">remove_qconfig</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">is_reference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts submodules in input module to a different module according to `mapping`</span>
 <span class="sd">    by calling `from_float` method on the target module class. And remove qconfig at the</span>
 <span class="sd">    end if remove_qconfig is set to True.</span>
@@ -1088,17 +1184,26 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
         <span class="n">module</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
     <span class="n">_convert</span><span class="p">(</span>
-        <span class="n">module</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_reference</span><span class="o">=</span><span class="n">is_reference</span><span class="p">,</span>
+        <span class="n">module</span><span class="p">,</span>
+        <span class="n">mapping</span><span class="p">,</span>
+        <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">is_reference</span><span class="o">=</span><span class="n">is_reference</span><span class="p">,</span>
         <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="n">convert_custom_config_dict</span><span class="p">,</span>
-        <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
+        <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="n">remove_qconfig</span><span class="p">:</span>
         <span class="n">_remove_qconfig</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">module</span></div>
 
+
 <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span>
-        <span class="n">module</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">is_reference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">is_reference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">convert_custom_config_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts submodules in input module to a different module according to `mapping`</span>
 <span class="sd">    by calling `from_float` method on the target module class</span>
 
@@ -1114,11 +1219,16 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">mapping</span> <span class="o">=</span> <span class="n">get_default_static_quant_reference_module_mappings</span><span class="p">()</span> <span class="k">if</span> <span class="n">is_reference</span> \
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">get_default_static_quant_reference_module_mappings</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">is_reference</span>
             <span class="k">else</span> <span class="n">get_default_static_quant_module_mappings</span><span class="p">()</span>
+        <span class="p">)</span>
     <span class="k">if</span> <span class="n">convert_custom_config_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">convert_custom_config_dict</span> <span class="o">=</span> <span class="n">get_default_custom_config_dict</span><span class="p">()</span>
-    <span class="n">custom_module_class_mapping</span> <span class="o">=</span> <span class="n">convert_custom_config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;observed_to_quantized_custom_module_class&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">custom_module_class_mapping</span> <span class="o">=</span> <span class="n">convert_custom_config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;observed_to_quantized_custom_module_class&quot;</span><span class="p">,</span> <span class="p">{}</span>
+    <span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
         <span class="n">module</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
@@ -1126,19 +1236,31 @@
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
         <span class="c1"># both fused modules and observed custom modules are</span>
         <span class="c1"># swapped as one unit</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">_FusedModule</span><span class="p">)</span> <span class="ow">and</span> \
-           <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">custom_module_class_mapping</span><span class="p">:</span>
-            <span class="n">_convert</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># inplace</span>
-                     <span class="n">is_reference</span><span class="p">,</span> <span class="n">convert_custom_config_dict</span><span class="p">,</span>
-                     <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
-        <span class="n">reassign</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">swap_module</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">_FusedModule</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">custom_module_class_mapping</span>
+        <span class="p">):</span>
+            <span class="n">_convert</span><span class="p">(</span>
+                <span class="n">mod</span><span class="p">,</span>
+                <span class="n">mapping</span><span class="p">,</span>
+                <span class="kc">True</span><span class="p">,</span>  <span class="c1"># inplace</span>
+                <span class="n">is_reference</span><span class="p">,</span>
+                <span class="n">convert_custom_config_dict</span><span class="p">,</span>
+                <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">reassign</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">swap_module</span><span class="p">(</span>
+            <span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span>
+        <span class="p">)</span>
 
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">reassign</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">module</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">return</span> <span class="n">module</span>
 
-<div class="viewcode-block" id="swap_module"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.swap_module.html#torch.ao.quantization.swap_module">[docs]</a><span class="k">def</span> <span class="nf">swap_module</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="swap_module"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.swap_module.html#torch.ao.quantization.swap_module">[docs]</a><span class="k">def</span> <span class="nf">swap_module</span><span class="p">(</span>
+    <span class="n">mod</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">custom_module_class_mapping</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Swaps the module if it has a quantized counterpart and it has an</span>
 <span class="sd">    `observer` attached.</span>
 
@@ -1150,14 +1272,16 @@
 <span class="sd">        The corresponding quantized module of `mod`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">new_mod</span> <span class="o">=</span> <span class="n">mod</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s1">&#39;qconfig&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mod</span><span class="o">.</span><span class="n">qconfig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mod</span><span class="o">.</span><span class="n">qconfig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">swapped</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">in</span> <span class="n">custom_module_class_mapping</span><span class="p">:</span>
-            <span class="n">new_mod</span> <span class="o">=</span> <span class="n">custom_module_class_mapping</span><span class="p">[</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)]</span><span class="o">.</span><span class="n">from_observed</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+            <span class="n">new_mod</span> <span class="o">=</span> <span class="n">custom_module_class_mapping</span><span class="p">[</span>
+                <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">from_observed</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
             <span class="n">swapped</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">elif</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
             <span class="n">qmod</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)]</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">qmod</span><span class="p">,</span> <span class="s1">&#39;_IS_REFERENCE&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">qmod</span><span class="o">.</span><span class="n">_IS_REFERENCE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">qmod</span><span class="p">,</span> <span class="s2">&quot;_IS_REFERENCE&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">qmod</span><span class="o">.</span><span class="n">_IS_REFERENCE</span><span class="p">:</span>
                 <span class="k">assert</span> <span class="n">mod</span><span class="o">.</span><span class="n">qconfig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                 <span class="n">weight_post_process</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">qconfig</span><span class="o">.</span><span class="n">weight</span><span class="p">()</span>
                 <span class="n">weight_post_process</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
@@ -1165,8 +1289,10 @@
                 <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">weight_qparams</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">)</span>
-                <span class="k">if</span> <span class="s1">&#39;use_precomputed_fake_quant&#39;</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
-                    <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;use_precomputed_fake_quant&quot;</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                    <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span>
+                        <span class="n">mod</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="n">use_precomputed_fake_quant</span>
+                    <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">new_mod</span> <span class="o">=</span> <span class="n">qmod</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
             <span class="n">swapped</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1183,13 +1309,14 @@
 
             <span class="c1"># respect device affinity when swapping modules</span>
             <span class="n">devices</span> <span class="o">=</span> <span class="n">_get_unique_devices_</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;swap_module only works with cpu or single-device CUDA modules, but got devices </span><span class="si">{</span><span class="n">devices</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;swap_module only works with cpu or single-device CUDA modules, but got devices </span><span class="si">{</span><span class="n">devices</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">devices</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="n">device</span><span class="p">:</span>
                 <span class="n">new_mod</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">new_mod</span></div>
+
 
 <span class="k">def</span> <span class="nf">_get_observer_dict</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">target_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Traverse the modules and save all observers into dict.</span>
@@ -1199,11 +1326,14 @@
 <span class="sd">        prefix: the prefix for the current module</span>
 <span class="sd">        target_dict: the dictionary used to save all the observers</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">get_prefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">prefix</span> <span class="k">if</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span>
 
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s1">&#39;activation_post_process&#39;</span><span class="p">):</span>
-        <span class="n">target_dict</span><span class="p">[</span><span class="n">get_prefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;activation_post_process&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">activation_post_process</span>
+    <span class="k">def</span> <span class="nf">get_prefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">prefix</span> <span class="k">if</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;activation_post_process&quot;</span><span class="p">):</span>
+        <span class="n">target_dict</span><span class="p">[</span>
+            <span class="n">get_prefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;activation_post_process&quot;</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">activation_post_process</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
         <span class="n">module_prefix</span> <span class="o">=</span> <span class="n">get_prefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">+</span> <span class="n">name</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="n">name</span>
         <span class="n">_get_observer_dict</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">target_dict</span><span class="p">,</span> <span class="n">module_prefix</span><span class="p">)</span>

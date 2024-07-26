@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -573,8 +573,8 @@
     <span class="k">if</span> <span class="n">is_initialized</span><span class="p">()</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_tls</span><span class="p">,</span> <span class="s2">&quot;is_initializing&quot;</span><span class="p">):</span>
         <span class="k">return</span>
     <span class="k">with</span> <span class="n">_initialization_lock</span><span class="p">:</span>
-        <span class="c1"># We be double-checked locking, boys!  This is OK because</span>
-        <span class="c1"># the above test was GIL protected anyway.  The inner test</span>
+        <span class="c1"># We be double-checking locking, boys! This is OK because</span>
+        <span class="c1"># the above test was GIL protected anyway. The inner test</span>
         <span class="c1"># is for when a thread blocked on some other thread which was</span>
         <span class="c1"># doing the initialization; when they get the lock, they will</span>
         <span class="c1"># find there is nothing left to do.</span>
@@ -673,6 +673,19 @@
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_mtia_getDefaultStream</span><span class="p">(</span><span class="n">_get_device_index</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
 
 
+<div class="viewcode-block" id="memory_stats"><a class="viewcode-back" href="../../generated/torch.mtia.memory_stats.html#torch.mtia.memory_stats">[docs]</a><span class="k">def</span> <span class="nf">memory_stats</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_device_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return a dictionary of MTIA memory allocator statistics for a given device.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        device (torch.device or int, optional) selected device. Returns</span>
+<span class="sd">            statistics for the current device, given by current_device(),</span>
+<span class="sd">            if device is None (default).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_initialized</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_mtia_memoryStats</span><span class="p">(</span><span class="n">_get_device_index</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
+
+
 <div class="viewcode-block" id="set_stream"><a class="viewcode-back" href="../../generated/torch.mtia.set_stream.html#torch.mtia.set_stream">[docs]</a><span class="k">def</span> <span class="nf">set_stream</span><span class="p">(</span><span class="n">stream</span><span class="p">:</span> <span class="n">Stream</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Set the current stream.This is a wrapper API to set the stream.</span>
 <span class="sd">        Usage of this function is discouraged in favor of the ``stream``</span>
@@ -734,6 +747,7 @@
     <span class="n">cur_stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;torch.mtia.Stream&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;torch.mtia.Stream&quot;</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cur_stream</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="n">_get_device_index</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">is_scripting</span><span class="p">():</span>
@@ -829,6 +843,7 @@
     <span class="s2">&quot;current_device&quot;</span><span class="p">,</span>
     <span class="s2">&quot;current_stream&quot;</span><span class="p">,</span>
     <span class="s2">&quot;default_stream&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;memory_stats&quot;</span><span class="p">,</span>
     <span class="s2">&quot;set_device&quot;</span><span class="p">,</span>
     <span class="s2">&quot;set_stream&quot;</span><span class="p">,</span>
     <span class="s2">&quot;stream&quot;</span><span class="p">,</span>

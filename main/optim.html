@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -658,11 +658,29 @@ options (used when a parameter group doesn’t specify them).</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.load_state_dict</span></code></a></p></td>
 <td><p>Load the optimizer state.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.register_load_state_dict_pre_hook.html#torch.optim.Optimizer.register_load_state_dict_pre_hook" title="torch.optim.Optimizer.register_load_state_dict_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.register_load_state_dict_pre_hook</span></code></a></p></td>
+<td><p>Register a load_state_dict pre-hook which will be called before <a class="reference internal" href="generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> is called. It should have the following signature::.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.register_load_state_dict_post_hook.html#torch.optim.Optimizer.register_load_state_dict_post_hook" title="torch.optim.Optimizer.register_load_state_dict_post_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.register_load_state_dict_post_hook</span></code></a></p></td>
+<td><p>Register a load_state_dict post-hook which will be called after <a class="reference internal" href="generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict" title="torch.optim.Optimizer.load_state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_state_dict()</span></code></a> is called. It should have the following signature::.</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.state_dict</span></code></a></p></td>
 <td><p>Return the state of the optimizer as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.register_state_dict_pre_hook.html#torch.optim.Optimizer.register_state_dict_pre_hook" title="torch.optim.Optimizer.register_state_dict_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.register_state_dict_pre_hook</span></code></a></p></td>
+<td><p>Register a state dict pre-hook which will be called before <a class="reference internal" href="generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.register_state_dict_post_hook.html#torch.optim.Optimizer.register_state_dict_post_hook" title="torch.optim.Optimizer.register_state_dict_post_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.register_state_dict_post_hook</span></code></a></p></td>
+<td><p>Register a state dict post-hook which will be called after <a class="reference internal" href="generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict" title="torch.optim.Optimizer.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> is called.</p></td>
+</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.step.html#torch.optim.Optimizer.step" title="torch.optim.Optimizer.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.step</span></code></a></p></td>
 <td><p>Perform a single optimization step to update parameter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.register_step_pre_hook.html#torch.optim.Optimizer.register_step_pre_hook" title="torch.optim.Optimizer.register_step_pre_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.register_step_pre_hook</span></code></a></p></td>
+<td><p>Register an optimizer step pre hook which will be called before optimizer step.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.register_step_post_hook.html#torch.optim.Optimizer.register_step_post_hook" title="torch.optim.Optimizer.register_step_post_hook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.register_step_post_hook</span></code></a></p></td>
+<td><p>Register an optimizer step post hook which will be called after optimizer step.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.Optimizer.zero_grad.html#torch.optim.Optimizer.zero_grad" title="torch.optim.Optimizer.zero_grad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimizer.zero_grad</span></code></a></p></td>
 <td><p>Reset the gradients of all optimized <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> s.</p></td>
@@ -677,40 +695,43 @@ options (used when a parameter group doesn’t specify them).</p></li>
 <tr class="row-odd"><td><p><p id="torch.optim.Adadelta"/><a class="reference internal" href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta" title="torch.optim.Adadelta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adadelta</span></code></a></p></td>
 <td><p>Implements Adadelta algorithm.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.Adagrad"/><a class="reference internal" href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad" title="torch.optim.Adagrad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adagrad</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.Adafactor"/><a class="reference internal" href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor" title="torch.optim.Adafactor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adafactor</span></code></a></p></td>
+<td><p>Implements Adafactor algorithm.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.optim.Adagrad"/><a class="reference internal" href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad" title="torch.optim.Adagrad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adagrad</span></code></a></p></td>
 <td><p>Implements Adagrad algorithm.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.Adam"/><a class="reference internal" href="generated/torch.optim.Adam.html#torch.optim.Adam" title="torch.optim.Adam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adam</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.Adam"/><a class="reference internal" href="generated/torch.optim.Adam.html#torch.optim.Adam" title="torch.optim.Adam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adam</span></code></a></p></td>
 <td><p>Implements Adam algorithm.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.AdamW"/><a class="reference internal" href="generated/torch.optim.AdamW.html#torch.optim.AdamW" title="torch.optim.AdamW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AdamW</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.AdamW"/><a class="reference internal" href="generated/torch.optim.AdamW.html#torch.optim.AdamW" title="torch.optim.AdamW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AdamW</span></code></a></p></td>
 <td><p>Implements AdamW algorithm.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.SparseAdam"/><a class="reference internal" href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam" title="torch.optim.SparseAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SparseAdam</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.SparseAdam"/><a class="reference internal" href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam" title="torch.optim.SparseAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SparseAdam</span></code></a></p></td>
 <td><p>SparseAdam implements a masked version of the Adam algorithm suitable for sparse gradients.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.Adamax"/><a class="reference internal" href="generated/torch.optim.Adamax.html#torch.optim.Adamax" title="torch.optim.Adamax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adamax</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.Adamax"/><a class="reference internal" href="generated/torch.optim.Adamax.html#torch.optim.Adamax" title="torch.optim.Adamax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Adamax</span></code></a></p></td>
 <td><p>Implements Adamax algorithm (a variant of Adam based on infinity norm).</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.ASGD"/><a class="reference internal" href="generated/torch.optim.ASGD.html#torch.optim.ASGD" title="torch.optim.ASGD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ASGD</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.ASGD"/><a class="reference internal" href="generated/torch.optim.ASGD.html#torch.optim.ASGD" title="torch.optim.ASGD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ASGD</span></code></a></p></td>
 <td><p>Implements Averaged Stochastic Gradient Descent.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.LBFGS"/><a class="reference internal" href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS" title="torch.optim.LBFGS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LBFGS</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.LBFGS"/><a class="reference internal" href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS" title="torch.optim.LBFGS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LBFGS</span></code></a></p></td>
 <td><p>Implements L-BFGS algorithm.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.NAdam"/><a class="reference internal" href="generated/torch.optim.NAdam.html#torch.optim.NAdam" title="torch.optim.NAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NAdam</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.NAdam"/><a class="reference internal" href="generated/torch.optim.NAdam.html#torch.optim.NAdam" title="torch.optim.NAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NAdam</span></code></a></p></td>
 <td><p>Implements NAdam algorithm.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.RAdam"/><a class="reference internal" href="generated/torch.optim.RAdam.html#torch.optim.RAdam" title="torch.optim.RAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RAdam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.RAdam"/><a class="reference internal" href="generated/torch.optim.RAdam.html#torch.optim.RAdam" title="torch.optim.RAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RAdam</span></code></a></p></td>
 <td><p>Implements RAdam algorithm.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.RMSprop"/><a class="reference internal" href="generated/torch.optim.RMSprop.html#torch.optim.RMSprop" title="torch.optim.RMSprop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RMSprop</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.RMSprop"/><a class="reference internal" href="generated/torch.optim.RMSprop.html#torch.optim.RMSprop" title="torch.optim.RMSprop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RMSprop</span></code></a></p></td>
 <td><p>Implements RMSprop algorithm.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.Rprop"/><a class="reference internal" href="generated/torch.optim.Rprop.html#torch.optim.Rprop" title="torch.optim.Rprop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rprop</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.Rprop"/><a class="reference internal" href="generated/torch.optim.Rprop.html#torch.optim.Rprop" title="torch.optim.Rprop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rprop</span></code></a></p></td>
 <td><p>Implements the resilient backpropagation algorithm.</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.SGD"/><a class="reference internal" href="generated/torch.optim.SGD.html#torch.optim.SGD" title="torch.optim.SGD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SGD</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.SGD"/><a class="reference internal" href="generated/torch.optim.SGD.html#torch.optim.SGD" title="torch.optim.SGD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SGD</span></code></a></p></td>
 <td><p>Implements stochastic gradient descent (optionally with momentum).</p></td>
 </tr>
 </tbody>
@@ -755,62 +776,67 @@ for each implementation on the second table below, you are welcome to try them o
 <td><p>yes</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.Adagrad"/><a class="reference internal" href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad" title="torch.optim.Adagrad"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adagrad</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.Adafactor"/><a class="reference internal" href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor" title="torch.optim.Adafactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adafactor</span></code></a></p></td>
+<td><p>for-loop</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.optim.Adagrad"/><a class="reference internal" href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad" title="torch.optim.Adagrad"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adagrad</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>yes (cpu only)</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.Adam"/><a class="reference internal" href="generated/torch.optim.Adam.html#torch.optim.Adam" title="torch.optim.Adam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.Adam"/><a class="reference internal" href="generated/torch.optim.Adam.html#torch.optim.Adam" title="torch.optim.Adam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adam</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>yes</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.AdamW"/><a class="reference internal" href="generated/torch.optim.AdamW.html#torch.optim.AdamW" title="torch.optim.AdamW"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdamW</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.AdamW"/><a class="reference internal" href="generated/torch.optim.AdamW.html#torch.optim.AdamW" title="torch.optim.AdamW"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdamW</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>yes</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.SparseAdam"/><a class="reference internal" href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam" title="torch.optim.SparseAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">SparseAdam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.SparseAdam"/><a class="reference internal" href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam" title="torch.optim.SparseAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">SparseAdam</span></code></a></p></td>
 <td><p>for-loop</p></td>
 <td><p>no</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.Adamax"/><a class="reference internal" href="generated/torch.optim.Adamax.html#torch.optim.Adamax" title="torch.optim.Adamax"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adamax</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.Adamax"/><a class="reference internal" href="generated/torch.optim.Adamax.html#torch.optim.Adamax" title="torch.optim.Adamax"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adamax</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.ASGD"/><a class="reference internal" href="generated/torch.optim.ASGD.html#torch.optim.ASGD" title="torch.optim.ASGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASGD</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.ASGD"/><a class="reference internal" href="generated/torch.optim.ASGD.html#torch.optim.ASGD" title="torch.optim.ASGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASGD</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.LBFGS"/><a class="reference internal" href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS" title="torch.optim.LBFGS"><code class="xref py py-class docutils literal notranslate"><span class="pre">LBFGS</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.LBFGS"/><a class="reference internal" href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS" title="torch.optim.LBFGS"><code class="xref py py-class docutils literal notranslate"><span class="pre">LBFGS</span></code></a></p></td>
 <td><p>for-loop</p></td>
 <td><p>no</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.NAdam"/><a class="reference internal" href="generated/torch.optim.NAdam.html#torch.optim.NAdam" title="torch.optim.NAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">NAdam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.NAdam"/><a class="reference internal" href="generated/torch.optim.NAdam.html#torch.optim.NAdam" title="torch.optim.NAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">NAdam</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.RAdam"/><a class="reference internal" href="generated/torch.optim.RAdam.html#torch.optim.RAdam" title="torch.optim.RAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">RAdam</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.RAdam"/><a class="reference internal" href="generated/torch.optim.RAdam.html#torch.optim.RAdam" title="torch.optim.RAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">RAdam</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.RMSprop"/><a class="reference internal" href="generated/torch.optim.RMSprop.html#torch.optim.RMSprop" title="torch.optim.RMSprop"><code class="xref py py-class docutils literal notranslate"><span class="pre">RMSprop</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.RMSprop"/><a class="reference internal" href="generated/torch.optim.RMSprop.html#torch.optim.RMSprop" title="torch.optim.RMSprop"><code class="xref py py-class docutils literal notranslate"><span class="pre">RMSprop</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.Rprop"/><a class="reference internal" href="generated/torch.optim.Rprop.html#torch.optim.Rprop" title="torch.optim.Rprop"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rprop</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.Rprop"/><a class="reference internal" href="generated/torch.optim.Rprop.html#torch.optim.Rprop" title="torch.optim.Rprop"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rprop</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.SGD"/><a class="reference internal" href="generated/torch.optim.SGD.html#torch.optim.SGD" title="torch.optim.SGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGD</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.SGD"/><a class="reference internal" href="generated/torch.optim.SGD.html#torch.optim.SGD" title="torch.optim.SGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGD</span></code></a></p></td>
 <td><p>foreach</p></td>
 <td><p>yes</p></td>
 <td><p>yes</p></td>
@@ -838,62 +864,67 @@ for each implementation on the second table below, you are welcome to try them o
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.Adagrad"/><a class="reference internal" href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad" title="torch.optim.Adagrad"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adagrad</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.Adafactor"/><a class="reference internal" href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor" title="torch.optim.Adafactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adafactor</span></code></a></p></td>
+<td><p>unsupported</p></td>
+<td><p>unsupported</p></td>
+<td><p>unsupported</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.optim.Adagrad"/><a class="reference internal" href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad" title="torch.optim.Adagrad"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adagrad</span></code></a></p></td>
 <td><p>beta</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.Adam"/><a class="reference internal" href="generated/torch.optim.Adam.html#torch.optim.Adam" title="torch.optim.Adam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.Adam"/><a class="reference internal" href="generated/torch.optim.Adam.html#torch.optim.Adam" title="torch.optim.Adam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adam</span></code></a></p></td>
 <td><p>beta</p></td>
 <td><p>stable</p></td>
 <td><p>beta</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.AdamW"/><a class="reference internal" href="generated/torch.optim.AdamW.html#torch.optim.AdamW" title="torch.optim.AdamW"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdamW</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.AdamW"/><a class="reference internal" href="generated/torch.optim.AdamW.html#torch.optim.AdamW" title="torch.optim.AdamW"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdamW</span></code></a></p></td>
 <td><p>beta</p></td>
 <td><p>stable</p></td>
 <td><p>beta</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.SparseAdam"/><a class="reference internal" href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam" title="torch.optim.SparseAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">SparseAdam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.SparseAdam"/><a class="reference internal" href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam" title="torch.optim.SparseAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">SparseAdam</span></code></a></p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.Adamax"/><a class="reference internal" href="generated/torch.optim.Adamax.html#torch.optim.Adamax" title="torch.optim.Adamax"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adamax</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.Adamax"/><a class="reference internal" href="generated/torch.optim.Adamax.html#torch.optim.Adamax" title="torch.optim.Adamax"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adamax</span></code></a></p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.ASGD"/><a class="reference internal" href="generated/torch.optim.ASGD.html#torch.optim.ASGD" title="torch.optim.ASGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASGD</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.ASGD"/><a class="reference internal" href="generated/torch.optim.ASGD.html#torch.optim.ASGD" title="torch.optim.ASGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">ASGD</span></code></a></p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.LBFGS"/><a class="reference internal" href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS" title="torch.optim.LBFGS"><code class="xref py py-class docutils literal notranslate"><span class="pre">LBFGS</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.LBFGS"/><a class="reference internal" href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS" title="torch.optim.LBFGS"><code class="xref py py-class docutils literal notranslate"><span class="pre">LBFGS</span></code></a></p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.NAdam"/><a class="reference internal" href="generated/torch.optim.NAdam.html#torch.optim.NAdam" title="torch.optim.NAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">NAdam</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.NAdam"/><a class="reference internal" href="generated/torch.optim.NAdam.html#torch.optim.NAdam" title="torch.optim.NAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">NAdam</span></code></a></p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.RAdam"/><a class="reference internal" href="generated/torch.optim.RAdam.html#torch.optim.RAdam" title="torch.optim.RAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">RAdam</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.RAdam"/><a class="reference internal" href="generated/torch.optim.RAdam.html#torch.optim.RAdam" title="torch.optim.RAdam"><code class="xref py py-class docutils literal notranslate"><span class="pre">RAdam</span></code></a></p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.RMSprop"/><a class="reference internal" href="generated/torch.optim.RMSprop.html#torch.optim.RMSprop" title="torch.optim.RMSprop"><code class="xref py py-class docutils literal notranslate"><span class="pre">RMSprop</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.RMSprop"/><a class="reference internal" href="generated/torch.optim.RMSprop.html#torch.optim.RMSprop" title="torch.optim.RMSprop"><code class="xref py py-class docutils literal notranslate"><span class="pre">RMSprop</span></code></a></p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-odd"><td><p><p id="torch.optim.Rprop"/><a class="reference internal" href="generated/torch.optim.Rprop.html#torch.optim.Rprop" title="torch.optim.Rprop"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rprop</span></code></a></p></td>
+<tr class="row-even"><td><p><p id="torch.optim.Rprop"/><a class="reference internal" href="generated/torch.optim.Rprop.html#torch.optim.Rprop" title="torch.optim.Rprop"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rprop</span></code></a></p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 <td><p>unsupported</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.optim.SGD"/><a class="reference internal" href="generated/torch.optim.SGD.html#torch.optim.SGD" title="torch.optim.SGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGD</span></code></a></p></td>
+<tr class="row-odd"><td><p><p id="torch.optim.SGD"/><a class="reference internal" href="generated/torch.optim.SGD.html#torch.optim.SGD" title="torch.optim.SGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGD</span></code></a></p></td>
 <td><p>beta</p></td>
 <td><p>beta</p></td>
 <td><p>beta</p></td>

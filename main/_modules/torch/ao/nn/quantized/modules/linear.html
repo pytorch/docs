@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -523,22 +523,21 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.ao.nn.quantized.modules.linear</h1><div class="highlight"><pre>
-<span></span><span class="c1"># mypy: allow-untyped-decorators</span>
-<span class="c1"># mypy: allow-untyped-defs</span>
+<span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.ao.nn.intrinsic</span> <span class="k">as</span> <span class="nn">nni</span>
 <span class="kn">import</span> <span class="nn">torch.ao.nn.intrinsic.qat</span> <span class="k">as</span> <span class="nn">nniqat</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.nn.utils.fusion</span> <span class="kn">import</span> <span class="n">fuse_linear_bn_weights</span>
 <span class="kn">from</span> <span class="nn">torch.nn.utils.parametrize</span> <span class="kn">import</span> <span class="n">type_before_parametrizations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_hide_packed_params_repr</span><span class="p">,</span> <span class="n">_quantize_weight</span><span class="p">,</span> <span class="n">WeightedQuantizedModule</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_quantize_weight</span><span class="p">,</span> <span class="n">_hide_packed_params_repr</span><span class="p">,</span> <span class="n">WeightedQuantizedModule</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LinearPackedParams&#39;</span><span class="p">,</span> <span class="s1">&#39;Linear&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;LinearPackedParams&quot;</span><span class="p">,</span> <span class="s2">&quot;Linear&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">LinearPackedParams</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -548,20 +547,23 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">:</span>
-            <span class="n">wq</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_empty_affine_quantized</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">)</span>
+            <span class="n">wq</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_empty_affine_quantized</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span>
             <span class="n">wq</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_weight_bias</span><span class="p">(</span><span class="n">wq</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
 
     <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">export</span>
-    <span class="k">def</span> <span class="nf">set_weight_bias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_weight_bias</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_packed_params</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">linear_prepack</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_packed_params</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">linear_prepack_fp16</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unsupported dtype on dynamic quantized linear!&#39;</span><span class="p">)</span>
-
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unsupported dtype on dynamic quantized linear!&quot;</span><span class="p">)</span>
 
     <span class="nd">@torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">export</span>
     <span class="k">def</span> <span class="nf">_weight_bias</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -570,7 +572,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">linear_unpack_fp16</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_packed_params</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unsupported dtype on dynamic quantized linear!&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unsupported dtype on dynamic quantized linear!&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span>
@@ -593,31 +595,47 @@
     <span class="c1">#   |--- dtype : torch.dtype</span>
     <span class="k">def</span> <span class="nf">_save_to_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">keep_vars</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_save_to_state_dict</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">keep_vars</span><span class="p">)</span>
-        <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;dtype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span>
-        <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_packed_params&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weight_bias</span><span class="p">()</span>
+        <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_packed_params&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weight_bias</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_load_from_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="n">strict</span><span class="p">,</span>
-                              <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">):</span>
-        <span class="n">version</span> <span class="o">=</span> <span class="n">local_metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_load_from_state_dict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">state_dict</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="p">,</span>
+        <span class="n">local_metadata</span><span class="p">,</span>
+        <span class="n">strict</span><span class="p">,</span>
+        <span class="n">missing_keys</span><span class="p">,</span>
+        <span class="n">unexpected_keys</span><span class="p">,</span>
+        <span class="n">error_msgs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">local_metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">qint8</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;dtype&#39;</span><span class="p">]</span>
-            <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;dtype&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;dtype&quot;</span><span class="p">]</span>
+            <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_weight_bias</span><span class="p">(</span><span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;weight&#39;</span><span class="p">],</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;bias&#39;</span><span class="p">])</span>
-            <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;weight&#39;</span><span class="p">)</span>
-            <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;bias&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_weight_bias</span><span class="p">(</span>
+                <span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;weight&quot;</span><span class="p">],</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;bias&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+            <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;bias&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_packed_params&#39;</span><span class="p">]</span>
-            <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_packed_params&#39;</span><span class="p">)</span>
+            <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_packed_params&quot;</span><span class="p">]</span>
+            <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_packed_params&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_weight_bias</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_load_from_state_dict</span><span class="p">(</span><span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
-                                      <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">)</span>
-
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_load_from_state_dict</span><span class="p">(</span>
+            <span class="n">state_dict</span><span class="p">,</span>
+            <span class="n">prefix</span><span class="p">,</span>
+            <span class="n">local_metadata</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
+            <span class="n">missing_keys</span><span class="p">,</span>
+            <span class="n">unexpected_keys</span><span class="p">,</span>
+            <span class="n">error_msgs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weight_bias</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
@@ -654,8 +672,7 @@
     <span class="n">_version</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">_FLOAT_MODULE</span> <span class="o">=</span> <span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">NonDynamicallyQuantizableLinear</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">bias_</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">bias_</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1"># We don&#39;t muck around with buffers or attributes or anything here</span>
         <span class="c1"># to keep the module simple. *everything* is simply a Python attribute.</span>
@@ -669,11 +686,12 @@
 
         <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">:</span>
             <span class="n">qweight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_empty_affine_quantized</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">)</span>
+                <span class="p">[</span><span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span>
+            <span class="p">)</span>
         <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span>
             <span class="n">qweight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unsupported dtype specified for quantized Linear!&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unsupported dtype specified for quantized Linear!&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_packed_params</span> <span class="o">=</span> <span class="n">LinearPackedParams</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_packed_params</span><span class="o">.</span><span class="n">set_weight_bias</span><span class="p">(</span><span class="n">qweight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
@@ -681,18 +699,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="nf">_get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;QuantizedLinear&#39;</span>
+        <span class="k">return</span> <span class="s2">&quot;QuantizedLinear&quot;</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;in_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1">, out_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1">, scale=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="si">}</span><span class="s1">, &#39;</span> \
-               <span class="sa">f</span><span class="s1">&#39;zero_point=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span><span class="si">}</span><span class="s1">, qscheme=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">()</span><span class="o">.</span><span class="n">qscheme</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;in_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s2">, out_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s2">, scale=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;zero_point=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span><span class="si">}</span><span class="s2">, qscheme=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">()</span><span class="o">.</span><span class="n">qscheme</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_hide_packed_params_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LinearPackedParams</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span>
-            <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_packed_params</span><span class="o">.</span><span class="n">_packed_params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span><span class="p">)</span>
+            <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_packed_params</span><span class="o">.</span><span class="n">_packed_params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span>
+        <span class="p">)</span>
 
     <span class="c1"># ===== Serialization methods =====</span>
     <span class="c1"># The special consideration here is that we have to unpack the weights into their</span>
@@ -725,32 +746,50 @@
     <span class="c1">#</span>
     <span class="k">def</span> <span class="nf">_save_to_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">keep_vars</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_save_to_state_dict</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">keep_vars</span><span class="p">)</span>
-        <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
-        <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;zero_point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span><span class="p">)</span>
+        <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;scale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+        <span class="n">destination</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;zero_point&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span><span class="p">)</span>
 
     <span class="c1"># ===== Deserialization methods =====</span>
     <span class="c1"># Counterpart to the serialization methods, we must pack the serialized QTensor</span>
     <span class="c1"># weight into its packed format for use by the FBGEMM ops.</span>
-    <span class="k">def</span> <span class="nf">_load_from_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="n">strict</span><span class="p">,</span>
-                              <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;scale&#39;</span><span class="p">])</span>
-        <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;scale&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_load_from_state_dict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">state_dict</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="p">,</span>
+        <span class="n">local_metadata</span><span class="p">,</span>
+        <span class="n">strict</span><span class="p">,</span>
+        <span class="n">missing_keys</span><span class="p">,</span>
+        <span class="n">unexpected_keys</span><span class="p">,</span>
+        <span class="n">error_msgs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;scale&quot;</span><span class="p">])</span>
+        <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;scale&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;zero_point&#39;</span><span class="p">])</span>
-        <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;zero_point&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_point</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">state_dict</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;zero_point&quot;</span><span class="p">])</span>
+        <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;zero_point&quot;</span><span class="p">)</span>
 
-        <span class="n">version</span> <span class="o">=</span> <span class="n">local_metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">local_metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="c1"># We moved the parameters into a LinearPackedParameters submodule</span>
-            <span class="n">weight</span> <span class="o">=</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;weight&#39;</span><span class="p">)</span>
-            <span class="n">bias</span> <span class="o">=</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;bias&#39;</span><span class="p">)</span>
-            <span class="n">state_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_packed_params.weight&#39;</span><span class="p">:</span> <span class="n">weight</span><span class="p">,</span>
-                               <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_packed_params.bias&#39;</span><span class="p">:</span> <span class="n">bias</span><span class="p">})</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+            <span class="n">bias</span> <span class="o">=</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;bias&quot;</span><span class="p">)</span>
+            <span class="n">state_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_packed_params.weight&quot;</span><span class="p">:</span> <span class="n">weight</span><span class="p">,</span>
+                    <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_packed_params.bias&quot;</span><span class="p">:</span> <span class="n">bias</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_load_from_state_dict</span><span class="p">(</span>
-            <span class="n">state_dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">local_metadata</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">missing_keys</span><span class="p">,</span> <span class="n">unexpected_keys</span><span class="p">,</span> <span class="n">error_msgs</span><span class="p">)</span>
+            <span class="n">state_dict</span><span class="p">,</span>
+            <span class="n">prefix</span><span class="p">,</span>
+            <span class="n">local_metadata</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
+            <span class="n">missing_keys</span><span class="p">,</span>
+            <span class="n">unexpected_keys</span><span class="p">,</span>
+            <span class="n">error_msgs</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="c1"># Function rather than property to make sure that JIT serialization doesn&#39;t</span>
     <span class="c1"># register this as an attribute</span>
@@ -776,11 +815,17 @@
 <span class="sd">            use_precomputed_fake_quant (bool): if True, the module will reuse min/max</span>
 <span class="sd">                          values from the precomputed fake quant module.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s1">&#39;weight_fake_quant&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;weight_fake_quant&quot;</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="o">==</span> <span class="n">nniqat</span><span class="o">.</span><span class="n">LinearBn1d</span><span class="p">:</span>
                 <span class="n">mod</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">fuse_linear_bn_weights</span><span class="p">(</span>
-                    <span class="n">mod</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">running_mean</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">running_var</span><span class="p">,</span>
-                    <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">running_mean</span><span class="p">,</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">running_var</span><span class="p">,</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">bn</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="n">weight_post_process</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">weight_fake_quant</span>
             <span class="n">activation_post_process</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">activation_post_process</span>
         <span class="k">else</span><span class="p">:</span>
@@ -789,14 +834,20 @@
             <span class="c1"># iterables not being implemented, so we are ignoring those too.</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
                 <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">]</span>  <span class="c1"># type: ignore[assignment]</span>
-            <span class="n">supported_modules</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">float_mod</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">float_mod</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">])</span>  <span class="c1"># type: ignore[attr-defined]</span>
-            <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;nnq.</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.from_float only works for </span><span class="si">{</span><span class="n">supported_modules</span><span class="si">}</span><span class="s1">, but got: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">supported_modules</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">float_mod</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">float_mod</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">])</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;nnq.</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.from_float only works for </span><span class="si">{</span><span class="n">supported_modules</span><span class="si">}</span><span class="s2">, but got: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">assert</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">,</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span>
-            <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s1">&#39;qconfig&#39;</span><span class="p">),</span> <span class="s1">&#39;Input float module must have qconfig defined&#39;</span>
+            <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span>
+                <span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span>
+            <span class="p">),</span> <span class="s2">&quot;Input float module must have qconfig defined&quot;</span>
             <span class="n">activation_post_process</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">activation_post_process</span>
             <span class="k">if</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="o">==</span> <span class="n">nni</span><span class="o">.</span><span class="n">LinearReLU</span><span class="p">:</span>
                 <span class="n">mod</span> <span class="o">=</span> <span class="n">mod</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">weight_post_process</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">qconfig</span><span class="o">.</span><span class="n">weight</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;weight_fake_quant&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">mod</span><span class="o">.</span><span class="n">weight_fake_quant</span>
+            <span class="n">weight_post_process</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">mod</span><span class="o">.</span><span class="n">qconfig</span><span class="o">.</span><span class="n">weight</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;weight_fake_quant&quot;</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">mod</span><span class="o">.</span><span class="n">weight_fake_quant</span>
+            <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">use_precomputed_fake_quant</span><span class="p">:</span>
             <span class="c1"># Observer may not have been called yet</span>
@@ -804,11 +855,9 @@
             <span class="n">weight_post_process</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
         <span class="n">dtype</span> <span class="o">=</span> <span class="n">weight_post_process</span><span class="o">.</span><span class="n">dtype</span>
         <span class="n">act_scale</span><span class="p">,</span> <span class="n">act_zp</span> <span class="o">=</span> <span class="n">activation_post_process</span><span class="o">.</span><span class="n">calculate_qparams</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span> <span class="s1">&#39;Weight observer must have dtype torch.qint8&#39;</span>
+        <span class="k">assert</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span> <span class="s2">&quot;Weight observer must have dtype torch.qint8&quot;</span>
         <span class="n">qweight</span> <span class="o">=</span> <span class="n">_quantize_weight</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">float</span><span class="p">(),</span> <span class="n">weight_post_process</span><span class="p">)</span>
-        <span class="n">qlinear</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">in_features</span><span class="p">,</span>
-                      <span class="n">mod</span><span class="o">.</span><span class="n">out_features</span><span class="p">,</span>
-                      <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">qlinear</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">in_features</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">out_features</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
         <span class="n">qlinear</span><span class="o">.</span><span class="n">set_weight_bias</span><span class="p">(</span><span class="n">qweight</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
         <span class="n">qlinear</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">act_scale</span><span class="p">)</span>
         <span class="n">qlinear</span><span class="o">.</span><span class="n">zero_point</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">act_zp</span><span class="p">)</span>
@@ -824,9 +873,7 @@
 <span class="sd">            output_scale (float): scale for output Tensor</span>
 <span class="sd">            output_zero_point (int): zero point for output Tensor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">qlinear</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
-            <span class="n">ref_qlinear</span><span class="o">.</span><span class="n">in_features</span><span class="p">,</span>
-            <span class="n">ref_qlinear</span><span class="o">.</span><span class="n">out_features</span><span class="p">)</span>
+        <span class="n">qlinear</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ref_qlinear</span><span class="o">.</span><span class="n">in_features</span><span class="p">,</span> <span class="n">ref_qlinear</span><span class="o">.</span><span class="n">out_features</span><span class="p">)</span>
         <span class="n">qweight</span> <span class="o">=</span> <span class="n">ref_qlinear</span><span class="o">.</span><span class="n">get_quantized_weight</span><span class="p">()</span>
         <span class="n">qlinear</span><span class="o">.</span><span class="n">set_weight_bias</span><span class="p">(</span><span class="n">qweight</span><span class="p">,</span> <span class="n">ref_qlinear</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
 

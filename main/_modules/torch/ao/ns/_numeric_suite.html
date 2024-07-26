@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -524,16 +524,17 @@
               
   <h1>Source code for torch.ao.ns._numeric_suite</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span>
+
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.ao.nn.quantized</span> <span class="k">as</span> <span class="nn">nnq</span>
 <span class="kn">import</span> <span class="nn">torch.ao.nn.quantized.dynamic</span> <span class="k">as</span> <span class="nn">nnqd</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.ao.quantization</span> <span class="kn">import</span> <span class="n">prepare</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Set</span>
-
 <span class="kn">from</span> <span class="nn">torch.ao.quantization.quantization_mappings</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_default_compare_output_module_list</span><span class="p">,</span>
 <span class="p">)</span>
+
 
 <span class="n">NON_LEAF_MODULE_TO_ADD_OBSERVER_ALLOW_LIST</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">nnqd</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span>
@@ -544,7 +545,8 @@
 
 
 <span class="k">def</span> <span class="nf">_find_match</span><span class="p">(</span>
-    <span class="n">str_list</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">key_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">str_list</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+    <span class="n">key_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="n">split_str</span> <span class="o">=</span> <span class="n">key_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
@@ -645,7 +647,8 @@
 
 
 <span class="k">def</span> <span class="nf">_get_logger_dict_helper</span><span class="p">(</span>
-    <span class="n">mod</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">target_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">mod</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">target_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is the helper function for get_logger_dict</span>
@@ -693,8 +696,7 @@
 
 
 <div class="viewcode-block" id="Logger"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Logger">[docs]</a><span class="k">class</span> <span class="nc">Logger</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Base class for stats logging</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Base class for stats logging&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -705,8 +707,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">quint8</span>
 
 <div class="viewcode-block" id="Logger.forward"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Logger.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="k">pass</span></div></div>
 
 
@@ -721,8 +725,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;quantized&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="ShadowLogger.forward"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.ShadowLogger.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -732,17 +738,17 @@
 
 
 <div class="viewcode-block" id="OutputLogger"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.OutputLogger">[docs]</a><span class="k">class</span> <span class="nc">OutputLogger</span><span class="p">(</span><span class="n">Logger</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Class used to log the outputs of the module</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Class used to log the outputs of the module&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;tensor_val&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-
 <div class="viewcode-block" id="OutputLogger.forward"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.OutputLogger.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;tensor_val&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span></div></div>
 
@@ -781,8 +787,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger_cls</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Shadow.forward"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Shadow.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="n">xl</span> <span class="o">=</span> <span class="n">_convert_tuple_to_list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_module</span><span class="p">(</span><span class="o">*</span><span class="n">xl</span><span class="p">)</span>
         <span class="n">xl_float</span> <span class="o">=</span> <span class="n">_dequantize_tensor_list</span><span class="p">(</span><span class="n">xl</span><span class="p">)</span>
@@ -791,8 +799,10 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 <div class="viewcode-block" id="Shadow.add"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Shadow.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_module</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span>
@@ -801,8 +811,10 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 <div class="viewcode-block" id="Shadow.add_scalar"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Shadow.add_scalar">[docs]</a>    <span class="k">def</span> <span class="nf">add_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_module</span><span class="o">.</span><span class="n">add_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span>
         <span class="n">shadow_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadow_module</span><span class="o">.</span><span class="n">add_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -810,8 +822,10 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 <div class="viewcode-block" id="Shadow.mul"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Shadow.mul">[docs]</a>    <span class="k">def</span> <span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_module</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span>
@@ -820,8 +834,10 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 <div class="viewcode-block" id="Shadow.mul_scalar"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Shadow.mul_scalar">[docs]</a>    <span class="k">def</span> <span class="nf">mul_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_module</span><span class="o">.</span><span class="n">mul_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span>
         <span class="n">shadow_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadow_module</span><span class="o">.</span><span class="n">mul_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -829,8 +845,10 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 <div class="viewcode-block" id="Shadow.cat"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Shadow.cat">[docs]</a>    <span class="k">def</span> <span class="nf">cat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_module</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
         <span class="n">shadow_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadow_module</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
@@ -838,8 +856,10 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 <div class="viewcode-block" id="Shadow.add_relu"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.Shadow.add_relu">[docs]</a>    <span class="k">def</span> <span class="nf">add_relu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># fmt: off</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># blank docblock to make autodoc happy</span>
+        <span class="c1"># fmt: on</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_module</span><span class="o">.</span><span class="n">add_relu</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">dequantize</span><span class="p">()</span>
@@ -849,8 +869,10 @@
 
 
 <div class="viewcode-block" id="prepare_model_with_stubs"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.prepare_model_with_stubs">[docs]</a><span class="k">def</span> <span class="nf">prepare_model_with_stubs</span><span class="p">(</span>
-    <span class="n">float_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">q_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-    <span class="n">module_swap_list</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">type</span><span class="p">],</span> <span class="n">logger_cls</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">float_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">q_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">module_swap_list</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">type</span><span class="p">],</span>
+    <span class="n">logger_cls</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Prepare the model by attaching the float module to its matching quantized</span>
 <span class="sd">    module as the shadow if the float module type is in module_swap_list.</span>
@@ -868,7 +890,9 @@
 <span class="sd">        logger_cls: type of logger to be used in shadow module to process the outputs of</span>
 <span class="sd">            quantized module and its float shadow module</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;quantization_api._numeric_suite.prepare_model_with_stubs&quot;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span>
+        <span class="s2">&quot;quantization_api._numeric_suite.prepare_model_with_stubs&quot;</span>
+    <span class="p">)</span>
 
     <span class="n">float_module_children</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">float_module</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
@@ -876,7 +900,6 @@
 
     <span class="n">reassign</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">q_module</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
-
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">float_module_children</span><span class="p">:</span>
             <span class="k">continue</span>
 
@@ -887,11 +910,14 @@
 
         <span class="c1"># Insert shadow module only if the module is not of the same type as</span>
         <span class="c1"># the floating point module</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">float_mod</span><span class="p">)</span> <span class="ow">in</span> <span class="n">module_swap_list</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_is_identical_module_type</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">float_mod</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">float_mod</span><span class="p">)</span> <span class="ow">in</span> <span class="n">module_swap_list</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_is_identical_module_type</span><span class="p">(</span>
+            <span class="n">mod</span><span class="p">,</span> <span class="n">float_mod</span>
+        <span class="p">):</span>
             <span class="n">reassign</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Shadow</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">float_mod</span><span class="p">,</span> <span class="n">logger_cls</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">reassign</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">q_module</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
 
 <span class="k">def</span> <span class="nf">_is_identical_module_type</span><span class="p">(</span><span class="n">mod1</span><span class="p">,</span> <span class="n">mod2</span><span class="p">):</span>
     <span class="c1"># Compare if two modules have the same dtype</span>
@@ -900,10 +926,12 @@
     <span class="k">return</span> <span class="n">mod1_module_types</span> <span class="o">==</span> <span class="n">mod2_module_types</span>
 
 
-
 <div class="viewcode-block" id="compare_model_stub"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.compare_model_stub">[docs]</a><span class="k">def</span> <span class="nf">compare_model_stub</span><span class="p">(</span>
-    <span class="n">float_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">q_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">module_swap_list</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">type</span><span class="p">],</span>
-    <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">logger_cls</span><span class="o">=</span><span class="n">ShadowLogger</span>
+    <span class="n">float_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">q_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">module_swap_list</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">type</span><span class="p">],</span>
+    <span class="o">*</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">logger_cls</span><span class="o">=</span><span class="n">ShadowLogger</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compare quantized module in a model with its floating point counterpart,</span>
 <span class="sd">    feeding both of them the same input. Return a dict with key corresponding to</span>
@@ -944,7 +972,8 @@
 
 
 <div class="viewcode-block" id="get_matching_activations"><a class="viewcode-back" href="../../../../torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.get_matching_activations">[docs]</a><span class="k">def</span> <span class="nf">get_matching_activations</span><span class="p">(</span>
-    <span class="n">float_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">q_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">float_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">q_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Find the matching activation between float and quantized modules.</span>
 
@@ -957,7 +986,9 @@
 <span class="sd">        entry being a dictionary with two keys &#39;float&#39; and &#39;quantized&#39;, containing</span>
 <span class="sd">        the matching float and quantized activations</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;quantization_api._numeric_suite.get_matching_activations&quot;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span>
+        <span class="s2">&quot;quantization_api._numeric_suite.get_matching_activations&quot;</span>
+    <span class="p">)</span>
     <span class="n">float_dict</span> <span class="o">=</span> <span class="n">get_logger_dict</span><span class="p">(</span><span class="n">float_module</span><span class="p">)</span>
     <span class="n">quantized_dict</span> <span class="o">=</span> <span class="n">get_logger_dict</span><span class="p">(</span><span class="n">q_module</span><span class="p">)</span>
     <span class="n">act_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -976,7 +1007,7 @@
     <span class="n">float_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">q_module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">logger_cls</span><span class="o">=</span><span class="n">OutputLogger</span><span class="p">,</span>
-    <span class="n">allow_list</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">allow_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Prepare the model by attaching the logger to both float module</span>
 <span class="sd">    and quantized module if they are in the allow_list.</span>
@@ -987,20 +1018,24 @@
 <span class="sd">        logger_cls: type of logger to be attached to float_module and q_module</span>
 <span class="sd">        allow_list: list of module types to attach logger</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;quantization_api._numeric_suite.prepare_model_outputs&quot;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span>
+        <span class="s2">&quot;quantization_api._numeric_suite.prepare_model_outputs&quot;</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="n">allow_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">allow_list</span> <span class="o">=</span> <span class="n">get_default_compare_output_module_list</span><span class="p">()</span>
 
     <span class="n">qconfig_debug</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">logger_cls</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">float_module</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">qconfig_debug</span>  <span class="c1"># type: ignore[assignment]</span>
-    <span class="n">prepare</span><span class="p">(</span><span class="n">float_module</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_list</span><span class="o">=</span><span class="n">allow_list</span><span class="p">,</span> <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="p">{})</span>
+    <span class="n">prepare</span><span class="p">(</span>
+        <span class="n">float_module</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_list</span><span class="o">=</span><span class="n">allow_list</span><span class="p">,</span> <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="p">{}</span>
+    <span class="p">)</span>
     <span class="n">q_module</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">qconfig_debug</span>  <span class="c1"># type: ignore[assignment]</span>
     <span class="n">prepare</span><span class="p">(</span>
         <span class="n">q_module</span><span class="p">,</span>
         <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">allow_list</span><span class="o">=</span><span class="n">allow_list</span><span class="p">,</span>
         <span class="n">observer_non_leaf_module_list</span><span class="o">=</span><span class="n">NON_LEAF_MODULE_TO_ADD_OBSERVER_ALLOW_LIST</span><span class="p">,</span>
-        <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="p">{}</span>
+        <span class="n">prepare_custom_config_dict</span><span class="o">=</span><span class="p">{},</span>
     <span class="p">)</span></div>
 
 
@@ -1009,7 +1044,7 @@
     <span class="n">q_model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="o">*</span><span class="n">data</span><span class="p">,</span>
     <span class="n">logger_cls</span><span class="o">=</span><span class="n">OutputLogger</span><span class="p">,</span>
-    <span class="n">allow_list</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">allow_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compare output activations between float and quantized models at</span>
 <span class="sd">    corresponding locations for the same input. Return a dict with key corresponding</span>
@@ -1042,7 +1077,9 @@
 <span class="sd">        and each entry being a dictionary with two keys &#39;float&#39; and &#39;quantized&#39;,</span>
 <span class="sd">        containing the matching float and quantized activations</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;quantization_api._numeric_suite.compare_model_outputs&quot;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span>
+        <span class="s2">&quot;quantization_api._numeric_suite.compare_model_outputs&quot;</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="n">allow_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">allow_list</span> <span class="o">=</span> <span class="n">get_default_compare_output_module_list</span><span class="p">()</span>
     <span class="n">prepare_model_outputs</span><span class="p">(</span><span class="n">float_model</span><span class="p">,</span> <span class="n">q_model</span><span class="p">,</span> <span class="n">logger_cls</span><span class="p">,</span> <span class="n">allow_list</span><span class="p">)</span>

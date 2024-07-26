@@ -279,7 +279,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -766,6 +766,8 @@
 </li>
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta">Adadelta (class in torch.optim)</a>
 </li>
+      <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor">Adafactor (class in torch.optim)</a>
+</li>
       <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad">Adagrad (class in torch.optim)</a>
 </li>
       <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam">Adam (class in torch.optim)</a>
@@ -874,6 +876,8 @@
 
       <ul>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.add_param_group">(torch.optim.Adadelta method)</a>
+</li>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.add_param_group">(torch.optim.Adafactor method)</a>
 </li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.add_param_group">(torch.optim.Adagrad method)</a>
 </li>
@@ -1066,14 +1070,16 @@
         <li><a href="generated/torch.Tensor.aminmax.html#torch.Tensor.aminmax">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.and_masks">and_masks() (in module torch.nn.attention.flex_attention)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.angle.html#torch.angle">angle() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.angle.html#torch.Tensor.angle">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.jit.annotate.html#torch.jit.annotate">annotate() (in module torch.jit)</a>
 </li>
       <li><a href="generated/torch.any.html#torch.any">any() (in module torch)</a>
@@ -5798,6 +5804,8 @@
 </li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.load_state_dict">(torch.optim.Adadelta method)</a>
 </li>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.load_state_dict">(torch.optim.Adafactor method)</a>
+</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.load_state_dict">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam.load_state_dict">(torch.optim.Adam method)</a>
@@ -6472,7 +6480,11 @@
       <li><a href="generated/torch.cuda.memory_snapshot.html#torch.cuda.memory_snapshot">memory_snapshot() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.memory_stats.html#torch.cuda.memory_stats">memory_stats() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.mtia.memory_stats.html#torch.mtia.memory_stats">(in module torch.mtia)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.cuda.memory_summary.html#torch.cuda.memory_summary">memory_summary() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.memory_usage.html#torch.cuda.memory_usage">memory_usage() (in module torch.cuda)</a>
@@ -6994,6 +7006,8 @@
         <li><a href="cuda.html#module-torch.cuda.comm">torch.cuda.comm</a>
 </li>
         <li><a href="cuda.html#module-torch.cuda.error">torch.cuda.error</a>
+</li>
+        <li><a href="cuda.html#module-torch.cuda.gds">torch.cuda.gds</a>
 </li>
         <li><a href="cuda.html#module-torch.cuda.graphs">torch.cuda.graphs</a>
 </li>
@@ -8300,6 +8314,12 @@
       </ul></li>
       <li><a href="tensors.html#torch.Tensor.mT">mT (torch.Tensor attribute)</a>
 </li>
+      <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.mtia">mtia() (torch.jit.ScriptModule method)</a>
+
+      <ul>
+        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.mtia">(torch.nn.Module method)</a>
+</li>
+      </ul></li>
       <li><a href="generated/torch.mul.html#torch.mul">mul() (in module torch)</a>
 
       <ul>
@@ -8590,6 +8610,8 @@
       </ul></li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.debugging_hooks.noop_hook">noop_hook() (in module torch.distributed.algorithms.ddp_comm_hooks.debugging_hooks)</a>
 </li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.noop_mask">noop_mask() (in module torch.nn.attention.flex_attention)</a>
+</li>
       <li><a href="generated/torch.ao.quantization.observer.NoopObserver.html#torch.ao.quantization.observer.NoopObserver">NoopObserver (class in torch.ao.quantization.observer)</a>
 </li>
       <li><a href="generated/torch.norm.html#torch.norm">norm() (in module torch)</a>
@@ -8702,13 +8724,15 @@
 </li>
       <li><a href="generated/torch.jit.optimize_for_inference.html#torch.jit.optimize_for_inference">optimize_for_inference() (in module torch.jit)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="optim.html#torch.optim.Optimizer">Optimizer (class in torch.optim)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.OptimStateDictConfig">OptimStateDictConfig (class in torch.distributed.fsdp)</a>
+</li>
+      <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.or_masks">or_masks() (in module torch.nn.attention.flex_attention)</a>
 </li>
       <li><a href="generated/torch.orgqr.html#torch.orgqr">orgqr() (in module torch)</a>
 
@@ -9525,6 +9549,8 @@
 </li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_load_state_dict_post_hook">(torch.optim.Adadelta method)</a>
 </li>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.register_load_state_dict_post_hook">(torch.optim.Adafactor method)</a>
+</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.register_load_state_dict_post_hook">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam.register_load_state_dict_post_hook">(torch.optim.Adam method)</a>
@@ -9538,6 +9564,8 @@
         <li><a href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS.register_load_state_dict_post_hook">(torch.optim.LBFGS method)</a>
 </li>
         <li><a href="generated/torch.optim.NAdam.html#torch.optim.NAdam.register_load_state_dict_post_hook">(torch.optim.NAdam method)</a>
+</li>
+        <li><a href="generated/torch.optim.Optimizer.register_load_state_dict_post_hook.html#torch.optim.Optimizer.register_load_state_dict_post_hook">(torch.optim.Optimizer method)</a>
 </li>
         <li><a href="generated/torch.optim.RAdam.html#torch.optim.RAdam.register_load_state_dict_post_hook">(torch.optim.RAdam method)</a>
 </li>
@@ -9553,6 +9581,8 @@
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_load_state_dict_pre_hook">register_load_state_dict_pre_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.register_load_state_dict_pre_hook">(torch.optim.Adafactor method)</a>
+</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.register_load_state_dict_pre_hook">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam.register_load_state_dict_pre_hook">(torch.optim.Adam method)</a>
@@ -9566,6 +9596,8 @@
         <li><a href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS.register_load_state_dict_pre_hook">(torch.optim.LBFGS method)</a>
 </li>
         <li><a href="generated/torch.optim.NAdam.html#torch.optim.NAdam.register_load_state_dict_pre_hook">(torch.optim.NAdam method)</a>
+</li>
+        <li><a href="generated/torch.optim.Optimizer.register_load_state_dict_pre_hook.html#torch.optim.Optimizer.register_load_state_dict_pre_hook">(torch.optim.Optimizer method)</a>
 </li>
         <li><a href="generated/torch.optim.RAdam.html#torch.optim.RAdam.register_load_state_dict_pre_hook">(torch.optim.RAdam method)</a>
 </li>
@@ -9623,6 +9655,8 @@
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_state_dict_post_hook">register_state_dict_post_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.register_state_dict_post_hook">(torch.optim.Adafactor method)</a>
+</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.register_state_dict_post_hook">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam.register_state_dict_post_hook">(torch.optim.Adam method)</a>
@@ -9636,6 +9670,8 @@
         <li><a href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS.register_state_dict_post_hook">(torch.optim.LBFGS method)</a>
 </li>
         <li><a href="generated/torch.optim.NAdam.html#torch.optim.NAdam.register_state_dict_post_hook">(torch.optim.NAdam method)</a>
+</li>
+        <li><a href="generated/torch.optim.Optimizer.register_state_dict_post_hook.html#torch.optim.Optimizer.register_state_dict_post_hook">(torch.optim.Optimizer method)</a>
 </li>
         <li><a href="generated/torch.optim.RAdam.html#torch.optim.RAdam.register_state_dict_post_hook">(torch.optim.RAdam method)</a>
 </li>
@@ -9655,6 +9691,8 @@
 </li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_state_dict_pre_hook">(torch.optim.Adadelta method)</a>
 </li>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.register_state_dict_pre_hook">(torch.optim.Adafactor method)</a>
+</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.register_state_dict_pre_hook">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam.register_state_dict_pre_hook">(torch.optim.Adam method)</a>
@@ -9668,6 +9706,8 @@
         <li><a href="generated/torch.optim.LBFGS.html#torch.optim.LBFGS.register_state_dict_pre_hook">(torch.optim.LBFGS method)</a>
 </li>
         <li><a href="generated/torch.optim.NAdam.html#torch.optim.NAdam.register_state_dict_pre_hook">(torch.optim.NAdam method)</a>
+</li>
+        <li><a href="generated/torch.optim.Optimizer.register_state_dict_pre_hook.html#torch.optim.Optimizer.register_state_dict_pre_hook">(torch.optim.Optimizer method)</a>
 </li>
         <li><a href="generated/torch.optim.RAdam.html#torch.optim.RAdam.register_state_dict_pre_hook">(torch.optim.RAdam method)</a>
 </li>
@@ -9683,6 +9723,8 @@
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_step_post_hook">register_step_post_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.register_step_post_hook">(torch.optim.Adafactor method)</a>
+</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.register_step_post_hook">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam.register_step_post_hook">(torch.optim.Adam method)</a>
@@ -9697,6 +9739,8 @@
 </li>
         <li><a href="generated/torch.optim.NAdam.html#torch.optim.NAdam.register_step_post_hook">(torch.optim.NAdam method)</a>
 </li>
+        <li><a href="generated/torch.optim.Optimizer.register_step_post_hook.html#torch.optim.Optimizer.register_step_post_hook">(torch.optim.Optimizer method)</a>
+</li>
         <li><a href="generated/torch.optim.RAdam.html#torch.optim.RAdam.register_step_post_hook">(torch.optim.RAdam method)</a>
 </li>
         <li><a href="generated/torch.optim.RMSprop.html#torch.optim.RMSprop.register_step_post_hook">(torch.optim.RMSprop method)</a>
@@ -9708,9 +9752,13 @@
         <li><a href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam.register_step_post_hook">(torch.optim.SparseAdam method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.register_step_pre_hook">register_step_pre_hook() (torch.optim.Adadelta method)</a>
 
       <ul>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.register_step_pre_hook">(torch.optim.Adafactor method)</a>
+</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.register_step_pre_hook">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam.register_step_pre_hook">(torch.optim.Adam method)</a>
@@ -9725,6 +9773,8 @@
 </li>
         <li><a href="generated/torch.optim.NAdam.html#torch.optim.NAdam.register_step_pre_hook">(torch.optim.NAdam method)</a>
 </li>
+        <li><a href="generated/torch.optim.Optimizer.register_step_pre_hook.html#torch.optim.Optimizer.register_step_pre_hook">(torch.optim.Optimizer method)</a>
+</li>
         <li><a href="generated/torch.optim.RAdam.html#torch.optim.RAdam.register_step_pre_hook">(torch.optim.RAdam method)</a>
 </li>
         <li><a href="generated/torch.optim.RMSprop.html#torch.optim.RMSprop.register_step_pre_hook">(torch.optim.RMSprop method)</a>
@@ -9736,8 +9786,6 @@
         <li><a href="generated/torch.optim.SparseAdam.html#torch.optim.SparseAdam.register_step_pre_hook">(torch.optim.SparseAdam method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="elastic/timer.html#torch.distributed.elastic.timer.TimerServer.register_timers">register_timers() (torch.distributed.elastic.timer.TimerServer method)</a>
 </li>
       <li><a href="library.html#torch.library.register_torch_dispatch">register_torch_dispatch() (in module torch.library)</a>
@@ -10822,14 +10870,14 @@
         <li><a href="generated/torch.Tensor.slogdet.html#torch.Tensor.slogdet">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.smm.html#torch.smm">smm() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.smm.html#torch.Tensor.smm">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.functional.smooth_l1_loss.html#torch.nn.functional.smooth_l1_loss">smooth_l1_loss() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.SmoothL1Loss.html#torch.nn.SmoothL1Loss">SmoothL1Loss (class in torch.nn)</a>
@@ -11019,6 +11067,8 @@
 </li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.state_dict">(torch.optim.Adadelta method)</a>
 </li>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.state_dict">(torch.optim.Adafactor method)</a>
+</li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.state_dict">(torch.optim.Adagrad method)</a>
 </li>
         <li><a href="generated/torch.optim.Adam.html#torch.optim.Adam.state_dict">(torch.optim.Adam method)</a>
@@ -11126,6 +11176,8 @@
         <li><a href="distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleSingle.step">(torch.distributed.pipelining.schedules.PipelineScheduleSingle method)</a>
 </li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.step">(torch.optim.Adadelta method)</a>
+</li>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.step">(torch.optim.Adafactor method)</a>
 </li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.step">(torch.optim.Adagrad method)</a>
 </li>
@@ -13029,6 +13081,13 @@
 
       <ul>
         <li><a href="cuda.html#module-torch.cuda.error">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.cuda.gds
+
+      <ul>
+        <li><a href="cuda.html#module-torch.cuda.gds">module</a>
 </li>
       </ul></li>
       <li>
@@ -18002,6 +18061,8 @@
         <li><a href="generated/torch.nn.Module.html#torch.nn.Module.zero_grad">(torch.nn.Module method)</a>
 </li>
         <li><a href="generated/torch.optim.Adadelta.html#torch.optim.Adadelta.zero_grad">(torch.optim.Adadelta method)</a>
+</li>
+        <li><a href="generated/torch.optim.Adafactor.html#torch.optim.Adafactor.zero_grad">(torch.optim.Adafactor method)</a>
 </li>
         <li><a href="generated/torch.optim.Adagrad.html#torch.optim.Adagrad.zero_grad">(torch.optim.Adagrad method)</a>
 </li>

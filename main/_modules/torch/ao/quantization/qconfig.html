@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a42470 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
     </div>
     
 
@@ -526,37 +526,33 @@
               
   <h1>Source code for torch.ao.quantization.qconfig</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.ao.quantization.fake_quantize</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">FakeQuantize</span><span class="p">,</span>
-    <span class="n">FakeQuantizeBase</span><span class="p">,</span>
-    <span class="n">default_fake_quant</span><span class="p">,</span>
     <span class="n">default_dynamic_fake_quant</span><span class="p">,</span>
-    <span class="n">default_per_channel_weight_fake_quant</span><span class="p">,</span>
-    <span class="n">default_weight_fake_quant</span><span class="p">,</span>
-    <span class="n">default_fused_act_fake_quant</span><span class="p">,</span>
-    <span class="n">default_fused_wt_fake_quant</span><span class="p">,</span>
-    <span class="n">FusedMovingAvgObsFakeQuantize</span><span class="p">,</span>
-    <span class="n">default_fused_per_channel_wt_fake_quant</span><span class="p">,</span>
     <span class="n">default_embedding_fake_quant</span><span class="p">,</span>
     <span class="n">default_embedding_fake_quant_4bit</span><span class="p">,</span>
-    <span class="n">fused_wt_fake_quant_range_neg_127_to_127</span><span class="p">,</span>
+    <span class="n">default_fake_quant</span><span class="p">,</span>
+    <span class="n">default_fused_act_fake_quant</span><span class="p">,</span>
+    <span class="n">default_fused_per_channel_wt_fake_quant</span><span class="p">,</span>
+    <span class="n">default_fused_wt_fake_quant</span><span class="p">,</span>
+    <span class="n">default_per_channel_weight_fake_quant</span><span class="p">,</span>
+    <span class="n">default_weight_fake_quant</span><span class="p">,</span>
+    <span class="n">FakeQuantize</span><span class="p">,</span>
+    <span class="n">FakeQuantizeBase</span><span class="p">,</span>
     <span class="n">fused_per_channel_wt_fake_quant_range_neg_127_to_127</span><span class="p">,</span>
+    <span class="n">fused_wt_fake_quant_range_neg_127_to_127</span><span class="p">,</span>
+    <span class="n">FusedMovingAvgObsFakeQuantize</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">.observer</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_PartialWrapper</span><span class="p">,</span>
-    <span class="n">MinMaxObserver</span><span class="p">,</span>
-    <span class="n">HistogramObserver</span><span class="p">,</span>
-    <span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-    <span class="n">NoopObserver</span><span class="p">,</span>
-    <span class="n">PlaceholderObserver</span><span class="p">,</span>
-    <span class="n">ReuseInputObserver</span><span class="p">,</span>
     <span class="n">default_debug_observer</span><span class="p">,</span>
     <span class="n">default_dynamic_quant_observer</span><span class="p">,</span>
     <span class="n">default_float_qparams_observer</span><span class="p">,</span>
@@ -564,14 +560,19 @@
     <span class="n">default_observer</span><span class="p">,</span>
     <span class="n">default_per_channel_weight_observer</span><span class="p">,</span>
     <span class="n">default_placeholder_observer</span><span class="p">,</span>
-    <span class="n">default_weight_observer</span><span class="p">,</span>
-    <span class="n">weight_observer_range_neg_127_to_127</span><span class="p">,</span>
-    <span class="n">per_channel_weight_observer_range_neg_127_to_127</span><span class="p">,</span>
     <span class="n">default_reuse_input_observer</span><span class="p">,</span>
+    <span class="n">default_weight_observer</span><span class="p">,</span>
+    <span class="n">HistogramObserver</span><span class="p">,</span>
+    <span class="n">MinMaxObserver</span><span class="p">,</span>
+    <span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+    <span class="n">NoopObserver</span><span class="p">,</span>
     <span class="n">ObserverBase</span><span class="p">,</span>
+    <span class="n">per_channel_weight_observer_range_neg_127_to_127</span><span class="p">,</span>
+    <span class="n">PlaceholderObserver</span><span class="p">,</span>
+    <span class="n">ReuseInputObserver</span><span class="p">,</span>
+    <span class="n">weight_observer_range_neg_127_to_127</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">copy</span>
+
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;QConfig&quot;</span><span class="p">,</span>
@@ -605,10 +606,10 @@
     <span class="s2">&quot;get_default_qat_qconfig_dict&quot;</span><span class="p">,</span>
     <span class="s2">&quot;QConfigAny&quot;</span><span class="p">,</span>
     <span class="s2">&quot;qconfig_equals&quot;</span><span class="p">,</span>
-
 <span class="p">]</span>
 
-<div class="viewcode-block" id="QConfig"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.qconfig.QConfig.html#torch.ao.quantization.qconfig.QConfig">[docs]</a><span class="k">class</span> <span class="nc">QConfig</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;QConfig&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;activation&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">])):</span>
+
+<div class="viewcode-block" id="QConfig"><a class="viewcode-back" href="../../../../generated/torch.ao.quantization.qconfig.QConfig.html#torch.ao.quantization.qconfig.QConfig">[docs]</a><span class="k">class</span> <span class="nc">QConfig</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;QConfig&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;activation&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">])):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Describes how to quantize a layer or a part of the network by providing</span>
 <span class="sd">    settings (observer classes) for activations and weights respectively.</span>
@@ -627,11 +628,14 @@
 <span class="sd">          weight=default_observer.with_args(dtype=torch.qint8))</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">activation</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
         <span class="c1"># catch common mistakes</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">activation</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;QConfig received observer instance, please pass observer class instead. &quot;</span> <span class="o">+</span>
-                             <span class="s2">&quot;Use MyObserver.with_args(x=1) to override arguments to constructor if needed&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;QConfig received observer instance, please pass observer class instead. &quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;Use MyObserver.with_args(x=1) to override arguments to constructor if needed&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">activation</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span></div>
 
 
@@ -639,7 +643,7 @@
     <span class="s2">&quot;`QConfigDynamic` is going to be deprecated in PyTorch 1.12, please use `QConfig` instead&quot;</span><span class="p">,</span>
     <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">class</span> <span class="nc">QConfigDynamic</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;QConfigDynamic&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;activation&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">])):</span>
+<span class="k">class</span> <span class="nc">QConfigDynamic</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;QConfigDynamic&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;activation&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">])):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Describes how to dynamically quantize a layer or a part of the network by providing</span>
 <span class="sd">    settings (observer classes) for weights.</span>
@@ -655,105 +659,124 @@
 
 <span class="sd">      my_qconfig = QConfigDynamic(weight=default_observer.with_args(dtype=torch.qint8))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">):</span>
         <span class="c1"># catch common mistakes</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;QConfigDynamic received observer instance, please pass observer class instead. &quot;</span> <span class="o">+</span>
-                             <span class="s2">&quot;Use MyObserver.with_args(x=1) to override arguments to constructor if needed&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;QConfigDynamic received observer instance, please pass observer class instead. &quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;Use MyObserver.with_args(x=1) to override arguments to constructor if needed&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">activation</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
 
 
-<span class="n">default_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_observer</span><span class="p">,</span>
-                          <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_observer</span><span class="p">)</span>
+<span class="n">default_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_observer</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_observer</span><span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default qconfig configuration.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">default_debug_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="n">default_weight_observer</span><span class="p">,</span>
-                                <span class="n">activation</span><span class="o">=</span><span class="n">default_debug_observer</span><span class="p">)</span>
+<span class="n">default_debug_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_observer</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">default_debug_observer</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default qconfig configuration for debugging.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">default_per_channel_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_observer</span><span class="p">,</span>
-                                      <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">)</span>
+<span class="n">default_per_channel_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_observer</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default qconfig configuration for per channel weight quantization.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">default_dynamic_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_dynamic_quant_observer</span><span class="p">,</span>
-                                  <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_observer</span><span class="p">)</span>
+<span class="n">default_dynamic_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_dynamic_quant_observer</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_observer</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default dynamic qconfig.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">float16_dynamic_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                                  <span class="n">weight</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">))</span>
+<span class="n">float16_dynamic_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">),</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Dynamic qconfig with weights quantized to `torch.float16`.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">float16_static_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">),</span>
-                                 <span class="n">weight</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">))</span>
+<span class="n">float16_static_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">),</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">),</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Dynamic qconfig with both activations and weights quantized to `torch.float16`.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">per_channel_dynamic_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_dynamic_quant_observer</span><span class="p">,</span>
-                                      <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">)</span>
+<span class="n">per_channel_dynamic_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_dynamic_quant_observer</span><span class="p">,</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Dynamic qconfig with weights quantized per channel.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">float_qparams_weight_only_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
-    <span class="n">activation</span><span class="o">=</span><span class="n">default_placeholder_observer</span><span class="p">,</span>
-    <span class="n">weight</span><span class="o">=</span><span class="n">default_float_qparams_observer</span><span class="p">)</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_placeholder_observer</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_float_qparams_observer</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Dynamic qconfig with weights quantized with a floating point zero_point.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">float_qparams_weight_only_qconfig_4bit</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
-    <span class="n">activation</span><span class="o">=</span><span class="n">default_placeholder_observer</span><span class="p">,</span>
-    <span class="n">weight</span><span class="o">=</span><span class="n">default_float_qparams_observer_4bit</span><span class="p">)</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_placeholder_observer</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_float_qparams_observer_4bit</span>
+<span class="p">)</span>
 
-<span class="n">default_qat_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_fake_quant</span><span class="p">,</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_fake_quant</span><span class="p">)</span>
+<span class="n">default_qat_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_fake_quant</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_fake_quant</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default qconfig for QAT.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">default_dynamic_qat_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_dynamic_fake_quant</span><span class="p">,</span>
-                                      <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_fake_quant</span><span class="p">)</span>
+<span class="n">default_dynamic_qat_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_dynamic_fake_quant</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_fake_quant</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default qconfig for dynamic QAT.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">default_weight_only_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">,</span>
-                                      <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_fake_quant</span><span class="p">)</span>
+<span class="n">default_weight_only_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_fake_quant</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default qconfig for quantizing weights only.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">default_activation_only_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_fake_quant</span><span class="p">,</span>
-                                          <span class="n">weight</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span><span class="p">)</span>
+<span class="n">default_activation_only_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_fake_quant</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Identity</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default qconfig for quantizing activations only.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># QAT config that uses a fused observer + fake quant modules for optimized training performance.</span>
 <span class="c1"># to modify the activation/weight observers, the default entries in fake_quantize.py can be modified.</span>
-<span class="n">default_qat_qconfig_v2</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_fused_act_fake_quant</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_wt_fake_quant</span><span class="p">)</span>
+<span class="n">default_qat_qconfig_v2</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_fused_act_fake_quant</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_wt_fake_quant</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Fused version of `default_qat_config`, has performance benefits.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">default_reuse_input_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">default_reuse_input_observer</span><span class="p">,</span>
-                                      <span class="n">weight</span><span class="o">=</span><span class="n">NoopObserver</span><span class="p">)</span>
+<span class="n">default_reuse_input_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">default_reuse_input_observer</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">NoopObserver</span>
+<span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default qconfig for operators that reuse the observers from input Tensor, e.g. reshape</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="k">def</span> <span class="nf">get_default_qconfig</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s1">&#39;x86&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">get_default_qconfig</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;x86&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the default PTQ qconfig for the specified backend.</span>
 
@@ -767,36 +790,50 @@
     <span class="n">supported_backends</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fbgemm&quot;</span><span class="p">,</span> <span class="s2">&quot;x86&quot;</span><span class="p">,</span> <span class="s2">&quot;qnnpack&quot;</span><span class="p">,</span> <span class="s2">&quot;onednn&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">backend</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">supported_backends</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-            <span class="s2">&quot;backend: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span> <span class="o">+</span>
-            <span class="sa">f</span><span class="s2">&quot; not supported. backend must be one of </span><span class="si">{</span><span class="n">supported_backends</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;backend: &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot; not supported. backend must be one of </span><span class="si">{</span><span class="n">supported_backends</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;fbgemm&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;qnnpack&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;fbgemm&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;qnnpack&quot;</span><span class="p">:</span>
             <span class="c1"># TODO: make this compatible with xnnpack constraints</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_observer</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;onednn&#39;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_observer</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;onednn&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="n">_is_cpu_support_vnni</span><span class="p">():</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="s2">&quot;Default qconfig of oneDNN backend with reduce_range of false may have accuracy issues &quot;</span>
-                    <span class="s2">&quot;on CPU without Vector Neural Network Instruction support.&quot;</span><span class="p">)</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;x86&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">)</span>
+                    <span class="s2">&quot;on CPU without Vector Neural Network Instruction support.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;x86&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_observer</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># won&#39;t reach</span>
             <span class="n">qconfig</span> <span class="o">=</span> <span class="n">default_qconfig</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Version number: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">)</span> <span class="o">+</span>
-                             <span class="s2">&quot; in get_default_qconfig is not supported. Version number must be 0&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
+            <span class="s2">&quot;Version number: &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; in get_default_qconfig is not supported. Version number must be 0&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">qconfig</span>
+
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default, symmetric PTQ qconfig for the specified backend. And a per_channel</span>
@@ -824,25 +861,36 @@
 <span class="sd">    of 256) is to prevent requantization_scale to go below xnnpack lower</span>
 <span class="sd">    threshold.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="n">default_symmetric_qnnpack_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
-                                                                                   <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                                                   <span class="n">eps</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="o">-</span><span class="mi">12</span><span class="p">),</span>
-                                            <span class="n">weight</span><span class="o">=</span><span class="n">weight_observer_range_neg_127_to_127</span><span class="p">)</span>
+<span class="n">default_symmetric_qnnpack_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span> <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mi">2</span><span class="o">**-</span><span class="mi">12</span>
+    <span class="p">),</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">weight_observer_range_neg_127_to_127</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="n">default_per_channel_symmetric_qnnpack_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
-                                                                                               <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                                                               <span class="n">eps</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="o">-</span><span class="mi">12</span><span class="p">),</span>
-                                                        <span class="n">weight</span><span class="o">=</span><span class="n">per_channel_weight_observer_range_neg_127_to_127</span><span class="p">)</span>
+<span class="n">default_per_channel_symmetric_qnnpack_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span> <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mi">2</span><span class="o">**-</span><span class="mi">12</span>
+    <span class="p">),</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">per_channel_weight_observer_range_neg_127_to_127</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="n">default_embedding_qat_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">NoopObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
-                                        <span class="n">weight</span><span class="o">=</span><span class="n">default_embedding_fake_quant</span><span class="p">)</span>
+<span class="n">default_embedding_qat_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">NoopObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">default_embedding_fake_quant</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="n">default_embedding_qat_qconfig_4bit</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">NoopObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
-                                             <span class="n">weight</span><span class="o">=</span><span class="n">default_embedding_fake_quant_4bit</span><span class="p">)</span>
+<span class="n">default_embedding_qat_qconfig_4bit</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">NoopObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">default_embedding_fake_quant_4bit</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="n">default_quint8_weight_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">MinMaxObserver</span><span class="p">)</span>
+<span class="n">default_quint8_weight_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">HistogramObserver</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">MinMaxObserver</span>
+<span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">get_default_qat_qconfig</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s1">&#39;x86&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">get_default_qat_qconfig</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;x86&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the default QAT qconfig for the specified backend.</span>
 
@@ -857,95 +905,134 @@
     <span class="n">supported_backends</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fbgemm&quot;</span><span class="p">,</span> <span class="s2">&quot;x86&quot;</span><span class="p">,</span> <span class="s2">&quot;qnnpack&quot;</span><span class="p">,</span> <span class="s2">&quot;onednn&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">backend</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">supported_backends</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-            <span class="s2">&quot;backend: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span> <span class="o">+</span>
-            <span class="sa">f</span><span class="s2">&quot; not supported. backend must be one of </span><span class="si">{</span><span class="n">supported_backends</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;backend: &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot; not supported. backend must be one of </span><span class="si">{</span><span class="n">supported_backends</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 
     <span class="c1"># Histogram observer is too slow for quantization aware training</span>
     <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;fbgemm&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">FakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                                <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                                                <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
-                                                                <span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_fake_quant</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;qnnpack&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">FakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                                <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                                                <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
-                                                                <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_fake_quant</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;onednn&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">FakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                                <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                                                <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_fake_quant</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;x86&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">FakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                                <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                                                <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
-                                                                <span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_fake_quant</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;fbgemm&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">FakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+                    <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+                    <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
+                    <span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;qnnpack&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">FakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+                    <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+                    <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
+                    <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_weight_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;onednn&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">FakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+                    <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span> <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;x86&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">FakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+                    <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+                    <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
+                    <span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_per_channel_weight_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">qconfig</span> <span class="o">=</span> <span class="n">default_qat_qconfig</span>
     <span class="c1"># Use the fused observe + fake_quant modules for doing QAT.</span>
     <span class="k">elif</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;fbgemm&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                                                 <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                                                                 <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
-                                                                                 <span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_per_channel_wt_fake_quant</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;qnnpack&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;fbgemm&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+                    <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+                    <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
+                    <span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_per_channel_wt_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;qnnpack&quot;</span><span class="p">:</span>
             <span class="c1"># TODO: make this compatible with xnnpack constraints</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                                                 <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                                                                 <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
-                                                                                 <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_wt_fake_quant</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;onednn&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                                                 <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                                                                 <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_per_channel_wt_fake_quant</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s1">&#39;x86&#39;</span><span class="p">:</span>
-            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                                                 <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                                                                 <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
-                                                                                 <span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                              <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_per_channel_wt_fake_quant</span><span class="p">)</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+                    <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+                    <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
+                    <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_wt_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;onednn&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+                    <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span> <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_per_channel_wt_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;x86&quot;</span><span class="p">:</span>
+            <span class="n">qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+                    <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+                    <span class="n">quant_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">quant_max</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span>
+                    <span class="n">reduce_range</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">weight</span><span class="o">=</span><span class="n">default_fused_per_channel_wt_fake_quant</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">qconfig</span> <span class="o">=</span> <span class="n">default_qat_qconfig_v2</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Version number: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">)</span> <span class="o">+</span>
-                             <span class="s2">&quot;in get_default_qat_qconfig is not supported. Version number must be 0 or 1&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
+            <span class="s2">&quot;Version number: &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot;in get_default_qat_qconfig is not supported. Version number must be 0 or 1&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">qconfig</span>
+
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Default symmetric QAT qconfig for qnnpack. And its per channel weight variant.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="n">default_symmetric_qnnpack_qat_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
-    <span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                       <span class="n">quant_min</span><span class="o">=-</span><span class="mi">128</span><span class="p">,</span>
-                                                       <span class="n">quant_max</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span>
-                                                       <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
-                                                       <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                       <span class="n">eps</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="o">-</span><span class="mi">12</span><span class="p">),</span>
-    <span class="n">weight</span><span class="o">=</span><span class="n">fused_wt_fake_quant_range_neg_127_to_127</span><span class="p">)</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+        <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+        <span class="n">quant_min</span><span class="o">=-</span><span class="mi">128</span><span class="p">,</span>
+        <span class="n">quant_max</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
+        <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">eps</span><span class="o">=</span><span class="mi">2</span><span class="o">**-</span><span class="mi">12</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">fused_wt_fake_quant_range_neg_127_to_127</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">default_per_channel_symmetric_qnnpack_qat_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
-    <span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
-                                                       <span class="n">quant_min</span><span class="o">=-</span><span class="mi">128</span><span class="p">,</span>
-                                                       <span class="n">quant_max</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span>
-                                                       <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
-                                                       <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                       <span class="n">eps</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="o">-</span><span class="mi">12</span><span class="p">),</span>
-    <span class="n">weight</span><span class="o">=</span><span class="n">fused_per_channel_wt_fake_quant_range_neg_127_to_127</span><span class="p">)</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">FusedMovingAvgObsFakeQuantize</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span>
+        <span class="n">observer</span><span class="o">=</span><span class="n">MovingAverageMinMaxObserver</span><span class="p">,</span>
+        <span class="n">quant_min</span><span class="o">=-</span><span class="mi">128</span><span class="p">,</span>
+        <span class="n">quant_max</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">qint8</span><span class="p">,</span>
+        <span class="n">reduce_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">eps</span><span class="o">=</span><span class="mi">2</span><span class="o">**-</span><span class="mi">12</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">fused_per_channel_wt_fake_quant_range_neg_127_to_127</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">_default_fp32_placeholder_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
     <span class="n">activation</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
-    <span class="n">weight</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">weight</span><span class="o">=</span><span class="n">PlaceholderObserver</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">_default_quint8_placeholder_qconfig</span> <span class="o">=</span> <span class="n">QConfig</span><span class="p">(</span>
@@ -954,49 +1041,61 @@
     <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 
+
 <span class="nd">@deprecated</span><span class="p">(</span>
     <span class="s2">&quot;`torch.ao.quantization.get_default_qconfig_dict` is deprecated and will be removed in &quot;</span>
     <span class="s2">&quot;a future version. Please use `torch.ao.quantization.get_default_qconfig_mapping` instead.&quot;</span><span class="p">,</span>
     <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_default_qconfig_dict</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s1">&#39;x86&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_default_qconfig_dict</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;x86&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">get_default_qconfig_mapping</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
 
 <span class="nd">@deprecated</span><span class="p">(</span>
     <span class="s2">&quot;`torch.ao.quantization.get_default_qat_qconfig_dict` is deprecated and will be removed in &quot;</span>
     <span class="s2">&quot;a future version. Please use `torch.ao.quantization.get_default_qat_qconfig_mapping` instead.&quot;</span><span class="p">,</span>
     <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_default_qat_qconfig_dict</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s1">&#39;x86&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">get_default_qat_qconfig_mapping</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">get_default_qat_qconfig_dict</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;x86&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">get_default_qat_qconfig_mapping</span><span class="p">(</span>
+        <span class="n">backend</span><span class="p">,</span> <span class="n">version</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">_assert_valid_qconfig</span><span class="p">(</span><span class="n">qconfig</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QConfig</span><span class="p">],</span>
-                          <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="k">def</span> <span class="nf">_assert_valid_qconfig</span><span class="p">(</span><span class="n">qconfig</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QConfig</span><span class="p">],</span> <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Verifies that this `qconfig` is valid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">qconfig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span>
-    <span class="n">is_conv_transpose_mod</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose1d</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose2d</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose3d</span><span class="p">)))</span>
+    <span class="n">is_conv_transpose_mod</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span>
+        <span class="n">mod</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose1d</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose2d</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ConvTranspose3d</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="n">is_conv_transpose_mod</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">qconfig</span><span class="o">.</span><span class="n">weight</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># for now, we assume that any qconfig for ConvTranspose without a weight is valid</span>
             <span class="k">return</span>
         <span class="n">example_observer</span> <span class="o">=</span> <span class="n">qconfig</span><span class="o">.</span><span class="n">weight</span><span class="p">()</span>
-        <span class="n">is_per_channel</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_observer</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">PerChannelMinMaxObserver</span><span class="p">,</span>
-                                          <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">MovingAveragePerChannelMinMaxObserver</span><span class="p">))</span>
+        <span class="n">is_per_channel</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">example_observer</span><span class="p">,</span>
+            <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">PerChannelMinMaxObserver</span><span class="p">,</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">quantization</span><span class="o">.</span><span class="n">MovingAveragePerChannelMinMaxObserver</span><span class="p">,</span>
+            <span class="p">),</span>
         <span class="p">)</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="n">is_per_channel</span><span class="p">,</span> \
-            <span class="s1">&#39;Per channel weight observer is not supported yet for ConvTranspose</span><span class="si">{n}</span><span class="s1">d.&#39;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="n">is_per_channel</span>
+        <span class="p">),</span> <span class="s2">&quot;Per channel weight observer is not supported yet for ConvTranspose</span><span class="si">{n}</span><span class="s2">d.&quot;</span>
+
 
 <span class="n">QConfigAny</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QConfig</span><span class="p">]</span>
 <span class="n">QConfigAny</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.ao.quantization.qconfig&quot;</span>
 
+
 <span class="k">def</span> <span class="nf">_add_module_to_qconfig_obs_ctr</span><span class="p">(</span>
-        <span class="n">qconfig</span><span class="p">:</span> <span class="n">QConfigAny</span><span class="p">,</span>
-        <span class="n">module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="n">qconfig</span><span class="p">:</span> <span class="n">QConfigAny</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is a helper function for use in quantization prepare that updates a qconfig so that</span>
 <span class="sd">    the constructors stored in the qconfig will create observers on the same device that</span>
 <span class="sd">    &#39;module&#39; is on. This is intended to be used when the qconfigs are propagated to each</span>
@@ -1010,22 +1109,25 @@
 <span class="sd">        qconfig: configured so that obs constructors set to construct on the same device as module</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">module</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">qconfig</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">qconfig</span><span class="o">.</span><span class="n">_fields</span> <span class="o">!=</span> <span class="p">(</span><span class="s1">&#39;activation&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">module</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">qconfig</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">qconfig</span><span class="o">.</span><span class="n">_fields</span> <span class="o">!=</span> <span class="p">(</span><span class="s2">&quot;activation&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">qconfig</span>
 
     <span class="k">def</span> <span class="nf">get_factory_kwargs_based_on_module_device</span><span class="p">():</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span>
-        <span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">()}</span> <span class="o">|</span> \
-            <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">buffers</span><span class="p">()}</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">()}</span> <span class="o">|</span> <span class="p">{</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">buffers</span><span class="p">()</span>
+        <span class="p">}</span>
         <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">devices</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{</span><span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="n">device</span><span class="p">}</span>
+        <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">configure_constructor_to_put_obs_on_module_device</span><span class="p">(</span><span class="n">original_constructor</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># check if constructor can accept factory_kwargs</span>
             <span class="n">check</span> <span class="o">=</span> <span class="n">original_constructor</span><span class="o">.</span><span class="n">with_args</span><span class="p">(</span><span class="n">factory_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
             <span class="n">check</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">original_constructor</span><span class="o">.</span><span class="n">with_callable_args</span><span class="p">(</span><span class="n">factory_kwargs</span><span class="o">=</span><span class="n">get_factory_kwargs_based_on_module_device</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">original_constructor</span><span class="o">.</span><span class="n">with_callable_args</span><span class="p">(</span>
+                <span class="n">factory_kwargs</span><span class="o">=</span><span class="n">get_factory_kwargs_based_on_module_device</span>
+            <span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># qconfig doesn&#39;t have activation or weight</span>
             <span class="k">return</span> <span class="n">original_constructor</span>
         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>  <span class="c1"># the class doesn&#39;t accept factory_kwargs argument</span>
@@ -1036,12 +1138,22 @@
 
     <span class="k">return</span> <span class="n">QConfig</span><span class="p">(</span><span class="n">activation</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
 
-<span class="n">_ObserverOrFakeQuantizeConstructor</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">_PartialWrapper</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">ObserverBase</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">FakeQuantizeBase</span><span class="p">]]</span>
 
-<span class="k">def</span> <span class="nf">_obs_or_fq_ctr_equals</span><span class="p">(</span><span class="n">obs_or_fq1</span><span class="p">:</span> <span class="n">_ObserverOrFakeQuantizeConstructor</span><span class="p">,</span> <span class="n">obs_or_fq2</span><span class="p">:</span> <span class="n">_ObserverOrFakeQuantizeConstructor</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obs_or_fq1</span><span class="p">,</span> <span class="n">_PartialWrapper</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obs_or_fq2</span><span class="p">,</span> <span class="n">_PartialWrapper</span><span class="p">):</span>
+<span class="n">_ObserverOrFakeQuantizeConstructor</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">_PartialWrapper</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">ObserverBase</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">FakeQuantizeBase</span><span class="p">]</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_obs_or_fq_ctr_equals</span><span class="p">(</span>
+    <span class="n">obs_or_fq1</span><span class="p">:</span> <span class="n">_ObserverOrFakeQuantizeConstructor</span><span class="p">,</span>
+    <span class="n">obs_or_fq2</span><span class="p">:</span> <span class="n">_ObserverOrFakeQuantizeConstructor</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obs_or_fq1</span><span class="p">,</span> <span class="n">_PartialWrapper</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+        <span class="n">obs_or_fq2</span><span class="p">,</span> <span class="n">_PartialWrapper</span>
+    <span class="p">):</span>
         <span class="k">return</span> <span class="n">_partial_wrapper_equals</span><span class="p">(</span><span class="n">obs_or_fq1</span><span class="p">,</span> <span class="n">obs_or_fq2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">obs_or_fq1</span> <span class="o">==</span> <span class="n">obs_or_fq2</span>
+
 
 <span class="k">def</span> <span class="nf">_partial_wrapper_equals</span><span class="p">(</span><span class="n">obs_or_fq1</span><span class="p">:</span> <span class="n">_PartialWrapper</span><span class="p">,</span> <span class="n">obs_or_fq2</span><span class="p">:</span> <span class="n">_PartialWrapper</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1053,11 +1165,18 @@
     <span class="n">keywords_equal</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="c1"># compare observer constructor with _obs_or_fq_ctr_equals since direct compare would fail</span>
     <span class="k">if</span> <span class="s2">&quot;observer&quot;</span> <span class="ow">in</span> <span class="n">obs_or_fq1_keywords</span> <span class="ow">and</span> <span class="s2">&quot;observer&quot;</span> <span class="ow">in</span> <span class="n">obs_or_fq2_keywords</span><span class="p">:</span>
-        <span class="n">keywords_equal</span> <span class="o">=</span> <span class="n">keywords_equal</span> <span class="ow">and</span> <span class="n">_obs_or_fq_ctr_equals</span><span class="p">(</span><span class="n">obs_or_fq1_keywords</span><span class="p">[</span><span class="s2">&quot;observer&quot;</span><span class="p">],</span> <span class="n">obs_or_fq2_keywords</span><span class="p">[</span><span class="s2">&quot;observer&quot;</span><span class="p">])</span>
+        <span class="n">keywords_equal</span> <span class="o">=</span> <span class="n">keywords_equal</span> <span class="ow">and</span> <span class="n">_obs_or_fq_ctr_equals</span><span class="p">(</span>
+            <span class="n">obs_or_fq1_keywords</span><span class="p">[</span><span class="s2">&quot;observer&quot;</span><span class="p">],</span> <span class="n">obs_or_fq2_keywords</span><span class="p">[</span><span class="s2">&quot;observer&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
         <span class="n">obs_or_fq1_keywords</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;observer&quot;</span><span class="p">)</span>
         <span class="n">obs_or_fq2_keywords</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;observer&quot;</span><span class="p">)</span>
     <span class="n">keywords_equal</span> <span class="o">=</span> <span class="n">keywords_equal</span> <span class="ow">and</span> <span class="n">obs_or_fq1_keywords</span> <span class="o">==</span> <span class="n">obs_or_fq2_keywords</span>
-    <span class="k">return</span> <span class="n">obs_or_fq1</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">func</span> <span class="o">==</span> <span class="n">obs_or_fq2</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">func</span> <span class="ow">and</span> <span class="n">obs_or_fq1</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">args</span> <span class="o">==</span> <span class="n">obs_or_fq2</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">args</span> <span class="ow">and</span> <span class="n">keywords_equal</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">obs_or_fq1</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">func</span> <span class="o">==</span> <span class="n">obs_or_fq2</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">func</span>
+        <span class="ow">and</span> <span class="n">obs_or_fq1</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">args</span> <span class="o">==</span> <span class="n">obs_or_fq2</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">args</span>
+        <span class="ow">and</span> <span class="n">keywords_equal</span>
+    <span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">qconfig_equals</span><span class="p">(</span><span class="n">q1</span><span class="p">:</span> <span class="n">QConfigAny</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="n">QConfigAny</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1077,23 +1196,31 @@
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">q1</span> <span class="o">==</span> <span class="n">q2</span>
 
+
 <span class="k">def</span> <span class="nf">_activation_is_memoryless</span><span class="p">(</span><span class="n">qconfig</span><span class="p">:</span> <span class="n">QConfig</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return whether the observer for activations defined in the given QConfig is memoryless.</span>
 <span class="sd">    This means a MovingAverage observer with averaging constant equal to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">_is_memoryless</span><span class="p">(</span><span class="n">observer</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="s2">&quot;averaging_constant&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">observer</span><span class="o">.</span><span class="n">averaging_constant</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">hasattr</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="s2">&quot;averaging_constant&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">observer</span><span class="o">.</span><span class="n">averaging_constant</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="p">)</span>
+
     <span class="n">act</span> <span class="o">=</span> <span class="n">qconfig</span><span class="o">.</span><span class="n">activation</span><span class="p">()</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">FakeQuantizeBase</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="s2">&quot;activation_post_process&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_is_memoryless</span><span class="p">(</span><span class="n">act</span><span class="o">.</span><span class="n">activation_post_process</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_is_memoryless</span><span class="p">(</span><span class="n">act</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">_is_reuse_input_qconfig</span><span class="p">(</span><span class="n">qconfig</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QConfig</span><span class="p">]):</span>
-    <span class="k">return</span> <span class="n">qconfig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> \
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">qconfig</span><span class="o">.</span><span class="n">activation</span><span class="p">(),</span> <span class="n">ReuseInputObserver</span><span class="p">)</span> <span class="ow">and</span> \
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">qconfig</span><span class="o">.</span><span class="n">weight</span><span class="p">(),</span> <span class="n">NoopObserver</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">qconfig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">qconfig</span><span class="o">.</span><span class="n">activation</span><span class="p">(),</span> <span class="n">ReuseInputObserver</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">qconfig</span><span class="o">.</span><span class="n">weight</span><span class="p">(),</span> <span class="n">NoopObserver</span><span class="p">)</span>
+    <span class="p">)</span>
 </pre></div>
 
              </article>
