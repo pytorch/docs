@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git1e00f05 ) &#x25BC</a>
     </div>
     
 
@@ -555,8 +555,16 @@
 <span class="kn">from</span> <span class="nn">.stubs</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403</span>
 
 
+<span class="c1"># ensure __module__ is set correctly for public APIs</span>
 <span class="n">ObserverOrFakeQuantize</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">ObserverBase</span><span class="p">,</span> <span class="n">FakeQuantizeBase</span><span class="p">]</span>
 <span class="n">ObserverOrFakeQuantize</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.ao.quantization&quot;</span>
+<span class="k">for</span> <span class="n">_f</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="n">compare_results</span><span class="p">,</span>
+    <span class="n">extract_results_from_loggers</span><span class="p">,</span>
+    <span class="n">generate_numeric_debug_handle</span><span class="p">,</span>
+    <span class="n">prepare_for_propagation_comparison</span><span class="p">,</span>
+<span class="p">]:</span>
+    <span class="n">_f</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.ao.quantization&quot;</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;DeQuantStub&quot;</span><span class="p">,</span>

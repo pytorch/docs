@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc92f2a1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git1e00f05 ) &#x25BC</a>
     </div>
     
 
@@ -541,6 +541,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">threading</span>
@@ -901,6 +902,7 @@
         <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">is_negative</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_negative</span><span class="p">)</span>
 
     <span class="n">lhs</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rhs</span> <span class="o">=</span> <span class="n">_reduce_to_lowest_terms</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">):</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">neg</span> <span class="o">=</span> <span class="p">[]</span>
@@ -915,6 +917,31 @@
         <span class="c1"># lhs == 0</span>
         <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span> <span class="o">=</span> <span class="o">-</span><span class="n">rhs</span><span class="p">,</span> <span class="mi">0</span>
     <span class="k">return</span> <span class="n">t</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_reduce_to_lowest_terms</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eliminates any integer factor from a given expression.</span>
+<span class="sd">    E.g., 6x + 4y reduces to 3x + 2y.</span>
+
+<span class="sd">    Useful when an expression is == or != to 0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">integer_coefficient</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">):</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span>
+        <span class="n">factor</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">integer_coefficient</span><span class="p">,</span> <span class="n">atoms</span><span class="p">))</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">/</span> <span class="n">factor</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="o">*</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">expr</span> <span class="o">/</span> <span class="n">integer_coefficient</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="is_concrete_bool"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.is_concrete_bool.html#torch.fx.experimental.symbolic_shapes.is_concrete_bool">[docs]</a><span class="k">def</span> <span class="nf">is_concrete_bool</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">SymBool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Utility to check if underlying object</span>
@@ -6050,6 +6077,140 @@
         <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run_node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
         <span class="n">rebind_unbacked</span><span class="p">(</span><span class="n">detect_fake_mode</span><span class="p">()</span><span class="o">.</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">_parse_data_dependent_expr</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_floor</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="c1"># sympy parsing transforms something like `a // b` into something like</span>
+        <span class="c1"># `sympy.floor((1/b) * a)`, which we need to transform back to `a // b`</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">):</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Rational</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">FloorDiv</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">p</span> <span class="o">*</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># find the unresolved condition on unbacked symints in the error message</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;data-dependent expression (.+) \(unhinted&quot;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># parse it to a sympy expression</span>
+    <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span> <span class="n">_floor</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_blame_user_code</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+    <span class="n">frame_summary</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span><span class="p">(</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">,</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">f_lineno</span><span class="p">,</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span>
+        <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">User code:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">StackSummary</span><span class="o">.</span><span class="n">from_list</span><span class="p">([</span><span class="n">frame_summary</span><span class="p">])</span><span class="o">.</span><span class="n">format</span><span class="p">())</span>
+    <span class="p">)</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">msg</span><span class="p">,)</span>
+
+
+<span class="k">class</span> <span class="nc">_PythonPrinter</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">StrPrinter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Util printer that replaces sympy symbols with their source-level names</span>
+<span class="sd">    and renders sympy relational operators (e.g., Eq, Ne, Ge, Le) inline</span>
+<span class="sd">    (i.e., as ==, !=, &gt;, &lt;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_map</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">src_map</span> <span class="o">=</span> <span class="n">src_map</span>
+
+    <span class="k">def</span> <span class="nf">_print_Symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sym</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_map</span><span class="p">[</span><span class="n">sym</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_print_Relational</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="n">lhs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">precedence</span><span class="o">.</span><span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+        <span class="n">rel_op</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">rel_op</span>
+        <span class="n">rhs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">precedence</span><span class="o">.</span><span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lhs</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rel_op</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rhs</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_suggest_torch_checks</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cond</span><span class="p">,</span> <span class="n">src_map</span><span class="p">):</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">cond</span><span class="o">.</span><span class="n">free_symbols</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">src_map</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">diff</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unable to find user code corresponding to {</span><span class="si">%s</span><span class="s2">}&quot;</span><span class="p">,</span> <span class="n">diff</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="n">printer</span> <span class="o">=</span> <span class="n">_PythonPrinter</span><span class="p">(</span><span class="n">src_map</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Suggested fixes (please choose one of the following):&quot;</span>
+    <span class="c1"># suggested fixes to resolve `cond`` are to tell the compiler to assume</span>
+    <span class="c1"># either `cond` or its negation (the user will need to select which)</span>
+    <span class="n">suggested_fixes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;torch._check(</span><span class="si">{</span><span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;torch._check(</span><span class="si">{</span><span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">cond</span><span class="p">))</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fix</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">suggested_fixes</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fix</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">msg</span><span class="p">,)</span>
+
+
+<span class="k">def</span> <span class="nf">_suggest_fixes_for_data_dependent_error_non_strict</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a raised data-dependent error, add the following to the error message:</span>
+<span class="sd">    1. the closest user code location that raised the error;</span>
+<span class="sd">    2. suggested fixes for the error in terms of live variables at that location.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span>
+    <span class="k">while</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># walk the stack up from the data-dependent error until a non-torch frame is found</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">torch</span><span class="p">))):</span>
+            <span class="c1"># add frame info to error message</span>
+            <span class="n">_blame_user_code</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+
+            <span class="c1"># extract the unresolved condition on unbacked symints in the error message</span>
+            <span class="n">cond</span> <span class="o">=</span> <span class="n">_parse_data_dependent_expr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+            <span class="c1"># map symbol names reachable via frame locals to their source-level names</span>
+            <span class="c1"># (used later to replace unbacked symints in the unresolved condition)</span>
+            <span class="n">src_map</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_locals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1"># figure out how to access any symbol inside `val` through `var`</span>
+                <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">leaf</span> <span class="ow">in</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_leaves_with_path</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">var</span> <span class="o">+</span> <span class="n">pytree</span><span class="o">.</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">leaf</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">):</span>
+                        <span class="n">src_map</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">leaf</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)]</span> <span class="o">=</span> <span class="n">name</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">leaf</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">leaf</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">):</span>
+                                <span class="n">src_map</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.shape[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span>
+
+            <span class="c1"># add suggested torch.check()s based on `cond` and `src_map` to error message</span>
+            <span class="n">_suggest_torch_checks</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cond</span><span class="p">,</span> <span class="n">src_map</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_back</span>
+
+
+<span class="k">class</span> <span class="nc">_DataDependentErrorHandlerNonStrict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">overrides</span><span class="o">.</span><span class="n">TorchFunctionMode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles data-dependent errors raised by torch function calls.</span>
+
+<span class="sd">    Any data-dependent error is due to some condition on unbacked symints</span>
+<span class="sd">    that cannot be resolved. A mechanical way of fixing the error is to use</span>
+<span class="sd">    a torch._check() call to assert either that condition or its negation.</span>
+<span class="sd">    The handler suggests these options as code and points to the location</span>
+<span class="sd">    of the torch function call that raised the error as part of the error</span>
+<span class="sd">    message shown to the user, who can then simply select and copy-paste</span>
+<span class="sd">    a suggested fix at that location.</span>
+
+<span class="sd">    NOTE: Not all data-dependent errors are raised by torch function calls.</span>
+<span class="sd">    In particular, conditions on unbacked symints can appear outside such</span>
+<span class="sd">    calls, and as such are not handled here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">GuardOnDataDependentSymNode</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">_suggest_fixes_for_data_dependent_error_non_strict</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span>
 </pre></div>
 
              </article>
