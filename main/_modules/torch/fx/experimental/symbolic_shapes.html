@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git1e00f05 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git3e0ccb3 ) &#x25BC</a>
     </div>
     
 
@@ -610,15 +610,19 @@
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">GuardOnDataDependentSymNode</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
-    <span class="k">pass</span>
-
-<span class="k">class</span> <span class="nc">PendingUnbackedSymbolNotFound</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
-    <span class="k">pass</span>
-
 <span class="kn">import</span> <span class="nn">sympy</span>
 <span class="kn">from</span> <span class="nn">sympy.printing.str</span> <span class="kn">import</span> <span class="n">StrPrinter</span>
 <span class="kn">from</span> <span class="nn">sympy.printing.precedence</span> <span class="kn">import</span> <span class="n">precedence</span><span class="p">,</span> <span class="n">PRECEDENCE</span>
+
+<span class="k">class</span> <span class="nc">GuardOnDataDependentSymNode</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="n">cond</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cond</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cond</span> <span class="o">=</span> <span class="n">cond</span>
+
+<span class="k">class</span> <span class="nc">PendingUnbackedSymbolNotFound</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="k">pass</span>
 
 <span class="n">aten</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span>  <span class="c1"># type: ignore[has-type]</span>
 
@@ -5265,11 +5269,11 @@
             <span class="p">)</span>
         <span class="n">fsummary</span><span class="p">,</span> <span class="n">maybe_user_loc</span><span class="p">,</span> <span class="n">maybe_extra_debug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stack_summary</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_integer</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Could not extract specialized integer from data-dependent expression&quot;</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Could not extract specialized integer from data-dependent expression&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Could not guard on data-dependent expression&quot;</span>
-        <span class="k">return</span> <span class="n">GuardOnDataDependentSymNode</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2"> (unhinted: </span><span class="si">{</span><span class="n">unhinted_expr</span><span class="si">}</span><span class="s2">).  &quot;</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Could not guard on data-dependent expression&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">desc</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2"> (unhinted: </span><span class="si">{</span><span class="n">unhinted_expr</span><span class="si">}</span><span class="s2">).  &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;(Size-like symbols: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="w"> </span><span class="n">size_like_symbols</span><span class="p">))</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="si">}</span><span class="s2">)</span><span class="se">\n\n</span><span class="s2">&quot;</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">size_oblivious_result_msg</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="s2">&quot;Potential framework code culprit (scroll up for full backtrace):</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -5284,6 +5288,7 @@
             <span class="c1"># TODO: Help text about how to use our runtime tests to fix this</span>
             <span class="c1"># problem</span>
         <span class="p">)</span>
+        <span class="k">return</span> <span class="n">GuardOnDataDependentSymNode</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_var_to_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">vr</span><span class="p">):</span>
         <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">upper</span>
@@ -6079,23 +6084,6 @@
         <span class="k">return</span> <span class="n">result</span></div></div>
 
 
-<span class="k">def</span> <span class="nf">_parse_data_dependent_expr</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">_floor</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="c1"># sympy parsing transforms something like `a // b` into something like</span>
-        <span class="c1"># `sympy.floor((1/b) * a)`, which we need to transform back to `a // b`</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">):</span>
-            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Rational</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">FloorDiv</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">p</span> <span class="o">*</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-    <span class="c1"># find the unresolved condition on unbacked symints in the error message</span>
-    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;data-dependent expression (.+) \(unhinted&quot;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-    <span class="c1"># parse it to a sympy expression</span>
-    <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span> <span class="n">_floor</span><span class="p">)</span>
-
-
 <span class="k">def</span> <span class="nf">_blame_user_code</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
     <span class="n">frame_summary</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span><span class="p">(</span>
         <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">,</span>
@@ -6131,7 +6119,9 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lhs</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rel_op</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rhs</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_suggest_torch_checks</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cond</span><span class="p">,</span> <span class="n">src_map</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_suggest_torch_checks</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">src_map</span><span class="p">):</span>
+    <span class="c1"># extract the unresolved condition on unbacked symints in the error</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">cond</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">cond</span><span class="o">.</span><span class="n">free_symbols</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">src_map</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">diff</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unable to find user code corresponding to {</span><span class="si">%s</span><span class="s2">}&quot;</span><span class="p">,</span> <span class="n">diff</span><span class="p">)</span>
@@ -6164,11 +6154,7 @@
             <span class="c1"># add frame info to error message</span>
             <span class="n">_blame_user_code</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
 
-            <span class="c1"># extract the unresolved condition on unbacked symints in the error message</span>
-            <span class="n">cond</span> <span class="o">=</span> <span class="n">_parse_data_dependent_expr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-
             <span class="c1"># map symbol names reachable via frame locals to their source-level names</span>
-            <span class="c1"># (used later to replace unbacked symints in the unresolved condition)</span>
             <span class="n">src_map</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_locals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="c1"># figure out how to access any symbol inside `val` through `var`</span>
@@ -6181,8 +6167,9 @@
                             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">):</span>
                                 <span class="n">src_map</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.shape[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span>
 
-            <span class="c1"># add suggested torch.check()s based on `cond` and `src_map` to error message</span>
-            <span class="n">_suggest_torch_checks</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cond</span><span class="p">,</span> <span class="n">src_map</span><span class="p">)</span>
+            <span class="c1"># add suggested torch.check()s based on `src_map` to the error message</span>
+            <span class="c1"># replacing unbacked symints in the unresolved condition in the error</span>
+            <span class="n">_suggest_torch_checks</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">src_map</span><span class="p">)</span>
             <span class="k">break</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_back</span>
 
