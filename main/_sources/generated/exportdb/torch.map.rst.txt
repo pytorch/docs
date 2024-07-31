@@ -5,7 +5,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
 
     Support Level: SUPPORTED
 
@@ -48,7 +48,7 @@ Result:
                 getitem: "f32[3, 2]" = map_impl[0];  map_impl = None
                 return (getitem,)
                 
-            class <lambda>(torch.nn.Module):
+            class body_graph_0(torch.nn.Module):
                 def forward(self, xs: "f32[2]", y: "f32[2]"):
                              add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)

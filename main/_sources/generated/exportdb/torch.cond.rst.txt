@@ -5,7 +5,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -81,7 +81,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -154,7 +154,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -298,12 +298,12 @@ Result:
                 getitem: "f32[3, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class <lambda>(torch.nn.Module):
+            class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
-            class <lambda>(torch.nn.Module):
+            class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
@@ -318,7 +318,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -383,12 +383,12 @@ Result:
                 getitem: "f32[s0, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class <lambda>(torch.nn.Module):
+            class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
                              add: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
                     return (add,)
                     
-            class <lambda>(torch.nn.Module):
+            class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
                              sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
                     return (sub,)
@@ -403,7 +403,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
