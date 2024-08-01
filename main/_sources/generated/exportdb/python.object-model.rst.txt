@@ -15,7 +15,6 @@ Original source code:
 
     # mypy: allow-untyped-defs
     import torch
-    
     from torch._export.db.case import SupportLevel
     
     
@@ -66,7 +65,6 @@ Original source code:
 
     # mypy: allow-untyped-defs
     import torch
-    
     from torch._export.db.case import SupportLevel
     
     

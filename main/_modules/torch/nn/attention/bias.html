@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git882d80f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4e966e8 ) &#x25BC</a>
     </div>
     
 
@@ -536,6 +536,7 @@
 <span class="kn">from</span> <span class="nn">torch.backends.cuda</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">can_use_efficient_attention</span><span class="p">,</span>
     <span class="n">can_use_flash_attention</span><span class="p">,</span>
+    <span class="n">is_flash_attention_available</span><span class="p">,</span>
     <span class="n">SDPAParams</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.nn.attention</span> <span class="kn">import</span> <span class="n">_raise_kernel_warnings</span>
@@ -550,6 +551,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;causal_upper_left&quot;</span><span class="p">,</span> <span class="s2">&quot;causal_lower_right&quot;</span><span class="p">,</span> <span class="s2">&quot;CausalVariant&quot;</span><span class="p">,</span> <span class="s2">&quot;CausalBias&quot;</span><span class="p">]</span>
 
 
+<span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">allow_in_graph</span><span class="p">(</span><span class="n">is_flash_attention_available</span><span class="p">)</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">allow_in_graph</span><span class="p">(</span><span class="n">can_use_flash_attention</span><span class="p">)</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">allow_in_graph</span><span class="p">(</span><span class="n">can_use_efficient_attention</span><span class="p">)</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">allow_in_graph</span><span class="p">(</span><span class="n">SDPAParams</span><span class="p">)</span>
@@ -700,6 +702,7 @@
         <span class="n">dropout_p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
         <span class="n">is_causal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">enable_gqa</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handles the logic for computing attention with the specified causal bias.</span>
@@ -716,6 +719,7 @@
 <span class="sd">                are set.</span>
 <span class="sd">            scale (optional float): Scaling factor applied prior to softmax. If None, the default value is set</span>
 <span class="sd">                to :math:`\frac{1}{\sqrt{E}}`.</span>
+<span class="sd">            enable_gqa (optional bool): If set to True, Grouped Query Attention (GQA) is enabled, by default it is set to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            output (Tensor): Attention output; shape :math:`(N, ..., L, Ev)`.</span>
@@ -739,10 +743,13 @@
                 <span class="n">dropout_p</span><span class="o">=</span><span class="n">dropout_p</span><span class="p">,</span>
                 <span class="n">is_causal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+                <span class="n">enable_gqa</span><span class="o">=</span><span class="n">enable_gqa</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">attn_mask</span><span class="o">.</span><span class="n">variant</span> <span class="o">==</span> <span class="n">CausalVariant</span><span class="o">.</span><span class="n">LOWER_RIGHT</span><span class="p">:</span>
             <span class="n">_validate_sdpa_input</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dropout_p</span><span class="p">,</span> <span class="n">is_causal</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
-            <span class="n">sdpa_params</span> <span class="o">=</span> <span class="n">SDPAParams</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dropout_p</span><span class="p">,</span> <span class="n">is_causal</span><span class="p">)</span>
+            <span class="n">sdpa_params</span> <span class="o">=</span> <span class="n">SDPAParams</span><span class="p">(</span>
+                <span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dropout_p</span><span class="p">,</span> <span class="n">is_causal</span><span class="p">,</span> <span class="n">enable_gqa</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="n">can_use_flash_attention</span><span class="p">(</span><span class="n">sdpa_params</span><span class="p">):</span>
                 <span class="n">needs_padding</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">8</span> <span class="o">!=</span> <span class="mi">0</span>
                 <span class="n">og_head_size</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -791,6 +798,7 @@
                     <span class="n">dropout_p</span><span class="o">=</span><span class="n">dropout_p</span><span class="p">,</span>
                     <span class="n">is_causal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+                    <span class="n">enable_gqa</span><span class="o">=</span><span class="n">enable_gqa</span><span class="p">,</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>

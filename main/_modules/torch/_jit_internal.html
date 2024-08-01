@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git882d80f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4e966e8 ) &#x25BC</a>
     </div>
     
 
@@ -602,6 +602,120 @@
 
 
 <span class="n">FAKE_FILENAME_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;__torch_jit_dataclass&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">is_final</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">hasattr</span><span class="p">(</span><span class="n">ann</span><span class="p">,</span> <span class="s2">&quot;__module__&quot;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;typing&quot;</span><span class="p">,</span> <span class="s2">&quot;typing_extensions&quot;</span><span class="p">}</span>
+        <span class="ow">and</span> <span class="p">(</span><span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Final</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ann</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">Final</span><span class="p">)))</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># allows BroadcastingList instance to be subscriptable</span>
+<span class="k">class</span> <span class="nc">BroadcastingListCls</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">):</span>
+        <span class="k">return</span>
+
+
+<span class="c1"># mypy doesn&#39;t support parameters on types, so we have to explicitly type each</span>
+<span class="c1"># list size</span>
+<span class="n">BroadcastingList1</span> <span class="o">=</span> <span class="n">BroadcastingListCls</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+    <span class="nb">globals</span><span class="p">()[</span><span class="sa">f</span><span class="s2">&quot;BroadcastingList</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BroadcastingList1</span>
+
+
+<div class="viewcode-block" id="is_scripting"><a class="viewcode-back" href="../../jit_language_reference.html#torch.jit.is_scripting">[docs]</a><span class="k">def</span> <span class="nf">is_scripting</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function that returns True when in compilation and False otherwise. This</span>
+<span class="sd">    is useful especially with the @unused decorator to leave code in your</span>
+<span class="sd">    model that is not yet TorchScript compatible.</span>
+<span class="sd">    .. testcode::</span>
+
+<span class="sd">        import torch</span>
+
+<span class="sd">        @torch.jit.unused</span>
+<span class="sd">        def unsupported_linear_op(x):</span>
+<span class="sd">            return x</span>
+
+<span class="sd">        def linear(x):</span>
+<span class="sd">            if torch.jit.is_scripting():</span>
+<span class="sd">                return torch.linear(x)</span>
+<span class="sd">            else:</span>
+<span class="sd">                return unsupported_linear_op(x)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<span class="c1"># Retrieves a fully-qualified name (module hierarchy + classname) for a given obj.</span>
+<span class="k">def</span> <span class="nf">_qualified_name</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">mangle_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="c1"># This special case allows us to override the qualified name on a type.</span>
+    <span class="c1"># It&#39;s currently used in conjunction with tracing, where we create a</span>
+    <span class="c1"># fake module to filter only supported attributes. However, since this</span>
+    <span class="c1"># new type is defined as a local class, we need a mechanism to override</span>
+    <span class="c1"># its qualname so it appears correctly in the TorchScript system. This,</span>
+    <span class="c1"># we set &#39;_jit_override_qualname&#39; with the original traced module&#39;s</span>
+    <span class="c1"># qualified name, which is picked up here</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;_jit_override_qualname&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">_jit_override_qualname</span>
+    <span class="c1"># short-circuit in cases where the object already has a known qualified name</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">qualified_name</span>
+
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="c1"># Enum classes do not have `__name__` attr, instead they have `name`.</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Could not get name of python class object&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;&lt;lambda&gt;&quot;</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_lambda&quot;</span>  <span class="c1"># make name a valid identifier</span>
+
+    <span class="n">module_name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span>
+
+    <span class="c1"># If the module is actually a torchbind module, then we should short circuit</span>
+    <span class="k">if</span> <span class="n">module_name</span> <span class="o">==</span> <span class="s2">&quot;torch._classes&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">qualified_name</span>
+
+    <span class="c1"># The Python docs are very clear that `__module__` can be None, but I can&#39;t</span>
+    <span class="c1"># figure out when it actually would be.</span>
+    <span class="k">if</span> <span class="n">module_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Could not get qualified name for class &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: &quot;</span>
+            <span class="s2">&quot;__module__ can&#39;t be None.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># if getattr(sys.modules[module_name], name) is not obj:</span>
+    <span class="c1">#     raise RuntimeError(f&quot;Could not get qualified name for class &#39;{name}&#39;: &quot;</span>
+    <span class="c1">#                        f&quot;the attr {name} on module {module_name} is not the class&quot;)</span>
+
+    <span class="c1"># torch.package and TorchScript have separate mangling schemes to avoid</span>
+    <span class="c1"># name collisions from multiple packages. To avoid them interfering with</span>
+    <span class="c1"># each other, normalize the package manging here.</span>
+    <span class="k">if</span> <span class="n">package_mangling</span><span class="o">.</span><span class="n">is_mangled</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+
+    <span class="c1"># The PythonExceptionValue C++ class in torch/csrc/jit/python/python_sugared_value.h</span>
+    <span class="c1"># does not need mangle the python class name.</span>
+    <span class="k">if</span> <span class="n">mangle_name</span><span class="p">:</span>
+        <span class="c1"># __main__ is a builtin module, so rewrite it to &quot;__torch__&quot;.</span>
+        <span class="k">if</span> <span class="n">module_name</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+            <span class="n">module_name</span> <span class="o">=</span> <span class="s2">&quot;__torch__&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Everything else gets a &quot;__torch__&quot; prefix to avoid name collisions</span>
+            <span class="c1"># with the names of user values.</span>
+            <span class="n">module_name</span> <span class="o">=</span> <span class="s2">&quot;__torch__.&quot;</span> <span class="o">+</span> <span class="n">module_name</span>
+
+    <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Could not get qualified name for class &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; is not a valid identifier&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">module_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">name</span>
 
 
 <span class="k">class</span> <span class="nc">SourceLoader</span><span class="p">:</span>
@@ -1634,120 +1748,6 @@
     <span class="k">def</span> <span class="nf">is_rref_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="c1"># If the RPC module doesn&#39;t exist then RRefs don&#39;t exist either.</span>
         <span class="k">return</span> <span class="kc">False</span>
-
-
-<span class="k">def</span> <span class="nf">is_final</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="nb">hasattr</span><span class="p">(</span><span class="n">ann</span><span class="p">,</span> <span class="s2">&quot;__module__&quot;</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;typing&quot;</span><span class="p">,</span> <span class="s2">&quot;typing_extensions&quot;</span><span class="p">}</span>
-        <span class="ow">and</span> <span class="p">(</span><span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Final</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ann</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">Final</span><span class="p">)))</span>
-    <span class="p">)</span>
-
-
-<span class="c1"># allows BroadcastingList instance to be subscriptable</span>
-<span class="k">class</span> <span class="nc">BroadcastingListCls</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">):</span>
-        <span class="k">return</span>
-
-
-<span class="c1"># mypy doesn&#39;t support parameters on types, so we have to explicitly type each</span>
-<span class="c1"># list size</span>
-<span class="n">BroadcastingList1</span> <span class="o">=</span> <span class="n">BroadcastingListCls</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
-    <span class="nb">globals</span><span class="p">()[</span><span class="sa">f</span><span class="s2">&quot;BroadcastingList</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BroadcastingList1</span>
-
-
-<div class="viewcode-block" id="is_scripting"><a class="viewcode-back" href="../../jit_language_reference.html#torch.jit.is_scripting">[docs]</a><span class="k">def</span> <span class="nf">is_scripting</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function that returns True when in compilation and False otherwise. This</span>
-<span class="sd">    is useful especially with the @unused decorator to leave code in your</span>
-<span class="sd">    model that is not yet TorchScript compatible.</span>
-<span class="sd">    .. testcode::</span>
-
-<span class="sd">        import torch</span>
-
-<span class="sd">        @torch.jit.unused</span>
-<span class="sd">        def unsupported_linear_op(x):</span>
-<span class="sd">            return x</span>
-
-<span class="sd">        def linear(x):</span>
-<span class="sd">           if torch.jit.is_scripting():</span>
-<span class="sd">              return torch.linear(x)</span>
-<span class="sd">           else:</span>
-<span class="sd">              return unsupported_linear_op(x)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="kc">False</span></div>
-
-
-<span class="c1"># Retrieves a fully-qualified name (module hierarchy + classname) for a given obj.</span>
-<span class="k">def</span> <span class="nf">_qualified_name</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">mangle_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="c1"># This special case allows us to override the qualified name on a type.</span>
-    <span class="c1"># It&#39;s currently used in conjunction with tracing, where we create a</span>
-    <span class="c1"># fake module to filter only supported attributes. However, since this</span>
-    <span class="c1"># new type is defined as a local class, we need a mechanism to override</span>
-    <span class="c1"># its qualname so it appears correctly in the TorchScript system. This,</span>
-    <span class="c1"># we set &#39;_jit_override_qualname&#39; with the original traced module&#39;s</span>
-    <span class="c1"># qualified name, which is picked up here</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;_jit_override_qualname&quot;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">_jit_override_qualname</span>
-    <span class="c1"># short-circuit in cases where the object already has a known qualified name</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">qualified_name</span>
-
-    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span>
-    <span class="c1"># Enum classes do not have `__name__` attr, instead they have `name`.</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Could not get name of python class object&quot;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;&lt;lambda&gt;&quot;</span><span class="p">:</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_lambda&quot;</span>  <span class="c1"># make name a valid identifier</span>
-
-    <span class="n">module_name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__module__</span>
-
-    <span class="c1"># If the module is actually a torchbind module, then we should short circuit</span>
-    <span class="k">if</span> <span class="n">module_name</span> <span class="o">==</span> <span class="s2">&quot;torch._classes&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">qualified_name</span>
-
-    <span class="c1"># The Python docs are very clear that `__module__` can be None, but I can&#39;t</span>
-    <span class="c1"># figure out when it actually would be.</span>
-    <span class="k">if</span> <span class="n">module_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Could not get qualified name for class &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: &quot;</span>
-            <span class="s2">&quot;__module__ can&#39;t be None.&quot;</span>
-        <span class="p">)</span>
-
-    <span class="c1"># if getattr(sys.modules[module_name], name) is not obj:</span>
-    <span class="c1">#     raise RuntimeError(f&quot;Could not get qualified name for class &#39;{name}&#39;: &quot;</span>
-    <span class="c1">#                        f&quot;the attr {name} on module {module_name} is not the class&quot;)</span>
-
-    <span class="c1"># torch.package and TorchScript have separate mangling schemes to avoid</span>
-    <span class="c1"># name collisions from multiple packages. To avoid them interfering with</span>
-    <span class="c1"># each other, normalize the package manging here.</span>
-    <span class="k">if</span> <span class="n">package_mangling</span><span class="o">.</span><span class="n">is_mangled</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
-        <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
-        <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
-
-    <span class="c1"># The PythonExceptionValue C++ class in torch/csrc/jit/python/python_sugared_value.h</span>
-    <span class="c1"># does not need mangle the python class name.</span>
-    <span class="k">if</span> <span class="n">mangle_name</span><span class="p">:</span>
-        <span class="c1"># __main__ is a builtin module, so rewrite it to &quot;__torch__&quot;.</span>
-        <span class="k">if</span> <span class="n">module_name</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-            <span class="n">module_name</span> <span class="o">=</span> <span class="s2">&quot;__torch__&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Everything else gets a &quot;__torch__&quot; prefix to avoid name collisions</span>
-            <span class="c1"># with the names of user values.</span>
-            <span class="n">module_name</span> <span class="o">=</span> <span class="s2">&quot;__torch__.&quot;</span> <span class="o">+</span> <span class="n">module_name</span>
-
-    <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Could not get qualified name for class &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; is not a valid identifier&quot;</span>
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">module_name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">name</span>
 
 
 <span class="k">def</span> <span class="nf">_try_get_dispatched_fn</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>

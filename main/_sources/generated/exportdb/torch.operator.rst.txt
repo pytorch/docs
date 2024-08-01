@@ -15,7 +15,6 @@ Original source code:
 
     # mypy: allow-untyped-defs
     import torch
-    
     from torch._export.db.case import SupportLevel
     
     
@@ -40,4 +39,4 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f87008db940>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f91aa081940>
