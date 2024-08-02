@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4e966e8 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git0016be8 ) &#x25BC</a>
     </div>
     
 
@@ -816,7 +816,7 @@
 <span class="sd">        from torch.ao.quantization.quantize_fx import prepare_fx</span>
 
 <span class="sd">        class Submodule(torch.nn.Module):</span>
-<span class="sd">            def __init__(self):</span>
+<span class="sd">            def __init__(self) -&gt; None:</span>
 <span class="sd">                super().__init__()</span>
 <span class="sd">                self.linear = torch.nn.Linear(5, 5)</span>
 <span class="sd">            def forward(self, x):</span>
@@ -824,7 +824,7 @@
 <span class="sd">                return x</span>
 
 <span class="sd">        class M(torch.nn.Module):</span>
-<span class="sd">            def __init__(self):</span>
+<span class="sd">            def __init__(self) -&gt; None:</span>
 <span class="sd">                super().__init__()</span>
 <span class="sd">                self.linear = torch.nn.Linear(5, 5)</span>
 <span class="sd">                self.sub = Submodule()</span>
@@ -954,7 +954,7 @@
 <span class="sd">        from torch.ao.quantization.quantize_fx import prepare_qat_fx</span>
 
 <span class="sd">        class Submodule(torch.nn.Module):</span>
-<span class="sd">            def __init__(self):</span>
+<span class="sd">            def __init__(self) -&gt; None:</span>
 <span class="sd">                super().__init__()</span>
 <span class="sd">                self.linear = torch.nn.Linear(5, 5)</span>
 <span class="sd">            def forward(self, x):</span>
@@ -962,7 +962,7 @@
 <span class="sd">                return x</span>
 
 <span class="sd">        class M(torch.nn.Module):</span>
-<span class="sd">            def __init__(self):</span>
+<span class="sd">            def __init__(self) -&gt; None:</span>
 <span class="sd">                super().__init__()</span>
 <span class="sd">                self.linear = torch.nn.Linear(5, 5)</span>
 <span class="sd">                self.sub = Submodule()</span>

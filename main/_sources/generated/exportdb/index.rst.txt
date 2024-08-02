@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo wih a modul
     :caption: Tags
 
     torch.escape-hatch
-    torch.dynamic-shape
     torch.cond
+    torch.dynamic-shape
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -169,7 +169,7 @@ Original source code:
         def method(cls, x):
             return x + 1
     
-        def __init__(self):
+        def __init__(self) -> None:
             super().__init__()
             self.linear = torch.nn.Linear(4, 2)
     
@@ -212,7 +212,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -248,7 +248,7 @@ Original source code:
         NOTE: If the `pred` is test on a dim with batch size < 2, it will be specialized.
         """
     
-        def __init__(self):
+        def __init__(self) -> None:
             super().__init__()
             self.subm = MySubModule()
     
@@ -288,7 +288,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -361,7 +361,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -458,7 +458,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
+    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -505,12 +505,12 @@ Result:
                 getitem: "f32[3, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class true_graph_0(torch.nn.Module):
+            class <lambda>(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
-            class false_graph_0(torch.nn.Module):
+            class <lambda>(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
@@ -525,7 +525,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -590,12 +590,12 @@ Result:
                 getitem: "f32[s0, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class true_graph_0(torch.nn.Module):
+            class <lambda>(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
                              add: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
                     return (add,)
                     
-            class false_graph_0(torch.nn.Module):
+            class <lambda>(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
                              sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
                     return (sub,)
@@ -610,7 +610,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
+    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -714,11 +714,11 @@ Result:
                      item: "Sym(u0)" = torch.ops.aten.item.default(x);  x = None
                 
                  # 
-                sym_constrain_range_for_size_default = torch.ops.aten.sym_constrain_range_for_size.default(item)
+                sym_constrain_range_for_size_default = torch.ops.aten.sym_constrain_range_for_size.default(item);  sym_constrain_range_for_size_default = None
                 ge_1: "Sym(u0 >= 0)" = item >= 0
-                _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, "Runtime assertion failed for expression u0 >= 0 on node 'ge_1'");  ge_1 = None
+                _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, "Runtime assertion failed for expression u0 >= 0 on node 'ge_1'");  ge_1 = _assert_scalar_default = None
                 le_1: "Sym(u0 <= 5)" = item <= 5
-                _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, "Runtime assertion failed for expression u0 <= 5 on node 'le_1'");  le_1 = None
+                _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, "Runtime assertion failed for expression u0 <= 5 on node 'le_1'");  le_1 = _assert_scalar_default_1 = None
                 
                      zeros: "f32[u0, 5]" = torch.ops.aten.zeros.default([item, 5], device = device(type='cpu'), pin_memory = False);  item = None
                 return (zeros,)
@@ -784,9 +784,9 @@ Result:
                 
                  # 
                 ge_1: "Sym(u0 >= 0)" = item >= 0
-                _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, "Runtime assertion failed for expression u0 >= 0 on node 'ge_1'");  ge_1 = None
+                _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, "Runtime assertion failed for expression u0 >= 0 on node 'ge_1'");  ge_1 = _assert_scalar_default = None
                 le_1: "Sym(u0 <= 5)" = item <= 5;  item = None
-                _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, "Runtime assertion failed for expression u0 <= 5 on node 'le_1'");  le_1 = None
+                _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, "Runtime assertion failed for expression u0 <= 5 on node 'le_1'");  le_1 = _assert_scalar_default_1 = None
                 
                      sin: "f32[5, 5]" = torch.ops.aten.sin.default(y);  y = None
                 return (sin,)
@@ -1056,7 +1056,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
+    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1099,7 +1099,7 @@ Result:
                 getitem: "f32[3, 2]" = map_impl[0];  map_impl = None
                 return (getitem,)
                 
-            class body_graph_0(torch.nn.Module):
+            class <lambda>(torch.nn.Module):
                 def forward(self, xs: "f32[2]", y: "f32[2]"):
                              add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
@@ -1284,7 +1284,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1573,7 +1573,7 @@ Original source code:
         Returning scalar values from the graph is supported, in addition to Tensor
         outputs. Symbolic shapes are captured and rank is specialized.
         """
-        def __init__(self):
+        def __init__(self) -> None:
             super().__init__()
     
         def forward(self, x):
@@ -1632,7 +1632,7 @@ Original source code:
         Model attributes are specialized.
         """
     
-        def __init__(self):
+        def __init__(self) -> None:
             super().__init__()
             self.a = "moo"
             self.b = 4
@@ -1934,7 +1934,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
+    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -1997,7 +1997,7 @@ Original source code:
         Attribute mutation is not supported.
         """
     
-        def __init__(self):
+        def __init__(self) -> None:
             super().__init__()
             self.attr_list = [torch.randn(3, 2), torch.randn(3, 2)]
     
@@ -2107,6 +2107,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f91aa081940>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7fa9e0cdd940>
 
 

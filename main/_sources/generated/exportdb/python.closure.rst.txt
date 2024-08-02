@@ -5,7 +5,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
+    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -52,12 +52,12 @@ Result:
                 getitem: "f32[3, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class true_graph_0(torch.nn.Module):
+            class <lambda>(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
-            class false_graph_0(torch.nn.Module):
+            class <lambda>(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)

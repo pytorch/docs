@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4e966e8 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git0016be8 ) &#x25BC</a>
     </div>
     
 
@@ -578,12 +578,22 @@
     <span class="s2">&quot;get_allocator_backend&quot;</span><span class="p">,</span>
     <span class="s2">&quot;CUDAPluggableAllocator&quot;</span><span class="p">,</span>
     <span class="s2">&quot;change_current_allocator&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MemPool&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MemPoolContext&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="p">,</span> <span class="s2">&quot;_cuda_CUDAAllocator&quot;</span><span class="p">):</span>
     <span class="c1"># Define dummy base classes</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_cuda_CUDAAllocator&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dummy_type</span><span class="p">(</span><span class="s2">&quot;_cuda_CUDAAllocator&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="p">,</span> <span class="s2">&quot;_MemPool&quot;</span><span class="p">):</span>
+    <span class="c1"># Define dummy base classes</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_MemPool&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dummy_type</span><span class="p">(</span><span class="s2">&quot;_MemPool&quot;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_MemPoolContext&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dummy_type</span><span class="p">(</span><span class="s2">&quot;_MemPoolContext&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_cuda_CUDAAllocator</span><span class="p">,</span> <span class="n">_MemPool</span><span class="p">,</span> <span class="n">_MemPoolContext</span>  <span class="c1"># noqa: F401</span>
 
 
 <span class="k">def</span> <span class="nf">_host_allocator</span><span class="p">():</span>
@@ -1473,6 +1483,52 @@
 <span class="sd">        See :ref:`cuda-memory-management` for details on creating and using a custom allocator</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_CUDAAllocator</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_getAllocator</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="MemPool"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPool.html#torch.cuda.MemPool">[docs]</a><span class="k">class</span> <span class="nc">MemPool</span><span class="p">(</span><span class="n">_MemPool</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;MemPool represents a pool of memory in a caching allocator. Currently,</span>
+<span class="sd">    it&#39;s just the ID of the pool object maintained in the CUDACachingAllocator.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        allocator(torch._C._cuda_CUDAAllocator, optional): a</span>
+<span class="sd">            torch._C._cuda_CUDAAllocator object that can be used to</span>
+<span class="sd">            define how memory gets allocated in the pool. If :attr:`allocator`</span>
+<span class="sd">            is ``None`` (default), memory allocation follows the default/</span>
+<span class="sd">            current configuration of the CUDACachingAllocator.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allocator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_cuda_CUDAAllocator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">allocator</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the ID of this pool as a tuple of two ints.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">allocator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_cuda_CUDAAllocator</span><span class="p">]:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the allocator this MemPool routes allocations to&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">allocator</span></div>
+
+
+<div class="viewcode-block" id="MemPoolContext"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPoolContext.html#torch.cuda.MemPoolContext">[docs]</a><span class="k">class</span> <span class="nc">MemPoolContext</span><span class="p">(</span><span class="n">_MemPoolContext</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;MemPoolContext holds the currently active pool and stashes the previous</span>
+<span class="sd">    pool. On deletion it makes the previous pool active.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pool(torch.cuda.MemPool): a MemPool object to be made active so that</span>
+<span class="sd">        allocations route to this pool.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">:</span> <span class="n">MemPool</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MemPoolContext.active_pool"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPoolContext.html#torch.cuda.MemPoolContext.active_pool">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">active_pool</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_MemPool</span><span class="p">]:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the active MemPool&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_MemPoolContext</span><span class="o">.</span><span class="n">active_pool</span><span class="p">()</span></div></div>
 </pre></div>
 
              </article>
