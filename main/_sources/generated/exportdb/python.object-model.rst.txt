@@ -91,4 +91,4 @@ Result:
 
 .. code-block::
 
-    AssertionError: Unexpectedly found a <class 'torch.Tensor'> in the inputs.
+    Unsupported: Tracing through optional input is not supported yet

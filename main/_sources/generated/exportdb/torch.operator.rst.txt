@@ -1,7 +1,7 @@
 torch.operator
 ==================
-torch_sym_min
-^^^^^^^^^^^^^
+unsupported_operator
+^^^^^^^^^^^^^^^^^^^^
 
 .. note::
 
@@ -39,4 +39,4 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7fb3c5ee0940>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f12e9fdfa60>
