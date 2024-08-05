@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git6c65fd0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc7cfa51 ) &#x25BC</a>
     </div>
     
 
@@ -2028,18 +2028,16 @@
         <span class="n">Tensor</span><span class="o">.</span><span class="n">__dlpack__</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">None</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">Tensor</span><span class="o">.</span><span class="n">__dlpack_device__</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">cond</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="kc">None</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="p">}</span>  <span class="c1"># fmt: skip</span>
 
     <span class="n">privateuse1_backend_name</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">backend_registration</span><span class="o">.</span><span class="n">_privateuse1_backend_name</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">privateuse1_backend_name</span><span class="p">):</span>
-        <span class="n">ret</span><span class="p">[</span>
-            <span class="nb">getattr</span><span class="p">(</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">privateuse1_backend_name</span><span class="p">)</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="n">ret</span><span class="p">[</span>
-            <span class="nb">getattr</span><span class="p">(</span><span class="n">Tensor</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;is_</span><span class="si">{</span><span class="n">privateuse1_backend_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="fm">__get__</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># noqa: B009</span>
+        <span class="n">ret</span><span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">privateuse1_backend_name</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="n">ret</span><span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">Tensor</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;is_</span><span class="si">{</span><span class="n">privateuse1_backend_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="fm">__get__</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
 
     <span class="n">ret2</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">ignored</span> <span class="o">=</span> <span class="n">get_ignored_functions</span><span class="p">()</span>
@@ -2088,10 +2086,10 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; def dispatcher(a): # Must have the same signature as func</span>
+<span class="sd">    &gt;&gt;&gt; def dispatcher(a):  # Must have the same signature as func</span>
 <span class="sd">    ...     return (a,)</span>
 <span class="sd">    &gt;&gt;&gt; @torch.overrides.wrap_torch_function(dispatcher)</span>
-<span class="sd">    &gt;&gt;&gt; def func(a): # This will make func dispatchable by __torch_function__</span>
+<span class="sd">    &gt;&gt;&gt; def func(a):  # This will make func dispatchable by __torch_function__</span>
 <span class="sd">    ...     return a + 0</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

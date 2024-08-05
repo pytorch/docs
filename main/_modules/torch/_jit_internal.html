@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git6c65fd0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc7cfa51 ) &#x25BC</a>
     </div>
     
 
@@ -818,9 +818,11 @@
 <span class="sd">            cb = createResolutionCallbackFromFrame(1)</span>
 <span class="sd">            print(cb(&quot;foo&quot;))</span>
 
+
 <span class="sd">        def baz():</span>
 <span class="sd">            foo = 2</span>
 <span class="sd">            bar()</span>
+
 
 <span class="sd">        baz()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1248,6 +1250,7 @@
 <span class="sd">            import torch</span>
 <span class="sd">            import torch.nn as nn</span>
 
+
 <span class="sd">            class MyModule(nn.Module):</span>
 <span class="sd">                def __init__(self, use_memory_efficient):</span>
 <span class="sd">                    super().__init__()</span>
@@ -1256,6 +1259,7 @@
 <span class="sd">                @torch.jit.unused</span>
 <span class="sd">                def memory_efficient(self, x):</span>
 <span class="sd">                    import pdb</span>
+
 <span class="sd">                    pdb.set_trace()</span>
 <span class="sd">                    return x + 10</span>
 
@@ -1265,6 +1269,7 @@
 <span class="sd">                        return self.memory_efficient(x)</span>
 <span class="sd">                    else:</span>
 <span class="sd">                        return x + 10</span>
+
 
 <span class="sd">            m = torch.jit.script(MyModule(use_memory_efficient=False))</span>
 <span class="sd">            m.save(&quot;m.pt&quot;)</span>
@@ -1312,10 +1317,12 @@
 <span class="sd">        import torch</span>
 <span class="sd">        import torch.nn as nn</span>
 
+
 <span class="sd">        class MyModule(nn.Module):</span>
 <span class="sd">            @torch.jit.ignore</span>
 <span class="sd">            def debugger(self, x):</span>
 <span class="sd">                import pdb</span>
+
 <span class="sd">                pdb.set_trace()</span>
 
 <span class="sd">            def forward(self, x):</span>
@@ -1325,6 +1332,7 @@
 <span class="sd">                # to Python</span>
 <span class="sd">                self.debugger(x)</span>
 <span class="sd">                return x</span>
+
 
 <span class="sd">        m = torch.jit.script(MyModule())</span>
 

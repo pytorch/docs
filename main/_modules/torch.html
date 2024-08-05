@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git6c65fd0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc7cfa51 ) &#x25BC</a>
     </div>
     
 
@@ -1695,18 +1695,18 @@
 
 <span class="sd">        &gt;&gt;&gt; torch.set_default_dtype(torch.float64)</span>
 <span class="sd">        &gt;&gt;&gt; # Python floats are now interpreted as float64</span>
-<span class="sd">        &gt;&gt;&gt; torch.tensor([1.2, 3]).dtype    # a new floating point tensor</span>
+<span class="sd">        &gt;&gt;&gt; torch.tensor([1.2, 3]).dtype  # a new floating point tensor</span>
 <span class="sd">        torch.float64</span>
 <span class="sd">        &gt;&gt;&gt; # Complex Python numbers are now interpreted as complex128</span>
-<span class="sd">        &gt;&gt;&gt; torch.tensor([1.2, 3j]).dtype   # a new complex tensor</span>
+<span class="sd">        &gt;&gt;&gt; torch.tensor([1.2, 3j]).dtype  # a new complex tensor</span>
 <span class="sd">        torch.complex128</span>
 
 <span class="sd">        &gt;&gt;&gt; torch.set_default_dtype(torch.float16)</span>
 <span class="sd">        &gt;&gt;&gt; # Python floats are now interpreted as float16</span>
-<span class="sd">        &gt;&gt;&gt; torch.tensor([1.2, 3]).dtype    # a new floating point tensor</span>
+<span class="sd">        &gt;&gt;&gt; torch.tensor([1.2, 3]).dtype  # a new floating point tensor</span>
 <span class="sd">        torch.float16</span>
 <span class="sd">        &gt;&gt;&gt; # Complex Python numbers are now interpreted as complex128</span>
-<span class="sd">        &gt;&gt;&gt; torch.tensor([1.2, 3j]).dtype   # a new complex tensor</span>
+<span class="sd">        &gt;&gt;&gt; torch.tensor([1.2, 3j]).dtype  # a new complex tensor</span>
 <span class="sd">        torch.complex32</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2817,8 +2817,7 @@
     <span class="n">mode</span><span class="p">:</span> <span class="n">_Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">options</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">disable</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Callable</span><span class="p">[</span><span class="n">_InputT</span><span class="p">,</span> <span class="n">_RetT</span><span class="p">]:</span>
-    <span class="o">...</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Callable</span><span class="p">[</span><span class="n">_InputT</span><span class="p">,</span> <span class="n">_RetT</span><span class="p">]:</span> <span class="o">...</span>
 
 
 <span class="nd">@_overload</span>
@@ -2831,8 +2830,7 @@
     <span class="n">mode</span><span class="p">:</span> <span class="n">_Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">options</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">disable</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Callable</span><span class="p">[[</span><span class="n">_Callable</span><span class="p">[</span><span class="n">_InputT</span><span class="p">,</span> <span class="n">_RetT</span><span class="p">]],</span> <span class="n">_Callable</span><span class="p">[</span><span class="n">_InputT</span><span class="p">,</span> <span class="n">_RetT</span><span class="p">]]:</span>
-    <span class="o">...</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Callable</span><span class="p">[[</span><span class="n">_Callable</span><span class="p">[</span><span class="n">_InputT</span><span class="p">,</span> <span class="n">_RetT</span><span class="p">]],</span> <span class="n">_Callable</span><span class="p">[</span><span class="n">_InputT</span><span class="p">,</span> <span class="n">_RetT</span><span class="p">]]:</span> <span class="o">...</span>
 
 
 <div class="viewcode-block" id="compile"><a class="viewcode-back" href="../generated/torch.compile.html#torch.compile">[docs]</a><span class="k">def</span> <span class="nf">compile</span><span class="p">(</span>
@@ -2970,9 +2968,7 @@
         <span class="n">nopython</span><span class="o">=</span><span class="n">fullgraph</span><span class="p">,</span>
         <span class="n">dynamic</span><span class="o">=</span><span class="n">dynamic</span><span class="p">,</span>
         <span class="n">disable</span><span class="o">=</span><span class="n">disable</span><span class="p">,</span>
-    <span class="p">)(</span>
-        <span class="n">model</span>
-    <span class="p">)</span>  <span class="c1"># type: ignore[return-value]</span></div>
+    <span class="p">)(</span><span class="n">model</span><span class="p">)</span>  <span class="c1"># type: ignore[return-value]</span></div>
 
 
 <span class="k">def</span> <span class="nf">_register_device_module</span><span class="p">(</span><span class="n">device_type</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>

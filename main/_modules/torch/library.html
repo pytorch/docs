@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git6c65fd0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc7cfa51 ) &#x25BC</a>
     </div>
     
 
@@ -886,11 +886,7 @@
         <span class="k">assert</span> <span class="n">dispatch_key</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">fallback</span><span class="p">(</span>
-            <span class="n">dispatch_key</span><span class="p">,</span>
-            <span class="n">fn</span><span class="p">,</span>
-            <span class="n">with_keyset</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">fallback</span><span class="p">(</span><span class="n">dispatch_key</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">with_keyset</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1264,10 +1260,10 @@
 <span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; @torch.library.register_fake(&quot;mylib::custom_nonzero&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; def _(x):</span>
-<span class="sd">        &gt;&gt;&gt;     # Number of nonzero-elements is data-dependent.</span>
-<span class="sd">        &gt;&gt;&gt;     # Since we cannot peek at the data in an fake impl,</span>
-<span class="sd">        &gt;&gt;&gt;     # we use the ctx object to construct a new symint that</span>
-<span class="sd">        &gt;&gt;&gt;     # represents the data-dependent size.</span>
+<span class="sd">        &gt;&gt;&gt; # Number of nonzero-elements is data-dependent.</span>
+<span class="sd">        &gt;&gt;&gt; # Since we cannot peek at the data in an fake impl,</span>
+<span class="sd">        &gt;&gt;&gt; # we use the ctx object to construct a new symint that</span>
+<span class="sd">        &gt;&gt;&gt; # represents the data-dependent size.</span>
 <span class="sd">        &gt;&gt;&gt;     ctx = torch.library.get_ctx()</span>
 <span class="sd">        &gt;&gt;&gt;     nnz = ctx.new_dynamic_size()</span>
 <span class="sd">        &gt;&gt;&gt;     shape = [nnz, x.dim()]</span>
@@ -1371,11 +1367,13 @@
 <span class="sd">        &gt;&gt;&gt;     x, = ctx.saved_tensors</span>
 <span class="sd">        &gt;&gt;&gt;     return grad * x.cos()</span>
 <span class="sd">        &gt;&gt;&gt;</span>
-<span class="sd">        &gt;&gt;&gt; torch.library.register_autograd(&quot;mylib::numpy_sin&quot;, backward, setup_context=setup_context)</span>
+<span class="sd">        &gt;&gt;&gt; torch.library.register_autograd(</span>
+<span class="sd">        ...     &quot;mylib::numpy_sin&quot;, backward, setup_context=setup_context</span>
+<span class="sd">        ... )</span>
 <span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; x = torch.randn(3, requires_grad=True)</span>
 <span class="sd">        &gt;&gt;&gt; y = numpy_sin(x)</span>
-<span class="sd">        &gt;&gt;&gt; grad_x, = torch.autograd.grad(y, x, torch.ones_like(y))</span>
+<span class="sd">        &gt;&gt;&gt; (grad_x,) = torch.autograd.grad(y, x, torch.ones_like(y))</span>
 <span class="sd">        &gt;&gt;&gt; assert torch.allclose(grad_x, x.cos())</span>
 <span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; # Example with a keyword-only arg</span>
@@ -1391,11 +1389,13 @@
 <span class="sd">        &gt;&gt;&gt; def backward(ctx, grad):</span>
 <span class="sd">        &gt;&gt;&gt;     return grad * ctx.val</span>
 <span class="sd">        &gt;&gt;&gt;</span>
-<span class="sd">        &gt;&gt;&gt; torch.library.register_autograd(&quot;mylib::numpy_mul&quot;, backward, setup_context=setup_context)</span>
+<span class="sd">        &gt;&gt;&gt; torch.library.register_autograd(</span>
+<span class="sd">        ...     &quot;mylib::numpy_mul&quot;, backward, setup_context=setup_context</span>
+<span class="sd">        ... )</span>
 <span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; x = torch.randn(3, requires_grad=True)</span>
 <span class="sd">        &gt;&gt;&gt; y = numpy_mul(x, val=3.14)</span>
-<span class="sd">        &gt;&gt;&gt; grad_x, = torch.autograd.grad(y, x, torch.ones_like(y))</span>
+<span class="sd">        &gt;&gt;&gt; (grad_x,) = torch.autograd.grad(y, x, torch.ones_like(y))</span>
 <span class="sd">        &gt;&gt;&gt; assert torch.allclose(grad_x, torch.full_like(x, 3.14))</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
