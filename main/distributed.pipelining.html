@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc7cfa51 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+giteca0cb0 ) &#x25BC</a>
     </div>
     
 
@@ -566,7 +566,7 @@ etc.</p>
 <ul class="simple">
 <li><p>Splitting of model code based on simple specification.</p></li>
 <li><p>Rich support for pipeline schedules, including GPipe, 1F1B,
-Interleaved 1F1B and Looped BFS, and providing the infrastruture for writing
+Interleaved 1F1B and Looped BFS, and providing the infrastructure for writing
 customized schedules.</p></li>
 <li><p>First-class support for cross-host pipeline parallelism, as this is where PP
 is typically used (over slower interconnects).</p></li>
@@ -645,7 +645,7 @@ model.</p>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">tok_embeddings</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 
-        <span class="c1"># Using a ModuleDict lets us delete layers witout affecting names,</span>
+        <span class="c1"># Using a ModuleDict lets us delete layers without affecting names,</span>
         <span class="c1"># ensuring checkpoints will correctly save and load.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleDict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">layer_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">model_args</span><span class="o">.</span><span class="n">n_layers</span><span class="p">):</span>

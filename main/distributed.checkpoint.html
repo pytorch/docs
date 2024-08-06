@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc7cfa51 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+giteca0cb0 ) &#x25BC</a>
     </div>
     
 
@@ -1686,7 +1686,7 @@ allow_partial_load: If False, will raise a runtime error if a key is present in 
 
 <p>Due to legacy design decisions, the state dictionaries of <cite>FSDP</cite> and <cite>DDP</cite> may have different keys or fully qualified names (e.g., layer1.weight) even when the original unparallelized model is identical. Moreover, <cite>FSDP</cite> offers various types of model state dictionaries, such as full and sharded state dictionaries. Additionally, optimizer state dictionaries employ parameter IDs instead of fully qualified names to identify parameters, potentially causing issues when parallelisms are used (e.g., pipeline parallelism).</p>
 <p>To tackle these challenges, we offer a collection of APIs for users to easily manage state_dicts. <cite>get_model_state_dict</cite> returns a model state dictionary with keys consistent with those returned by the unparallelized model state dictionary. Similarly, <cite>get_optimizer_state_dict</cite> provides the optimizer state dictionary with keys uniform across all parallelisms applied. To achieve this consistency, <cite>get_optimizer_state_dict</cite> converts parameter IDs to fully qualified names identical to those found in the unparallelized model state dictionary.</p>
-<p>Note that results returned by hese APIs can be used directly with the <cite>torch.distributed.checkpoint.save()</cite> and <cite>torch.distributed.checkpoint.load()</cite> methods without requiring any additional conversions.</p>
+<p>Note that results returned by these APIs can be used directly with the <cite>torch.distributed.checkpoint.save()</cite> and <cite>torch.distributed.checkpoint.load()</cite> methods without requiring any additional conversions.</p>
 <p>Note that this feature is experimental, and API signatures might change in the future.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.state_dict.get_state_dict">

@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitc7cfa51 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+giteca0cb0 ) &#x25BC</a>
     </div>
     
 
@@ -535,7 +535,7 @@ will work in your code.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> performs TorchDynamo tracing on the whole user model.
 However, it is possible that a small part of the model code cannot be
-handeled by <code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code>. In this case, you might want to disable
+handled by <code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code>. In this case, you might want to disable
 the compiler on that particular portion, while running compilation on
 the rest of the model. This section describe the existing APIs that
 use to define parts of your code in which you want to skip compilation
@@ -553,7 +553,7 @@ disable compilation are listed in the following table:</p>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch.compiler.disable</span></code></p></td>
 <td><p>Disables Dynamo on the decorated function as well as recursively invoked functions.</p></td>
-<td><p>Excellent for unblocking a user, if a small portion of the model cannot be handeled with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p></td>
+<td><p>Excellent for unblocking a user, if a small portion of the model cannot be handled with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torch._dynamo.disallow_in_graph</span></code></p></td>
 <td><p>Disallows the marked op in the TorchDynamo graph. TorchDynamo causes graph break, and runs the op in the eager (no compile) mode.nnThis is suitable for the ops, while <code class="docutils literal notranslate"><span class="pre">torch.compiler.disable</span></code> is suitable for decorating functions.</p></td>
