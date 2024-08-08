@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitcbee9c1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf16d87e ) &#x25BC</a>
     </div>
     
 
@@ -1466,16 +1466,15 @@
     <span class="c1"># non-standard, and attributes of those submodules cannot be pickled since</span>
     <span class="c1"># pickle expect to be able to import them as &quot;from _C.sub import attr&quot;</span>
     <span class="c1"># which fails with &quot;_C is not a package</span>
-    <span class="k">def</span> <span class="nf">_import_extension_to_sys_modules</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">module_name</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
-            <span class="n">member</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismodule</span><span class="p">(</span><span class="n">member</span><span class="p">):</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">member</span><span class="p">)</span>
-                <span class="c1"># Recurse for submodules (e.g., `_C._dynamo.eval_frame`)</span>
-                <span class="n">_import_extension_to_sys_modules</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">__name</span><span class="p">,</span> <span class="n">__candidate</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">__name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">_C</span><span class="p">):</span>
+        <span class="n">__candidate</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_C</span><span class="p">,</span> <span class="n">__name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismodule</span><span class="p">(</span><span class="n">__candidate</span><span class="p">):</span>
+            <span class="c1"># submodule</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">._C.</span><span class="si">{</span><span class="n">__name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">__candidate</span><span class="p">)</span>
 
-    <span class="n">_import_extension_to_sys_modules</span><span class="p">(</span><span class="n">_C</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">._C&quot;</span><span class="p">)</span>
-    <span class="k">del</span> <span class="n">_import_extension_to_sys_modules</span>
+    <span class="k">del</span> <span class="n">__name</span><span class="p">,</span> <span class="n">__candidate</span>
+
 
 <span class="c1">################################################################################</span>
 <span class="c1"># Define basic utilities</span>
@@ -2631,14 +2630,11 @@
 
 
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_library</span> <span class="k">as</span> <span class="n">_library</span><span class="p">,</span> <span class="n">_ops</span> <span class="k">as</span> <span class="n">_ops</span>
+<span class="kn">from</span> <span class="nn">torch._classes</span> <span class="kn">import</span> <span class="n">classes</span> <span class="k">as</span> <span class="n">classes</span>
 
 
-<span class="c1"># Import the ops and classes &quot;namespace&quot;</span>
+<span class="c1"># Import the ops &quot;namespace&quot;</span>
 <span class="kn">from</span> <span class="nn">torch._ops</span> <span class="kn">import</span> <span class="n">ops</span> <span class="k">as</span> <span class="n">ops</span>  <span class="c1"># usort: skip</span>
-<span class="kn">from</span> <span class="nn">torch._classes</span> <span class="kn">import</span> <span class="n">classes</span> <span class="k">as</span> <span class="n">classes</span>  <span class="c1"># usort: skip</span>
-
-<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.ops&quot;</span><span class="p">,</span> <span class="n">ops</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.classes&quot;</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
 
 <span class="c1"># quantization depends on torch.fx and torch.ops</span>
 <span class="c1"># Import quantization</span>
@@ -3046,12 +3042,7 @@
     <span class="c1"># Import the following modules during type checking to enable code intelligence features,</span>
     <span class="c1"># such as auto-completion in tools like pylance, even when these modules are not explicitly</span>
     <span class="c1"># imported in user code.</span>
-    <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="p">(</span>
-        <span class="n">_dynamo</span> <span class="k">as</span> <span class="n">_dynamo</span><span class="p">,</span>
-        <span class="n">_inductor</span> <span class="k">as</span> <span class="n">_inductor</span><span class="p">,</span>
-        <span class="n">_subclasses</span> <span class="k">as</span> <span class="n">_subclasses</span><span class="p">,</span>
-        <span class="n">onnx</span> <span class="k">as</span> <span class="n">onnx</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_dynamo</span> <span class="k">as</span> <span class="n">_dynamo</span><span class="p">,</span> <span class="n">_inductor</span> <span class="k">as</span> <span class="n">_inductor</span><span class="p">,</span> <span class="n">onnx</span> <span class="k">as</span> <span class="n">onnx</span>
 
 <span class="k">else</span><span class="p">:</span>
     <span class="n">_lazy_modules</span> <span class="o">=</span> <span class="p">{</span>
