@@ -298,12 +298,12 @@ Result:
                 getitem: "f32[3, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class <lambda>(torch.nn.Module):
+            class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
-            class <lambda>(torch.nn.Module):
+            class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
@@ -377,21 +377,22 @@ Result:
                 sym_size_int_1: "Sym(s0)" = torch.ops.aten.sym_size.int(x, 0)
                 
                      gt: "Sym(s0 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
-                true_graph_0 = self.true_graph_0
+                
+                     true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [x, y]);  gt = true_graph_0 = false_graph_0 = x = y = None
                 getitem: "f32[s0, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class <lambda>(torch.nn.Module):
+            class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
-                             add: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
-                    return (add,)
+                             add_3: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
+                    return (add_3,)
                     
-            class <lambda>(torch.nn.Module):
+            class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
-                             sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
-                    return (sub,)
+                             sub_1: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
+                    return (sub_1,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {s0: VR[0, int_oo]}

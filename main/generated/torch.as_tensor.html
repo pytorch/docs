@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf16d87e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git10c2168 ) &#x25BC</a>
     </div>
     
 
@@ -538,6 +538,8 @@ tensor with a different dtype or device then it’s copied as if using
 <cite>data.to(dtype=dtype, device=device)</cite>.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> is a NumPy array (an ndarray) with the same dtype and device then a
 tensor is constructed using <a class="reference internal" href="torch.from_numpy.html#torch.from_numpy" title="torch.from_numpy"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.from_numpy()</span></code></a>.</p>
+<p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> is a CuPy array, the returned tensor will be located on the same device as the CuPy array unless
+specifically overwritten by <a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code></a> or a default device.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="torch.tensor.html#torch.tensor" title="torch.tensor"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.tensor()</span></code></a> never shares its data and creates a new “leaf tensor” (see <a class="reference internal" href="../notes/autograd.html"><span class="doc">Autograd mechanics</span></a>).</p>

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf16d87e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git10c2168 ) &#x25BC</a>
     </div>
     
 
@@ -770,9 +770,7 @@
 
         <span class="n">map_aggregate</span><span class="p">(</span><span class="n">args_recv_info</span><span class="p">,</span> <span class="n">map_recv_to_send</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Grad send info: </span><span class="si">{</span><span class="n">grad_send_info</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Grad send info: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">grad_send_info</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">grad_send_info</span>
 
     <span class="nd">@abstractmethod</span>
@@ -865,8 +863,10 @@
                 <span class="k">if</span> <span class="n">dst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">continue</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> &quot;</span>  <span class="c1"># noqa: G004</span>
-                    <span class="sa">f</span><span class="s2">&quot;Sending tensor to Stage </span><span class="si">{</span><span class="n">dst</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">out</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Sending tensor to Stage </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span>
+                    <span class="n">dst</span><span class="p">,</span>
+                    <span class="n">out</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
                 <span class="p">)</span>
                 <span class="n">peer_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">[</span><span class="n">dst</span><span class="p">]</span>
                 <span class="n">peer_global_rank</span> <span class="o">=</span> <span class="p">(</span>
@@ -899,8 +899,10 @@
         <span class="k">for</span> <span class="n">grad</span><span class="p">,</span> <span class="n">grad_recv_stage</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_send_info</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="n">grad_recv_stage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> &quot;</span>  <span class="c1"># noqa: G004</span>
-                    <span class="sa">f</span><span class="s2">&quot;Sending gradient to Stage </span><span class="si">{</span><span class="n">grad_recv_stage</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">grad</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Sending gradient to Stage </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span>
+                    <span class="n">grad_recv_stage</span><span class="p">,</span>
+                    <span class="n">grad</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
                 <span class="p">)</span>
                 <span class="n">peer_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">[</span><span class="n">grad_recv_stage</span><span class="p">]</span>
                 <span class="n">peer_global_rank</span> <span class="o">=</span> <span class="p">(</span>
@@ -1083,7 +1085,10 @@
         <span class="p">)</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Forwarded chunk </span><span class="si">{</span><span class="n">fwd_chunk_id</span><span class="si">}</span><span class="s2">, outputs: </span><span class="si">{</span><span class="n">map_debug_info</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
+            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Forwarded chunk </span><span class="si">%s</span><span class="s2">, outputs: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span>
+            <span class="n">fwd_chunk_id</span><span class="p">,</span>
+            <span class="n">map_debug_info</span><span class="p">(</span><span class="n">output</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_fwd_outputs</span><span class="p">(</span><span class="n">output_tuple</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span>
@@ -1134,7 +1139,7 @@
             <span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Backwarded chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># noqa: G004</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Backwarded chunk </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">full_backward</span><span class="p">:</span>
             <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">,</span> <span class="s2">&quot;Must provide dw_builder to run partial backward&quot;</span>
@@ -1239,8 +1244,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">submod_nodes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span><span class="si">}</span><span class="s2">] &quot;</span>  <span class="c1"># noqa: G004</span>
-            <span class="sa">f</span><span class="s2">&quot;Creating PipelineStage </span><span class="si">{</span><span class="n">stage_index</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">] Creating PipelineStage </span><span class="si">%s</span><span class="s2"> for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span><span class="p">,</span>
+            <span class="n">stage_index</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Create mapping from stage name to stage index</span>
@@ -1260,7 +1267,7 @@
             <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">FakeTensor</span><span class="p">)</span> <span class="ow">or</span> <span class="n">p</span><span class="o">.</span><span class="n">is_meta</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">has_meta_param</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Found meta parameters!&quot;</span><span class="p">)</span>  <span class="c1"># noqa: G004</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Found meta parameters!&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
@@ -1318,9 +1325,11 @@
 
             <span class="c1"># Create a receive buffer for this placeholder</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> &quot;</span>  <span class="c1"># noqa: G004</span>
-                <span class="sa">f</span><span class="s2">&quot;Creating recv buffer for input &#39;</span><span class="si">{</span><span class="n">placeholder</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;: </span><span class="si">{</span><span class="n">example_value</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">example_value</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Creating recv buffer for input &#39;</span><span class="si">%s</span><span class="s2">&#39; : </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span>
+                <span class="n">placeholder</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">example_value</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="n">example_value</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">buffer</span> <span class="o">=</span> <span class="n">_make_tensor_from_meta</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
@@ -1344,8 +1353,7 @@
             <span class="n">args_recv_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recv_info</span><span class="p">)</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> &quot;</span>  <span class="c1"># noqa: G004</span>
-            <span class="sa">f</span><span class="s2">&quot;Activation recv / args info: </span><span class="si">{</span><span class="n">args_recv_info</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Activation recv / args info: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">args_recv_info</span>
         <span class="p">)</span>
         <span class="c1"># `args` is a Tuple, hence we will return a Tuple[InputInfo]</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">args_recv_info</span><span class="p">)</span>
@@ -1407,7 +1415,7 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_configure_outputs_meta</span><span class="p">(</span><span class="n">output_vals</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="sa">f</span><span class="s2">&quot;Send info: </span><span class="si">{</span><span class="n">act_send_info</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># noqa: G004</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Send info: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">act_send_info</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">act_send_info</span>
 
     <span class="k">def</span> <span class="nf">_get_output_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1453,9 +1461,7 @@
 
         <span class="c1"># Convert to tuple for convenience in get_ops and retrieve tensor</span>
         <span class="n">grad_recv_info_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grad_recv_info</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Grad recv info: </span><span class="si">{</span><span class="n">grad_recv_info_tuple</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Grad recv info: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">grad_recv_info_tuple</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">grad_recv_info_tuple</span>
 
 
@@ -1877,8 +1883,7 @@
         <span class="c1"># log only rank 0&#39;s view, they will all be equivalent</span>
         <span class="k">if</span> <span class="n">pg_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;all stage inputs: </span><span class="si">{</span><span class="n">all_inputs</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa: G004</span>
-                <span class="sa">f</span><span class="s2">&quot;all stage outputs: </span><span class="si">{</span><span class="n">all_outputs</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;all stage inputs: </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> all stage outputs: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">all_inputs</span><span class="p">,</span> <span class="n">all_outputs</span>
             <span class="p">)</span>
 
     <span class="c1"># Check if the output for stage 0 matches the input at stage 1, and so forth</span>

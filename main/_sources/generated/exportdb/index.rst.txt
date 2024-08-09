@@ -505,12 +505,12 @@ Result:
                 getitem: "f32[3, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class <lambda>(torch.nn.Module):
+            class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
                     return (mul,)
                     
-            class <lambda>(torch.nn.Module):
+            class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[3, 2]"):
                              sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(x, 2);  x = None
                     return (sub,)
@@ -584,21 +584,22 @@ Result:
                 sym_size_int_1: "Sym(s0)" = torch.ops.aten.sym_size.int(x, 0)
                 
                      gt: "Sym(s0 > 2)" = sym_size_int_1 > 2;  sym_size_int_1 = None
-                true_graph_0 = self.true_graph_0
+                
+                     true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(gt, true_graph_0, false_graph_0, [x, y]);  gt = true_graph_0 = false_graph_0 = x = y = None
                 getitem: "f32[s0, 2]" = cond[0];  cond = None
                 return (getitem,)
                 
-            class <lambda>(torch.nn.Module):
+            class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
-                             add: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
-                    return (add,)
+                             add_3: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
+                    return (add_3,)
                     
-            class <lambda>(torch.nn.Module):
+            class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
-                             sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
-                    return (sub,)
+                             sub_1: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
+                    return (sub_1,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {s0: VR[0, int_oo]}
@@ -715,8 +716,8 @@ Result:
                 
                  # 
                 sym_constrain_range_for_size_default = torch.ops.aten.sym_constrain_range_for_size.default(item);  sym_constrain_range_for_size_default = None
-                ge_1: "Sym(u0 >= 0)" = item >= 0
-                _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_1, "Runtime assertion failed for expression u0 >= 0 on node 'ge_1'");  ge_1 = _assert_scalar_default = None
+                ge_3: "Sym(u0 >= 0)" = item >= 0
+                _assert_scalar_default = torch.ops.aten._assert_scalar.default(ge_3, "Runtime assertion failed for expression u0 >= 0 on node 'ge_3'");  ge_3 = _assert_scalar_default = None
                 le_1: "Sym(u0 <= 5)" = item <= 5
                 _assert_scalar_default_1 = torch.ops.aten._assert_scalar.default(le_1, "Runtime assertion failed for expression u0 <= 5 on node 'le_1'");  le_1 = _assert_scalar_default_1 = None
                 
@@ -1056,7 +1057,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
+    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1099,7 +1100,7 @@ Result:
                 getitem: "f32[3, 2]" = map_impl[0];  map_impl = None
                 return (getitem,)
                 
-            class <lambda>(torch.nn.Module):
+            class body_graph_0(torch.nn.Module):
                 def forward(self, xs: "f32[2]", y: "f32[2]"):
                              add: "f32[2]" = torch.ops.aten.add.Tensor(xs, y);  xs = y = None
                     return (add,)
@@ -1284,7 +1285,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1597,8 +1598,7 @@ Result:
                  # 
                 sym_size_int_1: "Sym(s0)" = torch.ops.aten.sym_size.int(x, 1);  x = None
                 
-                # No stacktrace found for following nodes
-                add: "Sym(s0 + 1)" = sym_size_int_1 + 1;  sym_size_int_1 = None
+                     add: "Sym(s0 + 1)" = sym_size_int_1 + 1;  sym_size_int_1 = None
                 return (add,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=SymIntArgument(name='add'), target=None)])
@@ -2107,6 +2107,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f6e8859c940>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f76d5664940>
 
 
