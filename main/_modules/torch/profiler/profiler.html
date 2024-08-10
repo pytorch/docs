@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git10c2168 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git72f2b29 ) &#x25BC</a>
     </div>
     
 
@@ -620,6 +620,8 @@
 <span class="sd">            representation of AI/ML workloads and enable replay benchmarks, simulators, and emulators.</span>
 <span class="sd">            When this argument is included the observer start() and stop() will be called for the</span>
 <span class="sd">            same time window as PyTorch profiler.</span>
+<span class="sd">        acc_events (bool): Enable the accumulation of FunctionEvents across multiple profiling cycles</span>
+
 
 <span class="sd">    .. note::</span>
 <span class="sd">        This API is experimental and subject to change in the future.</span>
@@ -641,6 +643,7 @@
         <span class="n">with_modules</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">experimental_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ExperimentalConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">execution_trace_observer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ITraceObserver</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">acc_events</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">activities</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">activities</span><span class="p">)</span> <span class="k">if</span> <span class="n">activities</span> <span class="k">else</span> <span class="n">supported_activities</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">record_shapes</span> <span class="o">=</span> <span class="n">record_shapes</span>
@@ -650,6 +653,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">with_modules</span> <span class="o">=</span> <span class="n">with_modules</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">experimental_config</span> <span class="o">=</span> <span class="n">experimental_config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">execution_trace_observer</span> <span class="o">=</span> <span class="n">execution_trace_observer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acc_events</span> <span class="o">=</span> <span class="n">acc_events</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">prof</span><span class="o">.</span><span class="n">profile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mem_tl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MemoryProfileTimeline</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_device</span> <span class="o">=</span> <span class="kc">None</span>
@@ -673,7 +677,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stop_trace</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">prepare_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profiler</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc_events</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span> <span class="o">=</span> <span class="n">prof</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span>
                 <span class="n">use_cpu</span><span class="o">=</span><span class="p">(</span><span class="n">ProfilerActivity</span><span class="o">.</span><span class="n">CPU</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">),</span>
                 <span class="n">use_device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_device</span><span class="p">,</span>
@@ -684,6 +688,7 @@
                 <span class="n">with_modules</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">with_modules</span><span class="p">,</span>
                 <span class="n">use_kineto</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">experimental_config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experimental_config</span><span class="p">,</span>
+                <span class="n">acc_events</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">acc_events</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">_prepare_trace</span><span class="p">()</span>
 
@@ -758,6 +763,20 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">export_stacks</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="_KinetoProfile.toggle_collection_dynamic"><a class="viewcode-back" href="../../../profiler.html#torch.profiler._KinetoProfile.toggle_collection_dynamic">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_collection_dynamic</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">enable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">activities</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ProfilerActivity</span><span class="p">]</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle collection of activities on/off</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            activities (iterable): list of activity groups (CPU, CUDA) to use in profiling, supported values:</span>
+<span class="sd">                ``torch.profiler.ProfilerActivity.CPU``, ``torch.profiler.ProfilerActivity.CUDA``,</span>
+<span class="sd">                ``torch.profiler.ProfilerActivity.XPU``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">toggle_collection_dynamic</span><span class="p">(</span><span class="n">enable</span><span class="p">,</span> <span class="n">activities</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="_KinetoProfile.key_averages"><a class="viewcode-back" href="../../../profiler.html#torch.profiler._KinetoProfile.key_averages">[docs]</a>    <span class="k">def</span> <span class="nf">key_averages</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">group_by_input_shape</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">group_by_stack_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1003,6 +1022,7 @@
 <span class="sd">            representation of AI/ML workloads and enable replay benchmarks, simulators, and emulators.</span>
 <span class="sd">            When this argument is included the observer start() and stop() will be called for the</span>
 <span class="sd">            same time window as PyTorch profiler. See the examples section below for a code sample.</span>
+<span class="sd">        acc_events (bool): Enable the accumulation of FunctionEvents across multiple profiling cycles</span>
 <span class="sd">        use_cuda (bool):</span>
 <span class="sd">            .. deprecated:: 1.8.1</span>
 <span class="sd">                use ``activities`` instead.</span>
@@ -1120,6 +1140,7 @@
         <span class="n">with_modules</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">experimental_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ExperimentalConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">execution_trace_observer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ITraceObserver</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">acc_events</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="c1"># deprecated:</span>
         <span class="n">use_cuda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -1145,6 +1166,7 @@
             <span class="n">with_modules</span><span class="o">=</span><span class="n">with_modules</span><span class="p">,</span>
             <span class="n">experimental_config</span><span class="o">=</span><span class="n">experimental_config</span><span class="p">,</span>
             <span class="n">execution_trace_observer</span><span class="o">=</span><span class="n">execution_trace_observer</span><span class="p">,</span>
+            <span class="n">acc_events</span><span class="o">=</span><span class="n">acc_events</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">schedule</span><span class="p">:</span>

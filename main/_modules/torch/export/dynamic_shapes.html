@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git10c2168 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git72f2b29 ) &#x25BC</a>
     </div>
     
 
@@ -537,9 +537,13 @@
 <span class="kn">from</span> <span class="nn">torch.utils._pytree</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_get_node_type</span><span class="p">,</span>
     <span class="n">BUILTIN_TYPES</span><span class="p">,</span>
+    <span class="n">keystr</span><span class="p">,</span>
+    <span class="n">LeafSpec</span><span class="p">,</span>
+    <span class="n">MappingKey</span><span class="p">,</span>
+    <span class="n">SequenceKey</span><span class="p">,</span>
     <span class="n">SUPPORTED_NODES</span><span class="p">,</span>
     <span class="n">tree_flatten</span><span class="p">,</span>
-    <span class="n">tree_map</span><span class="p">,</span>
+    <span class="n">tree_map_with_path</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">.exported_program</span> <span class="kn">import</span> <span class="n">ExportedProgram</span>
@@ -1108,10 +1112,11 @@
         <span class="n">derived_equalities</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">fn</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">_tree_map</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_tree_map_with_path</span><span class="p">(</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">tree</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="o">*</span><span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">tree_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Customized tree_map for mapping pytrees to dynamic_shapes.</span>
@@ -1139,22 +1144,96 @@
         <span class="c1"># as well as user-defined classes registered with pytree, which are.</span>
         <span class="k">return</span> <span class="n">_get_node_type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">BUILTIN_TYPES</span>
 
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">dynamic_shapes</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">dynamic_shapes</span><span class="p">):</span>
         <span class="n">typ</span> <span class="o">=</span> <span class="n">_get_node_type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
         <span class="c1"># typ is not in BUILTIN_TYPES</span>
         <span class="k">if</span> <span class="n">typ</span> <span class="ow">in</span> <span class="n">SUPPORTED_NODES</span><span class="p">:</span>
             <span class="c1"># thus typ is a user-defined class registered with pytree,</span>
             <span class="c1"># in which case flatten and recurse</span>
-            <span class="k">return</span> <span class="n">tree_map</span><span class="p">(</span>
+            <span class="k">return</span> <span class="n">tree_map_with_path</span><span class="p">(</span>
                 <span class="n">f</span><span class="p">,</span>
                 <span class="n">SUPPORTED_NODES</span><span class="p">[</span><span class="n">typ</span><span class="p">]</span><span class="o">.</span><span class="n">flatten_fn</span><span class="p">(</span><span class="n">t</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
                 <span class="o">*</span><span class="n">dynamic_shapes</span><span class="p">,</span>
                 <span class="n">is_leaf</span><span class="o">=</span><span class="n">is_leaf</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">dynamic_shapes</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">dynamic_shapes</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">tree_map</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="o">*</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">is_leaf</span><span class="o">=</span><span class="n">is_leaf</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tree_map_with_path</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="o">*</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">is_leaf</span><span class="o">=</span><span class="n">is_leaf</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;mismatch&quot;</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="c1"># When PyTree finds a structural mismatch between tree and dynamic_shapes,</span>
+            <span class="c1"># the error message is unfortunately quite horrible. Let&#39;s fix that.</span>
+            <span class="k">assert</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="s2">&quot;Cannot be a mismatch if there is no dynamic_shapes&quot;</span>
+            <span class="k">assert</span> <span class="n">tree_name</span><span class="p">,</span> <span class="s2">&quot;Must provide a tree_name when there might be a mismatch&quot;</span>
+
+            <span class="k">def</span> <span class="nf">_key</span><span class="p">(</span><span class="n">type_</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+                <span class="c1"># derive a PyTree key given the type, context, and child # of a TreeSpec</span>
+                <span class="k">if</span> <span class="n">type_</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">MappingKey</span><span class="p">(</span><span class="n">context</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">type_</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                    <span class="k">assert</span> <span class="n">context</span> <span class="ow">is</span> <span class="kc">None</span>
+                    <span class="k">return</span> <span class="n">SequenceKey</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Did not expect type </span><span class="si">{</span><span class="n">type_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">raise_mismatch_error</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+                <span class="kn">from</span> <span class="nn">torch._dynamo.exc</span> <span class="kn">import</span> <span class="n">UserError</span><span class="p">,</span> <span class="n">UserErrorType</span>
+
+                <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
+                    <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Detected mismatch between the structure of `</span><span class="si">{</span><span class="n">tree_name</span><span class="si">}</span><span class="s2">` and `dynamic_shapes`: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">_compare</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+                <span class="c1"># raise an error at the point where tree and dynamic_shapes differ,</span>
+                <span class="c1"># including the path to that point and the reason for the difference</span>
+                <span class="n">rendered_path</span> <span class="o">=</span> <span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">LeafSpec</span><span class="p">):</span>
+                    <span class="k">return</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">LeafSpec</span><span class="p">):</span>
+                    <span class="n">raise_mismatch_error</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">tree_name</span><span class="si">}{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` is a </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">, &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;but `dynamic_shapes</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` is not&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+                    <span class="n">raise_mismatch_error</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">tree_name</span><span class="si">}{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` is a </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">, &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;but `dynamic_shapes</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` is a </span><span class="si">{</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">children_specs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">children_specs</span><span class="p">):</span>
+                    <span class="n">raise_mismatch_error</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">tree_name</span><span class="si">}{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">children_specs</span><span class="p">)</span><span class="si">}</span><span class="s2"> elements, &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;but `dynamic_shapes</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">children_specs</span><span class="p">)</span><span class="si">}</span><span class="s2"> elements&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                    <span class="c1"># context, children could be out of order</span>
+                    <span class="k">if</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">context</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">context</span><span class="p">):</span>
+                        <span class="n">raise_mismatch_error</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">tree_name</span><span class="si">}{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` has keys </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">context</span><span class="si">}</span><span class="s2">, &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;but `dynamic_shapes</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` has keys </span><span class="si">{</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">context</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
+                    <span class="n">_remap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                        <span class="nb">zip</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">children_specs</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="n">dynamic_shapes_children_specs</span> <span class="o">=</span> <span class="p">[</span><span class="n">_remap</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">context</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">dynamic_shapes_children_specs</span> <span class="o">=</span> <span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">children_specs</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">tree_</span><span class="p">,</span> <span class="n">dynamic_shapes_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                    <span class="nb">zip</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">children_specs</span><span class="p">,</span> <span class="n">dynamic_shapes_children_specs</span><span class="p">)</span>
+                <span class="p">):</span>
+                    <span class="n">_compare</span><span class="p">(</span>
+                        <span class="n">tree_</span><span class="p">,</span>
+                        <span class="n">dynamic_shapes_</span><span class="p">,</span>
+                        <span class="n">path</span> <span class="o">+</span> <span class="p">[</span><span class="n">_key</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="n">i</span><span class="p">)],</span>
+                    <span class="p">)</span>
+
+            <span class="n">_</span><span class="p">,</span> <span class="n">tree_spec</span> <span class="o">=</span> <span class="n">tree_flatten</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">is_leaf</span><span class="o">=</span><span class="n">is_leaf</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">other_tree</span> <span class="ow">in</span> <span class="n">dynamic_shapes</span><span class="p">:</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">other_tree_spec</span> <span class="o">=</span> <span class="n">tree_flatten</span><span class="p">(</span><span class="n">other_tree</span><span class="p">,</span> <span class="n">is_leaf</span><span class="p">)</span>
+                <span class="n">_compare</span><span class="p">(</span><span class="n">tree_spec</span><span class="p">,</span> <span class="n">other_tree_spec</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">raise</span>
 
 
 <span class="k">def</span> <span class="nf">_combine_args</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">_is_torch_jit_trace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
@@ -1225,7 +1304,7 @@
 
         <span class="n">t_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-        <span class="k">def</span> <span class="nf">find_shape</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">find_shape</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
             <span class="n">t_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">t_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shapes</span><span class="p">:</span>
                 <span class="n">t_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t_id</span><span class="p">)</span>
@@ -1234,7 +1313,7 @@
                 <span class="k">return</span> <span class="kc">None</span>
 
         <span class="n">combined_args</span> <span class="o">=</span> <span class="n">_combine_args</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="n">_tree_map</span><span class="p">(</span><span class="n">find_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">)</span>
+        <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="n">_tree_map_with_path</span><span class="p">(</span><span class="n">find_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">t_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">t_ids</span> <span class="k">for</span> <span class="n">t_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shapes</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Some tensors that were assigned shapes were not found in args. &quot;</span>
@@ -1362,7 +1441,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">bounds</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">update_symbols</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">update_symbols</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">_create_static_dim</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">_StaticDim</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="p">(</span><span class="nb">int</span><span class="p">,),</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
 
@@ -1378,8 +1457,10 @@
                     <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
                             <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                            <span class="sa">f</span><span class="s2">&quot;Unexpected item #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">) in dynamic_shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> of Tensor, &quot;</span>
-                            <span class="s2">&quot;try None instead&quot;</span><span class="p">,</span>
+                            <span class="sa">f</span><span class="s2">&quot;Unexpected dimension mapped to index </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> in input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;(expected None, an int, or a Dim, but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2"> instead)&quot;</span><span class="p">,</span>
+                            <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
                         <span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
@@ -1393,34 +1474,71 @@
                     <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
                             <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                            <span class="sa">f</span><span class="s2">&quot;Unexpected item #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">) in dynamic_shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> of Tensor, &quot;</span>
-                            <span class="s2">&quot;try None instead&quot;</span><span class="p">,</span>
+                            <span class="sa">f</span><span class="s2">&quot;Unexpected dimension #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> in input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;(expected None, an int, or a Dim, but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2"> instead)&quot;</span><span class="p">,</span>
+                            <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
                         <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
                     <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s2">&quot;Unexpected dynamic_shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> of Tensor, &quot;</span> <span class="s2">&quot;try None instead&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unexpected input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;(expected either a list/tuple of dimensions, or a dict mapping indices to dimensions,&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; where each dimension is None, an int, or a Dim)&quot;</span><span class="p">,</span>
+                    <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">assoc_shapes</span><span class="p">(</span><span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">assoc_shape</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">assoc_shape</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-                <span class="n">update_symbols</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">)</span>
+                <span class="n">update_symbols</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">dynamic_shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">rendered_path</span> <span class="o">=</span> <span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
                     <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
                         <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                        <span class="sa">f</span><span class="s2">&quot;Cannot associate shape </span><span class="si">{</span><span class="n">dynamic_shape</span><span class="si">}</span><span class="s2"> to non-tensor type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">}</span><span class="s2">, &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;expected None&quot;</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s2">&quot;Cannot associate shape </span><span class="si">{</span><span class="n">dynamic_shape</span><span class="si">}</span><span class="s2"> specified at `dynamic_shapes</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;to non-tensor type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">}</span><span class="s2"> at `inputs</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` (expected None)&quot;</span><span class="p">,</span>
+                        <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
                     <span class="p">)</span>
 
-        <span class="n">_tree_map</span><span class="p">(</span><span class="n">assoc_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">)</span>
+        <span class="n">_tree_map_with_path</span><span class="p">(</span>
+            <span class="n">assoc_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">tree_name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span>
+        <span class="p">)</span>
 
     <span class="n">combined_args</span> <span class="o">=</span> <span class="n">_combine_args</span><span class="p">(</span>
         <span class="n">f</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">_is_torch_jit_trace</span><span class="o">=</span><span class="n">_is_torch_jit_trace</span>
     <span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">got_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">expected_arg_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">combined_args</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">if</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">got_keys</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">expected_arg_names</span><span class="p">):</span>
+            <span class="c1"># This error would be caught by `assoc_shapes` below, but we can give</span>
+            <span class="c1"># a more helpful error message here.</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;When `dynamic_shapes` is specified as a dict, its top-level keys &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;must be the arg names </span><span class="si">{</span><span class="n">expected_arg_names</span><span class="si">}</span><span class="s2"> of `inputs`, but &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;here they are </span><span class="si">{</span><span class="n">got_keys</span><span class="si">}</span><span class="s2">. &quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">combined_args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+                <span class="ow">and</span> <span class="n">expected_arg_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">got_keys</span>
+                <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">combined_args</span><span class="p">[</span><span class="n">expected_arg_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="s2">&quot;Since here `inputs` is a list/tuple enclosing a single dict, &quot;</span>
+                    <span class="s2">&quot;maybe you just forgot to enclose `dynamic_shapes` in a list/tuple?&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="s2">&quot;Alternatively, you could also ignore arg names entirely &quot;</span>
+                    <span class="s2">&quot;and specify `dynamic_shapes` as a list/tuple matching `inputs`.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
+                <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span>
         <span class="n">combined_args</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)(</span><span class="n">combined_args</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># type: ignore[assignment, misc]</span>
     <span class="n">assoc_shapes</span><span class="p">(</span><span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">)</span>
@@ -1568,7 +1686,7 @@
     <span class="c1"># cache so we don&#39;t produce multiple derived dim objects</span>
     <span class="n">derived_dim_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_DerivedDim</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">apply_fixes</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dummy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">apply_fixes</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">dummy</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>  <span class="c1"># not dynamic</span>
             <span class="k">return</span> <span class="n">dim</span>
         <span class="k">elif</span> <span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">in</span> <span class="n">shape_fixes</span><span class="p">:</span>  <span class="c1"># directly fix</span>
@@ -1604,7 +1722,7 @@
                 <span class="k">return</span> <span class="n">_dim</span>
         <span class="k">return</span> <span class="n">dim</span>  <span class="c1"># unchanged dim</span>
 
-    <span class="k">return</span> <span class="n">_tree_map</span><span class="p">(</span><span class="n">apply_fixes</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_tree_map_with_path</span><span class="p">(</span><span class="n">apply_fixes</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">)</span></div>
 </pre></div>
 
              </article>

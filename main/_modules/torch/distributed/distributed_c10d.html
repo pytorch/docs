@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git10c2168 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git72f2b29 ) &#x25BC</a>
     </div>
     
 
@@ -3828,7 +3828,7 @@
 <span class="sd">        &gt;&gt;&gt; tensor_list = [torch.zeros(2, dtype=torch.int64, device=device) for _ in range(2)]</span>
 <span class="sd">        &gt;&gt;&gt; tensor_list</span>
 <span class="sd">        [tensor([0, 0], device=&#39;cuda:0&#39;), tensor([0, 0], device=&#39;cuda:0&#39;)] # Rank 0</span>
-<span class="sd">        [tensor([0, 0], device=&#39;cuda:0&#39;), tensor([0, 0], device=&#39;cuda:1&#39;)] # Rank 1</span>
+<span class="sd">        [tensor([0, 0], device=&#39;cuda:1&#39;), tensor([0, 0], device=&#39;cuda:1&#39;)] # Rank 1</span>
 <span class="sd">        &gt;&gt;&gt; tensor = torch.arange(2, dtype=torch.int64, device=device) + 1 + 2 * rank</span>
 <span class="sd">        &gt;&gt;&gt; tensor</span>
 <span class="sd">        tensor([1, 2], device=&#39;cuda:0&#39;) # Rank 0</span>
@@ -5034,12 +5034,21 @@
 <span class="sd">    should be created in the same order in all processes.</span>
 
 <span class="sd">    .. warning::</span>
-<span class="sd">        Using multiple process groups with the ``NCCL`` backend concurrently</span>
-<span class="sd">        is not safe and the user should perform explicit synchronization in</span>
-<span class="sd">        their application to ensure only one process group is used at a time.</span>
-<span class="sd">        This means collectives from one process group should have completed</span>
-<span class="sd">        execution on the device (not just enqueued since CUDA execution is</span>
-<span class="sd">        async) before collectives from another process group are enqueued.</span>
+<span class="sd">        Safe concurrent usage:</span>
+<span class="sd">        When using multiple process groups with the ``NCCL`` backend, the user</span>
+<span class="sd">        must ensure a globally consistent execution order of collectives across</span>
+<span class="sd">        ranks.</span>
+
+<span class="sd">        If multiple threads within a process issue collectives, explicit</span>
+<span class="sd">        synchronization is necessary to ensure consistent ordering.</span>
+
+<span class="sd">        When using async variants of torch.distributed communication APIs,</span>
+<span class="sd">        a work object is returned and the communication kernel is</span>
+<span class="sd">        enqueued on a separate CUDA stream, allowing overlap of communication</span>
+<span class="sd">        and computation. Once one or more async ops have been issued on one process</span>
+<span class="sd">        group, they must be synchronized with other cuda streams by calling `work.wait()`</span>
+<span class="sd">        before using another process group.</span>
+
 <span class="sd">        See `Using multiple NCCL communicators concurrently &lt;https://docs.nvid</span>
 <span class="sd">        ia.com/deeplearning/nccl/user-guide/docs/usage/communicators.html#using</span>
 <span class="sd">        -multiple-nccl-communicators-concurrently&gt;`_ for more details.</span>
@@ -5242,15 +5251,8 @@
 <span class="sd">        pass in ``group_size`` correctly.</span>
 
 <span class="sd">    .. warning::</span>
-<span class="sd">        Using multiple process groups with the ``NCCL`` backend concurrently</span>
-<span class="sd">        is not safe and the user should perform explicit synchronization in</span>
-<span class="sd">        their application to ensure only one process group is used at a time.</span>
-<span class="sd">        This means collectives from one process group should have completed</span>
-<span class="sd">        execution on the device (not just enqueued since CUDA execution is</span>
-<span class="sd">        async) before collectives from another process group are enqueued.</span>
-<span class="sd">        See `Using multiple NCCL communicators concurrently &lt;https://docs.nvid</span>
-<span class="sd">        ia.com/deeplearning/nccl/user-guide/docs/usage/communicators.html#using</span>
-<span class="sd">        -multiple-nccl-communicators-concurrently&gt;`_ for more details.</span>
+<span class="sd">        See warning `Safe concurrent usage` for `new_group` API for important details about</span>
+<span class="sd">        using multiple process groups concurrently in a safe manner.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        group_size (int, optional): The size of each subgroup. If ``None``,</span>
@@ -5353,15 +5355,8 @@
 <span class="sd">    if they are not going to be members of the group.</span>
 
 <span class="sd">    .. warning::</span>
-<span class="sd">        Using multiple process groups with the ``NCCL`` backend concurrently</span>
-<span class="sd">        is not safe and the user should perform explicit synchronization in</span>
-<span class="sd">        their application to ensure only one process group is used at a time.</span>
-<span class="sd">        This means collectives from one process group should have completed</span>
-<span class="sd">        execution on the device (not just enqueued since CUDA execution is</span>
-<span class="sd">        async) before collectives from another process group are enqueued.</span>
-<span class="sd">        See `Using multiple NCCL communicators concurrently &lt;https://docs.nvid</span>
-<span class="sd">        ia.com/deeplearning/nccl/user-guide/docs/usage/communicators.html#using</span>
-<span class="sd">        -multiple-nccl-communicators-concurrently&gt;`_ for more details.</span>
+<span class="sd">        See warning `Safe concurrent usage` for `new_group` API for important details about</span>
+<span class="sd">        using multiple process groups concurrently in a safe manner.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ranks_per_subgroup_list (list[list[int]]): A nested list of ranks of</span>
