@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git00aa086 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git5947169 ) &#x25BC</a>
     </div>
     
 
@@ -934,7 +934,7 @@ for each implementation on the second table below, you are welcome to try them o
 </div>
 <div class="section" id="how-to-adjust-learning-rate">
 <h2>How to adjust learning rate<a class="headerlink" href="#how-to-adjust-learning-rate" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference internal" href="#module-torch.optim.lr_scheduler" title="torch.optim.lr_scheduler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.optim.lr_scheduler</span></code></a> provides several methods to adjust the learning
+<p><a class="reference internal" href="generated/torch.optim.lr_scheduler.LRScheduler.html#torch.optim.lr_scheduler.LRScheduler" title="torch.optim.lr_scheduler.LRScheduler"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.lr_scheduler.LRScheduler</span></code></a> provides several methods to adjust the learning
 rate based on the number of epochs. <a class="reference internal" href="generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html#torch.optim.lr_scheduler.ReduceLROnPlateau" title="torch.optim.lr_scheduler.ReduceLROnPlateau"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.lr_scheduler.ReduceLROnPlateau</span></code></a>
 allows dynamic learning rate reducing based on some validation measurements.</p>
 <p>Learning rate scheduling should be applied after optimizer’s update; e.g., you
@@ -992,49 +992,52 @@ if you are calling <code class="docutils literal notranslate"><span class="pre">
 </div>
 <table class="autosummary longtable docutils colwidths-auto align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.LambdaLR.html#torch.optim.lr_scheduler.LambdaLR" title="torch.optim.lr_scheduler.LambdaLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.LambdaLR</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.LRScheduler.html#torch.optim.lr_scheduler.LRScheduler" title="torch.optim.lr_scheduler.LRScheduler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.LRScheduler</span></code></a></p></td>
+<td><p>Adjusts the learning rate during optimization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.LambdaLR.html#torch.optim.lr_scheduler.LambdaLR" title="torch.optim.lr_scheduler.LambdaLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.LambdaLR</span></code></a></p></td>
 <td><p>Sets the initial learning rate.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.MultiplicativeLR.html#torch.optim.lr_scheduler.MultiplicativeLR" title="torch.optim.lr_scheduler.MultiplicativeLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.MultiplicativeLR</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.MultiplicativeLR.html#torch.optim.lr_scheduler.MultiplicativeLR" title="torch.optim.lr_scheduler.MultiplicativeLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.MultiplicativeLR</span></code></a></p></td>
 <td><p>Multiply the learning rate of each parameter group by the factor given in the specified function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.StepLR.html#torch.optim.lr_scheduler.StepLR" title="torch.optim.lr_scheduler.StepLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.StepLR</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.StepLR.html#torch.optim.lr_scheduler.StepLR" title="torch.optim.lr_scheduler.StepLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.StepLR</span></code></a></p></td>
 <td><p>Decays the learning rate of each parameter group by gamma every step_size epochs.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.MultiStepLR.html#torch.optim.lr_scheduler.MultiStepLR" title="torch.optim.lr_scheduler.MultiStepLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.MultiStepLR</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.MultiStepLR.html#torch.optim.lr_scheduler.MultiStepLR" title="torch.optim.lr_scheduler.MultiStepLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.MultiStepLR</span></code></a></p></td>
 <td><p>Decays the learning rate of each parameter group by gamma once the number of epoch reaches one of the milestones.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.ConstantLR.html#torch.optim.lr_scheduler.ConstantLR" title="torch.optim.lr_scheduler.ConstantLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.ConstantLR</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.ConstantLR.html#torch.optim.lr_scheduler.ConstantLR" title="torch.optim.lr_scheduler.ConstantLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.ConstantLR</span></code></a></p></td>
 <td><p>Multiply the learning rate of each parameter group by a small constant factor.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.LinearLR.html#torch.optim.lr_scheduler.LinearLR" title="torch.optim.lr_scheduler.LinearLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.LinearLR</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.LinearLR.html#torch.optim.lr_scheduler.LinearLR" title="torch.optim.lr_scheduler.LinearLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.LinearLR</span></code></a></p></td>
 <td><p>Decays the learning rate of each parameter group by linearly changing small multiplicative factor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.ExponentialLR.html#torch.optim.lr_scheduler.ExponentialLR" title="torch.optim.lr_scheduler.ExponentialLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.ExponentialLR</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.ExponentialLR.html#torch.optim.lr_scheduler.ExponentialLR" title="torch.optim.lr_scheduler.ExponentialLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.ExponentialLR</span></code></a></p></td>
 <td><p>Decays the learning rate of each parameter group by gamma every epoch.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.PolynomialLR.html#torch.optim.lr_scheduler.PolynomialLR" title="torch.optim.lr_scheduler.PolynomialLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.PolynomialLR</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.PolynomialLR.html#torch.optim.lr_scheduler.PolynomialLR" title="torch.optim.lr_scheduler.PolynomialLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.PolynomialLR</span></code></a></p></td>
 <td><p>Decays the learning rate of each parameter group using a polynomial function in the given total_iters.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.CosineAnnealingLR.html#torch.optim.lr_scheduler.CosineAnnealingLR" title="torch.optim.lr_scheduler.CosineAnnealingLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.CosineAnnealingLR</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.CosineAnnealingLR.html#torch.optim.lr_scheduler.CosineAnnealingLR" title="torch.optim.lr_scheduler.CosineAnnealingLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.CosineAnnealingLR</span></code></a></p></td>
 <td><p>Set the learning rate of each parameter group using a cosine annealing schedule.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.ChainedScheduler.html#torch.optim.lr_scheduler.ChainedScheduler" title="torch.optim.lr_scheduler.ChainedScheduler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.ChainedScheduler</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.ChainedScheduler.html#torch.optim.lr_scheduler.ChainedScheduler" title="torch.optim.lr_scheduler.ChainedScheduler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.ChainedScheduler</span></code></a></p></td>
 <td><p>Chains a list of learning rate schedulers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.SequentialLR.html#torch.optim.lr_scheduler.SequentialLR" title="torch.optim.lr_scheduler.SequentialLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.SequentialLR</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.SequentialLR.html#torch.optim.lr_scheduler.SequentialLR" title="torch.optim.lr_scheduler.SequentialLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.SequentialLR</span></code></a></p></td>
 <td><p>Contains a list of schedulers expected to be called sequentially during the optimization process.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html#torch.optim.lr_scheduler.ReduceLROnPlateau" title="torch.optim.lr_scheduler.ReduceLROnPlateau"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.ReduceLROnPlateau</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html#torch.optim.lr_scheduler.ReduceLROnPlateau" title="torch.optim.lr_scheduler.ReduceLROnPlateau"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.ReduceLROnPlateau</span></code></a></p></td>
 <td><p>Reduce learning rate when a metric has stopped improving.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.CyclicLR.html#torch.optim.lr_scheduler.CyclicLR" title="torch.optim.lr_scheduler.CyclicLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.CyclicLR</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.CyclicLR.html#torch.optim.lr_scheduler.CyclicLR" title="torch.optim.lr_scheduler.CyclicLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.CyclicLR</span></code></a></p></td>
 <td><p>Sets the learning rate of each parameter group according to cyclical learning rate policy (CLR).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.OneCycleLR.html#torch.optim.lr_scheduler.OneCycleLR" title="torch.optim.lr_scheduler.OneCycleLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.OneCycleLR</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.OneCycleLR.html#torch.optim.lr_scheduler.OneCycleLR" title="torch.optim.lr_scheduler.OneCycleLR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.OneCycleLR</span></code></a></p></td>
 <td><p>Sets the learning rate of each parameter group according to the 1cycle learning rate policy.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.CosineAnnealingWarmRestarts.html#torch.optim.lr_scheduler.CosineAnnealingWarmRestarts" title="torch.optim.lr_scheduler.CosineAnnealingWarmRestarts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.CosineAnnealingWarmRestarts</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.optim.lr_scheduler.CosineAnnealingWarmRestarts.html#torch.optim.lr_scheduler.CosineAnnealingWarmRestarts" title="torch.optim.lr_scheduler.CosineAnnealingWarmRestarts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lr_scheduler.CosineAnnealingWarmRestarts</span></code></a></p></td>
 <td><p>Set the learning rate of each parameter group using a cosine annealing schedule.</p></td>
 </tr>
 </tbody>
