@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git5947169 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdcdb254 ) &#x25BC</a>
     </div>
     
 
@@ -1364,6 +1364,11 @@
     <span class="n">output_logsumexp</span> <span class="o">=</span> <span class="n">any_inputs_require_grad</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_grad_enabled</span><span class="p">()</span>
     <span class="n">kernel_options</span><span class="p">[</span><span class="s2">&quot;OUTPUT_LOGSUMEXP&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">output_logsumexp</span>
 
+    <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">128</span> <span class="ow">and</span> <span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">kernel_options</span><span class="p">[</span><span class="s2">&quot;IS_DIVISIBLE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">kernel_options</span><span class="p">[</span><span class="s2">&quot;IS_DIVISIBLE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
     <span class="k">return</span> <span class="n">kernel_options</span>
 
 
@@ -1434,11 +1439,6 @@
     <span class="n">_validate_sdpa_input</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">key</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;NYI: query, key, and value must be 4D tensors&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">32</span><span class="p">:</span>  <span class="c1"># use Attention Kernel</span>
-        <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">128</span> <span class="ow">and</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;NYI: S must be &lt;128 or a multiple of 128&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;NYI: L must be a multiple of 128&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">enable_gqa</span><span class="p">)</span> <span class="ow">and</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">!=</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Expect query and key/value to have the same number of heads &quot;</span>
