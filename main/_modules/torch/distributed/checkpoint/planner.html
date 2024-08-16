@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdcdb254 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git0d2be06 ) &#x25BC</a>
     </div>
     
 
@@ -741,8 +741,7 @@
 <span class="sd">        Implementations should save those values as they won&#39;t be provided lated in the save process.</span>
 
 <span class="sd">        This is called on all ranks.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="SavePlanner.create_local_plan"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.SavePlanner.create_local_plan">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">create_local_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SavePlan</span><span class="p">:</span>
@@ -753,8 +752,7 @@
 <span class="sd">        Planner specific data can be passed through SavePlan::planner_data.</span>
 
 <span class="sd">        This is called on all ranks.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="SavePlanner.create_global_plan"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.SavePlanner.create_global_plan">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">create_global_plan</span><span class="p">(</span>
@@ -764,8 +762,7 @@
 <span class="sd">        Compute the global checkpoint plan and return the local plan of each rank.</span>
 
 <span class="sd">        This is called on the coordinator rank only.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="SavePlanner.finish_plan"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.SavePlanner.finish_plan">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">finish_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_plan</span><span class="p">:</span> <span class="n">SavePlan</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SavePlan</span><span class="p">:</span>
@@ -773,8 +770,7 @@
 <span class="sd">        Merge the plan created by `create_local_plan` and the result of `create_global_plan`.</span>
 
 <span class="sd">        This is called on all ranks.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="SavePlanner.resolve_data"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.SavePlanner.resolve_data">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">resolve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">write_item</span><span class="p">:</span> <span class="n">WriteItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">]:</span>
@@ -794,8 +790,7 @@
 
 <span class="sd">        When returning tensors, they can be on any device or format, they can be views too.</span>
 <span class="sd">        It&#39;s the storage layer responsibility to figure out how to save them.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div></div>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
 
 
 <div class="viewcode-block" id="LoadPlanner"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner">[docs]</a><span class="k">class</span> <span class="nc">LoadPlanner</span><span class="p">:</span>
@@ -883,8 +878,7 @@
 <span class="sd">        Initialize this instance to load data into ``state_dict``.</span>
 
 <span class="sd">        . N.B. This is called on every rank.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="LoadPlanner.create_local_plan"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.create_local_plan">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">create_local_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoadPlan</span><span class="p">:</span>
@@ -892,8 +886,7 @@
 <span class="sd">        Create a LoadPlan based on state_dict and metadata provided by set_up_planner.</span>
 
 <span class="sd">        . N.B. This is called on every rank.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="LoadPlanner.create_global_plan"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.create_global_plan">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">create_global_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_plan</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">LoadPlan</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LoadPlan</span><span class="p">]:</span>
@@ -901,13 +894,11 @@
 <span class="sd">        Compute the global load plan and return plans for each rank.</span>
 
 <span class="sd">        . N.B. This is called on the coordinator rank only</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="LoadPlanner.finish_plan"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.finish_plan">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">finish_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">central_plan</span><span class="p">:</span> <span class="n">LoadPlan</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoadPlan</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Accept the plan from coordinator and return final LoadPlan.&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Accept the plan from coordinator and return final LoadPlan.&quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="LoadPlanner.load_bytes"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.load_bytes">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">load_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">read_item</span><span class="p">:</span> <span class="n">ReadItem</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -918,8 +909,7 @@
 
 <span class="sd">        The contents of ``value`` are defined by the SavePlanner used to produce</span>
 <span class="sd">        the checkpoint being loaded.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="LoadPlanner.resolve_bytes"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.resolve_bytes">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">read_item</span><span class="p">:</span> <span class="n">ReadItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -937,8 +927,7 @@
 <span class="sd">        The tensor should alias with one on the underlying state_dict as StorageReader will replace its contents.</span>
 <span class="sd">        If, for any reason, that&#39;s not possible, the planner can use the ``commit_tensor`` method to copy the data</span>
 <span class="sd">        back to the one in state_dict.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="LoadPlanner.commit_tensor"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.LoadPlanner.commit_tensor">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">commit_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">read_item</span><span class="p">:</span> <span class="n">ReadItem</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -950,8 +939,7 @@
 <span class="sd">        copying it back to the one in the state_dict.</span>
 
 <span class="sd">        The contents of tensor will follow its device synchronization model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div></div>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
 </pre></div>
 
              </article>

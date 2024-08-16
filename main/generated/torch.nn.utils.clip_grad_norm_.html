@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdcdb254 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git0d2be06 ) &#x25BC</a>
     </div>
     
 
@@ -531,8 +531,9 @@
 <dt class="sig sig-object py" id="torch.nn.utils.clip_grad_norm_">
 <span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">clip_grad_norm_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_if_nonfinite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/clip_grad.html#clip_grad_norm_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.clip_grad_norm_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clip the gradient norm of an iterable of parameters.</p>
-<p>The norm is computed over all gradients together, as if they were
-concatenated into a single vector. Gradients are modified in-place.</p>
+<p>The norm is computed over the norms of the individual gradients of all parameters,
+as if the norms of the individual gradients were concatenated into a single vector.
+Gradients are modified in-place.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

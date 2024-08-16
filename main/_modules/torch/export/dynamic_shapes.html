@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdcdb254 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git0d2be06 ) &#x25BC</a>
     </div>
     
 
@@ -1323,17 +1323,128 @@
         <span class="k">return</span> <span class="n">dynamic_shapes</span></div></div>
 
 
-<span class="k">def</span> <span class="nf">_process_dynamic_shapes</span><span class="p">(</span>
-    <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">_is_torch_jit_trace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]]:</span>
+<span class="k">def</span> <span class="nf">_check_dynamic_shapes</span><span class="p">(</span>
+    <span class="n">combined_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks the dynamic_shapes specification for correctness,</span>
+<span class="sd">    using combined args + kwargs as reference for inputs structure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">torch._dynamo.exc</span> <span class="kn">import</span> <span class="n">UserError</span><span class="p">,</span> <span class="n">UserErrorType</span>
 
     <span class="k">if</span> <span class="n">dynamic_shapes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+        <span class="n">combined_args</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)(</span><span class="n">combined_args</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># type: ignore[assignment, misc]</span>
+
+    <span class="n">bounds</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">check_same_bounds</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">in</span> <span class="n">bounds</span><span class="p">:</span>
+            <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">dim</span><span class="o">.</span><span class="n">min</span> <span class="o">!=</span> <span class="n">min_</span> <span class="ow">or</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span> <span class="o">!=</span> <span class="n">max_</span><span class="p">:</span>
+                <span class="n">this_</span> <span class="o">=</span> <span class="n">_Dim</span><span class="o">.</span><span class="n">readable</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span><span class="p">)</span>
+                <span class="n">that_</span> <span class="o">=</span> <span class="n">_Dim</span><span class="o">.</span><span class="n">readable</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">dim</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
+                    <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Found different definitions </span><span class="si">{</span><span class="n">this_</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">that_</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;for the same symbolic dimension </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bounds</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">check_symbols</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">shape</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">):</span>
+                    <span class="n">check_same_bounds</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
+                        <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s2">&quot;Unexpected dimension mapped to index </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> in input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;(expected None, an int, or a Dim, but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2"> instead)&quot;</span><span class="p">,</span>
+                        <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">):</span>
+                    <span class="n">check_same_bounds</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
+                        <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s2">&quot;Unexpected dimension #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> in input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;(expected None, an int, or a Dim, but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2"> instead)&quot;</span><span class="p">,</span>
+                        <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
+                <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;Unexpected input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;(expected either a list/tuple of dimensions, or a dict mapping indices to dimensions,&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; where each dimension is None, an int, or a Dim)&quot;</span><span class="p">,</span>
+                <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">got_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">expected_arg_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">combined_args</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">if</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">got_keys</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">expected_arg_names</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;When `dynamic_shapes` is specified as a dict, its top-level keys &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;must be the arg names </span><span class="si">{</span><span class="n">expected_arg_names</span><span class="si">}</span><span class="s2"> of `inputs`, but &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;here they are </span><span class="si">{</span><span class="n">got_keys</span><span class="si">}</span><span class="s2">. &quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">combined_args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+                <span class="ow">and</span> <span class="n">expected_arg_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">got_keys</span>
+                <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">combined_args</span><span class="p">[</span><span class="n">expected_arg_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="s2">&quot;Since here `inputs` is a list/tuple enclosing a single dict, &quot;</span>
+                    <span class="s2">&quot;maybe you just forgot to enclose `dynamic_shapes` in a list/tuple?&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="s2">&quot;Alternatively, you could also ignore arg names entirely &quot;</span>
+                    <span class="s2">&quot;and specify `dynamic_shapes` as a list/tuple matching `inputs`.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
+                <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">check_shape</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">check_symbols</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dynamic_shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">rendered_path</span> <span class="o">=</span> <span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
+                    <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Cannot associate shape </span><span class="si">{</span><span class="n">dynamic_shape</span><span class="si">}</span><span class="s2"> specified at `dynamic_shapes</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;to non-tensor type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">}</span><span class="s2"> at `inputs</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` (expected None)&quot;</span><span class="p">,</span>
+                    <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+
+    <span class="n">_tree_map_with_path</span><span class="p">(</span><span class="n">check_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">tree_name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_process_dynamic_shapes</span><span class="p">(</span>
+    <span class="n">combined_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads the dynamic_shapes specification and produces a list of constraints.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">torch._dynamo.exc</span> <span class="kn">import</span> <span class="n">UserError</span><span class="p">,</span> <span class="n">UserErrorType</span>
+
+    <span class="k">if</span> <span class="n">dynamic_shapes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+        <span class="n">combined_args</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)(</span><span class="n">combined_args</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># type: ignore[assignment, misc]</span>
 
     <span class="c1"># map of Dim names representing input shape dimensions to constraints on them</span>
     <span class="n">symbols</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
@@ -1424,23 +1535,6 @@
                 <span class="n">constraint</span> <span class="o">=</span> <span class="n">constraint</span> <span class="o">&lt;=</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span>
         <span class="k">return</span> <span class="n">constraint</span>
 
-    <span class="n">bounds</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">def</span> <span class="nf">check_same_bounds</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
-            <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">dim</span><span class="o">.</span><span class="n">min</span> <span class="o">!=</span> <span class="n">min_</span> <span class="ow">or</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span> <span class="o">!=</span> <span class="n">max_</span><span class="p">:</span>
-                <span class="n">this_</span> <span class="o">=</span> <span class="n">_Dim</span><span class="o">.</span><span class="n">readable</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">min_</span><span class="p">,</span> <span class="n">max_</span><span class="p">)</span>
-                <span class="n">that_</span> <span class="o">=</span> <span class="n">_Dim</span><span class="o">.</span><span class="n">readable</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">dim</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
-                    <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s2">&quot;Found different definitions </span><span class="si">{</span><span class="n">this_</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">that_</span><span class="si">}</span><span class="s2"> &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;for the same symbolic dimension </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">,</span>
-                <span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">bounds</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">dim</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">update_symbols</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">_create_static_dim</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">_StaticDim</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="p">(</span><span class="nb">int</span><span class="p">,),</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
@@ -1450,98 +1544,21 @@
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">)):</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                         <span class="n">dim</span> <span class="o">=</span> <span class="n">_create_static_dim</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-                    <span class="n">check_same_bounds</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
                     <span class="n">constraint</span> <span class="o">=</span> <span class="n">to_constraint</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
                     <span class="n">symbols</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
-                            <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                            <span class="sa">f</span><span class="s2">&quot;Unexpected dimension mapped to index </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> in input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> &quot;</span>
-                            <span class="sa">f</span><span class="s2">&quot;specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
-                            <span class="sa">f</span><span class="s2">&quot;(expected None, an int, or a Dim, but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2"> instead)&quot;</span><span class="p">,</span>
-                            <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
-                        <span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">)):</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                         <span class="n">dim</span> <span class="o">=</span> <span class="n">_create_static_dim</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-                    <span class="n">check_same_bounds</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
                     <span class="n">constraint</span> <span class="o">=</span> <span class="n">to_constraint</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
                     <span class="n">symbols</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
-                            <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                            <span class="sa">f</span><span class="s2">&quot;Unexpected dimension #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> in input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> &quot;</span>
-                            <span class="sa">f</span><span class="s2">&quot;specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
-                            <span class="sa">f</span><span class="s2">&quot;(expected None, an int, or a Dim, but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2"> instead)&quot;</span><span class="p">,</span>
-                            <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
-                        <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
-                    <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s2">&quot;Unexpected input tensor shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> specified at `dynamic_shapes</span><span class="si">{</span><span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">` &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;(expected either a list/tuple of dimensions, or a dict mapping indices to dimensions,&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot; where each dimension is None, an int, or a Dim)&quot;</span><span class="p">,</span>
-                    <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
-                <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">assoc_shapes</span><span class="p">(</span><span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">assoc_shape</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-                <span class="n">update_symbols</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">dynamic_shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">rendered_path</span> <span class="o">=</span> <span class="n">keystr</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-                    <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
-                        <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-                        <span class="sa">f</span><span class="s2">&quot;Cannot associate shape </span><span class="si">{</span><span class="n">dynamic_shape</span><span class="si">}</span><span class="s2"> specified at `dynamic_shapes</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;to non-tensor type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">}</span><span class="s2"> at `inputs</span><span class="si">{</span><span class="n">rendered_path</span><span class="si">}</span><span class="s2">` (expected None)&quot;</span><span class="p">,</span>
-                        <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
-                    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">assoc_shape</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">update_symbols</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">)</span>
 
-        <span class="n">_tree_map_with_path</span><span class="p">(</span>
-            <span class="n">assoc_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">tree_name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span>
-        <span class="p">)</span>
-
-    <span class="n">combined_args</span> <span class="o">=</span> <span class="n">_combine_args</span><span class="p">(</span>
-        <span class="n">f</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">_is_torch_jit_trace</span><span class="o">=</span><span class="n">_is_torch_jit_trace</span>
-    <span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">got_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="n">expected_arg_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">combined_args</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="k">if</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">got_keys</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">expected_arg_names</span><span class="p">):</span>
-            <span class="c1"># This error would be caught by `assoc_shapes` below, but we can give</span>
-            <span class="c1"># a more helpful error message here.</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;When `dynamic_shapes` is specified as a dict, its top-level keys &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;must be the arg names </span><span class="si">{</span><span class="n">expected_arg_names</span><span class="si">}</span><span class="s2"> of `inputs`, but &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;here they are </span><span class="si">{</span><span class="n">got_keys</span><span class="si">}</span><span class="s2">. &quot;</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="nb">len</span><span class="p">(</span><span class="n">combined_args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-                <span class="ow">and</span> <span class="n">expected_arg_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">got_keys</span>
-                <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">combined_args</span><span class="p">[</span><span class="n">expected_arg_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">)</span>
-            <span class="p">):</span>
-                <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span>
-                    <span class="s2">&quot;Since here `inputs` is a list/tuple enclosing a single dict, &quot;</span>
-                    <span class="s2">&quot;maybe you just forgot to enclose `dynamic_shapes` in a list/tuple?&quot;</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span>
-                    <span class="s2">&quot;Alternatively, you could also ignore arg names entirely &quot;</span>
-                    <span class="s2">&quot;and specify `dynamic_shapes` as a list/tuple matching `inputs`.&quot;</span>
-                <span class="p">)</span>
-            <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
-                <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span>
-            <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span>
-        <span class="n">combined_args</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)(</span><span class="n">combined_args</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># type: ignore[assignment, misc]</span>
-    <span class="n">assoc_shapes</span><span class="p">(</span><span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">)</span>
+    <span class="n">_tree_map_with_path</span><span class="p">(</span><span class="n">assoc_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">tree_name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span><span class="p">)</span>
 
     <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">derived_constraint_with_phantom_root</span> <span class="ow">in</span> <span class="n">derived_constraints_with_phantom_root</span><span class="p">:</span>
