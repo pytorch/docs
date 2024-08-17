@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git0d2be06 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitec28121 ) &#x25BC</a>
     </div>
     
 
@@ -1410,23 +1410,6 @@
         <span class="n">proxy_kwargs</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="n">proxy_mode</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">_target_to_str</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">overloadpacket</span><span class="o">.</span><span class="vm">__name__</span><span class="p">),</span>
     <span class="p">)</span>
-
-    <span class="c1"># This makes DCE marginally less likely to DCE inplace operations.</span>
-    <span class="c1"># It is not strictly necessary</span>
-    <span class="c1"># Kind of a hacky way to test if an op is in-place or not</span>
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="n">func</span><span class="o">.</span><span class="n">overloadpacket</span><span class="o">.</span><span class="vm">__name__</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;_&quot;</span>
-        <span class="ow">and</span> <span class="n">func</span><span class="o">.</span><span class="n">overloadpacket</span><span class="o">.</span><span class="vm">__name__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;_&quot;</span>
-    <span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">List</span><span class="p">):</span>
-            <span class="c1"># e.g., c10d::allreduce_ returns a list of tensors as the first element</span>
-            <span class="c1"># in the output.</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                <span class="n">a</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">proxy_out</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="c1"># Adding an undefined attribute to Tensor?</span>
-            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">proxy_out</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
     <span class="k">with</span> <span class="n">_enable_thunkify</span><span class="p">(</span><span class="n">proxy_mode</span><span class="o">.</span><span class="n">tracer</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
