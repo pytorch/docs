@@ -279,7 +279,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitec28121 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitf8cf182 ) &#x25BC</a>
     </div>
     
 
@@ -375,12 +375,13 @@
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.html">torch.distributed.tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.optim.html">torch.distributed.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler.html">torch.compiler</a></li>
@@ -2860,6 +2861,8 @@
       </ul></li>
       <li><a href="rpc.html#torch.distributed.rpc.TensorPipeRpcBackendOptions.device_maps">device_maps (torch.distributed.rpc.TensorPipeRpcBackendOptions property)</a>
 </li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor.device_mesh">device_mesh (torch.distributed.tensor.DTensor property)</a>
+</li>
       <li><a href="generated/torch.cuda.device_of.html#torch.cuda.device_of">device_of (class in torch.cuda)</a>
 
       <ul>
@@ -2926,6 +2929,8 @@
       </ul></li>
       <li><a href="generated/torch.Tensor.digamma_.html#torch.Tensor.digamma_">digamma_() (torch.Tensor method)</a>
 </li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.Shard.dim">dim (torch.distributed.tensor.Shard attribute)</a>
+</li>
       <li><a href="export.html#torch.export.dynamic_shapes.Dim">Dim() (in module torch.export.dynamic_shapes)</a>
 </li>
       <li><a href="generated/torch.Tensor.dim.html#torch.Tensor.dim">dim() (torch.Tensor method)</a>
@@ -2969,6 +2974,10 @@
       <li><a href="distributed.html#torch.distributed.DistError">DistError (class in torch.distributed)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.DistNetworkError">DistNetworkError (class in torch.distributed)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.distribute_module">distribute_module() (in module torch.distributed.tensor)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.distribute_tensor">distribute_tensor() (in module torch.distributed.tensor)</a>
 </li>
       <li><a href="generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel">DistributedDataParallel (class in torch.nn.parallel)</a>
 </li>
@@ -3051,6 +3060,8 @@
 </li>
       </ul></li>
       <li><a href="generated/torch.dstack.html#torch.dstack">dstack() (in module torch)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor">DTensor (class in torch.distributed.tensor)</a>
 </li>
       <li><a href="tensor_attributes.html#torch.dtype">dtype (class in torch)</a>
 
@@ -3185,7 +3196,11 @@
       <li><a href="autograd.html#torch.autograd.profiler.emit_nvtx">emit_nvtx (class in torch.autograd.profiler)</a>
 </li>
       <li><a href="generated/torch.empty.html#torch.empty">empty() (in module torch)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.html#torch.distributed.tensor.empty">(in module torch.distributed.tensor)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.cuda.empty_cache.html#torch.cuda.empty_cache">empty_cache() (in module torch.cuda)</a>
 
       <ul>
@@ -3887,8 +3902,6 @@
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards">format_guards() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="fx.html#torch.fx.Node.format_node">format_node() (torch.fx.Node method)</a>
 </li>
       <li><a href="generated/torch.ao.nn.quantizable.MultiheadAttention.html#torch.ao.nn.quantizable.MultiheadAttention.forward">forward() (torch.ao.nn.quantizable.MultiheadAttention method)</a>
@@ -3937,6 +3950,8 @@
         <li><a href="generated/torch.nn.TransformerEncoderLayer.html#torch.nn.TransformerEncoderLayer.forward">(torch.nn.TransformerEncoderLayer method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction.forward_extended">forward_extended() (torch.autograd.function.NestedIOFunction method)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.Transform.forward_shape">forward_shape() (torch.distributions.transforms.Transform method)</a>
@@ -4039,6 +4054,8 @@
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.from_kv_blocks">from_kv_blocks() (torch.nn.attention.flex_attention.BlockMask class method)</a>
 </li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor.from_local">from_local() (torch.distributed.tensor.DTensor static method)</a>
+</li>
       <li><a href="generated/torch.from_numpy.html#torch.from_numpy">from_numpy() (in module torch)</a>
 </li>
       <li><a href="generated/torch.onnx.JitScalarType.html#torch.onnx.JitScalarType.from_onnx_type">from_onnx_type() (torch.onnx.JitScalarType class method)</a>
@@ -4068,7 +4085,11 @@
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.fsdp_modules">fsdp_modules() (torch.distributed.fsdp.FullyShardedDataParallel static method)</a>
 </li>
       <li><a href="generated/torch.full.html#torch.full">full() (in module torch)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.html#torch.distributed.tensor.full">(in module torch.distributed.tensor)</a>
 </li>
+      </ul></li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.full_kv_indices">full_kv_indices (torch.nn.attention.flex_attention.BlockMask attribute)</a>
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.full_kv_num_blocks">full_kv_num_blocks (torch.nn.attention.flex_attention.BlockMask attribute)</a>
@@ -4080,6 +4101,8 @@
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.full_q_indices">full_q_indices (torch.nn.attention.flex_attention.BlockMask attribute)</a>
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.BlockMask.full_q_num_blocks">full_q_num_blocks (torch.nn.attention.flex_attention.BlockMask attribute)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor.full_tensor">full_tensor() (torch.distributed.tensor.DTensor method)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullOptimStateDictConfig">FullOptimStateDictConfig (class in torch.distributed.fsdp)</a>
 </li>
@@ -7343,7 +7366,27 @@
 </li>
         <li><a href="elastic/run.html#module-torch.distributed.run">torch.distributed.run</a>
 </li>
-        <li><a href="distributed.html#module-torch.distributed.tensor">torch.distributed.tensor</a>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor">torch.distributed.tensor</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.api">torch.distributed.tensor.api</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.debug">torch.distributed.tensor.debug</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.debug.comm_mode">torch.distributed.tensor.debug.comm_mode</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.debug.visualize_sharding">torch.distributed.tensor.debug.visualize_sharding</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.device_mesh">torch.distributed.tensor.device_mesh</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental">torch.distributed.tensor.experimental</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental.attention">torch.distributed.tensor.experimental.attention</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental.func_map">torch.distributed.tensor.experimental.func_map</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental.register_sharding">torch.distributed.tensor.experimental.register_sharding</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental.tp_transform">torch.distributed.tensor.experimental.tp_transform</a>
 </li>
         <li><a href="distributed.tensor.parallel.html#module-torch.distributed.tensor.parallel">torch.distributed.tensor.parallel</a>
 </li>
@@ -7358,6 +7401,10 @@
         <li><a href="distributed.html#module-torch.distributed.tensor.parallel.loss">torch.distributed.tensor.parallel.loss</a>
 </li>
         <li><a href="distributed.html#module-torch.distributed.tensor.parallel.style">torch.distributed.tensor.parallel.style</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.placement_types">torch.distributed.tensor.placement_types</a>
+</li>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.random">torch.distributed.tensor.random</a>
 </li>
         <li><a href="distributed.html#module-torch.distributed.utils">torch.distributed.utils</a>
 </li>
@@ -8735,7 +8782,11 @@
       <li><a href="distributions.html#torch.distributions.one_hot_categorical.OneHotCategorical">OneHotCategorical (class in torch.distributions.one_hot_categorical)</a>
 </li>
       <li><a href="generated/torch.ones.html#torch.ones">ones() (in module torch)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.html#torch.distributed.tensor.ones">(in module torch.distributed.tensor)</a>
 </li>
+      </ul></li>
       <li><a href="nn.init.html#torch.nn.init.ones_">ones_() (in module torch.nn.init)</a>
 </li>
       <li><a href="generated/torch.ones_like.html#torch.ones_like">ones_like() (in module torch)</a>
@@ -8764,10 +8815,10 @@
 </li>
       <li><a href="generated/torch.jit.optimize_for_inference.html#torch.jit.optimize_for_inference">optimize_for_inference() (in module torch.jit)</a>
 </li>
-      <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
+</li>
       <li><a href="optim.html#torch.optim.Optimizer">Optimizer (class in torch.optim)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.OptimStateDictConfig">OptimStateDictConfig (class in torch.distributed.fsdp)</a>
@@ -8906,6 +8957,8 @@
 </li>
       <li><a href="generated/torch.autograd.profiler.parse_nvprof_trace.html#torch.autograd.profiler.parse_nvprof_trace">parse_nvprof_trace() (in module torch.autograd.profiler)</a>
 </li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.Partial">Partial (class in torch.distributed.tensor)</a>
+</li>
       <li><a href="fx.html#torch.fx.Tracer.path_of_module">path_of_module() (torch.fx.Tracer method)</a>
 </li>
       <li><a href="generated/torch.pca_lowrank.html#torch.pca_lowrank">pca_lowrank() (in module torch)</a>
@@ -8976,6 +9029,8 @@
       </ul></li>
       <li><a href="generated/torch.ao.quantization.observer.PlaceholderObserver.html#torch.ao.quantization.observer.PlaceholderObserver">PlaceholderObserver (class in torch.ao.quantization.observer)</a>
 </li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor.placements">placements (torch.distributed.tensor.DTensor property)</a>
+</li>
       <li><a href="distributions.html#torch.distributions.poisson.Poisson">Poisson (class in torch.distributions.poisson)</a>
 </li>
       <li><a href="generated/torch.poisson.html#torch.poisson">poisson() (in module torch)</a>
@@ -9042,6 +9097,8 @@
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.PowerTransform">PowerTransform (class in torch.distributions.transforms)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal.precision_matrix">precision_matrix (torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal property)</a>
 
       <ul>
@@ -9050,8 +9107,6 @@
         <li><a href="distributions.html#torch.distributions.wishart.Wishart.precision_matrix">(torch.distributions.wishart.Wishart property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.AdaptiveLogSoftmaxWithLoss.html#torch.nn.AdaptiveLogSoftmaxWithLoss.predict">predict() (torch.nn.AdaptiveLogSoftmaxWithLoss method)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.preferred_blas_library">preferred_blas_library() (in module torch.backends.cuda)</a>
@@ -9365,7 +9420,11 @@
       <li><a href="generated/torch.optim.RAdam.html#torch.optim.RAdam">RAdam (class in torch.optim)</a>
 </li>
       <li><a href="generated/torch.rand.html#torch.rand">rand() (in module torch)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.html#torch.distributed.tensor.rand">(in module torch.distributed.tensor)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.rand_like.html#torch.rand_like">rand_like() (in module torch)</a>
 </li>
       <li><a href="generated/torch.randint.html#torch.randint">randint() (in module torch)</a>
@@ -9373,7 +9432,11 @@
       <li><a href="generated/torch.randint_like.html#torch.randint_like">randint_like() (in module torch)</a>
 </li>
       <li><a href="generated/torch.randn.html#torch.randn">randn() (in module torch)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.html#torch.distributed.tensor.randn">(in module torch.distributed.tensor)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.randn_like.html#torch.randn_like">randn_like() (in module torch)</a>
 </li>
       <li><a href="generated/torch.Tensor.random_.html#torch.Tensor.random_">random_() (torch.Tensor method)</a>
@@ -9490,12 +9553,18 @@
 </li>
       <li><a href="distributed.html#torch.distributed.recv_object_list">recv_object_list() (in module torch.distributed)</a>
 </li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor.redistribute">redistribute() (torch.distributed.tensor.DTensor method)</a>
+</li>
       <li><a href="distributed.html#torch.distributed.reduce">reduce() (in module torch.distributed)</a>
 </li>
       <li><a href="generated/torch.cuda.comm.reduce_add.html#torch.cuda.comm.reduce_add">reduce_add() (in module torch.cuda.comm)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.reduce_op">reduce_op (class in torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.html#torch.distributed.tensor.Partial.reduce_op">(torch.distributed.tensor.Partial attribute)</a>
 </li>
+      </ul></li>
       <li><a href="distributed.html#torch.distributed.reduce_scatter">reduce_scatter() (in module torch.distributed)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.reduce_scatter_tensor">reduce_scatter_tensor() (in module torch.distributed)</a>
@@ -9981,6 +10050,8 @@
       <li><a href="fx.html#torch.fx.replace_pattern">replace_pattern() (in module torch.fx)</a>
 </li>
       <li><a href="generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph.replay">replay() (torch.cuda.CUDAGraph method)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.Replicate">Replicate (class in torch.distributed.tensor)</a>
 </li>
       <li><a href="generated/torch.nn.ReplicationPad1d.html#torch.nn.ReplicationPad1d">ReplicationPad1d (class in torch.nn)</a>
 </li>
@@ -10775,6 +10846,8 @@
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnvSettings.html#torch.fx.experimental.symbolic_shapes.ShapeEnvSettings">ShapeEnvSettings (class in torch.fx.experimental.symbolic_shapes)</a>
 </li>
       <li><a href="export.html#torch.export.dynamic_shapes.ShapesCollection">ShapesCollection (class in torch.export.dynamic_shapes)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.Shard">Shard (class in torch.distributed.tensor)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.shard_full_optim_state_dict">shard_full_optim_state_dict() (torch.distributed.fsdp.FullyShardedDataParallel static method)</a>
 </li>
@@ -11755,6 +11828,8 @@
       <li><a href="fx.html#torch.fx.GraphModule.to_folder">to_folder() (torch.fx.GraphModule method)</a>
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.to_here">to_here() (torch.distributed.rpc.PyRRef method)</a>
+</li>
+      <li><a href="distributed.tensor.html#torch.distributed.tensor.DTensor.to_local">to_local() (torch.distributed.tensor.DTensor method)</a>
 </li>
       <li><a href="generated/torch.Tensor.to_mkldnn.html#torch.Tensor.to_mkldnn">to_mkldnn() (torch.Tensor method)</a>
 </li>
@@ -14181,7 +14256,77 @@
     torch.distributed.tensor
 
       <ul>
-        <li><a href="distributed.html#module-torch.distributed.tensor">module</a>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.api
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.api">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.debug
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.debug">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.debug.comm_mode
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.debug.comm_mode">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.debug.visualize_sharding
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.debug.visualize_sharding">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.device_mesh
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.device_mesh">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.experimental
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.experimental.attention
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental.attention">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.experimental.func_map
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental.func_map">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.experimental.register_sharding
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental.register_sharding">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.experimental.tp_transform
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.experimental.tp_transform">module</a>
 </li>
       </ul></li>
       <li>
@@ -14231,6 +14376,20 @@
 
       <ul>
         <li><a href="distributed.html#module-torch.distributed.tensor.parallel.style">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.placement_types
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.placement_types">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.distributed.tensor.random
+
+      <ul>
+        <li><a href="distributed.tensor.html#module-torch.distributed.tensor.random">module</a>
 </li>
       </ul></li>
       <li>
@@ -14562,6 +14721,8 @@
         <li><a href="distributions.html#module-torch.distributions.weibull">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.distributions.wishart
 
@@ -14604,8 +14765,6 @@
         <li><a href="export.html#module-torch.export.exported_program">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.graph_signature
 
@@ -18160,7 +18319,11 @@
       <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer">ZeroRedundancyOptimizer (class in torch.distributed.optim)</a>
 </li>
       <li><a href="generated/torch.zeros.html#torch.zeros">zeros() (in module torch)</a>
+
+      <ul>
+        <li><a href="distributed.tensor.html#torch.distributed.tensor.zeros">(in module torch.distributed.tensor)</a>
 </li>
+      </ul></li>
       <li><a href="nn.init.html#torch.nn.init.zeros_">zeros_() (in module torch.nn.init)</a>
 </li>
       <li><a href="generated/torch.zeros_like.html#torch.zeros_like">zeros_like() (in module torch)</a>
