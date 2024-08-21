@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git6f738d6 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd1abd62 ) &#x25BC</a>
     </div>
     
 
@@ -539,6 +539,7 @@
     <span class="s2">&quot;nested_tensor&quot;</span><span class="p">,</span>
     <span class="s2">&quot;nested_tensor_from_jagged&quot;</span><span class="p">,</span>
     <span class="s2">&quot;narrow&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;masked_select&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="c1"># Nested Tensor constructor functions</span>
@@ -935,6 +936,58 @@
 
     <span class="k">return</span> <span class="n">nested_view_from_values_offsets_lengths</span><span class="p">(</span>
         <span class="n">values</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">ragged_idx</span><span class="o">=</span><span class="n">jagged_dim</span><span class="p">,</span> <span class="n">min_seqlen</span><span class="o">=</span><span class="n">min_seqlen</span><span class="p">,</span> <span class="n">max_seqlen</span><span class="o">=</span><span class="n">max_seqlen</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">masked_select</span><span class="p">(</span><span class="n">tensor</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs a nested tensor given a strided tensor input and a strided mask, the resulting jagged layout nested tensor</span>
+<span class="sd">    will have values retain values where the mask is equal to True. The dimensionality of the mask is preserved and is</span>
+<span class="sd">    represented with the offsets, this is unlike :func:`masked_select` where the output is collapsed to a 1D tensor.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    tensor (:class:`torch.Tensor`): a strided tensor from which the jagged layout nested tensor is constructed from.</span>
+<span class="sd">    mask (:class:`torch.Tensor`): a strided mask tensor which is applied to the tensor input</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">    &gt;&gt;&gt; tensor = torch.randn(3, 3)</span>
+<span class="sd">    &gt;&gt;&gt; mask = torch.tensor([[False, False, True], [True, False, True], [False, False, True]])</span>
+<span class="sd">    &gt;&gt;&gt; nt = torch.nested.masked_select(tensor, mask)</span>
+<span class="sd">    &gt;&gt;&gt; nt.shape</span>
+<span class="sd">    torch.Size([3, j4])</span>
+<span class="sd">    &gt;&gt;&gt; # Length of each item in the batch:</span>
+<span class="sd">    &gt;&gt;&gt; nt.offsets().diff()</span>
+<span class="sd">    tensor([1, 2, 1])</span>
+
+<span class="sd">    &gt;&gt;&gt; tensor = torch.randn(6, 5)</span>
+<span class="sd">    &gt;&gt;&gt; mask = torch.tensor([False])</span>
+<span class="sd">    &gt;&gt;&gt; nt = torch.nested.masked_select(tensor, mask)</span>
+<span class="sd">    &gt;&gt;&gt; nt.shape</span>
+<span class="sd">    torch.Size([6, j5])</span>
+<span class="sd">    &gt;&gt;&gt; # Length of each item in the batch:</span>
+<span class="sd">    &gt;&gt;&gt; nt.offsets().diff()</span>
+<span class="sd">    tensor([0, 0, 0, 0, 0, 0])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">layout</span> <span class="o">!=</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;torch.nested.masked_select requires a strided tensor, given </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">layout</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">layout</span> <span class="o">!=</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;torch.nested.masked_select requires a strided mask, given: </span><span class="si">{</span><span class="n">mask</span><span class="o">.</span><span class="n">layout</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="n">res_values</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">masked_select</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+    <span class="n">expanded_mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">res_lengths</span> <span class="o">=</span> <span class="n">expanded_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">tensor</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">torch.nested._internal.nested_tensor</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">nested_view_from_values_offsets</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">nested_view_from_values_offsets</span><span class="p">(</span>
+        <span class="n">values</span><span class="o">=</span><span class="n">res_values</span><span class="p">,</span>
+        <span class="n">offsets</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">res_lengths</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+    <span class="p">)</span>
 </pre></div>
 
              </article>
