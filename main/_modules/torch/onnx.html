@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd1abd62 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git2a73ba2 ) &#x25BC</a>
     </div>
     
 
@@ -524,67 +524,7 @@
               
   <h1>Source code for torch.onnx</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_C</span>
-<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_onnx</span> <span class="k">as</span> <span class="n">_C_onnx</span>
-<span class="kn">from</span> <span class="nn">torch._C._onnx</span> <span class="kn">import</span> <span class="n">OperatorExportTypes</span><span class="p">,</span> <span class="n">TensorProtoDataType</span><span class="p">,</span> <span class="n">TrainingMode</span>
-
-<span class="kn">from</span> <span class="nn">._exporter_states</span> <span class="kn">import</span> <span class="n">ExportTypes</span>
-<span class="kn">from</span> <span class="nn">._internal.onnxruntime</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">is_onnxrt_backend_supported</span><span class="p">,</span>
-    <span class="n">OrtBackend</span> <span class="k">as</span> <span class="n">_OrtBackend</span><span class="p">,</span>
-    <span class="n">OrtBackendOptions</span> <span class="k">as</span> <span class="n">_OrtBackendOptions</span><span class="p">,</span>
-    <span class="n">OrtExecutionProvider</span> <span class="k">as</span> <span class="n">_OrtExecutionProvider</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._type_utils</span> <span class="kn">import</span> <span class="n">JitScalarType</span>
-<span class="kn">from</span> <span class="nn">.errors</span> <span class="kn">import</span> <span class="n">CheckerError</span>  <span class="c1"># Backwards compatibility</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_optimize_graph</span><span class="p">,</span>
-    <span class="n">_run_symbolic_function</span><span class="p">,</span>
-    <span class="n">_run_symbolic_method</span><span class="p">,</span>
-    <span class="n">export</span><span class="p">,</span>
-    <span class="n">export_to_pretty_string</span><span class="p">,</span>
-    <span class="n">is_in_onnx_export</span><span class="p">,</span>
-    <span class="n">register_custom_op_symbolic</span><span class="p">,</span>
-    <span class="n">select_model_mode_for_export</span><span class="p">,</span>
-    <span class="n">unregister_custom_op_symbolic</span><span class="p">,</span>
-<span class="p">)</span>
-
-
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># usort: skip. Keep the order instead of sorting lexicographically</span>
-    <span class="n">_deprecation</span><span class="p">,</span>
-    <span class="n">errors</span><span class="p">,</span>
-    <span class="n">symbolic_caffe2</span><span class="p">,</span>
-    <span class="n">symbolic_helper</span><span class="p">,</span>
-    <span class="n">symbolic_opset7</span><span class="p">,</span>
-    <span class="n">symbolic_opset8</span><span class="p">,</span>
-    <span class="n">symbolic_opset9</span><span class="p">,</span>
-    <span class="n">symbolic_opset10</span><span class="p">,</span>
-    <span class="n">symbolic_opset11</span><span class="p">,</span>
-    <span class="n">symbolic_opset12</span><span class="p">,</span>
-    <span class="n">symbolic_opset13</span><span class="p">,</span>
-    <span class="n">symbolic_opset14</span><span class="p">,</span>
-    <span class="n">symbolic_opset15</span><span class="p">,</span>
-    <span class="n">symbolic_opset16</span><span class="p">,</span>
-    <span class="n">symbolic_opset17</span><span class="p">,</span>
-    <span class="n">symbolic_opset18</span><span class="p">,</span>
-    <span class="n">symbolic_opset19</span><span class="p">,</span>
-    <span class="n">symbolic_opset20</span><span class="p">,</span>
-    <span class="n">utils</span><span class="p">,</span>
-<span class="p">)</span>
-
-
-<span class="kn">from</span> <span class="nn">._internal._exporter_legacy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># usort: skip. needs to be last to avoid circular import</span>
-    <span class="n">DiagnosticOptions</span><span class="p">,</span>
-    <span class="n">ExportOptions</span><span class="p">,</span>
-    <span class="n">ONNXProgram</span><span class="p">,</span>
-    <span class="n">ONNXProgramSerializer</span><span class="p">,</span>
-    <span class="n">ONNXRuntimeOptions</span><span class="p">,</span>
-    <span class="n">InvalidExportOptionsError</span><span class="p">,</span>
-    <span class="n">OnnxExporterError</span><span class="p">,</span>
-    <span class="n">OnnxRegistry</span><span class="p">,</span>
-    <span class="n">dynamo_export</span><span class="p">,</span>
-    <span class="n">enable_fake_mode</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
@@ -640,6 +580,73 @@
     <span class="s2">&quot;is_onnxrt_backend_supported&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_C</span>
+<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_onnx</span> <span class="k">as</span> <span class="n">_C_onnx</span>
+<span class="kn">from</span> <span class="nn">torch._C._onnx</span> <span class="kn">import</span> <span class="n">OperatorExportTypes</span><span class="p">,</span> <span class="n">TensorProtoDataType</span><span class="p">,</span> <span class="n">TrainingMode</span>
+
+<span class="kn">from</span> <span class="nn">._exporter_states</span> <span class="kn">import</span> <span class="n">ExportTypes</span>
+<span class="kn">from</span> <span class="nn">._internal.onnxruntime</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">is_onnxrt_backend_supported</span><span class="p">,</span>
+    <span class="n">OrtBackend</span> <span class="k">as</span> <span class="n">_OrtBackend</span><span class="p">,</span>
+    <span class="n">OrtBackendOptions</span> <span class="k">as</span> <span class="n">_OrtBackendOptions</span><span class="p">,</span>
+    <span class="n">OrtExecutionProvider</span> <span class="k">as</span> <span class="n">_OrtExecutionProvider</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">._type_utils</span> <span class="kn">import</span> <span class="n">JitScalarType</span>
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="kn">import</span> <span class="n">CheckerError</span>  <span class="c1"># Backwards compatibility</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_optimize_graph</span><span class="p">,</span>
+    <span class="n">_run_symbolic_function</span><span class="p">,</span>
+    <span class="n">_run_symbolic_method</span><span class="p">,</span>
+    <span class="n">export_to_pretty_string</span><span class="p">,</span>
+    <span class="n">is_in_onnx_export</span><span class="p">,</span>
+    <span class="n">register_custom_op_symbolic</span><span class="p">,</span>
+    <span class="n">select_model_mode_for_export</span><span class="p">,</span>
+    <span class="n">unregister_custom_op_symbolic</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># usort: skip. Keep the order instead of sorting lexicographically</span>
+    <span class="n">errors</span><span class="p">,</span>
+    <span class="n">symbolic_caffe2</span><span class="p">,</span>
+    <span class="n">symbolic_helper</span><span class="p">,</span>
+    <span class="n">symbolic_opset7</span><span class="p">,</span>
+    <span class="n">symbolic_opset8</span><span class="p">,</span>
+    <span class="n">symbolic_opset9</span><span class="p">,</span>
+    <span class="n">symbolic_opset10</span><span class="p">,</span>
+    <span class="n">symbolic_opset11</span><span class="p">,</span>
+    <span class="n">symbolic_opset12</span><span class="p">,</span>
+    <span class="n">symbolic_opset13</span><span class="p">,</span>
+    <span class="n">symbolic_opset14</span><span class="p">,</span>
+    <span class="n">symbolic_opset15</span><span class="p">,</span>
+    <span class="n">symbolic_opset16</span><span class="p">,</span>
+    <span class="n">symbolic_opset17</span><span class="p">,</span>
+    <span class="n">symbolic_opset18</span><span class="p">,</span>
+    <span class="n">symbolic_opset19</span><span class="p">,</span>
+    <span class="n">symbolic_opset20</span><span class="p">,</span>
+    <span class="n">utils</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">._internal._exporter_legacy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># usort: skip. needs to be last to avoid circular import</span>
+    <span class="n">DiagnosticOptions</span><span class="p">,</span>
+    <span class="n">ExportOptions</span><span class="p">,</span>
+    <span class="n">ONNXProgram</span><span class="p">,</span>
+    <span class="n">ONNXProgramSerializer</span><span class="p">,</span>
+    <span class="n">ONNXRuntimeOptions</span><span class="p">,</span>
+    <span class="n">InvalidExportOptionsError</span><span class="p">,</span>
+    <span class="n">OnnxExporterError</span><span class="p">,</span>
+    <span class="n">OnnxRegistry</span><span class="p">,</span>
+    <span class="n">dynamo_export</span><span class="p">,</span>
+    <span class="n">enable_fake_mode</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
 <span class="c1"># Set namespace for exposed private names</span>
 <span class="n">ExportTypes</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
 <span class="n">JitScalarType</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
@@ -660,6 +667,258 @@
 
 <span class="n">producer_name</span> <span class="o">=</span> <span class="s2">&quot;pytorch&quot;</span>
 <span class="n">producer_version</span> <span class="o">=</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">PRODUCER_VERSION</span>
+
+
+<div class="viewcode-block" id="export"><a class="viewcode-back" href="../../onnx_torchscript.html#torch.onnx.export">[docs]</a><span class="k">def</span> <span class="nf">export</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span>
+    <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">ExportedProgram</span>
+    <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span>
+    <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">,</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">f</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">export_params</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">input_names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">opset_version</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dynamic_axes</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span>
+    <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">keep_initializers_as_inputs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dynamo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># Dynamo only options</span>
+    <span class="n">external_data</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">report</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">verify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">profile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dump_exported_program</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">artifacts_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="n">fallback</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># Deprecated options</span>
+    <span class="n">training</span><span class="p">:</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">TrainingMode</span> <span class="o">=</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">TrainingMode</span><span class="o">.</span><span class="n">EVAL</span><span class="p">,</span>
+    <span class="n">operator_export_type</span><span class="p">:</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">OperatorExportTypes</span> <span class="o">=</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">OperatorExportTypes</span><span class="o">.</span><span class="n">ONNX</span><span class="p">,</span>
+    <span class="n">do_constant_folding</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">custom_opsets</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">export_modules_as_functions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">autograd_inlining</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># ignored options</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Exports a model into ONNX format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model: The model to be exported.</span>
+<span class="sd">        args: Example positional inputs. Any non-Tensor arguments will be hard-coded into the</span>
+<span class="sd">            exported model; any Tensor arguments will become inputs of the exported model,</span>
+<span class="sd">            in the order they occur in the tuple.</span>
+<span class="sd">        f: Path to the output ONNX model file. E.g. &quot;model.onnx&quot;.</span>
+<span class="sd">        kwargs: Optional example keyword inputs.</span>
+<span class="sd">        export_params: If false, parameters (weights) will not be exported.</span>
+<span class="sd">        verbose: Whether to enable verbose logging.</span>
+<span class="sd">        input_names: names to assign to the input nodes of the graph, in order.</span>
+<span class="sd">        output_names: names to assign to the output nodes of the graph, in order.</span>
+<span class="sd">        opset_version: The version of the</span>
+<span class="sd">            `default (ai.onnx) opset &lt;https://github.com/onnx/onnx/blob/master/docs/Operators.md&gt;`_</span>
+<span class="sd">            to target. Must be &gt;= 7.</span>
+<span class="sd">        dynamic_axes:</span>
+
+<span class="sd">            By default the exported model will have the shapes of all input and output tensors</span>
+<span class="sd">            set to exactly match those given in ``args``. To specify axes of tensors as</span>
+<span class="sd">            dynamic (i.e. known only at run-time), set ``dynamic_axes`` to a dict with schema:</span>
+
+<span class="sd">            * KEY (str): an input or output name. Each name must also be provided in ``input_names`` or</span>
+<span class="sd">                ``output_names``.</span>
+<span class="sd">            * VALUE (dict or list): If a dict, keys are axis indices and values are axis names. If a</span>
+<span class="sd">                list, each element is an axis index.</span>
+
+<span class="sd">            For example::</span>
+
+<span class="sd">                class SumModule(torch.nn.Module):</span>
+<span class="sd">                    def forward(self, x):</span>
+<span class="sd">                        return torch.sum(x, dim=1)</span>
+
+
+<span class="sd">                torch.onnx.export(</span>
+<span class="sd">                    SumModule(),</span>
+<span class="sd">                    (torch.ones(2, 2),),</span>
+<span class="sd">                    &quot;onnx.pb&quot;,</span>
+<span class="sd">                    input_names=[&quot;x&quot;],</span>
+<span class="sd">                    output_names=[&quot;sum&quot;],</span>
+<span class="sd">                )</span>
+
+<span class="sd">            Produces::</span>
+
+<span class="sd">                input {</span>
+<span class="sd">                  name: &quot;x&quot;</span>
+<span class="sd">                  ...</span>
+<span class="sd">                      shape {</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_value: 2  # axis 0</span>
+<span class="sd">                        }</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_value: 2  # axis 1</span>
+<span class="sd">                ...</span>
+<span class="sd">                output {</span>
+<span class="sd">                  name: &quot;sum&quot;</span>
+<span class="sd">                  ...</span>
+<span class="sd">                      shape {</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_value: 2  # axis 0</span>
+<span class="sd">                ...</span>
+
+<span class="sd">            While::</span>
+
+<span class="sd">                torch.onnx.export(</span>
+<span class="sd">                    SumModule(),</span>
+<span class="sd">                    (torch.ones(2, 2),),</span>
+<span class="sd">                    &quot;onnx.pb&quot;,</span>
+<span class="sd">                    input_names=[&quot;x&quot;],</span>
+<span class="sd">                    output_names=[&quot;sum&quot;],</span>
+<span class="sd">                    dynamic_axes={</span>
+<span class="sd">                        # dict value: manually named axes</span>
+<span class="sd">                        &quot;x&quot;: {0: &quot;my_custom_axis_name&quot;},</span>
+<span class="sd">                        # list value: automatic names</span>
+<span class="sd">                        &quot;sum&quot;: [0],</span>
+<span class="sd">                    },</span>
+<span class="sd">                )</span>
+
+<span class="sd">            Produces::</span>
+
+<span class="sd">                input {</span>
+<span class="sd">                  name: &quot;x&quot;</span>
+<span class="sd">                  ...</span>
+<span class="sd">                      shape {</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_param: &quot;my_custom_axis_name&quot;  # axis 0</span>
+<span class="sd">                        }</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_value: 2  # axis 1</span>
+<span class="sd">                ...</span>
+<span class="sd">                output {</span>
+<span class="sd">                  name: &quot;sum&quot;</span>
+<span class="sd">                  ...</span>
+<span class="sd">                      shape {</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_param: &quot;sum_dynamic_axes_1&quot;  # axis 0</span>
+<span class="sd">                ...</span>
+
+<span class="sd">        keep_initializers_as_inputs: If True, all the</span>
+<span class="sd">            initializers (typically corresponding to model weights) in the</span>
+<span class="sd">            exported graph will also be added as inputs to the graph. If False,</span>
+<span class="sd">            then initializers are not added as inputs to the graph, and only</span>
+<span class="sd">            the user inputs are added as inputs.</span>
+
+<span class="sd">            Set this to True if you intend to supply model weights at runtime.</span>
+<span class="sd">            Set it to False if the weights are static to allow for better optimizations</span>
+<span class="sd">            (e.g. constant folding) by backends/runtimes.</span>
+
+<span class="sd">        dynamo: Whether to export the model with ``torch.export`` ExportedProgram instead of TorchScript.</span>
+<span class="sd">        external_data: Whether to save the model weights as an external data file.</span>
+<span class="sd">            This is required for models with large weights that exceed the ONNX file size limit (2GB).</span>
+<span class="sd">            When False, the weights are saved in the ONNX file with the model architecture.</span>
+<span class="sd">        dynamic_shapes: A dictionary of dynamic shapes for the model inputs. Refer to</span>
+<span class="sd">            :func:`torch.export.export` for more details.</span>
+<span class="sd">        report: Whether to generate a markdown report for the export process.</span>
+<span class="sd">        verify: Whether to verify the exported model using ONNX Runtime.</span>
+<span class="sd">        profile: Whether to profile the export process.</span>
+<span class="sd">        dump_exported_program: Whether to dump the :class:`torch.export.ExportedProgram` to a file.</span>
+<span class="sd">            This is useful for debugging the exporter.</span>
+<span class="sd">        artifacts_dir: The directory to save the debugging artifacts like the report and the serialized</span>
+<span class="sd">            exported program.</span>
+<span class="sd">        fallback: Whether to fallback to the TorchScript exporter if the dynamo exporter fails.</span>
+
+<span class="sd">        training: Deprecated option. Instead, set the training mode of the model before exporting.</span>
+<span class="sd">        operator_export_type: Deprecated option. Only ONNX is supported.</span>
+<span class="sd">        do_constant_folding: Deprecated option. The exported graph is always optimized.</span>
+<span class="sd">        custom_opsets: Deprecated.</span>
+<span class="sd">            A dictionary:</span>
+
+<span class="sd">            * KEY (str): opset domain name</span>
+<span class="sd">            * VALUE (int): opset version</span>
+
+<span class="sd">            If a custom opset is referenced by ``model`` but not mentioned in this dictionary,</span>
+<span class="sd">            the opset version is set to 1. Only custom opset domain name and version should be</span>
+<span class="sd">            indicated through this argument.</span>
+<span class="sd">        export_modules_as_functions: Deprecated option.</span>
+
+<span class="sd">            Flag to enable</span>
+<span class="sd">            exporting all ``nn.Module`` forward calls as local functions in ONNX. Or a set to indicate the</span>
+<span class="sd">            particular types of modules to export as local functions in ONNX.</span>
+<span class="sd">            This feature requires ``opset_version`` &gt;= 15, otherwise the export will fail. This is because</span>
+<span class="sd">            ``opset_version`` &lt; 15 implies IR version &lt; 8, which means no local function support.</span>
+<span class="sd">            Module variables will be exported as function attributes. There are two categories of function</span>
+<span class="sd">            attributes.</span>
+
+<span class="sd">            1. Annotated attributes: class variables that have type annotations via</span>
+<span class="sd">            `PEP 526-style &lt;https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations&gt;`_</span>
+<span class="sd">            will be exported as attributes.</span>
+<span class="sd">            Annotated attributes are not used inside the subgraph of ONNX local function because</span>
+<span class="sd">            they are not created by PyTorch JIT tracing, but they may be used by consumers</span>
+<span class="sd">            to determine whether or not to replace the function with a particular fused kernel.</span>
+
+<span class="sd">            2. Inferred attributes: variables that are used by operators inside the module. Attribute names</span>
+<span class="sd">            will have prefix &quot;inferred::&quot;. This is to differentiate from predefined attributes retrieved from</span>
+<span class="sd">            python module annotations. Inferred attributes are used inside the subgraph of ONNX local function.</span>
+
+<span class="sd">            * ``False`` (default): export ``nn.Module`` forward calls as fine grained nodes.</span>
+<span class="sd">            * ``True``: export all ``nn.Module`` forward calls as local function nodes.</span>
+<span class="sd">            * Set of type of nn.Module: export ``nn.Module`` forward calls as local function nodes,</span>
+<span class="sd">                only if the type of the ``nn.Module`` is found in the set.</span>
+<span class="sd">        autograd_inlining: Deprecated.</span>
+<span class="sd">            Flag used to control whether to inline autograd functions.</span>
+<span class="sd">            Refer to https://github.com/pytorch/pytorch/pull/74765 for more details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dynamo</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">ExportedProgram</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">exporter</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="n">exporter</span><span class="o">.</span><span class="n">export_compat</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">args</span><span class="p">,</span>
+            <span class="n">f</span><span class="p">,</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="n">export_params</span><span class="o">=</span><span class="n">export_params</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="n">input_names</span><span class="o">=</span><span class="n">input_names</span><span class="p">,</span>
+            <span class="n">output_names</span><span class="o">=</span><span class="n">output_names</span><span class="p">,</span>
+            <span class="n">opset_version</span><span class="o">=</span><span class="n">opset_version</span><span class="p">,</span>
+            <span class="n">dynamic_axes</span><span class="o">=</span><span class="n">dynamic_axes</span><span class="p">,</span>
+            <span class="n">keep_initializers_as_inputs</span><span class="o">=</span><span class="n">keep_initializers_as_inputs</span><span class="p">,</span>
+            <span class="n">external_data</span><span class="o">=</span><span class="n">external_data</span><span class="p">,</span>
+            <span class="n">dynamic_shapes</span><span class="o">=</span><span class="n">dynamic_shapes</span><span class="p">,</span>
+            <span class="n">report</span><span class="o">=</span><span class="n">report</span><span class="p">,</span>
+            <span class="n">verify</span><span class="o">=</span><span class="n">verify</span><span class="p">,</span>
+            <span class="n">profile</span><span class="o">=</span><span class="n">profile</span><span class="p">,</span>
+            <span class="n">dump_exported_program</span><span class="o">=</span><span class="n">dump_exported_program</span><span class="p">,</span>
+            <span class="n">artifacts_dir</span><span class="o">=</span><span class="n">artifacts_dir</span><span class="p">,</span>
+            <span class="n">fallback</span><span class="o">=</span><span class="n">fallback</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">torch.onnx.utils</span> <span class="kn">import</span> <span class="n">export</span>
+
+        <span class="n">export</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">args</span><span class="p">,</span>
+            <span class="n">f</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="n">export_params</span><span class="o">=</span><span class="n">export_params</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">input_names</span><span class="o">=</span><span class="n">input_names</span><span class="p">,</span>
+            <span class="n">output_names</span><span class="o">=</span><span class="n">output_names</span><span class="p">,</span>
+            <span class="n">opset_version</span><span class="o">=</span><span class="n">opset_version</span><span class="p">,</span>
+            <span class="n">dynamic_axes</span><span class="o">=</span><span class="n">dynamic_axes</span><span class="p">,</span>
+            <span class="n">keep_initializers_as_inputs</span><span class="o">=</span><span class="n">keep_initializers_as_inputs</span><span class="p">,</span>
+            <span class="n">training</span><span class="o">=</span><span class="n">training</span><span class="p">,</span>
+            <span class="n">operator_export_type</span><span class="o">=</span><span class="n">operator_export_type</span><span class="p">,</span>
+            <span class="n">do_constant_folding</span><span class="o">=</span><span class="n">do_constant_folding</span><span class="p">,</span>
+            <span class="n">custom_opsets</span><span class="o">=</span><span class="n">custom_opsets</span><span class="p">,</span>
+            <span class="n">export_modules_as_functions</span><span class="o">=</span><span class="n">export_modules_as_functions</span><span class="p">,</span>
+            <span class="n">autograd_inlining</span><span class="o">=</span><span class="n">autograd_inlining</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <span class="c1"># TODO(justinchuby): Deprecate these logging functions in favor of the new diagnostic module.</span>

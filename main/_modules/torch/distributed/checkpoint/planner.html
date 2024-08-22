@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd1abd62 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git2a73ba2 ) &#x25BC</a>
     </div>
     
 
@@ -696,18 +696,20 @@
 <span class="sd">    Using the global planning step to make central decisions that can&#39;t be made individually by each rank</span>
 
 <span class="sd">    &gt;&gt;&gt; # xdoctest: +SKIP(&quot;undefined vars&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; from itertools import islice</span>
+<span class="sd">    &gt;&gt;&gt; from itertools import zip_longest</span>
 <span class="sd">    &gt;&gt;&gt; from dataclasses import replace</span>
 <span class="sd">    &gt;&gt;&gt; class DDPLoadBalancingPlanner(DefaultSavePlanner):</span>
 <span class="sd">    &gt;&gt;&gt;     # This uses the default local plan behavior of having all non-sharded writes in rank 0</span>
 <span class="sd">    &gt;&gt;&gt;     # This sample doesn&#39;t handle ShardedTensors</span>
 <span class="sd">    &gt;&gt;&gt;     def create_global_plan(self, all_plans):</span>
-<span class="sd">    &gt;&gt;&gt;         def chunk(it, size):</span>
-<span class="sd">    &gt;&gt;&gt;             it = iter(it)</span>
-<span class="sd">    &gt;&gt;&gt;         return list(iter(lambda: tuple(islice(it, size)), ()))</span>
+<span class="sd">    &gt;&gt;&gt;         iters = [iter(all_plans[0].items)] * len(all_plans)</span>
+<span class="sd">    &gt;&gt;&gt;         items_per_rank = [</span>
+<span class="sd">    &gt;&gt;&gt;             [item for item in items if item is not None]</span>
+<span class="sd">    &gt;&gt;&gt;             for items in zip(*zip_longest(*iters), strict=True)</span>
+<span class="sd">    &gt;&gt;&gt;         ]</span>
 <span class="sd">    &gt;&gt;&gt;         all_plans = [</span>
-<span class="sd">    &gt;&gt;&gt;             replace(plan, items=items) for plan, items in</span>
-<span class="sd">    &gt;&gt;&gt;                 zip(all_plans, chunk(all_plans[0].items, len(all_plans)))</span>
+<span class="sd">    &gt;&gt;&gt;             replace(plan, items=items)</span>
+<span class="sd">    &gt;&gt;&gt;             for plan, items in zip(all_plans, items_per_rank, strict=True)</span>
 <span class="sd">    &gt;&gt;&gt;         ]</span>
 <span class="sd">    &gt;&gt;&gt;         return super().create_global_plan(all_plans)</span>
 

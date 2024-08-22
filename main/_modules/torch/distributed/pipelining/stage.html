@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd1abd62 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git2a73ba2 ) &#x25BC</a>
     </div>
     
 
@@ -541,7 +541,7 @@
 <span class="kn">from</span> <span class="nn">torch.fx.node</span> <span class="kn">import</span> <span class="n">map_aggregate</span>
 <span class="kn">from</span> <span class="nn">torch.nn.parallel</span> <span class="kn">import</span> <span class="n">DistributedDataParallel</span>
 
-<span class="kn">from</span> <span class="nn">._backward</span> <span class="kn">import</span> <span class="n">stage_backward</span>
+<span class="kn">from</span> <span class="nn">._backward</span> <span class="kn">import</span> <span class="n">stage_backward</span><span class="p">,</span> <span class="n">stage_backward_input</span><span class="p">,</span> <span class="n">stage_backward_weight</span>
 <span class="kn">from</span> <span class="nn">._debug</span> <span class="kn">import</span> <span class="n">map_debug_info</span>
 <span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">flatten_args</span><span class="p">,</span> <span class="n">PipeInfo</span><span class="p">,</span> <span class="n">validate_tensors_metadata</span>
 
@@ -618,7 +618,7 @@
         <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">dw_builder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dw_builder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -629,10 +629,11 @@
 <span class="sd">            group (Optional[dist.ProcessGroup]): The process group to use for communication.</span>
 <span class="sd">                If `None`, the default process group will be used.</span>
 <span class="sd">                Default: `None`.</span>
-<span class="sd">            dw_builder (Optional[Callable[[], Callable[[], None]]): If provided, dw_runner is a builder function</span>
+<span class="sd">            dw_builder (Optional[Callable[[], Callable[..., None]]): If provided, dw_runner is a builder function</span>
 <span class="sd">                that will build a new dw_runner function that will run parts of module backward that were intentionally</span>
-<span class="sd">                skipped during the module&#39;s actual backward pass.  builder must be invoked by stage after stage runs</span>
+<span class="sd">                skipped during the module&#39;s actual backward pass. The builder must be invoked by stage after stage runs</span>
 <span class="sd">                model backwards, and stage should save the latest dw_runner to run during weight pass.</span>
+<span class="sd">                If not provided, a dw_runner will be generated automatically by traversing the autograd graph.</span>
 <span class="sd">                When used with schedules that only have F and B steps, the fresh dw_runner function will be called as</span>
 <span class="sd">                part of B.</span>
 <span class="sd">                When used with F,B,W schedules, the dw_runner function implements &#39;W&#39;.</span>
@@ -651,8 +652,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span> <span class="o">=</span> <span class="n">dw_builder</span>
 
+        <span class="c1"># backward state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backward_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
         <span class="c1"># store dw_runner per microbatch_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># `group_rank` is rank in process group `group`.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">)</span>
@@ -1103,13 +1107,9 @@
 <span class="sd">        If full_backward is True (the default), the full backward pass including weight and input gradients will be run,</span>
 <span class="sd">        and it is an error to call `backward_weight_one_chunk` for this bwd_chunk_id.</span>
 
-<span class="sd">        If full_backward is False, it is required that `dw_runner` was provided to the PipelineStage at __init__ time,</span>
+<span class="sd">        If full_backward is False, it is optional that `dw_runner` was provided to the PipelineStage at __init__ time,</span>
 <span class="sd">        and a subsequent call to `backward_weight_one_chunk` is required to invoke dw_runner and complete the backward.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_backward</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">,</span> <span class="s2">&quot;Must provide dw_builder to run partial backward&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_chunk_id</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
 
         <span class="p">(</span>
@@ -1138,26 +1138,70 @@
                 <span class="s2">&quot;input_values&quot;</span><span class="p">:</span> <span class="n">input_values</span><span class="p">,</span>
             <span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Backwarded chunk </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">)</span>
+        <span class="c1"># Custom backward function</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">:</span>
+            <span class="c1"># TODO: We may want to change our semantics so we are allowed to ignore</span>
+            <span class="c1"># the &#39;dw_builder&#39; and call full_backward directly when it is a full_backward op.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">full_backward</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">full_backward</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># perform the partial backwards for the inputs with a custom backward function</span>
+                <span class="c1"># when the &quot;stage_ouput&quot; is a loss, then it is a tensor, otherwise it is a tuple of tensors</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_backward</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">,</span> <span class="s2">&quot;Must provide dw_builder to run partial backward&quot;</span>
-            <span class="k">assert</span> <span class="n">bwd_chunk_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">,</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Attempted to run partial backward for chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="s2">&quot; repeatedly without calling `backward_weight_one_chunk`&quot;</span>
-            <span class="p">)</span>
-            <span class="n">dw_runner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">dw_runner</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()()</span>
+                <span class="n">dinputs</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="n">stage_backward_input</span><span class="p">(</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;input_values&quot;</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+                <span class="p">)</span>
+                <span class="c1"># TODO: we dont need to save this, add to dw_runner?</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">backward_state</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">dinputs</span><span class="p">,</span>
+                    <span class="n">input_values</span><span class="p">,</span>
+                    <span class="n">param_groups</span><span class="p">,</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="n">dinputs</span>
+                <span class="c1"># save a dw_runner with the `stage_backward_weight` function</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage_backward_weight</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Backwarded chunk </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">backward_weight_one_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">bwd_chunk_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">,</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="si">}</span><span class="s2"> Attempted to run backward_weight_one_chunk for chunk </span><span class="si">{</span><span class="n">bwd_chunk_id</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="s2">&quot; without first calling `backward_one_chunk(full_backward=False)`&quot;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="p">(</span>
+                <span class="n">dinputs</span><span class="p">,</span>
+                <span class="n">input_values</span><span class="p">,</span>
+                <span class="n">param_groups</span><span class="p">,</span>
+                <span class="n">stage_output</span><span class="p">,</span>
+                <span class="n">output_grads</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">dweights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">param_groups</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># TODO: figure out a better way to do this:</span>
+                <span class="c1"># if inputs does not require gradient,</span>
+                <span class="c1"># then the parameter group will not be fully captured during stage_backward_input</span>
+                <span class="c1"># in this case, we need call grad directly on the parameters</span>
+                <span class="c1"># To solve: make input fn do the intersect compute and then finish it off during W</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">stage_output</span><span class="p">,</span> <span class="n">grad_tensors</span><span class="o">=</span><span class="n">output_grads</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_validate_fwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Raises a RuntimeError if shapes of input args/kwargs do not match the shapes configured for this stage.&quot;&quot;&quot;</span>
@@ -1681,7 +1725,7 @@
         <span class="n">input_args</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
         <span class="n">output_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">dw_builder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dw_builder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">submodule</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">num_stages</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">dw_builder</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
