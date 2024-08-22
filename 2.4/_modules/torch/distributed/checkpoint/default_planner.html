@@ -723,10 +723,12 @@
             <span class="n">set_element</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">original_state_dict</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">read_item</span><span class="o">.</span><span class="n">dest_index</span><span class="o">.</span><span class="n">fqn</span><span class="p">],</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">value</span><span class="p">),</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">state_dict</span><span class="p">[</span><span class="n">read_item</span><span class="o">.</span><span class="n">dest_index</span><span class="o">.</span><span class="n">fqn</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state_dict</span><span class="p">[</span><span class="n">read_item</span><span class="o">.</span><span class="n">dest_index</span><span class="o">.</span><span class="n">fqn</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                <span class="n">value</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">resolve_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">read_item</span><span class="p">:</span> <span class="n">ReadItem</span><span class="p">):</span>
         <span class="n">tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_tensor</span><span class="p">(</span><span class="n">read_item</span><span class="o">.</span><span class="n">dest_index</span><span class="p">)</span>

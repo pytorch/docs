@@ -598,7 +598,9 @@
         <span class="c1"># TODO: read on each host, instead of only the coordinator</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_coordinator</span><span class="p">:</span>
             <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="n">torch_state_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_id</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+            <span class="n">torch_state_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_id</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="n">planner</span><span class="o">.</span><span class="n">flatten_state_dict</span><span class="p">:</span>
                 <span class="n">torch_state_dict</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">flatten_state_dict</span><span class="p">(</span><span class="n">torch_state_dict</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -744,7 +746,7 @@
 <span class="sd">        To avoid OOM, it&#39;s recommended to only run this function on a single rank.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">state_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">torch_save_path</span><span class="p">)</span>
+    <span class="n">state_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">torch_save_path</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="c1"># we don&#39;t need stateful behavior here because the expectation is anything loaded by</span>
     <span class="c1"># torch.load would not contain stateful objects.</span>
     <span class="n">_save_state_dict</span><span class="p">(</span>
