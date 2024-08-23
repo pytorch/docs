@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git2a73ba2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb3821f1 ) &#x25BC</a>
     </div>
     
 
@@ -557,6 +557,7 @@
     <span class="s2">&quot;mm&quot;</span><span class="p">,</span>
     <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
     <span class="s2">&quot;softmax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;solve&quot;</span><span class="p">,</span>
     <span class="s2">&quot;log_softmax&quot;</span><span class="p">,</span>
     <span class="s2">&quot;SparseSemiStructuredTensor&quot;</span><span class="p">,</span>
     <span class="s2">&quot;SparseSemiStructuredTensorCUTLASS&quot;</span><span class="p">,</span>
@@ -821,6 +822,26 @@
 <span class="sd">&quot;&quot;&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
+
+<span class="n">spsolve</span> <span class="o">=</span> <span class="n">_add_docstr</span><span class="p">(</span>
+    <span class="n">_sparse</span><span class="o">.</span><span class="n">_spsolve</span><span class="p">,</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">sparse.spsolve(input, other, *, left=True) -&gt; Tensor</span>
+
+<span class="sd">Computes the solution of a square system of linear equations with</span>
+<span class="sd">a unique solution. Its purpose is similar to :func:`torch.linalg.solve`,</span>
+<span class="sd">except that the system is defined by a sparse CSR matrix with layout</span>
+<span class="sd">`sparse_csr`.</span>
+
+<span class="sd">Args:</span>
+<span class="sd">    input (Tensor): a sparse CSR matrix of shape `(n, n)` representing the</span>
+<span class="sd">        coefficients of the linear system.</span>
+<span class="sd">    other (Tensor): a dense matrix of shape `(n, )` representing the right-hand</span>
+<span class="sd">        side of the linear system.</span>
+<span class="sd">    left (bool, optional): whether to solve the system for `input @ out = other`</span>
+<span class="sd">        (default) or `out @ input = other`. Only `left=True` is supported.</span>
+<span class="sd">&quot;&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">log_softmax</span> <span class="o">=</span> <span class="n">_add_docstr</span><span class="p">(</span>
     <span class="n">_sparse</span><span class="o">.</span><span class="n">_sparse_log_softmax</span><span class="p">,</span>

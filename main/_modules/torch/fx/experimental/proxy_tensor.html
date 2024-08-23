@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git2a73ba2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb3821f1 ) &#x25BC</a>
     </div>
     
 
@@ -1515,7 +1515,7 @@
     <span class="n">torch_fn_counts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">autowrap_modules</span><span class="o">=</span><span class="p">())</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">autowrap_modules</span><span class="o">=</span><span class="p">())</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tensor_tracker</span> <span class="o">=</span> <span class="n">WeakTensorKeyDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symnode_tracker</span> <span class="o">=</span> <span class="n">_SymNodeDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">script_object_tracker</span> <span class="o">=</span> <span class="n">WeakIdKeyDictionary</span><span class="p">(</span>
@@ -1561,7 +1561,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">py_sym_types</span><span class="p">):</span>
             <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">constant</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">constant</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># type: ignore[return-value]</span>
 
     <span class="nd">@overload</span>
     <span class="k">def</span> <span class="nf">unwrap_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Proxy</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
@@ -1628,7 +1628,7 @@
     <span class="n">tracer</span><span class="p">:</span> <span class="n">Tracer</span><span class="p">,</span>
     <span class="n">concrete_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GraphModule</span><span class="p">:</span>
-    <span class="n">graph</span> <span class="o">=</span> <span class="n">tracer</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">concrete_args</span><span class="p">)</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">tracer</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">concrete_args</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
 
     <span class="c1"># NB: be careful not to DCE .item() calls</span>
     <span class="k">def</span> <span class="nf">impure_pred</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1753,7 +1753,7 @@
             <span class="c1"># It&#39;s for passing the export verifier which needs to verify the meta[&#39;val&#39;]</span>
             <span class="c1"># TODO(tmanlaibaatar): we should systematically couple it with expoert verifier,</span>
             <span class="c1"># instead of hardcoding it here.</span>
-            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="p">{})</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_set_grad_enabled</span><span class="p">:</span>
                 <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="n">node</span>
@@ -1848,7 +1848,7 @@
 
         <span class="c1"># func doesn&#39;t have a __torch_function__ that Proxy can interpose, so</span>
         <span class="c1"># we gotta do it manually</span>
-        <span class="n">n_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">n_args</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">n_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">n_args</span><span class="p">,</span> <span class="p">{})</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="n">p_out</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">Proxy</span><span class="p">(</span><span class="n">n_out</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="p">)</span>
         <span class="n">set_meta</span><span class="p">(</span><span class="n">p_out</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">p_out</span>
@@ -1907,7 +1907,7 @@
         <span class="n">decomposition_table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">new_graph</span> <span class="o">=</span> <span class="n">new_graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span> <span class="o">=</span> <span class="n">_GraphAppendingTracerEx</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_graph</span><span class="p">)</span>
         <span class="c1"># Blegh</span>
@@ -1924,18 +1924,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">torch_fn_counts</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="nf">placeholder</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="n">proxy</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">Proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_graph</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="p">)</span>
         <span class="n">track_tensor_tree</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">proxy</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tracer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="p">)</span>
         <span class="c1"># TODO handle case where the first character of target is &#39;*&#39;</span>
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="k">def</span> <span class="nf">get_attr</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="n">proxy</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">Proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_graph</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="p">)</span>
         <span class="n">track_tensor_tree</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">proxy</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tracer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">out</span>
@@ -1943,9 +1943,9 @@
     <span class="c1"># call_function, call_method, call_module get traced automatically by the outer mode.</span>
 
     <span class="k">def</span> <span class="nf">output</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
 
         <span class="k">def</span> <span class="nf">get_proxy_node</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">_ProxyTensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">fx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">Node</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">node</span>
@@ -1960,7 +1960,7 @@
         <span class="c1"># Should enter the mode at least once for being able to restore it later</span>
         <span class="c1"># See: https://github.com/pytorch/pytorch/pull/82549#discussion_r934782025</span>
         <span class="k">with</span> <span class="n">decompose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decomposition_table</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
 
 
 <span class="k">def</span> <span class="nf">wrapper_and_args_for_make_fx</span><span class="p">(</span>
@@ -2121,7 +2121,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">attr_proxy_map</span><span class="p">[</span><span class="n">attr_val</span><span class="p">]</span><span class="o">.</span><span class="n">reset_proxy_mapping</span><span class="p">(</span><span class="n">attr_val</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_proxy_map</span><span class="p">[</span><span class="n">attr_val</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">trace</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">trace</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Module</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span> <span class="n">concrete_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">concrete_args</span><span class="p">)</span>
@@ -2215,7 +2215,7 @@
 <span class="sd">        Add torch_fn by looking at torch_fn_metadata and torch_fn_counts.</span>
 <span class="sd">        Add stack_trace by filtering out forward() stack frames.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
 
         <span class="c1"># nn_module_stack</span>
         <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;placeholder&quot;</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">]:</span>
