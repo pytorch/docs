@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb3821f1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gite52e93e ) &#x25BC</a>
     </div>
     
 
@@ -1000,7 +1000,7 @@ that is being taken with the given sample inputs. For example:</p>
 shape of (10, 2). Since <code class="docutils literal notranslate"><span class="pre">torch.export</span></code> specializes on the inputs’ static
 shapes, the else branch (<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">-</span> <span class="pre">1</span></code>) will never be reached. To preserve the dynamic
 branching behavior based on the shape of a tensor in the traced graph,
-<code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.dynamic_dim()</span></code> will need to be used to specify the dimension
+<code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.Dim()</span></code> will need to be used to specify the dimension
 of the input tensor (<code class="docutils literal notranslate"><span class="pre">x.shape[0]</span></code>) to be dynamic, and the source code will
 need to be <a class="reference internal" href="#data-shape-dependent-control-flow"><span class="std std-ref">rewritten</span></a>.</p>
 <p>Note that tensors that are part of the module state (e.g. parameters and
@@ -1199,85 +1199,6 @@ WARNING: This option is experimental and use this at your own risk.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="torch.export.dynamic_shapes.dynamic_dim">
-<span class="sig-prename descclassname"><span class="pre">torch.export.dynamic_shapes.</span></span><span class="sig-name descname"><span class="pre">dynamic_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/dynamic_shapes.html#dynamic_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.dynamic_shapes.dynamic_dim" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>(This feature is DEPRECATED. See <a class="reference internal" href="#torch.export.dynamic_shapes.Dim" title="torch.export.dynamic_shapes.Dim"><code class="xref py py-func docutils literal notranslate"><span class="pre">Dim()</span></code></a> instead.)</p>
-</div>
-<p><a class="reference internal" href="#torch.export.dynamic_shapes.dynamic_dim" title="torch.export.dynamic_shapes.dynamic_dim"><code class="xref py py-func docutils literal notranslate"><span class="pre">dynamic_dim()</span></code></a> constructs a <code class="xref py py-class docutils literal notranslate"><span class="pre">_Constraint</span></code> object that describes the dynamism of
-a dimension <code class="docutils literal notranslate"><span class="pre">index</span></code> of tensor <code class="docutils literal notranslate"><span class="pre">t</span></code>. <code class="xref py py-class docutils literal notranslate"><span class="pre">_Constraint</span></code> objects should be passed to
-<code class="docutils literal notranslate"><span class="pre">constraints</span></code> argument of <code class="xref py py-func docutils literal notranslate"><span class="pre">export()</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>t</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a>) – Example input tensor that have dynamic dimension size(s)</p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Index of dynamic dimension</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">_Constraint</span></code> object that describes shape dynamism. It can be passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">export()</span></code> so
-that <code class="xref py py-func docutils literal notranslate"><span class="pre">export()</span></code> does not assume static size of specified tensor, i.e. keeping it dynamic
-as a symbolic size rather than specializing according to size of example tracing input.</p>
-</dd>
-</dl>
-<p>Specifically <a class="reference internal" href="#torch.export.dynamic_shapes.dynamic_dim" title="torch.export.dynamic_shapes.dynamic_dim"><code class="xref py py-func docutils literal notranslate"><span class="pre">dynamic_dim()</span></code></a> can be used to express following types of dynamism.</p>
-<ul>
-<li><p>Size of a dimension is dynamic and unbounded:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># First dimension of t0 can be dynamic size rather than always being static size 2</span>
-<span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">dynamic_dim</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
-<span class="n">ep</span> <span class="o">=</span> <span class="n">export</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Size of a dimension is dynamic with a lower bound:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># First dimension of t0 can be dynamic size with a lower bound of 5 (inclusive)</span>
-<span class="c1"># Second dimension of t1 can be dynamic size with a lower bound of 2 (exclusive)</span>
-<span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">dynamic_dim</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="n">dynamic_dim</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span>
-<span class="p">]</span>
-<span class="n">ep</span> <span class="o">=</span> <span class="n">export</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Size of a dimension is dynamic with an upper bound:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># First dimension of t0 can be dynamic size with a upper bound of 16 (inclusive)</span>
-<span class="c1"># Second dimension of t1 can be dynamic size with a upper bound of 8 (exclusive)</span>
-<span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">dynamic_dim</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">,</span>
-    <span class="n">dynamic_dim</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">,</span>
-<span class="p">]</span>
-<span class="n">ep</span> <span class="o">=</span> <span class="n">export</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Size of a dimension is dynamic and it is always equal to size of another dynamic dimension:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># Sizes of second dimension of t0 and first dimension are always equal</span>
-<span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">dynamic_dim</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">dynamic_dim</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-<span class="p">]</span>
-<span class="n">ep</span> <span class="o">=</span> <span class="n">export</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Mix and match all types above as long as they do not express conflicting requirements</p></li>
-</ul>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="torch.export.save">
 <span class="sig-prename descclassname"><span class="pre">torch.export.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opset_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export.html#save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.save" title="Permalink to this definition">¶</a></dt>
 <dd><div class="admonition warning">
@@ -1410,6 +1331,12 @@ to expected opset versions</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.export.dynamic_shapes.DIM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.export.dynamic_shapes.</span></span><span class="sig-name descname"><span class="pre">DIM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/dynamic_shapes.html#DIM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.dynamic_shapes.DIM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum for automatic/static dynamic shapes.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1890,7 +1817,30 @@ hierarchy as the original eager module pre-export.</p>
 </dl>
 </dd></dl>
 
-<span class="target" id="module-torch.export.custom_obj"></span><span class="target" id="module-torch.export.experimental"></span></div>
+<span class="target" id="module-torch.export.custom_obj"></span><span class="target" id="module-torch.export.experimental"></span><span class="target" id="module-torch.export.passes"></span><dl class="py function">
+<dt class="sig sig-object py" id="torch.export.passes.move_to_device_pass">
+<span class="sig-prename descclassname"><span class="pre">torch.export.passes.</span></span><span class="sig-name descname"><span class="pre">move_to_device_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/passes.html#move_to_device_pass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.passes.move_to_device_pass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the exported program to the given device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ep</strong> (<a class="reference internal" href="#torch.export.ExportedProgram" title="torch.export.ExportedProgram"><em>ExportedProgram</em></a>) – The exported program to move.</p></li>
+<li><p><strong>location</strong> (<em>Union</em><em>[</em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em><em>]</em>) – The device to move the exported program to.
+If a string, it is interpreted as a device name.
+If a dict, it is interpreted as a mapping from
+the existing device to the intended one</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The moved exported program.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.export.ExportedProgram" title="torch.export.ExportedProgram">ExportedProgram</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -1976,10 +1926,10 @@ if (url)
 </li>
 <li><a class="reference internal" href="#module-torch.export">API Reference</a><ul>
 <li><a class="reference internal" href="#torch.export.export"><code class="docutils literal notranslate"><span class="pre">export()</span></code></a></li>
-<li><a class="reference internal" href="#torch.export.dynamic_shapes.dynamic_dim"><code class="docutils literal notranslate"><span class="pre">dynamic_dim()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.register_dataclass"><code class="docutils literal notranslate"><span class="pre">register_dataclass()</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.dynamic_shapes.DIM"><code class="docutils literal notranslate"><span class="pre">DIM</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.dynamic_shapes.Dim"><code class="docutils literal notranslate"><span class="pre">Dim()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.dims"><code class="docutils literal notranslate"><span class="pre">dims()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.dynamic_shapes.ShapesCollection"><code class="docutils literal notranslate"><span class="pre">ShapesCollection</span></code></a><ul>
@@ -2017,6 +1967,7 @@ if (url)
 </li>
 <li><a class="reference internal" href="#torch.export.unflatten.InterpreterModule"><code class="docutils literal notranslate"><span class="pre">InterpreterModule</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.unflatten.unflatten"><code class="docutils literal notranslate"><span class="pre">unflatten()</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.passes.move_to_device_pass"><code class="docutils literal notranslate"><span class="pre">move_to_device_pass()</span></code></a></li>
 </ul>
 </li>
 </ul>

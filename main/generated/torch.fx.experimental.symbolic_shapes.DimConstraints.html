@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb3821f1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gite52e93e ) &#x25BC</a>
     </div>
     
 
@@ -565,13 +565,6 @@ Solutions are “static” values or simplified “dynamic” constraints.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.DimConstraints.remove_redundant_dynamic_results">
-<span class="sig-name descname"><span class="pre">remove_redundant_dynamic_results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints.remove_redundant_dynamic_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.remove_redundant_dynamic_results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove constraints of the form 2 &lt;= dynamic_dim(…) as 2 is the default
-lower bound.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.DimConstraints.rewrite_with_congruences">
 <span class="sig-name descname"><span class="pre">rewrite_with_congruences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints.rewrite_with_congruences"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.rewrite_with_congruences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Eliminate expressions of the form b // d and b % d while adding congruences of the form b % d == k.
@@ -649,7 +642,6 @@ if (url)
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.add_equality"><code class="docutils literal notranslate"><span class="pre">DimConstraints.add_equality()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.forced_specializations"><code class="docutils literal notranslate"><span class="pre">DimConstraints.forced_specializations()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.prettify_results"><code class="docutils literal notranslate"><span class="pre">DimConstraints.prettify_results()</span></code></a></li>
-<li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.remove_redundant_dynamic_results"><code class="docutils literal notranslate"><span class="pre">DimConstraints.remove_redundant_dynamic_results()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.rewrite_with_congruences"><code class="docutils literal notranslate"><span class="pre">DimConstraints.rewrite_with_congruences()</span></code></a></li>
 <li><a class="reference internal" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.solve"><code class="docutils literal notranslate"><span class="pre">DimConstraints.solve()</span></code></a></li>
 </ul>
