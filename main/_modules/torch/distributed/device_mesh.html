@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gite52e93e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git74ef74b ) &#x25BC</a>
     </div>
     
 
@@ -530,6 +530,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -605,30 +606,68 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh_stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="k">def</span> <span class="nf">create_sub_mesh</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">,</span> <span class="n">submesh_dim_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">device_mesh</span><span class="p">:</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">,</span>
+            <span class="n">submesh_dim_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+            <span class="n">submesh_dims</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">device_mesh</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root_mesh</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot create a submesh from a submesh.&quot;</span><span class="p">)</span>
-
-            <span class="c1"># submesh_dims are the mesh dimension of the submesh in the device mesh.</span>
-            <span class="n">submesh_dims</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">not_none</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">mesh_dim_name</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="n">submesh_dim_names</span>
+            <span class="c1"># Get the submesh dim size from the submesh_dims.</span>
+            <span class="c1"># For example, if we have a 3D mesh with mesh_shape (2, 2, 2) mesh_dim_names (&quot;dp&quot;, &quot;cp&quot;, &quot;tp&quot;) and we want</span>
+            <span class="c1"># to slice out mesh[&quot;dp_cp&quot;], then submesh_dims = [(0, 1), (2,)] and submesh_dim_size = [2 * 2, 2] = [4, 2].</span>
+            <span class="c1"># If we want to slice out mesh[&quot;dp&quot;, &quot;cp&quot;], then submesh_dims = [(0,), (1,)] and submesh_dim_size = [2, 2].</span>
+            <span class="n">slice_dim_size</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">reduce</span><span class="p">(</span>
+                    <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
+                    <span class="n">mesh_dim</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mesh_dim</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+                <span class="k">else</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">mesh_dim</span> <span class="ow">in</span> <span class="n">submesh_dims</span>
             <span class="p">]</span>
-            <span class="n">submesh_dim_sizes</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="p">)</span> <span class="k">for</span> <span class="n">mesh_dim</span> <span class="ow">in</span> <span class="n">submesh_dims</span>
-            <span class="p">]</span>
 
-            <span class="n">mesh_dims_remained</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span>
-            <span class="k">for</span> <span class="n">submesh_dim</span> <span class="ow">in</span> <span class="n">submesh_dims</span><span class="p">:</span>
-                <span class="n">mesh_dims_remained</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">submesh_dim</span><span class="p">)</span>
+            <span class="n">mesh_tensor</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span>
+            <span class="c1"># slice_dim_idx could be differnt from submesh_dims, as we may need to flatten out some dims.</span>
+            <span class="n">slice_dim_idx</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">slice_dim_group_info</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1"># keep track of the number of dims that have been flattened so we can get the correct slice_dim_idx in the</span>
+            <span class="c1"># flattened mesh tensor.</span>
+            <span class="n">num_dims_flatten</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">mesh_dim_indices</span><span class="p">,</span> <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">submesh_dims</span><span class="p">,</span> <span class="n">submesh_dim_names</span><span class="p">):</span>
+                <span class="c1"># Currently, this only allows slicing out a contiguous flattened dim.</span>
+                <span class="c1"># TODO: we need to handle reconstructing a non-contiguous flattened dim.</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mesh_dim_indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># We need to move the start_dim and end_dim to the left if some dims are already flattened.</span>
+                    <span class="n">mesh_tensor</span> <span class="o">=</span> <span class="n">mesh_tensor</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span>
+                        <span class="n">start_dim</span><span class="o">=</span><span class="n">mesh_dim_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">num_dims_flatten</span><span class="p">,</span>
+                        <span class="n">end_dim</span><span class="o">=</span><span class="n">mesh_dim_indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">num_dims_flatten</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="c1"># If some dims are already flattened, we need to adjust the slice_dim_idx accordingly.</span>
+                    <span class="c1"># For example, if the submesh_dims = [(0, 1), (2,), (3, 4)] with 0-1 flattened and 3-4 flattened,</span>
+                    <span class="c1"># then the final slice_dim_idx should be [0, 1, 2].</span>
+                    <span class="n">slice_dim_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mesh_dim_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">num_dims_flatten</span><span class="p">)</span>
+                    <span class="n">num_dims_flatten</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mesh_dim_indices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                    <span class="n">slice_dim_group_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span><span class="p">[</span><span class="n">device_mesh</span><span class="p">][</span>
+                            <span class="n">mesh_dim_name</span>
+                        <span class="p">]</span><span class="o">.</span><span class="n">_dim_group_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">slice_dim_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mesh_dim_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">num_dims_flatten</span><span class="p">)</span>
+                    <span class="n">slice_dim_group_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">device_mesh</span><span class="o">.</span><span class="n">_dim_group_infos</span><span class="p">[</span><span class="n">mesh_dim_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                    <span class="p">)</span>
 
-            <span class="c1"># pg_ranks_by_dim is the size of [number of local ranks of the outermost submesh dimension, *sub_mesh_dims]</span>
+            <span class="c1"># mesh_tensor has already been flattened if needed. So mesh_tensor.ndim &lt;= device_mesh.mesh.ndim now.</span>
+            <span class="n">mesh_dims_remained_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">mesh_tensor</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">slice_dim_idx</span><span class="p">:</span>
+                <span class="n">mesh_dims_remained_idx</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+            <span class="c1"># pg_ranks_by_dim is the size of [number of local ranks of the outermost submesh dimension, *slice_dim_idx]</span>
             <span class="c1"># This means on each local rank of the outermost slice mesh dim, we have a tensor of submesh size with</span>
             <span class="c1"># the pg ranks of the submesh. From this, we can extract the submesh mesh tensor contains the current rank.</span>
-            <span class="n">pg_ranks_by_dim</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span>
-                <span class="o">*</span><span class="n">mesh_dims_remained</span><span class="p">,</span> <span class="o">*</span><span class="n">submesh_dims</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="n">submesh_dim_sizes</span><span class="p">)</span>
+            <span class="n">pg_ranks_by_dim</span> <span class="o">=</span> <span class="n">mesh_tensor</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">mesh_dims_remained_idx</span><span class="p">,</span> <span class="o">*</span><span class="n">slice_dim_idx</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="n">slice_dim_size</span><span class="p">)</span>
 
             <span class="n">cur_rank</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">get_rank</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">mesh_nd</span> <span class="ow">in</span> <span class="n">pg_ranks_by_dim</span><span class="p">:</span>
@@ -641,9 +680,7 @@
                 <span class="k">if</span> <span class="n">cur_rank</span> <span class="ow">in</span> <span class="n">mesh_nd</span><span class="p">:</span>
                     <span class="n">res_submesh</span> <span class="o">=</span> <span class="n">submesh</span>
 
-            <span class="n">res_submesh</span><span class="o">.</span><span class="n">_dim_group_infos</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
-                <span class="n">device_mesh</span><span class="o">.</span><span class="n">_dim_group_infos</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">]</span> <span class="k">for</span> <span class="n">mesh_dim</span> <span class="ow">in</span> <span class="n">submesh_dims</span>
-            <span class="p">]</span>
+            <span class="n">res_submesh</span><span class="o">.</span><span class="n">_dim_group_infos</span> <span class="o">=</span> <span class="n">slice_dim_group_info</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">child_to_root_mapping</span><span class="p">[</span><span class="n">res_submesh</span><span class="p">]</span> <span class="o">=</span> <span class="n">device_mesh</span>
 
             <span class="k">return</span> <span class="n">res_submesh</span>
@@ -750,6 +787,58 @@
             <span class="n">pg_options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="o">.</span><span class="n">Options</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_group_options</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">pg_options</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_get_slice_mesh_dims</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">mesh_dim_names</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Validate whether the mesh_dim_names is valid for slicing the given device_mesh.</span>
+<span class="sd">            If valid, return dim indexes of the slice mesh in the device mesh.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">device_mesh</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root_mesh</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot create a submesh from a submesh.&quot;</span><span class="p">)</span>
+
+            <span class="c1"># The slice mesh_dim_names should consist either the device_mesh&#39;s mesh_dim_names</span>
+            <span class="c1"># or its flattened mesh&#39;s mesh_dim_names.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flatten_name_to_root_dims</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">flatten_name_to_root_dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten_name_to_root_dims</span><span class="p">[</span><span class="n">device_mesh</span><span class="p">]</span>
+            <span class="n">valid_mesh_dim_names</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="o">*</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">,</span>
+                <span class="o">*</span><span class="n">flatten_name_to_root_dims</span><span class="p">,</span>
+            <span class="p">]</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
+                <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="n">valid_mesh_dim_names</span>
+                <span class="k">for</span> <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="n">mesh_dim_names</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Invalid mesh_dim_names </span><span class="si">{</span><span class="n">mesh_dim_names</span><span class="si">}</span><span class="s2"> specified. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Valid mesh_dim_names are </span><span class="si">{</span><span class="n">valid_mesh_dim_names</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Validate the order of the slice mesh dim indices.</span>
+            <span class="c1"># This needs to be in ascending order.</span>
+            <span class="n">curr_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">slice_mesh_dims</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="n">mesh_dim_names</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="n">flatten_name_to_root_dims</span><span class="p">:</span>
+                    <span class="n">mesh_indices</span> <span class="o">=</span> <span class="n">flatten_name_to_root_dims</span><span class="p">[</span><span class="n">mesh_dim_name</span><span class="p">]</span>
+                    <span class="c1"># TODO: this doesn&#39;t allow non-contiguous slicing with flatten dim yet. next_idx</span>
+                    <span class="c1"># should be mesh_indices[0] once we support non-contiguous slicing with flatten dim.</span>
+                    <span class="n">next_idx</span> <span class="o">=</span> <span class="n">mesh_indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">slice_mesh_dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mesh_indices</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">next_idx</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">mesh_dim_name</span><span class="p">)</span>
+                    <span class="n">slice_mesh_dims</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">next_idx</span><span class="p">,))</span>
+                <span class="k">if</span> <span class="n">next_idx</span> <span class="o">&lt;=</span> <span class="n">curr_idx</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Invalid mesh_dim_names </span><span class="si">{</span><span class="n">mesh_dim_names</span><span class="si">}</span><span class="s2"> specified. &quot;</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s2">&quot;Found mesh dim indices to slice: </span><span class="si">{</span><span class="n">slice_mesh_dims</span><span class="si">}</span><span class="s2">. &quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Mesh dim indices should be in ascending order.&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="n">curr_idx</span> <span class="o">=</span> <span class="n">next_idx</span>
+
+            <span class="k">return</span> <span class="n">slice_mesh_dims</span>
 
     <span class="n">_mesh_resources</span><span class="p">:</span> <span class="n">_MeshEnv</span> <span class="o">=</span> <span class="n">_MeshEnv</span><span class="p">()</span>
 
@@ -1051,19 +1140,16 @@
                 <span class="p">(</span><span class="n">mesh_dim_names</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mesh_dim_names</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">mesh_dim_names</span>
             <span class="p">)</span>
 
-            <span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">mesh_dim_names</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span>
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">mesh_dim_names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
-                <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="n">it</span> <span class="k">for</span> <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="n">mesh_dim_names</span>
-            <span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Invalid mesh_dim_name </span><span class="si">{</span><span class="n">mesh_dim_names</span><span class="si">}</span><span class="s2"> specified. &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;Valid mesh_dim_names should be a subsequence of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">slice_mesh_dims</span> <span class="o">=</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">_get_slice_mesh_dims</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="n">mesh_dim_names</span>
                 <span class="p">)</span>
-
-            <span class="n">submesh</span> <span class="o">=</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">create_sub_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh_dim_names</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">submesh</span>
+                <span class="n">submesh</span> <span class="o">=</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">create_sub_mesh</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="n">mesh_dim_names</span><span class="p">,</span> <span class="n">slice_mesh_dims</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">submesh</span>
 
         <span class="k">def</span> <span class="nf">get_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProcessGroup</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1088,18 +1174,28 @@
                     <span class="s2">&quot;please use `get_all_groups()` instead.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
 
+            <span class="c1"># Quick return if the current device_mesh is a 1D mesh.</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">mesh_dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">mesh_dim</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">return</span> <span class="n">not_none</span><span class="p">(</span>
+                    <span class="n">_find_pg_by_ranks_and_tag</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_dim_group_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># type: ignore[index]</span>
+                <span class="p">)</span>
+
+            <span class="n">root_mesh</span> <span class="o">=</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">get_root_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">root_to_flatten_mapping</span> <span class="o">=</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">root_mesh</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">root_to_flatten_mapping</span> <span class="ow">and</span> <span class="n">mesh_dim</span> <span class="ow">in</span> <span class="n">root_to_flatten_mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">dim_group_infos</span> <span class="o">=</span> <span class="n">root_to_flatten_mapping</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">]</span><span class="o">.</span><span class="n">_dim_group_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># type: ignore[index]</span>
+                <span class="k">return</span> <span class="n">not_none</span><span class="p">(</span><span class="n">_find_pg_by_ranks_and_tag</span><span class="p">(</span><span class="o">*</span><span class="n">dim_group_infos</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">mesh_dim</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">get_mesh_dim_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">)</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mesh_dim</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
                     <span class="k">else</span> <span class="n">mesh_dim</span>
                 <span class="p">)</span>
-
-            <span class="k">return</span> <span class="n">not_none</span><span class="p">(</span>
-                <span class="n">_find_pg_by_ranks_and_tag</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_dim_group_infos</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># type: ignore[index]</span>
-            <span class="p">)</span>
+                <span class="k">return</span> <span class="n">not_none</span><span class="p">(</span>
+                    <span class="n">_find_pg_by_ranks_and_tag</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_dim_group_infos</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># type: ignore[index]</span>
+                <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">get_all_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
