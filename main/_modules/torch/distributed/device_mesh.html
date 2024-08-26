@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git74ef74b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7af38eb ) &#x25BC</a>
     </div>
     
 
@@ -531,6 +531,7 @@
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -685,24 +686,45 @@
 
             <span class="k">return</span> <span class="n">res_submesh</span>
 
-        <span class="k">def</span> <span class="nf">create_flatten_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">create_flatten_mesh</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">,</span> <span class="n">mesh_dim_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">:</span>
             <span class="n">root_mesh</span> <span class="o">=</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">get_root_mesh</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">)</span>
+
             <span class="n">flatten_dims_in_root</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">not_none</span><span class="p">(</span><span class="n">root_mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">flattened_mesh_dim_name</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">flattened_mesh_dim_name</span> <span class="ow">in</span> <span class="n">not_none</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">)</span>
             <span class="p">]</span>
-            <span class="n">flatten_mesh_dim_name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="p">[</span>
-                    <span class="n">not_none</span><span class="p">(</span><span class="n">root_mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">)[</span><span class="n">dim</span><span class="p">]</span>
-                    <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">flatten_dims_in_root</span>
-                <span class="p">]</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">mesh_dim_name</span><span class="p">:</span>
+                <span class="n">mesh_dim_name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">not_none</span><span class="p">(</span><span class="n">root_mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">)[</span><span class="n">dim</span><span class="p">]</span>
+                        <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">flatten_dims_in_root</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Check whether the mesh_dim_name for flattened mesh is valid.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flatten_name_to_root_dims</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">root_mesh</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">invalid_dim_names</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span>
+                <span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">not_none</span><span class="p">(</span><span class="n">root_mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">)),</span>
+                <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">flatten_name_to_root_dims</span><span class="p">[</span><span class="n">root_mesh</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span>
             <span class="p">)</span>
+            <span class="k">if</span> <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="n">invalid_dim_names</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mesh_dim_name</span><span class="si">}</span><span class="s2"> already exists for submesh of the </span><span class="si">{</span><span class="n">root_mesh</span><span class="si">}</span><span class="s2">. &quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;The mesh_dim_names of submesh and flattened mesh are </span><span class="si">{</span><span class="n">invalid_dim_names</span><span class="si">}</span><span class="s2">. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Please specify another valid mesh_dim_name.&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+
             <span class="c1"># Quick return if the flatten mesh has been created before.</span>
+            <span class="c1"># TODO: If we decide to restrict flatten initialization once, we should remove</span>
+            <span class="c1"># this check and throw an error if the flatten mesh is already created before.</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">root_mesh</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span>
-                <span class="ow">and</span> <span class="n">flatten_mesh_dim_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span><span class="p">[</span><span class="n">root_mesh</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">mesh_dim_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span><span class="p">[</span><span class="n">root_mesh</span><span class="p">]</span>
             <span class="p">):</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span><span class="p">[</span><span class="n">root_mesh</span><span class="p">][</span><span class="n">flatten_mesh_dim_name</span><span class="p">]</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span><span class="p">[</span><span class="n">root_mesh</span><span class="p">][</span><span class="n">mesh_dim_name</span><span class="p">]</span>
 
             <span class="n">flattened_mesh_dim_size</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
 
@@ -720,13 +742,13 @@
                 <span class="n">flattened_mesh</span> <span class="o">=</span> <span class="n">DeviceMesh</span><span class="p">(</span>
                     <span class="n">root_mesh</span><span class="o">.</span><span class="n">device_type</span><span class="p">,</span>
                     <span class="n">mesh_nd</span><span class="p">,</span>
-                    <span class="n">mesh_dim_names</span><span class="o">=</span><span class="p">(</span><span class="n">flatten_mesh_dim_name</span><span class="p">,),</span>
+                    <span class="n">mesh_dim_names</span><span class="o">=</span><span class="p">(</span><span class="n">mesh_dim_name</span><span class="p">,),</span>
                 <span class="p">)</span>
                 <span class="k">if</span> <span class="n">cur_rank</span> <span class="ow">in</span> <span class="n">mesh_nd</span><span class="p">:</span>
                     <span class="n">res_flattened_mesh</span> <span class="o">=</span> <span class="n">flattened_mesh</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">child_to_root_mapping</span><span class="p">[</span><span class="n">res_flattened_mesh</span><span class="p">]</span> <span class="o">=</span> <span class="n">root_mesh</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">root_mesh</span><span class="p">,</span> <span class="p">{})[</span><span class="n">flatten_mesh_dim_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_flattened_mesh</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">flatten_name_to_root_dims</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">root_mesh</span><span class="p">,</span> <span class="p">{})[</span><span class="n">flatten_mesh_dim_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">flatten_dims_in_root</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_to_flatten_mapping</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">root_mesh</span><span class="p">,</span> <span class="p">{})[</span><span class="n">mesh_dim_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_flattened_mesh</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flatten_name_to_root_dims</span><span class="p">[</span><span class="n">root_mesh</span><span class="p">][</span><span class="n">mesh_dim_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">flatten_dims_in_root</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
 
             <span class="k">return</span> <span class="n">res_flattened_mesh</span>
 
@@ -1335,19 +1357,25 @@
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coordinate_on_dim</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coordinate_on_dim</span> <span class="k">else</span> <span class="kc">None</span>
 
-        <span class="k">def</span> <span class="nf">_flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">_flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh_dim_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Returns a 1D DeviceMesh by flattening the current DeviceMesh. The mesh_dim_names</span>
-<span class="sd">            of the flattened mesh will be the concatenation of the current mesh_dim_names.</span>
-<span class="sd">            For example, flattening a 2D DeviceMesh with mesh_dim_names=(&quot;dp&quot;, &quot;cp&quot;) will create</span>
-<span class="sd">            a 1D DeviceMesh with mesh_dim_names=(&quot;dp_cp&quot;).</span>
+<span class="sd">            Returns a 1D DeviceMesh by flattening the current DeviceMesh.</span>
+
+<span class="sd">            If no mesh_dim_name is provided, the default is a string concatentaing the mesh_dim_names of the</span>
+<span class="sd">            given submesh with each mesh_dim_name separated by &quot;_&quot;. For example, if we have a 3D mesh</span>
+<span class="sd">            DeviceMesh([[[0, 1], [2, 3]], [[4, 5], [6, 7]]], mesh_dim_names=(&quot;dp&quot;, &quot;cp&quot;, &quot;tp&quot;)), calling</span>
+<span class="sd">            mesh_3d[&quot;dp&quot;, &quot;cp&quot;]._flatten() will create a 1D submesh DeviceMesh([0, 1, 2, 3], mesh_dim_names=(&quot;dp_cp&quot;,))</span>
+<span class="sd">            on rank 0, 1, 2, 3 and a 1D submesh DeviceMesh([4, 5, 6, 7], mesh_dim_names=(&quot;dp_cp&quot;,)) on rank 4, 5, 6, 7.</span>
+
+<span class="sd">            After the flattened dimension is created, to access the flattened dimesnion in mesh_3d, one can use the</span>
+<span class="sd">            existing slicing method to obtain the flattened mesh through calling mesh_3d[&quot;dp_cp&quot;].</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                     <span class="s2">&quot;Cannot flatten a DeviceMesh without mesh_dim_names!&quot;</span>
                 <span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">create_flatten_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+            <span class="k">return</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">create_flatten_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh_dim_name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="init_device_mesh"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.device_mesh.init_device_mesh">[docs]</a>    <span class="k">def</span> <span class="nf">init_device_mesh</span><span class="p">(</span>
         <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
