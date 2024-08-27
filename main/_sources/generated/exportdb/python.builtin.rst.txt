@@ -5,7 +5,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
+    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -42,7 +42,7 @@ Result:
 
 .. code-block::
 
-    AssertionError: RoundToInt(IntTrueDiv(dim0_x, 2)) <= dim0_x
+    Unsupported: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS="+dynamic".
 
 
 tensor_setattr
