@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb98d33c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git3b33f26 ) &#x25BC</a>
     </div>
     
 
@@ -579,6 +579,8 @@
     <span class="s2">&quot;LoadEndianness&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_default_load_endianness&quot;</span><span class="p">,</span>
     <span class="s2">&quot;set_default_load_endianness&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_default_mmap_options&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;set_default_mmap_options&quot;</span><span class="p">,</span>
     <span class="s2">&quot;clear_safe_globals&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_safe_globals&quot;</span><span class="p">,</span>
     <span class="s2">&quot;add_safe_globals&quot;</span><span class="p">,</span>
@@ -688,9 +690,9 @@
     <span class="k">return</span> <span class="n">_default_mmap_options</span></div>
 
 
-<div class="viewcode-block" id="set_default_mmap_options"><a class="viewcode-back" href="../../notes/serialization.html#torch.set_default_mmap_options">[docs]</a><span class="k">def</span> <span class="nf">set_default_mmap_options</span><span class="p">(</span><span class="n">flags</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="set_default_mmap_options"><a class="viewcode-back" href="../../notes/serialization.html#torch.set_default_mmap_options">[docs]</a><span class="k">class</span> <span class="nc">set_default_mmap_options</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Set default mmap options for :func:`torch.load` with ``mmap=True`` to flags.</span>
+<span class="sd">    Context manager or function to set default mmap options for :func:`torch.load` with ``mmap=True`` to flags.</span>
 
 <span class="sd">    For now, only either ``mmap.MAP_PRIVATE`` or ``mmap.MAP_SHARED`` are supported.</span>
 <span class="sd">    Please open an issue if you need any other option to be added here.</span>
@@ -701,17 +703,27 @@
 <span class="sd">    Args:</span>
 <span class="sd">        flags: ``mmap.MAP_PRIVATE`` or ``mmap.MAP_SHARED``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">_default_mmap_options</span>
-    <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="s2">&quot;Changing the default mmap options is currently not supported for Windows&quot;</span>
-        <span class="p">)</span>
-    <span class="k">if</span> <span class="n">flags</span> <span class="o">!=</span> <span class="n">MAP_PRIVATE</span> <span class="ow">and</span> <span class="n">flags</span> <span class="o">!=</span> <span class="n">MAP_SHARED</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Invalid argument in function set_default_mmap_options, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;expected mmap.MAP_PRIVATE or mmap.MAP_SHARED, but got </span><span class="si">{</span><span class="n">flags</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-    <span class="n">_default_mmap_options</span> <span class="o">=</span> <span class="n">flags</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Changing the default mmap options is currently not supported for Windows&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">flags</span> <span class="o">!=</span> <span class="n">MAP_PRIVATE</span> <span class="ow">and</span> <span class="n">flags</span> <span class="o">!=</span> <span class="n">MAP_SHARED</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid argument in function set_default_mmap_options, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;expected mmap.MAP_PRIVATE or mmap.MAP_SHARED, but got </span><span class="si">{</span><span class="n">flags</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">global</span> <span class="n">_default_mmap_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">_default_mmap_options</span>
+        <span class="n">_default_mmap_options</span> <span class="o">=</span> <span class="n">flags</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">traceback</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">global</span> <span class="n">_default_mmap_options</span>
+        <span class="n">_default_mmap_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev</span></div>
 
 
 <div class="viewcode-block" id="clear_safe_globals"><a class="viewcode-back" href="../../notes/serialization.html#torch.clear_safe_globals">[docs]</a><span class="k">def</span> <span class="nf">clear_safe_globals</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

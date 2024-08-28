@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb98d33c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git3b33f26 ) &#x25BC</a>
     </div>
     
 
@@ -861,6 +861,35 @@
                 <span class="n">curr_idx</span> <span class="o">=</span> <span class="n">next_idx</span>
 
             <span class="k">return</span> <span class="n">slice_mesh_dims</span>
+
+        <span class="k">def</span> <span class="nf">_get_all_submeshes</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">:</span> <span class="s2">&quot;DeviceMesh&quot;</span><span class="p">,</span> <span class="n">mesh_dim_name</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;DeviceMesh&quot;</span><span class="p">]:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Return all the submeshes of a given mesh dimension of the device mesh.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">mesh_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mesh_dim_by_name</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">,</span> <span class="n">mesh_dim_name</span><span class="p">)</span>
+            <span class="n">pg_ranks_by_dim</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">swapdims</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+                <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">cur_rank</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">get_rank</span><span class="p">()</span>
+            <span class="n">res_submeshes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">mesh_1d</span> <span class="ow">in</span> <span class="n">pg_ranks_by_dim</span><span class="p">:</span>
+                <span class="n">submesh</span> <span class="o">=</span> <span class="n">DeviceMesh</span><span class="p">(</span>
+                    <span class="n">device_mesh</span><span class="o">.</span><span class="n">device_type</span><span class="p">,</span>
+                    <span class="n">mesh_1d</span><span class="p">,</span>
+                    <span class="n">mesh_dim_names</span><span class="o">=</span><span class="p">(</span><span class="n">mesh_dim_name</span><span class="p">,),</span>
+                    <span class="n">_init_backend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">submesh</span><span class="o">.</span><span class="n">_dim_group_infos</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">[</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">_dim_group_infos</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">]]</span>
+                    <span class="k">if</span> <span class="n">cur_rank</span> <span class="ow">in</span> <span class="n">mesh_1d</span>
+                    <span class="k">else</span> <span class="p">[]</span>
+                <span class="p">)</span>
+                <span class="n">res_submeshes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">submesh</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">res_submeshes</span>
 
     <span class="n">_mesh_resources</span><span class="p">:</span> <span class="n">_MeshEnv</span> <span class="o">=</span> <span class="n">_MeshEnv</span><span class="p">()</span>
 

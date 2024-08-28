@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitb98d33c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git3b33f26 ) &#x25BC</a>
     </div>
     
 
@@ -766,43 +766,45 @@
 <span class="s2">    * :attr:`padding` controls the amount of padding applied to the input. It</span>
 <span class="s2">      can be either a string {{&#39;valid&#39;, &#39;same&#39;}} or a tuple of ints giving the</span>
 <span class="s2">      amount of implicit padding applied on both sides.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also</span>
+<span class="sd">      known as the \u00e0 trous algorithm. It is harder to describe, but this `link`_</span>
+<span class="sd">      has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    {groups_note}</span>
 
-<span class="s2">    * :attr:`dilation` controls the spacing between the kernel points; also</span>
-<span class="s2">      known as the \uue0 trous algorithm. It is harder to describe, but this `link`_</span>
-<span class="s2">      has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        {depthwise_separable_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        {cudnn_reproducibility_note}</span>
 
-<span class="s2">    </span><span class="si">{groups_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        ``padding=&#39;valid&#39;`` is the same as no padding. ``padding=&#39;same&#39;`` pads</span>
+<span class="sd">        the input so the output has the shape as the input. However, this mode</span>
+<span class="sd">        doesn&#39;t support any stride values other than 1.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        </span><span class="si">{depthwise_separable_note}</span>
-<span class="s2">    Note:</span>
-<span class="s2">        </span><span class="si">{cudnn_reproducibility_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        This module supports complex data types i.e. ``complex32, complex64, complex128``.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        ``padding=&#39;valid&#39;`` is the same as no padding. ``padding=&#39;same&#39;`` pads</span>
-<span class="s2">        the input so the output has the shape as the input. However, this mode</span>
-<span class="s2">        doesn&#39;t support any stride values other than 1.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        in_channels (int): Number of channels in the input image</span>
+<span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
+<span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int, tuple or str, optional): Padding added to both sides of</span>
+<span class="sd">            the input. Default: 0</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
+<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel</span>
+<span class="sd">            elements. Default: 1</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input</span>
+<span class="sd">            channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
+<span class="sd">            output. Default: ``True``</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        This module supports complex data types i.e. ``complex32, complex64, complex128``.</span>
-
-<span class="s2">    Args:</span>
-<span class="s2">        in_channels (int): Number of channels in the input image</span>
-<span class="s2">        out_channels (int): Number of channels produced by the convolution</span>
-<span class="s2">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="s2">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
-<span class="s2">        padding (int, tuple or str, optional): Padding added to both sides of</span>
-<span class="s2">            the input. Default: 0</span>
-<span class="s2">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
-<span class="s2">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
-<span class="s2">        dilation (int or tuple, optional): Spacing between kernel</span>
-<span class="s2">            elements. Default: 1</span>
-<span class="s2">        groups (int, optional): Number of blocked connections from input</span>
-<span class="s2">            channels to output channels. Default: 1</span>
-<span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
-<span class="s2">            output. Default: ``True``</span>
-
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
         <span class="p">)</span>
         <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
@@ -929,48 +931,51 @@
 <span class="s2">    * :attr:`padding` controls the amount of padding applied to the input. It</span>
 <span class="s2">      can be either a string {{&#39;valid&#39;, &#39;same&#39;}} or an int / a tuple of ints giving the</span>
 <span class="s2">      amount of implicit padding applied on both sides.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also</span>
+<span class="sd">      known as the \u00e0 trous algorithm. It is harder to describe, but this `link`_</span>
+<span class="sd">      has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 
-<span class="s2">    * :attr:`dilation` controls the spacing between the kernel points; also</span>
-<span class="s2">      known as the \u00e0 trous algorithm. It is harder to describe, but this `link`_</span>
-<span class="s2">      has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">    {groups_note}</span>
 
-<span class="s2">    </span><span class="si">{groups_note}</span>
+<span class="sd">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`dilation` can either be:</span>
 
-<span class="s2">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`dilation` can either be:</span>
+<span class="sd">        - a single ``int`` -- in which case the same value is used for the height and width dimension</span>
+<span class="sd">        - a ``tuple`` of two ints -- in which case, the first `int` is used for the height dimension,</span>
+<span class="sd">          and the second `int` for the width dimension</span>
 
-<span class="s2">        - a single ``int`` -- in which case the same value is used for the height and width dimension</span>
-<span class="s2">        - a ``tuple`` of two ints -- in which case, the first `int` is used for the height dimension,</span>
-<span class="s2">          and the second `int` for the width dimension</span>
+<span class="sd">    Note:</span>
+<span class="sd">        {depthwise_separable_note}</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        </span><span class="si">{depthwise_separable_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        {cudnn_reproducibility_note}</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        </span><span class="si">{cudnn_reproducibility_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        ``padding=&#39;valid&#39;`` is the same as no padding. ``padding=&#39;same&#39;`` pads</span>
+<span class="sd">        the input so the output has the shape as the input. However, this mode</span>
+<span class="sd">        doesn&#39;t support any stride values other than 1.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        ``padding=&#39;valid&#39;`` is the same as no padding. ``padding=&#39;same&#39;`` pads</span>
-<span class="s2">        the input so the output has the shape as the input. However, this mode</span>
-<span class="s2">        doesn&#39;t support any stride values other than 1.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        This module supports complex data types i.e. ``complex32, complex64, complex128``.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        This module supports complex data types i.e. ``complex32, complex64, complex128``.</span>
-
-<span class="s2">    Args:</span>
-<span class="s2">        in_channels (int): Number of channels in the input image</span>
-<span class="s2">        out_channels (int): Number of channels produced by the convolution</span>
-<span class="s2">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="s2">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
-<span class="s2">        padding (int, tuple or str, optional): Padding added to all four sides of</span>
-<span class="s2">            the input. Default: 0</span>
-<span class="s2">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
-<span class="s2">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
-<span class="s2">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
-<span class="s2">        groups (int, optional): Number of blocked connections from input</span>
-<span class="s2">            channels to output channels. Default: 1</span>
-<span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
-<span class="s2">            output. Default: ``True``</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="sd">    Args:</span>
+<span class="sd">        in_channels (int): Number of channels in the input image</span>
+<span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
+<span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int, tuple or str, optional): Padding added to all four sides of</span>
+<span class="sd">            the input. Default: 0</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
+<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input</span>
+<span class="sd">            channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
+<span class="sd">            output. Default: ``True``</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
         <span class="p">)</span>
         <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
@@ -1099,44 +1104,47 @@
 <span class="s2">    * :attr:`padding` controls the amount of padding applied to the input. It</span>
 <span class="s2">      can be either a string {{&#39;valid&#39;, &#39;same&#39;}} or a tuple of ints giving the</span>
 <span class="s2">      amount of implicit padding applied on both sides.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
+<span class="sd">      It is harder to describe, but this `link`_ has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 
-<span class="s2">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
-<span class="s2">      It is harder to describe, but this `link`_ has a nice visualization of what :attr:`dilation` does.</span>
+<span class="sd">    {groups_note}</span>
 
-<span class="s2">    </span><span class="si">{groups_note}</span>
+<span class="sd">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`dilation` can either be:</span>
 
-<span class="s2">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`dilation` can either be:</span>
+<span class="sd">        - a single ``int`` -- in which case the same value is used for the depth, height and width dimension</span>
+<span class="sd">        - a ``tuple`` of three ints -- in which case, the first `int` is used for the depth dimension,</span>
+<span class="sd">          the second `int` for the height dimension and the third `int` for the width dimension</span>
 
-<span class="s2">        - a single ``int`` -- in which case the same value is used for the depth, height and width dimension</span>
-<span class="s2">        - a ``tuple`` of three ints -- in which case, the first `int` is used for the depth dimension,</span>
-<span class="s2">          the second `int` for the height dimension and the third `int` for the width dimension</span>
+<span class="sd">    Note:</span>
+<span class="sd">        {depthwise_separable_note}</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        </span><span class="si">{depthwise_separable_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        {cudnn_reproducibility_note}</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        </span><span class="si">{cudnn_reproducibility_note}</span>
+<span class="sd">    Note:</span>
+<span class="sd">        ``padding=&#39;valid&#39;`` is the same as no padding. ``padding=&#39;same&#39;`` pads</span>
+<span class="sd">        the input so the output has the shape as the input. However, this mode</span>
+<span class="sd">        doesn&#39;t support any stride values other than 1.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        ``padding=&#39;valid&#39;`` is the same as no padding. ``padding=&#39;same&#39;`` pads</span>
-<span class="s2">        the input so the output has the shape as the input. However, this mode</span>
-<span class="s2">        doesn&#39;t support any stride values other than 1.</span>
+<span class="sd">    Note:</span>
+<span class="sd">        This module supports complex data types i.e. ``complex32, complex64, complex128``.</span>
 
-<span class="s2">    Note:</span>
-<span class="s2">        This module supports complex data types i.e. ``complex32, complex64, complex128``.</span>
-
-<span class="s2">    Args:</span>
-<span class="s2">        in_channels (int): Number of channels in the input image</span>
-<span class="s2">        out_channels (int): Number of channels produced by the convolution</span>
-<span class="s2">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="s2">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
-<span class="s2">        padding (int, tuple or str, optional): Padding added to all six sides of</span>
-<span class="s2">            the input. Default: 0</span>
-<span class="s2">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``, ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
-<span class="s2">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
-<span class="s2">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
-<span class="s2">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="sd">    Args:</span>
+<span class="sd">        in_channels (int): Number of channels in the input image</span>
+<span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
+<span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int, tuple or str, optional): Padding added to all six sides of</span>
+<span class="sd">            the input. Default: 0</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``, ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
         <span class="p">)</span>
         <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
@@ -1359,10 +1367,12 @@
 
 <span class="sd">    * :attr:`output_padding` controls the additional size added to one side</span>
 <span class="sd">      of the output shape. See note below for details.</span>
-
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
 <span class="sd">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
-
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    {groups_note}</span>
 
 <span class="sd">    Note:</span>
@@ -1521,10 +1531,12 @@
 
 <span class="sd">    * :attr:`output_padding` controls the additional size added to one side</span>
 <span class="sd">      of the output shape. See note below for details.</span>
-
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
 <span class="sd">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
-
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    {groups_note}</span>
 
 <span class="sd">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`output_padding`</span>
@@ -1709,10 +1721,12 @@
 
 <span class="sd">    * :attr:`output_padding` controls the additional size added to one side</span>
 <span class="sd">      of the output shape. See note below for details.</span>
-
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    * :attr:`dilation` controls the spacing between the kernel points; also known as the \u00e0 trous algorithm.</span>
 <span class="sd">      It is harder to describe, but the link `here`_ has a nice visualization of what :attr:`dilation` does.</span>
-
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    {groups_note}</span>
 
 <span class="sd">    The parameters :attr:`kernel_size`, :attr:`stride`, :attr:`padding`, :attr:`output_padding`</span>

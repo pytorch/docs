@@ -42,7 +42,7 @@ Result:
 
 .. code-block::
 
-    Unsupported: Constraints violated (dim0_x)! For more information, run with TORCH_LOGS="+dynamic".
+    AssertionError: RoundToInt(IntTrueDiv(dim0_x, 2)) <= dim0_x
 
 
 tensor_setattr
