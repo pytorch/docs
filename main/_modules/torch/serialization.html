@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git3b33f26 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a554e9 ) &#x25BC</a>
     </div>
     
 
@@ -536,6 +536,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">tarfile</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">closing</span><span class="p">,</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
@@ -585,6 +586,7 @@
     <span class="s2">&quot;get_safe_globals&quot;</span><span class="p">,</span>
     <span class="s2">&quot;add_safe_globals&quot;</span><span class="p">,</span>
     <span class="s2">&quot;safe_globals&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;skip_data&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -610,6 +612,22 @@
     <span class="kn">from</span> <span class="nn">mmap</span> <span class="kn">import</span> <span class="n">MAP_PRIVATE</span><span class="p">,</span> <span class="n">MAP_SHARED</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">MAP_PRIVATE</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
+
+
+<span class="c1"># _serialization_tls is used to store thread local state specific to serialization</span>
+<span class="c1"># that needs to be propagated to other files, in particular we use this for</span>
+<span class="c1"># (1) map_location (needed for wrapper subclasses/third party devices to torch._utils)</span>
+<span class="c1"># (2) skip_data (needed for torch.Tensor.__reduce_ex__ for skip_data ctx)</span>
+<span class="c1"># (3) materialize_fake_tensors (needed for torch.Tensor.__reduce_ex__ for skip_data ctx)</span>
+<span class="k">class</span> <span class="nc">_SerializationLocal</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">local</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MAP_LOCATION</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skip_data</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">materialize_fake_tensors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="n">_serialization_tls</span> <span class="o">=</span> <span class="n">_SerializationLocal</span><span class="p">()</span>
 
 
 <span class="k">class</span> <span class="nc">SourceChangeWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
@@ -791,6 +809,46 @@
 <span class="sd">        #          [-0.8234,  2.0500, -0.3657]])</span>
 <span class="sd">        &gt;&gt;&gt; assert torch.serialization.get_safe_globals() == []</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="skip_data"><a class="viewcode-back" href="../../notes/serialization.html#torch.skip_data">[docs]</a><span class="k">class</span> <span class="nc">skip_data</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Context-manager that skips writing storage bytes for ``torch.save`` calls.</span>
+
+<span class="sd">    Storages will still be saved, but the space that their bytes would usually be written to</span>
+<span class="sd">    will be empty space. The storage bytes can then be populated in a separate pass.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        The ``skip_data`` context manager is an early prototype and is subject to change.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        materialize_fake_tensors: Whether to materialize FakeTensors.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import tempfile</span>
+<span class="sd">        &gt;&gt;&gt; t = torch.randn(2, 3)</span>
+<span class="sd">        &gt;&gt;&gt; with tempfile.NamedTemporaryFile() as f:</span>
+<span class="sd">        ...     with torch.serialization.skip_data():</span>
+<span class="sd">        ...         torch.save(t, f.name)</span>
+<span class="sd">        ...     torch.load(f.name, weights_only=True)</span>
+<span class="sd">        tensor([[0., 0., 0.],</span>
+<span class="sd">                [0., 0., 0.]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">materialize_fake_tensors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">materialize_fake_tensors</span> <span class="o">=</span> <span class="n">materialize_fake_tensors</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">_serialization_tls</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_old_skip_data</span> <span class="o">=</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_old_materialize_fake_tensors</span> <span class="o">=</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">materialize_fake_tensors</span>
+        <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">materialize_fake_tensors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">materialize_fake_tensors</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">_serialization_tls</span>
+        <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_old_skip_data</span>
+        <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">materialize_fake_tensors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_old_materialize_fake_tensors</span></div>
 
 
 <span class="k">def</span> <span class="nf">_is_zipfile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1322,6 +1380,11 @@
             <span class="p">)</span>
             <span class="k">return</span>
     <span class="k">else</span><span class="p">:</span>
+        <span class="k">global</span> <span class="n">_serialization_tls</span>
+        <span class="k">if</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Cannot use skip_data=True with _use_new_zipfile_serialization=False&quot;</span>
+            <span class="p">)</span>
         <span class="k">with</span> <span class="n">_open_file_like</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">opened_file</span><span class="p">:</span>
             <span class="n">_legacy_save</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">opened_file</span><span class="p">,</span> <span class="n">pickle_module</span><span class="p">,</span> <span class="n">pickle_protocol</span><span class="p">)</span></div>
 
@@ -1480,7 +1543,13 @@
         <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_save</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">zip_file</span><span class="p">,</span> <span class="n">pickle_module</span><span class="p">,</span> <span class="n">pickle_protocol</span><span class="p">,</span> <span class="n">_disable_byteorder_record</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_save</span><span class="p">(</span>
+    <span class="n">obj</span><span class="p">,</span>
+    <span class="n">zip_file</span><span class="p">,</span>
+    <span class="n">pickle_module</span><span class="p">,</span>
+    <span class="n">pickle_protocol</span><span class="p">,</span>
+    <span class="n">_disable_byteorder_record</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="n">serialized_storages</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">id_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -1515,7 +1584,7 @@
             <span class="c1"># If storage is allocated, ensure that any other saved storages</span>
             <span class="c1"># pointing to the same data all have the same dtype. If storage is</span>
             <span class="c1"># not allocated, don&#39;t perform this check</span>
-            <span class="k">if</span> <span class="n">storage</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">storage</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;meta&quot;</span> <span class="ow">and</span> <span class="n">storage</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">storage</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">()</span> <span class="ow">in</span> <span class="n">storage_dtypes</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">storage_dtype</span> <span class="o">!=</span> <span class="n">storage_dtypes</span><span class="p">[</span><span class="n">storage</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">()]:</span>
                         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -1526,7 +1595,10 @@
                     <span class="n">storage_dtypes</span><span class="p">[</span><span class="n">storage</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">()]</span> <span class="o">=</span> <span class="n">storage_dtype</span>
 
             <span class="n">storage_key</span> <span class="o">=</span> <span class="n">id_map</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">storage</span><span class="o">.</span><span class="n">_cdata</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">id_map</span><span class="p">)))</span>
-            <span class="n">location</span> <span class="o">=</span> <span class="n">location_tag</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;_fake_device&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">_fake_device</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">location</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">_fake_device</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">location</span> <span class="o">=</span> <span class="n">location_tag</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span>
             <span class="n">serialized_storages</span><span class="p">[</span><span class="n">storage_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">storage</span>
 
             <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="n">storage_type</span><span class="p">,</span> <span class="n">storage_key</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">storage_numel</span><span class="p">)</span>
@@ -1552,14 +1624,18 @@
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">serialized_storages</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;data/</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">storage</span> <span class="o">=</span> <span class="n">serialized_storages</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="c1"># given that we copy things around anyway, we might use storage.cpu()</span>
-        <span class="c1"># this means to that to get tensors serialized, you need to implement</span>
-        <span class="c1"># .cpu() on the underlying Storage</span>
-        <span class="k">if</span> <span class="n">storage</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">:</span>
-            <span class="n">storage</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
-        <span class="c1"># Now that it is on the CPU we can directly copy it into the zip file</span>
         <span class="n">num_bytes</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">nbytes</span><span class="p">()</span>
-        <span class="n">zip_file</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">storage</span><span class="p">,</span> <span class="n">num_bytes</span><span class="p">)</span>
+        <span class="k">global</span> <span class="n">_serialization_tls</span>
+        <span class="k">if</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span><span class="p">:</span>
+            <span class="n">zip_file</span><span class="o">.</span><span class="n">write_record_metadata</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">num_bytes</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># given that we copy things around anyway, we might use storage.cpu()</span>
+            <span class="c1"># this means to that to get tensors serialized, you need to implement</span>
+            <span class="c1"># .cpu() on the underlying Storage</span>
+            <span class="k">if</span> <span class="n">storage</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">:</span>
+                <span class="n">storage</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+            <span class="c1"># Now that it is on the CPU we can directly copy it into the zip file</span>
+            <span class="n">zip_file</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">storage</span><span class="p">,</span> <span class="n">num_bytes</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="load"><a class="viewcode-back" href="../../generated/torch.load.html#torch.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
@@ -1708,6 +1784,14 @@
                 <span class="p">)</span>
             <span class="n">updated_message</span> <span class="o">+=</span> <span class="n">message</span>
         <span class="k">return</span> <span class="n">updated_message</span> <span class="o">+</span> <span class="n">DOCS_MESSAGE</span>
+
+    <span class="k">global</span> <span class="n">_serialization_tls</span>
+    <span class="n">skip_data</span> <span class="o">=</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span>
+    <span class="k">if</span> <span class="n">skip_data</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;`torch.load` called within a torch.serialization.skip_data context manager &quot;</span>
+            <span class="s2">&quot;is not supported yet. Please call torch.load outside the skip_data context manager.&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">weights_only</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">weights_only</span><span class="p">,</span> <span class="n">warn_weights_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span>
@@ -2283,9 +2367,10 @@
     <span class="n">unpickler</span><span class="o">.</span><span class="n">persistent_load</span> <span class="o">=</span> <span class="n">persistent_load</span>
     <span class="c1"># Needed for tensors where storage device and rebuild tensor device are</span>
     <span class="c1"># not connected (wrapper subclasses and tensors rebuilt using numpy)</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_thread_local_state</span><span class="o">.</span><span class="n">map_location</span> <span class="o">=</span> <span class="n">map_location</span>
+    <span class="k">global</span> <span class="n">_serialization_tls</span>
+    <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">map_location</span> <span class="o">=</span> <span class="n">map_location</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">unpickler</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-    <span class="k">del</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_thread_local_state</span><span class="o">.</span><span class="n">map_location</span>
+    <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">map_location</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_validate_loaded_sparse_tensors</span><span class="p">()</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_metadata</span><span class="p">(</span>

@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git3b33f26 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a554e9 ) &#x25BC</a>
     </div>
     
 
@@ -548,18 +548,37 @@ custom op, you specified metadata (e.g. mutability info) about the custom op
 and these APIs require that the functions you pass them satisfy certain
 properties (e.g. no data pointer access in the fake/meta/abstract kernel)
 <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> tests these metadata and properties.</p>
-<p>Concretely, we test the following:
-- test_schema: if the operator’s schema is correct.
-- test_autograd_registration: if autograd was registered correctly.
-- test_faketensor: If the operator has a FakeTensor kernel
+<p>Concretely, we test the following:</p>
+<ul class="simple">
+<li><p>test_schema: If the schema matches the implementation of
+the operator. For example: if the schema specifies a Tensor is mutated,
+then we check the implementation mutates the Tensor. If the schema
+specifies that we return a new Tensor, then we check that the
+implementation returns a new Tensor (instead of an existing one or
+a view of an existing one).</p></li>
+<li><p>test_autograd_registration: If the operator supports training
+(autograd): we check that its autograd formula is registered via
+torch.library.register_autograd or a manual registration to one
+or more DispatchKey::Autograd keys. Any other DispatchKey-based
+registrations may lead to undefined behavior.</p></li>
+<li><p>test_faketensor: If the operator has a FakeTensor kernel
 (and if it is correct). The FakeTensor kernel is necessary (
 but not sufficient) for the operator to work with PyTorch compilation
-APIs (torch.compile/export/FX).
-- test_aot_dispatch_dynamic: If the operator has correct behavior
+APIs (torch.compile/export/FX). We check that a FakeTensor kernel
+(also sometimes known as a meta kernel) was registered for the
+operator and that it is correct. This test takes the result of
+running the operator on real tensors and the result of running
+the operator on FakeTensors and checks that they have the same
+Tensor metadata (sizes/strides/dtype/device/etc).</p></li>
+<li><p>test_aot_dispatch_dynamic: If the operator has correct behavior
 with PyTorch compilation APIs (torch.compile/export/FX).
 This checks that the outputs (and gradients, if applicable) are the
 same under eager-mode PyTorch and torch.compile.
-This test is a superset of <code class="docutils literal notranslate"><span class="pre">test_faketensor</span></code>.</p>
+This test is a superset of <code class="docutils literal notranslate"><span class="pre">test_faketensor</span></code> and is an e2e test;
+other things it tests are that the operator supports
+functionalization and that the backward pass (if it exists) also
+supports FakeTensor and functionalization.</p></li>
+</ul>
 <p>For best results, please call <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> multiple times with a
 representative set of inputs. If your operator supports
 autograd, please use <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> with inputs with <code class="docutils literal notranslate"><span class="pre">requires_grad</span> <span class="pre">=</span> <span class="pre">True</span></code>;
