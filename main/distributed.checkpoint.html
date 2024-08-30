@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a554e9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git8b68912 ) &#x25BC</a>
     </div>
     
 
@@ -835,6 +835,8 @@ is complete and it is safe to begin modifying the original <cite>state_dict</cit
 <dd><p>An implementation of AsyncStager which stages the state_dict on CPU RAM and blocks until the copy is complete.
 This implementation also provides an option to optimize stage latency using pinned memory.</p>
 <p>N.B. synchronize_staging is a no-op in this case.</p>
+<dl class="field-list simple">
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.BlockingAsyncStager.stage">
 <span class="sig-name descname"><span class="pre">stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/staging.html#BlockingAsyncStager.stage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.staging.BlockingAsyncStager.stage" title="Permalink to this definition">¶</a></dt>
@@ -1614,6 +1616,8 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 </ul>
 <p>The checkpoint consist of one file per write request plus
 a <cite>.metadata</cite> file with the serialized metadata.</p>
+<dl class="field-list simple">
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.FileSystemWriter.stage">
 <span class="sig-name descname"><span class="pre">stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/checkpoint/filesystem.html#FileSystemWriter.stage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemWriter.stage" title="Permalink to this definition">¶</a></dt>

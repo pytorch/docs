@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git7a554e9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git8b68912 ) &#x25BC</a>
     </div>
     
 
@@ -579,6 +579,7 @@
     <span class="s2">&quot;change_current_allocator&quot;</span><span class="p">,</span>
     <span class="s2">&quot;MemPool&quot;</span><span class="p">,</span>
     <span class="s2">&quot;MemPoolContext&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;use_mem_pool&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -591,8 +592,20 @@
     <span class="c1"># Define dummy base classes</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_MemPool&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dummy_type</span><span class="p">(</span><span class="s2">&quot;_MemPool&quot;</span><span class="p">)</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_MemPoolContext&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dummy_type</span><span class="p">(</span><span class="s2">&quot;_MemPoolContext&quot;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_cuda_beginAllocateToPool&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dummy_type</span><span class="p">(</span>
+        <span class="s2">&quot;_cuda_beginAllocateToPool&quot;</span>
+    <span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_cuda_endAllocateCurrentStreamToPool&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dummy_type</span><span class="p">(</span>
+        <span class="s2">&quot;_cuda_endAllocateCurrentStreamToPool&quot;</span>
+    <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_cuda_CUDAAllocator</span><span class="p">,</span> <span class="n">_MemPool</span><span class="p">,</span> <span class="n">_MemPoolContext</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: F401</span>
+    <span class="n">_cuda_beginAllocateToPool</span><span class="p">,</span>
+    <span class="n">_cuda_CUDAAllocator</span><span class="p">,</span>
+    <span class="n">_cuda_endAllocateCurrentStreamToPool</span><span class="p">,</span>
+    <span class="n">_MemPool</span><span class="p">,</span>
+    <span class="n">_MemPoolContext</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_host_allocator</span><span class="p">():</span>
@@ -1529,6 +1542,30 @@
     <span class="k">def</span> <span class="nf">active_pool</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_MemPool</span><span class="p">]:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the active MemPool&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">_MemPoolContext</span><span class="o">.</span><span class="n">active_pool</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="use_mem_pool"><a class="viewcode-back" href="../../../cuda.html#torch.cuda.memory.use_mem_pool">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">use_mem_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">:</span> <span class="n">MemPool</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Device</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;A context manager that routes allocations to a given pool.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pool(torch.cuda.MemPool): a MemPool object to be made active so that</span>
+<span class="sd">            allocations route to this pool.</span>
+<span class="sd">        device (torch.device or int, optional): selected device. Uses MemPool on</span>
+<span class="sd">            the current device, given by :func:`~torch.cuda.current_device`,</span>
+<span class="sd">            if :attr:`device` is ``None`` (default).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">MemPoolContext</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+    <span class="n">device_index</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">current_device</span><span class="p">()</span> <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_get_device_index</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">_cuda_beginAllocateToPool</span><span class="p">(</span><span class="n">device_index</span><span class="p">,</span> <span class="n">pool</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">_cuda_endAllocateCurrentStreamToPool</span><span class="p">(</span><span class="n">device_index</span><span class="p">,</span> <span class="n">pool</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">ctx</span></div>
 </pre></div>
 
              </article>
