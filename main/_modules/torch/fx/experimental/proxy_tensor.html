@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git45f1109 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4574301 ) &#x25BC</a>
     </div>
     
 
@@ -1121,8 +1121,6 @@
     <span class="n">constant</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_NestedTensors</span><span class="p">],</span>
     <span class="n">tracer</span><span class="p">:</span> <span class="n">_ProxyTracer</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="n">_set_unbacked_bindings</span><span class="p">(</span><span class="n">inner_res</span><span class="p">,</span> <span class="n">proxy_res</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">wrap_with_proxy</span><span class="p">(</span>
         <span class="n">e</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">proxy</span><span class="p">:</span> <span class="n">_NestedProxys</span><span class="p">,</span> <span class="n">constant</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_NestedTensors</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1131,11 +1129,13 @@
             <span class="k">assert</span> <span class="n">constant</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constant</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">)</span>
             <span class="n">track_tensor</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">proxy</span><span class="p">,</span> <span class="n">tracer</span><span class="o">=</span><span class="n">tracer</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="n">constant</span><span class="p">)</span>
             <span class="n">set_meta</span><span class="p">(</span><span class="n">proxy</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="n">_set_unbacked_bindings</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">proxy</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">py_sym_types</span><span class="p">):</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">proxy</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">)</span>
             <span class="c1"># NB: eagerly set meta here, so that the numbering is in order</span>
             <span class="n">set_meta</span><span class="p">(</span><span class="n">proxy</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
             <span class="n">set_proxy_slot</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">tracer</span><span class="p">,</span> <span class="n">thunkify</span><span class="p">(</span><span class="n">tracer</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">proxy</span><span class="p">))</span>
+            <span class="n">_set_unbacked_bindings</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">proxy</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">_AnyScriptObject</span><span class="p">):</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">proxy</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">)</span>
             <span class="n">set_proxy_slot</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">tracer</span><span class="p">,</span> <span class="n">proxy</span><span class="p">)</span>
@@ -2713,6 +2713,8 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A helper function for setting up unbacked_bindings on the destination FX graph.&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.symbolic_shapes</span> <span class="kn">import</span> <span class="n">compute_unbacked_bindings</span>
 
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;_set_unbacked_bindings </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">out_proxy</span><span class="p">)</span>
+
     <span class="c1"># Can&#39;t use detect_fake_mode here,</span>
     <span class="c1">#</span>
     <span class="c1"># python test/distributed/_tensor/test_dtensor_compile.py -k</span>
@@ -2723,7 +2725,7 @@
     <span class="n">fake_mode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_get_dispatch_mode</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TorchDispatchModeKey</span><span class="o">.</span><span class="n">FAKE</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">fake_mode</span> <span class="ow">and</span> <span class="n">fake_mode</span><span class="o">.</span><span class="n">shape_env</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">symbol_to_path</span> <span class="o">:=</span> <span class="n">compute_unbacked_bindings</span><span class="p">(</span><span class="n">fake_mode</span><span class="o">.</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_proxy</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_proxy</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">),</span> <span class="n">out_proxy</span>
             <span class="n">out_proxy</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;unbacked_bindings&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">symbol_to_path</span>
 </pre></div>
 

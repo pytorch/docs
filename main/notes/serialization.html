@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git45f1109 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4574301 ) &#x25BC</a>
     </div>
     
 
@@ -1045,34 +1045,6 @@ and have state set.</p>
 </div>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="torch.serialization.skip_data">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.serialization.</span></span><span class="sig-name descname"><span class="pre">skip_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">materialize_fake_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/serialization.html#skip_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.serialization.skip_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Context-manager that skips writing storage bytes for <code class="docutils literal notranslate"><span class="pre">torch.save</span></code> calls.</p>
-<p>Storages will still be saved, but the space that their bytes would usually be written to
-will be empty space. The storage bytes can then be populated in a separate pass.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">skip_data</span></code> context manager is an early prototype and is subject to change.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>materialize_fake_tensors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether to materialize FakeTensors.</p>
-</dd>
-</dl>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">skip_data</span><span class="p">():</span>
-<span class="gp">... </span>        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">tensor([[0., 0., 0.],</span>
-<span class="go">        [0., 0., 0.]])</span>
-</pre></div>
-</div>
-</dd></dl>
-
 </div>
 </div>
 
@@ -1151,7 +1123,6 @@ if (url)
 <li><a class="reference internal" href="#torch.serialization.clear_safe_globals"><code class="docutils literal notranslate"><span class="pre">clear_safe_globals()</span></code></a></li>
 <li><a class="reference internal" href="#torch.serialization.get_safe_globals"><code class="docutils literal notranslate"><span class="pre">get_safe_globals()</span></code></a></li>
 <li><a class="reference internal" href="#torch.serialization.safe_globals"><code class="docutils literal notranslate"><span class="pre">safe_globals</span></code></a></li>
-<li><a class="reference internal" href="#torch.serialization.skip_data"><code class="docutils literal notranslate"><span class="pre">skip_data</span></code></a></li>
 </ul>
 </li>
 </ul>
