@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4574301 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git956da79 ) &#x25BC</a>
     </div>
     
 
@@ -537,7 +537,7 @@
 <span class="kn">import</span> <span class="nn">torch.fx</span> <span class="k">as</span> <span class="nn">fx</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">FakeTensor</span>
-<span class="kn">from</span> <span class="nn">torch.distributed._composable.fsdp.fully_shard</span> <span class="kn">import</span> <span class="n">FSDPModule</span>
+<span class="kn">from</span> <span class="nn">torch.distributed._composable.fsdp.fully_shard</span> <span class="kn">import</span> <span class="n">FSDPModule</span><span class="p">,</span> <span class="n">fully_shard</span>
 <span class="kn">from</span> <span class="nn">torch.fx.node</span> <span class="kn">import</span> <span class="n">map_aggregate</span>
 <span class="kn">from</span> <span class="nn">torch.nn.parallel</span> <span class="kn">import</span> <span class="n">DistributedDataParallel</span>
 
@@ -995,14 +995,40 @@
             <span class="n">out_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">out_val</span>
 
-    <span class="k">def</span> <span class="nf">backward_maybe_with_nosync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">backward_maybe_with_nosync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backward_type</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Whether using PP with FSDP or DDP, there are some runtime differences between the last backward step and the</span>
 <span class="sd">        other steps.  Namely, we need to accumulate gradients on previous steps and reduce them on the last step, but</span>
 <span class="sd">        there are additional state-variables and performance considerations depending on the data parallelism used.</span>
 <span class="sd">        This helper should adapt any pipeline parallel schedule to work with common/supported data parallel libraries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">last_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># type: ignore[operator]</span>
+        <span class="n">full_backward</span> <span class="o">=</span> <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;full_backward&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">full_backward</span><span class="p">:</span>
+            <span class="n">last_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># type: ignore[operator]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># For backwards are split into weight and input, we will see twice as many bwd_chunks</span>
+            <span class="n">last_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># type: ignore[operator]</span>
+
+        <span class="k">def</span> <span class="nf">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">backward_type</span> <span class="o">==</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">stage_backward</span><span class="p">(</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;input_values&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">backward_type</span> <span class="o">==</span> <span class="s2">&quot;input&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">stage_backward_input</span><span class="p">(</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
+                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;input_values&quot;</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">backward_type</span> <span class="o">==</span> <span class="s2">&quot;weight&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">stage_backward_weight</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;param_groups&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown backward type: </span><span class="si">{</span><span class="n">backward_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># If submod is wrapped by DDP</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">,</span> <span class="n">DistributedDataParallel</span><span class="p">):</span>
@@ -1016,21 +1042,41 @@
                         <span class="p">)</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
-                <span class="n">grads_input</span> <span class="o">=</span> <span class="n">stage_backward</span><span class="p">(</span><span class="o">**</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">)()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">no_sync</span><span class="p">():</span>  <span class="c1"># type: ignore[operator]</span>
-                    <span class="n">grads_input</span> <span class="o">=</span> <span class="n">stage_backward</span><span class="p">(</span><span class="o">**</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">)()</span>
         <span class="c1"># If submod is a FSDP module</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_is_last_backward</span><span class="p">(</span><span class="n">last_backward</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_requires_gradient_sync</span><span class="p">(</span><span class="n">last_backward</span><span class="p">)</span>
-            <span class="n">grads_input</span> <span class="o">=</span> <span class="n">stage_backward</span><span class="p">(</span><span class="o">**</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_is_last_backward</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_reshard_after_backward</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">set_requires_gradient_sync</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">)()</span>
+            <span class="k">if</span> <span class="n">last_backward</span><span class="p">:</span>
+                <span class="c1"># Manually call post backward for FSDP</span>
+                <span class="k">def</span> <span class="nf">run_post_backward</span><span class="p">(</span><span class="n">fsdp_module</span><span class="p">:</span> <span class="n">FSDPModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">fsdp_module</span><span class="o">.</span><span class="n">set_is_last_backward</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">fsdp_module</span><span class="o">.</span><span class="n">set_reshard_after_backward</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">fsdp_module</span><span class="o">.</span><span class="n">set_requires_gradient_sync</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">fsdp_state</span> <span class="o">=</span> <span class="n">fully_shard</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">fsdp_module</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">fsdp_state</span><span class="o">.</span><span class="n">_state_ctx</span><span class="o">.</span><span class="n">all_states</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">:</span>
+                            <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="o">.</span><span class="n">post_backward</span><span class="p">()</span>
+
+                <span class="n">run_post_backward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Non-DP submodule, regular backward</span>
-            <span class="n">grads_input</span> <span class="o">=</span> <span class="n">stage_backward</span><span class="p">(</span><span class="o">**</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">)()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">grads_input</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># for stage_backward_input()</span>
+            <span class="n">grads</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">grads</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="n">result</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">grads</span><span class="p">,</span> <span class="n">param_groups</span>
 
     <span class="k">def</span> <span class="nf">forward_one_chunk</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1138,41 +1184,43 @@
                 <span class="s2">&quot;input_values&quot;</span><span class="p">:</span> <span class="n">input_values</span><span class="p">,</span>
             <span class="p">}</span>
 
+        <span class="c1"># Save full_backward</span>
+        <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;full_backward&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_backward</span>
+
         <span class="c1"># Custom backward function</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">:</span>
             <span class="c1"># TODO: We may want to change our semantics so we are allowed to ignore</span>
             <span class="c1"># the &#39;dw_builder&#39; and call full_backward directly when it is a full_backward op.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">full_backward</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">full_backward</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
+                    <span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># perform the partial backwards for the inputs with a custom backward function</span>
                 <span class="c1"># when the &quot;stage_ouput&quot; is a loss, then it is a tensor, otherwise it is a tuple of tensors</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
                     <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],)</span>
 
-                <span class="n">dinputs</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="n">stage_backward_input</span><span class="p">(</span>
-                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
-                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
-                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;input_values&quot;</span><span class="p">],</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+                <span class="n">grads_input</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
+                    <span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span>
                 <span class="p">)</span>
+
                 <span class="c1"># TODO: we dont need to save this, add to dw_runner?</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">backward_state</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">dinputs</span><span class="p">,</span>
                     <span class="n">input_values</span><span class="p">,</span>
                     <span class="n">param_groups</span><span class="p">,</span>
                     <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
                     <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="n">dinputs</span>
-                <span class="c1"># save a dw_runner with the `stage_backward_weight` function</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage_backward_weight</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="n">grads_input</span>
+                <span class="c1"># Save a placeholder for the dw_runner</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Backwarded chunk </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">backward_weight_one_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -1185,23 +1233,32 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="p">(</span>
-                <span class="n">dinputs</span><span class="p">,</span>
                 <span class="n">input_values</span><span class="p">,</span>
                 <span class="n">param_groups</span><span class="p">,</span>
                 <span class="n">stage_output</span><span class="p">,</span>
                 <span class="n">output_grads</span><span class="p">,</span>
             <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">dweights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">param_groups</span>
-                <span class="p">)</span>
+                <span class="n">bwd_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;stage_output&quot;</span><span class="p">:</span> <span class="n">stage_output</span><span class="p">,</span>
+                    <span class="s2">&quot;param_groups&quot;</span><span class="p">:</span> <span class="n">param_groups</span><span class="p">,</span>
+                    <span class="s2">&quot;full_backward&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="n">weight_grads</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># TODO: figure out a better way to do this:</span>
                 <span class="c1"># if inputs does not require gradient,</span>
                 <span class="c1"># then the parameter group will not be fully captured during stage_backward_input</span>
                 <span class="c1"># in this case, we need call grad directly on the parameters</span>
                 <span class="c1"># To solve: make input fn do the intersect compute and then finish it off during W</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">stage_output</span><span class="p">,</span> <span class="n">grad_tensors</span><span class="o">=</span><span class="n">output_grads</span><span class="p">)</span>
+                <span class="n">bwd_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;stage_output&quot;</span><span class="p">:</span> <span class="n">stage_output</span><span class="p">,</span>
+                    <span class="s2">&quot;output_grads&quot;</span><span class="p">:</span> <span class="n">output_grads</span><span class="p">,</span>
+                    <span class="s2">&quot;input_values&quot;</span><span class="p">:</span> <span class="n">input_values</span><span class="p">,</span>
+                    <span class="s2">&quot;full_backward&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_validate_fwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Raises a RuntimeError if shapes of input args/kwargs do not match the shapes configured for this stage.&quot;&quot;&quot;</span>

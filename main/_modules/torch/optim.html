@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4574301 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git956da79 ) &#x25BC</a>
     </div>
     
 
@@ -531,22 +531,22 @@
 <span class="sd">future.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">lr_scheduler</span><span class="p">,</span> <span class="n">swa_utils</span>
-<span class="kn">from</span> <span class="nn">torch.optim._adafactor</span> <span class="kn">import</span> <span class="n">Adafactor</span>
-<span class="kn">from</span> <span class="nn">torch.optim.adadelta</span> <span class="kn">import</span> <span class="n">Adadelta</span>
-<span class="kn">from</span> <span class="nn">torch.optim.adagrad</span> <span class="kn">import</span> <span class="n">Adagrad</span>
-<span class="kn">from</span> <span class="nn">torch.optim.adam</span> <span class="kn">import</span> <span class="n">Adam</span>
-<span class="kn">from</span> <span class="nn">torch.optim.adamax</span> <span class="kn">import</span> <span class="n">Adamax</span>
-<span class="kn">from</span> <span class="nn">torch.optim.adamw</span> <span class="kn">import</span> <span class="n">AdamW</span>
-<span class="kn">from</span> <span class="nn">torch.optim.asgd</span> <span class="kn">import</span> <span class="n">ASGD</span>
-<span class="kn">from</span> <span class="nn">torch.optim.lbfgs</span> <span class="kn">import</span> <span class="n">LBFGS</span>
-<span class="kn">from</span> <span class="nn">torch.optim.nadam</span> <span class="kn">import</span> <span class="n">NAdam</span>
-<span class="kn">from</span> <span class="nn">torch.optim.optimizer</span> <span class="kn">import</span> <span class="n">Optimizer</span>
-<span class="kn">from</span> <span class="nn">torch.optim.radam</span> <span class="kn">import</span> <span class="n">RAdam</span>
-<span class="kn">from</span> <span class="nn">torch.optim.rmsprop</span> <span class="kn">import</span> <span class="n">RMSprop</span>
-<span class="kn">from</span> <span class="nn">torch.optim.rprop</span> <span class="kn">import</span> <span class="n">Rprop</span>
-<span class="kn">from</span> <span class="nn">torch.optim.sgd</span> <span class="kn">import</span> <span class="n">SGD</span>
-<span class="kn">from</span> <span class="nn">torch.optim.sparse_adam</span> <span class="kn">import</span> <span class="n">SparseAdam</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">lr_scheduler</span> <span class="k">as</span> <span class="n">lr_scheduler</span><span class="p">,</span> <span class="n">swa_utils</span> <span class="k">as</span> <span class="n">swa_utils</span>
+<span class="kn">from</span> <span class="nn">torch.optim._adafactor</span> <span class="kn">import</span> <span class="n">Adafactor</span> <span class="k">as</span> <span class="n">Adafactor</span>
+<span class="kn">from</span> <span class="nn">torch.optim.adadelta</span> <span class="kn">import</span> <span class="n">Adadelta</span> <span class="k">as</span> <span class="n">Adadelta</span>
+<span class="kn">from</span> <span class="nn">torch.optim.adagrad</span> <span class="kn">import</span> <span class="n">Adagrad</span> <span class="k">as</span> <span class="n">Adagrad</span>
+<span class="kn">from</span> <span class="nn">torch.optim.adam</span> <span class="kn">import</span> <span class="n">Adam</span> <span class="k">as</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">torch.optim.adamax</span> <span class="kn">import</span> <span class="n">Adamax</span> <span class="k">as</span> <span class="n">Adamax</span>
+<span class="kn">from</span> <span class="nn">torch.optim.adamw</span> <span class="kn">import</span> <span class="n">AdamW</span> <span class="k">as</span> <span class="n">AdamW</span>
+<span class="kn">from</span> <span class="nn">torch.optim.asgd</span> <span class="kn">import</span> <span class="n">ASGD</span> <span class="k">as</span> <span class="n">ASGD</span>
+<span class="kn">from</span> <span class="nn">torch.optim.lbfgs</span> <span class="kn">import</span> <span class="n">LBFGS</span> <span class="k">as</span> <span class="n">LBFGS</span>
+<span class="kn">from</span> <span class="nn">torch.optim.nadam</span> <span class="kn">import</span> <span class="n">NAdam</span> <span class="k">as</span> <span class="n">NAdam</span>
+<span class="kn">from</span> <span class="nn">torch.optim.optimizer</span> <span class="kn">import</span> <span class="n">Optimizer</span> <span class="k">as</span> <span class="n">Optimizer</span>
+<span class="kn">from</span> <span class="nn">torch.optim.radam</span> <span class="kn">import</span> <span class="n">RAdam</span> <span class="k">as</span> <span class="n">RAdam</span>
+<span class="kn">from</span> <span class="nn">torch.optim.rmsprop</span> <span class="kn">import</span> <span class="n">RMSprop</span> <span class="k">as</span> <span class="n">RMSprop</span>
+<span class="kn">from</span> <span class="nn">torch.optim.rprop</span> <span class="kn">import</span> <span class="n">Rprop</span> <span class="k">as</span> <span class="n">Rprop</span>
+<span class="kn">from</span> <span class="nn">torch.optim.sgd</span> <span class="kn">import</span> <span class="n">SGD</span> <span class="k">as</span> <span class="n">SGD</span>
+<span class="kn">from</span> <span class="nn">torch.optim.sparse_adam</span> <span class="kn">import</span> <span class="n">SparseAdam</span> <span class="k">as</span> <span class="n">SparseAdam</span>
 
 
 <span class="n">Adafactor</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.optim&quot;</span>

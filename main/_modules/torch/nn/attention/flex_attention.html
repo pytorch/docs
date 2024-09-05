@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git4574301 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git956da79 ) &#x25BC</a>
     </div>
     
 
@@ -918,12 +918,59 @@
         <span class="k">return</span> <span class="n">s</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BlockMask&quot;</span><span class="p">:</span>
-        <span class="n">mapped_attributes</span> <span class="o">=</span> <span class="n">tree_map_only</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">as_tuple</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a new BlockMask instance by getting the mask for the given index position.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: Index to apply to all attributes.</span>
+
+<span class="sd">        Example Usage:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">                def causal_mask(b, h, q_idx, kv_idx):</span>
+<span class="sd">                    return q_idx &gt;= kv_idx</span>
+
+<span class="sd">                block_mask = create_block_mask(causal_mask, 4, 2, 512, 512, device=&quot;cuda&quot;)</span>
+<span class="sd">                assert block_mask.kv_num_blocks.shape == (4,2,4)</span>
+<span class="sd">                assert block_mask.kv_indices.shape == (4,2,4,4)</span>
+
+<span class="sd">                # Index on batch dimension</span>
+<span class="sd">                new_block_mask = block_mask[0]</span>
+<span class="sd">                assert new_block_mask.kv_num_blocks.shape == (2,4)</span>
+<span class="sd">                assert new_block_mask.kv_indices.shape == (2,4,4)</span>
+
+<span class="sd">                # Index on batch and head dimension</span>
+<span class="sd">                new_block_mask = block_mask[0, 1]</span>
+<span class="sd">                assert new_block_mask.kv_num_blocks.shape == (4,)</span>
+<span class="sd">                assert new_block_mask.kv_indices.shape == (4,4)</span>
+
+<span class="sd">                # slicing on batch and head dimension</span>
+<span class="sd">                new_block_mask = block_mask[0:2, 1:2]</span>
+<span class="sd">                assert new_block_mask.kv_num_blocks.shape == (2,1,4)</span>
+<span class="sd">                assert new_block_mask.kv_indices.shape == (2,1,4,4)</span>
+
+<span class="sd">                # slicing on batch, head, and query dimension</span>
+<span class="sd">                new_block_mask = block_mask[0:2, 1:2, torch.tensor([1], dtype=torch.int32)]</span>
+<span class="sd">                assert new_block_mask.kv_num_blocks.shape == (2,1,1)</span>
+<span class="sd">                assert new_block_mask.kv_indices.shape == (2,1,1,4)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_kv_num_blocks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">new_kv_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="n">new_full_kv_num_blocks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_num_blocks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">new_full_kv_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_kv_indices</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_full_kv_num_blocks</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_full_kv_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">BlockMask</span><span class="o">.</span><span class="n">from_kv_blocks</span><span class="p">(</span>
+            <span class="n">new_kv_num_blocks</span><span class="p">,</span>
+            <span class="n">new_kv_indices</span><span class="p">,</span>
+            <span class="n">new_full_kv_num_blocks</span><span class="p">,</span>
+            <span class="n">new_full_kv_indices</span><span class="p">,</span>
+            <span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+            <span class="n">mask_mod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">BlockMask</span><span class="p">(</span><span class="o">*</span><span class="n">mapped_attributes</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">shape_or_none</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]):</span>
