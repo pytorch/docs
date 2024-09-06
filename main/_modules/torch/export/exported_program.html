@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git956da79 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git66dd457 ) &#x25BC</a>
     </div>
     
 
@@ -532,7 +532,6 @@
 <span class="kn">import</span> <span class="nn">dataclasses</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
@@ -553,8 +552,10 @@
 
 <span class="kn">from</span> <span class="nn">torch._higher_order_ops.utils</span> <span class="kn">import</span> <span class="n">autograd_not_implemented</span>
 <span class="kn">from</span> <span class="nn">torch._library.fake_class_registry</span> <span class="kn">import</span> <span class="n">FakeScriptObject</span>
+<span class="kn">from</span> <span class="nn">torch.fx._utils</span> <span class="kn">import</span> <span class="n">first_call_function_nn_module_stack</span>
 <span class="kn">from</span> <span class="nn">torch.fx.graph</span> <span class="kn">import</span> <span class="n">_PyTreeCodeGen</span><span class="p">,</span> <span class="n">_PyTreeInfo</span>
 <span class="kn">from</span> <span class="nn">torch.fx.immutable_collections</span> <span class="kn">import</span> <span class="n">immutable_dict</span><span class="p">,</span> <span class="n">immutable_list</span>
+<span class="kn">from</span> <span class="nn">torch.fx.passes.runtime_assert</span> <span class="kn">import</span> <span class="n">insert_deferred_runtime_asserts</span>
 
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -568,15 +569,23 @@
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.utils._pytree</span> <span class="k">as</span> <span class="nn">pytree</span>
+<span class="kn">from</span> <span class="nn">torch._export.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_collect_and_set_constant_attrs</span><span class="p">,</span>
+    <span class="n">_collect_param_buffer_metadata</span><span class="p">,</span>
+    <span class="n">_detect_fake_mode_from_gm</span><span class="p">,</span>
+    <span class="n">_name_hoo_subgraph_placeholders</span><span class="p">,</span>
+    <span class="n">_overwrite_signature_for_non_persistent_buffers</span><span class="p">,</span>
+    <span class="n">_populate_param_buffer_metadata_to_new_gm</span><span class="p">,</span>
+    <span class="n">_rename_without_collisions</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch._export.verifier</span> <span class="kn">import</span> <span class="n">Verifier</span>
+<span class="kn">from</span> <span class="nn">torch._guards</span> <span class="kn">import</span> <span class="n">detect_fake_mode</span>
 <span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">unset_fake_temporarily</span>
 <span class="kn">from</span> <span class="nn">torch._subclasses.functional_tensor</span> <span class="kn">import</span> <span class="n">FunctionalTensor</span>
 <span class="kn">from</span> <span class="nn">torch.export._tree_utils</span> <span class="kn">import</span> <span class="n">is_equivalent</span><span class="p">,</span> <span class="n">reorder_kwargs</span>
 <span class="kn">from</span> <span class="nn">torch.fx._compatibility</span> <span class="kn">import</span> <span class="n">compatibility</span>
-<span class="kn">from</span> <span class="nn">torch.fx._utils</span> <span class="kn">import</span> <span class="n">first_call_function_nn_module_stack</span>
 <span class="kn">from</span> <span class="nn">torch.fx.passes.infra.pass_base</span> <span class="kn">import</span> <span class="n">PassResult</span>
 <span class="kn">from</span> <span class="nn">torch.fx.passes.infra.pass_manager</span> <span class="kn">import</span> <span class="n">PassManager</span>
-<span class="kn">from</span> <span class="nn">torch.fx.passes.runtime_assert</span> <span class="kn">import</span> <span class="n">insert_deferred_runtime_asserts</span>
 
 <span class="kn">from</span> <span class="nn">.graph_signature</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: F401</span>
     <span class="n">ArgumentSpec</span><span class="p">,</span>
@@ -806,77 +815,6 @@
         <span class="k">yield</span>
 
 
-<span class="k">def</span> <span class="nf">_rename_without_collisions</span><span class="p">(</span>
-    <span class="n">name_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-    <span class="n">orig_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">is_placeholder</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renames nodes to avoid name collisions, with suffixing.</span>
-<span class="sd">    name_map: map from original name to new name</span>
-<span class="sd">    orig_name: mapping key</span>
-<span class="sd">    name: candidate name (potentially suffixed, e.g. mul_2)</span>
-<span class="sd">    is_placeholder: if the node is a placeholder, avoid detecting suffix</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">name_map</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="c1"># non-placeholder nodes may be suffixed with the count</span>
-        <span class="c1"># instead of adding another suffix, we will try to increment it</span>
-        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(.*)_(\d+)&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_placeholder</span><span class="p">:</span>
-            <span class="n">name</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">dup_name</span> <span class="o">:=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">name_map</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">name_map</span><span class="p">[</span><span class="n">orig_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">dup_name</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">name_map</span><span class="p">[</span><span class="n">orig_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
-    <span class="k">return</span> <span class="n">name_map</span><span class="p">[</span><span class="n">orig_name</span><span class="p">]</span>
-
-
-<span class="k">def</span> <span class="nf">_name_hoo_subgraph_placeholders</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Propagate placeholder names from the top-level graph into HigherOrderOp subgraphs,</span>
-<span class="sd">    and handle collisions with non-placeholders by count suffixing.</span>
-<span class="sd">    Different HOO subgraph types have different input schemas, so we first enumerate them</span>
-<span class="sd">    and gather the top-level named placeholder nodes.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># gather all HOO subgraphs and their top-level named placeholder nodes</span>
-    <span class="n">subgraph_ph_tuples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">HigherOrderOperator</span>
-        <span class="p">):</span>
-            <span class="c1"># HOO subgraphs have varying input schemas, so we enumerate them there</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">_name</span> <span class="o">==</span> <span class="s2">&quot;cond&quot;</span><span class="p">:</span>
-                <span class="n">_</span><span class="p">,</span> <span class="n">true_graph</span><span class="p">,</span> <span class="n">false_graph</span><span class="p">,</span> <span class="n">cond_args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_args</span>
-                <span class="n">subgraph_ph_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">true_graph</span><span class="o">.</span><span class="n">target</span><span class="p">),</span> <span class="n">cond_args</span><span class="p">))</span>
-                <span class="n">subgraph_ph_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">false_graph</span><span class="o">.</span><span class="n">target</span><span class="p">),</span> <span class="n">cond_args</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">_name</span> <span class="o">==</span> <span class="s2">&quot;wrap_with_set_grad_enabled&quot;</span><span class="p">:</span>
-                <span class="n">subgraph</span><span class="p">,</span> <span class="n">phs</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">node</span><span class="o">.</span><span class="n">_args</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-                <span class="n">subgraph_ph_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">target</span><span class="p">),</span> <span class="n">phs</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">_name</span> <span class="o">==</span> <span class="s2">&quot;map_impl&quot;</span><span class="p">:</span>
-                <span class="n">body_graph</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_args</span>
-                <span class="n">subgraph_ph_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">body_graph</span><span class="o">.</span><span class="n">target</span><span class="p">),</span> <span class="n">array</span> <span class="o">+</span> <span class="n">args</span><span class="p">)</span>
-                <span class="p">)</span>
-
-    <span class="c1"># propagate names</span>
-    <span class="k">for</span> <span class="n">subgraph</span><span class="p">,</span> <span class="n">hoo_phs</span> <span class="ow">in</span> <span class="n">subgraph_ph_tuples</span><span class="p">:</span>
-        <span class="n">name_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subgraph</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">hoo_phs</span><span class="p">):</span>  <span class="c1"># placeholder, retain name</span>
-                <span class="n">name_map</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">hoo_phs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-                <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">hoo_phs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-            <span class="k">else</span><span class="p">:</span>  <span class="c1"># non-placeholder, check for collisions</span>
-                <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">_rename_without_collisions</span><span class="p">(</span><span class="n">name_map</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-        <span class="c1"># recurse and recompile</span>
-        <span class="n">_name_hoo_subgraph_placeholders</span><span class="p">(</span><span class="n">subgraph</span><span class="p">)</span>
-        <span class="n">subgraph</span><span class="o">.</span><span class="n">recompile</span><span class="p">()</span>
-
-
 <span class="k">def</span> <span class="nf">_decompose_and_get_gm_with_new_signature_constants</span><span class="p">(</span>
     <span class="n">ep</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
@@ -884,9 +822,7 @@
     <span class="n">_preserve_ops</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OpOverload</span><span class="p">],</span>
     <span class="n">joint_loss_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
 <span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">torch._export.passes.lift_constants_pass</span> <span class="kn">import</span> <span class="n">ConstantAttrMap</span>
     <span class="kn">from</span> <span class="nn">torch._functorch.aot_autograd</span> <span class="kn">import</span> <span class="n">aot_export_module</span>
-    <span class="kn">from</span> <span class="nn">torch._guards</span> <span class="kn">import</span> <span class="n">detect_fake_mode</span>
     <span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">FakeTensorMode</span>
     <span class="kn">from</span> <span class="nn">torch.export._trace</span> <span class="kn">import</span> <span class="p">(</span>
         <span class="n">_export_to_aten_ir</span><span class="p">,</span>
@@ -898,12 +834,18 @@
     <span class="p">)</span>
     <span class="kn">from</span> <span class="nn">torch.fx.experimental.symbolic_shapes</span> <span class="kn">import</span> <span class="n">ShapeEnv</span>
 
+    <span class="c1"># TODO Merge this path with inference IR decomp, but it will require some additional work</span>
+    <span class="c1"># so I will leave it for now. T200307782</span>
     <span class="k">if</span> <span class="n">ep</span><span class="o">.</span><span class="n">verifier</span><span class="o">.</span><span class="n">dialect</span> <span class="o">==</span> <span class="s2">&quot;TRAINING&quot;</span><span class="p">:</span>
         <span class="n">mod</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">module</span><span class="p">()</span>
-        <span class="n">fake_args</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span>
-        <span class="p">]</span>
-        <span class="n">fake_mode</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_export</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">_detect_fake_mode_from_gm</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+
+        <span class="n">fake_args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
+                <span class="n">fake_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">])</span>
+
+        <span class="n">fake_args_unwrapped</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_unflatten</span><span class="p">(</span><span class="n">fake_args</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">_in_spec</span><span class="p">)</span>
+        <span class="n">fake_mode</span> <span class="o">=</span> <span class="n">_detect_fake_mode_from_gm</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">fake_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">fake_mode</span> <span class="o">=</span> <span class="n">FakeTensorMode</span><span class="p">(</span><span class="n">shape_env</span><span class="o">=</span><span class="n">ShapeEnv</span><span class="p">(),</span> <span class="n">export</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -929,51 +871,21 @@
         <span class="c1"># the exported module will store constants &amp; non-persistent buffers such that</span>
         <span class="c1"># retracing treats them as persistent buffers, so we inform the constants lifting pass</span>
         <span class="c1"># and overwrite the new graph signature using the previous program.</span>
-        <span class="n">constant_attrs</span> <span class="o">=</span> <span class="n">ConstantAttrMap</span><span class="p">()</span>
-        <span class="n">non_persistent_buffers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">spec</span><span class="o">.</span><span class="n">target</span>
-            <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">input_specs</span>
-            <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">InputKind</span><span class="o">.</span><span class="n">BUFFER</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">spec</span><span class="o">.</span><span class="n">persistent</span>
-        <span class="p">}</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">ep</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">non_persistent_buffers</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="c1"># recursive getattr</span>
-            <span class="n">_mod</span> <span class="o">=</span> <span class="n">mod</span>
-            <span class="o">*</span><span class="n">atoms</span><span class="p">,</span> <span class="n">attr</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
-                <span class="n">_mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_mod</span><span class="p">,</span> <span class="n">atom</span><span class="p">)</span>
-            <span class="c1"># remove as buffer, reassign as constant/non-persistent buffer</span>
-            <span class="n">_mod</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">_mod</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-            <span class="n">constant_attrs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">constant_attrs</span> <span class="o">=</span> <span class="n">_collect_and_set_constant_attrs</span><span class="p">(</span>
+            <span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">constants</span><span class="p">,</span> <span class="n">mod</span>
+        <span class="p">)</span>
 
         <span class="c1"># get params &amp; buffers after excluding constants</span>
         <span class="n">fake_params_buffers</span> <span class="o">=</span> <span class="n">_fakify_params_buffers</span><span class="p">(</span><span class="n">fake_mode</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
 
-        <span class="n">params_buffers_to_node_meta</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-            <span class="n">target</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span>
-            <span class="n">meta</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">meta</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;get_attr&quot;</span><span class="p">:</span>
-                <span class="n">params_buffers_to_node_meta</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">meta</span>
+        <span class="n">params_buffers_to_node_meta</span> <span class="o">=</span> <span class="n">_collect_param_buffer_metadata</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
 
-            <span class="c1"># If the call_function uses param as input, we also need to update params&#39; meta</span>
-            <span class="c1"># with this call_function node&#39;s meta.</span>
-            <span class="c1"># This is basically the same flow as torch.fx.traceback.preserve_meta()</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
-                <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">HigherOrderOperator</span>
-            <span class="p">):</span>
-                <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">_input_nodes</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;get_attr&quot;</span><span class="p">:</span>
-                        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">proxy</span><span class="o">.</span><span class="n">_COPY_META_FIELDS</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">meta</span><span class="p">:</span>
-                                <span class="n">params_buffers_to_node_meta</span><span class="p">[</span><span class="n">arg</span><span class="o">.</span><span class="n">target</span><span class="p">][</span><span class="n">entry</span><span class="p">]</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span>
-                                    <span class="n">entry</span>
-                                <span class="p">]</span>
-
-        <span class="k">with</span> <span class="n">fake_mode</span><span class="p">,</span> <span class="n">_override_decomp_aten_to_variants</span><span class="p">():</span>
-            <span class="n">fake_args_unwrapped</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_unflatten</span><span class="p">(</span><span class="n">fake_args</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">_in_spec</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">_ignore_backend_decomps</span><span class="p">(),</span> <span class="p">(</span>
+            <span class="n">fake_mode</span>
+        <span class="p">),</span> <span class="n">_override_decomp_aten_to_variants</span><span class="p">(),</span> <span class="n">_override_composite_implicit_decomp</span><span class="p">(</span>
+            <span class="n">_preserve_ops</span><span class="p">,</span>
+            <span class="n">decomp_table</span><span class="p">,</span>
+        <span class="p">):</span>
             <span class="n">aten_export_artifact</span> <span class="o">=</span> <span class="n">_export_to_aten_ir</span><span class="p">(</span>
                 <span class="n">mod</span><span class="p">,</span>
                 <span class="c1"># this requires empty kwargs, but not in pytree.flattened format</span>
@@ -984,49 +896,27 @@
                 <span class="p">{},</span>
                 <span class="n">fake_params_buffers</span><span class="p">,</span>
                 <span class="n">constant_attrs</span><span class="p">,</span>
+                <span class="n">decomp_table</span><span class="o">=</span><span class="n">decomp_table</span><span class="p">,</span>
                 <span class="n">_check_autograd_state</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="n">gm</span> <span class="o">=</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">gm</span>
         <span class="n">new_graph_signature</span> <span class="o">=</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">sig</span>
 
-        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-            <span class="c1"># nn_module_stack</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;placeholder&quot;</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">]:</span>
-                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="n">mod_cls</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;nn_module_stack&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mod_cls</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
-                        <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;nn_module_stack&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                            <span class="n">fqn</span><span class="p">,</span>
-                            <span class="n">mod_cls</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">mod_cls</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">,</span>
-                        <span class="p">)</span>
-
-        <span class="c1"># Don&#39;t copy over nn_module_stack, stack_trace metadata for params/buffers nodes</span>
-        <span class="k">for</span> <span class="n">metadata</span> <span class="ow">in</span> <span class="n">params_buffers_to_node_meta</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">metadata</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nn_module_stack&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">metadata</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;stack_trace&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="ow">in</span> <span class="n">new_graph_signature</span><span class="o">.</span><span class="n">inputs_to_parameters</span><span class="p">:</span>
-                    <span class="n">param_name</span> <span class="o">=</span> <span class="n">new_graph_signature</span><span class="o">.</span><span class="n">inputs_to_parameters</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="n">params_buffers_to_node_meta</span><span class="p">:</span>
-                        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params_buffers_to_node_meta</span><span class="p">[</span><span class="n">param_name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                            <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-                <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="ow">in</span> <span class="n">new_graph_signature</span><span class="o">.</span><span class="n">inputs_to_buffers</span><span class="p">:</span>
-                    <span class="n">buffer_name</span> <span class="o">=</span> <span class="n">new_graph_signature</span><span class="o">.</span><span class="n">inputs_to_buffers</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">buffer_name</span> <span class="ow">in</span> <span class="n">params_buffers_to_node_meta</span><span class="p">:</span>
-                        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params_buffers_to_node_meta</span><span class="p">[</span><span class="n">buffer_name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                            <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">_populate_param_buffer_metadata_to_new_gm</span><span class="p">(</span>
+            <span class="n">params_buffers_to_node_meta</span><span class="p">,</span> <span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span>
+        <span class="p">)</span>
 
         <span class="c1"># overwrite signature for non-persistent buffers</span>
-        <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">new_graph_signature</span><span class="o">.</span><span class="n">input_specs</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">InputKind</span><span class="o">.</span><span class="n">BUFFER</span> <span class="ow">and</span> <span class="n">spec</span><span class="o">.</span><span class="n">target</span> <span class="ow">in</span> <span class="n">non_persistent_buffers</span><span class="p">:</span>
-                <span class="n">spec</span><span class="o">.</span><span class="n">persistent</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">new_graph_signature</span> <span class="o">=</span> <span class="n">_overwrite_signature_for_non_persistent_buffers</span><span class="p">(</span>
+            <span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">,</span> <span class="n">new_graph_signature</span>
+        <span class="p">)</span>
 
         <span class="n">_verify_nn_module_stack</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span>
         <span class="n">_verify_stack_trace</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span>
         <span class="n">_verify_placeholder_names</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span>
+
+        <span class="k">return</span> <span class="n">_remove_unneccessary_copy_op_pass</span><span class="p">(</span><span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span><span class="p">)</span>
 
     <span class="n">old_placeholders</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ep</span><span class="o">.</span><span class="n">graph_module</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span>
@@ -1187,6 +1077,31 @@
         <span class="p">):</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">old_node</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">new_node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span>
+
+
+<span class="k">def</span> <span class="nf">_remove_unneccessary_copy_op_pass</span><span class="p">(</span>
+    <span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="n">new_graph_signature</span><span class="p">:</span> <span class="n">ExportGraphSignature</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="n">ExportGraphSignature</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Removes redundant copy_ node that was introduced due to mutated buffer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">gm</span><span class="o">.</span><span class="n">_set_replace_hook</span><span class="p">(</span><span class="n">new_graph_signature</span><span class="o">.</span><span class="n">get_replace_hook</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;output&quot;</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_flatten</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">out</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="n">out</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">new_graph_signature</span><span class="o">.</span><span class="n">buffers_to_mutate</span>
+                    <span class="p">):</span>
+                        <span class="k">if</span> <span class="p">(</span>
+                            <span class="n">out</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span>
+                            <span class="ow">and</span> <span class="n">out</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">copy</span><span class="o">.</span><span class="n">default</span>
+                        <span class="p">):</span>
+                            <span class="n">out</span><span class="o">.</span><span class="n">replace_all_uses_with</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># type: ignore[arg-type]</span>
+                            <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">erase_node</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">gm</span><span class="o">.</span><span class="n">recompile</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span>
 
 
