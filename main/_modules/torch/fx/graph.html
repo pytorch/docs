@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git66dd457 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git941d094 ) &#x25BC</a>
     </div>
     
 
@@ -1341,10 +1341,10 @@
     <span class="k">def</span> <span class="nf">find_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">op</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[(</span><span class="n">op</span><span class="p">,</span> <span class="n">target</span><span class="p">)])</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[(</span><span class="n">op</span><span class="p">,</span> <span class="n">target</span><span class="p">)]</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
 
         <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[(</span><span class="n">op</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[(</span><span class="n">op</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
 
         <span class="c1"># op is call_method, get_attr, call_module</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[(</span><span class="n">op</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">target</span><span class="p">]</span>
@@ -2076,6 +2076,8 @@
 
         <span class="c1"># Check targets are legit</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">owning_module</span><span class="p">:</span>
+            <span class="n">num_warnings</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">MAX_WARNINGS</span> <span class="o">=</span> <span class="mi">5</span>
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s1">&#39;call_function&#39;</span><span class="p">:</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">):</span>
@@ -2102,11 +2104,21 @@
                               <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_m_itr</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span>
                               <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_m_itr</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
                               <span class="ow">and</span> <span class="n">atom</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">m_itr</span><span class="o">.</span><span class="n">_buffers</span><span class="p">):</span>
-                            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Node </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s1"> target </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">atom</span><span class="si">}</span><span class="s1"> of </span><span class="si">{</span><span class="n">seen_qualname</span><span class="si">}</span><span class="s1"> does &#39;</span>
-                                          <span class="s1">&#39;not reference an nn.Module, nn.Parameter, or buffer, which is &#39;</span>
-                                          <span class="s1">&#39;what </span><span class="se">\&#39;</span><span class="s1">get_attr</span><span class="se">\&#39;</span><span class="s1"> Nodes typically target&#39;</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">num_warnings</span> <span class="o">&lt;</span> <span class="n">MAX_WARNINGS</span><span class="p">:</span>
+                                <span class="c1"># Don&#39;t emit this warning too frequently,</span>
+                                <span class="c1"># for very large graphs this can become very expensive</span>
+                                <span class="c1"># from a performance perspective.</span>
+                                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Node </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s1"> target </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">atom</span><span class="si">}</span><span class="s1"> of </span><span class="si">{</span><span class="n">seen_qualname</span><span class="si">}</span><span class="s1"> does &#39;</span>
+                                              <span class="s1">&#39;not reference an nn.Module, nn.Parameter, or buffer, which is &#39;</span>
+                                              <span class="s1">&#39;what </span><span class="se">\&#39;</span><span class="s1">get_attr</span><span class="se">\&#39;</span><span class="s1"> Nodes typically target&#39;</span><span class="p">)</span>
+                            <span class="n">num_warnings</span> <span class="o">+=</span> <span class="mi">1</span>
                         <span class="k">else</span><span class="p">:</span>
-                            <span class="n">m_itr</span> <span class="o">=</span> <span class="n">new_m_itr</span></div>
+                            <span class="n">m_itr</span> <span class="o">=</span> <span class="n">new_m_itr</span>
+            <span class="k">if</span> <span class="n">num_warnings</span> <span class="o">&gt;</span> <span class="n">MAX_WARNINGS</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Additional </span><span class="si">{</span><span class="n">num_warnings</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MAX_WARNINGS</span><span class="si">}</span><span class="s1"> warnings &#39;</span>
+                    <span class="s1">&#39;suppressed about get_attr references&#39;</span>
+                <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Graph.eliminate_dead_code"><a class="viewcode-back" href="../../../fx.html#torch.fx.Graph.eliminate_dead_code">[docs]</a>    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">eliminate_dead_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_impure_node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Node</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>

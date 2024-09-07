@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
     :caption: Tags
 
     torch.escape-hatch
-    torch.cond
     torch.dynamic-shape
+    torch.cond
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -212,7 +212,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -288,7 +288,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -361,7 +361,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -458,7 +458,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
+    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -525,7 +525,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -611,7 +611,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -1284,7 +1284,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1933,7 +1933,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -2106,6 +2106,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7efcb5090040>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7fe7014d0040>
 
 
