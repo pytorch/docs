@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git941d094 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gite72ed47 ) &#x25BC</a>
     </div>
     
 
@@ -907,6 +907,15 @@ Required when <a class="reference internal" href="#torch.onnx.enable_fake_mode" 
 </div>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.onnx.ONNXProgram.apply_weights">
+<span class="sig-name descname"><span class="pre">apply_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/onnx/_internal/_exporter_legacy.html#ONNXProgram.apply_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.onnx.ONNXProgram.apply_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the weights from the specified state dict to the ONNX model.
+:param state_dict: The state dict containing the weights to apply to the ONNX model.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.onnx.ONNXProgram.diagnostic_context">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">diagnostic_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">diagnostics.DiagnosticContext</span></em><a class="headerlink" href="#torch.onnx.ONNXProgram.diagnostic_context" title="Permalink to this definition">¶</a></dt>
@@ -981,20 +990,9 @@ It must have a <cite>.sarif</cite> extension.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="torch.onnx.InvalidExportOptionsError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">InvalidExportOptionsError</span></span><a class="headerlink" href="#torch.onnx.InvalidExportOptionsError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised when user specified an invalid value for the <a class="reference internal" href="#torch.onnx.ExportOptions" title="torch.onnx.ExportOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExportOptions</span></code></a>.</p>
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="torch.onnx.OnnxExporterError">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">OnnxExporterError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onnx_program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.onnx.OnnxExporterError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised when an ONNX exporter error occurs.</p>
-<p>This exception is thrown when there’s an error during the ONNX export process.
-It encapsulates the <a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">ONNXProgram</span></code></a> object generated until the failure, allowing
-access to the partial export results and associated metadata.</p>
-<dl class="field-list simple">
-</dl>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.onnx.</span></span><span class="sig-name descname"><span class="pre">OnnxExporterError</span></span><a class="headerlink" href="#torch.onnx.OnnxExporterError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Errors raised by the ONNX exporter. This is the base class for all exporter errors.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -1169,6 +1167,7 @@ if (url)
 <li><a class="reference internal" href="#torch.onnx.ONNXProgram"><code class="docutils literal notranslate"><span class="pre">ONNXProgram</span></code></a><ul>
 <li><a class="reference internal" href="#torch.onnx.ONNXProgram.adapt_torch_inputs_to_onnx"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.adapt_torch_inputs_to_onnx()</span></code></a></li>
 <li><a class="reference internal" href="#torch.onnx.ONNXProgram.adapt_torch_outputs_to_onnx"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.adapt_torch_outputs_to_onnx()</span></code></a></li>
+<li><a class="reference internal" href="#torch.onnx.ONNXProgram.apply_weights"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.apply_weights()</span></code></a></li>
 <li><a class="reference internal" href="#torch.onnx.ONNXProgram.diagnostic_context"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.diagnostic_context</span></code></a></li>
 <li><a class="reference internal" href="#torch.onnx.ONNXProgram.fake_context"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.fake_context</span></code></a></li>
 <li><a class="reference internal" href="#torch.onnx.ONNXProgram.model_proto"><code class="docutils literal notranslate"><span class="pre">ONNXProgram.model_proto</span></code></a></li>
@@ -1177,7 +1176,6 @@ if (url)
 </ul>
 </li>
 <li><a class="reference internal" href="#torch.onnx.ONNXRuntimeOptions"><code class="docutils literal notranslate"><span class="pre">ONNXRuntimeOptions</span></code></a></li>
-<li><a class="reference internal" href="#torch.onnx.InvalidExportOptionsError"><code class="docutils literal notranslate"><span class="pre">InvalidExportOptionsError</span></code></a></li>
 <li><a class="reference internal" href="#torch.onnx.OnnxExporterError"><code class="docutils literal notranslate"><span class="pre">OnnxExporterError</span></code></a></li>
 <li><a class="reference internal" href="#torch.onnx.OnnxRegistry"><code class="docutils literal notranslate"><span class="pre">OnnxRegistry</span></code></a><ul>
 <li><a class="reference internal" href="#torch.onnx.OnnxRegistry.get_op_functions"><code class="docutils literal notranslate"><span class="pre">OnnxRegistry.get_op_functions()</span></code></a></li>

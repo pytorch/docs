@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git941d094 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gite72ed47 ) &#x25BC</a>
     </div>
     
 
@@ -913,19 +913,6 @@
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_xpu_synchronize</span><span class="p">(</span><span class="n">device</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="empty_cache"><a class="viewcode-back" href="../../generated/torch.xpu.empty_cache.html#torch.xpu.empty_cache">[docs]</a><span class="k">def</span> <span class="nf">empty_cache</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Release all unoccupied cached memory currently held by the caching</span>
-<span class="sd">    allocator so that those can be used in other XPU application.</span>
-
-<span class="sd">    .. note::</span>
-<span class="sd">        :func:`~torch.xpu.empty_cache` doesn&#39;t increase the amount of XPU</span>
-<span class="sd">        memory available for PyTorch. However, it may help reduce fragmentation</span>
-<span class="sd">        of XPU memory in certain cases.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">is_initialized</span><span class="p">():</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_xpu_emptyCache</span><span class="p">()</span></div>
-
-
 <span class="k">def</span> <span class="nf">_get_generator</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Generator</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the XPU Generator object for the given device.</span>
 
@@ -973,7 +960,29 @@
     <span class="k">return</span> <span class="n">default_generator</span><span class="o">.</span><span class="n">get_offset</span><span class="p">()</span>
 
 
-<span class="kn">from</span> <span class="nn">.random</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403</span>
+<span class="c1"># import here to avoid circular import</span>
+<span class="kn">from</span> <span class="nn">.memory</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">empty_cache</span><span class="p">,</span>
+    <span class="n">max_memory_allocated</span><span class="p">,</span>
+    <span class="n">max_memory_reserved</span><span class="p">,</span>
+    <span class="n">memory_allocated</span><span class="p">,</span>
+    <span class="n">memory_reserved</span><span class="p">,</span>
+    <span class="n">memory_stats</span><span class="p">,</span>
+    <span class="n">memory_stats_as_nested_dict</span><span class="p">,</span>
+    <span class="n">reset_accumulated_memory_stats</span><span class="p">,</span>
+    <span class="n">reset_peak_memory_stats</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.random</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_rng_state</span><span class="p">,</span>
+    <span class="n">get_rng_state_all</span><span class="p">,</span>
+    <span class="n">initial_seed</span><span class="p">,</span>
+    <span class="n">manual_seed</span><span class="p">,</span>
+    <span class="n">manual_seed_all</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">,</span>
+    <span class="n">seed_all</span><span class="p">,</span>
+    <span class="n">set_rng_state</span><span class="p">,</span>
+    <span class="n">set_rng_state_all</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
@@ -1000,6 +1009,14 @@
     <span class="s2">&quot;is_initialized&quot;</span><span class="p">,</span>
     <span class="s2">&quot;manual_seed&quot;</span><span class="p">,</span>
     <span class="s2">&quot;manual_seed_all&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;max_memory_allocated&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;max_memory_reserved&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;memory_allocated&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;memory_reserved&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;memory_stats&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;memory_stats_as_nested_dict&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;reset_accumulated_memory_stats&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;reset_peak_memory_stats&quot;</span><span class="p">,</span>
     <span class="s2">&quot;seed&quot;</span><span class="p">,</span>
     <span class="s2">&quot;seed_all&quot;</span><span class="p">,</span>
     <span class="s2">&quot;set_device&quot;</span><span class="p">,</span>

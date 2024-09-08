@@ -279,7 +279,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git941d094 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gite72ed47 ) &#x25BC</a>
     </div>
     
 
@@ -1076,10 +1076,10 @@
         <li><a href="generated/torch.Tensor.aminmax.html#torch.Tensor.aminmax">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.and_masks">and_masks() (in module torch.nn.attention.flex_attention)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.angle.html#torch.angle">angle() (in module torch)</a>
 
       <ul>
@@ -1154,6 +1154,8 @@
         <li><a href="generated/torch.nn.utils.prune.RandomUnstructured.html#torch.nn.utils.prune.RandomUnstructured.apply_mask">(torch.nn.utils.prune.RandomUnstructured method)</a>
 </li>
       </ul></li>
+      <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.apply_weights">apply_weights() (torch.onnx.ONNXProgram method)</a>
+</li>
       <li><a href="generated/torch.arange.html#torch.arange">arange() (in module torch)</a>
 </li>
       <li><a href="generated/torch.arccos.html#torch.arccos">arccos() (in module torch)</a>
@@ -5215,8 +5217,6 @@
 </li>
       <li><a href="generated/torch.linalg.inv_ex.html#torch.linalg.inv_ex">inv_ex() (in module torch.linalg)</a>
 </li>
-      <li><a href="onnx_dynamo.html#torch.onnx.InvalidExportOptionsError">InvalidExportOptionsError (class in torch.onnx)</a>
-</li>
       <li><a href="generated/torch.inverse.html#torch.inverse">inverse() (in module torch)</a>
 
       <ul>
@@ -6424,11 +6424,19 @@
 </li>
       </ul></li>
       <li><a href="generated/torch.cuda.max_memory_allocated.html#torch.cuda.max_memory_allocated">max_memory_allocated() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.max_memory_allocated.html#torch.xpu.max_memory_allocated">(in module torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.cuda.max_memory_cached.html#torch.cuda.max_memory_cached">max_memory_cached() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.max_memory_reserved.html#torch.cuda.max_memory_reserved">max_memory_reserved() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.max_memory_reserved.html#torch.xpu.max_memory_reserved">(in module torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.ao.nn.quantized.functional.max_pool1d.html#torch.ao.nn.quantized.functional.max_pool1d">max_pool1d (class in torch.ao.nn.quantized.functional)</a>
 </li>
       <li><a href="generated/torch.nn.functional.max_pool1d.html#torch.nn.functional.max_pool1d">max_pool1d() (in module torch.nn.functional)</a>
@@ -6558,13 +6566,21 @@
       <li><a href="generated/torch.cuda.mem_get_info.html#torch.cuda.mem_get_info">mem_get_info() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.memory_allocated.html#torch.cuda.memory_allocated">memory_allocated() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.memory_allocated.html#torch.xpu.memory_allocated">(in module torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.cuda.memory_cached.html#torch.cuda.memory_cached">memory_cached() (in module torch.cuda)</a>
 </li>
       <li><a href="tensor_attributes.html#torch.memory_format">memory_format (class in torch)</a>
 </li>
       <li><a href="generated/torch.cuda.memory_reserved.html#torch.cuda.memory_reserved">memory_reserved() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.memory_reserved.html#torch.xpu.memory_reserved">(in module torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.cuda.memory_snapshot.html#torch.cuda.memory_snapshot">memory_snapshot() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.memory_stats.html#torch.cuda.memory_stats">memory_stats() (in module torch.cuda)</a>
@@ -6572,7 +6588,11 @@
       <ul>
         <li><a href="generated/torch.mtia.memory_stats.html#torch.mtia.memory_stats">(in module torch.mtia)</a>
 </li>
+        <li><a href="generated/torch.xpu.memory_stats.html#torch.xpu.memory_stats">(in module torch.xpu)</a>
+</li>
       </ul></li>
+      <li><a href="generated/torch.xpu.memory_stats_as_nested_dict.html#torch.xpu.memory_stats_as_nested_dict">memory_stats_as_nested_dict() (in module torch.xpu)</a>
+</li>
       <li><a href="generated/torch.cuda.memory_summary.html#torch.cuda.memory_summary">memory_summary() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.memory_usage.html#torch.cuda.memory_usage">memory_usage() (in module torch.cuda)</a>
@@ -8345,6 +8365,8 @@
 </li>
         <li><a href="xpu.html#module-torch.xpu">torch.xpu</a>
 </li>
+        <li><a href="xpu.html#module-torch.xpu.memory">torch.xpu.memory</a>
+</li>
         <li><a href="xpu.html#module-torch.xpu.random">torch.xpu.random</a>
 </li>
         <li><a href="xpu.html#module-torch.xpu.streams">torch.xpu.streams</a>
@@ -10106,6 +10128,8 @@
         <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine.reset">(torch.quasirandom.SobolEngine method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.xpu.reset_accumulated_memory_stats.html#torch.xpu.reset_accumulated_memory_stats">reset_accumulated_memory_stats() (in module torch.xpu)</a>
+</li>
       <li><a href="generated/torch.cuda.reset_max_memory_allocated.html#torch.cuda.reset_max_memory_allocated">reset_max_memory_allocated() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.reset_max_memory_cached.html#torch.cuda.reset_max_memory_cached">reset_max_memory_cached() (in module torch.cuda)</a>
@@ -10123,7 +10147,11 @@
 </li>
       </ul></li>
       <li><a href="generated/torch.cuda.reset_peak_memory_stats.html#torch.cuda.reset_peak_memory_stats">reset_peak_memory_stats() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.reset_peak_memory_stats.html#torch.xpu.reset_peak_memory_stats">(in module torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.reshape.html#torch.reshape">reshape() (in module torch)</a>
 
       <ul>
@@ -14729,8 +14757,6 @@
         <li><a href="export.html#module-torch.export.exported_program">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.graph_signature
 
@@ -14738,6 +14764,8 @@
         <li><a href="export.html#module-torch.export.graph_signature">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.passes
 
@@ -17631,6 +17659,13 @@
 
       <ul>
         <li><a href="xpu.html#module-torch.xpu">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.xpu.memory
+
+      <ul>
+        <li><a href="xpu.html#module-torch.xpu.memory">module</a>
 </li>
       </ul></li>
       <li>
