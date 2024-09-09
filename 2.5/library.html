@@ -1,0 +1,1814 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torch.library &mdash; PyTorch 2.5 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://pytorch.org/docs/stable/library.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx-dropdown.css" type="text/css" />
+  <link rel="stylesheet" href="_static/panels-bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/jit.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="torch.cpu" href="cpu.html" />
+    <link rel="prev" title="torch.autograd.graph.increment_version" href="generated/torch.autograd.graph.increment_version.html" />
+
+
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
+    <!-- End Google Tag Manager -->
+  
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Learn
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                  <span class=dropdown-title>Get Started</span>
+                  <p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                  <p>Whats new in PyTorch tutorials</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                  <p>Familiarize yourself with PyTorch concepts and modules</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                  <p>Bite-size, ready-to-deploy PyTorch code examples</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                  <p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Ecosystem
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+                  <span class="dropdown-title">Tools</span>
+                  <p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
+                  <span class=dropdown-title>Community</span>
+                  <p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
+                  <span class=dropdown-title>Forums</span>
+                  <p>A place to discuss PyTorch code, issues, install, research</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                  <p>Find resources and get questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2023">
+                  <span class="dropdown-title">Contributor Awards - 2023</span>
+                  <p>Award winners announced at this year's PyTorch Conference</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Edge
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/edge">
+                  <span class="dropdown-title">About PyTorch Edge</span>
+                  <p>Build innovative and privacy-aware AI experiences for edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
+                  <span class="dropdown-title">ExecuTorch</span>
+                  <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+              </div>
+            </div>  
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Docs
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                  <p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                  <span class="dropdown-title">PyTorch Domains</span>
+                  <p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Blogs & News 
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">PyTorch Blog</span>
+                  <p>Catch up on the latest technical news and happenings</p>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
+                  <span class="dropdown-title">Community Blog</span>
+                  <p>Stories from the PyTorch ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/videos">
+                  <span class="dropdown-title">Videos</span>
+                  <p>Learn about the latest PyTorch tutorials, new, and more </p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
+                  <span class="dropdown-title">Community Stories</span>
+                  <p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                  <p>Find events, webinars, and podcasts</p>
+                </a>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                About
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                  <p>Learn more about the PyTorch Foundation</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                  <p></p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown">
+              <a href="https://pytorch.org/join" data-cta="join">
+                Become a Member
+              </a>
+            </div>
+          </li>
+          <li>
+           <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="github-icon">
+             </a>
+           </div>
+          </li>
+          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <li>
+            <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="search-icon">
+             </a>
+            </div>
+          </li>
+          --->
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+  </div>
+</div>
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+    <div class="version">
+      <a href='https://pytorch.org/docs/versions.html'>2.5 &#x25BC</a>
+    </div>
+    
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          </div>
+
+          
+
+
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/mps.html">MPS backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/windows.html">Windows FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_index.html">C++</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">torch::deploy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="torch.html">torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensors.html">torch.Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_attributes.html">Tensor Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_view.html">Tensor Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amp.html">torch.amp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autograd.html">torch.autograd</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpu.html">torch.cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cuda.html">torch.cuda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.compiler.html">torch.compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="func.html">torch.func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linalg.html">torch.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitor.html">torch.monitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal.html">torch.signal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="special.html">torch.special</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">torch.package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiler.html">torch.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.attention.html">torch.nn.attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="masked.html">torch.masked</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="size.html">torch.Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">torch.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bottleneck.html">torch.utils.bottleneck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deterministic.html">torch.utils.deterministic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dlpack.html">torch.utils.dlpack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_zoo.html">torch.utils.model_zoo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_tracker.html">torch.utils.module_tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="type_info.html">Type Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="named_tensor.html">Named Tensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="name_inference.html">Named Tensors operator coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future_mod.html">torch.__future__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_environment_variables.html">Torch Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/audio/stable">torchaudio</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/data">TorchData</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/torchrec">TorchRec</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/serve">TorchServe</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/text/stable">torchtext</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/vision/stable">torchvision</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/xla/">PyTorch on XLA Devices</a></li>
+</ul>
+
+            
+          
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>torch.library</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/library.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+
+          <!-- Google Tag Manager (noscript) -->
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          <!-- End Google Tag Manager (noscript) -->
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="module-torch.library">
+<span id="torch-library"></span><span id="torch-library-docs"></span><h1>torch.library<a class="headerlink" href="#module-torch.library" title="Permalink to this heading">¶</a></h1>
+<p>torch.library is a collection of APIs for extending PyTorch’s core library
+of operators. It contains utilities for testing custom operators, creating new
+custom operators, and extending operators defined with PyTorch’s C++ operator
+registration APIs (e.g. aten operators).</p>
+<p>For a detailed guide on effectively using these APIs, please see
+Please see <a class="reference internal" href="notes/custom_operators.html#custom-ops-landing-page"><span class="std std-ref">PyTorch Custom Operators Landing Page</span></a>
+for more details on how to effectively use these APIs.</p>
+<div class="section" id="testing-custom-ops">
+<h2>Testing custom ops<a class="headerlink" href="#testing-custom-ops" title="Permalink to this heading">¶</a></h2>
+<p>Use <a class="reference internal" href="#torch.library.opcheck" title="torch.library.opcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.opcheck()</span></code></a> to test custom ops for incorrect usage of the
+Python torch.library and/or C++ TORCH_LIBRARY APIs. Also, if your operator supports
+training, use <a class="reference internal" href="autograd.html#module-torch.autograd.gradcheck" title="torch.autograd.gradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.gradcheck()</span></code></a> to test that the gradients are
+mathematically correct.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.opcheck">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">opcheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_utils</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('test_schema',</span> <span class="pre">'test_autograd_registration',</span> <span class="pre">'test_faketensor',</span> <span class="pre">'test_aot_dispatch_dynamic')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_exception</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#opcheck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.opcheck" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an operator and some sample arguments, tests if the operator is
+registered correctly.</p>
+<p>That is, when you use the torch.library/TORCH_LIBRARY APIs to create a
+custom op, you specified metadata (e.g. mutability info) about the custom op
+and these APIs require that the functions you pass them satisfy certain
+properties (e.g. no data pointer access in the fake/meta/abstract kernel)
+<code class="docutils literal notranslate"><span class="pre">opcheck</span></code> tests these metadata and properties.</p>
+<p>Concretely, we test the following:</p>
+<ul class="simple">
+<li><p>test_schema: If the schema matches the implementation of
+the operator. For example: if the schema specifies a Tensor is mutated,
+then we check the implementation mutates the Tensor. If the schema
+specifies that we return a new Tensor, then we check that the
+implementation returns a new Tensor (instead of an existing one or
+a view of an existing one).</p></li>
+<li><p>test_autograd_registration: If the operator supports training
+(autograd): we check that its autograd formula is registered via
+torch.library.register_autograd or a manual registration to one
+or more DispatchKey::Autograd keys. Any other DispatchKey-based
+registrations may lead to undefined behavior.</p></li>
+<li><p>test_faketensor: If the operator has a FakeTensor kernel
+(and if it is correct). The FakeTensor kernel is necessary (
+but not sufficient) for the operator to work with PyTorch compilation
+APIs (torch.compile/export/FX). We check that a FakeTensor kernel
+(also sometimes known as a meta kernel) was registered for the
+operator and that it is correct. This test takes the result of
+running the operator on real tensors and the result of running
+the operator on FakeTensors and checks that they have the same
+Tensor metadata (sizes/strides/dtype/device/etc).</p></li>
+<li><p>test_aot_dispatch_dynamic: If the operator has correct behavior
+with PyTorch compilation APIs (torch.compile/export/FX).
+This checks that the outputs (and gradients, if applicable) are the
+same under eager-mode PyTorch and torch.compile.
+This test is a superset of <code class="docutils literal notranslate"><span class="pre">test_faketensor</span></code> and is an e2e test;
+other things it tests are that the operator supports
+functionalization and that the backward pass (if it exists) also
+supports FakeTensor and functionalization.</p></li>
+</ul>
+<p>For best results, please call <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> multiple times with a
+representative set of inputs. If your operator supports
+autograd, please use <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> with inputs with <code class="docutils literal notranslate"><span class="pre">requires_grad</span> <span class="pre">=</span> <span class="pre">True</span></code>;
+if your operator supports multiple devices (e.g. CPU and CUDA), please
+use <code class="docutils literal notranslate"><span class="pre">opcheck</span></code> with inputs on all supported devices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><em>OpOverload</em><em>, </em><em>OpOverloadPacket</em><em>, </em><a class="reference internal" href="#torch._library.custom_ops.CustomOpDef" title="torch._library.custom_ops.CustomOpDef"><em>CustomOpDef</em></a><em>]</em>) – The operator. Must either be a function decorated with
+<a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> or an OpOverload/OpOverloadPacket
+found in torch.ops.* (e.g. torch.ops.aten.sin, torch.ops.mylib.foo)</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>, </em><em>...</em><em>]</em>) – The args to the operator</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – The kwargs to the operator</p></li>
+<li><p><strong>test_utils</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em><em>]</em>) – Tests that we should run. Default: all of them.
+Example: (“test_schema”, “test_faketensor”)</p></li>
+<li><p><strong>raise_exception</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If we should raise an exception on the first
+error. If False, we will return a dict with information
+on if each test passed or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>opcheck and <a class="reference internal" href="autograd.html#module-torch.autograd.gradcheck" title="torch.autograd.gradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.gradcheck()</span></code></a> test different things;
+opcheck tests if your usage of torch.library APIs is correct while
+<a class="reference internal" href="autograd.html#module-torch.autograd.gradcheck" title="torch.autograd.gradcheck"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.gradcheck()</span></code></a> tests if your autograd formula is
+mathematically correct. Use both to test custom ops that support
+gradient computation.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_mul&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_add</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">z_np</span> <span class="o">=</span> <span class="n">x_np</span> <span class="o">+</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">z_np</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@numpy_sin</span><span class="o">.</span><span class="n">register_fake</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y</span><span class="p">,</span> <span class="o">=</span> <span class="n">inputs</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ctx</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">ctx</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="kc">None</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numpy_sin</span><span class="o">.</span><span class="n">register_autograd</span><span class="p">(</span><span class="n">backward</span><span class="p">,</span> <span class="n">setup_context</span><span class="o">=</span><span class="n">setup_context</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample_inputs</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mf">3.14</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">),</span> <span class="mf">2.718</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mf">1.234</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mf">90.18</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">args</span> <span class="ow">in</span> <span class="n">sample_inputs</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">opcheck</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="creating-new-custom-ops-in-python">
+<h2>Creating new custom ops in Python<a class="headerlink" href="#creating-new-custom-ops-in-python" title="Permalink to this heading">¶</a></h2>
+<p>Use <a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> to create new custom ops.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.custom_op">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">custom_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.library.custom_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps a function into custom operator.</p>
+<p>Reasons why you may want to create a custom op include:
+- Wrapping a third-party library or custom kernel to work with PyTorch
+subsystems like Autograd.
+- Preventing torch.compile/export/FX tracing from peeking inside your function.</p>
+<p>This API is used as a decorator around a function (please see examples).
+The provided function must have type hints; these are needed to interface
+with PyTorch’s various subsystems.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A name for the custom op that looks like “{namespace}::{name}”,
+e.g. “mylib::my_linear”. The name is used as the op’s stable identifier
+in PyTorch subsystems (e.g. torch.export, FX graphs).
+To avoid name collisions, please use your project name as the namespace;
+e.g. all custom ops in pytorch/fbgemm use “fbgemm” as the namespace.</p></li>
+<li><p><strong>mutates_args</strong> (<em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>] or </em><em>&quot;unknown&quot;</em>) – The names of args that the function mutates.
+This MUST be accurate, otherwise, the behavior is undefined. If “unknown”,
+it pessimistically assumes that all inputs to the operator are being mutated.</p></li>
+<li><p><strong>device_types</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device type(s) the function
+is valid for. If no device type is provided, then the function
+is used as the default implementation for all device types.
+Examples: “cpu”, “cuda”.
+When registering a device-specific implementation for an operator that accepts no Tensors,
+we require the operator to have a “device: torch.device argument”.</p></li>
+<li><p><strong>schema</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A schema string for the operator. If None
+(recommended) we’ll infer a schema for the operator from its type
+annotations. We recommend letting us infer a schema unless you
+have a specific reason not to.
+Example: “(Tensor x, int y) -&gt; (Tensor, Tensor)”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We recommend not passing in a <code class="docutils literal notranslate"><span class="pre">schema</span></code> arg and instead letting us infer
+it from the type annotations. It is error-prone to write your own schema.
+You may wish to provide your own schema if our interpretation of
+the type annotation is not what you want.
+For more info on how to write a schema string, see
+<a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/aten/src/ATen/native/README.md#func">here</a></p>
+</div>
+<dl>
+<dt>Examples::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.library</span> <span class="kn">import</span> <span class="n">custom_op</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_sin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">numpy_sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example of a custom op that only works for one device type.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin_cpu&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">(),</span> <span class="n">device_types</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_sin_cpu</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">numpy_sin_cpu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example of a custom op that mutates an input</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin_inplace&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">},</span> <span class="n">device_types</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_sin_inplace</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x_np</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expected</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numpy_sin_inplace</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example of a factory function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::bar&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">device_types</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bar</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="extending-custom-ops-created-from-python-or-c">
+<h2>Extending custom ops (created from Python or C++)<a class="headerlink" href="#extending-custom-ops-created-from-python-or-c" title="Permalink to this heading">¶</a></h2>
+<p>Use the register.* methods, such as <a class="reference internal" href="#torch.library.register_kernel" title="torch.library.register_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_kernel()</span></code></a> and
+func:<cite>torch.library.register_fake</cite>, to add implementations
+for any operators (they may have been created using <a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> or
+via PyTorch’s C++ operator registration APIs).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.register_kernel">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register an implementation for a device type for this operator.</p>
+<p>Some valid device_types are: “cpu”, “cuda”, “xla”, “mps”, “ipu”, “xpu”.
+This API may be used as a decorator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>Callable</em>) – The function to register as the implementation for
+the given device types.</p></li>
+<li><p><strong>device_types</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device_types to register an impl to.
+If None, we will register to all device types – please only use
+this option if your implementation is truly device-type-agnostic.</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Examples::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.library</span> <span class="kn">import</span> <span class="n">custom_op</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a custom op that works on cpu</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">(),</span> <span class="n">device_types</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_sin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add implementations for the cuda device</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_kernel</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_cpu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_cuda</span> <span class="o">=</span> <span class="n">x_cpu</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">numpy_sin</span><span class="p">(</span><span class="n">x_cpu</span><span class="p">),</span> <span class="n">x_cpu</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">numpy_sin</span><span class="p">(</span><span class="n">x_cuda</span><span class="p">),</span> <span class="n">x_cuda</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.register_autograd">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_autograd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_autograd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_autograd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a backward formula for this custom op.</p>
+<p>In order for an operator to work with autograd, you need to register
+a backward formula:
+1. You must tell us how to compute gradients during the backward pass
+by providing us a “backward” function.
+2. If you need any values from the forward to compute gradients, you can
+use <cite>setup_context</cite> to save values for backward.</p>
+<p><code class="docutils literal notranslate"><span class="pre">backward</span></code> runs during the backward pass. It accepts <code class="docutils literal notranslate"><span class="pre">(ctx,</span> <span class="pre">*grads)</span></code>:
+- <code class="docutils literal notranslate"><span class="pre">grads</span></code> is one or more gradients. The number of gradients matches
+the number of outputs of the operator.
+The <code class="docutils literal notranslate"><span class="pre">ctx</span></code> object is <a class="reference external" href="context_method_mixins">the same ctx object</a> used by
+<a class="reference internal" href="autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.Function</span></code></a>. The semantics of <code class="docutils literal notranslate"><span class="pre">backward_fn</span></code> are the
+same as <a class="reference internal" href="generated/torch.autograd.Function.backward.html#torch.autograd.Function.backward" title="torch.autograd.Function.backward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.autograd.Function.backward()</span></code></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">setup_context(ctx,</span> <span class="pre">inputs,</span> <span class="pre">output)</span></code> runs during the forward pass.
+Please save quantities needed for backward onto the <code class="docutils literal notranslate"><span class="pre">ctx</span></code> object via
+either <a class="reference internal" href="generated/torch.autograd.function.FunctionCtx.save_for_backward.html#torch.autograd.function.FunctionCtx.save_for_backward" title="torch.autograd.function.FunctionCtx.save_for_backward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.autograd.function.FunctionCtx.save_for_backward()</span></code></a>
+or assigning them as attributes of <code class="docutils literal notranslate"><span class="pre">ctx</span></code>. If your custom op has
+kwarg-only arguments, we expect the signature of <code class="docutils literal notranslate"><span class="pre">setup_context</span></code>
+to be <code class="docutils literal notranslate"><span class="pre">setup_context(ctx,</span> <span class="pre">inputs,</span> <span class="pre">keyword_only_inputs,</span> <span class="pre">output)</span></code>.</p>
+<p>Both <code class="docutils literal notranslate"><span class="pre">setup_context_fn</span></code> and <code class="docutils literal notranslate"><span class="pre">backward_fn</span></code> must be traceable. That is,
+they may not directly access <a class="reference internal" href="generated/torch.Tensor.data_ptr.html#torch.Tensor.data_ptr" title="torch.Tensor.data_ptr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.data_ptr()</span></code></a> and they must
+not depend on or mutate global state. If you need a non-traceable backward,
+you can make it a separate custom_op that you call inside <code class="docutils literal notranslate"><span class="pre">backward_fn</span></code>.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_sin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">inputs</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_autograd</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;mylib::numpy_sin&quot;</span><span class="p">,</span> <span class="n">backward</span><span class="p">,</span> <span class="n">setup_context</span><span class="o">=</span><span class="n">setup_context</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">numpy_sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">grad_x</span><span class="p">,)</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">grad_x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">())</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example with a keyword-only arg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_mul&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_mul</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y_np</span> <span class="o">=</span> <span class="n">x_np</span> <span class="o">*</span> <span class="n">val</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">keyword_only_inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ctx</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">keyword_only_inputs</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">ctx</span><span class="o">.</span><span class="n">val</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_autograd</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;mylib::numpy_mul&quot;</span><span class="p">,</span> <span class="n">backward</span><span class="p">,</span> <span class="n">setup_context</span><span class="o">=</span><span class="n">setup_context</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">numpy_mul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mf">3.14</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">grad_x</span><span class="p">,)</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">grad_x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.register_fake">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_fake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_fake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_fake" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a FakeTensor implementation (“fake impl”) for this operator.</p>
+<p>Also sometimes known as a “meta kernel”, “abstract impl”.</p>
+<p>An “FakeTensor implementation” specifies the behavior of this operator on
+Tensors that carry no data (“FakeTensor”). Given some input Tensors with
+certain properties (sizes/strides/storage_offset/device), it specifies
+what the properties of the output Tensors are.</p>
+<p>The FakeTensor implementation has the same signature as the operator.
+It is run for both FakeTensors and meta tensors. To write a FakeTensor
+implementation, assume that all Tensor inputs to the operator are
+regular CPU/CUDA/Meta tensors, but they do not have storage, and
+you are trying to return regular CPU/CUDA/Meta tensor(s) as output.
+The FakeTensor implementation must consist of only PyTorch operations
+(and may not directly access the storage or data of any input or
+intermediate Tensors).</p>
+<p>This API may be used as a decorator (see examples).</p>
+<p>For a detailed guide on custom ops, please see
+<a class="reference external" href="https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html">https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html</a></p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 1: an operator without data-dependent output shape</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::custom_linear&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">custom_linear</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Implementation goes here&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::custom_linear&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">weight</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">bias</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">weight</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">weight</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">bias</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">device</span> <span class="o">==</span> <span class="n">weight</span><span class="o">.</span><span class="n">device</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">@</span> <span class="n">weight</span><span class="o">.</span><span class="n">t</span><span class="p">())</span> <span class="o">+</span> <span class="n">bias</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">_subclasses</span><span class="o">.</span><span class="n">fake_tensor</span><span class="o">.</span><span class="n">FakeTensorMode</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">w</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">custom_linear</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 2: an operator with data-dependent output shape</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::custom_nonzero&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">custom_nonzero</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">x_np</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::custom_nonzero&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Number of nonzero-elements is data-dependent.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Since we cannot peek at the data in an fake impl,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># we use the ctx object to construct a new symint that</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># represents the data-dependent size.</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ctx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_ctx</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">nnz</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">new_dynamic_size</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">nnz</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">result</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.fx.experimental.proxy_tensor</span> <span class="kn">import</span> <span class="n">make_fx</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">make_fx</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">custom_nonzero</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;symbolic&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="o">.</span><span class="n">print_readable</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">custom_nonzero</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.register_vmap">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_vmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_vmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a vmap implementation to support <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a> for this custom op.</p>
+<p>This API may be used as a decorator (see examples).</p>
+<p>In order for an operator to work with <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>, you may need to register a
+vmap implementation in the following signature:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">vmap_func(info,</span> <span class="pre">in_dims:</span> <span class="pre">Tuple[Optional[int]],</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code>,</p>
+</div></blockquote>
+<p>where <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> are the arguments and kwargs for <code class="docutils literal notranslate"><span class="pre">op</span></code>.
+We do not support kwarg-only Tensor args.</p>
+<p>It specifies how do we compute the batched version of <code class="docutils literal notranslate"><span class="pre">op</span></code> given inputs with an additional
+dimension (specified by <code class="docutils literal notranslate"><span class="pre">in_dims</span></code>).</p>
+<p>For each arg in <code class="docutils literal notranslate"><span class="pre">args</span></code>, <code class="docutils literal notranslate"><span class="pre">in_dims</span></code> has a corresponding <code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>. It is <code class="docutils literal notranslate"><span class="pre">None</span></code>
+if the arg is not a Tensor or if the arg is not being vmapped over, otherwise, it is an integer
+specifying what dimension of the Tensor is being vmapped over.</p>
+<p><code class="docutils literal notranslate"><span class="pre">info</span></code> is a collection of additional metadata that may be helpful:
+<code class="docutils literal notranslate"><span class="pre">info.batch_size</span></code> specifies the size of the dimension being vmapped over, while
+<code class="docutils literal notranslate"><span class="pre">info.randomness</span></code> is the <code class="docutils literal notranslate"><span class="pre">randomness</span></code> option that was passed to <a class="reference internal" href="generated/torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>.</p>
+<p>The return of the function <code class="docutils literal notranslate"><span class="pre">func</span></code> is a tuple of <code class="docutils literal notranslate"><span class="pre">(output,</span> <span class="pre">out_dims)</span></code>. Similar to <code class="docutils literal notranslate"><span class="pre">in_dims</span></code>,
+<code class="docutils literal notranslate"><span class="pre">out_dims</span></code> should be of the same structure as <code class="docutils literal notranslate"><span class="pre">output</span></code> and contain one <code class="docutils literal notranslate"><span class="pre">out_dim</span></code>
+per output that specifies if the output has the vmapped dimension and what index it is in.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">to_numpy</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lib</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">Library</span><span class="p">(</span><span class="s2">&quot;mylib&quot;</span><span class="p">,</span> <span class="s2">&quot;FRAGMENT&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_cube&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_cube</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_np</span> <span class="o">=</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">dx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x_np</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x_np</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="n">dx</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_cube_vmap</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">in_dims</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">numpy_cube</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="p">(</span><span class="n">in_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">in_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_vmap</span><span class="p">(</span><span class="n">numpy_cube</span><span class="p">,</span> <span class="n">numpy_cube_vmap</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">numpy_cube</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_mul&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_mul</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_vmap</span><span class="p">(</span><span class="s2">&quot;mylib::numpy_mul&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">numpy_mul_vmap</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">in_dims</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_bdim</span><span class="p">,</span> <span class="n">y_bdim</span> <span class="o">=</span> <span class="n">in_dims</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">movedim</span><span class="p">(</span><span class="n">x_bdim</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">x_bdim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">movedim</span><span class="p">(</span><span class="n">y_bdim</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">y_bdim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">movedim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="mi">0</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">numpy_mul</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The vmap function should aim to preserve the semantics of the entire custom operator.
+That is, <code class="docutils literal notranslate"><span class="pre">grad(vmap(op))</span></code> should be replaceable with a <code class="docutils literal notranslate"><span class="pre">grad(map(op))</span></code>.</p>
+<p>If your custom operator has any custom behavior in the backward pass, please
+keep this in mind.</p>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.impl_abstract">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl_abstract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stacklevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#impl_abstract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl_abstract" title="Permalink to this definition">¶</a></dt>
+<dd><p>This API was renamed to <a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a> in PyTorch 2.4.
+Please use that instead.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.get_ctx">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">get_ctx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#get_ctx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.get_ctx" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_ctx() returns the current AbstractImplCtx object.</p>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">get_ctx()</span></code> is only valid inside of an fake impl
+(see <a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a> for more usage details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>FakeImplCtx</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.register_torch_dispatch">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">register_torch_dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torch_dispatch_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#register_torch_dispatch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.register_torch_dispatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a torch_dispatch rule for the given operator and <code class="docutils literal notranslate"><span class="pre">torch_dispatch_class</span></code>.</p>
+<p>This allows for open registration to specify the behavior between the operator
+and the <code class="docutils literal notranslate"><span class="pre">torch_dispatch_class</span></code> without needing to modify the <code class="docutils literal notranslate"><span class="pre">torch_dispatch_class</span></code>
+or the operator directly.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">torch_dispatch_class</span></code> is either a Tensor subclass with <code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code> or a
+TorchDispatchMode.</p>
+<p>If it is a Tensor subclass, we expect <code class="docutils literal notranslate"><span class="pre">func</span></code> to have the following signature:
+<code class="docutils literal notranslate"><span class="pre">(cls,</span> <span class="pre">func:</span> <span class="pre">OpOverload,</span> <span class="pre">types:</span> <span class="pre">Tuple[type,</span> <span class="pre">...],</span> <span class="pre">args,</span> <span class="pre">kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">Any</span></code></p>
+<p>If it is a TorchDispatchMode, we expect <code class="docutils literal notranslate"><span class="pre">func</span></code> to have the following signature:
+<code class="docutils literal notranslate"><span class="pre">(mode,</span> <span class="pre">func:</span> <span class="pre">OpOverload,</span> <span class="pre">types:</span> <span class="pre">Tuple[type,</span> <span class="pre">...],</span> <span class="pre">args,</span> <span class="pre">kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">Any</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">args</span></code> and <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> will have been normalized the same way they are
+in <code class="docutils literal notranslate"><span class="pre">__torch_dispatch__</span></code> (see <a class="reference internal" href="notes/extending.html#torch-dispatch-calling-convention"><span class="std std-ref">__torch_dispatch__ calling convention</span></a>).</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::foo&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">{})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyMode</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">_python_dispatch</span><span class="o">.</span><span class="n">TorchDispatchMode</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">__torch_dispatch__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_torch_dispatch</span><span class="p">(</span><span class="s2">&quot;mylib::foo&quot;</span><span class="p">,</span> <span class="n">MyMode</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x</span><span class="p">,</span> <span class="o">=</span> <span class="n">args</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">MyMode</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.infer_schema">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">infer_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototype_function</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutates_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.library.infer_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the schema of a given function with type hints. The schema is inferred from the
+function’s type hints, and can be used to define a new operator.</p>
+<p>We make the following assumptions:</p>
+<ul>
+<li><p>None of the outputs alias any of the inputs or each other.</p></li>
+<li><div class="line-block">
+<div class="line">String type annotations “device, dtype, Tensor, types” without library specification are</div>
+<div class="line">assumed to be torch.*. Similarly, string type annotations “Optional, List, Sequence, Union”</div>
+<div class="line">without library specification are assumed to be typing.*.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Only the args listed in <code class="docutils literal notranslate"><span class="pre">mutates_args</span></code> are being mutated. If <code class="docutils literal notranslate"><span class="pre">mutates_args</span></code> is “unknown”,</div>
+<div class="line">it assumes that all inputs to the operator are being mutates.</div>
+</div>
+</li>
+</ul>
+<p>Callers (e.g. the custom ops API) are responsible for checking these assumptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prototype_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a>) – The function from which to infer a schema for from its type annotations.</p></li>
+<li><p><strong>op_name</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The name of the operator in the schema. If <code class="docutils literal notranslate"><span class="pre">name</span></code> is None, then the
+name is not included in the inferred schema. Note that the input schema to
+<code class="docutils literal notranslate"><span class="pre">torch.library.Library.define</span></code> requires a operator name.</p></li>
+<li><p><strong>mutates_args</strong> (<em>&quot;unknown&quot;</em><em> | </em><em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The arguments that are mutated in the function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The inferred schema.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">foo_impl</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">infer_schema</span><span class="p">(</span><span class="n">foo_impl</span><span class="p">,</span> <span class="n">op_name</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">{})</span>
+<span class="go">foo(Tensor x) -&gt; Tensor</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">infer_schema</span><span class="p">(</span><span class="n">foo_impl</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">{})</span>
+<span class="go">(Tensor x) -&gt; Tensor</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch._library.custom_ops.CustomOpDef">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch._library.custom_ops.</span></span><span class="sig-name descname"><span class="pre">CustomOpDef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/_library/custom_ops.html#CustomOpDef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._library.custom_ops.CustomOpDef" title="Permalink to this definition">¶</a></dt>
+<dd><p>CustomOpDef is a wrapper around a function that turns it into a custom op.</p>
+<p>It has various methods for registering additional behavior for this
+custom op.</p>
+<p>You should not instantiate CustomOpDef directly; instead, use the
+<a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> API.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch._library.custom_ops.CustomOpDef.set_kernel_enabled">
+<span class="sig-name descname"><span class="pre">set_kernel_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/_library/custom_ops.html#CustomOpDef.set_kernel_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch._library.custom_ops.CustomOpDef.set_kernel_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable or re-enable an already registered kernel for this custom operator.</p>
+<p>If the kernel is already disabled/enabled, this is a no-op.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a kernel is first disabled and then registered, it is disabled until enabled again.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The device type to disable/enable the kernel for.</p></li>
+<li><p><strong>disable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether to disable or enable the kernel.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># define custom op `f`.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::f&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">inp</span><span class="p">))</span>  <span class="c1"># tensor([0.]), default kernel</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@f</span><span class="o">.</span><span class="n">register_kernel</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">inp</span><span class="p">))</span>  <span class="c1"># tensor([1.]), CPU kernel</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># temporarily disable the CPU kernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">f</span><span class="o">.</span><span class="n">set_kernel_enabled</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">inp</span><span class="p">))</span>  <span class="c1"># tensor([0.]) with CPU kernel disabled</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="low-level-apis">
+<h2>Low-level APIs<a class="headerlink" href="#low-level-apis" title="Permalink to this heading">¶</a></h2>
+<p>The following APIs are direct bindings to PyTorch’s C++ low-level
+operator registration APIs.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The low-level operator registration APIs and the PyTorch Dispatcher are a
+complicated PyTorch concept. We recommend you use the higher level APIs above
+(that do not require a torch.library.Library object) when possible.
+This blog post &lt;<a class="reference external" href="http://blog.ezyang.com/2020/09/lets-talk-about-the-pytorch-dispatcher/">http://blog.ezyang.com/2020/09/lets-talk-about-the-pytorch-dispatcher/</a>&gt;`_
+is a good starting point to learn about the PyTorch Dispatcher.</p>
+</div>
+<p>A tutorial that walks you through some examples on how to use this API is available on <a class="reference external" href="https://colab.research.google.com/drive/1RRhSfk7So3Cn02itzLWE9K4Fam-8U011?usp=sharing">Google Colab</a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.library.Library">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">Library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#Library"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class to create libraries that can be used to register new operators or
+override operators in existing libraries from Python.
+A user can optionally pass in a dispatch keyname if they only want to register
+kernels corresponding to only one specific dispatch key.</p>
+<p>To create a library to override operators in an existing library (with name ns), set the kind to “IMPL”.
+To create a new library (with name ns) to register new operators, set the kind to “DEF”.
+To create a fragment of a possibly existing library to register operators (and bypass
+the limitation that there is only one library for a given namespace), set the kind to
+“FRAGMENT”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ns</strong> – library name</p></li>
+<li><p><strong>kind</strong> – “DEF”, “IMPL” (default: “IMPL”), “FRAGMENT”</p></li>
+<li><p><strong>dispatch_key</strong> – PyTorch dispatch key (default: “”)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.library.Library.define">
+<span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#Library.define"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.define" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a new operator and its semantics in the ns namespace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>schema</strong> – function schema to define a new operator.</p></li>
+<li><p><strong>alias_analysis</strong> (<em>optional</em>) – Indicates if the aliasing properties of the operator arguments can be
+inferred from the schema (default behavior) or not (“CONSERVATIVE”).</p></li>
+<li><p><strong>tags</strong> (<a class="reference internal" href="torch.html#torch.Tag" title="torch.Tag"><em>Tag</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference internal" href="torch.html#torch.Tag" title="torch.Tag"><em>Tag</em></a><em>]</em>) – one or more torch.Tag to apply to this
+operator. Tagging an operator changes the operator’s behavior
+under various PyTorch subsystems; please read the docs for the
+torch.Tag carefully before applying it.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>name of the operator as inferred from the schema.</p>
+</dd>
+</dl>
+<dl>
+<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_lib</span> <span class="o">=</span> <span class="n">Library</span><span class="p">(</span><span class="s2">&quot;mylib&quot;</span><span class="p">,</span> <span class="s2">&quot;DEF&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_lib</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;sum(Tensor self) -&gt; Tensor&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.library.Library.fallback">
+<span class="sig-name descname"><span class="pre">fallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_keyset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#Library.fallback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.fallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers the function implementation as the fallback for the given key.</p>
+<p>This function only works for a library with global namespace (“_”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> – function used as fallback for the given dispatch key or <a class="reference internal" href="#torch.library.fallthrough_kernel" title="torch.library.fallthrough_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">fallthrough_kernel()</span></code></a>
+to register a fallthrough.</p></li>
+<li><p><strong>dispatch_key</strong> – dispatch key that the input function should be registered for. By default, it uses
+the dispatch key that the library was created with.</p></li>
+<li><p><strong>with_keyset</strong> – flag controlling if the current dispatcher call keyset should be passed as the first argument
+to <code class="xref py py-attr docutils literal notranslate"><span class="pre">fn</span></code> when calling. This should be used to create the appropriate keyset for redispatch calls.</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_lib</span> <span class="o">=</span> <span class="n">Library</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;IMPL&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fallback_kernel</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># Handle all autocast ops generically</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_lib</span><span class="o">.</span><span class="n">fallback</span><span class="p">(</span><span class="n">fallback_kernel</span><span class="p">,</span> <span class="s2">&quot;Autocast&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.library.Library.impl">
+<span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_keyset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#Library.impl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.Library.impl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers the function implementation for an operator defined in the library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op_name</strong> – operator name (along with the overload) or OpOverload object.</p></li>
+<li><p><strong>fn</strong> – function that’s the operator implementation for the input dispatch key or <a class="reference internal" href="#torch.library.fallthrough_kernel" title="torch.library.fallthrough_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">fallthrough_kernel()</span></code></a>
+to register a fallthrough.</p></li>
+<li><p><strong>dispatch_key</strong> – dispatch key that the input function should be registered for. By default, it uses
+the dispatch key that the library was created with.</p></li>
+<li><p><strong>with_keyset</strong> – flag controlling if the current dispatcher call keyset should be passed as the first argument
+to <code class="xref py py-attr docutils literal notranslate"><span class="pre">fn</span></code> when calling. This should be used to create the appropriate keyset for redispatch calls.</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_lib</span> <span class="o">=</span> <span class="n">Library</span><span class="p">(</span><span class="s2">&quot;aten&quot;</span><span class="p">,</span> <span class="s2">&quot;IMPL&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">div_cpu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="bp">self</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">other</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_lib</span><span class="o">.</span><span class="n">impl</span><span class="p">(</span><span class="s2">&quot;div.Tensor&quot;</span><span class="p">,</span> <span class="n">div_cpu</span><span class="p">,</span> <span class="s2">&quot;CPU&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.fallthrough_kernel">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">fallthrough_kernel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#fallthrough_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.fallthrough_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dummy function to pass to <code class="docutils literal notranslate"><span class="pre">Library.impl</span></code> in order to register a fallthrough.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.define">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#define"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.define" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Defines a new operator.</p>
+<p>In PyTorch, defining an op (short for “operator”) is a two step-process:
+- we need to define the op (by providing an operator name and schema)
+- we need to implement behavior for how the operator interacts with
+various PyTorch subsystems, like CPU/CUDA Tensors, Autograd, etc.</p>
+<p>This entrypoint defines the custom operator (the first step)
+you must then perform the second step by calling various
+<code class="docutils literal notranslate"><span class="pre">impl_*</span></code> APIs, like <a class="reference internal" href="#torch.library.impl" title="torch.library.impl"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.impl()</span></code></a> or
+<a class="reference internal" href="#torch.library.register_fake" title="torch.library.register_fake"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.register_fake()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qualname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The qualified name for the operator. Should be
+a string that looks like “namespace::name”, e.g. “aten::sin”.
+Operators in PyTorch need a namespace to
+avoid name collisions; a given operator may only be created once.
+If you are writing a Python library, we recommend the namespace to
+be the name of your top-level module.</p></li>
+<li><p><strong>schema</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The schema of the operator. E.g. “(Tensor x) -&gt; Tensor”
+for an op that accepts one Tensor and returns one Tensor. It does
+not contain the operator name (that is passed in <code class="docutils literal notranslate"><span class="pre">qualname</span></code>).</p></li>
+<li><p><strong>lib</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.library.Library" title="torch.library.Library"><em>Library</em></a><em>]</em>) – If provided, the lifetime of this operator
+will be tied to the lifetime of the Library object.</p></li>
+<li><p><strong>tags</strong> (<a class="reference internal" href="torch.html#torch.Tag" title="torch.Tag"><em>Tag</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference internal" href="torch.html#torch.Tag" title="torch.Tag"><em>Tag</em></a><em>]</em>) – one or more torch.Tag to apply to this
+operator. Tagging an operator changes the operator’s behavior
+under various PyTorch subsystems; please read the docs for the
+torch.Tag carefully before applying it.</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the operator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;mylib::sin&quot;</span><span class="p">,</span> <span class="s2">&quot;(Tensor x) -&gt; Tensor&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add implementations for the operator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">impl</span><span class="p">(</span><span class="s2">&quot;mylib::sin&quot;</span><span class="p">,</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()))</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Call the new operator from torch.ops.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.library.impl">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qualname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/library.html#impl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.library.impl" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">torch.library.</span></span><span class="sig-name descname"><span class="pre">impl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispatch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Register an implementation for a device type for this operator.</p>
+<p>You may pass “default” for <code class="docutils literal notranslate"><span class="pre">types</span></code> to register this implementation as the
+default implementation for ALL device types.
+Please only use this if the implementation truly supports all device types;
+for example, this is true if it is a composition of built-in PyTorch operators.</p>
+<p>Some valid types are: “cpu”, “cuda”, “xla”, “mps”, “ipu”, “xpu”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qualname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Should be a string that looks like “namespace::operator_name”.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device types to register an impl to.</p></li>
+<li><p><strong>lib</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.library.Library" title="torch.library.Library"><em>Library</em></a><em>]</em>) – If provided, the lifetime of this registration
+will be tied to the lifetime of the Library object.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the operator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;mylib::mysin&quot;</span><span class="p">,</span> <span class="s2">&quot;(Tensor x) -&gt; Tensor&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add implementations for the cpu device</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">impl</span><span class="p">(</span><span class="s2">&quot;mylib::mysin&quot;</span><span class="p">,</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()))</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">mylib</span><span class="o">.</span><span class="n">mysin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cpu.html" class="btn btn-neutral float-right" title="torch.cpu" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="generated/torch.autograd.graph.increment_version.html" class="btn btn-neutral" title="torch.autograd.graph.increment_version" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, PyTorch Contributors.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+<script>
+
+var match = window.location.href.match(/\/_[a-zA-Z0-9_]*.html|_dynamo/gi);
+var url = window.location.href.lastIndexOf(match[match.length-1]);
+
+if (url)
+  {
+    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-exclamation-circle" aria-hidden="true">&nbsp</i> This page describes an internal API which is not intended to be used outside of the PyTorch codebase and can be modified or removed without notice.</p></div>'
+    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
+  }
+</script>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torch.library</a><ul>
+<li><a class="reference internal" href="#testing-custom-ops">Testing custom ops</a><ul>
+<li><a class="reference internal" href="#torch.library.opcheck"><code class="docutils literal notranslate"><span class="pre">opcheck()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-new-custom-ops-in-python">Creating new custom ops in Python</a><ul>
+<li><a class="reference internal" href="#torch.library.custom_op"><code class="docutils literal notranslate"><span class="pre">custom_op()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extending-custom-ops-created-from-python-or-c">Extending custom ops (created from Python or C++)</a><ul>
+<li><a class="reference internal" href="#torch.library.register_kernel"><code class="docutils literal notranslate"><span class="pre">register_kernel()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.register_autograd"><code class="docutils literal notranslate"><span class="pre">register_autograd()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.register_fake"><code class="docutils literal notranslate"><span class="pre">register_fake()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.register_vmap"><code class="docutils literal notranslate"><span class="pre">register_vmap()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.impl_abstract"><code class="docutils literal notranslate"><span class="pre">impl_abstract()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.get_ctx"><code class="docutils literal notranslate"><span class="pre">get_ctx()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.register_torch_dispatch"><code class="docutils literal notranslate"><span class="pre">register_torch_dispatch()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.infer_schema"><code class="docutils literal notranslate"><span class="pre">infer_schema()</span></code></a></li>
+<li><a class="reference internal" href="#torch._library.custom_ops.CustomOpDef"><code class="docutils literal notranslate"><span class="pre">CustomOpDef</span></code></a><ul>
+<li><a class="reference internal" href="#torch._library.custom_ops.CustomOpDef.set_kernel_enabled"><code class="docutils literal notranslate"><span class="pre">CustomOpDef.set_kernel_enabled()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#low-level-apis">Low-level APIs</a><ul>
+<li><a class="reference internal" href="#torch.library.Library"><code class="docutils literal notranslate"><span class="pre">Library</span></code></a><ul>
+<li><a class="reference internal" href="#torch.library.Library.define"><code class="docutils literal notranslate"><span class="pre">Library.define()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.Library.fallback"><code class="docutils literal notranslate"><span class="pre">Library.fallback()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.Library.impl"><code class="docutils literal notranslate"><span class="pre">Library.impl()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#torch.library.fallthrough_kernel"><code class="docutils literal notranslate"><span class="pre">fallthrough_kernel()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.define"><code class="docutils literal notranslate"><span class="pre">define()</span></code></a></li>
+<li><a class="reference internal" href="#torch.library.impl"><code class="docutils literal notranslate"><span class="pre">impl()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/sphinx_highlight.js"></script>
+         <script src="_static/clipboard.min.js"></script>
+         <script src="_static/copybutton.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['Developer Notes', 'Language Bindings', 'Libraries', 'Community'];
+</script>
+
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/795629140/?label=txkmCPmdtosBENSssfsC&amp;guid=ON&amp;script=0"/>
+
+
+  <!-- Begin Footer -->
+
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h2>Docs</h2>
+          <p>Access comprehensive developer documentation for PyTorch</p>
+          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Tutorials</h2>
+          <p>Get in-depth tutorials for beginners and advanced developers</p>
+          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Resources</h2>
+          <p>Find development resources and get your questions answered</p>
+          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="https://pytorch.org/" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+            <li><a href="https://pytorch.org/features">Features</a></li>
+            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+            <li><a href="https://pytorch.org/blog/">Blog</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">Stay up to date</li>
+            <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+            <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+            <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+          </ul>  
+          </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">PyTorch Podcasts</li>
+            <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+            <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+            <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+            <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+          </ul>
+         </div>
+        </div>
+        
+        <div class="privacy-policy">
+          <ul>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
+            <li class="privacy-policy-links">|</li>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+        <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+          <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
+          project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
+          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+      </div>
+     </div>
+
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+           <li class="resources-mobile-menu-title">
+             <a>Learn</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/get-started">Get Started</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials">Tutorials</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+             </li>
+           </ul>
+           <li class="resources-mobile-menu-title">
+             <a>Ecosystem</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/ecosystem">Tools</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/#community-module">Community</a>
+             </li>
+             <li>
+               <a href="https://discuss.pytorch.org/">Forums</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/resources">Developer Resources</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2023</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Edge</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+             </li>
+             
+             <li>
+               <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Docs</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+            </li>
+          </ul>
+
+          <li class="resources-mobile-menu-title">
+            <a>Blog & News</a>
+          </li>
+            
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/community-blog">Community Blog</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/videos">Videos</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/community-stories">Community Stories</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/events">Events</a>
+            </li>
+          </ul>
+          
+          <li class="resources-mobile-menu-title">
+            <a>About</a>
+          </li>
+
+          <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

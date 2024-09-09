@@ -1,0 +1,1509 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta name="robots" content="noindex">
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torch.distributed.tensor.placement_types &mdash; PyTorch 2.5 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://pytorch.org/docs/stable/_modules/torch/distributed/tensor/placement_types.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/katex-math.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sphinx-dropdown.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/panels-bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/jit.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+
+
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
+    <!-- End Google Tag Manager -->
+  
+
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Learn
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                  <span class=dropdown-title>Get Started</span>
+                  <p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                  <p>Whats new in PyTorch tutorials</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                  <p>Familiarize yourself with PyTorch concepts and modules</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                  <p>Bite-size, ready-to-deploy PyTorch code examples</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                  <p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Ecosystem
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+                  <span class="dropdown-title">Tools</span>
+                  <p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
+                  <span class=dropdown-title>Community</span>
+                  <p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
+                  <span class=dropdown-title>Forums</span>
+                  <p>A place to discuss PyTorch code, issues, install, research</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                  <p>Find resources and get questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2023">
+                  <span class="dropdown-title">Contributor Awards - 2023</span>
+                  <p>Award winners announced at this year's PyTorch Conference</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Edge
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/edge">
+                  <span class="dropdown-title">About PyTorch Edge</span>
+                  <p>Build innovative and privacy-aware AI experiences for edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
+                  <span class="dropdown-title">ExecuTorch</span>
+                  <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+              </div>
+            </div>  
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Docs
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                  <p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                  <span class="dropdown-title">PyTorch Domains</span>
+                  <p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Blogs & News 
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">PyTorch Blog</span>
+                  <p>Catch up on the latest technical news and happenings</p>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
+                  <span class="dropdown-title">Community Blog</span>
+                  <p>Stories from the PyTorch ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/videos">
+                  <span class="dropdown-title">Videos</span>
+                  <p>Learn about the latest PyTorch tutorials, new, and more </p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
+                  <span class="dropdown-title">Community Stories</span>
+                  <p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                  <p>Find events, webinars, and podcasts</p>
+                </a>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                About
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                  <p>Learn more about the PyTorch Foundation</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                  <p></p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown">
+              <a href="https://pytorch.org/join" data-cta="join">
+                Become a Member
+              </a>
+            </div>
+          </li>
+          <li>
+           <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="github-icon">
+             </a>
+           </div>
+          </li>
+          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <li>
+            <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="search-icon">
+             </a>
+            </div>
+          </li>
+          --->
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+  </div>
+</div>
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+    <div class="version">
+      <a href='https://pytorch.org/docs/versions.html'>2.5 &#x25BC</a>
+    </div>
+    
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          </div>
+
+          
+
+
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/mps.html">MPS backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/windows.html">Windows FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp_index.html">C++</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../deploy.html">torch::deploy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch.html">torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tensors.html">torch.Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tensor_attributes.html">Tensor Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tensor_view.html">Tensor Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../amp.html">torch.amp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autograd.html">torch.autograd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../library.html">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpu.html">torch.cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cuda.html">torch.cuda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.elastic.html">torch.distributed.elastic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch.compiler.html">torch.compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../func.html">torch.func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../futures.html">torch.futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hub.html">torch.hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../jit.html">torch.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../linalg.html">torch.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../monitor.html">torch.monitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signal.html">torch.signal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../special.html">torch.special</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../package.html">torch.package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../profiler.html">torch.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.init.html">torch.nn.init</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.html">torch.nn.attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../onnx.html">torch.onnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../complex_numbers.html">Complex Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../rpc.html">Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../random.html">torch.random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../masked.html">torch.masked</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../size.html">torch.Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sparse.html">torch.sparse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../storage.html">torch.Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../testing.html">torch.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bottleneck.html">torch.utils.bottleneck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../checkpoint.html">torch.utils.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp_extension.html">torch.utils.cpp_extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data.html">torch.utils.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../deterministic.html">torch.utils.deterministic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../dlpack.html">torch.utils.dlpack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../model_zoo.html">torch.utils.model_zoo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../module_tracker.html">torch.utils.module_tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../type_info.html">Type Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../named_tensor.html">Named Tensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../name_inference.html">Named Tensors operator coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../future_mod.html">torch.__future__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_environment_variables.html">Torch Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/audio/stable">torchaudio</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/data">TorchData</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/torchrec">TorchRec</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/serve">TorchServe</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/text/stable">torchtext</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/vision/stable">torchvision</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/xla/">PyTorch on XLA Devices</a></li>
+</ul>
+
+            
+          
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../../../torch.html">torch</a> &gt;</li>
+        
+          <li><a href="../../distributed.html">torch.distributed</a> &gt;</li>
+        
+          <li><a href="../tensor.html">torch.distributed.tensor</a> &gt;</li>
+        
+      <li>torch.distributed.tensor.placement_types</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+
+          <!-- Google Tag Manager (noscript) -->
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          <!-- End Google Tag Manager (noscript) -->
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for torch.distributed.tensor.placement_types</h1><div class="highlight"><pre>
+<span></span><span class="c1"># mypy: allow-untyped-defs</span>
+<span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.distributed._functional_collectives</span> <span class="k">as</span> <span class="nn">funcol</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.device_mesh</span> <span class="kn">import</span> <span class="n">DeviceMesh</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.tensor._collective_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">fill_empty_tensor_to_shards</span><span class="p">,</span>
+    <span class="n">mesh_broadcast</span><span class="p">,</span>
+    <span class="n">mesh_scatter</span><span class="p">,</span>
+    <span class="n">pad_tensor</span><span class="p">,</span>
+    <span class="n">shard_dim_alltoall</span><span class="p">,</span>
+    <span class="n">unpad_tensor</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Placement&quot;</span><span class="p">,</span> <span class="s2">&quot;Shard&quot;</span><span class="p">,</span> <span class="s2">&quot;Replicate&quot;</span><span class="p">,</span> <span class="s2">&quot;Partial&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Placement"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.placement_types.Placement">[docs]</a><span class="k">class</span> <span class="nc">Placement</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The base class for the Placement type, where it describes how a DTensor is placed onto the</span>
+<span class="sd">    ``DeviceMesh``. ``Placement`` and ``DeviceMesh`` together could describe the DTensor Layout.</span>
+<span class="sd">    It is the base class of the three main DTensor Placement types: ``Shard``, ``Replicate``,</span>
+<span class="sd">    and ``Partial``.</span>
+
+<span class="sd">    This class is not meant to be used directly, mainly served as a typing stub.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># convenient utils to check for placement types</span>
+<div class="viewcode-block" id="Placement.is_shard"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.placement_types.Placement.is_shard">[docs]</a>    <span class="k">def</span> <span class="nf">is_shard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">is_shard_instance</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Shard</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">is_shard_instance</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Shard</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dim</span> <span class="o">==</span> <span class="n">dim</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">is_shard_instance</span></div>
+
+<div class="viewcode-block" id="Placement.is_replicate"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.placement_types.Placement.is_replicate">[docs]</a>    <span class="k">def</span> <span class="nf">is_replicate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Replicate</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Placement.is_partial"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.placement_types.Placement.is_partial">[docs]</a>    <span class="k">def</span> <span class="nf">is_partial</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Partial</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Shard"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.placement_types.Shard">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Shard</span><span class="p">(</span><span class="n">Placement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The ``Shard(dim)`` placement describes the DTensor sharding on tensor dimension</span>
+<span class="sd">    ``dim`` over a corresponding ``DeviceMesh`` dimension, where each rank on the</span>
+<span class="sd">    DeviceMesh dimension only holds a shard/piece of the global Tensor. The</span>
+<span class="sd">    ``Shard(dim)`` placement follows the ``torch.chunk(dim)`` semantic, where the</span>
+<span class="sd">    last few shards on the DeviceMesh dimension might be empty when the tensor dimension</span>
+<span class="sd">    is not evenly divisble on the DeviceMesh dimension. The ``Shard`` placement can be</span>
+<span class="sd">    used by all DTensor APIs (i.e. distribute_tensor, from_local, etc.)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dim (int): The tensor dimension that describes the DTensor is sharded over its</span>
+<span class="sd">            corresponding DeviceMesh dimension.</span>
+
+<span class="sd">    .. warning:: sharding on a tensor dimension where the tensor dimension size is not</span>
+<span class="sd">        evenly divisible on a DeviceMesh dimension is currently experimental and subject to change.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="k">def</span> <span class="nf">_split_tensor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">with_padding</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">contiguous</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function uses torch.chunk to split a tensor into num_chunks shards along</span>
+<span class="sd">        the Shard placement dimension, and return a list of shards with their pad sizes.</span>
+
+<span class="sd">        Keyword args:</span>
+<span class="sd">            with_padding (bool, optional): when True, we pad the tensor on the last</span>
+<span class="sd">            few ranks before calling the collectives (i.e. scatter/all_gather, etc.).</span>
+<span class="sd">            This is because collectives usually require equal size tensor inputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">&lt;=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Sharding dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2"> greater than tensor ndim </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="c1"># chunk tensor over dimension `dim` into n slices</span>
+        <span class="n">tensor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">))</span>
+        <span class="n">num_empty_tensors</span> <span class="o">=</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">)</span>
+
+        <span class="c1"># if no need to have padding or tensor dim size is evenly sharded already</span>
+        <span class="c1"># we can return early.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">with_padding</span> <span class="ow">or</span> <span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">contiguous</span><span class="p">:</span>
+                <span class="n">tensor_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tensor_list</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">fill_empty_tensor_to_shards</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">num_empty_tensors</span><span class="p">),</span>
+                <span class="p">[],</span>
+            <span class="p">)</span>
+
+        <span class="c1"># compute the chunk size inline with ``torch.chunk`` to calculate padding</span>
+        <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+
+        <span class="c1"># Compute chunk size for each chunk for ``self.dim``</span>
+        <span class="n">chunk_sizes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">tensor_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="c1"># Compute pad size on each chunk</span>
+        <span class="n">pad_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">full_chunk_size</span> <span class="o">-</span> <span class="n">chunk_size</span> <span class="k">for</span> <span class="n">chunk_size</span> <span class="ow">in</span> <span class="n">chunk_sizes</span><span class="p">]</span>
+
+        <span class="c1"># Reuse tensor to fill empty chunk with empty tensor</span>
+        <span class="n">tensor_list</span> <span class="o">=</span> <span class="n">fill_empty_tensor_to_shards</span><span class="p">(</span>
+            <span class="n">tensor_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">num_empty_tensors</span>
+        <span class="p">)</span>
+        <span class="n">shard_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">shard</span><span class="p">,</span> <span class="n">pad_size</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">,</span> <span class="n">pad_sizes</span><span class="p">):</span>
+            <span class="c1"># Fill the empty tensor with zeroes with padding.</span>
+            <span class="k">if</span> <span class="n">with_padding</span> <span class="ow">and</span> <span class="n">pad_size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">shard</span> <span class="o">=</span> <span class="n">pad_tensor</span><span class="p">(</span><span class="n">shard</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">pad_size</span><span class="p">)</span>
+            <span class="n">shard</span> <span class="o">=</span> <span class="n">shard</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span> <span class="k">if</span> <span class="n">contiguous</span> <span class="k">else</span> <span class="n">shard</span>
+            <span class="n">shard_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shard</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shard_list</span><span class="p">,</span> <span class="n">pad_sizes</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_local_shard_size_on_dim</span><span class="p">(</span>
+        <span class="n">size_on_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">return_offset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the local shard size and offset on a given tensor dim</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Compute the chunk size inline with ``torch.chunk``</span>
+        <span class="k">if</span> <span class="n">size_on_dim</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="n">size_on_dim</span> <span class="o">//</span> <span class="n">num_chunks</span>
+            <span class="k">return</span> <span class="n">full_chunk_size</span><span class="p">,</span> <span class="n">full_chunk_size</span> <span class="o">*</span> <span class="n">rank</span> <span class="k">if</span> <span class="n">return_offset</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="c1"># uneven sharding case</span>
+        <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">size_on_dim</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+        <span class="n">shard_starting_idx</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">*</span> <span class="n">rank</span>
+
+        <span class="k">if</span> <span class="n">size_on_dim</span> <span class="o">&lt;</span> <span class="n">shard_starting_idx</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size_on_dim</span> <span class="k">if</span> <span class="n">return_offset</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">local_shard_size</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="nb">min</span><span class="p">(</span><span class="n">size_on_dim</span><span class="p">,</span> <span class="n">shard_starting_idx</span> <span class="o">+</span> <span class="n">full_chunk_size</span><span class="p">)</span>
+                <span class="o">-</span> <span class="n">shard_starting_idx</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">local_shard_size</span><span class="p">,</span> <span class="n">shard_starting_idx</span> <span class="k">if</span> <span class="n">return_offset</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_shard_tensor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        shard and scatter a tensor on a mesh dimension (use coordinate</span>
+<span class="sd">        0 on the mesh dimension as source of truth)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">my_coordinate</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">()</span>
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">my_coordinate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># if rank is not part of mesh, we simply return an empty tensor</span>
+            <span class="k">return</span> <span class="n">tensor</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="n">tensor</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+
+        <span class="n">scatter_list</span><span class="p">,</span> <span class="n">pad_sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_tensor</span><span class="p">(</span>
+            <span class="n">tensor</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">with_padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">contiguous</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+        <span class="n">mesh_dim_local_rank</span> <span class="o">=</span> <span class="n">my_coordinate</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">scatter_list</span><span class="p">[</span><span class="n">mesh_dim_local_rank</span><span class="p">])</span>
+        <span class="n">mesh_scatter</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">scatter_list</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+
+        <span class="c1"># Only unpad if the local_tensor was padded on the dimension.</span>
+        <span class="k">if</span> <span class="n">pad_sizes</span> <span class="ow">and</span> <span class="n">pad_sizes</span><span class="p">[</span><span class="n">mesh_dim_local_rank</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">unpad_tensor</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">pad_sizes</span><span class="p">[</span><span class="n">mesh_dim_local_rank</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span> <span class="nf">_reduce_shard_tensor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span>
+        <span class="n">reduce_op</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        reduce and scatter a tensor on a mesh dimension</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">my_coordinate</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">()</span>
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">my_coordinate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># if rank is not part of mesh, we simply return local_tensor,</span>
+            <span class="c1"># which should be an empty tensor</span>
+            <span class="k">return</span> <span class="n">tensor</span>
+
+        <span class="n">is_padded</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">!=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">is_padded</span><span class="p">:</span>
+            <span class="n">scattered_list</span><span class="p">,</span> <span class="n">pad_sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_tensor</span><span class="p">(</span>
+                <span class="n">tensor</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">with_padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">contiguous</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">scattered_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">():</span>
+            <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="n">funcol</span><span class="o">.</span><span class="n">reduce_scatter_tensor</span><span class="p">(</span>
+            <span class="n">tensor</span><span class="p">,</span> <span class="n">reduce_op</span><span class="p">,</span> <span class="n">scatter_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_padded</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">unpad_tensor</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">pad_sizes</span><span class="p">[</span><span class="n">my_coordinate</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">]])</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span> <span class="nf">_to_replicate_tensor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">local_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span>
+        <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">current_logical_shape</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function all_gather all shards and return a tensor that</span>
+<span class="sd">        is replicated on the previously sharded mesh dimension</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+        <span class="c1"># check if it&#39;s uneven, so we need to pad input tensor before all_gather</span>
+        <span class="n">local_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">local_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+
+        <span class="n">logical_dim_size</span> <span class="o">=</span> <span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>
+        <span class="n">is_padded</span> <span class="o">=</span> <span class="n">logical_dim_size</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">!=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">is_padded</span><span class="p">:</span>
+            <span class="n">full_chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">logical_dim_size</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+            <span class="n">pad_size</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">-</span> <span class="n">local_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">pad_tensor</span><span class="p">(</span><span class="n">local_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">pad_size</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">():</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">funcol</span><span class="o">.</span><span class="n">all_gather_tensor</span><span class="p">(</span>
+            <span class="n">local_tensor</span><span class="p">,</span>
+            <span class="n">gather_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span>
+            <span class="n">group</span><span class="o">=</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_padded</span><span class="p">:</span>
+            <span class="n">unpad_size</span> <span class="o">=</span> <span class="n">full_chunk_size</span> <span class="o">*</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="n">logical_dim_size</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">unpad_tensor</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">unpad_size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_replicate_to_shard</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">local_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span>
+        <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">shard_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        transform from replicated tensor to a sharded tensor on</span>
+<span class="sd">        the current rank, which would perform a local chunk</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+        <span class="n">shards</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_tensor</span><span class="p">(</span>
+            <span class="n">local_tensor</span><span class="p">,</span>
+            <span class="n">num_chunks</span><span class="p">,</span>
+            <span class="n">with_padding</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">contiguous</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">shards</span><span class="p">[</span><span class="n">shard_index</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_to_new_shard_dim</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">local_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span>
+        <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">current_logical_shape</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">new_shard_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        transform from existing sharded tensor to a new sharded tensor on</span>
+<span class="sd">        that shard on a new dimension, which performs an alltoall</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">my_coordinate</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">my_coordinate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># if rank is not part of mesh, we simply return local_tensor,</span>
+            <span class="c1"># which should be an empty tensor</span>
+            <span class="k">return</span> <span class="n">local_tensor</span>
+
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+
+        <span class="n">old_dim_logical_size</span> <span class="o">=</span> <span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>
+        <span class="n">new_dim_logical_size</span> <span class="o">=</span> <span class="n">current_logical_shape</span><span class="p">[</span><span class="n">new_shard_dim</span><span class="p">]</span>
+        <span class="n">old_dim_padding</span> <span class="o">=</span> <span class="n">old_dim_logical_size</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">!=</span> <span class="mi">0</span>
+        <span class="n">new_dim_padding</span> <span class="o">=</span> <span class="n">new_dim_logical_size</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">!=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">old_dim_padding</span><span class="p">:</span>
+            <span class="n">old_dim_full_chunk_size</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">old_dim_logical_size</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+            <span class="n">old_dim_pad_size</span> <span class="o">=</span> <span class="n">old_dim_full_chunk_size</span> <span class="o">-</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">pad_tensor</span><span class="p">(</span><span class="n">local_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">old_dim_pad_size</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_dim_padding</span><span class="p">:</span>
+            <span class="n">new_dim_full_chunk_size</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">new_dim_logical_size</span> <span class="o">+</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+            <span class="n">new_dim_pad_size</span> <span class="o">=</span> <span class="n">new_dim_full_chunk_size</span> <span class="o">*</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span>
+                <span class="n">new_shard_dim</span>
+            <span class="p">)</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">pad_tensor</span><span class="p">(</span><span class="n">local_tensor</span><span class="p">,</span> <span class="n">new_shard_dim</span><span class="p">,</span> <span class="n">new_dim_pad_size</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">():</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
+        <span class="n">new_tensor</span> <span class="o">=</span> <span class="n">shard_dim_alltoall</span><span class="p">(</span>
+            <span class="n">local_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">new_shard_dim</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">mesh_dim</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">old_dim_padding</span><span class="p">:</span>
+            <span class="n">old_dim_unpad_size</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">old_dim_full_chunk_size</span> <span class="o">*</span> <span class="n">num_chunks</span> <span class="o">-</span> <span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+            <span class="p">)</span>
+            <span class="n">new_tensor</span> <span class="o">=</span> <span class="n">unpad_tensor</span><span class="p">(</span><span class="n">new_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">old_dim_unpad_size</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+
+        <span class="k">if</span> <span class="n">new_dim_padding</span><span class="p">:</span>
+            <span class="n">local_shard_size_on_new_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_shard_size_on_dim</span><span class="p">(</span>
+                <span class="n">new_dim_logical_size</span><span class="p">,</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">my_coordinate</span><span class="p">[</span><span class="n">mesh_dim</span><span class="p">]</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">new_dim_unpad_size</span> <span class="o">=</span> <span class="n">new_dim_full_chunk_size</span> <span class="o">-</span> <span class="n">local_shard_size_on_new_dim</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+            <span class="n">new_tensor</span> <span class="o">=</span> <span class="n">unpad_tensor</span><span class="p">(</span><span class="n">new_tensor</span><span class="p">,</span> <span class="n">new_shard_dim</span><span class="p">,</span> <span class="n">new_dim_unpad_size</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+
+        <span class="k">return</span> <span class="n">new_tensor</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Shard</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dim</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        machine readable representation of the Shard placement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Shard(dim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;human readable representation of the Shard placement&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;S(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+
+<span class="c1"># kw_only is only available in python &gt;= 3.10</span>
+<span class="n">kw_only_dataclass</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;kw_only&quot;</span> <span class="ow">in</span> <span class="n">dataclass</span><span class="o">.</span><span class="vm">__kwdefaults__</span> <span class="k">else</span> <span class="p">{}</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_only_dataclass</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">_StridedShard</span><span class="p">(</span><span class="n">Shard</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    _StridedShard is only introduced to support 2D FSDP2 + TP sharding where the tensor</span>
+<span class="sd">    is sharded on the TP mesh dimension first, then sharded on the FSDP mesh dimension.</span>
+<span class="sd">    We call this right-to-left sharding which is the opposite of the default</span>
+<span class="sd">    left-to-right sharding. See the example below:</span>
+<span class="sd">        tensor shape: [8, 8]</span>
+<span class="sd">        mesh: [[0, 1], [2, 3]], names=(&quot;dp&quot;, &quot;tp&quot;)</span>
+<span class="sd">        placements: [Shard(0), Shard(0)]</span>
+
+<span class="sd">    The default sharding behavior shards the tensor on &quot;dp&quot; mesh dimension first then</span>
+<span class="sd">    &quot;tp&quot; dimension. The sharding result will be:</span>
+<span class="sd">        Rank    |   Mesh Coordinate |   Shard Index</span>
+<span class="sd">        ------------------------------------------------</span>
+<span class="sd">        0       |   (0, 0)          |   0 (row 0-1)</span>
+<span class="sd">        1       |   (0, 1)          |   1 (row 2-3)</span>
+<span class="sd">        2       |   (1, 0)          |   2 (row 4-5)</span>
+<span class="sd">        3       |   (1, 1)          |   3 (row 6-7)</span>
+
+<span class="sd">    While the FSDP2 + TP sharding behavior does the opposite: it shards the tensor on</span>
+<span class="sd">    &quot;tp&quot; mesh dim first then &quot;dp&quot; dim. This right-to-left sharding will produce the</span>
+<span class="sd">    result:</span>
+<span class="sd">        Rank    |   Mesh Coordinate |   Shard Index</span>
+<span class="sd">        ------------------------------------------------</span>
+<span class="sd">        0       |   (0, 0)          |   0 (row 0-1)</span>
+<span class="sd">        1       |   (0, 1)          |   2 (row 4-5)</span>
+<span class="sd">        2       |   (1, 0)          |   1 (row 2-3)</span>
+<span class="sd">        3       |   (1, 1)          |   3 (row 6-7)</span>
+
+<span class="sd">    The consequence is, any attempt to redistribute this DTensor to a full replica will</span>
+<span class="sd">    produce a wrong result because the shard-to-replicate redistribution always happens</span>
+<span class="sd">    right-to-left, regardless it&#39;s left-to-right sharding or right-to-left. To address</span>
+<span class="sd">    this, we use _StridedShard placement to make this right-to-left sharding compatible</span>
+<span class="sd">    with our left-to-right convention on both tensor distribution and redistribution.</span>
+
+<span class="sd">    Now with _StridedShard, the right-to-left sharding above can be represented as:</span>
+<span class="sd">        tensor shape: [8, 8]</span>
+<span class="sd">        mesh: [[0, 1], [2, 3]], names=(&quot;dp&quot;, &quot;tp&quot;)</span>
+<span class="sd">        placements: [_StridedShard(0, split_factor=2), Shard(0)]</span>
+
+<span class="sd">    And a left-to-right processing of `placements` will produce the same result, which is</span>
+<span class="sd">    different from using the `Shard` placement:</span>
+<span class="sd">        Rank    |   Mesh Coordinate |   Shard Index</span>
+<span class="sd">        ------------------------------------------------</span>
+<span class="sd">        0       |   (0, 0)          |   0 (row 0-1)</span>
+<span class="sd">        1       |   (0, 1)          |   2 (row 4-5)</span>
+<span class="sd">        2       |   (1, 0)          |   1 (row 2-3)</span>
+<span class="sd">        3       |   (1, 1)          |   3 (row 6-7)</span>
+
+<span class="sd">    The argument `split_factor` is the number of existing shards over the tensor sharding</span>
+<span class="sd">    dimension before processing the _StridedShard placement, as if the sharding happened</span>
+<span class="sd">    right-to-left. In the example above, the tensor should first be sharded on the &quot;tp&quot;</span>
+<span class="sd">    dimension into 2 shards before being sharded on the &quot;dp&quot; dimension. Therefore, the</span>
+<span class="sd">    `split_factor` of the _StridedShard placement on &quot;dp&quot; dim is 2.</span>
+
+<span class="sd">    TODO: strided sharding needs to work fine with uneven sharding. Now it forbids</span>
+<span class="sd">    resharding if the tensor is unevenly sharded.</span>
+<span class="sd">    TODO: we should remove _StridedShard placement once we can unify it with Shard</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">split_factor</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">_StridedShard</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dim</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">split_factor</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Shard</span><span class="p">):</span>
+            <span class="c1"># TODO: this is to avoid extra all-gather in dtensor op dispatch</span>
+            <span class="c1"># note that sharding prop would not produce _StridedShard and an</span>
+            <span class="c1"># placement inequality would introduce an all-gather for resharding</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dim</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        machine readable representation of the _StridedShard placement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;_StridedShard(dim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">, sf=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;human readable representation of the _StridedShard placement&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;_S(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_split_tensor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">num_chunks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">with_padding</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">contiguous</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: currently _StridedShard does not support padding</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">&lt;=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Sharding dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2"> greater than tensor ndim </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">total_split</span> <span class="o">=</span> <span class="n">num_chunks</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span>
+        <span class="k">assert</span> <span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span> <span class="o">%</span> <span class="n">total_split</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;_StridedShard currently only allows even sharding but got tensor size&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span><span class="si">}</span><span class="s2"> on dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2"> and total split&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">total_split</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">num_chunks</span><span class="si">}</span><span class="s2"> * </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="n">group_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span>
+        <span class="n">total_split_tensor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">total_split</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">))</span>
+        <span class="n">tensor_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">total_split_tensor_list</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="n">num_chunks</span><span class="p">]</span>  <span class="c1"># stride is num_chunks</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">group_size</span><span class="p">)</span>
+                <span class="p">],</span>
+                <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">contiguous</span><span class="p">:</span>
+            <span class="n">tensor_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tensor_list</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">tensor_list</span><span class="p">,</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_to_replicate_tensor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">local_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span>
+        <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">current_logical_shape</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Note: currently _StridedShard does not support padding</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+        <span class="n">total_split</span> <span class="o">=</span> <span class="n">num_chunks</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span>
+        <span class="c1"># NOTE: we require Strided Sharding to be even for now</span>
+        <span class="k">assert</span> <span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span> <span class="o">%</span> <span class="n">total_split</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;_StridedShard requires even sharding but got tensor size &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">current_logical_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span><span class="si">}</span><span class="s2"> on dim </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2"> and &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;total split </span><span class="si">{</span><span class="n">total_split</span><span class="si">}</span><span class="s2">=num_chunks </span><span class="si">{</span><span class="n">num_chunks</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;* split_factor </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">funcol</span><span class="o">.</span><span class="n">all_gather_tensor</span><span class="p">(</span>
+            <span class="n">local_tensor</span><span class="p">,</span>
+            <span class="n">gather_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span>
+            <span class="n">group</span><span class="o">=</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">funcol</span><span class="o">.</span><span class="n">AsyncCollectiveTensor</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+        <span class="n">tensor_shard_list</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">total_split</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+        <span class="c1"># rearrange the order</span>
+        <span class="n">new_tensor_shard_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor_shard_list</span><span class="p">)):</span>
+            <span class="c1"># the shard split of index `idx` is assigned a new index within</span>
+            <span class="c1"># _StridedShard._split_tensor:</span>
+            <span class="c1"># the original tensor was split into `total_split` chunks,</span>
+            <span class="c1"># all chunks with the same `idx % num_chunks` are merged into one</span>
+            <span class="c1"># new shard and placed on mesh&#39;s local rank `idx % num_chunks`</span>
+            <span class="n">idx_after_split</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">%</span> <span class="n">num_chunks</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_factor</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">//</span> <span class="n">num_chunks</span>
+            <span class="n">new_tensor_shard_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor_shard_list</span><span class="p">[</span><span class="n">idx_after_split</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">new_tensor_shard_list</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Replicate"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.placement_types.Replicate">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Replicate</span><span class="p">(</span><span class="n">Placement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The ``Replicate()`` placement describes the DTensor replicating on a corresponding</span>
+<span class="sd">    ``DeviceMesh`` dimension, where each rank on the DeviceMesh dimension holds a</span>
+<span class="sd">    replica of the global Tensor. The ``Replicate`` placement can be used by all</span>
+<span class="sd">    DTensor APIs (i.e. ``distribute_tensor``, ``DTensor.from_local``, etc.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Replicate</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># every replicate placement is the same</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        machine readable representation of the Replicate placement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;Replicate()&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        human readable representation of the Replicate placement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;R&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_replicate_tensor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replicate (broadcast) a torch.Tensor on a mesh dimension (use</span>
+<span class="sd">        the first coordinate on the mesh dimension as source of truth)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">my_coordinate</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">my_coordinate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># if rank is not part of mesh, we simply return an empty tensor</span>
+            <span class="k">return</span> <span class="n">tensor</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="n">tensor</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+
+        <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+        <span class="n">mesh_broadcast</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tensor</span></div>
+
+
+<div class="viewcode-block" id="Partial"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.placement_types.Partial">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Partial</span><span class="p">(</span><span class="n">Placement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The ``Partial(reduce_op)`` placement describes the DTensor that is pending</span>
+<span class="sd">    reduction on a specified ``DeviceMesh`` dimension, where each rank on the</span>
+<span class="sd">    DeviceMesh dimension holds the partial value of the global Tensor. User can</span>
+<span class="sd">    redistribute the ``Partial`` DTensor to a ``Replicate`` or ``Shard(dim)``</span>
+<span class="sd">    placement on the specified ``DeviceMesh`` dimension using ``redistribute``,</span>
+<span class="sd">    which would trigger necessary communication operations under the hood (i.e.</span>
+<span class="sd">    ``allreduce``, ``reduce_scatter``).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        reduce_op (str, optional): The reduction op to be used for the partial DTensor</span>
+<span class="sd">            to produce Replicated/Sharded DTensor. Only element-wise reduction operations</span>
+<span class="sd">            are supported, including: &quot;sum&quot;, &quot;avg&quot;, &quot;product&quot;, &quot;max&quot;, &quot;min&quot;, default: &quot;sum&quot;.</span>
+
+<span class="sd">    .. note:: The ``Partial`` placement can be generated as a result of the DTensor operators,</span>
+<span class="sd">        and can only be used by the ``DTensor.from_local`` API.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">reduce_op</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sum&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_reduce_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># Partial placement contract #1:</span>
+        <span class="c1"># _reduce_value: reduce the value of the tensor on the mesh dimension</span>
+        <span class="k">return</span> <span class="n">funcol</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span>
+            <span class="n">tensor</span><span class="p">,</span> <span class="n">reduceOp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reduce_op</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_reduce_shard_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span>
+        <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">shard_spec</span><span class="p">:</span> <span class="n">Placement</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># Partial placement contract #2:</span>
+        <span class="c1"># _reduce_shard_value: reduce_scatter the value of the tensor over the mesh dimension</span>
+        <span class="n">shard_spec</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Shard</span><span class="p">,</span> <span class="n">shard_spec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shard_spec</span><span class="o">.</span><span class="n">_reduce_shard_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_op</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_partition_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># Partial placement contract #3:</span>
+        <span class="c1"># _partition_value: partition the value of a replicated tensor on the mesh dimension</span>
+
+        <span class="c1"># _partition_value is the conjugate operation of _reduce_value</span>
+        <span class="c1"># - i.e. _partition_value on a sum reduce op is just a divison operation</span>
+        <span class="c1"># - the _reduce_value on a sum reduce op would just be a sum(allreduce) operation</span>
+        <span class="c1"># TODO: if the reduce_op is min/max, etc. the _partition_value should be a</span>
+        <span class="c1"># different operation</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_op</span> <span class="o">==</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;only support replicate to PartialSUM for now!&quot;</span>
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_dim</span><span class="o">=</span><span class="n">mesh_dim</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tensor</span> <span class="o">/</span> <span class="n">num_chunks</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Partial</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_op</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">reduce_op</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reduce_op</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        machine readable representation of the Partial placement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Partial(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reduce_op</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        human readable representation of the Partial placement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;P&quot;</span></div>
+
+
+<span class="c1"># We keep the old _Partial name for a while for BC reason</span>
+<span class="n">_Partial</span> <span class="o">=</span> <span class="n">Partial</span>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, PyTorch Contributors.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+<script>
+
+var match = window.location.href.match(/\/_[a-zA-Z0-9_]*.html|_dynamo/gi);
+var url = window.location.href.lastIndexOf(match[match.length-1]);
+
+if (url)
+  {
+    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-exclamation-circle" aria-hidden="true">&nbsp</i> This page describes an internal API which is not intended to be used outside of the PyTorch codebase and can be modified or removed without notice.</p></div>'
+    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
+  }
+</script>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+         <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+         <script src="../../../../_static/jquery.js"></script>
+         <script src="../../../../_static/underscore.js"></script>
+         <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+         <script src="../../../../_static/doctools.js"></script>
+         <script src="../../../../_static/sphinx_highlight.js"></script>
+         <script src="../../../../_static/clipboard.min.js"></script>
+         <script src="../../../../_static/copybutton.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['Developer Notes', 'Language Bindings', 'Libraries', 'Community'];
+</script>
+
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/795629140/?label=txkmCPmdtosBENSssfsC&amp;guid=ON&amp;script=0"/>
+
+
+  <!-- Begin Footer -->
+
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h2>Docs</h2>
+          <p>Access comprehensive developer documentation for PyTorch</p>
+          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Tutorials</h2>
+          <p>Get in-depth tutorials for beginners and advanced developers</p>
+          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Resources</h2>
+          <p>Find development resources and get your questions answered</p>
+          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="https://pytorch.org/" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+            <li><a href="https://pytorch.org/features">Features</a></li>
+            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+            <li><a href="https://pytorch.org/blog/">Blog</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">Stay up to date</li>
+            <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+            <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+            <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+          </ul>  
+          </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">PyTorch Podcasts</li>
+            <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+            <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+            <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+            <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+          </ul>
+         </div>
+        </div>
+        
+        <div class="privacy-policy">
+          <ul>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
+            <li class="privacy-policy-links">|</li>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+        <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+          <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
+          project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
+          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+      </div>
+     </div>
+
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+           <li class="resources-mobile-menu-title">
+             <a>Learn</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/get-started">Get Started</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials">Tutorials</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+             </li>
+           </ul>
+           <li class="resources-mobile-menu-title">
+             <a>Ecosystem</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/ecosystem">Tools</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/#community-module">Community</a>
+             </li>
+             <li>
+               <a href="https://discuss.pytorch.org/">Forums</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/resources">Developer Resources</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2023</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Edge</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+             </li>
+             
+             <li>
+               <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Docs</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+            </li>
+          </ul>
+
+          <li class="resources-mobile-menu-title">
+            <a>Blog & News</a>
+          </li>
+            
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/community-blog">Community Blog</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/videos">Videos</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/community-stories">Community Stories</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/events">Events</a>
+            </li>
+          </ul>
+          
+          <li class="resources-mobile-menu-title">
+            <a>About</a>
+          </li>
+
+          <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

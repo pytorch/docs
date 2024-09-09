@@ -1,0 +1,1398 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta name="robots" content="noindex">
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torch.onnx &mdash; PyTorch 2.5 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://pytorch.org/docs/stable/_modules/torch/onnx.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/katex-math.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx-dropdown.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/panels-bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/jit.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
+    <!-- End Google Tag Manager -->
+  
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Learn
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                  <span class=dropdown-title>Get Started</span>
+                  <p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                  <p>Whats new in PyTorch tutorials</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                  <p>Familiarize yourself with PyTorch concepts and modules</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                  <p>Bite-size, ready-to-deploy PyTorch code examples</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                  <p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Ecosystem
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+                  <span class="dropdown-title">Tools</span>
+                  <p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
+                  <span class=dropdown-title>Community</span>
+                  <p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
+                  <span class=dropdown-title>Forums</span>
+                  <p>A place to discuss PyTorch code, issues, install, research</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                  <p>Find resources and get questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2023">
+                  <span class="dropdown-title">Contributor Awards - 2023</span>
+                  <p>Award winners announced at this year's PyTorch Conference</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Edge
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/edge">
+                  <span class="dropdown-title">About PyTorch Edge</span>
+                  <p>Build innovative and privacy-aware AI experiences for edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
+                  <span class="dropdown-title">ExecuTorch</span>
+                  <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+              </div>
+            </div>  
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Docs
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                  <p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                  <span class="dropdown-title">PyTorch Domains</span>
+                  <p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Blogs & News 
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">PyTorch Blog</span>
+                  <p>Catch up on the latest technical news and happenings</p>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
+                  <span class="dropdown-title">Community Blog</span>
+                  <p>Stories from the PyTorch ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/videos">
+                  <span class="dropdown-title">Videos</span>
+                  <p>Learn about the latest PyTorch tutorials, new, and more </p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
+                  <span class="dropdown-title">Community Stories</span>
+                  <p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                  <p>Find events, webinars, and podcasts</p>
+                </a>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                About
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                  <p>Learn more about the PyTorch Foundation</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                  <p></p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown">
+              <a href="https://pytorch.org/join" data-cta="join">
+                Become a Member
+              </a>
+            </div>
+          </li>
+          <li>
+           <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="github-icon">
+             </a>
+           </div>
+          </li>
+          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <li>
+            <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="search-icon">
+             </a>
+            </div>
+          </li>
+          --->
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+  </div>
+</div>
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+    <div class="version">
+      <a href='https://pytorch.org/docs/versions.html'>2.5 &#x25BC</a>
+    </div>
+    
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          </div>
+
+          
+
+
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community/contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community/design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community/governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/mps.html">MPS backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/windows.html">Windows FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_index.html">C++</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deploy.html">torch::deploy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../torch.html">torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tensors.html">torch.Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tensor_attributes.html">Tensor Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tensor_view.html">Tensor Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../amp.html">torch.amp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autograd.html">torch.autograd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library.html">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpu.html">torch.cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cuda.html">torch.cuda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../meta.html">Meta device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../backends.html">torch.backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../export.html">torch.export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed.tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed.elastic.html">torch.distributed.elastic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed.pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torch.compiler.html">torch.compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../func.html">torch.func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../futures.html">torch.futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hub.html">torch.hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jit.html">torch.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linalg.html">torch.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../monitor.html">torch.monitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../signal.html">torch.signal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">torch.special</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package.html">torch.package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../profiler.html">torch.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nn.init.html">torch.nn.init</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nn.attention.html">torch.nn.attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../onnx.html">torch.onnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optim.html">torch.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../complex_numbers.html">Complex Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rpc.html">Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../random.html">torch.random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../masked.html">torch.masked</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../size.html">torch.Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sparse.html">torch.sparse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../storage.html">torch.Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testing.html">torch.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bottleneck.html">torch.utils.bottleneck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../checkpoint.html">torch.utils.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_extension.html">torch.utils.cpp_extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data.html">torch.utils.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deterministic.html">torch.utils.deterministic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dlpack.html">torch.utils.dlpack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../model_zoo.html">torch.utils.model_zoo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_tracker.html">torch.utils.module_tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../type_info.html">Type Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../named_tensor.html">Named Tensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../name_inference.html">Named Tensors operator coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../future_mod.html">torch.__future__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torch_environment_variables.html">Torch Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/audio/stable">torchaudio</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/data">TorchData</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/torchrec">TorchRec</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/serve">TorchServe</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/text/stable">torchtext</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/vision/stable">torchvision</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/xla/">PyTorch on XLA Devices</a></li>
+</ul>
+
+            
+          
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../torch.html">torch</a> &gt;</li>
+        
+      <li>torch.onnx</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+
+          <!-- Google Tag Manager (noscript) -->
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          <!-- End Google Tag Manager (noscript) -->
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for torch.onnx</h1><div class="highlight"><pre>
+<span></span><span class="c1"># mypy: allow-untyped-defs</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Modules</span>
+    <span class="s2">&quot;symbolic_helper&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;utils&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;errors&quot;</span><span class="p">,</span>
+    <span class="c1"># All opsets</span>
+    <span class="s2">&quot;symbolic_caffe2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset7&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset8&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset9&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset10&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset11&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset12&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset13&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset14&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset15&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset16&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset17&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset18&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset19&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbolic_opset20&quot;</span><span class="p">,</span>
+    <span class="c1"># Enums</span>
+    <span class="s2">&quot;ExportTypes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OperatorExportTypes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TrainingMode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TensorProtoDataType&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;JitScalarType&quot;</span><span class="p">,</span>
+    <span class="c1"># Public functions</span>
+    <span class="s2">&quot;export&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;export_to_pretty_string&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;is_in_onnx_export&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;select_model_mode_for_export&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;register_custom_op_symbolic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;unregister_custom_op_symbolic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;disable_log&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;enable_log&quot;</span><span class="p">,</span>
+    <span class="c1"># Base error</span>
+    <span class="s2">&quot;OnnxExporterError&quot;</span><span class="p">,</span>
+    <span class="c1"># Dynamo Exporter</span>
+    <span class="s2">&quot;DiagnosticOptions&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ExportOptions&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ONNXProgram&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ONNXRuntimeOptions&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OnnxRegistry&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dynamo_export&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;enable_fake_mode&quot;</span><span class="p">,</span>
+    <span class="c1"># DORT / torch.compile</span>
+    <span class="s2">&quot;is_onnxrt_backend_supported&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_C</span>
+<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_onnx</span> <span class="k">as</span> <span class="n">_C_onnx</span>
+<span class="kn">from</span> <span class="nn">torch._C._onnx</span> <span class="kn">import</span> <span class="n">OperatorExportTypes</span><span class="p">,</span> <span class="n">TensorProtoDataType</span><span class="p">,</span> <span class="n">TrainingMode</span>
+
+<span class="kn">from</span> <span class="nn">._exporter_states</span> <span class="kn">import</span> <span class="n">ExportTypes</span>
+<span class="kn">from</span> <span class="nn">._internal.onnxruntime</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">is_onnxrt_backend_supported</span><span class="p">,</span>
+    <span class="n">OrtBackend</span> <span class="k">as</span> <span class="n">_OrtBackend</span><span class="p">,</span>
+    <span class="n">OrtBackendOptions</span> <span class="k">as</span> <span class="n">_OrtBackendOptions</span><span class="p">,</span>
+    <span class="n">OrtExecutionProvider</span> <span class="k">as</span> <span class="n">_OrtExecutionProvider</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">._type_utils</span> <span class="kn">import</span> <span class="n">JitScalarType</span>
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="kn">import</span> <span class="n">OnnxExporterError</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_optimize_graph</span><span class="p">,</span>
+    <span class="n">_run_symbolic_function</span><span class="p">,</span>
+    <span class="n">_run_symbolic_method</span><span class="p">,</span>
+    <span class="n">export_to_pretty_string</span><span class="p">,</span>
+    <span class="n">is_in_onnx_export</span><span class="p">,</span>
+    <span class="n">register_custom_op_symbolic</span><span class="p">,</span>
+    <span class="n">select_model_mode_for_export</span><span class="p">,</span>
+    <span class="n">unregister_custom_op_symbolic</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># usort: skip. Keep the order instead of sorting lexicographically</span>
+    <span class="n">errors</span><span class="p">,</span>
+    <span class="n">symbolic_caffe2</span><span class="p">,</span>
+    <span class="n">symbolic_helper</span><span class="p">,</span>
+    <span class="n">symbolic_opset7</span><span class="p">,</span>
+    <span class="n">symbolic_opset8</span><span class="p">,</span>
+    <span class="n">symbolic_opset9</span><span class="p">,</span>
+    <span class="n">symbolic_opset10</span><span class="p">,</span>
+    <span class="n">symbolic_opset11</span><span class="p">,</span>
+    <span class="n">symbolic_opset12</span><span class="p">,</span>
+    <span class="n">symbolic_opset13</span><span class="p">,</span>
+    <span class="n">symbolic_opset14</span><span class="p">,</span>
+    <span class="n">symbolic_opset15</span><span class="p">,</span>
+    <span class="n">symbolic_opset16</span><span class="p">,</span>
+    <span class="n">symbolic_opset17</span><span class="p">,</span>
+    <span class="n">symbolic_opset18</span><span class="p">,</span>
+    <span class="n">symbolic_opset19</span><span class="p">,</span>
+    <span class="n">symbolic_opset20</span><span class="p">,</span>
+    <span class="n">utils</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">._internal._exporter_legacy</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># usort: skip. needs to be last to avoid circular import</span>
+    <span class="n">DiagnosticOptions</span><span class="p">,</span>
+    <span class="n">ExportOptions</span><span class="p">,</span>
+    <span class="n">ONNXProgram</span><span class="p">,</span>
+    <span class="n">ONNXRuntimeOptions</span><span class="p">,</span>
+    <span class="n">OnnxRegistry</span><span class="p">,</span>
+    <span class="n">enable_fake_mode</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Set namespace for exposed private names</span>
+<span class="n">DiagnosticOptions</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">ExportOptions</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">ExportTypes</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">JitScalarType</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">ONNXProgram</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">ONNXRuntimeOptions</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">OnnxExporterError</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">OnnxRegistry</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">_OrtBackend</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">_OrtBackendOptions</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">_OrtExecutionProvider</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">enable_fake_mode</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+<span class="n">is_onnxrt_backend_supported</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx&quot;</span>
+
+<span class="n">producer_name</span> <span class="o">=</span> <span class="s2">&quot;pytorch&quot;</span>
+<span class="n">producer_version</span> <span class="o">=</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">PRODUCER_VERSION</span>
+
+
+<div class="viewcode-block" id="export"><a class="viewcode-back" href="../../onnx_torchscript.html#torch.onnx.export">[docs]</a><span class="k">def</span> <span class="nf">export</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span>
+    <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">ExportedProgram</span>
+    <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span>
+    <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">,</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">f</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">export_params</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">input_names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">opset_version</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dynamic_axes</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span>
+    <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">keep_initializers_as_inputs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dynamo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># Dynamo only options</span>
+    <span class="n">external_data</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">report</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">verify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">profile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dump_exported_program</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">artifacts_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="n">fallback</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># Deprecated options</span>
+    <span class="n">training</span><span class="p">:</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">TrainingMode</span> <span class="o">=</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">TrainingMode</span><span class="o">.</span><span class="n">EVAL</span><span class="p">,</span>
+    <span class="n">operator_export_type</span><span class="p">:</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">OperatorExportTypes</span> <span class="o">=</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">OperatorExportTypes</span><span class="o">.</span><span class="n">ONNX</span><span class="p">,</span>
+    <span class="n">do_constant_folding</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">custom_opsets</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">export_modules_as_functions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">autograd_inlining</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># ignored options</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Exports a model into ONNX format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model: The model to be exported.</span>
+<span class="sd">        args: Example positional inputs. Any non-Tensor arguments will be hard-coded into the</span>
+<span class="sd">            exported model; any Tensor arguments will become inputs of the exported model,</span>
+<span class="sd">            in the order they occur in the tuple.</span>
+<span class="sd">        f: Path to the output ONNX model file. E.g. &quot;model.onnx&quot;.</span>
+<span class="sd">        kwargs: Optional example keyword inputs.</span>
+<span class="sd">        export_params: If false, parameters (weights) will not be exported.</span>
+<span class="sd">        verbose: Whether to enable verbose logging.</span>
+<span class="sd">        input_names: names to assign to the input nodes of the graph, in order.</span>
+<span class="sd">        output_names: names to assign to the output nodes of the graph, in order.</span>
+<span class="sd">        opset_version: The version of the</span>
+<span class="sd">            `default (ai.onnx) opset &lt;https://github.com/onnx/onnx/blob/master/docs/Operators.md&gt;`_</span>
+<span class="sd">            to target. Must be &gt;= 7.</span>
+<span class="sd">        dynamic_axes:</span>
+
+<span class="sd">            By default the exported model will have the shapes of all input and output tensors</span>
+<span class="sd">            set to exactly match those given in ``args``. To specify axes of tensors as</span>
+<span class="sd">            dynamic (i.e. known only at run-time), set ``dynamic_axes`` to a dict with schema:</span>
+
+<span class="sd">            * KEY (str): an input or output name. Each name must also be provided in ``input_names`` or</span>
+<span class="sd">                ``output_names``.</span>
+<span class="sd">            * VALUE (dict or list): If a dict, keys are axis indices and values are axis names. If a</span>
+<span class="sd">                list, each element is an axis index.</span>
+
+<span class="sd">            For example::</span>
+
+<span class="sd">                class SumModule(torch.nn.Module):</span>
+<span class="sd">                    def forward(self, x):</span>
+<span class="sd">                        return torch.sum(x, dim=1)</span>
+
+
+<span class="sd">                torch.onnx.export(</span>
+<span class="sd">                    SumModule(),</span>
+<span class="sd">                    (torch.ones(2, 2),),</span>
+<span class="sd">                    &quot;onnx.pb&quot;,</span>
+<span class="sd">                    input_names=[&quot;x&quot;],</span>
+<span class="sd">                    output_names=[&quot;sum&quot;],</span>
+<span class="sd">                )</span>
+
+<span class="sd">            Produces::</span>
+
+<span class="sd">                input {</span>
+<span class="sd">                  name: &quot;x&quot;</span>
+<span class="sd">                  ...</span>
+<span class="sd">                      shape {</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_value: 2  # axis 0</span>
+<span class="sd">                        }</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_value: 2  # axis 1</span>
+<span class="sd">                ...</span>
+<span class="sd">                output {</span>
+<span class="sd">                  name: &quot;sum&quot;</span>
+<span class="sd">                  ...</span>
+<span class="sd">                      shape {</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_value: 2  # axis 0</span>
+<span class="sd">                ...</span>
+
+<span class="sd">            While::</span>
+
+<span class="sd">                torch.onnx.export(</span>
+<span class="sd">                    SumModule(),</span>
+<span class="sd">                    (torch.ones(2, 2),),</span>
+<span class="sd">                    &quot;onnx.pb&quot;,</span>
+<span class="sd">                    input_names=[&quot;x&quot;],</span>
+<span class="sd">                    output_names=[&quot;sum&quot;],</span>
+<span class="sd">                    dynamic_axes={</span>
+<span class="sd">                        # dict value: manually named axes</span>
+<span class="sd">                        &quot;x&quot;: {0: &quot;my_custom_axis_name&quot;},</span>
+<span class="sd">                        # list value: automatic names</span>
+<span class="sd">                        &quot;sum&quot;: [0],</span>
+<span class="sd">                    },</span>
+<span class="sd">                )</span>
+
+<span class="sd">            Produces::</span>
+
+<span class="sd">                input {</span>
+<span class="sd">                  name: &quot;x&quot;</span>
+<span class="sd">                  ...</span>
+<span class="sd">                      shape {</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_param: &quot;my_custom_axis_name&quot;  # axis 0</span>
+<span class="sd">                        }</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_value: 2  # axis 1</span>
+<span class="sd">                ...</span>
+<span class="sd">                output {</span>
+<span class="sd">                  name: &quot;sum&quot;</span>
+<span class="sd">                  ...</span>
+<span class="sd">                      shape {</span>
+<span class="sd">                        dim {</span>
+<span class="sd">                          dim_param: &quot;sum_dynamic_axes_1&quot;  # axis 0</span>
+<span class="sd">                ...</span>
+
+<span class="sd">        keep_initializers_as_inputs: If True, all the</span>
+<span class="sd">            initializers (typically corresponding to model weights) in the</span>
+<span class="sd">            exported graph will also be added as inputs to the graph. If False,</span>
+<span class="sd">            then initializers are not added as inputs to the graph, and only</span>
+<span class="sd">            the user inputs are added as inputs.</span>
+
+<span class="sd">            Set this to True if you intend to supply model weights at runtime.</span>
+<span class="sd">            Set it to False if the weights are static to allow for better optimizations</span>
+<span class="sd">            (e.g. constant folding) by backends/runtimes.</span>
+
+<span class="sd">        dynamo: Whether to export the model with ``torch.export`` ExportedProgram instead of TorchScript.</span>
+<span class="sd">        external_data: Whether to save the model weights as an external data file.</span>
+<span class="sd">            This is required for models with large weights that exceed the ONNX file size limit (2GB).</span>
+<span class="sd">            When False, the weights are saved in the ONNX file with the model architecture.</span>
+<span class="sd">        dynamic_shapes: A dictionary of dynamic shapes for the model inputs. Refer to</span>
+<span class="sd">            :func:`torch.export.export` for more details.</span>
+<span class="sd">        report: Whether to generate a markdown report for the export process.</span>
+<span class="sd">        verify: Whether to verify the exported model using ONNX Runtime.</span>
+<span class="sd">        profile: Whether to profile the export process.</span>
+<span class="sd">        dump_exported_program: Whether to dump the :class:`torch.export.ExportedProgram` to a file.</span>
+<span class="sd">            This is useful for debugging the exporter.</span>
+<span class="sd">        artifacts_dir: The directory to save the debugging artifacts like the report and the serialized</span>
+<span class="sd">            exported program.</span>
+<span class="sd">        fallback: Whether to fallback to the TorchScript exporter if the dynamo exporter fails.</span>
+
+<span class="sd">        training: Deprecated option. Instead, set the training mode of the model before exporting.</span>
+<span class="sd">        operator_export_type: Deprecated option. Only ONNX is supported.</span>
+<span class="sd">        do_constant_folding: Deprecated option. The exported graph is always optimized.</span>
+<span class="sd">        custom_opsets: Deprecated.</span>
+<span class="sd">            A dictionary:</span>
+
+<span class="sd">            * KEY (str): opset domain name</span>
+<span class="sd">            * VALUE (int): opset version</span>
+
+<span class="sd">            If a custom opset is referenced by ``model`` but not mentioned in this dictionary,</span>
+<span class="sd">            the opset version is set to 1. Only custom opset domain name and version should be</span>
+<span class="sd">            indicated through this argument.</span>
+<span class="sd">        export_modules_as_functions: Deprecated option.</span>
+
+<span class="sd">            Flag to enable</span>
+<span class="sd">            exporting all ``nn.Module`` forward calls as local functions in ONNX. Or a set to indicate the</span>
+<span class="sd">            particular types of modules to export as local functions in ONNX.</span>
+<span class="sd">            This feature requires ``opset_version`` &gt;= 15, otherwise the export will fail. This is because</span>
+<span class="sd">            ``opset_version`` &lt; 15 implies IR version &lt; 8, which means no local function support.</span>
+<span class="sd">            Module variables will be exported as function attributes. There are two categories of function</span>
+<span class="sd">            attributes.</span>
+
+<span class="sd">            1. Annotated attributes: class variables that have type annotations via</span>
+<span class="sd">            `PEP 526-style &lt;https://www.python.org/dev/peps/pep-0526/#class-and-instance-variable-annotations&gt;`_</span>
+<span class="sd">            will be exported as attributes.</span>
+<span class="sd">            Annotated attributes are not used inside the subgraph of ONNX local function because</span>
+<span class="sd">            they are not created by PyTorch JIT tracing, but they may be used by consumers</span>
+<span class="sd">            to determine whether or not to replace the function with a particular fused kernel.</span>
+
+<span class="sd">            2. Inferred attributes: variables that are used by operators inside the module. Attribute names</span>
+<span class="sd">            will have prefix &quot;inferred::&quot;. This is to differentiate from predefined attributes retrieved from</span>
+<span class="sd">            python module annotations. Inferred attributes are used inside the subgraph of ONNX local function.</span>
+
+<span class="sd">            * ``False`` (default): export ``nn.Module`` forward calls as fine grained nodes.</span>
+<span class="sd">            * ``True``: export all ``nn.Module`` forward calls as local function nodes.</span>
+<span class="sd">            * Set of type of nn.Module: export ``nn.Module`` forward calls as local function nodes,</span>
+<span class="sd">                only if the type of the ``nn.Module`` is found in the set.</span>
+<span class="sd">        autograd_inlining: Deprecated.</span>
+<span class="sd">            Flag used to control whether to inline autograd functions.</span>
+<span class="sd">            Refer to https://github.com/pytorch/pytorch/pull/74765 for more details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dynamo</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">ExportedProgram</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">exporter</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="n">exporter</span><span class="o">.</span><span class="n">export_compat</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">args</span><span class="p">,</span>
+            <span class="n">f</span><span class="p">,</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="n">export_params</span><span class="o">=</span><span class="n">export_params</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="n">input_names</span><span class="o">=</span><span class="n">input_names</span><span class="p">,</span>
+            <span class="n">output_names</span><span class="o">=</span><span class="n">output_names</span><span class="p">,</span>
+            <span class="n">opset_version</span><span class="o">=</span><span class="n">opset_version</span><span class="p">,</span>
+            <span class="n">dynamic_axes</span><span class="o">=</span><span class="n">dynamic_axes</span><span class="p">,</span>
+            <span class="n">keep_initializers_as_inputs</span><span class="o">=</span><span class="n">keep_initializers_as_inputs</span><span class="p">,</span>
+            <span class="n">external_data</span><span class="o">=</span><span class="n">external_data</span><span class="p">,</span>
+            <span class="n">dynamic_shapes</span><span class="o">=</span><span class="n">dynamic_shapes</span><span class="p">,</span>
+            <span class="n">report</span><span class="o">=</span><span class="n">report</span><span class="p">,</span>
+            <span class="n">verify</span><span class="o">=</span><span class="n">verify</span><span class="p">,</span>
+            <span class="n">profile</span><span class="o">=</span><span class="n">profile</span><span class="p">,</span>
+            <span class="n">dump_exported_program</span><span class="o">=</span><span class="n">dump_exported_program</span><span class="p">,</span>
+            <span class="n">artifacts_dir</span><span class="o">=</span><span class="n">artifacts_dir</span><span class="p">,</span>
+            <span class="n">fallback</span><span class="o">=</span><span class="n">fallback</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">torch.onnx.utils</span> <span class="kn">import</span> <span class="n">export</span>
+
+        <span class="n">export</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">args</span><span class="p">,</span>
+            <span class="n">f</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="n">export_params</span><span class="o">=</span><span class="n">export_params</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">input_names</span><span class="o">=</span><span class="n">input_names</span><span class="p">,</span>
+            <span class="n">output_names</span><span class="o">=</span><span class="n">output_names</span><span class="p">,</span>
+            <span class="n">opset_version</span><span class="o">=</span><span class="n">opset_version</span><span class="p">,</span>
+            <span class="n">dynamic_axes</span><span class="o">=</span><span class="n">dynamic_axes</span><span class="p">,</span>
+            <span class="n">keep_initializers_as_inputs</span><span class="o">=</span><span class="n">keep_initializers_as_inputs</span><span class="p">,</span>
+            <span class="n">training</span><span class="o">=</span><span class="n">training</span><span class="p">,</span>
+            <span class="n">operator_export_type</span><span class="o">=</span><span class="n">operator_export_type</span><span class="p">,</span>
+            <span class="n">do_constant_folding</span><span class="o">=</span><span class="n">do_constant_folding</span><span class="p">,</span>
+            <span class="n">custom_opsets</span><span class="o">=</span><span class="n">custom_opsets</span><span class="p">,</span>
+            <span class="n">export_modules_as_functions</span><span class="o">=</span><span class="n">export_modules_as_functions</span><span class="p">,</span>
+            <span class="n">autograd_inlining</span><span class="o">=</span><span class="n">autograd_inlining</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="dynamo_export"><a class="viewcode-back" href="../../onnx_dynamo.html#torch.onnx.dynamo_export">[docs]</a><span class="k">def</span> <span class="nf">dynamo_export</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">Callable</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">ExportedProgram</span><span class="p">,</span>  <span class="c1"># type: ignore[name-defined]</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">model_args</span><span class="p">,</span>
+    <span class="n">export_options</span><span class="p">:</span> <span class="n">ExportOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">model_kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ONNXProgram</span> <span class="o">|</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Export a torch.nn.Module to an ONNX graph.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model: The PyTorch model to be exported to ONNX.</span>
+<span class="sd">        model_args: Positional inputs to ``model``.</span>
+<span class="sd">        model_kwargs: Keyword inputs to ``model``.</span>
+<span class="sd">        export_options: Options to influence the export to ONNX.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An in-memory representation of the exported ONNX model.</span>
+
+<span class="sd">    **Example 1 - Simplest export**</span>
+<span class="sd">    ::</span>
+
+<span class="sd">        class MyModel(torch.nn.Module):</span>
+<span class="sd">            def __init__(self) -&gt; None:</span>
+<span class="sd">                super().__init__()</span>
+<span class="sd">                self.linear = torch.nn.Linear(2, 2)</span>
+
+<span class="sd">            def forward(self, x, bias=None):</span>
+<span class="sd">                out = self.linear(x)</span>
+<span class="sd">                out = out + bias</span>
+<span class="sd">                return out</span>
+
+
+<span class="sd">        model = MyModel()</span>
+<span class="sd">        kwargs = {&quot;bias&quot;: 3.0}</span>
+<span class="sd">        args = (torch.randn(2, 2, 2),)</span>
+<span class="sd">        onnx_program = torch.onnx.dynamo_export(model, *args, **kwargs).save(</span>
+<span class="sd">            &quot;my_simple_model.onnx&quot;</span>
+<span class="sd">        )</span>
+
+<span class="sd">    **Example 2 - Exporting with dynamic shapes**</span>
+<span class="sd">    ::</span>
+
+<span class="sd">        # The previous model can be exported with dynamic shapes</span>
+<span class="sd">        export_options = torch.onnx.ExportOptions(dynamic_shapes=True)</span>
+<span class="sd">        onnx_program = torch.onnx.dynamo_export(</span>
+<span class="sd">            model, *args, **kwargs, export_options=export_options</span>
+<span class="sd">        )</span>
+<span class="sd">        onnx_program.save(&quot;my_dynamic_model.onnx&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># NOTE: The new exporter is experimental and is not enabled by default.</span>
+    <span class="kn">import</span> <span class="nn">warnings</span>
+
+    <span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">_flags</span>
+    <span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">exporter</span>
+    <span class="kn">from</span> <span class="nn">torch.utils</span> <span class="kn">import</span> <span class="n">_pytree</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">ExportedProgram</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">exporter</span><span class="o">.</span><span class="n">export_compat</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">model_args</span><span class="p">,</span>
+            <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="n">model_kwargs</span><span class="p">,</span>
+            <span class="n">opset_version</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+            <span class="n">external_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">export_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">fallback</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">_flags</span><span class="o">.</span><span class="n">USE_EXPERIMENTAL_LOGIC</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">export_options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;You are using an experimental ONNX export logic, which currently only supports dynamic shapes. &quot;</span>
+                <span class="s2">&quot;For a more comprehensive set of export options, including advanced features, please consider using &quot;</span>
+                <span class="s2">&quot;`torch.onnx.export(..., dynamo=True)`. &quot;</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">export_options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">export_options</span><span class="o">.</span><span class="n">dynamic_shapes</span><span class="p">:</span>
+            <span class="c1"># Make all shapes dynamic</span>
+            <span class="k">def</span> <span class="nf">_to_dynamic_shapes_mapper</span><span class="p">():</span>
+                <span class="n">arg_order</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="k">def</span> <span class="nf">_to_dynamic_shape</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+                    <span class="k">nonlocal</span> <span class="n">arg_order</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                        <span class="n">rank</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                        <span class="n">dynamic_shape</span> <span class="o">=</span> <span class="p">{}</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rank</span><span class="p">):</span>
+                            <span class="n">dynamic_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;arg_</span><span class="si">{</span><span class="n">arg_order</span><span class="si">}</span><span class="s2">_dim_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="p">)</span>
+                        <span class="n">arg_order</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">return</span> <span class="n">dynamic_shape</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="kc">None</span>
+
+                <span class="k">return</span> <span class="n">_to_dynamic_shape</span>
+
+            <span class="c1"># model_args could be nested</span>
+            <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="n">_pytree</span><span class="o">.</span><span class="n">tree_map</span><span class="p">(</span>
+                <span class="n">_to_dynamic_shapes_mapper</span><span class="p">(),</span>
+                <span class="n">model_args</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">exporter</span><span class="o">.</span><span class="n">export_compat</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">model_args</span><span class="p">,</span>
+            <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="n">model_kwargs</span><span class="p">,</span>
+            <span class="n">dynamic_shapes</span><span class="o">=</span><span class="n">dynamic_shapes</span><span class="p">,</span>
+            <span class="n">opset_version</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+            <span class="n">external_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">export_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">fallback</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">torch.onnx._internal._exporter_legacy</span> <span class="kn">import</span> <span class="n">dynamo_export</span>
+
+        <span class="k">return</span> <span class="n">dynamo_export</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span> <span class="o">*</span><span class="n">model_args</span><span class="p">,</span> <span class="n">export_options</span><span class="o">=</span><span class="n">export_options</span><span class="p">,</span> <span class="o">**</span><span class="n">model_kwargs</span>
+        <span class="p">)</span></div>
+
+
+<span class="c1"># TODO(justinchuby): Deprecate these logging functions in favor of the new diagnostic module.</span>
+
+<span class="c1"># Returns True iff ONNX logging is turned on.</span>
+<span class="n">is_onnx_log_enabled</span> <span class="o">=</span> <span class="n">_C</span><span class="o">.</span><span class="n">_jit_is_onnx_log_enabled</span>
+
+
+<div class="viewcode-block" id="enable_log"><a class="viewcode-back" href="../../onnx_torchscript.html#torch.onnx.enable_log">[docs]</a><span class="k">def</span> <span class="nf">enable_log</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Enables ONNX logging.&quot;&quot;&quot;</span>
+    <span class="n">_C</span><span class="o">.</span><span class="n">_jit_set_onnx_log_enabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="disable_log"><a class="viewcode-back" href="../../onnx_torchscript.html#torch.onnx.disable_log">[docs]</a><span class="k">def</span> <span class="nf">disable_log</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Disables ONNX logging.&quot;&quot;&quot;</span>
+    <span class="n">_C</span><span class="o">.</span><span class="n">_jit_set_onnx_log_enabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<span class="sd">&quot;&quot;&quot;Sets output stream for ONNX logging.</span>
+
+<span class="sd">Args:</span>
+<span class="sd">    stream_name (str, default &quot;stdout&quot;): Only &#39;stdout&#39; and &#39;stderr&#39; are supported</span>
+<span class="sd">        as ``stream_name``.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">set_log_stream</span> <span class="o">=</span> <span class="n">_C</span><span class="o">.</span><span class="n">_jit_set_onnx_log_output_stream</span>
+
+
+<span class="sd">&quot;&quot;&quot;A simple logging facility for ONNX exporter.</span>
+
+<span class="sd">Args:</span>
+<span class="sd">    args: Arguments are converted to string, concatenated together with a newline</span>
+<span class="sd">        character appended to the end, and flushed to output stream.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">_C</span><span class="o">.</span><span class="n">_jit_onnx_log</span>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, PyTorch Contributors.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+<script>
+
+var match = window.location.href.match(/\/_[a-zA-Z0-9_]*.html|_dynamo/gi);
+var url = window.location.href.lastIndexOf(match[match.length-1]);
+
+if (url)
+  {
+    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-exclamation-circle" aria-hidden="true">&nbsp</i> This page describes an internal API which is not intended to be used outside of the PyTorch codebase and can be modified or removed without notice.</p></div>'
+    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
+  }
+</script>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/sphinx_highlight.js"></script>
+         <script src="../../_static/clipboard.min.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['Developer Notes', 'Language Bindings', 'Libraries', 'Community'];
+</script>
+
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/795629140/?label=txkmCPmdtosBENSssfsC&amp;guid=ON&amp;script=0"/>
+
+
+  <!-- Begin Footer -->
+
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h2>Docs</h2>
+          <p>Access comprehensive developer documentation for PyTorch</p>
+          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Tutorials</h2>
+          <p>Get in-depth tutorials for beginners and advanced developers</p>
+          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Resources</h2>
+          <p>Find development resources and get your questions answered</p>
+          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="https://pytorch.org/" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+            <li><a href="https://pytorch.org/features">Features</a></li>
+            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+            <li><a href="https://pytorch.org/blog/">Blog</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">Stay up to date</li>
+            <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+            <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+            <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+          </ul>  
+          </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">PyTorch Podcasts</li>
+            <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+            <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+            <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+            <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+          </ul>
+         </div>
+        </div>
+        
+        <div class="privacy-policy">
+          <ul>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
+            <li class="privacy-policy-links">|</li>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+        <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+          <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
+          project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
+          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+      </div>
+     </div>
+
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+           <li class="resources-mobile-menu-title">
+             <a>Learn</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/get-started">Get Started</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials">Tutorials</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+             </li>
+           </ul>
+           <li class="resources-mobile-menu-title">
+             <a>Ecosystem</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/ecosystem">Tools</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/#community-module">Community</a>
+             </li>
+             <li>
+               <a href="https://discuss.pytorch.org/">Forums</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/resources">Developer Resources</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2023</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Edge</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+             </li>
+             
+             <li>
+               <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Docs</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+            </li>
+          </ul>
+
+          <li class="resources-mobile-menu-title">
+            <a>Blog & News</a>
+          </li>
+            
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/community-blog">Community Blog</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/videos">Videos</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/community-stories">Community Stories</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/events">Events</a>
+            </li>
+          </ul>
+          
+          <li class="resources-mobile-menu-title">
+            <a>About</a>
+          </li>
+
+          <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>
