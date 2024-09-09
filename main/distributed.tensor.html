@@ -1,0 +1,1912 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torch.distributed.tensor &mdash; PyTorch main documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://pytorch.org/docs/stable/distributed.tensor.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx-dropdown.css" type="text/css" />
+  <link rel="stylesheet" href="_static/panels-bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/jit.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Generic Join Context Manager" href="distributed.algorithms.join.html" />
+    <link rel="prev" title="Distributed communication package - torch.distributed" href="distributed.html" />
+
+<!--
+  Search engines should not index the main version of documentation.
+  Stable documentation are built without release == 'main'.
+-->
+<meta name="robots" content="noindex">
+
+
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
+    <!-- End Google Tag Manager -->
+  
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Learn
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                  <span class=dropdown-title>Get Started</span>
+                  <p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                  <p>Whats new in PyTorch tutorials</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                  <p>Familiarize yourself with PyTorch concepts and modules</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                  <p>Bite-size, ready-to-deploy PyTorch code examples</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                  <p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Ecosystem
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+                  <span class="dropdown-title">Tools</span>
+                  <p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
+                  <span class=dropdown-title>Community</span>
+                  <p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
+                  <span class=dropdown-title>Forums</span>
+                  <p>A place to discuss PyTorch code, issues, install, research</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                  <p>Find resources and get questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2023">
+                  <span class="dropdown-title">Contributor Awards - 2023</span>
+                  <p>Award winners announced at this year's PyTorch Conference</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Edge
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/edge">
+                  <span class="dropdown-title">About PyTorch Edge</span>
+                  <p>Build innovative and privacy-aware AI experiences for edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
+                  <span class="dropdown-title">ExecuTorch</span>
+                  <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+              </div>
+            </div>  
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Docs
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                  <p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                  <span class="dropdown-title">PyTorch Domains</span>
+                  <p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Blogs & News 
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">PyTorch Blog</span>
+                  <p>Catch up on the latest technical news and happenings</p>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
+                  <span class="dropdown-title">Community Blog</span>
+                  <p>Stories from the PyTorch ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/videos">
+                  <span class="dropdown-title">Videos</span>
+                  <p>Learn about the latest PyTorch tutorials, new, and more </p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
+                  <span class="dropdown-title">Community Stories</span>
+                  <p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                  <p>Find events, webinars, and podcasts</p>
+                </a>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                About
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                  <p>Learn more about the PyTorch Foundation</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                  <p></p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown">
+              <a href="https://pytorch.org/join" data-cta="join">
+                Become a Member
+              </a>
+            </div>
+          </li>
+          <li>
+           <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="github-icon">
+             </a>
+           </div>
+          </li>
+          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <li>
+            <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="search-icon">
+             </a>
+            </div>
+          </li>
+          --->
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+  </div>
+</div>
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+    <div class="version">
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdefb515 ) &#x25BC</a>
+    </div>
+    
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          </div>
+
+          
+
+<div>
+  <a style="color:#F05732" href="https://pytorch.org/docs/stable/distributed.tensor.html">
+    You are viewing unstable developer preview docs.
+    Click here to view docs for latest stable release.
+  </a>
+</div>
+
+
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/mps.html">MPS backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/windows.html">Windows FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_index.html">C++</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">torch::deploy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="torch.html">torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensors.html">torch.Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_attributes.html">Tensor Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_view.html">Tensor Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amp.html">torch.amp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autograd.html">torch.autograd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpu.html">torch.cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cuda.html">torch.cuda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.compiler.html">torch.compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="func.html">torch.func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linalg.html">torch.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitor.html">torch.monitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal.html">torch.signal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="special.html">torch.special</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">torch.package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiler.html">torch.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.attention.html">torch.nn.attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="masked.html">torch.masked</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="size.html">torch.Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">torch.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bottleneck.html">torch.utils.bottleneck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deterministic.html">torch.utils.deterministic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dlpack.html">torch.utils.dlpack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_zoo.html">torch.utils.model_zoo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_tracker.html">torch.utils.module_tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="type_info.html">Type Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="named_tensor.html">Named Tensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="name_inference.html">Named Tensors operator coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future_mod.html">torch.__future__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_environment_variables.html">Torch Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/audio/stable">torchaudio</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/data">TorchData</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/torchrec">TorchRec</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/serve">TorchServe</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/text/stable">torchtext</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/vision/stable">torchvision</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/xla/">PyTorch on XLA Devices</a></li>
+</ul>
+
+            
+          
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+      <li>torch.distributed.tensor</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/distributed.tensor.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+
+          <!-- Google Tag Manager (noscript) -->
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          <!-- End Google Tag Manager (noscript) -->
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torch-distributed-tensor">
+<h1>torch.distributed.tensor<a class="headerlink" href="#torch-distributed-tensor" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">torch.distributed.tensor</span></code> is currently in alpha state and under
+development, we are committing backward compatibility for the most APIs listed
+in the doc, but there might be API changes if necessary.</p>
+</div>
+<div class="section" id="pytorch-dtensor-distributed-tensor">
+<h2>PyTorch DTensor (Distributed Tensor)<a class="headerlink" href="#pytorch-dtensor-distributed-tensor" title="Permalink to this heading">¶</a></h2>
+<p>PyTorch DTensor offers simple and flexible tensor sharding primitives that transparently handles distributed
+logic, including sharded storage, operator computation and collective communications across devices/hosts.
+<code class="docutils literal notranslate"><span class="pre">DTensor</span></code> could be used to build different paralleism solutions and support sharded state_dict representation
+when working with multi-dimensional sharding.</p>
+<p>Please see examples from the PyTorch native parallelism solutions that are built on top of <code class="docutils literal notranslate"><span class="pre">DTensor</span></code>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/docs/main/distributed.tensor.parallel.html">Tensor Parallel</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pytorch/torchtitan/blob/main/docs/fsdp.md">FSDP2</a></p></li>
+</ul>
+<span class="target" id="module-torch.distributed.tensor"></span><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> follows the SPMD (single program, multiple data) programming model to empower users to
+write distributed program as if it’s a <strong>single-device program with the same convergence property</strong>. It
+provides a uniform tensor sharding layout (DTensor Layout) through specifying the <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code>
+and <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>:</p>
+<ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> represents the device topology and the communicators of the cluster using
+an n-dimensional array.</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> describes the sharding layout of the logical tensor on the <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code>.
+DTensor supports three types of placements: <code class="xref py py-class docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Replicate</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Partial</span></code>.</p></li>
+</ul>
+<div class="section" id="dtensor-class-apis">
+<h3>DTensor Class APIs<a class="headerlink" href="#dtensor-class-apis" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> is a <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> subclass. This means once a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> is created, it could be
+used in very similar way to <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>, including running different types of PyTorch operators as if
+running them in a single device, allowing proper distributed computation for PyTorch operators.</p>
+<p>In addition to existing <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> methods, it also offers a set of additional methods to interact with
+<code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>, <code class="docutils literal notranslate"><span class="pre">redistribute</span></code> the DTensor Layout to a new DTensor, get the full tensor content
+on all devices, etc.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.tensor.DTensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">DTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.DTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">DTensor</span></code> (Distributed Tensor) is a subclass of <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> that provides single-device like
+abstraction to program with multi-device <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>. It describes the distributed tensor sharding
+layout (DTensor Layout) through the <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> and following types of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>:</p>
+<ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Shard</span></code>: Tensor sharded on the tensor dimension <code class="docutils literal notranslate"><span class="pre">dim</span></code> on the devices of the <code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Replicate</span></code>: Tensor replicated on the devices of the <code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Partial</span></code>: Tensor is pending reduction on the devices of the <code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension</p></li>
+</ul>
+<p>When calling PyTorch operators, <code class="docutils literal notranslate"><span class="pre">DTensor</span></code> overrides the PyTorch operators to perform sharded computation and issue
+communications whenever necessary. Along with the operator computation, <code class="docutils literal notranslate"><span class="pre">DTensor</span></code> will transform or propagate the
+placements (DTensor Layout) properly (based on the operator semantic itself) and generate new <code class="docutils literal notranslate"><span class="pre">DTensor</span></code> outputs.</p>
+<p>To ensure numerical correctness of the <code class="docutils literal notranslate"><span class="pre">DTensor</span></code> sharded computation when calling PyTorch operators, <code class="docutils literal notranslate"><span class="pre">DTensor</span></code>
+requires every Tensor argument of the operator be DTensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor">DTensor</a></p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed.tensor.DTensor.device_mesh">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_mesh</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="distributed.html#torch.distributed.device_mesh.DeviceMesh" title="torch.distributed.device_mesh.DeviceMesh"><span class="pre">DeviceMesh</span></a></em><a class="headerlink" href="#torch.distributed.tensor.DTensor.device_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> attribute that associates with this DTensor object.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">device_mesh</span></code> is a read-only property, it can not be set.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.DTensor.from_local">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/_api.html#DTensor.from_local"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.DTensor.from_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> from a local torch.Tensor on each rank
+according to the <code class="docutils literal notranslate"><span class="pre">device_mesh</span></code> and <code class="docutils literal notranslate"><span class="pre">placements</span></code> specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_tensor</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a>) – local torch.Tensor on each rank.</p></li>
+<li><p><strong>device_mesh</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code>, optional) – DeviceMesh to place the
+tensor, if not specified, must be called under a DeviceMesh
+context manager, default: None</p></li>
+<li><p><strong>placements</strong> (List[<code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>], optional) – the placements that
+describes how to place the local torch.Tensor on DeviceMesh, must
+have the same number of elements as <code class="docutils literal notranslate"><span class="pre">device_mesh.ndim</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>run_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – at a cost of extra communications, perform
+sanity check across ranks to check each local tensor’s meta information
+to ensure correctness. If have <code class="xref py py-class docutils literal notranslate"><span class="pre">Replicate</span></code> in <code class="docutils literal notranslate"><span class="pre">placements</span></code>, the
+data on first rank of the device mesh dimension will be broadcasted
+to other ranks. default: False</p></li>
+<li><p><strong>shape</strong> (<a class="reference internal" href="size.html#torch.Size" title="torch.Size"><em>torch.Size</em></a><em>, </em><em>optional</em>) – A List of int which specifies the size of
+DTensor which build on top of <cite>local_tensor</cite>. Note this needs to be
+provided if the shape of <code class="docutils literal notranslate"><span class="pre">local_tensor</span></code> are different across the ranks.
+If not provided, <code class="docutils literal notranslate"><span class="pre">shape</span></code> will be computed assuming the given distributed
+tensor is evenly sharded across ranks. default: None</p></li>
+<li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><em>tuple</em></a><em>, </em><em>optional</em>) – A List of int which specifies the stride of DTensor.
+If not provided, <code class="docutils literal notranslate"><span class="pre">stride</span></code> will be computed assuming the given distributed
+tensor is evenly sharded across ranks. default: None</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">run_check=False</span></code>, it is the user’s responsibility to ensure the
+local tensor passed in is correct across ranks (i.e. the tensor is sharded for
+the <code class="docutils literal notranslate"><span class="pre">Shard(dim)</span></code> placement or replicated for the <code class="docutils literal notranslate"><span class="pre">Replicate()</span></code> placement).
+If not, the behavior of the created DTensor is undefined.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">from_local</span></code> is differentiable, the <cite>requires_grad</cite> of the created
+<cite>DTensor</cite> object will depend on if <cite>local_tensor</cite> requires_grad or not.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.DTensor.full_tensor">
+<span class="sig-name descname"><span class="pre">full_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/_api.html#DTensor.full_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.DTensor.full_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the full tensor of this DTensor. It will perform necessary collectives
+to gather the local tensors from other ranks in its DeviceMesh and concatenate
+them together. It’s a syntatic sugar of the following code:</p>
+<p><code class="docutils literal notranslate"><span class="pre">dtensor.redistribute(placements=[Replicate()]</span> <span class="pre">*</span> <span class="pre">mesh.ndim).to_local()</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments</dt>
+<dd class="field-odd"><p><strong>grad_placements</strong> (List[<code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>], optional) – the placements describes
+the future layout of any gradient layout of the full Tensor returned from this
+function.
+<cite>full_tensor</cite> converts DTensor to a full torch.Tensor and the returned torch.tensor
+might not be used as the original replicated DTensor layout later in the code. This
+argument is the hint that user can give to autograd in case the gradient
+layout of the returned tensor does not match the original replicated DTensor layout.
+If not specified, we will assume the gradient layout of the full tensor be replicated.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> object that represents the full tensor of this DTensor.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">full_tensor</span></code> is differentiable.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.distributed.tensor.DTensor.placements">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">placements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><span class="pre">Placement</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.distributed.tensor.DTensor.placements" title="Permalink to this definition">¶</a></dt>
+<dd><p>The placements attribute of this DTensor that describes the layout of this
+DTensor on the its DeviceMesh.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">placements</span></code> is a read-only property, it can not be set.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.DTensor.redistribute">
+<span class="sig-name descname"><span class="pre">redistribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/_api.html#DTensor.redistribute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.DTensor.redistribute" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">redistribute</span></code> performs necessary collective operations that redistribute the current
+DTensor from its current placements to a new placements, or from is current DeviceMesh
+to a new DeviceMesh. i.e. we can turn a Sharded DTensor to a Replicated DTensor by
+specifying a Replicate placement for each dimension of the DeviceMesh.</p>
+<p>When redistributing from current to the new placements on one device mesh dimension, we
+will perform the following operations including communication collective or local operation:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Shard(dim)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Replicate()</span></code>: <code class="docutils literal notranslate"><span class="pre">all_gather</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Shard(src_dim)</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Shard(dst_dim)</span></code>: <code class="docutils literal notranslate"><span class="pre">all_to_all</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Replicate()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Shard(dim)</span></code>: local chunking (i.e. <code class="docutils literal notranslate"><span class="pre">torch.chunk</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Partial()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Replicate()</span></code>: <code class="docutils literal notranslate"><span class="pre">all_reduce</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Partial()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Shard(dim)</span></code>: <code class="docutils literal notranslate"><span class="pre">reduce_scatter</span></code></p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">redistribute</span></code> would correctly figure out the necessary redistribute steps for DTensors
+that are created either on 1-D or N-D DeviceMesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_mesh</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code>, optional) – DeviceMesh to place the
+DTensor. If not specified, it would use the current DTensor’s DeviceMesh.
+default: None</p></li>
+<li><p><strong>placements</strong> (List[<code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>], optional) – the new placements that
+describes how to place the DTensor into the DeviceMesh, must
+have the same number of elements as <code class="docutils literal notranslate"><span class="pre">device_mesh.ndim</span></code>.
+default: replicate on all mesh dimensions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>async_op</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to perform the DTensor redistribute operation
+asynchronously or not. Default: False</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">redistribute</span></code> is differentiable, which means user do not need to worry about
+the backward formula of the redistribute operation.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">redistribute</span></code> currently only supports redistributing DTensor on the same DeviceMesh,
+Please file an issue if you need to redistribute DTensor to different DeviceMesh.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.DTensor.to_local">
+<span class="sig-name descname"><span class="pre">to_local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/_api.html#DTensor.to_local"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.DTensor.to_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the local tensor of this DTensor on its current rank. For sharding it returns
+a local shard of the logical tensor view, for replication it returns the replica on
+its current rank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments</dt>
+<dd class="field-odd"><p><strong>grad_placements</strong> (List[<code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>], optional) – the placements describes
+the future layout of any gradient layout of the Tensor returned from this
+function.
+<cite>to_local</cite> converts DTensor to local tensor and the returned local tensor
+might not be used as the original DTensor layout later in the code. This
+argument is the hint that user can give to autograd in case the gradient
+layout of the returned tensor does not match the original DTensor layout.
+If not specified, we will assume the gradient layout remains the same
+as the original DTensor and use that for gradient computation.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> or <code class="docutils literal notranslate"><span class="pre">AsyncCollectiveTensor</span></code> object. it represents the
+local tensor on its current rank. When an <code class="docutils literal notranslate"><span class="pre">AsyncCollectiveTensor</span></code> object is returned,
+it means the local tensor is not ready yet (i.e. communication is not finished). In this
+case, user needs to call <code class="docutils literal notranslate"><span class="pre">wait</span></code> to wait the local tensor to be ready.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">to_local</span></code> is differentiable, the <code class="docutils literal notranslate"><span class="pre">requires_grad</span></code> of the local tensor returned
+will depend on if the <cite>DTensor</cite> requires_grad or not.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="devicemesh-as-the-distributed-communicator">
+<h3>DeviceMesh as the distributed communicator<a class="headerlink" href="#devicemesh-as-the-distributed-communicator" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference internal" href="distributed.html#torch.distributed.device_mesh.DeviceMesh" title="torch.distributed.device_mesh.DeviceMesh"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code></a> was built from DTensor as the abstraction to describe cluster’s device topology and represent
+multi-dimensional communicators (on top of <code class="docutils literal notranslate"><span class="pre">ProcessGroup</span></code>). To see the details of how to create/use a DeviceMesh,
+please refer to the <a class="reference external" href="https://pytorch.org/tutorials/recipes/distributed_device_mesh.html">DeviceMesh recipe</a>.</p>
+</div>
+<div class="section" id="module-torch.distributed.tensor.placement_types">
+<span id="dtensor-placement-types"></span><h3>DTensor Placement Types<a class="headerlink" href="#module-torch.distributed.tensor.placement_types" title="Permalink to this heading">¶</a></h3>
+<p>DTensor supports the following types of <a class="reference internal" href="#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code></a> on each <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Shard">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.placement_types.</span></span><span class="sig-name descname"><span class="pre">Shard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/placement_types.html#Shard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.placement_types.Shard" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">Shard(dim)</span></code> placement describes the DTensor sharding on tensor dimension
+<code class="docutils literal notranslate"><span class="pre">dim</span></code> over a corresponding <code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension, where each rank on the
+DeviceMesh dimension only holds a shard/piece of the global Tensor. The
+<code class="docutils literal notranslate"><span class="pre">Shard(dim)</span></code> placement follows the <code class="docutils literal notranslate"><span class="pre">torch.chunk(dim)</span></code> semantic, where the
+last few shards on the DeviceMesh dimension might be empty when the tensor dimension
+is not evenly divisble on the DeviceMesh dimension. The <code class="docutils literal notranslate"><span class="pre">Shard</span></code> placement can be
+used by all DTensor APIs (i.e. distribute_tensor, from_local, etc.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The tensor dimension that describes the DTensor is sharded over its
+corresponding DeviceMesh dimension.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>sharding on a tensor dimension where the tensor dimension size is not
+evenly divisible on a DeviceMesh dimension is currently experimental and subject to change.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Shard.dim">
+<span class="sig-name descname"><span class="pre">dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></em><a class="headerlink" href="#torch.distributed.tensor.placement_types.Shard.dim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Replicate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.placement_types.</span></span><span class="sig-name descname"><span class="pre">Replicate</span></span><a class="reference internal" href="_modules/torch/distributed/tensor/placement_types.html#Replicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.placement_types.Replicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">Replicate()</span></code> placement describes the DTensor replicating on a corresponding
+<code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension, where each rank on the DeviceMesh dimension holds a
+replica of the global Tensor. The <code class="docutils literal notranslate"><span class="pre">Replicate</span></code> placement can be used by all
+DTensor APIs (i.e. <code class="docutils literal notranslate"><span class="pre">distribute_tensor</span></code>, <code class="docutils literal notranslate"><span class="pre">DTensor.from_local</span></code>, etc.)</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Partial">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.placement_types.</span></span><span class="sig-name descname"><span class="pre">Partial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reduce_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sum'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/placement_types.html#Partial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.placement_types.Partial" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">Partial(reduce_op)</span></code> placement describes the DTensor that is pending
+reduction on a specified <code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension, where each rank on the
+DeviceMesh dimension holds the partial value of the global Tensor. User can
+redistribute the <code class="docutils literal notranslate"><span class="pre">Partial</span></code> DTensor to a <code class="docutils literal notranslate"><span class="pre">Replicate</span></code> or <code class="docutils literal notranslate"><span class="pre">Shard(dim)</span></code>
+placement on the specified <code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension using <code class="docutils literal notranslate"><span class="pre">redistribute</span></code>,
+which would trigger necessary communication operations under the hood (i.e.
+<code class="docutils literal notranslate"><span class="pre">allreduce</span></code>, <code class="docutils literal notranslate"><span class="pre">reduce_scatter</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduce_op</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – The reduction op to be used for the partial DTensor
+to produce Replicated/Sharded DTensor. Only element-wise reduction operations
+are supported, including: “sum”, “avg”, “product”, “max”, “min”, default: “sum”.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Partial</span></code> placement can be generated as a result of the DTensor operators,
+and can only be used by the <code class="docutils literal notranslate"><span class="pre">DTensor.from_local</span></code> API.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Partial.reduce_op">
+<span class="sig-name descname"><span class="pre">reduce_op</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sum'</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types.Partial.reduce_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Placement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.placement_types.</span></span><span class="sig-name descname"><span class="pre">Placement</span></span><a class="reference internal" href="_modules/torch/distributed/tensor/placement_types.html#Placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base class for the Placement type, where it describes how a DTensor is placed onto the
+<code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code>. <code class="docutils literal notranslate"><span class="pre">Placement</span></code> and <code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> together could describe the DTensor Layout.
+It is the base class of the three main DTensor Placement types: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">Partial</span></code>.</p>
+<p>This class is not meant to be used directly, mainly served as a typing stub.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Placement.is_partial">
+<span class="sig-name descname"><span class="pre">is_partial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/placement_types.html#Placement.is_partial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_partial" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Placement.is_replicate">
+<span class="sig-name descname"><span class="pre">is_replicate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/placement_types.html#Placement.is_replicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_replicate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Placement.is_shard">
+<span class="sig-name descname"><span class="pre">is_shard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/placement_types.html#Placement.is_shard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_shard" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="different-ways-to-create-a-dtensor">
+<h2>Different ways to create a DTensor<a class="headerlink" href="#different-ways-to-create-a-dtensor" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>There’re three ways to construct a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#torch.distributed.tensor.distribute_tensor" title="torch.distributed.tensor.distribute_tensor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">distribute_tensor()</span></code></a> creates a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> from a logical or “global” <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> on
+each rank. This could be used to shard the leaf <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> s (i.e. model parameters/buffers
+and inputs).</p></li>
+<li><p><a class="reference internal" href="#torch.distributed.tensor.DTensor.from_local" title="torch.distributed.tensor.DTensor.from_local"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DTensor.from_local()</span></code></a> creates a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> from a local <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> on each rank, which can
+be used to create <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> from a non-leaf <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> s (i.e. intermediate activation
+tensors during forward/backward).</p></li>
+<li><p>DTensor provides dedicated tensor factory functions (e.g. <a class="reference internal" href="#torch.distributed.tensor.empty" title="torch.distributed.tensor.empty"><code class="xref py py-meth docutils literal notranslate"><span class="pre">empty()</span></code></a>, <a class="reference internal" href="#torch.distributed.tensor.ones" title="torch.distributed.tensor.ones"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ones()</span></code></a>, <a class="reference internal" href="#torch.distributed.tensor.randn" title="torch.distributed.tensor.randn"><code class="xref py py-meth docutils literal notranslate"><span class="pre">randn()</span></code></a>, etc.)
+to allow different <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> creations by directly specifying the <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>. Compare to <a class="reference internal" href="#torch.distributed.tensor.distribute_tensor" title="torch.distributed.tensor.distribute_tensor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">distribute_tensor()</span></code></a>, this could directly materializing the sharded memory
+on device, instead of performing sharding after initializing the logical Tensor memory.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="create-dtensor-from-a-logical-torch-tensor">
+<h3>Create DTensor from a logical torch.Tensor<a class="headerlink" href="#create-dtensor-from-a-logical-torch-tensor" title="Permalink to this heading">¶</a></h3>
+<p>The SPMD (single program, multiple data) programming model in <code class="docutils literal notranslate"><span class="pre">torch.distributed</span></code> launches multiple processes
+(i.e. via <code class="docutils literal notranslate"><span class="pre">torchrun</span></code>) to execute the same program, this means that the model inside the program would be
+initialized on different processes first (i.e. the model might be initialized on CPU, or meta device, or directly
+on GPU if enough memory).</p>
+<p><code class="docutils literal notranslate"><span class="pre">DTensor</span></code> offers a <a class="reference internal" href="#torch.distributed.tensor.distribute_tensor" title="torch.distributed.tensor.distribute_tensor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">distribute_tensor()</span></code></a> API that could shard the model weights or Tensors to <code class="docutils literal notranslate"><span class="pre">DTensor</span></code> s,
+where it would create a DTensor from the “logical” Tensor on each process. This would empower the created
+<code class="docutils literal notranslate"><span class="pre">DTensor</span></code> s to comply with the single device semantic, which is critical for <strong>numerical correctness</strong>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.distribute_tensor">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">distribute_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.distribute_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Distribute a leaf <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> (i.e. nn.Parameter/buffers) to the <code class="docutils literal notranslate"><span class="pre">device_mesh</span></code> according
+to the <code class="docutils literal notranslate"><span class="pre">placements</span></code> specified. The rank of <code class="docutils literal notranslate"><span class="pre">device_mesh</span></code> and <code class="docutils literal notranslate"><span class="pre">placements</span></code> must be the
+same. The <code class="docutils literal notranslate"><span class="pre">tensor</span></code> to distribute is the logical or “global” tensor, and the API would use
+the <code class="docutils literal notranslate"><span class="pre">tensor</span></code> from first rank of the DeviceMesh dimension as the source of truth to perserve
+the single-device semantic. If you want to construct a DTensor in the middle of the Autograd
+computation, please use <a class="reference internal" href="#torch.distributed.tensor.DTensor.from_local" title="torch.distributed.tensor.DTensor.from_local"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DTensor.from_local()</span></code></a> instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a>) – torch.Tensor to be distributed. Note that if you
+want to shard a tensor on a dimension that is not evenly divisible by
+the number of devices in that mesh dimension, we use <code class="docutils literal notranslate"><span class="pre">torch.chunk</span></code>
+semantic to shard the tensor and scatter the shards. The uneven sharding
+behavior is experimental and subject to change.</p></li>
+<li><p><strong>device_mesh</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code>, optional) – DeviceMesh to distribute the
+tensor, if not specified, must be called under a DeviceMesh context
+manager, default: None</p></li>
+<li><p><strong>placements</strong> (List[<code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>], optional) – the placements that
+describes how to place the tensor on DeviceMesh, must have the same
+number of elements as <code class="docutils literal notranslate"><span class="pre">device_mesh.ndim</span></code>. If not specified, we will
+by default replicate the tensor across the <code class="docutils literal notranslate"><span class="pre">device_mesh</span></code> from the
+first rank of each dimension of the <cite>device_mesh</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> or <code class="docutils literal notranslate"><span class="pre">XLAShardedTensor</span></code> object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When initialize the DeviceMesh with the <code class="docutils literal notranslate"><span class="pre">xla</span></code> device_type, <code class="docutils literal notranslate"><span class="pre">distribute_tensor</span></code>
+return <cite>XLAShardedTensor</cite> instead. see <a class="reference external" href="https://github.com/pytorch/pytorch/issues/92909">this issue</a>
+for more details. The XLA integration is experimental and subject to change.</p>
+</div>
+</dd></dl>
+
+<p>Along with <a class="reference internal" href="#torch.distributed.tensor.distribute_tensor" title="torch.distributed.tensor.distribute_tensor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">distribute_tensor()</span></code></a>, DTensor also offers a <a class="reference internal" href="#torch.distributed.tensor.distribute_module" title="torch.distributed.tensor.distribute_module"><code class="xref py py-meth docutils literal notranslate"><span class="pre">distribute_module()</span></code></a> API to allow easier
+sharding on the <code class="xref py py-class docutils literal notranslate"><span class="pre">nn.Module</span></code> level</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.distribute_module">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">distribute_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.distribute_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expose three functions to control the parameters/inputs/outputs of the module:</p>
+<p>1. To perform sharding on the module before runtime execution by specifying the
+<code class="docutils literal notranslate"><span class="pre">partition_fn</span></code> (i.e. allow user to convert Module parameters to <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>
+parameters according to the <cite>partition_fn</cite> specified).
+2. To control the inputs or outputs of the module during runtime execution by
+specifying the <code class="docutils literal notranslate"><span class="pre">input_fn</span></code> and <code class="docutils literal notranslate"><span class="pre">output_fn</span></code>. (i.e. convert the input to
+<a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>, convert the output back to <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">nn.Module</span></code>) – user module to be partitioned.</p></li>
+<li><p><strong>device_mesh</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code>) – the device mesh to place the module.</p></li>
+<li><p><strong>partition_fn</strong> (<em>Callable</em>) – the function to partition parameters (i.e. shard certain
+parameters across the <code class="docutils literal notranslate"><span class="pre">device_mesh</span></code>). If <code class="docutils literal notranslate"><span class="pre">partition_fn</span></code> is not specified,
+by default we replicate all module parameters of <code class="docutils literal notranslate"><span class="pre">module</span></code> across the mesh.</p></li>
+<li><p><strong>input_fn</strong> (<em>Callable</em>) – specify the input distribution, i.e. could control how the
+input of the module is sharded. <code class="docutils literal notranslate"><span class="pre">input_fn</span></code> will be installed as a module
+<code class="docutils literal notranslate"><span class="pre">forward_pre_hook</span></code> (pre forward hook).</p></li>
+<li><p><strong>output_fn</strong> (<em>Callable</em>) – specify the output distribution, i.e. could control how the
+output is sharded, or convert it back to torch.Tensor. <code class="docutils literal notranslate"><span class="pre">output_fn</span></code> will be
+installed as a module <code class="docutils literal notranslate"><span class="pre">forward_hook</span></code> (post forward hook).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A module that contains parameters/buffers that are all <code class="docutils literal notranslate"><span class="pre">DTensor</span></code> s.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><p id="torch.nn.Module"/><a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><em>Module</em></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When initialize the DeviceMesh with the <code class="docutils literal notranslate"><span class="pre">xla</span></code> device_type, <code class="docutils literal notranslate"><span class="pre">distribute_module</span></code>
+return nn.Module with PyTorch/XLA SPMD annotated parameters. See
+<a class="reference external" href="https://github.com/pytorch/pytorch/issues/92909">this issue</a>
+for more details. The XLA integration is experimental and subject to change.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="dtensor-factory-functions">
+<h3>DTensor Factory Functions<a class="headerlink" href="#dtensor-factory-functions" title="Permalink to this heading">¶</a></h3>
+<p>DTensor also provides dedicated tensor factory functions to allow creating <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> directly
+using torch.Tensor like factory function APIs (i.e. torch.ones, torch.empty, etc), by additionally
+specifying the <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> for the <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> created:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.zeros">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.zeros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> filled with the scalar value 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Can be a variable number of arguments or a collection like a list or tuple.
+E.g.: zeros(1,2,3..) or zeros([1,2,3..]) or zeros((1,2,3..))</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the desired data type of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
+<li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
+<li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks</p></li>
+<li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object on each rank</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.ones">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">ones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.ones" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> filled with the scalar value 1, with the shape defined
+by the variable argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Can be a variable number of arguments or a collection like a list or tuple.
+E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the desired data type of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
+<li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned DTensor.
+Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks</p></li>
+<li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object on each rank</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.empty">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> filled with uninitialized data. The shape of the <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>
+is defined by the variable argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Can be a variable number of arguments or a collection like a list or tuple.
+E.g.: empty(1,2,3..) or empty([1,2,3..]) or empty((1,2,3..))</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the desired data type of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).        layout (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional): the desired layout of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks</p></li>
+<li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object on each rank</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.full">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> filled with <code class="docutils literal notranslate"><span class="pre">fill_value</span></code> according to <code class="docutils literal notranslate"><span class="pre">device_mesh</span></code> and
+<code class="docutils literal notranslate"><span class="pre">placements</span></code>, with the shape defined by the argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Can be a variable number of arguments or a collection like a list or tuple.
+E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p></li>
+<li><p><strong>fill_value</strong> (<em>Scalar</em>) – the value to fill the output tensor with.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the desired data type of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
+<li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned DTensor.
+Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks.</p></li>
+<li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object on each rank</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.rand">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">rand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.rand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> filled with random numbers from a uniform distribution
+on the interval <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>. The shape of the tensor is defined by the variable
+argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Can be a variable number of arguments or a collection like a list or tuple.
+E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the desired data type of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
+<li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned DTensor.
+Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks.</p></li>
+<li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object on each rank</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.randn">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.</span></span><span class="sig-name descname"><span class="pre">randn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.randn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> filled with random numbers from a normal distribution
+with mean 0 and variance 1. The shape of the tensor is defined by the variable
+argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Can be a variable number of arguments or a collection like a list or tuple.
+E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the desired data type of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
+<li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned DTensor.
+Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks.</p></li>
+<li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object on each rank</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><em>DTensor</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-torch.distributed.tensor.debug">
+<span id="debugging"></span><h2>Debugging<a class="headerlink" href="#module-torch.distributed.tensor.debug" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="logging">
+<h3>Logging<a class="headerlink" href="#logging" title="Permalink to this heading">¶</a></h3>
+<p>When launching the program, you can turn on additional logging using the <cite>TORCH_LOGS</cite> environment variable from
+<a class="reference external" href="https://pytorch.org/docs/main/logging.html#module-torch._logging">torch._logging</a> :</p>
+<ul class="simple">
+<li><p><cite>TORCH_LOGS=+dtensor</cite> will display <cite>logging.DEBUG</cite> messages and all levels above it.</p></li>
+<li><p><cite>TORCH_LOGS=dtensor</cite> will display <cite>logging.INFO</cite> messages and above.</p></li>
+<li><p><cite>TORCH_LOGS=-dtensor</cite> will display <cite>logging.WARNING</cite> messages and above.</p></li>
+</ul>
+</div>
+<div class="section" id="debugging-tools">
+<h3>Debugging Tools<a class="headerlink" href="#debugging-tools" title="Permalink to this heading">¶</a></h3>
+<p>To debug the program that applied DTensor, and understand more details about what collectives happened under the
+hood, DTensor provides a <a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode" title="torch.distributed.tensor.debug.CommDebugMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommDebugMode</span></code></a>:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.CommDebugMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.debug.</span></span><span class="sig-name descname"><span class="pre">CommDebugMode</span></span><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode" title="torch.distributed.tensor.debug.CommDebugMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommDebugMode</span></code></a> is a context manager that counts the number of
+functional collectives within its context. It does this using a
+<code class="docutils literal notranslate"><span class="pre">TorchDispatchMode</span></code>.</p>
+<p>Example usage</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">comm_mode</span> <span class="o">=</span> <span class="n">CommDebugMode</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">comm_mode</span><span class="p">:</span>
+    <span class="n">mod</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comm_mode</span><span class="o">.</span><span class="n">get_comm_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.CommDebugMode.generate_comm_debug_tracing_table">
+<span class="sig-name descname"><span class="pre">generate_comm_debug_tracing_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noise_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/debug/_comm_mode.html#CommDebugMode.generate_comm_debug_tracing_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.generate_comm_debug_tracing_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates detailed table displaying operations and collective tracing information
+on a module level. Amount of information is dependent on noise_level</p>
+<ol class="arabic simple" start="0">
+<li><p>prints module-level collective counts</p></li>
+<li><p>prints dTensor operations not included in trivial operations, module information</p></li>
+<li><p>prints operations not included in trivial operations</p></li>
+<li><p>prints all operations</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.CommDebugMode.generate_json_dump">
+<span class="sig-name descname"><span class="pre">generate_json_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'comm_mode_log.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/debug/_comm_mode.html#CommDebugMode.generate_json_dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.generate_json_dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates json file used to build browser visual
+0. prints module-level collective counts
+1. prints dTensor operations not included in trivial operations
+2. prints operations not included in trivial operations
+3. prints all operations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.CommDebugMode.get_comm_counts">
+<span class="sig-name descname"><span class="pre">get_comm_counts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/debug/_comm_mode.html#CommDebugMode.get_comm_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.get_comm_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the communication counts as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The communication counts as a dictionary.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[Any, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.CommDebugMode.get_parameter_info">
+<span class="sig-name descname"><span class="pre">get_parameter_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/debug/_comm_mode.html#CommDebugMode.get_parameter_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.get_parameter_info" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.CommDebugMode.get_sharding_info">
+<span class="sig-name descname"><span class="pre">get_sharding_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/debug/_comm_mode.html#CommDebugMode.get_sharding_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.get_sharding_info" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.CommDebugMode.get_total_counts">
+<span class="sig-name descname"><span class="pre">get_total_counts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/debug/_comm_mode.html#CommDebugMode.get_total_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.get_total_counts" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.CommDebugMode.log_comm_debug_tracing_table_to_file">
+<span class="sig-name descname"><span class="pre">log_comm_debug_tracing_table_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'comm_mode_log.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/tensor/debug/_comm_mode.html#CommDebugMode.log_comm_debug_tracing_table_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.log_comm_debug_tracing_table_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alternative to console CommDebugMode output, writes to file specified by the user</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>To visualize the sharding of a DTensor that have less than 3 dimensions, DTensor provides <a class="reference internal" href="#torch.distributed.tensor.debug.visualize_sharding" title="torch.distributed.tensor.debug.visualize_sharding"><code class="xref py py-meth docutils literal notranslate"><span class="pre">visualize_sharding()</span></code></a>:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.debug.visualize_sharding">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.debug.</span></span><span class="sig-name descname"><span class="pre">visualize_sharding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.debug.visualize_sharding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualizes sharding in the terminal for <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> that are 1D or 2D.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This requires the <code class="docutils literal notranslate"><span class="pre">tabulate</span></code> package. No sharding info will be printed for empty tensors</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="experimental-features">
+<h2>Experimental Features<a class="headerlink" href="#experimental-features" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">DTensor</span></code> also provides a set of experimental features. These features are either in prototyping stage, or the basic
+functionality is done and but looking for user feedbacks. Please submit a issue to PyTorch if you have feedbacks to
+these features.</p>
+<span class="target" id="module-torch.distributed.tensor.experimental"></span><dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.experimental.local_map">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.experimental.</span></span><span class="sig-name descname"><span class="pre">local_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_placements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_placements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redistribute_inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.experimental.local_map" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#torch.distributed.tensor.experimental.local_map" title="torch.distributed.tensor.experimental.local_map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">local_map()</span></code></a> is an experimental API that allows users to pass <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s
+to a function that is written to be applied on <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> s. It is done by extracting
+the local components of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code>, call the function, and wrap the outputs to
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> according to the <code class="docutils literal notranslate"><span class="pre">out_placements</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>Callable</em>) – the function to be applied on each local shard of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s.</p></li>
+<li><p><strong>out_placements</strong> (Union[<cite>PlacementType</cite>, Tuple[<cite>PlacementType</cite>, …]]) – the desired placements of the <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s in <code class="docutils literal notranslate"><span class="pre">func</span></code>’s flattened output.
+If the flattened <code class="docutils literal notranslate"><span class="pre">output</span></code> is a single value, the <code class="docutils literal notranslate"><span class="pre">out_placements</span></code> should be
+of type <cite>PlacementType</cite>. Otherwise if the flattened <code class="docutils literal notranslate"><span class="pre">output</span></code> has multiple
+values, the <code class="docutils literal notranslate"><span class="pre">out_placements</span></code> should be a tuple of <cite>PlacementType</cite> values 1:1
+mapping to the flattened <code class="docutils literal notranslate"><span class="pre">output</span></code>.
+Besides, for <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> output, we use <cite>PlacementType</cite> as its
+placements (a <cite>Tuple[Placement]</cite> value). For non-Tensor output, the <cite>PlacementType</cite>
+should be <cite>None</cite>.
+Note that the only exception is when no <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> argument is passed
+in. In this case, even if <cite>out_placements</cite> is not <cite>None</cite>, the result function
+should ignore the desired placements because the function is not running with
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s.</p></li>
+<li><p><strong>in_placements</strong> (Tuple[<cite>PlacementType</cite>, …], optional) – the required placements of the <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s in the flattened inputs of <code class="docutils literal notranslate"><span class="pre">func</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">in_placements</span></code> is specified, <a class="reference internal" href="#torch.distributed.tensor.experimental.local_map" title="torch.distributed.tensor.experimental.local_map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">local_map()</span></code></a> would examine whether the
+placements of each <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> argument is the same as the required
+placements or not. If the placements are not the same and
+<code class="docutils literal notranslate"><span class="pre">redistribute_inputs</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, an exception will be raised. Otherwise if
+<code class="docutils literal notranslate"><span class="pre">redistribute_inputs</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the argument will be first redistributed to
+the required sharding placements before passing its local tensor to <code class="docutils literal notranslate"><span class="pre">func</span></code>.
+The only exception is when required placements are not <code class="docutils literal notranslate"><span class="pre">None</span></code> and the
+argument is a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>. In this case, the placements examination
+will be skipped and the argument will be directly passed to <code class="docutils literal notranslate"><span class="pre">func</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">in_placements</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, no placements examination will be performed.
+Default: None</p></li>
+<li><p><strong>device_mesh</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code>, optional) – the device mesh that all the <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s are placed on. If not
+specified, this will be inferred from the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s’ device
+mesh. <cite>local_map</cite> requires every <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s to be placed on the same
+device mesh. Default: None.</p></li>
+<li><p><strong>redistribute_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – the bool value indicating whether to reshard the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s when
+their placements are different from the required input placements. If this
+value is <code class="docutils literal notranslate"><span class="pre">False</span></code> and some <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> input has a different placement,
+an exception will be raised. Default: False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">Callable</span></code> that applies <code class="docutils literal notranslate"><span class="pre">func</span></code> to each local shard of the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code>
+and returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> constructed from the return value of <code class="docutils literal notranslate"><span class="pre">func</span></code>.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.12)"><strong>AssertionError</strong></a> – If the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> is not placed on the same device
+    mesh, or if they are placed on a different device mesh than the <code class="docutils literal notranslate"><span class="pre">device_mesh</span></code>
+    argument passed in.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.12)"><strong>AssertionError</strong></a> – For any non-DTensor output, we require its corresponding
+    output placement in <code class="docutils literal notranslate"><span class="pre">out_placements</span></code> be None. An AssertionError will be raised
+    if this is not the case.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">redistribute_inputs=False</span></code> but the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> needs
+    a redistribution according to <code class="docutils literal notranslate"><span class="pre">in_placements</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mm_allreduce_forward</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">partial_sum_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">reduced_tensor</span> <span class="o">=</span> <span class="n">funcol</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">partial_sum_tensor</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">reduced_tensor</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row_wise</span> <span class="o">=</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>  <span class="c1"># row-wise sharding placements on 1-d mesh</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col_wise</span> <span class="o">=</span> <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>  <span class="c1"># col-wise sharding placements on 1-d mesh</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># local_mm_allreduce_forward is the function wrapped with DTensor/Tensor convertion</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">local_mm_allreduce_forward</span> <span class="o">=</span> <span class="n">local_map</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">mm_allreduce_forward</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">out_placements</span><span class="o">=</span><span class="p">[</span><span class="n">Replicate</span><span class="p">()],</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">in_placements</span><span class="o">=</span><span class="p">[</span><span class="n">col_wise</span><span class="p">,</span> <span class="n">row_wise</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">device_mesh</span><span class="o">=</span><span class="n">device_mesh</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">W_dt</span> <span class="o">=</span> <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">(</span><span class="n">col_wise</span><span class="p">))</span>  <span class="c1"># col-wisely sharded W tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_dt</span> <span class="o">=</span> <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="p">(</span><span class="n">row_wise</span><span class="p">))</span>  <span class="c1"># row-wisely sharded X tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y_dt</span> <span class="o">=</span> <span class="n">local_mm_allreduce_forward</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">,</span> <span class="n">W_dt</span><span class="p">,</span> <span class="n">X_dt</span><span class="p">)</span>  <span class="c1"># apply local_mm_allreduce_forward to DTensors</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This API is currently experimental and subject to change</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.distributed.tensor.experimental.register_sharding">
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.experimental.</span></span><span class="sig-name descname"><span class="pre">register_sharding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.distributed.tensor.experimental.register_sharding" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#torch.distributed.tensor.experimental.register_sharding" title="torch.distributed.tensor.experimental.register_sharding"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register_sharding()</span></code></a> is an experimental API that allows users to register sharding
+strategies for an operator when the tensor inputs and outputs are DTensor.
+It can be useful when: (1) there doesn’t exist a default sharding strategy for <code class="docutils literal notranslate"><span class="pre">op</span></code>,
+e.g. when <code class="docutils literal notranslate"><span class="pre">op</span></code> is a custom operator that is not supported by <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code>; (2)
+when users would like to overwrite default sharding strategies of existing operators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>op</strong> (<em>Union</em><em>[</em><em>OpOverload</em><em>, </em><em>List</em><em>[</em><em>OpOverload</em><em>]</em><em>]</em>) – An op or a list of ops to register the customized sharding function.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A function decorator which can be used to wrap a function that defines the sharding
+strategy for the operator specified in <code class="docutils literal notranslate"><span class="pre">op</span></code>. The defined sharding strategy will be
+registered to DTensor and will override the default sharding strategy if DTensor has
+already implemented the operator. The customized sharding function takes the same inputs
+as the original op (except that if an arg is a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>, it will be
+replaced by a tensor-like object that DTensor uses internally). The function should
+return a sequence of 2-tuples, each specifying acceptable output placements and its
+corresponding intput placements.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@register_sharding</span><span class="p">(</span><span class="n">aten</span><span class="o">.</span><span class="n">_softmax</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">custom_softmax_sharding</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">half_to_float</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">softmax_dim</span> <span class="o">=</span> <span class="n">dim</span> <span class="k">if</span> <span class="n">dim</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dim</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">acceptable_shardings</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">all_replicate</span> <span class="o">=</span> <span class="p">([</span><span class="n">Replicate</span><span class="p">()],</span> <span class="p">[</span><span class="n">Replicate</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">acceptable_shardings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">all_replicate</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">for</span> <span class="n">sharding_dim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">if</span> <span class="n">sharding_dim</span> <span class="o">!=</span> <span class="n">softmax_dim</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">all_sharded</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>                <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="n">sharding_dim</span><span class="p">)],</span>
+<span class="gp">&gt;&gt;&gt; </span>                <span class="p">[</span><span class="n">Shard</span><span class="p">(</span><span class="n">sharding_dim</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">acceptable_shardings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">all_sharded</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">return</span> <span class="n">acceptable_shardings</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This API is currently experimental and subject to change</p>
+</div>
+</dd></dl>
+
+<span class="target" id="module-torch.distributed.tensor.device_mesh"></span></div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="distributed.algorithms.join.html" class="btn btn-neutral float-right" title="Generic Join Context Manager" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="distributed.html" class="btn btn-neutral" title="Distributed communication package - torch.distributed" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, PyTorch Contributors.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+<script>
+
+var match = window.location.href.match(/\/_[a-zA-Z0-9_]*.html|_dynamo/gi);
+var url = window.location.href.lastIndexOf(match[match.length-1]);
+
+if (url)
+  {
+    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-exclamation-circle" aria-hidden="true">&nbsp</i> This page describes an internal API which is not intended to be used outside of the PyTorch codebase and can be modified or removed without notice.</p></div>'
+    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
+  }
+</script>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torch.distributed.tensor</a><ul>
+<li><a class="reference internal" href="#pytorch-dtensor-distributed-tensor">PyTorch DTensor (Distributed Tensor)</a><ul>
+<li><a class="reference internal" href="#dtensor-class-apis">DTensor Class APIs</a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.DTensor"><code class="docutils literal notranslate"><span class="pre">DTensor</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.DTensor.device_mesh"><code class="docutils literal notranslate"><span class="pre">DTensor.device_mesh</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.DTensor.from_local"><code class="docutils literal notranslate"><span class="pre">DTensor.from_local()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.DTensor.full_tensor"><code class="docutils literal notranslate"><span class="pre">DTensor.full_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.DTensor.placements"><code class="docutils literal notranslate"><span class="pre">DTensor.placements</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.DTensor.redistribute"><code class="docutils literal notranslate"><span class="pre">DTensor.redistribute()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.DTensor.to_local"><code class="docutils literal notranslate"><span class="pre">DTensor.to_local()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#devicemesh-as-the-distributed-communicator">DeviceMesh as the distributed communicator</a></li>
+<li><a class="reference internal" href="#module-torch.distributed.tensor.placement_types">DTensor Placement Types</a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Shard"><code class="docutils literal notranslate"><span class="pre">Shard</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Shard.dim"><code class="docutils literal notranslate"><span class="pre">Shard.dim</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Replicate"><code class="docutils literal notranslate"><span class="pre">Replicate</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Partial"><code class="docutils literal notranslate"><span class="pre">Partial</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Partial.reduce_op"><code class="docutils literal notranslate"><span class="pre">Partial.reduce_op</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Placement"><code class="docutils literal notranslate"><span class="pre">Placement</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Placement.is_partial"><code class="docutils literal notranslate"><span class="pre">Placement.is_partial()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Placement.is_replicate"><code class="docutils literal notranslate"><span class="pre">Placement.is_replicate()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.placement_types.Placement.is_shard"><code class="docutils literal notranslate"><span class="pre">Placement.is_shard()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#different-ways-to-create-a-dtensor">Different ways to create a DTensor</a><ul>
+<li><a class="reference internal" href="#create-dtensor-from-a-logical-torch-tensor">Create DTensor from a logical torch.Tensor</a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.distribute_tensor"><code class="docutils literal notranslate"><span class="pre">distribute_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.distribute_module"><code class="docutils literal notranslate"><span class="pre">distribute_module()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dtensor-factory-functions">DTensor Factory Functions</a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.zeros"><code class="docutils literal notranslate"><span class="pre">zeros()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.ones"><code class="docutils literal notranslate"><span class="pre">ones()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.empty"><code class="docutils literal notranslate"><span class="pre">empty()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.full"><code class="docutils literal notranslate"><span class="pre">full()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.rand"><code class="docutils literal notranslate"><span class="pre">rand()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.randn"><code class="docutils literal notranslate"><span class="pre">randn()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-torch.distributed.tensor.debug">Debugging</a><ul>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+<li><a class="reference internal" href="#debugging-tools">Debugging Tools</a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode"><code class="docutils literal notranslate"><span class="pre">CommDebugMode</span></code></a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode.generate_comm_debug_tracing_table"><code class="docutils literal notranslate"><span class="pre">CommDebugMode.generate_comm_debug_tracing_table()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode.generate_json_dump"><code class="docutils literal notranslate"><span class="pre">CommDebugMode.generate_json_dump()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode.get_comm_counts"><code class="docutils literal notranslate"><span class="pre">CommDebugMode.get_comm_counts()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode.get_parameter_info"><code class="docutils literal notranslate"><span class="pre">CommDebugMode.get_parameter_info()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode.get_sharding_info"><code class="docutils literal notranslate"><span class="pre">CommDebugMode.get_sharding_info()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode.get_total_counts"><code class="docutils literal notranslate"><span class="pre">CommDebugMode.get_total_counts()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.CommDebugMode.log_comm_debug_tracing_table_to_file"><code class="docutils literal notranslate"><span class="pre">CommDebugMode.log_comm_debug_tracing_table_to_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#torch.distributed.tensor.debug.visualize_sharding"><code class="docutils literal notranslate"><span class="pre">visualize_sharding()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#experimental-features">Experimental Features</a><ul>
+<li><a class="reference internal" href="#torch.distributed.tensor.experimental.local_map"><code class="docutils literal notranslate"><span class="pre">local_map()</span></code></a></li>
+<li><a class="reference internal" href="#torch.distributed.tensor.experimental.register_sharding"><code class="docutils literal notranslate"><span class="pre">register_sharding()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/sphinx_highlight.js"></script>
+         <script src="_static/clipboard.min.js"></script>
+         <script src="_static/copybutton.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['Developer Notes', 'Language Bindings', 'Libraries', 'Community'];
+</script>
+
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/795629140/?label=txkmCPmdtosBENSssfsC&amp;guid=ON&amp;script=0"/>
+
+
+  <!-- Begin Footer -->
+
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h2>Docs</h2>
+          <p>Access comprehensive developer documentation for PyTorch</p>
+          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Tutorials</h2>
+          <p>Get in-depth tutorials for beginners and advanced developers</p>
+          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Resources</h2>
+          <p>Find development resources and get your questions answered</p>
+          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="https://pytorch.org/" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+            <li><a href="https://pytorch.org/features">Features</a></li>
+            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+            <li><a href="https://pytorch.org/blog/">Blog</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">Stay up to date</li>
+            <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+            <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+            <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+          </ul>  
+          </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">PyTorch Podcasts</li>
+            <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+            <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+            <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+            <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+          </ul>
+         </div>
+        </div>
+        
+        <div class="privacy-policy">
+          <ul>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
+            <li class="privacy-policy-links">|</li>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+        <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+          <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
+          project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
+          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+      </div>
+     </div>
+
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+           <li class="resources-mobile-menu-title">
+             <a>Learn</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/get-started">Get Started</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials">Tutorials</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+             </li>
+           </ul>
+           <li class="resources-mobile-menu-title">
+             <a>Ecosystem</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/ecosystem">Tools</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/#community-module">Community</a>
+             </li>
+             <li>
+               <a href="https://discuss.pytorch.org/">Forums</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/resources">Developer Resources</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2023</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Edge</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+             </li>
+             
+             <li>
+               <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Docs</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+            </li>
+          </ul>
+
+          <li class="resources-mobile-menu-title">
+            <a>Blog & News</a>
+          </li>
+            
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/community-blog">Community Blog</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/videos">Videos</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/community-stories">Community Stories</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/events">Events</a>
+            </li>
+          </ul>
+          
+          <li class="resources-mobile-menu-title">
+            <a>About</a>
+          </li>
+
+          <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

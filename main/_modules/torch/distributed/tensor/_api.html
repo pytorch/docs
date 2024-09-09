@@ -1,0 +1,2101 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta name="robots" content="noindex">
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torch.distributed.tensor._api &mdash; PyTorch main documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://pytorch.org/docs/stable/_modules/torch/distributed/tensor/_api.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/katex-math.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sphinx-dropdown.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/panels-bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/jit.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+
+<!--
+  Search engines should not index the main version of documentation.
+  Stable documentation are built without release == 'main'.
+-->
+<meta name="robots" content="noindex">
+
+
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
+    <!-- End Google Tag Manager -->
+  
+
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Learn
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                  <span class=dropdown-title>Get Started</span>
+                  <p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                  <p>Whats new in PyTorch tutorials</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                  <p>Familiarize yourself with PyTorch concepts and modules</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                  <p>Bite-size, ready-to-deploy PyTorch code examples</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                  <p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Ecosystem
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+                  <span class="dropdown-title">Tools</span>
+                  <p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
+                  <span class=dropdown-title>Community</span>
+                  <p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
+                  <span class=dropdown-title>Forums</span>
+                  <p>A place to discuss PyTorch code, issues, install, research</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                  <p>Find resources and get questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2023">
+                  <span class="dropdown-title">Contributor Awards - 2023</span>
+                  <p>Award winners announced at this year's PyTorch Conference</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Edge
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/edge">
+                  <span class="dropdown-title">About PyTorch Edge</span>
+                  <p>Build innovative and privacy-aware AI experiences for edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
+                  <span class="dropdown-title">ExecuTorch</span>
+                  <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+              </div>
+            </div>  
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Docs
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                  <p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                  <span class="dropdown-title">PyTorch Domains</span>
+                  <p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Blogs & News 
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">PyTorch Blog</span>
+                  <p>Catch up on the latest technical news and happenings</p>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
+                  <span class="dropdown-title">Community Blog</span>
+                  <p>Stories from the PyTorch ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/videos">
+                  <span class="dropdown-title">Videos</span>
+                  <p>Learn about the latest PyTorch tutorials, new, and more </p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
+                  <span class="dropdown-title">Community Stories</span>
+                  <p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                  <p>Find events, webinars, and podcasts</p>
+                </a>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                About
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                  <p>Learn more about the PyTorch Foundation</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                  <p></p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown">
+              <a href="https://pytorch.org/join" data-cta="join">
+                Become a Member
+              </a>
+            </div>
+          </li>
+          <li>
+           <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="github-icon">
+             </a>
+           </div>
+          </li>
+          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <li>
+            <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="search-icon">
+             </a>
+            </div>
+          </li>
+          --->
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+  </div>
+</div>
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+    <div class="version">
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdefb515 ) &#x25BC</a>
+    </div>
+    
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          </div>
+
+          
+
+<div>
+  <a style="color:#F05732" href="https://pytorch.org/docs/stable/_modules/torch/distributed/tensor/_api.html">
+    You are viewing unstable developer preview docs.
+    Click here to view docs for latest stable release.
+  </a>
+</div>
+
+
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/mps.html">MPS backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/windows.html">Windows FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp_index.html">C++</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../deploy.html">torch::deploy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch.html">torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tensors.html">torch.Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tensor_attributes.html">Tensor Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tensor_view.html">Tensor Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../amp.html">torch.amp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autograd.html">torch.autograd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../library.html">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpu.html">torch.cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cuda.html">torch.cuda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../meta.html">Meta device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../backends.html">torch.backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../export.html">torch.export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.elastic.html">torch.distributed.elastic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch.compiler.html">torch.compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../func.html">torch.func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../futures.html">torch.futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hub.html">torch.hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../jit.html">torch.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../linalg.html">torch.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../monitor.html">torch.monitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signal.html">torch.signal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../special.html">torch.special</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../package.html">torch.package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../profiler.html">torch.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.init.html">torch.nn.init</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nn.attention.html">torch.nn.attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../onnx.html">torch.onnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../complex_numbers.html">Complex Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../rpc.html">Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../random.html">torch.random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../masked.html">torch.masked</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../size.html">torch.Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sparse.html">torch.sparse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../storage.html">torch.Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../testing.html">torch.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bottleneck.html">torch.utils.bottleneck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../checkpoint.html">torch.utils.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp_extension.html">torch.utils.cpp_extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data.html">torch.utils.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../deterministic.html">torch.utils.deterministic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../dlpack.html">torch.utils.dlpack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../model_zoo.html">torch.utils.model_zoo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../module_tracker.html">torch.utils.module_tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../type_info.html">Type Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../named_tensor.html">Named Tensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../name_inference.html">Named Tensors operator coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../future_mod.html">torch.__future__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../torch_environment_variables.html">Torch Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/audio/stable">torchaudio</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/data">TorchData</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/torchrec">TorchRec</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/serve">TorchServe</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/text/stable">torchtext</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/vision/stable">torchvision</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/xla/">PyTorch on XLA Devices</a></li>
+</ul>
+
+            
+          
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../../../torch.html">torch</a> &gt;</li>
+        
+          <li><a href="../../distributed.html">torch.distributed</a> &gt;</li>
+        
+          <li><a href="../tensor.html">torch.distributed.tensor</a> &gt;</li>
+        
+      <li>torch.distributed.tensor._api</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+
+          <!-- Google Tag Manager (noscript) -->
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          <!-- End Google Tag Manager (noscript) -->
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for torch.distributed.tensor._api</h1><div class="highlight"><pre>
+<span></span><span class="c1"># mypy: allow-untyped-decorators</span>
+<span class="c1"># mypy: allow-untyped-defs</span>
+<span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.distributed.tensor._dispatch</span> <span class="k">as</span> <span class="nn">op_dispatch</span>
+<span class="kn">import</span> <span class="nn">torch.distributed.tensor._random</span> <span class="k">as</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.device_mesh</span> <span class="kn">import</span> <span class="n">_mesh_resources</span><span class="p">,</span> <span class="n">DeviceMesh</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.tensor._collective_utils</span> <span class="kn">import</span> <span class="n">check_tensor_meta</span><span class="p">,</span> <span class="n">mesh_broadcast</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.tensor._dtensor_spec</span> <span class="kn">import</span> <span class="n">DTensorSpec</span><span class="p">,</span> <span class="n">TensorMeta</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.tensor._random</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">is_rng_supported_mesh</span><span class="p">,</span>
+    <span class="n">OffsetBasedRNGTracker</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.tensor._redistribute</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Redistribute</span><span class="p">,</span>
+    <span class="n">redistribute_local_tensor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.tensor._utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">compute_global_tensor_info</span><span class="p">,</span>
+    <span class="n">compute_local_shape</span><span class="p">,</span>
+    <span class="n">normalize_to_torch_size</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.tensor.placement_types</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Partial</span><span class="p">,</span>
+    <span class="n">Placement</span><span class="p">,</span>
+    <span class="n">Replicate</span><span class="p">,</span>
+    <span class="n">Shard</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;DTensor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;distribute_tensor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;distribute_module&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ones&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;empty&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;full&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rand&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;randn&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">aten</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span>
+
+
+<span class="c1"># NOTE [Autograd interaction between torch.Tensor]</span>
+<span class="c1">#</span>
+<span class="c1"># The autograd functions defined below are being used by the public</span>
+<span class="c1"># facing APIs (i.e. from_local, to_local) to ensure DTensor to work</span>
+<span class="c1"># together with torch.Tensor within the autograd engine. This</span>
+<span class="c1"># allows DTensor to only exist on part of the module hierarchy.</span>
+<span class="c1">#</span>
+<span class="c1"># As an example, we have the a module that consists of submodules</span>
+<span class="c1"># A, B, and C, the execution flow would be like:</span>
+<span class="c1">#  input(torch.Tensor) -&gt; Module A -&gt; Module B -&gt; Module C -&gt; output (torch.Tensor)</span>
+<span class="c1">#</span>
+<span class="c1"># Suppose I only want to make Module B be a sharded module with</span>
+<span class="c1"># DTensor params, the following forward/backward should work:</span>
+<span class="c1">#</span>
+<span class="c1">#  input(torch.Tensor) -&gt; Module A</span>
+<span class="c1">#       -&gt; DTensor input (from_local) -&gt; Sharded Module B -&gt; DTensor output</span>
+<span class="c1">#           -&gt; torch.Tensor output (to_local) -&gt; Module C</span>
+<span class="c1">#</span>
+<span class="c1"># So from_local/to_local must be Autograd functions.</span>
+<span class="c1">#</span>
+<span class="k">class</span> <span class="nc">_ToTorchTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
+        <span class="n">ctx</span><span class="p">,</span>
+        <span class="nb">input</span><span class="p">:</span> <span class="s2">&quot;DTensor&quot;</span><span class="p">,</span>
+        <span class="n">grad_placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]],</span>
+    <span class="p">):</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">dtensor_spec</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">_spec</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">grad_placements</span> <span class="o">=</span> <span class="n">grad_placements</span>
+        <span class="n">local_tensor</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">_local_tensor</span>
+
+        <span class="c1"># We need to return a fresh Tensor object there as autograd metadata</span>
+        <span class="c1"># will be inplaced into it. So we don&#39;t want to pollute the Tensor</span>
+        <span class="c1"># object stored in the _local_tensor of this DTensor.</span>
+        <span class="k">return</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">view_as</span><span class="p">(</span><span class="n">local_tensor</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>  <span class="c1"># type: ignore[override]</span>
+        <span class="n">dtensor_spec</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">dtensor_spec</span>
+        <span class="n">mesh</span> <span class="o">=</span> <span class="n">dtensor_spec</span><span class="o">.</span><span class="n">mesh</span>
+        <span class="n">grad_placements</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">grad_placements</span>
+        <span class="n">dtensor_meta</span> <span class="o">=</span> <span class="n">dtensor_spec</span><span class="o">.</span><span class="n">tensor_meta</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">tensor_stride</span> <span class="o">=</span> <span class="n">compute_global_tensor_info</span><span class="p">(</span>
+            <span class="n">grad_output</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">dtensor_spec</span><span class="o">.</span><span class="n">placements</span>
+        <span class="p">)</span>
+        <span class="n">tensor_stride</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">tensor_stride</span><span class="p">)</span>
+        <span class="n">grad_placements</span> <span class="o">=</span> <span class="n">grad_placements</span> <span class="ow">or</span> <span class="n">dtensor_spec</span><span class="o">.</span><span class="n">placements</span>
+        <span class="n">grad_spec</span> <span class="o">=</span> <span class="n">DTensorSpec</span><span class="p">(</span>
+            <span class="n">mesh</span><span class="p">,</span>
+            <span class="n">grad_placements</span><span class="p">,</span>
+            <span class="n">tensor_meta</span><span class="o">=</span><span class="n">TensorMeta</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="n">dtensor_meta</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="n">stride</span><span class="o">=</span><span class="n">tensor_stride</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">dtensor_meta</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">DTensor</span><span class="p">(</span>
+                <span class="n">grad_output</span><span class="p">,</span>
+                <span class="n">grad_spec</span><span class="p">,</span>
+                <span class="n">requires_grad</span><span class="o">=</span><span class="n">grad_output</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_FromTorchTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
+        <span class="n">ctx</span><span class="p">,</span>  <span class="c1"># pyre-ignore[2]: Parameter must be annotated.</span>
+        <span class="nb">input</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">,</span>
+        <span class="n">placements</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">run_check</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DTensor&quot;</span><span class="p">:</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">previous_placement</span> <span class="o">=</span> <span class="n">placements</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">previous_device_mesh</span> <span class="o">=</span> <span class="n">device_mesh</span>
+
+        <span class="k">if</span> <span class="n">shape</span> <span class="ow">and</span> <span class="n">stride</span><span class="p">:</span>
+            <span class="n">tensor_shape</span><span class="p">,</span> <span class="n">tensor_stride</span> <span class="o">=</span> <span class="n">shape</span><span class="p">,</span> <span class="n">stride</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">shape</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">stride</span><span class="p">:</span>
+            <span class="c1"># if it&#39;s not by default run_check, we assume user is certain that each</span>
+            <span class="c1"># rank has the same tensor shape, and we just use that to calculate the</span>
+            <span class="c1"># global shape</span>
+            <span class="n">global_shape</span><span class="p">,</span> <span class="n">global_stride</span> <span class="o">=</span> <span class="n">compute_global_tensor_info</span><span class="p">(</span>
+                <span class="nb">input</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">placements</span>
+            <span class="p">)</span>
+            <span class="n">tensor_shape</span><span class="p">,</span> <span class="n">tensor_stride</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">(</span><span class="n">global_shape</span><span class="p">),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">global_stride</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Found shape:</span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2">, stride:</span><span class="si">{</span><span class="n">stride</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Please pass both shape and stride at the same time.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">get_coordinate</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># if the global rank is not participating in the device mesh, we</span>
+            <span class="c1"># simply set the local tensor to an empty tensor</span>
+            <span class="nb">input</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="nb">input</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">run_check</span><span class="p">:</span>
+            <span class="c1"># TODO: support uneven sharding when global shape/stride not passed, by</span>
+            <span class="c1"># building the global TensorMeta during check_tensor_meta</span>
+            <span class="n">check_shape_stride</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">shape</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">stride</span>
+            <span class="n">check_tensor_meta</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">check_shape_stride</span><span class="o">=</span><span class="n">check_shape_stride</span><span class="p">)</span>
+            <span class="c1"># TODO: See if we need to make this run_check logic</span>
+            <span class="c1"># have a corresponding backward.</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">placement</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">placements</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">placement</span><span class="o">.</span><span class="n">is_replicate</span><span class="p">():</span>
+                    <span class="c1"># broadcast rank 0 tensor to all ranks</span>
+                    <span class="c1"># only broadcast if run_check is True</span>
+                    <span class="nb">input</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+                    <span class="n">mesh_broadcast</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">mesh_dim</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+
+        <span class="n">dist_spec</span> <span class="o">=</span> <span class="n">DTensorSpec</span><span class="p">(</span>
+            <span class="n">device_mesh</span><span class="p">,</span>
+            <span class="n">placements</span><span class="p">,</span>
+            <span class="n">tensor_meta</span><span class="o">=</span><span class="n">TensorMeta</span><span class="p">(</span>
+                <span class="n">tensor_shape</span><span class="p">,</span>
+                <span class="n">tensor_stride</span><span class="p">,</span>
+                <span class="nb">input</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We want a fresh Tensor object that shares memory with the input tensor</span>
+        <span class="n">dist_tensor</span> <span class="o">=</span> <span class="n">DTensor</span><span class="p">(</span>
+            <span class="nb">input</span><span class="o">.</span><span class="n">view_as</span><span class="p">(</span><span class="nb">input</span><span class="p">),</span>
+            <span class="n">dist_spec</span><span class="p">,</span>
+            <span class="c1"># requires_grad of the dist tensor depends on if input</span>
+            <span class="c1"># requires_grad or not</span>
+            <span class="n">requires_grad</span><span class="o">=</span><span class="nb">input</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">dist_tensor</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">:</span> <span class="s2">&quot;DTensor&quot;</span><span class="p">):</span>  <span class="c1"># type: ignore[override]</span>
+        <span class="n">previous_placement</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">previous_placement</span>
+        <span class="n">previous_device_mesh</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">previous_device_mesh</span>
+
+        <span class="c1"># reshard to the placement when creating DistributedTensor</span>
+        <span class="c1"># so that the gradient layout matches, and we could return</span>
+        <span class="c1"># local gradients directly</span>
+        <span class="k">if</span> <span class="n">grad_output</span><span class="o">.</span><span class="n">placements</span> <span class="o">!=</span> <span class="n">previous_placement</span><span class="p">:</span>
+            <span class="n">current_spec</span> <span class="o">=</span> <span class="n">grad_output</span><span class="o">.</span><span class="n">_spec</span>
+            <span class="n">target_spec</span> <span class="o">=</span> <span class="n">DTensorSpec</span><span class="p">(</span>
+                <span class="n">previous_device_mesh</span><span class="p">,</span>
+                <span class="n">previous_placement</span><span class="p">,</span>
+                <span class="n">tensor_meta</span><span class="o">=</span><span class="n">grad_output</span><span class="o">.</span><span class="n">_spec</span><span class="o">.</span><span class="n">tensor_meta</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">grad_output</span><span class="o">.</span><span class="n">_local_tensor</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">redistribute_local_tensor</span><span class="p">(</span>
+                <span class="n">local_tensor</span><span class="p">,</span> <span class="n">current_spec</span><span class="p">,</span> <span class="n">target_spec</span><span class="p">,</span> <span class="n">is_backward</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="c1"># TODO: return the redistributed local tensor directly without</span>
+            <span class="c1"># differentiable backward. see if this make sense for all cases.</span>
+            <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># TODO: backward is also differentiable now, add a test</span>
+        <span class="c1"># to test higher level gradients.</span>
+        <span class="k">return</span> <span class="n">grad_output</span><span class="o">.</span><span class="n">to_local</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<span class="k">class</span> <span class="nc">DTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``DTensor`` (Distributed Tensor) is a subclass of ``torch.Tensor`` that provides single-device like</span>
+<span class="sd">    abstraction to program with multi-device ``torch.Tensor``. It describes the distributed tensor sharding</span>
+<span class="sd">    layout (DTensor Layout) through the :class:`DeviceMesh` and following types of :class:`Placement`:</span>
+
+<span class="sd">    * :class:`Shard`: Tensor sharded on the tensor dimension ``dim`` on the devices of the ``DeviceMesh`` dimension</span>
+<span class="sd">    * :class:`Replicate`: Tensor replicated on the devices of the ``DeviceMesh`` dimension</span>
+<span class="sd">    * :class:`Partial`: Tensor is pending reduction on the devices of the ``DeviceMesh`` dimension</span>
+
+<span class="sd">    When calling PyTorch operators, ``DTensor`` overrides the PyTorch operators to perform sharded computation and issue</span>
+<span class="sd">    communications whenever necessary. Along with the operator computation, ``DTensor`` will transform or propagate the</span>
+<span class="sd">    placements (DTensor Layout) properly (based on the operator semantic itself) and generate new ``DTensor`` outputs.</span>
+
+<span class="sd">    To ensure numerical correctness of the ``DTensor`` sharded computation when calling PyTorch operators, ``DTensor``</span>
+<span class="sd">    requires every Tensor argument of the operator be DTensor.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_local_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+    <span class="n">_spec</span><span class="p">:</span> <span class="n">DTensorSpec</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_local_tensor&quot;</span><span class="p">,</span> <span class="s2">&quot;_spec&quot;</span><span class="p">]</span>
+
+    <span class="c1"># _op_dispatcher instance as a class attribute to handle runtime dispatching logic</span>
+    <span class="n">_op_dispatcher</span><span class="p">:</span> <span class="n">op_dispatch</span><span class="o">.</span><span class="n">OpDispatcher</span> <span class="o">=</span> <span class="n">op_dispatch</span><span class="o">.</span><span class="n">OpDispatcher</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@torch</span><span class="o">.</span><span class="n">_disable_dynamo</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">local_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">spec</span><span class="p">:</span> <span class="n">DTensorSpec</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DTensor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a DTensor from a local tensor, device mesh, and placement and</span>
+<span class="sd">        other tensor properties (i.e. shape, requires_grad, strides, etc).</span>
+
+<span class="sd">        .. note:: This is not a public API and it&#39;s only supposed to be used by the</span>
+<span class="sd">            operator implementations and internals. If you want to construct a</span>
+<span class="sd">            DTensor from a local tensor, consider using ``DTensor.from_local``, if</span>
+<span class="sd">            you want to construct a DTensor from a &quot;global&quot; tensor (where you</span>
+<span class="sd">            already have tensor initialized and want to shard this tensor),</span>
+<span class="sd">            consider using ``distribute_tensor``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">requires_grad</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">requires_grad</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;To construct DTensor from torch.Tensor, it&#39;s recommended to &quot;</span>
+                <span class="s2">&quot;use local_tensor.detach() and make requires_grad consistent.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># new method instruct wrapper tensor from local_tensor and add</span>
+        <span class="c1"># placement spec, it does not do actual distribution</span>
+        <span class="k">assert</span> <span class="n">spec</span><span class="o">.</span><span class="n">tensor_meta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;TensorMeta should not be None!&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">_make_wrapper_subclass</span><span class="p">(</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="bp">cls</span><span class="p">,</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">tensor_meta</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="n">strides</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">tensor_meta</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">local_tensor</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">local_tensor</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+            <span class="n">layout</span><span class="o">=</span><span class="n">local_tensor</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span>
+            <span class="n">requires_grad</span><span class="o">=</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">r</span><span class="o">.</span><span class="n">_spec</span> <span class="o">=</span> <span class="n">spec</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">_local_tensor</span> <span class="o">=</span> <span class="n">local_tensor</span>
+        <span class="k">return</span> <span class="n">r</span>
+
+    <span class="c1"># pyre-fixme[14]: `__repr__` overrides method defined in `DTensor` inconsistently.</span>
+    <span class="c1"># pyre-fixme[3]: Return type must be annotated.</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: consider all_gather the local tensors for better debugging</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DTensor(local_tensor=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="si">}</span><span class="s2">, device_mesh=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_spec</span><span class="o">.</span><span class="n">mesh</span><span class="si">}</span><span class="s2">, placements=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_spec</span><span class="o">.</span><span class="n">placements</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__tensor_flatten__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        protocol to inform how to flatten a DTensor to local tensor</span>
+<span class="sd">        for PT2 tracing</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;_local_tensor&quot;</span><span class="p">],</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_spec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__tensor_unflatten__</span><span class="p">(</span><span class="n">inner_tensors</span><span class="p">,</span> <span class="n">flatten_spec</span><span class="p">,</span> <span class="n">outer_size</span><span class="p">,</span> <span class="n">outer_stride</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">flatten_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">),</span> <span class="s2">&quot;Expecting spec to be not None from `__tensor_flatten__` return value!&quot;</span>
+        <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">inner_tensors</span><span class="p">[</span><span class="s2">&quot;_local_tensor&quot;</span><span class="p">]</span>
+        <span class="n">spec</span><span class="p">,</span> <span class="n">requires_grad</span> <span class="o">=</span> <span class="n">flatten_spec</span>
+        <span class="n">unflatten_tensor_meta</span> <span class="o">=</span> <span class="n">TensorMeta</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">outer_size</span><span class="p">,</span>
+            <span class="n">stride</span><span class="o">=</span><span class="n">outer_stride</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">tensor_meta</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">unflatten_spec</span> <span class="o">=</span> <span class="n">DTensorSpec</span><span class="p">(</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">placements</span><span class="p">,</span>
+            <span class="n">tensor_meta</span><span class="o">=</span><span class="n">unflatten_tensor_meta</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">DTensor</span><span class="p">(</span>
+            <span class="n">local_tensor</span><span class="p">,</span>
+            <span class="n">unflatten_spec</span><span class="p">,</span>
+            <span class="n">requires_grad</span><span class="o">=</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__coerce_tangent_metadata__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Partial</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">placements</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="n">placements</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Replicate</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Partial</span><span class="p">)</span> <span class="k">else</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">placements</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device_mesh</span><span class="p">,</span> <span class="n">placements</span><span class="o">=</span><span class="n">placements</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__coerce_same_metadata_as_tangent__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flatten_spec</span><span class="p">):</span>
+        <span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">flatten_spec</span>  <span class="c1"># Result of tensor_flatten()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span>
+            <span class="n">device_mesh</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device_mesh</span><span class="p">,</span>
+            <span class="n">placements</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">placements</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="nd">@torch</span><span class="o">.</span><span class="n">_disable_dynamo</span>
+    <span class="c1"># pyre-fixme[3]: Return type must be annotated.</span>
+    <span class="c1"># pyre-fixme[2]: Parameter must be annotated.</span>
+    <span class="k">def</span> <span class="nf">__torch_dispatch__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DTensor</span><span class="o">.</span><span class="n">_op_dispatcher</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
+            <span class="n">func</span><span class="p">,</span>
+            <span class="n">args</span><span class="p">,</span>
+            <span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{},</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="DTensor.from_local"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.DTensor.from_local">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_local</span><span class="p">(</span>
+        <span class="n">local_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">run_check</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">stride</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DTensor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a :class:`DTensor` from a local torch.Tensor on each rank</span>
+<span class="sd">        according to the ``device_mesh`` and ``placements`` specified.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            local_tensor (torch.Tensor): local torch.Tensor on each rank.</span>
+<span class="sd">            device_mesh (:class:`DeviceMesh`, optional): DeviceMesh to place the</span>
+<span class="sd">                tensor, if not specified, must be called under a DeviceMesh</span>
+<span class="sd">                context manager, default: None</span>
+<span class="sd">            placements (List[:class:`Placement`], optional): the placements that</span>
+<span class="sd">                describes how to place the local torch.Tensor on DeviceMesh, must</span>
+<span class="sd">                have the same number of elements as ``device_mesh.ndim``.</span>
+
+<span class="sd">        Keyword args:</span>
+<span class="sd">            run_check (bool, optional): at a cost of extra communications, perform</span>
+<span class="sd">                sanity check across ranks to check each local tensor&#39;s meta information</span>
+<span class="sd">                to ensure correctness. If have :class:`Replicate` in ``placements``, the</span>
+<span class="sd">                data on first rank of the device mesh dimension will be broadcasted</span>
+<span class="sd">                to other ranks. default: False</span>
+<span class="sd">            shape (torch.Size, optional): A List of int which specifies the size of</span>
+<span class="sd">                DTensor which build on top of `local_tensor`. Note this needs to be</span>
+<span class="sd">                provided if the shape of ``local_tensor`` are different across the ranks.</span>
+<span class="sd">                If not provided, ``shape`` will be computed assuming the given distributed</span>
+<span class="sd">                tensor is evenly sharded across ranks. default: None</span>
+<span class="sd">            stride (tuple, optional): A List of int which specifies the stride of DTensor.</span>
+<span class="sd">                If not provided, ``stride`` will be computed assuming the given distributed</span>
+<span class="sd">                tensor is evenly sharded across ranks. default: None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A :class:`DTensor` object</span>
+
+<span class="sd">        .. note:: When ``run_check=False``, it is the user&#39;s responsibility to ensure the</span>
+<span class="sd">            local tensor passed in is correct across ranks (i.e. the tensor is sharded for</span>
+<span class="sd">            the ``Shard(dim)`` placement or replicated for the ``Replicate()`` placement).</span>
+<span class="sd">            If not, the behavior of the created DTensor is undefined.</span>
+
+<span class="sd">        .. note:: ``from_local`` is differentiable, the `requires_grad` of the created</span>
+<span class="sd">            `DTensor` object will depend on if `local_tensor` requires_grad or not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># if same shape/dtype, no need to run_check, if not, must allgather</span>
+        <span class="c1"># the metadatas to check the size/dtype across ranks</span>
+        <span class="c1"># There should be no data communication unless there&#39;s replication</span>
+        <span class="c1"># strategy, where we broadcast the replication from the first rank</span>
+        <span class="c1"># in the mesh dimension</span>
+        <span class="n">device_mesh</span> <span class="o">=</span> <span class="n">device_mesh</span> <span class="ow">or</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">get_current_mesh</span><span class="p">()</span>
+        <span class="n">device_type</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">device_type</span>
+
+        <span class="c1"># convert the local tensor to desired device base on device mesh&#39;s device_type</span>
+        <span class="k">if</span> <span class="n">device_type</span> <span class="o">!=</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">is_meta</span><span class="p">:</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device_type</span><span class="p">)</span>
+
+        <span class="c1"># set default placements to replicated if not specified</span>
+        <span class="k">if</span> <span class="n">placements</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">placements</span> <span class="o">=</span> <span class="p">[</span><span class="n">Replicate</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">ndim</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">placements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">placements</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">placement</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">placements</span><span class="p">):</span>
+                <span class="c1"># normalize shard dim to be positive</span>
+                <span class="k">if</span> <span class="n">placement</span><span class="o">.</span><span class="n">is_shard</span><span class="p">():</span>
+                    <span class="n">placement</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Shard</span><span class="p">,</span> <span class="n">placement</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">placement</span><span class="o">.</span><span class="n">dim</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">placements</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">Shard</span><span class="p">(</span><span class="n">placement</span><span class="o">.</span><span class="n">dim</span> <span class="o">+</span> <span class="n">local_tensor</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+
+        <span class="c1"># `from_local` is differentiable, and the gradient of the dist tensor this function</span>
+        <span class="c1"># created should flow back the gradients to the local_tensor, so we call an autograd</span>
+        <span class="c1"># function to construct the dist tensor instead.</span>
+        <span class="k">return</span> <span class="n">_FromTorchTensor</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>  <span class="c1"># pyre-ignore[16]: autograd func</span>
+            <span class="n">local_tensor</span><span class="p">,</span>
+            <span class="n">device_mesh</span><span class="p">,</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">placements</span><span class="p">),</span>
+            <span class="n">run_check</span><span class="p">,</span>
+            <span class="n">shape</span><span class="p">,</span>
+            <span class="n">stride</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DTensor.to_local"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.DTensor.to_local">[docs]</a>    <span class="k">def</span> <span class="nf">to_local</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">grad_placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the local tensor of this DTensor on its current rank. For sharding it returns</span>
+<span class="sd">        a local shard of the logical tensor view, for replication it returns the replica on</span>
+<span class="sd">        its current rank.</span>
+
+<span class="sd">        Keyword args:</span>
+<span class="sd">            grad_placements (List[:class:`Placement`], optional): the placements describes</span>
+<span class="sd">                the future layout of any gradient layout of the Tensor returned from this</span>
+<span class="sd">                function.</span>
+<span class="sd">                `to_local` converts DTensor to local tensor and the returned local tensor</span>
+<span class="sd">                might not be used as the original DTensor layout later in the code. This</span>
+<span class="sd">                argument is the hint that user can give to autograd in case the gradient</span>
+<span class="sd">                layout of the returned tensor does not match the original DTensor layout.</span>
+<span class="sd">                If not specified, we will assume the gradient layout remains the same</span>
+<span class="sd">                as the original DTensor and use that for gradient computation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A :class:`torch.Tensor` or ``AsyncCollectiveTensor`` object. it represents the</span>
+<span class="sd">            local tensor on its current rank. When an ``AsyncCollectiveTensor`` object is returned,</span>
+<span class="sd">            it means the local tensor is not ready yet (i.e. communication is not finished). In this</span>
+<span class="sd">            case, user needs to call ``wait`` to wait the local tensor to be ready.</span>
+
+<span class="sd">        .. note:: ``to_local`` is differentiable, the ``requires_grad`` of the local tensor returned</span>
+<span class="sd">            will depend on if the `DTensor` requires_grad or not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_grad_enabled</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span>
+
+        <span class="k">if</span> <span class="n">grad_placements</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad_placements</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">grad_placements</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grad_placements</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_ToTorchTensor</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">grad_placements</span>
+        <span class="p">)</span>  <span class="c1"># pyre-ignore[16]: autograd func</span></div>
+
+<div class="viewcode-block" id="DTensor.redistribute"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.DTensor.redistribute">[docs]</a>    <span class="k">def</span> <span class="nf">redistribute</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">async_op</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DTensor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ``redistribute`` performs necessary collective operations that redistribute the current</span>
+<span class="sd">        DTensor from its current placements to a new placements, or from is current DeviceMesh</span>
+<span class="sd">        to a new DeviceMesh. i.e. we can turn a Sharded DTensor to a Replicated DTensor by</span>
+<span class="sd">        specifying a Replicate placement for each dimension of the DeviceMesh.</span>
+
+<span class="sd">        When redistributing from current to the new placements on one device mesh dimension, we</span>
+<span class="sd">        will perform the following operations including communication collective or local operation:</span>
+
+<span class="sd">        1. ``Shard(dim)`` -&gt; ``Replicate()``: ``all_gather``</span>
+<span class="sd">        2. ``Shard(src_dim)`` -&gt; ``Shard(dst_dim)``: ``all_to_all``</span>
+<span class="sd">        3. ``Replicate()`` -&gt; ``Shard(dim)``: local chunking (i.e. ``torch.chunk``)</span>
+<span class="sd">        4. ``Partial()`` -&gt; ``Replicate()``: ``all_reduce``</span>
+<span class="sd">        5. ``Partial()`` -&gt; ``Shard(dim)``: ``reduce_scatter``</span>
+
+
+<span class="sd">        ``redistribute`` would correctly figure out the necessary redistribute steps for DTensors</span>
+<span class="sd">        that are created either on 1-D or N-D DeviceMesh.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            device_mesh (:class:`DeviceMesh`, optional): DeviceMesh to place the</span>
+<span class="sd">                DTensor. If not specified, it would use the current DTensor&#39;s DeviceMesh.</span>
+<span class="sd">                default: None</span>
+<span class="sd">            placements (List[:class:`Placement`], optional): the new placements that</span>
+<span class="sd">                describes how to place the DTensor into the DeviceMesh, must</span>
+<span class="sd">                have the same number of elements as ``device_mesh.ndim``.</span>
+<span class="sd">                default: replicate on all mesh dimensions</span>
+
+<span class="sd">        Keyword args:</span>
+<span class="sd">            async_op (bool, optional): whether to perform the DTensor redistribute operation</span>
+<span class="sd">                asynchronously or not. Default: False</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A :class:`DTensor` object</span>
+
+<span class="sd">        .. note:: ``redistribute`` is differentiable, which means user do not need to worry about</span>
+<span class="sd">            the backward formula of the redistribute operation.</span>
+
+<span class="sd">        .. note:: ``redistribute`` currently only supports redistributing DTensor on the same DeviceMesh,</span>
+<span class="sd">            Please file an issue if you need to redistribute DTensor to different DeviceMesh.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># NOTE: This redistribute API currently only supports out</span>
+        <span class="c1"># of place redistribution, i.e. it always create a new</span>
+        <span class="c1"># DTensor object and leave the original one unchanged.</span>
+
+        <span class="c1"># if device_mesh is not specified, use the current device_mesh</span>
+        <span class="n">device_mesh</span> <span class="o">=</span> <span class="n">device_mesh</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_mesh</span>
+        <span class="c1"># raise error if new placements not specified</span>
+        <span class="k">if</span> <span class="n">placements</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;placements is needed for redistribute!&quot;</span><span class="p">)</span>
+
+        <span class="n">placements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">placements</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">placement</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">placements</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">placement</span><span class="o">.</span><span class="n">is_partial</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;Can not redistribute to Partial, redistributing to Partial is for internal use only!&quot;</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">placement</span><span class="p">,</span> <span class="n">Shard</span><span class="p">)</span> <span class="ow">and</span> <span class="n">placement</span><span class="o">.</span><span class="n">dim</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># normalize shard dim to be positive</span>
+                <span class="n">placements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Shard</span><span class="p">(</span><span class="n">placement</span><span class="o">.</span><span class="n">dim</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+        <span class="n">placements</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">placements</span><span class="p">)</span>
+
+        <span class="c1"># pyre-fixme[16]: `Redistribute` has no attribute `apply`.</span>
+        <span class="k">return</span> <span class="n">Redistribute</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">placements</span><span class="p">,</span> <span class="n">async_op</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DTensor.full_tensor"><a class="viewcode-back" href="../../../../distributed.tensor.html#torch.distributed.tensor.DTensor.full_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">full_tensor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">grad_placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the full tensor of this DTensor. It will perform necessary collectives</span>
+<span class="sd">        to gather the local tensors from other ranks in its DeviceMesh and concatenate</span>
+<span class="sd">        them together. It&#39;s a syntatic sugar of the following code:</span>
+
+<span class="sd">        ``dtensor.redistribute(placements=[Replicate()] * mesh.ndim).to_local()``</span>
+
+<span class="sd">        Keyword args:</span>
+<span class="sd">            grad_placements (List[:class:`Placement`], optional): the placements describes</span>
+<span class="sd">                the future layout of any gradient layout of the full Tensor returned from this</span>
+<span class="sd">                function.</span>
+<span class="sd">                `full_tensor` converts DTensor to a full torch.Tensor and the returned torch.tensor</span>
+<span class="sd">                might not be used as the original replicated DTensor layout later in the code. This</span>
+<span class="sd">                argument is the hint that user can give to autograd in case the gradient</span>
+<span class="sd">                layout of the returned tensor does not match the original replicated DTensor layout.</span>
+<span class="sd">                If not specified, we will assume the gradient layout of the full tensor be replicated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A :class:`torch.Tensor` object that represents the full tensor of this DTensor.</span>
+
+<span class="sd">        .. note:: ``full_tensor`` is differentiable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">redist_res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">redistribute</span><span class="p">(</span>
+            <span class="n">placements</span><span class="o">=</span><span class="p">[</span><span class="n">Replicate</span><span class="p">()]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">_ToTorchTensor</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">redist_res</span><span class="p">,</span> <span class="n">grad_placements</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">device_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DeviceMesh</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The :class:`DeviceMesh` attribute that associates with this DTensor object.</span>
+
+<span class="sd">        .. note:: ``device_mesh`` is a read-only property, it can not be set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spec</span><span class="o">.</span><span class="n">mesh</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">placements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The placements attribute of this DTensor that describes the layout of this</span>
+<span class="sd">        DTensor on the its DeviceMesh.</span>
+
+<span class="sd">        .. note:: ``placements`` is a read-only property, it can not be set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spec</span><span class="o">.</span><span class="n">placements</span>
+
+    <span class="k">def</span> <span class="nf">__create_write_items__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fqn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.planner_helpers</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">_create_write_items_for_dtensor</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="p">,</span> <span class="s2">&quot;__create_write_items__&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="o">.</span><span class="n">__create_write_items__</span><span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="nb">object</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">_create_write_items_for_dtensor</span><span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="nb">object</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unsupported tensor type!&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__create_chunk_list__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.planner_helpers</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">_create_chunk_from_dtensor</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="p">,</span> <span class="s2">&quot;__create_chunk_list__&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="o">.</span><span class="n">__create_chunk_list__</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">_create_chunk_from_dtensor</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unsupported tensor type!&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__get_tensor_shard__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="p">,</span> <span class="s2">&quot;__get_tensor_shard__&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="o">.</span><span class="n">__get_tensor_shard__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_local</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unsupported tensor type!&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">distribute_tensor</span><span class="p">(</span>
+    <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DTensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Distribute a leaf ``torch.Tensor`` (i.e. nn.Parameter/buffers) to the ``device_mesh`` according</span>
+<span class="sd">    to the ``placements`` specified. The rank of ``device_mesh`` and ``placements`` must be the</span>
+<span class="sd">    same. The ``tensor`` to distribute is the logical or &quot;global&quot; tensor, and the API would use</span>
+<span class="sd">    the ``tensor`` from first rank of the DeviceMesh dimension as the source of truth to perserve</span>
+<span class="sd">    the single-device semantic. If you want to construct a DTensor in the middle of the Autograd</span>
+<span class="sd">    computation, please use :meth:`DTensor.from_local` instead.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tensor (torch.Tensor): torch.Tensor to be distributed. Note that if you</span>
+<span class="sd">            want to shard a tensor on a dimension that is not evenly divisible by</span>
+<span class="sd">            the number of devices in that mesh dimension, we use ``torch.chunk``</span>
+<span class="sd">            semantic to shard the tensor and scatter the shards. The uneven sharding</span>
+<span class="sd">            behavior is experimental and subject to change.</span>
+<span class="sd">        device_mesh (:class:`DeviceMesh`, optional): DeviceMesh to distribute the</span>
+<span class="sd">            tensor, if not specified, must be called under a DeviceMesh context</span>
+<span class="sd">            manager, default: None</span>
+<span class="sd">        placements (List[:class:`Placement`], optional): the placements that</span>
+<span class="sd">            describes how to place the tensor on DeviceMesh, must have the same</span>
+<span class="sd">            number of elements as ``device_mesh.ndim``. If not specified, we will</span>
+<span class="sd">            by default replicate the tensor across the ``device_mesh`` from the</span>
+<span class="sd">            first rank of each dimension of the `device_mesh`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DTensor` or ``XLAShardedTensor`` object.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        When initialize the DeviceMesh with the ``xla`` device_type, ``distribute_tensor``</span>
+<span class="sd">        return `XLAShardedTensor` instead. see `this issue &lt;https://github.com/pytorch/pytorch/issues/92909&gt;`__</span>
+<span class="sd">        for more details. The XLA integration is experimental and subject to change.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;torch.dtensor.distribute_tensor&quot;</span><span class="p">)</span>
+
+    <span class="c1"># get default device mesh if there&#39;s nothing specified</span>
+    <span class="n">device_mesh</span> <span class="o">=</span> <span class="n">device_mesh</span> <span class="ow">or</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">get_current_mesh</span><span class="p">()</span>
+    <span class="n">device_type</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">device_type</span>
+    <span class="k">if</span> <span class="n">device_type</span> <span class="o">==</span> <span class="s2">&quot;xla&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># call PyTorch/XLA SPMD for `xla` backend type device mesh.</span>
+            <span class="c1"># This returns XLAShardedTensor</span>
+            <span class="kn">from</span> <span class="nn">torch_xla.distributed.spmd</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># type:ignore[import]</span>
+                <span class="n">xla_distribute_tensor</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">xla_distribute_tensor</span><span class="p">(</span>
+                <span class="n">tensor</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">placements</span>
+            <span class="p">)</span>  <span class="c1"># type:ignore[return-value]</span>
+        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;To use DTensor API with xla, you must install the torch_xla package!&quot;</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="c1"># instantiate a RNG tracker if haven&#39;t. By default DTensor uses an</span>
+    <span class="c1"># OffsetBasedRNGTracker to perform random operators.</span>
+    <span class="c1"># TODO: the value assignment to global variable is not the ideal solution</span>
+    <span class="c1"># we can replace it in future.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span> <span class="ow">and</span> <span class="n">is_rng_supported_mesh</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">):</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span> <span class="o">=</span> <span class="n">OffsetBasedRNGTracker</span><span class="p">(</span><span class="n">device_type</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;`distribute_tensor` should be used to distribute leaf tensors! but found non-leaf tensor!&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># convert tensor to the corresponding device type if it&#39;s not in that device type</span>
+    <span class="k">if</span> <span class="n">device_type</span> <span class="o">!=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_meta</span><span class="p">:</span>
+        <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device_type</span><span class="p">)</span>
+
+    <span class="c1"># set default placements to replicated if not specified</span>
+    <span class="k">if</span> <span class="n">placements</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">placements</span> <span class="o">=</span> <span class="p">[</span><span class="n">Replicate</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">ndim</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">placements</span><span class="p">)</span> <span class="o">!=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;`placements` must have the same length as `device_mesh.ndim`! &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Found placements length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">placements</span><span class="p">)</span><span class="si">}</span><span class="s2">, and device_mesh.ndim: </span><span class="si">{</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">DTensor</span><span class="p">):</span>
+        <span class="c1"># if the tensor is already a DTensor, we need to check:</span>
+        <span class="c1"># 1. if the we can further shard this DTensor if the two device mesh belong to</span>
+        <span class="c1">#   the same parenet mesh and further sharding is possible.</span>
+        <span class="c1"># 2. check if device mesh and placements are the same</span>
+        <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">device_mesh</span> <span class="o">!=</span> <span class="n">device_mesh</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Cannot distribute a DTensor with device mesh </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">device_mesh</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;to a different device mesh </span><span class="si">{</span><span class="n">device_mesh</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">placements</span> <span class="o">!=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">placements</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Cannot distribute a DTensor with placements </span><span class="si">{</span><span class="n">tensor</span><span class="o">.</span><span class="n">placements</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;to a different placements </span><span class="si">{</span><span class="n">placements</span><span class="si">}</span><span class="s2">. do you want to call &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;`redistribute` instead?&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">tensor</span>
+
+    <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+
+    <span class="c1"># TODO(xilun): address sharding order</span>
+    <span class="c1"># distribute the tensor according to the placements.</span>
+    <span class="n">placements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">placements</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">placement</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">placements</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">placement</span><span class="o">.</span><span class="n">is_shard</span><span class="p">():</span>
+            <span class="n">placement</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Shard</span><span class="p">,</span> <span class="n">placement</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">placement</span><span class="o">.</span><span class="n">dim</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># normalize shard placement dim</span>
+                <span class="n">placement</span> <span class="o">=</span> <span class="n">Shard</span><span class="p">(</span><span class="n">placement</span><span class="o">.</span><span class="n">dim</span> <span class="o">+</span> <span class="n">tensor</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+                <span class="n">placements</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">placement</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">placement</span><span class="o">.</span><span class="n">_shard_tensor</span><span class="p">(</span><span class="n">local_tensor</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">placement</span><span class="o">.</span><span class="n">is_replicate</span><span class="p">():</span>
+            <span class="n">placement</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Replicate</span><span class="p">,</span> <span class="n">placement</span><span class="p">)</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">placement</span><span class="o">.</span><span class="n">_replicate_tensor</span><span class="p">(</span><span class="n">local_tensor</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Trying to distribute tensor with unsupported placements </span><span class="si">{</span><span class="n">placement</span><span class="si">}</span><span class="s2"> on device mesh dimension </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">!&quot;</span>
+            <span class="p">)</span>
+    <span class="n">placements</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">placements</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">local_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;distributing a tensor should not be None&quot;</span>
+    <span class="c1"># detach the local tensor passed to DTensor since after the construction</span>
+    <span class="c1"># of DTensor, autograd would work on top of DTensor instead of local tensor</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">DTensorSpec</span><span class="p">(</span>
+        <span class="n">mesh</span><span class="o">=</span><span class="n">device_mesh</span><span class="p">,</span>
+        <span class="n">placements</span><span class="o">=</span><span class="n">placements</span><span class="p">,</span>
+        <span class="n">tensor_meta</span><span class="o">=</span><span class="n">TensorMeta</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
+            <span class="n">stride</span><span class="o">=</span><span class="n">tensor</span><span class="o">.</span><span class="n">stride</span><span class="p">(),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">tensor</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">DTensor</span><span class="p">(</span>
+        <span class="n">local_tensor</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">),</span>
+        <span class="n">spec</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="o">=</span><span class="n">tensor</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">distribute_module</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">partition_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">DeviceMesh</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">input_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">DeviceMesh</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">DeviceMesh</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function expose three functions to control the parameters/inputs/outputs of the module:</span>
+
+<span class="sd">    1. To perform sharding on the module before runtime execution by specifying the</span>
+<span class="sd">    ``partition_fn`` (i.e. allow user to convert Module parameters to :class:`DTensor`</span>
+<span class="sd">    parameters according to the `partition_fn` specified).</span>
+<span class="sd">    2. To control the inputs or outputs of the module during runtime execution by</span>
+<span class="sd">    specifying the ``input_fn`` and ``output_fn``. (i.e. convert the input to</span>
+<span class="sd">    :class:`DTensor`, convert the output back to ``torch.Tensor``)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        module (:class:`nn.Module`): user module to be partitioned.</span>
+<span class="sd">        device_mesh (:class:`DeviceMesh`): the device mesh to place the module.</span>
+<span class="sd">        partition_fn (Callable): the function to partition parameters (i.e. shard certain</span>
+<span class="sd">            parameters across the ``device_mesh``). If ``partition_fn`` is not specified,</span>
+<span class="sd">            by default we replicate all module parameters of ``module`` across the mesh.</span>
+<span class="sd">        input_fn (Callable): specify the input distribution, i.e. could control how the</span>
+<span class="sd">            input of the module is sharded. ``input_fn`` will be installed as a module</span>
+<span class="sd">            ``forward_pre_hook`` (pre forward hook).</span>
+<span class="sd">        output_fn (Callable): specify the output distribution, i.e. could control how the</span>
+<span class="sd">            output is sharded, or convert it back to torch.Tensor. ``output_fn`` will be</span>
+<span class="sd">            installed as a module ``forward_hook`` (post forward hook).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A module that contains parameters/buffers that are all ``DTensor`` s.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        When initialize the DeviceMesh with the ``xla`` device_type, ``distribute_module``</span>
+<span class="sd">        return nn.Module with PyTorch/XLA SPMD annotated parameters. See</span>
+<span class="sd">        `this issue &lt;https://github.com/pytorch/pytorch/issues/92909&gt;`__</span>
+<span class="sd">        for more details. The XLA integration is experimental and subject to change.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_log_api_usage_once</span><span class="p">(</span><span class="s2">&quot;torch.dtensor.distribute_module&quot;</span><span class="p">)</span>
+
+    <span class="n">device_mesh</span> <span class="o">=</span> <span class="n">device_mesh</span> <span class="ow">or</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">get_current_mesh</span><span class="p">()</span>
+    <span class="n">device_type</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">device_type</span>
+    <span class="k">if</span> <span class="n">device_type</span> <span class="o">==</span> <span class="s2">&quot;xla&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># This function annotates all module parameters for auto-partitioning with</span>
+            <span class="c1"># PyTorch/XLA SPMD or explicitly partition to :class:`XLAShardedTensor` parameters</span>
+            <span class="c1"># according to the `partition_fn` specified.</span>
+            <span class="kn">from</span> <span class="nn">torch_xla.distributed.spmd</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># type:ignore[import]</span>
+                <span class="n">xla_distribute_module</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">xla_distribute_module</span><span class="p">(</span>
+                <span class="n">module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">partition_fn</span><span class="p">,</span> <span class="n">input_fn</span><span class="p">,</span> <span class="n">output_fn</span>
+            <span class="p">)</span>  <span class="c1"># type:ignore[return-value]</span>
+        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;To use DTensor API with xla, you must install the torch_xla package!&quot;</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="k">def</span> <span class="nf">replicate_module_params_buffers</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">mesh</span><span class="p">:</span> <span class="n">DeviceMesh</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># This function loop over the immediate module parameters and</span>
+        <span class="c1"># buffers, replicate all non DTensor params/buffers to DTensor</span>
+        <span class="c1"># parameters/buffers, if they have not been partitioned in the</span>
+        <span class="c1"># partition_fn, we can&#39;t easily use `module._apply` here</span>
+        <span class="c1"># because we don&#39;t know what happened inside partition_fn as</span>
+        <span class="c1"># user could do anything, i.e. install hooks, and we want to</span>
+        <span class="c1"># preserve those.</span>
+        <span class="n">full_replicate</span> <span class="o">=</span> <span class="p">[</span><span class="n">Replicate</span><span class="p">()]</span> <span class="o">*</span> <span class="n">mesh</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">DTensor</span><span class="p">):</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span>
+                    <span class="n">key</span><span class="p">,</span>
+                    <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">distribute_tensor</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">full_replicate</span><span class="p">)),</span>
+                <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">buffer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">DTensor</span><span class="p">):</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">distribute_tensor</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">full_replicate</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">partition_fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># if partition_fn not specified, we by default replicate</span>
+        <span class="c1"># all module params/buffers</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submod</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
+            <span class="n">replicate_module_params_buffers</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># apply partition_fun to submodules</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submod</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
+            <span class="n">partition_fn</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">submod</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
+            <span class="n">replicate_module_params_buffers</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
+
+    <span class="c1"># register input_fn as module forward pre hook</span>
+    <span class="k">if</span> <span class="n">input_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># check the input_fn signature</span>
+        <span class="n">num_args</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">input_fn</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num_args</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># input_fn only takes in inputs and device mesh</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Deprecating input_fn that takes two arguments (inputs, device_mesh), &quot;</span>
+                <span class="s2">&quot;please use input_fn that takes in (module, inputs, device_mesh) instead!&quot;</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">input_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">))</span>  <span class="c1"># type: ignore[call-arg]</span>
+        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="c1"># input_fn takes in module, inputs, device mesh</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_forward_pre_hook</span><span class="p">(</span>
+                <span class="k">lambda</span> <span class="n">mod</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">input_fn</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;input_fn should take in 3 arguments, but got </span><span class="si">{</span><span class="n">num_args</span><span class="si">}</span><span class="s2"> arguments!&quot;</span>
+            <span class="p">)</span>
+    <span class="c1"># register output_fn as module forward hook</span>
+    <span class="k">if</span> <span class="n">output_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">num_args</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">output_fn</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num_args</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># output_fn only takes in outputs and device mesh</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Deprecating output_fn that takes two arguments (inputs, device_mesh), &quot;</span>
+                <span class="s2">&quot;please use output_fn that takes in (module, inputs, device_mesh) instead!&quot;</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span>
+                <span class="k">lambda</span> <span class="n">mod</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="n">output_fn</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">num_args</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span>
+                <span class="k">lambda</span> <span class="n">mod</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="n">output_fn</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;output_fn should take in 3 arguments, but got </span><span class="si">{</span><span class="n">num_args</span><span class="si">}</span><span class="s2"> arguments!&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">module</span>
+
+
+<span class="c1"># Below are tensor factory function APIs, which are used to create a DTensor directly. We need</span>
+<span class="c1"># to make separate factory function APIs because tensor subclass could not override the tensor</span>
+<span class="c1"># factory methods, and we need user to call the factory functions with user intended device_mesh</span>
+<span class="c1"># and placements to create a proper DTensor.</span>
+
+
+<span class="k">def</span> <span class="nf">_dtensor_init_helper</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
+    <span class="n">init_op</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DTensor</span><span class="p">:</span>
+    <span class="c1"># from torch.distributed._tensor.placement_types import DTensorSpec, TensorMeta</span>
+
+    <span class="c1"># if device_mesh is None, use the one from mesh resources</span>
+    <span class="n">device_mesh</span> <span class="o">=</span> <span class="n">device_mesh</span> <span class="ow">or</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">get_current_mesh</span><span class="p">()</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">device_type</span>
+
+    <span class="c1"># set default placements to replicated if not specified</span>
+    <span class="n">placements</span> <span class="o">=</span> <span class="n">placements</span> <span class="ow">or</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">Replicate</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span>
+
+    <span class="c1"># check device_mesh againts placements</span>
+    <span class="k">assert</span> <span class="n">device_mesh</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+        <span class="n">placements</span>
+    <span class="p">),</span> <span class="s2">&quot;mesh dimension does not match the length of placements&quot;</span>
+
+    <span class="k">assert</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;layout&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">,</span> <span class="s2">&quot;layout value not supported!&quot;</span>
+    <span class="n">torch_stride</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_prims_common</span><span class="o">.</span><span class="n">make_contiguous_strides_for</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+    <span class="c1"># get local tensor shape</span>
+    <span class="n">local_shape</span> <span class="o">=</span> <span class="n">compute_local_shape</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">,</span> <span class="n">placements</span><span class="p">)</span>
+    <span class="c1"># initialize the local tensor</span>
+    <span class="k">if</span> <span class="n">init_op</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">:</span>
+        <span class="n">fill_value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;fill_value&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">init_op</span><span class="p">(</span><span class="n">local_shape</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">init_op</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span> <span class="ow">or</span> <span class="n">init_op</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">:</span>
+        <span class="c1"># this tensor meta is not used except `shape`</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dtype&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">get_default_dtype</span><span class="p">())</span>
+
+        <span class="n">tensor_meta</span> <span class="o">=</span> <span class="n">TensorMeta</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">dtype</span><span class="p">)</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">DTensorSpec</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">placements</span><span class="p">),</span> <span class="n">tensor_meta</span><span class="o">=</span><span class="n">tensor_meta</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">is_rng_supported_mesh</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span><span class="p">:</span>
+            <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">OffsetBasedRNGTracker</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">with</span> <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span><span class="o">.</span><span class="n">_distribute_region</span><span class="p">(</span><span class="n">spec</span><span class="p">):</span>
+            <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">init_op</span><span class="p">(</span><span class="n">local_shape</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">local_tensor</span> <span class="o">=</span> <span class="n">init_op</span><span class="p">(</span><span class="n">local_shape</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">DTensorSpec</span><span class="p">(</span>
+        <span class="n">device_mesh</span><span class="p">,</span>
+        <span class="nb">tuple</span><span class="p">(</span><span class="n">placements</span><span class="p">),</span>
+        <span class="n">tensor_meta</span><span class="o">=</span><span class="n">TensorMeta</span><span class="p">(</span>
+            <span class="n">size</span><span class="p">,</span>
+            <span class="n">torch_stride</span><span class="p">,</span>
+            <span class="n">local_tensor</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">DTensor</span><span class="p">(</span>
+        <span class="n">local_tensor</span><span class="p">,</span>
+        <span class="n">spec</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;requires_grad&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">ones</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
+    <span class="o">*</span><span class="n">size</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">,</span>
+    <span class="n">requires_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DTensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a :class:`DTensor` filled with the scalar value 1, with the shape defined</span>
+<span class="sd">    by the variable argument ``size``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        size (int...): a sequence of integers defining the shape of the output :class:`DTensor`.</span>
+<span class="sd">            Can be a variable number of arguments or a collection like a list or tuple.</span>
+<span class="sd">            E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</span>
+
+<span class="sd">    Keyword args:</span>
+<span class="sd">        dtype (:class:`torch.dtype`, optional): the desired data type of returned :class:`DTensor`.</span>
+<span class="sd">            Default: if ``None``, uses a global default (see :func:`torch.set_default_dtype`).</span>
+<span class="sd">        layout (:class:`torch.layout`, optional): the desired layout of returned DTensor.</span>
+<span class="sd">            Default: ``torch.strided``.</span>
+<span class="sd">        requires_grad (bool, optional): If autograd should record operations on the</span>
+<span class="sd">            returned :class:`DTensor`. Default: ``False``.</span>
+<span class="sd">        device_mesh: :class:`DeviceMesh` type, contains the mesh info of ranks</span>
+<span class="sd">        placements: a sequence of :class:`Placement` type: ``Shard``, ``Replicate``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DTensor` object on each rank</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">torch_size</span> <span class="o">=</span> <span class="n">normalize_to_torch_size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dtensor_init_helper</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">,</span>
+        <span class="n">torch_size</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="o">=</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="o">=</span><span class="n">device_mesh</span><span class="p">,</span>
+        <span class="n">placements</span><span class="o">=</span><span class="n">placements</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">empty</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
+    <span class="o">*</span><span class="n">size</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">,</span>
+    <span class="n">requires_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DTensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a :class:`DTensor` filled with uninitialized data. The shape of the :class:`DTensor`</span>
+<span class="sd">    is defined by the variable argument ``size``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        size (int...): a sequence of integers defining the shape of the output :class:`DTensor`.</span>
+<span class="sd">            Can be a variable number of arguments or a collection like a list or tuple.</span>
+<span class="sd">            E.g.: empty(1,2,3..) or empty([1,2,3..]) or empty((1,2,3..))</span>
+
+<span class="sd">    Keyword args:</span>
+<span class="sd">        dtype (:class:`torch.dtype`, optional): the desired data type of returned :class:`DTensor`.</span>
+<span class="sd">            Default: if ``None``, uses a global default (see :func:`torch.set_default_dtype`).\</span>
+<span class="sd">        layout (:class:`torch.layout`, optional): the desired layout of returned :class:`DTensor`.</span>
+<span class="sd">            Default: ``torch.strided``.</span>
+<span class="sd">        requires_grad (bool, optional): If autograd should record operations on the</span>
+<span class="sd">            returned :class:`DTensor`. Default: ``False``.</span>
+<span class="sd">        device_mesh: :class:`DeviceMesh` type, contains the mesh info of ranks</span>
+<span class="sd">        placements: a sequence of :class:`Placement` type: ``Shard``, ``Replicate``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DTensor` object on each rank</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">torch_size</span> <span class="o">=</span> <span class="n">normalize_to_torch_size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dtensor_init_helper</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span>
+        <span class="n">torch_size</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="o">=</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="o">=</span><span class="n">device_mesh</span><span class="p">,</span>
+        <span class="n">placements</span><span class="o">=</span><span class="n">placements</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">full</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
+    <span class="n">size</span><span class="p">,</span>
+    <span class="n">fill_value</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">,</span>
+    <span class="n">requires_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DTensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a :class:`DTensor` filled with ``fill_value`` according to ``device_mesh`` and</span>
+<span class="sd">    ``placements``, with the shape defined by the argument ``size``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        size (int...): a sequence of integers defining the shape of the output :class:`DTensor`.</span>
+<span class="sd">            Can be a variable number of arguments or a collection like a list or tuple.</span>
+<span class="sd">            E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</span>
+<span class="sd">        fill_value(Scalar): the value to fill the output tensor with.</span>
+
+<span class="sd">    Keyword args:</span>
+<span class="sd">        dtype (:class:`torch.dtype`, optional): the desired data type of returned :class:`DTensor`.</span>
+<span class="sd">            Default: if ``None``, uses a global default (see :func:`torch.set_default_dtype`).</span>
+<span class="sd">        layout (:class:`torch.layout`, optional): the desired layout of returned DTensor.</span>
+<span class="sd">            Default: ``torch.strided``.</span>
+<span class="sd">        requires_grad (bool, optional): If autograd should record operations on the</span>
+<span class="sd">            returned :class:`DTensor`. Default: ``False``.</span>
+<span class="sd">        device_mesh: :class:`DeviceMesh` type, contains the mesh info of ranks.</span>
+<span class="sd">        placements: a sequence of :class:`Placement` type: ``Shard``, ``Replicate``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DTensor` object on each rank</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">torch_size</span> <span class="o">=</span> <span class="n">normalize_to_torch_size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dtensor_init_helper</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">,</span>
+        <span class="n">torch_size</span><span class="p">,</span>
+        <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="o">=</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="o">=</span><span class="n">device_mesh</span><span class="p">,</span>
+        <span class="n">placements</span><span class="o">=</span><span class="n">placements</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">rand</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
+    <span class="o">*</span><span class="n">size</span><span class="p">,</span>
+    <span class="n">requires_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DTensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a :class:`DTensor` filled with random numbers from a uniform distribution</span>
+<span class="sd">    on the interval ``[0, 1)``. The shape of the tensor is defined by the variable</span>
+<span class="sd">    argument ``size``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        size (int...): a sequence of integers defining the shape of the output :class:`DTensor`.</span>
+<span class="sd">            Can be a variable number of arguments or a collection like a list or tuple.</span>
+<span class="sd">            E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</span>
+
+<span class="sd">    Keyword args:</span>
+<span class="sd">        dtype (:class:`torch.dtype`, optional): the desired data type of returned :class:`DTensor`.</span>
+<span class="sd">            Default: if ``None``, uses a global default (see :func:`torch.set_default_dtype`).</span>
+<span class="sd">        layout (:class:`torch.layout`, optional): the desired layout of returned DTensor.</span>
+<span class="sd">            Default: ``torch.strided``.</span>
+<span class="sd">        requires_grad (bool, optional): If autograd should record operations on the</span>
+<span class="sd">            returned :class:`DTensor`. Default: ``False``.</span>
+<span class="sd">        device_mesh: :class:`DeviceMesh` type, contains the mesh info of ranks.</span>
+<span class="sd">        placements: a sequence of :class:`Placement` type: ``Shard``, ``Replicate``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DTensor` object on each rank</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">torch_size</span> <span class="o">=</span> <span class="n">normalize_to_torch_size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dtensor_init_helper</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">,</span>
+        <span class="n">torch_size</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="o">=</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="o">=</span><span class="n">device_mesh</span><span class="p">,</span>
+        <span class="n">placements</span><span class="o">=</span><span class="n">placements</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">randn</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
+    <span class="o">*</span><span class="n">size</span><span class="p">,</span>
+    <span class="n">requires_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DTensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a :class:`DTensor` filled with random numbers from a normal distribution</span>
+<span class="sd">    with mean 0 and variance 1. The shape of the tensor is defined by the variable</span>
+<span class="sd">    argument ``size``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        size (int...): a sequence of integers defining the shape of the output :class:`DTensor`.</span>
+<span class="sd">            Can be a variable number of arguments or a collection like a list or tuple.</span>
+<span class="sd">            E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</span>
+
+<span class="sd">    Keyword args:</span>
+<span class="sd">        dtype (:class:`torch.dtype`, optional): the desired data type of returned :class:`DTensor`.</span>
+<span class="sd">            Default: if ``None``, uses a global default (see :func:`torch.set_default_dtype`).</span>
+<span class="sd">        layout (:class:`torch.layout`, optional): the desired layout of returned DTensor.</span>
+<span class="sd">            Default: ``torch.strided``.</span>
+<span class="sd">        requires_grad (bool, optional): If autograd should record operations on the</span>
+<span class="sd">            returned :class:`DTensor`. Default: ``False``.</span>
+<span class="sd">        device_mesh: :class:`DeviceMesh` type, contains the mesh info of ranks.</span>
+<span class="sd">        placements: a sequence of :class:`Placement` type: ``Shard``, ``Replicate``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DTensor` object on each rank</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">torch_size</span> <span class="o">=</span> <span class="n">normalize_to_torch_size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dtensor_init_helper</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">,</span>
+        <span class="n">torch_size</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="o">=</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="o">=</span><span class="n">device_mesh</span><span class="p">,</span>
+        <span class="n">placements</span><span class="o">=</span><span class="n">placements</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">zeros</span><span class="p">(</span>  <span class="c1"># type: ignore[no-untyped-def]</span>
+    <span class="o">*</span><span class="n">size</span><span class="p">,</span>
+    <span class="n">requires_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">layout</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">,</span>
+    <span class="n">device_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">placements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DTensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a :class:`DTensor` filled with the scalar value 0.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        size (int...): a sequence of integers defining the shape of the output :class:`DTensor`.</span>
+<span class="sd">            Can be a variable number of arguments or a collection like a list or tuple.</span>
+<span class="sd">            E.g.: zeros(1,2,3..) or zeros([1,2,3..]) or zeros((1,2,3..))</span>
+<span class="sd">    Keyword args:</span>
+<span class="sd">        requires_grad (bool, optional): If autograd should record operations on the</span>
+<span class="sd">            returned :class:`DTensor`. Default: ``False``.</span>
+<span class="sd">        dtype (:class:`torch.dtype`, optional): the desired data type of returned :class:`DTensor`.</span>
+<span class="sd">            Default: if ``None``, uses a global default (see :func:`torch.set_default_dtype`).</span>
+<span class="sd">        layout (:class:`torch.layout`, optional): the desired layout of returned :class:`DTensor`.</span>
+<span class="sd">            Default: ``torch.strided``.</span>
+<span class="sd">        device_mesh: :class:`DeviceMesh` type, contains the mesh info of ranks</span>
+<span class="sd">        placements: a sequence of :class:`Placement` type: ``Shard``, ``Replicate``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A :class:`DTensor` object on each rank</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">torch_size</span> <span class="o">=</span> <span class="n">normalize_to_torch_size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dtensor_init_helper</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">,</span>
+        <span class="n">torch_size</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
+        <span class="n">requires_grad</span><span class="o">=</span><span class="n">requires_grad</span><span class="p">,</span>
+        <span class="n">device_mesh</span><span class="o">=</span><span class="n">device_mesh</span><span class="p">,</span>
+        <span class="n">placements</span><span class="o">=</span><span class="n">placements</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, PyTorch Contributors.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+<script>
+
+var match = window.location.href.match(/\/_[a-zA-Z0-9_]*.html|_dynamo/gi);
+var url = window.location.href.lastIndexOf(match[match.length-1]);
+
+if (url)
+  {
+    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-exclamation-circle" aria-hidden="true">&nbsp</i> This page describes an internal API which is not intended to be used outside of the PyTorch codebase and can be modified or removed without notice.</p></div>'
+    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
+  }
+</script>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+         <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+         <script src="../../../../_static/jquery.js"></script>
+         <script src="../../../../_static/underscore.js"></script>
+         <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+         <script src="../../../../_static/doctools.js"></script>
+         <script src="../../../../_static/sphinx_highlight.js"></script>
+         <script src="../../../../_static/clipboard.min.js"></script>
+         <script src="../../../../_static/copybutton.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['Developer Notes', 'Language Bindings', 'Libraries', 'Community'];
+</script>
+
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/795629140/?label=txkmCPmdtosBENSssfsC&amp;guid=ON&amp;script=0"/>
+
+
+  <!-- Begin Footer -->
+
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h2>Docs</h2>
+          <p>Access comprehensive developer documentation for PyTorch</p>
+          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Tutorials</h2>
+          <p>Get in-depth tutorials for beginners and advanced developers</p>
+          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Resources</h2>
+          <p>Find development resources and get your questions answered</p>
+          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="https://pytorch.org/" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+            <li><a href="https://pytorch.org/features">Features</a></li>
+            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+            <li><a href="https://pytorch.org/blog/">Blog</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">Stay up to date</li>
+            <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+            <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+            <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+          </ul>  
+          </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">PyTorch Podcasts</li>
+            <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+            <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+            <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+            <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+          </ul>
+         </div>
+        </div>
+        
+        <div class="privacy-policy">
+          <ul>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
+            <li class="privacy-policy-links">|</li>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+        <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+          <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
+          project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
+          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+      </div>
+     </div>
+
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+           <li class="resources-mobile-menu-title">
+             <a>Learn</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/get-started">Get Started</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials">Tutorials</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+             </li>
+           </ul>
+           <li class="resources-mobile-menu-title">
+             <a>Ecosystem</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/ecosystem">Tools</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/#community-module">Community</a>
+             </li>
+             <li>
+               <a href="https://discuss.pytorch.org/">Forums</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/resources">Developer Resources</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2023</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Edge</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+             </li>
+             
+             <li>
+               <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Docs</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+            </li>
+          </ul>
+
+          <li class="resources-mobile-menu-title">
+            <a>Blog & News</a>
+          </li>
+            
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/community-blog">Community Blog</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/videos">Videos</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/community-stories">Community Stories</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/events">Events</a>
+            </li>
+          </ul>
+          
+          <li class="resources-mobile-menu-title">
+            <a>About</a>
+          </li>
+
+          <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

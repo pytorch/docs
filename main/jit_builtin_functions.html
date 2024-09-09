@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gite72ed47 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdefb515 ) &#x25BC</a>
     </div>
     
 
@@ -377,12 +377,13 @@
 <li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.html">torch.distributed.tensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.optim.html">torch.distributed.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch.compiler.html">torch.compiler</a></li>
@@ -11244,19 +11245,6 @@
             <span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">other</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">wrapped_linear_prepack</span><span class="p">(</span><span class="n">weight</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                             <span class="n">weight_scale</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                             <span class="n">weight_zero_point</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                             <span class="n">bias</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">wrapped_quantized_linear_prepacked</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                                         <span class="n">input_scale</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                                         <span class="n">input_zero_point</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                                         <span class="n">packed_weight</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                                         <span class="n">output_scale</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                                         <span class="n">output_zero_point</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                                         <span class="n">out_channel</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">xlogy</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">other</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
