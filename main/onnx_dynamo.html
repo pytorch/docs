@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdefb515 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git136e28f ) &#x25BC</a>
     </div>
     
 
@@ -534,7 +534,7 @@
 <li><p><a class="reference internal" href="#dependencies" id="id2">Dependencies</a></p></li>
 <li><p><a class="reference internal" href="#a-simple-example" id="id3">A simple example</a></p></li>
 <li><p><a class="reference internal" href="#inspecting-the-onnx-model-using-gui" id="id4">Inspecting the ONNX model using GUI</a></p></li>
-<li><p><a class="reference internal" href="#diagnosing-issues-with-sarif" id="id5">Diagnosing issues with SARIF</a></p></li>
+<li><p><a class="reference internal" href="#when-the-conversion-fails" id="id5">When the conversion fails</a></p></li>
 <li><p><a class="reference internal" href="#api-reference" id="id6">API Reference</a></p></li>
 </ul>
 </div>
@@ -575,6 +575,8 @@ bytecode analysis that preserves the dynamic nature of the model instead of usin
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>onnx<span class="w"> </span>onnxscript
 </pre></div>
 </div>
+<p><a class="reference external" href="https://onnxruntime.ai">onnxruntime</a> can then be used to execute the model
+on a large variety of processors.</p>
 </div>
 <div class="section" id="a-simple-example">
 <h2><a class="toc-backref" href="#id3">A simple example</a><a class="headerlink" href="#a-simple-example" title="Permalink to this heading">¶</a></h2>
@@ -602,14 +604,23 @@ bytecode analysis that preserves the dynamic nature of the model instead of usin
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">MLPModel</span><span class="p">()</span>
 <span class="n">tensor_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">97</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="n">onnx_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">dynamo_export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tensor_x</span><span class="p">)</span>
+<span class="n">onnx_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">tensor_x</span><span class="p">,),</span> <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As the code above shows, all you need is to provide <a class="reference internal" href="#torch.onnx.dynamo_export" title="torch.onnx.dynamo_export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.dynamo_export()</span></code></a> with an instance of the model and its input.
+<p>As the code above shows, all you need is to provide <a class="reference internal" href="onnx_torchscript.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a> with an instance of the model and its input.
 The exporter will then return an instance of <a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram</span></code></a> that contains the exported ONNX graph along with extra information.</p>
 <p>The in-memory model available through <code class="docutils literal notranslate"><span class="pre">onnx_program.model_proto</span></code> is an <code class="docutils literal notranslate"><span class="pre">onnx.ModelProto</span></code> object in compliance with the <a class="reference external" href="https://github.com/onnx/onnx/blob/main/docs/IR.md">ONNX IR spec</a>.
 The ONNX model may then be serialized into a <a class="reference external" href="https://protobuf.dev/">Protobuf file</a> using the <a class="reference internal" href="#torch.onnx.ONNXProgram.save" title="torch.onnx.ONNXProgram.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram.save()</span></code></a> API.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;mlp.onnx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Two functions exist to export the model to ONNX based on TorchDynamo engine.
+They slightly differ in the way they produce the <code class="xref py py-class docutils literal notranslate"><span class="pre">ExportedProgram</span></code>.
+<a class="reference internal" href="#torch.onnx.dynamo_export" title="torch.onnx.dynamo_export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.dynamo_export()</span></code></a> was introduced with PyTorch 2.1 and
+<a class="reference internal" href="onnx_torchscript.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a> was extended with PyTorch 2.5 to easily switch
+from TorchScript to TorchDynamo. To call the former function,
+the last line of the previous example can be replaced by the following one.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">onnx_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">dynamo_export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tensor_x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -623,9 +634,13 @@ The ONNX model may then be serialized into a <a class="reference external" href=
 <a class="reference internal image-reference" href="_images/onnx_dynamo_mlp_model_function_body.png"><img alt="ONNX function body" src="_images/onnx_dynamo_mlp_model_function_body.png" style="width: 50%;" /></a>
 <p>The function body is a sequence of ONNX operators or other functions.</p>
 </div>
-<div class="section" id="diagnosing-issues-with-sarif">
-<h2><a class="toc-backref" href="#id5">Diagnosing issues with SARIF</a><a class="headerlink" href="#diagnosing-issues-with-sarif" title="Permalink to this heading">¶</a></h2>
-<p>ONNX diagnostics goes beyond regular logs through the adoption of
+<div class="section" id="when-the-conversion-fails">
+<h2><a class="toc-backref" href="#id5">When the conversion fails</a><a class="headerlink" href="#when-the-conversion-fails" title="Permalink to this heading">¶</a></h2>
+<p>Function <a class="reference internal" href="onnx_torchscript.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a> should called a second time with
+parameter <code class="docutils literal notranslate"><span class="pre">report=True</span></code>. A markdown report is generated to help the user
+to resolve the issue.</p>
+<p>Function <a class="reference internal" href="#torch.onnx.dynamo_export" title="torch.onnx.dynamo_export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.dynamo_export()</span></code></a> generates a report using ‘SARIF’ format.
+ONNX diagnostics goes beyond regular logs through the adoption of
 <a class="reference external" href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html">Static Analysis Results Interchange Format (aka SARIF)</a>
 to help users debug and improve their model using a GUI, such as
 Visual Studio Code’s <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer">SARIF Viewer</a>.</p>
@@ -1160,7 +1175,7 @@ if (url)
 <li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li><a class="reference internal" href="#a-simple-example">A simple example</a></li>
 <li><a class="reference internal" href="#inspecting-the-onnx-model-using-gui">Inspecting the ONNX model using GUI</a></li>
-<li><a class="reference internal" href="#diagnosing-issues-with-sarif">Diagnosing issues with SARIF</a></li>
+<li><a class="reference internal" href="#when-the-conversion-fails">When the conversion fails</a></li>
 <li><a class="reference internal" href="#api-reference">API Reference</a><ul>
 <li><a class="reference internal" href="#torch.onnx.dynamo_export"><code class="docutils literal notranslate"><span class="pre">dynamo_export()</span></code></a></li>
 <li><a class="reference internal" href="#torch.onnx.ExportOptions"><code class="docutils literal notranslate"><span class="pre">ExportOptions</span></code></a></li>

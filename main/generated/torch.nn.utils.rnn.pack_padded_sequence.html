@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitdefb515 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git136e28f ) &#x25BC</a>
     </div>
     
 
@@ -532,10 +532,10 @@
 <dt class="sig sig-object py" id="torch.nn.utils.rnn.pack_padded_sequence">
 <span class="sig-prename descclassname"><span class="pre">torch.nn.utils.rnn.</span></span><span class="sig-name descname"><span class="pre">pack_padded_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforce_sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#pack_padded_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.rnn.pack_padded_sequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Packs a Tensor containing padded sequences of variable length.</p>
-<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> can be of size <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> where <code class="docutils literal notranslate"><span class="pre">T</span></code> is the length of the
-longest sequence, <code class="docutils literal notranslate"><span class="pre">B</span></code> is the batch size, and <code class="docutils literal notranslate"><span class="pre">*</span></code> is any number of dimensions
-(including 0). If <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> is expected,
-<code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">T</span> <span class="pre">x</span> <span class="pre">*</span></code> otherwise.</p>
+<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> can be of size <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code> (if <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>)
+or <code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">T</span> <span class="pre">x</span> <span class="pre">*</span></code> (if <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>) where <code class="docutils literal notranslate"><span class="pre">T</span></code> is the length
+of the longest sequence, <code class="docutils literal notranslate"><span class="pre">B</span></code> is the batch size, and <code class="docutils literal notranslate"><span class="pre">*</span></code> is any number of dimensions
+(including 0).</p>
 <p>For unsorted sequences, use <cite>enforce_sorted = False</cite>. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">enforce_sorted</span></code> is
 <code class="docutils literal notranslate"><span class="pre">True</span></code>, the sequences should be sorted by length in a decreasing order, i.e.
 <code class="docutils literal notranslate"><span class="pre">input[:,0]</span></code> should be the longest sequence, and <code class="docutils literal notranslate"><span class="pre">input[:,B-1]</span></code> the shortest
