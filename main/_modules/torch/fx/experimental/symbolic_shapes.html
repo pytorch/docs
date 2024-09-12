@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+git492f064 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd270e2d ) &#x25BC</a>
     </div>
     
 
@@ -930,7 +930,7 @@
         <span class="n">t</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">is_neg</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">is_negative</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_negative</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">is_Number</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">is_negative</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_Number</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_negative</span><span class="p">)</span>
 
     <span class="n">lhs</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">rhs</span> <span class="o">=</span> <span class="n">_reduce_to_lowest_terms</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span>
@@ -942,12 +942,14 @@
                 <span class="n">neg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">term</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">pos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
-        <span class="n">lhs</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="o">*</span><span class="n">neg</span><span class="p">)</span>
-        <span class="n">rhs</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="o">*</span><span class="n">pos</span><span class="p">)</span>
+        <span class="n">lhs</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">neg</span><span class="p">)</span>
+        <span class="n">rhs</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">is_neg</span><span class="p">(</span><span class="n">rhs</span><span class="p">):</span>
         <span class="c1"># lhs == 0</span>
         <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span> <span class="o">=</span> <span class="o">-</span><span class="n">rhs</span><span class="p">,</span> <span class="mi">0</span>
-    <span class="k">return</span> <span class="n">t</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span>
+    <span class="c1"># We don&#39;t have to evaluate here because lhs, rhs came from a Boolean</span>
+    <span class="c1"># and it was already simplified</span>
+    <span class="k">return</span> <span class="n">t</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">evaluate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_reduce_to_lowest_terms</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">:</span>
@@ -958,20 +960,33 @@
 <span class="sd">    Useful when an expression is == or != to 0.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">integer_coefficient</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">is_Integer</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)])</span>
+        <span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">is_Mul</span><span class="p">:</span>
+            <span class="c1"># If one of the args of a Mul is an Integer, it is the</span>
+            <span class="c1"># first arg. eg: args(2*x*3*y) == (6, x, y)</span>
+            <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_Integer</span> <span class="k">else</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">1</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">div_by_factor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">factor</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">is_Integer</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">factor</span>
+        <span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">is_Mul</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="o">.</span><span class="n">_from_args</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">factor</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">is_commutative</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Add</span><span class="p">:</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span>
         <span class="n">factor</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">integer_coefficient</span><span class="p">,</span> <span class="n">atoms</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">factor</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">expr</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">/</span> <span class="n">factor</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="o">*</span><span class="n">atoms</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">expr</span> <span class="o">/</span> <span class="n">integer_coefficient</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Integer</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">One</span>
+    <span class="k">elif</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Mul</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">div_by_factor</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">integer_coefficient</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">expr</span>
 
 
 <div class="viewcode-block" id="is_concrete_bool"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.is_concrete_bool.html#torch.fx.experimental.symbolic_shapes.is_concrete_bool">[docs]</a><span class="k">def</span> <span class="nf">is_concrete_bool</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">SymBool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -4988,7 +5003,7 @@
         <span class="n">subst</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">axioms</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">free_symbols</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">):</span>
-                <span class="n">subst</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_implications</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
+                <span class="n">subst</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_implications</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">e</span><span class="p">))))</span>
 
         <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">subst</span><span class="p">)</span>
 
@@ -5095,7 +5110,14 @@
     <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply symbol replacements to any symbols in the given expression</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">replacements</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">}</span>
+        <span class="n">replacements</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+            <span class="c1"># Micro-optimization: only do replacements if r and s are different</span>
+            <span class="c1"># Otherwise, xreplace is not a no-op and will trigger expensive</span>
+            <span class="c1"># assumption queries if expr has a relational node.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="o">.</span><span class="n">is_Symbol</span> <span class="ow">or</span> <span class="n">r</span> <span class="o">!=</span> <span class="n">s</span><span class="p">:</span>
+                <span class="n">replacements</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
         <span class="k">return</span> <span class="n">safe_expand</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">replacements</span><span class="p">))</span></div>
 
     <span class="nd">@_lru_cache</span>
