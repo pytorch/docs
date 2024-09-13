@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.5.0a0+gitd270e2d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitc9de2ef ) &#x25BC</a>
     </div>
     
 
@@ -527,21 +527,14 @@
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="sd">&quot;&quot;&quot; This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention &quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">contextlib</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
+<span class="kn">import</span> <span class="nn">torch.backends.cuda</span>
 <span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_SDPBackend</span> <span class="k">as</span> <span class="n">SDPBackend</span>
 <span class="kn">from</span> <span class="nn">torch.backends.cuda</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">can_use_efficient_attention</span><span class="p">,</span>
     <span class="n">can_use_flash_attention</span><span class="p">,</span>
-    <span class="n">cudnn_sdp_enabled</span><span class="p">,</span>
-    <span class="n">enable_cudnn_sdp</span><span class="p">,</span>
-    <span class="n">enable_flash_sdp</span><span class="p">,</span>
-    <span class="n">enable_math_sdp</span><span class="p">,</span>
-    <span class="n">enable_mem_efficient_sdp</span><span class="p">,</span>
-    <span class="n">flash_sdp_enabled</span><span class="p">,</span>
-    <span class="n">math_sdp_enabled</span><span class="p">,</span>
-    <span class="n">mem_efficient_sdp_enabled</span><span class="p">,</span>
     <span class="n">SDPAParams</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -593,6 +586,32 @@
             <span class="n">can_use_flash_attention</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 
+<span class="n">_backend_names</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;cudnn&quot;</span><span class="p">:</span> <span class="s2">&quot;CUDNN_ATTENTION&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;flash&quot;</span><span class="p">:</span> <span class="s2">&quot;FLASH_ATTENTION&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mem_efficient&quot;</span><span class="p">:</span> <span class="s2">&quot;EFFICIENT_ATTENTION&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;math&quot;</span><span class="p">:</span> <span class="s2">&quot;MATH&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">_backend_from_string</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">SDPBackend</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_cur_sdpa_kernel_backends</span><span class="p">():</span>
+    <span class="n">backends</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">SDPBackend</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">_backend_names</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cuda</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_sdp_enabled&quot;</span><span class="p">)():</span>
+            <span class="n">backends</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">SDPBackend</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">backends</span>
+
+
+<span class="k">def</span> <span class="nf">_sdpa_kernel</span><span class="p">(</span><span class="n">backends</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">SDPBackend</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">_backend_names</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">enabled</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">SDPBackend</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">backends</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cuda</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;enable_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_sdp&quot;</span><span class="p">)(</span><span class="n">enabled</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="sdpa_kernel"><a class="viewcode-back" href="../../../generated/torch.nn.attention.sdpa_kernel.html#torch.nn.attention.sdpa_kernel">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="k">def</span> <span class="nf">sdpa_kernel</span><span class="p">(</span><span class="n">backends</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SDPBackend</span><span class="p">],</span> <span class="n">SDPBackend</span><span class="p">]):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -628,26 +647,19 @@
         <span class="n">backends</span> <span class="o">=</span> <span class="p">[</span><span class="n">backends</span><span class="p">]</span>
 
     <span class="n">backends</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">backends</span><span class="p">)</span>
-    <span class="n">previous_cudnn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">cudnn_sdp_enabled</span><span class="p">()</span>
-    <span class="n">previous_flash</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">flash_sdp_enabled</span><span class="p">()</span>
-    <span class="n">previous_mem_efficient</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">mem_efficient_sdp_enabled</span><span class="p">()</span>
-    <span class="n">previous_math</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">math_sdp_enabled</span><span class="p">()</span>
+    <span class="n">previous_backends</span> <span class="o">=</span> <span class="n">_cur_sdpa_kernel_backends</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">enable_cudnn</span> <span class="o">=</span> <span class="n">SDPBackend</span><span class="o">.</span><span class="n">CUDNN_ATTENTION</span> <span class="ow">in</span> <span class="n">backends</span>
-        <span class="n">enable_flash</span> <span class="o">=</span> <span class="n">SDPBackend</span><span class="o">.</span><span class="n">FLASH_ATTENTION</span> <span class="ow">in</span> <span class="n">backends</span>
-        <span class="n">enable_mem_efficient</span> <span class="o">=</span> <span class="n">SDPBackend</span><span class="o">.</span><span class="n">EFFICIENT_ATTENTION</span> <span class="ow">in</span> <span class="n">backends</span>
-        <span class="n">enable_math</span> <span class="o">=</span> <span class="n">SDPBackend</span><span class="o">.</span><span class="n">MATH</span> <span class="ow">in</span> <span class="n">backends</span>
-
-        <span class="n">enable_cudnn_sdp</span><span class="p">(</span><span class="n">enable_cudnn</span><span class="p">)</span>
-        <span class="n">enable_flash_sdp</span><span class="p">(</span><span class="n">enable_flash</span><span class="p">)</span>
-        <span class="n">enable_mem_efficient_sdp</span><span class="p">(</span><span class="n">enable_mem_efficient</span><span class="p">)</span>
-        <span class="n">enable_math_sdp</span><span class="p">(</span><span class="n">enable_math</span><span class="p">)</span>
+        <span class="n">_sdpa_kernel</span><span class="p">(</span><span class="n">backends</span><span class="p">)</span>
         <span class="k">yield</span> <span class="p">{}</span>
     <span class="k">finally</span><span class="p">:</span>
-        <span class="n">enable_cudnn_sdp</span><span class="p">(</span><span class="n">previous_cudnn</span><span class="p">)</span>
-        <span class="n">enable_flash_sdp</span><span class="p">(</span><span class="n">previous_flash</span><span class="p">)</span>
-        <span class="n">enable_mem_efficient_sdp</span><span class="p">(</span><span class="n">previous_mem_efficient</span><span class="p">)</span>
-        <span class="n">enable_math_sdp</span><span class="p">(</span><span class="n">previous_math</span><span class="p">)</span></div>
+        <span class="n">_sdpa_kernel</span><span class="p">(</span><span class="n">previous_backends</span><span class="p">)</span></div>
+
+
+<span class="c1"># variadic version of sdpa_kernel for dynamo to use while reconstructing</span>
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">_sdpa_kernel_variadic</span><span class="p">(</span><span class="o">*</span><span class="n">backends</span><span class="p">:</span> <span class="n">SDPBackend</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">sdpa_kernel</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">backends</span><span class="p">)):</span>
+        <span class="k">yield</span>
 
 
 <span class="k">def</span> <span class="nf">_get_flash_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
