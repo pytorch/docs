@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita00faf4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git8072ebc ) &#x25BC</a>
     </div>
     
 
@@ -547,6 +547,7 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch._higher_order_ops.utils</span> <span class="kn">import</span> <span class="n">_set_compilation_env</span>
 <span class="kn">from</span> <span class="nn">torch.fx.experimental.proxy_tensor</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_temp_remove_metadata_torch_function_mode</span><span class="p">,</span>
     <span class="n">_temp_remove_pre_dispatch_torch_function_mode</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.nn.attention._utils</span> <span class="kn">import</span> <span class="n">_supported_head_dim</span><span class="p">,</span> <span class="n">_validate_sdpa_input</span>
@@ -1561,6 +1562,10 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">is_dynamo_supported</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;flex_attention requires dynamo support&quot;</span><span class="p">)</span>
 
+    <span class="kn">from</span> <span class="nn">torch._dynamo.backends.debugging</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">make_eager_backend_with_torch_function_mode</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="c1"># Dynamo is expecting a callable with &quot;__code__&quot; attribute.</span>
     <span class="c1"># We cannot directly pass hop to it. So we wrap it in a dummy function.</span>
     <span class="k">def</span> <span class="nf">_flex_attention_hop_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1569,21 +1574,28 @@
     <span class="k">with</span> <span class="n">_set_compilation_env</span><span class="p">():</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">disable_cache_limit</span><span class="p">():</span>
             <span class="k">with</span> <span class="n">_temp_remove_pre_dispatch_torch_function_mode</span><span class="p">():</span>
-                <span class="n">out</span><span class="p">,</span> <span class="n">lse</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-                    <span class="n">_flex_attention_hop_wrapper</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;eager&quot;</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span>
-                <span class="p">)(</span>
-                    <span class="n">query</span><span class="p">,</span>
-                    <span class="n">key</span><span class="p">,</span>
-                    <span class="n">value</span><span class="p">,</span>
-                    <span class="n">score_mod</span><span class="p">,</span>
-                    <span class="n">block_mask</span><span class="o">.</span><span class="n">as_tuple</span><span class="p">(),</span>
-                    <span class="n">scale</span><span class="p">,</span>
-                    <span class="n">kernel_options</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="k">if</span> <span class="n">return_lse</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">lse</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">out</span></div>
+                <span class="k">with</span> <span class="n">_temp_remove_metadata_torch_function_mode</span><span class="p">()</span> <span class="k">as</span> <span class="n">metadata_mode</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">metadata_mode</span><span class="p">:</span>
+                        <span class="n">backend</span> <span class="o">=</span> <span class="n">make_eager_backend_with_torch_function_mode</span><span class="p">(</span>
+                            <span class="n">metadata_mode</span>
+                        <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">backend</span> <span class="o">=</span> <span class="s2">&quot;eager&quot;</span>
+                    <span class="n">out</span><span class="p">,</span> <span class="n">lse</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+                        <span class="n">_flex_attention_hop_wrapper</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="p">)(</span>
+                        <span class="n">query</span><span class="p">,</span>
+                        <span class="n">key</span><span class="p">,</span>
+                        <span class="n">value</span><span class="p">,</span>
+                        <span class="n">score_mod</span><span class="p">,</span>
+                        <span class="n">block_mask</span><span class="o">.</span><span class="n">as_tuple</span><span class="p">(),</span>
+                        <span class="n">scale</span><span class="p">,</span>
+                        <span class="n">kernel_options</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">return_lse</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">lse</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">out</span></div>
 </pre></div>
 
              </article>

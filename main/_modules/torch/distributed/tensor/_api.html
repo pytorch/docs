@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita00faf4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git8072ebc ) &#x25BC</a>
     </div>
     
 
@@ -813,7 +813,7 @@
 
     <span class="c1"># pyre-fixme[14]: `__repr__` overrides method defined in `DTensor` inconsistently.</span>
     <span class="c1"># pyre-fixme[3]: Return type must be annotated.</span>
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># type: ignore[override]</span>
         <span class="c1"># TODO: consider all_gather the local tensors for better debugging</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DTensor(local_tensor=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_tensor</span><span class="si">}</span><span class="s2">, device_mesh=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_spec</span><span class="o">.</span><span class="n">mesh</span><span class="si">}</span><span class="s2">, placements=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_spec</span><span class="o">.</span><span class="n">placements</span><span class="si">}</span><span class="s2">)&quot;</span>
 

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita00faf4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git8072ebc ) &#x25BC</a>
     </div>
     
 
@@ -973,14 +973,20 @@
         <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">is_Integer</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">factor</span>
         <span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">is_Mul</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="o">.</span><span class="n">_from_args</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">factor</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">is_commutative</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">factor</span><span class="p">:</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">factor</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Mul._from_args require a canonical list of args</span>
+                <span class="c1"># so we remove the first arg (x.args[0] / factor) if it was 1</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">is_commutative</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Add</span><span class="p">:</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span>
         <span class="n">factor</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">integer_coefficient</span><span class="p">,</span> <span class="n">atoms</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">factor</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">expr</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">/</span> <span class="n">factor</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">div_by_factor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Integer</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">One</span>
@@ -1934,13 +1940,64 @@
 
 <span class="n">IndicatorTypes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsNonOverlappingAndDenseIndicator</span><span class="p">,)</span>
 
+
+<span class="k">def</span> <span class="nf">_expandsums</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+    <span class="n">adds</span><span class="p">,</span> <span class="n">other</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">is_Add</span><span class="p">:</span>
+            <span class="n">adds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">(</span><span class="o">*</span><span class="n">other</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">add</span> <span class="ow">in</span> <span class="n">adds</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">add</span><span class="o">.</span><span class="n">args</span><span class="p">)]</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="o">*</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">adds</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">adds</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_fast_expand</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">:</span>
+    <span class="c1"># The expand algorithm in sympy is slow due to all the features is supports</span>
+    <span class="c1"># For eg: e^(-x)*(x-1)/(x+1) is expanded to (x-1)/(e^x + e^x*x) if x is</span>
+    <span class="c1"># positive and (e^(-x)*x-e^(-x))/(x+1) if x is negative. We do not implement</span>
+    <span class="c1"># such features here to avoid expensive checks. We also make sure that we</span>
+    <span class="c1"># only re-create the objects if any of the args changed to avoid expensive</span>
+    <span class="c1"># checks when re-creating objects.</span>
+    <span class="n">new_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">_fast_expand</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">new_arg</span> <span class="k">for</span> <span class="n">arg</span><span class="p">,</span> <span class="n">new_arg</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">new_args</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">_fast_expand</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">new_args</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Pow</span><span class="p">:</span>
+        <span class="n">base</span><span class="p">,</span> <span class="n">exp</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span>
+        <span class="k">if</span> <span class="n">exp</span><span class="o">.</span><span class="n">is_Integer</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">exp</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">expand_multinomial</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">exp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sympy</span><span class="o">.</span><span class="n">expand_multinomial</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">expr</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Mul</span><span class="p">:</span>
+        <span class="n">num</span><span class="p">,</span> <span class="n">den</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">is_Pow</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">den</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">arg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">num</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+        <span class="n">num</span><span class="p">,</span> <span class="n">num_changed</span> <span class="o">=</span> <span class="n">_expandsums</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+        <span class="n">den</span><span class="p">,</span> <span class="n">den_changed</span> <span class="o">=</span> <span class="n">_expandsums</span><span class="p">(</span><span class="n">den</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num_changed</span> <span class="ow">or</span> <span class="n">den_changed</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">num</span> <span class="o">/</span> <span class="n">den</span>
+
+    <span class="k">return</span> <span class="n">expr</span>
+
+
 <span class="nd">@lru_cache</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">safe_expand</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s1">&#39;expand&#39;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">_fast_expand</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">RecursionError</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;RecursionError in sympy.expand(</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;RecursionError in _fast_expand(</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">r</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">r</span>
