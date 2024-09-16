@@ -1284,7 +1284,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1933,7 +1933,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -2106,6 +2106,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f2614ee00d0>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f001e2e5040>
 
 
