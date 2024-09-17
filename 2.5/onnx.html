@@ -522,7 +522,33 @@ native PyTorch <a class="reference internal" href="generated/torch.nn.Module.htm
 <p>The exported model can be consumed by any of the many
 <a class="reference external" href="https://onnx.ai/supported-tools.html#deployModel">runtimes that support ONNX</a>, including
 Microsoft’s <a class="reference external" href="https://www.onnxruntime.ai">ONNX Runtime</a>.</p>
-<p><strong>There are two flavors of ONNX exporter API that you can use, as listed below:</strong></p>
+<p><strong>There are two flavors of ONNX exporter API that you can use, as listed below.</strong>
+Both can be called through function <a class="reference internal" href="onnx_torchscript.html#torch.onnx.export" title="torch.onnx.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.onnx.export()</span></code></a>.
+Next example shows how to export a simple model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">input_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>                  <span class="c1"># model to export</span>
+    <span class="p">(</span><span class="n">input_tensor</span><span class="p">,),</span>        <span class="c1"># inputs of the model,</span>
+    <span class="s2">&quot;my_model.onnx&quot;</span><span class="p">,</span>        <span class="c1"># filename of the ONNX model</span>
+    <span class="n">input_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">],</span>  <span class="c1"># Rename inputs for the ONNX model</span>
+    <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span>             <span class="c1"># True or False to select the exporter to use</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Next sections introduces the two versions of the exporter.</p>
 </div>
 <div class="section" id="torchdynamo-based-onnx-exporter">
 <h2>TorchDynamo-based ONNX Exporter<a class="headerlink" href="#torchdynamo-based-onnx-exporter" title="Permalink to this heading">¶</a></h2>

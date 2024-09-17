@@ -458,7 +458,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
+    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -1005,7 +1005,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1056,7 +1056,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
+    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1333,7 +1333,7 @@ list_unpack
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -2106,6 +2106,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f99a2d4f040>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f29d5e57040>
 
 

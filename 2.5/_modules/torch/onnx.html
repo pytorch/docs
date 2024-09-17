@@ -797,7 +797,9 @@
 <span class="sd">            This is required for models with large weights that exceed the ONNX file size limit (2GB).</span>
 <span class="sd">            When False, the weights are saved in the ONNX file with the model architecture.</span>
 <span class="sd">        dynamic_shapes: A dictionary of dynamic shapes for the model inputs. Refer to</span>
-<span class="sd">            :func:`torch.export.export` for more details.</span>
+<span class="sd">            :func:`torch.export.export` for more details. This is only used (and preferred) when dynamo is True.</span>
+<span class="sd">            Only one parameter `dynamic_axes` or `dynamic_shapes` should be set</span>
+<span class="sd">            at the same time.</span>
 <span class="sd">        report: Whether to generate a markdown report for the export process.</span>
 <span class="sd">        verify: Whether to verify the exported model using ONNX Runtime.</span>
 <span class="sd">        profile: Whether to profile the export process.</span>
@@ -876,6 +878,12 @@
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">torch.onnx.utils</span> <span class="kn">import</span> <span class="n">export</span>
+
+        <span class="k">if</span> <span class="n">dynamic_shapes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;The exporter only supports dynamic shapes &quot;</span>
+                <span class="s2">&quot;through parameter dynamic_axes when dynamo=False.&quot;</span>
+            <span class="p">)</span>
 
         <span class="n">export</span><span class="p">(</span>
             <span class="n">model</span><span class="p">,</span>
