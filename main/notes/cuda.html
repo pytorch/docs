@@ -283,7 +283,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git37a08b3 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf6f1504 ) &#x25BC</a>
     </div>
     
 
@@ -932,6 +932,16 @@ for allocations between 512MB and 1GB and 8 divisions for any larger allocations
 set the knob value to: [256:1,512:2,1024:4,&gt;:8].
 <code class="docutils literal notranslate"><span class="pre">roundup_power2_divisions</span></code> is only meaningful with <code class="docutils literal notranslate"><span class="pre">backend:native</span></code>.
 With <code class="docutils literal notranslate"><span class="pre">backend:cudaMallocAsync</span></code>, <code class="docutils literal notranslate"><span class="pre">roundup_power2_divisions</span></code> is ignored.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">max_non_split_rounding_mb</span></code> will allow non-split blocks for better reuse, eg,</dt><dd><p>a 1024MB cached block can be re-used for a 512MB allocation request. In the default
+case, we only allow up to 20MB of rounding of non-split blocks, so a 512MB block
+can only be served with between 512-532 MB size block. If we set the value of this
+option to 1024, it will alow 512-1536 MB size blocks to be used for a 512MB block
+which increases reuse of larger blocks. This will also help in reducing the stalls
+in avoiding expensive cudaMalloc calls.</p>
+</dd>
+</dl>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">garbage_collection_threshold</span></code> helps actively reclaiming unused GPU memory to
 avoid triggering expensive sync-and-reclaim-all operation (release_cached_blocks),
 which can be unfavorable to latency-critical GPU applications (e.g., servers).
@@ -984,6 +994,9 @@ is set to True. By default, one thread is used to map the pages. This option all
 using more threads to parallelize the page mapping operations to reduce the overall
 allocation time of pinned memory. A good value for this option is 8 based on
 benchmarking results.</p>
+<p><cite>pinned_use_background_threads</cite> option is a boolean flag to enable background thread
+for processing events. This avoids any slow path associated with querying/processing of
+events in the fast allocation path. This feature is disabled by default.</p>
 </li>
 </ul>
 <div class="admonition note">
