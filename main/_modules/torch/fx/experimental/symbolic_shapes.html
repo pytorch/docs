@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf6f1504 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf2b0fc8 ) &#x25BC</a>
     </div>
     
 
@@ -912,6 +912,40 @@
         <span class="n">expr</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">boolalg</span><span class="o">.</span><span class="n">to_cnf</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_canonicalize_bool_expr_impl</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span></div>
 
+
+<span class="k">def</span> <span class="nf">_sympy_from_args</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">],</span>
+        <span class="n">sort</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">is_commutative</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">identity</span>
+    <span class="c1"># These args are already in canonical form, so we avoid calling</span>
+    <span class="c1"># Add(*args) to avoid expensive Add.flatten operation</span>
+    <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">:</span>
+            <span class="n">sort_fn</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">_addsort</span>
+        <span class="k">elif</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">:</span>
+            <span class="n">sort_fn</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">_mulsort</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown cls: </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># we don&#39;t support non commutative with sort</span>
+        <span class="k">assert</span> <span class="n">is_commutative</span> <span class="ow">is</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_Number</span><span class="p">:</span>
+            <span class="n">rest</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">sort_fn</span><span class="p">(</span><span class="n">rest</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_args</span><span class="p">([</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">rest</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">is_commutative</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">sort_fn</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">is_commutative</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># if the args are already sorted, we create directly</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">is_commutative</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_canonicalize_bool_expr_impl</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SympyBoolean</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    After canonicalization, we are guaranteed to have eliminated Ge/Gt relations</span>
@@ -942,8 +976,10 @@
                 <span class="n">neg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">term</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">pos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
-        <span class="n">lhs</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">neg</span><span class="p">)</span>
-        <span class="n">rhs</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="c1"># these are already sorted</span>
+        <span class="n">rhs</span> <span class="o">=</span> <span class="n">_sympy_from_args</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># the terms were changed, so needs a sorting</span>
+        <span class="n">lhs</span> <span class="o">=</span> <span class="n">_sympy_from_args</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">is_neg</span><span class="p">(</span><span class="n">rhs</span><span class="p">):</span>
         <span class="c1"># lhs == 0</span>
         <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span> <span class="o">=</span> <span class="o">-</span><span class="n">rhs</span><span class="p">,</span> <span class="mi">0</span>
@@ -974,12 +1010,12 @@
             <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">factor</span>
         <span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">is_Mul</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">factor</span><span class="p">:</span>
-                <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">factor</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">factor</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Mul._from_args require a canonical list of args</span>
                 <span class="c1"># so we remove the first arg (x.args[0] / factor) if it was 1</span>
-                <span class="n">args</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-            <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">is_commutative</span><span class="p">)</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="k">return</span> <span class="n">_sympy_from_args</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">is_commutative</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Add</span><span class="p">:</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span>
@@ -987,7 +1023,7 @@
         <span class="k">if</span> <span class="n">factor</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">expr</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">div_by_factor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="o">.</span><span class="n">_from_args</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_sympy_from_args</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_commutative</span><span class="o">=</span><span class="n">expr</span><span class="o">.</span><span class="n">is_commutative</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Integer</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">One</span>
     <span class="k">elif</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Mul</span><span class="p">:</span>
@@ -1970,7 +2006,7 @@
 
     <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Pow</span><span class="p">:</span>
         <span class="n">base</span><span class="p">,</span> <span class="n">exp</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span>
-        <span class="k">if</span> <span class="n">exp</span><span class="o">.</span><span class="n">is_Integer</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exp</span><span class="o">.</span><span class="n">is_Integer</span> <span class="ow">and</span> <span class="n">base</span><span class="o">.</span><span class="n">is_Add</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">exp</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">expand_multinomial</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">exp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
