@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git7936584 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git35532fc ) &#x25BC</a>
     </div>
     
 
@@ -850,10 +850,11 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        fn: the function to compute the Jacobian for (must take inputs as a tuple)</span>
-<span class="sd">        input: input to `fn`</span>
+<span class="sd">        inputs: input to `fn`</span>
 <span class="sd">        target: the Tensors wrt whom Jacobians are calculated (default=`input`)</span>
 <span class="sd">        eps: the magnitude of the perturbation during finite differencing</span>
 <span class="sd">             (default=`1e-3`)</span>
+<span class="sd">        grad_out: defaults to 1.0.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A list of Jacobians of `fn` (restricted to its first output) with respect to</span>
