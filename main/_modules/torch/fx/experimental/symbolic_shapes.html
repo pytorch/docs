@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git3406ac2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite0f84f4 ) &#x25BC</a>
     </div>
     
 
@@ -2037,6 +2037,104 @@
             <span class="k">return</span> <span class="n">r</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">r</span>
+
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_maybe_evaluate_static_worker</span><span class="p">(</span>
+    <span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span>
+    <span class="n">symbol_info</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">unbacked_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This variant of ShapeEnv._maybe_evaluate_static has no dependence on</span>
+<span class="sd">    ShapeEnv and thus can be cached indefinitely.  It does the &quot;heavy&quot; lifting</span>
+<span class="sd">    for static evaluation, including nontrivial reliance on Sympy simplification</span>
+<span class="sd">    that occurs when we reallocate the symbols</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Simplify making use of value range lower bound</span>
+    <span class="n">new_shape_env</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">new_range_env</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">sinfo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">symbol_info</span><span class="p">):</span>
+        <span class="n">k</span><span class="p">,</span> <span class="n">vr</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">is_size_like</span> <span class="o">=</span> <span class="n">sinfo</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">SingletonInt</span><span class="p">):</span>
+            <span class="c1"># Skip var_ranges logic for SingletonInt which is only used</span>
+            <span class="c1"># for jagged layout NestedTensors today</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">size_oblivious</span> <span class="ow">and</span> <span class="n">is_size_like</span><span class="p">:</span>
+            <span class="n">lower</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
+            <span class="c1"># Clamping size-oblivious to some quantity below sys.maxsize</span>
+            <span class="c1"># helps us determine that f(u0) != sys.maxsize, which is a</span>
+            <span class="c1"># test that is looking for sys.maxsize as a sentinel, but you</span>
+            <span class="c1"># don&#39;t really want to worry about it for unbacked SymInts.</span>
+            <span class="c1"># This is similar to the flavor where size oblivious omits</span>
+            <span class="c1"># 0/1, it changes semantics but in a benign way.</span>
+            <span class="n">upper</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">48</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+            <span class="c1"># This is a bit dodgy: what this means is that there was a</span>
+            <span class="c1"># size-like unbacked symbol whose upper bound &lt; 2.  This</span>
+            <span class="c1"># causes... problems.</span>
+            <span class="k">if</span> <span class="n">lower</span> <span class="o">&lt;=</span> <span class="n">upper</span><span class="p">:</span>
+                <span class="n">vr</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lower</span> <span class="o">=</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span>
+        <span class="c1"># Don&#39;t do anything if we don&#39;t have a nontrivial lower bound</span>
+        <span class="c1"># Also don&#39;t do anything if we asked only to simplify unbacked</span>
+        <span class="c1"># SymInt</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">lower</span> <span class="ow">is</span> <span class="o">-</span><span class="n">int_oo</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="n">unbacked_only</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span>
+            <span class="ow">not</span> <span class="n">vr</span><span class="o">.</span><span class="n">is_int</span>
+        <span class="p">):</span>
+            <span class="n">new_range_env</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">vr</span>
+            <span class="k">continue</span>
+        <span class="c1"># The goal is to take our symbols which have various lower bounds</span>
+        <span class="c1"># and reallocate them into new symbols which are exactly positive;</span>
+        <span class="c1"># e.g., if we have s0 in [2, inf], we want to turn it into ess0 in</span>
+        <span class="c1"># [1, inf], where s0 = ess0 + 1.  This gives the most information</span>
+        <span class="c1"># to sympy for subsequent simplifications.</span>
+        <span class="c1">#</span>
+        <span class="c1"># Positive means &gt;= 1</span>
+        <span class="c1"># Positive - 1 means &gt;= 0</span>
+        <span class="c1"># Positive + lower - 1 means &gt;= lower</span>
+        <span class="c1"># The new symbol &#39;s&#39; is &quot;too low&quot;, so when we substitute it in</span>
+        <span class="c1"># we have to increase it by offset (and conversely, the new</span>
+        <span class="c1"># variables have to have their value range bounds adjusted as</span>
+        <span class="c1"># well)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;evaluate_static_shape_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Note:</span>
+        <span class="c1">#   Offset might be a fraction(e.g. aten.split.Tensor), but shapes are always integers.</span>
+        <span class="c1">#   Sympy might give unexepected results when comparing an integer with a non-integer</span>
+        <span class="c1">#   Therefore, we cast offset to int here.</span>
+        <span class="c1">#   For example:</span>
+        <span class="c1">#       shape_0 = sympy.Symbol(&quot;shape_0&quot;, positive=True, integer=True)</span>
+        <span class="c1">#       expr = sympy.Eq(shape_0 - 1/3, 4)</span>
+        <span class="c1">#       expr.xreplace({}) # False</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lower</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">new_shape_env</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">offset</span>
+        <span class="n">new_range_env</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">SymPyValueRangeAnalysis</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vr</span><span class="p">,</span> <span class="o">-</span><span class="n">offset</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">new_shape_env</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">RecursionError</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;RecursionError in sympy.xreplace(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">new_shape_env</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># We need to canonicalize, as after expand we may have something like `a + b = a` and</span>
+    <span class="c1"># sympy will not simplify the a. The two appeareances of the a will then make value ranges</span>
+    <span class="c1"># analysis give lose bounds</span>
+    <span class="n">new_expr</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">safe_expand</span><span class="p">(</span><span class="n">new_expr</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">new_expr</span><span class="o">.</span><span class="n">is_number</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">new_expr</span>
+
+    <span class="c1"># Check if the range can solve it statically</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">bound_sympy</span><span class="p">(</span><span class="n">new_expr</span><span class="p">,</span> <span class="n">new_range_env</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">is_singleton</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">lower</span>
+
+    <span class="k">return</span> <span class="n">new_expr</span> <span class="k">if</span> <span class="n">unbacked_only</span> <span class="k">else</span> <span class="kc">None</span>
+
 
 <span class="k">def</span> <span class="nf">error</span><span class="p">():</span>
     <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;shouldn&#39;t be hit&quot;</span><span class="p">)</span>
@@ -5078,11 +5176,6 @@
         <span class="c1"># axioms with compute hint NYE</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="n">compute_hint</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">axioms</span>
 
-        <span class="k">if</span> <span class="n">var_to_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">var_ranges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">var_ranges</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">var_to_range</span><span class="p">)</span>
-
         <span class="n">expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">compute_hint</span><span class="p">:</span>
@@ -5101,104 +5194,23 @@
 
         <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">subst</span><span class="p">)</span>
 
-        <span class="n">symbols</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span>
 
-        <span class="c1"># Simplify making use of value range lower bound</span>
-        <span class="n">new_shape_env</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">new_range_env</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">symbols</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">SingletonInt</span><span class="p">):</span>
-                <span class="c1"># Skip var_ranges logic for SingletonInt which is only used</span>
-                <span class="c1"># for jagged layout NestedTensors today</span>
-                <span class="k">continue</span>
-            <span class="n">vr</span> <span class="o">=</span> <span class="n">var_ranges</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">size_oblivious</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">:</span>
-                <span class="n">lower</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
-                <span class="c1"># Clamping size-oblivious to some quantity below sys.maxsize</span>
-                <span class="c1"># helps us determine that f(u0) != sys.maxsize, which is a</span>
-                <span class="c1"># test that is looking for sys.maxsize as a sentinel, but you</span>
-                <span class="c1"># don&#39;t really want to worry about it for unbacked SymInts.</span>
-                <span class="c1"># This is similar to the flavor where size oblivious omits</span>
-                <span class="c1"># 0/1, it changes semantics but in a benign way.</span>
-                <span class="n">upper</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">48</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
-                <span class="c1"># This is a bit dodgy: what this means is that there was a</span>
-                <span class="c1"># size-like unbacked symbol whose upper bound &lt; 2.  This</span>
-                <span class="c1"># causes... problems.</span>
-                <span class="k">if</span> <span class="n">lower</span> <span class="o">&lt;=</span> <span class="n">upper</span><span class="p">:</span>
-                    <span class="n">vr</span> <span class="o">=</span> <span class="n">ValueRanges</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">lower</span> <span class="o">=</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span>
-            <span class="c1"># Don&#39;t do anything if we don&#39;t have a nontrivial lower bound</span>
-            <span class="c1"># Also don&#39;t do anything if we asked only to simplify unbacked</span>
-            <span class="c1"># SymInt</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="n">lower</span> <span class="ow">is</span> <span class="o">-</span><span class="n">int_oo</span> <span class="ow">or</span>
-                <span class="p">(</span><span class="n">unbacked_only</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">)</span> <span class="ow">or</span>
-                <span class="ow">not</span> <span class="n">vr</span><span class="o">.</span><span class="n">is_int</span>
-            <span class="p">):</span>
-                <span class="n">new_range_env</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">vr</span>
-                <span class="k">continue</span>
-            <span class="c1"># The goal is to take our symbols which have various lower bounds</span>
-            <span class="c1"># and reallocate them into new symbols which are exactly positive;</span>
-            <span class="c1"># e.g., if we have s0 in [2, inf], we want to turn it into ess0 in</span>
-            <span class="c1"># [1, inf], where s0 = ess0 + 1.  This gives the most information</span>
-            <span class="c1"># to sympy for subsequent simplifications.</span>
-            <span class="c1">#</span>
-            <span class="c1"># Positive means &gt;= 1</span>
-            <span class="c1"># Positive - 1 means &gt;= 0</span>
-            <span class="c1"># Positive + lower - 1 means &gt;= lower</span>
-            <span class="c1"># The new symbol &#39;s&#39; is &quot;too low&quot;, so when we substitute it in</span>
-            <span class="c1"># we have to increase it by offset (and conversely, the new</span>
-            <span class="c1"># variables have to have their value range bounds adjusted as</span>
-            <span class="c1"># well)</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;evaluate_static_shape_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fs</span> <span class="ow">and</span> <span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">is_number</span> <span class="ow">or</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Boolean</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">expr</span>
 
-            <span class="c1"># Note:</span>
-            <span class="c1">#   Offset might be a fraction(e.g. aten.split.Tensor), but shapes are always integers.</span>
-            <span class="c1">#   Sympy might give unexepected results when comparing an integer with a non-integer</span>
-            <span class="c1">#   Therefore, we cast offset to int here.</span>
-            <span class="c1">#   For example:</span>
-            <span class="c1">#       shape_0 = sympy.Symbol(&quot;shape_0&quot;, positive=True, integer=True)</span>
-            <span class="c1">#       expr = sympy.Eq(shape_0 - 1/3, 4)</span>
-            <span class="c1">#       expr.xreplace({}) # False</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lower</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">new_shape_env</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">offset</span>
-            <span class="n">new_range_env</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">SymPyValueRangeAnalysis</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vr</span><span class="p">,</span> <span class="o">-</span><span class="n">offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">var_to_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">var_ranges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">var_ranges</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">var_to_range</span><span class="p">)</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">new_expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">new_shape_env</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">RecursionError</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;RecursionError in sympy.xreplace(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">new_shape_env</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">[</span><span class="s2">&quot;sympy_recursion_error&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">symbol_info</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">var_ranges</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>  <span class="c1"># TODO: speed up sort?</span>
+        <span class="p">)</span>
 
-        <span class="c1"># We need to canonicalize, as after expand we may have something like `a + b = a` and</span>
-        <span class="c1"># sympy will not simplify the a. The two appeareances of the a will then make value ranges</span>
-        <span class="c1"># analysis give lose bounds</span>
-        <span class="n">new_expr</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">safe_expand</span><span class="p">(</span><span class="n">new_expr</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">new_expr</span><span class="o">.</span><span class="n">is_number</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">new_expr</span>
-
-        <span class="c1"># This is bad to do, the replacement with division leaves us with</span>
-        <span class="c1"># rationals when atom.args[0] is addition, e.g., sympy will happily</span>
-        <span class="c1"># turn (s0 + s1) // 2 into s0 / 2 + s1 / 2.  Needless complication!</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        floor_div_replace = {}</span>
-<span class="sd">        for atom in new_expr.atoms(FloorDiv):</span>
-<span class="sd">            floor_div_replace[atom] = sympy.floor(atom.args[0] / atom.args[1])</span>
-<span class="sd">        new_expr = safe_expand(new_expr.xreplace(floor_div_replace))</span>
-<span class="sd">        # TODO: when unbacked_only, can sometimes early return even when there</span>
-<span class="sd">        # are still free symbols</span>
-<span class="sd">        if new_expr.is_number:</span>
-<span class="sd">            return new_expr</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># Check if the range can solve it statically</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">bound_sympy</span><span class="p">(</span><span class="n">new_expr</span><span class="p">,</span> <span class="n">new_range_env</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">is_singleton</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">lower</span>
-
-        <span class="k">return</span> <span class="n">new_expr</span> <span class="k">if</span> <span class="n">unbacked_only</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">_maybe_evaluate_static_worker</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">symbol_info</span><span class="p">,</span> <span class="n">unbacked_only</span><span class="p">,</span> <span class="n">size_oblivious</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span>
 
 <div class="viewcode-block" id="ShapeEnv.replace"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.replace">[docs]</a>    <span class="nd">@_lru_cache</span>
     <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;sympy.Expr&quot;</span><span class="p">:</span>
