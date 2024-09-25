@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite0f84f4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git9629835 ) &#x25BC</a>
     </div>
     
 
@@ -533,7 +533,6 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;DiagnosticOptions&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ExportOptions&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ONNXProgram&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ONNXRuntimeOptions&quot;</span><span class="p">,</span>
     <span class="s2">&quot;InvalidExportOptionsError&quot;</span><span class="p">,</span>
     <span class="s2">&quot;OnnxRegistry&quot;</span><span class="p">,</span>
@@ -547,24 +546,22 @@
 <span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">dataclasses</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">TypeVar</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Self</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch._ops</span>
 <span class="kn">import</span> <span class="nn">torch.utils._pytree</span> <span class="k">as</span> <span class="nn">pytree</span>
 <span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">errors</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">io_adapter</span>
+<span class="kn">from</span> <span class="nn">torch.onnx._internal._lazy_import</span> <span class="kn">import</span> <span class="n">onnxscript_ir</span> <span class="k">as</span> <span class="n">ir</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal.diagnostics</span> <span class="kn">import</span> <span class="n">infra</span>
+<span class="kn">from</span> <span class="nn">torch.onnx._internal.exporter</span> <span class="kn">import</span> <span class="n">_onnx_program</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal.fx</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">decomposition_table</span><span class="p">,</span>
     <span class="n">patcher</span> <span class="k">as</span> <span class="n">patcher</span><span class="p">,</span>
     <span class="n">registration</span><span class="p">,</span>
-    <span class="n">serialization</span> <span class="k">as</span> <span class="n">fx_serialization</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -573,8 +570,6 @@
 <span class="c1"># &#39;import onnx&#39; inside of dynamo_export (by way of _assert_dependencies).</span>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">io</span>
-
-    <span class="kn">import</span> <span class="nn">onnx</span>
 
     <span class="kn">import</span> <span class="nn">onnxruntime</span>
     <span class="kn">import</span> <span class="nn">onnxscript</span>
@@ -593,9 +588,6 @@
 <span class="n">_DEFAULT_FAILED_EXPORT_SARIF_LOG_PATH</span> <span class="o">=</span> <span class="s2">&quot;report_dynamo_export.sarif&quot;</span>
 <span class="sd">&quot;&quot;&quot;The default path to write the SARIF log to if the export fails.&quot;&quot;&quot;</span>
 
-<span class="n">_PROTOBUF_SIZE_MAX_LIMIT</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
-<span class="sd">&quot;&quot;&quot;The maximum size of a Protobuf file in bytes. This is used to determine whether to</span>
-<span class="sd">serialize the model with external data or not.&quot;&quot;&quot;</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -1010,413 +1002,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">execution_provider_options</span> <span class="o">=</span> <span class="n">execution_provider_options</span>
 
 
-<span class="k">class</span> <span class="nc">ONNXProgram</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An in-memory representation of a PyTorch model that has been exported to ONNX.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        model_proto: The exported ONNX model as an :py:obj:`onnx.ModelProto`.</span>
-<span class="sd">        input_adapter: The input adapter used to convert PyTorch inputs into ONNX inputs.</span>
-<span class="sd">        output_adapter: The output adapter used to convert PyTorch outputs into ONNX outputs.</span>
-<span class="sd">        diagnostic_context: Context object for the SARIF diagnostic system responsible for logging errors and metadata.</span>
-<span class="sd">        fake_context: The fake context used for symbolic tracing.</span>
-<span class="sd">        export_exception: The exception that occurred during export, if any.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">_model_proto</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">onnx</span><span class="o">.</span><span class="n">ModelProto</span><span class="p">]</span>  <span class="c1"># type: ignore[name-defined, misc]</span>
-    <span class="n">_input_adapter</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">io_adapter</span><span class="o">.</span><span class="n">InputAdapter</span><span class="p">]</span>  <span class="c1"># type: ignore[misc]</span>
-    <span class="n">_output_adapter</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">io_adapter</span><span class="o">.</span><span class="n">OutputAdapter</span><span class="p">]</span>  <span class="c1"># type: ignore[misc]</span>
-    <span class="n">_diagnostic_context</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">diagnostics</span><span class="o">.</span><span class="n">DiagnosticContext</span><span class="p">]</span>  <span class="c1"># type: ignore[misc]</span>
-    <span class="n">_fake_context</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">ONNXFakeContext</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>  <span class="c1"># type: ignore[misc]</span>
-    <span class="n">_export_exception</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="ne">Exception</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>  <span class="c1"># type: ignore[misc]</span>
-    <span class="n">_model_torch</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span>  <span class="c1"># type: ignore[misc]</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="p">]</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">model_proto</span><span class="p">:</span> <span class="n">onnx</span><span class="o">.</span><span class="n">ModelProto</span><span class="p">,</span>  <span class="c1"># type: ignore[name-defined]</span>
-        <span class="n">input_adapter</span><span class="p">:</span> <span class="n">io_adapter</span><span class="o">.</span><span class="n">InputAdapter</span><span class="p">,</span>
-        <span class="n">output_adapter</span><span class="p">:</span> <span class="n">io_adapter</span><span class="o">.</span><span class="n">OutputAdapter</span><span class="p">,</span>
-        <span class="n">diagnostic_context</span><span class="p">:</span> <span class="n">diagnostics</span><span class="o">.</span><span class="n">DiagnosticContext</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">fake_context</span><span class="p">:</span> <span class="n">ONNXFakeContext</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">export_exception</span><span class="p">:</span> <span class="ne">Exception</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">model_torch</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_model_proto</span> <span class="o">=</span> <span class="n">model_proto</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_model_torch</span> <span class="o">=</span> <span class="n">model_torch</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_input_adapter</span> <span class="o">=</span> <span class="n">input_adapter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output_adapter</span> <span class="o">=</span> <span class="n">output_adapter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_diagnostic_context</span> <span class="o">=</span> <span class="n">diagnostic_context</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span> <span class="o">=</span> <span class="n">fake_context</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_export_exception</span> <span class="o">=</span> <span class="n">export_exception</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_state_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="n">model_with_state_dict</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">options</span><span class="p">:</span> <span class="n">ONNXRuntimeOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Runs the ONNX model using ONNX Runtime</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            args: The positional inputs to the model.</span>
-<span class="sd">            kwargs: The keyword inputs to the model.</span>
-<span class="sd">            model_with_state_dict: The PyTorch model to fetch state from.</span>
-<span class="sd">                Required when :func:`enable_fake_mode` is used to extract real initializers as needed by the ONNX graph.</span>
-<span class="sd">            options: The options to use for running the model with ONNX Runtime.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The model output as computed by ONNX Runtime</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># TODO: If ONNX used absolute paths on the initializers external data files,</span>
-        <span class="c1"># users could call ONNXProgram.save and use ONNXProgram.__call__ without the internal save below</span>
-        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
-            <span class="c1"># model specified by the user has precedence, when specified</span>
-            <span class="n">model_with_state_dict</span> <span class="o">=</span> <span class="n">model_with_state_dict</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_torch</span>
-
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_context</span><span class="p">:</span>
-                <span class="n">tmpdir_path</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">())</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="s2">&quot;Cannot run model directly from `ONNXProgram` because&quot;</span>
-                    <span class="s2">&quot; the model was exported using `enable_fake_mode`.&quot;</span>
-                    <span class="s2">&quot; The model will be serialized to disk using a temporary folder (</span><span class="si">{tmpdir_path}</span><span class="s2">)&quot;</span>
-                    <span class="s2">&quot; to populate the model with initializers before being execution.&quot;</span>
-                <span class="p">)</span>
-                <span class="c1"># TODO: Revisit the need of `model_with_state_dict` being a real model and not just its state</span>
-                <span class="n">onnx_model</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir_path</span><span class="p">,</span> <span class="s2">&quot;model.onnx&quot;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model_with_state_dict</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-                    <span class="n">model_state</span> <span class="o">=</span> <span class="n">model_with_state_dict</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">model_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_dict</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
-                    <span class="n">onnx_model</span><span class="p">,</span>
-                    <span class="n">model_state</span><span class="o">=</span><span class="n">model_state</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">onnx_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>  <span class="c1"># type: ignore[assignment]</span>
-
-            <span class="kn">import</span> <span class="nn">onnxruntime</span>  <span class="c1"># type: ignore[import]</span>
-
-            <span class="n">onnx_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapt_torch_inputs_to_onnx</span><span class="p">(</span>
-                <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">model_with_state_dict</span><span class="o">=</span><span class="n">model_with_state_dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-            <span class="p">)</span>
-            <span class="n">options</span> <span class="o">=</span> <span class="n">options</span> <span class="ow">or</span> <span class="n">ONNXRuntimeOptions</span><span class="p">()</span>
-            <span class="n">providers</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">options</span><span class="o">.</span><span class="n">execution_providers</span> <span class="ow">or</span> <span class="n">onnxruntime</span><span class="o">.</span><span class="n">get_available_providers</span><span class="p">()</span>
-            <span class="p">)</span>
-            <span class="n">ort_session</span> <span class="o">=</span> <span class="n">onnxruntime</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="n">onnx_model</span><span class="p">,</span> <span class="n">providers</span><span class="o">=</span><span class="n">providers</span><span class="p">)</span>
-
-            <span class="n">onnxruntime_input</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">k</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">numpy</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[union-attr]</span>
-                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ort_session</span><span class="o">.</span><span class="n">get_inputs</span><span class="p">(),</span> <span class="n">onnx_input</span><span class="p">)</span>
-            <span class="p">}</span>
-
-            <span class="k">return</span> <span class="n">ort_session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">onnxruntime_input</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">model_proto</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">onnx</span><span class="o">.</span><span class="n">ModelProto</span><span class="p">:</span>  <span class="c1"># type: ignore[name-defined]</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The exported ONNX model as an :py:obj:`onnx.ModelProto`.&quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_exception</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_exception</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_proto</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">diagnostic_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">diagnostics</span><span class="o">.</span><span class="n">DiagnosticContext</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The diagnostic context associated with the export.&quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diagnostic_context</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">fake_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ONNXFakeContext</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The fake context associated with the export.&quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span>
-
-<div class="viewcode-block" id="ONNXProgram.adapt_torch_inputs_to_onnx"><a class="viewcode-back" href="../../../../onnx_dynamo.html#torch.onnx.ONNXProgram.adapt_torch_inputs_to_onnx">[docs]</a>    <span class="k">def</span> <span class="nf">adapt_torch_inputs_to_onnx</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">model_args</span><span class="p">,</span>
-        <span class="n">model_with_state_dict</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">model_kwargs</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Converts the PyTorch model inputs to exported ONNX model inputs format.</span>
-
-<span class="sd">        Due to design differences, input/output format between PyTorch model and exported</span>
-<span class="sd">        ONNX model are often not the same. E.g., None is allowed for PyTorch model, but are</span>
-<span class="sd">        not supported by ONNX. Nested constructs of tensors are allowed for PyTorch model,</span>
-<span class="sd">        but only flattened tensors are supported by ONNX, etc.</span>
-
-<span class="sd">        The actual adapting steps are associated with each individual export. It</span>
-<span class="sd">        depends on the PyTorch model, the particular set of model_args and model_kwargs</span>
-<span class="sd">        used for the export, and export options.</span>
-
-<span class="sd">        This method replays the adapting steps recorded during export.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            model_args: The PyTorch model inputs.</span>
-<span class="sd">            model_with_state_dict: The PyTorch model to get extra state from.</span>
-<span class="sd">                If not specified, the model used during export is used.</span>
-<span class="sd">                Required when :func:`enable_fake_mode` is used to extract real initializers as needed by the ONNX graph.</span>
-<span class="sd">            model_kwargs: The PyTorch model keyword inputs.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            A sequence of tensors converted from PyTorch model inputs.</span>
-
-<span class="sd">        Example::</span>
-
-<span class="sd">            # xdoctest: +REQUIRES(env:TORCH_DOCTEST_ONNX)</span>
-<span class="sd">            &gt;&gt;&gt; import torch</span>
-<span class="sd">            &gt;&gt;&gt; import torch.onnx</span>
-<span class="sd">            &gt;&gt;&gt; from typing import Dict, Tuple</span>
-<span class="sd">            &gt;&gt;&gt; def func_nested_input(</span>
-<span class="sd">            ...     x_dict: Dict[str, torch.Tensor],</span>
-<span class="sd">            ...     y_tuple: Tuple[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]]</span>
-<span class="sd">            ... ):</span>
-<span class="sd">            ...     if &quot;a&quot; in x_dict:</span>
-<span class="sd">            ...         x = x_dict[&quot;a&quot;]</span>
-<span class="sd">            ...     elif &quot;b&quot; in x_dict:</span>
-<span class="sd">            ...         x = x_dict[&quot;b&quot;]</span>
-<span class="sd">            ...     else:</span>
-<span class="sd">            ...         x = torch.randn(3)</span>
-<span class="sd">            ...</span>
-<span class="sd">            ...     y1, (y2, y3) = y_tuple</span>
-<span class="sd">            ...</span>
-<span class="sd">            ...     return x + y1 + y2 + y3</span>
-<span class="sd">            &gt;&gt;&gt; x_dict = {&quot;a&quot;: torch.tensor(1.)}</span>
-<span class="sd">            &gt;&gt;&gt; y_tuple = (torch.tensor(2.), (torch.tensor(3.), torch.tensor(4.)))</span>
-<span class="sd">            &gt;&gt;&gt; onnx_program = torch.onnx.dynamo_export(func_nested_input, x_dict, y_tuple)</span>
-<span class="sd">            &gt;&gt;&gt; print(x_dict, y_tuple)</span>
-<span class="sd">            {&#39;a&#39;: tensor(1.)} (tensor(2.), (tensor(3.), tensor(4.)))</span>
-<span class="sd">            &gt;&gt;&gt; print(onnx_program.adapt_torch_inputs_to_onnx(x_dict, y_tuple, model_with_state_dict=func_nested_input))</span>
-<span class="sd">            (tensor(1.), tensor(2.), tensor(3.), tensor(4.))</span>
-
-<span class="sd">        .. warning::</span>
-<span class="sd">            This API is experimental and is *NOT* backward-compatible.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># model specified by the user has precedence, when specified</span>
-        <span class="n">model_with_state_dict</span> <span class="o">=</span> <span class="n">model_with_state_dict</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_torch</span>
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="n">model_with_state_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">),</span> <span class="s2">&quot;model_with_state_dict must be specified.&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_adapter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>  <span class="c1"># type: ignore[return-value]</span>
-            <span class="o">*</span><span class="n">model_args</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model_with_state_dict</span><span class="p">,</span> <span class="o">**</span><span class="n">model_kwargs</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="ONNXProgram.adapt_torch_outputs_to_onnx"><a class="viewcode-back" href="../../../../onnx_dynamo.html#torch.onnx.ONNXProgram.adapt_torch_outputs_to_onnx">[docs]</a>    <span class="k">def</span> <span class="nf">adapt_torch_outputs_to_onnx</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">model_outputs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="n">model_with_state_dict</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Converts the PyTorch model outputs to exported ONNX model outputs format.</span>
-
-<span class="sd">        Due to design differences, input/output format between PyTorch model and exported</span>
-<span class="sd">        ONNX model are often not the same. E.g., None is allowed for PyTorch model, but are</span>
-<span class="sd">        not supported by ONNX. Nested constructs of tensors are allowed for PyTorch model,</span>
-<span class="sd">        but only flattened tensors are supported by ONNX, etc.</span>
-
-<span class="sd">        The actual adapting steps are associated with each individual export. It</span>
-<span class="sd">        depends on the PyTorch model, the particular set of model_args and model_kwargs</span>
-<span class="sd">        used for the export, and export options.</span>
-
-<span class="sd">        This method replays the adapting steps recorded during export.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            model_outputs: The PyTorch model outputs.</span>
-<span class="sd">            model_with_state_dict: The PyTorch model to get extra state from.</span>
-<span class="sd">                If not specified, the model used during export is used.</span>
-<span class="sd">                Required when :func:`enable_fake_mode` is used to extract real initializers as needed by the ONNX graph.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            PyTorch model outputs in exported ONNX model outputs format.</span>
-
-<span class="sd">        Example::</span>
-
-<span class="sd">            # xdoctest: +REQUIRES(env:TORCH_DOCTEST_ONNX)</span>
-<span class="sd">            &gt;&gt;&gt; import torch</span>
-<span class="sd">            &gt;&gt;&gt; import torch.onnx</span>
-<span class="sd">            &gt;&gt;&gt; def func_returning_tuples(x, y, z):</span>
-<span class="sd">            ...     x = x + y</span>
-<span class="sd">            ...     y = y + z</span>
-<span class="sd">            ...     z = x + y</span>
-<span class="sd">            ...     return (x, (y, z))</span>
-<span class="sd">            &gt;&gt;&gt; x = torch.tensor(1.)</span>
-<span class="sd">            &gt;&gt;&gt; y = torch.tensor(2.)</span>
-<span class="sd">            &gt;&gt;&gt; z = torch.tensor(3.)</span>
-<span class="sd">            &gt;&gt;&gt; onnx_program = torch.onnx.dynamo_export(func_returning_tuples, x, y, z)</span>
-<span class="sd">            &gt;&gt;&gt; pt_output = func_returning_tuples(x, y, z)</span>
-<span class="sd">            &gt;&gt;&gt; print(pt_output)</span>
-<span class="sd">            (tensor(3.), (tensor(5.), tensor(8.)))</span>
-<span class="sd">            &gt;&gt;&gt; print(onnx_program.adapt_torch_outputs_to_onnx(pt_output, model_with_state_dict=func_returning_tuples))</span>
-<span class="sd">            [tensor(3.), tensor(5.), tensor(8.)]</span>
-
-<span class="sd">        .. warning::</span>
-<span class="sd">            This API is experimental and is *NOT* backward-compatible.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># model specified by the user has precedence, when specified</span>
-        <span class="n">model_with_state_dict</span> <span class="o">=</span> <span class="n">model_with_state_dict</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_torch</span>
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="n">model_with_state_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">),</span> <span class="s2">&quot;model_with_state_dict must be specified.&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_adapter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">model_outputs</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model_with_state_dict</span><span class="p">)</span>  <span class="c1"># type: ignore[return-value]</span></div>
-
-<div class="viewcode-block" id="ONNXProgram.apply_weights"><a class="viewcode-back" href="../../../../onnx_dynamo.html#torch.onnx.ONNXProgram.apply_weights">[docs]</a>    <span class="k">def</span> <span class="nf">apply_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply the weights from the specified state dict to the ONNX model.</span>
-<span class="sd">        Args:</span>
-<span class="sd">            state_dict: The state dict containing the weights to apply to the ONNX model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_state_dict</span> <span class="o">=</span> <span class="n">state_dict</span></div>
-
-<div class="viewcode-block" id="ONNXProgram.save"><a class="viewcode-back" href="../../../../onnx_dynamo.html#torch.onnx.ONNXProgram.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">io</span><span class="o">.</span><span class="n">BufferedIOBase</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">include_initializers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">model_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Saves the in-memory ONNX model to ``destination`` using specified ``serializer``.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            destination: The destination to save the ONNX model. It can be either a string or a file-like object.</span>
-<span class="sd">                When used with ``model_state``, it must be a string with a full path to the destination.</span>
-<span class="sd">                If `destination` is a string, besides saving the ONNX model into a file, model weights are also stored</span>
-<span class="sd">                in separate files in the same directory as the ONNX model. E.g. for `destination=&quot;/path/model.onnx&quot;`,</span>
-<span class="sd">                the initializers are saved in &quot;/path/&quot; folder along with &quot;onnx.model&quot;.</span>
-<span class="sd">            include_initializers: Whether to include initializers in the ONNX graph as external data.</span>
-<span class="sd">                Cannot be combined with `model_state_dict`.</span>
-<span class="sd">            model_state: The state_dict of the PyTorch model containing all weights on it.</span>
-<span class="sd">                It can be either a string with the path to a checkpoint or a dictionary with the actual model state.</span>
-<span class="sd">                The supported file formats are the same as those supported by `torch.load` and `safetensors.safe_open`.</span>
-<span class="sd">                Required when :func:`enable_fake_mode` is used but real initializers are needed on the ONNX graph.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">onnx</span>
-
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="n">include_initializers</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="kc">None</span>
-        <span class="p">),</span> <span class="s2">&quot;Cannot specify both `include_initializers=False` and `model_state`.&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_dict</span> <span class="ow">and</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">model_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_dict</span>
-
-        <span class="c1"># Add initializers when symbolic tracing is enabled</span>
-        <span class="n">_model_state_files</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">include_initializers</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
-                    <span class="n">model_state</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
-                <span class="p">),</span> <span class="s2">&quot;model_state must be a path to the model&#39;s state_dict or the actual state_dict&quot;</span>
-                <span class="c1"># NOTE: For dict, there can be performance penalty or high memory usage that might lead to OOM</span>
-                <span class="c1">#       if the dict wasn&#39;t loaded with torch.load(..., mmap=True, map_location=&quot;cpu&quot;)</span>
-                <span class="n">_model_state_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model_state</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span><span class="o">.</span><span class="n">state_dict_paths</span><span class="p">:</span>
-                <span class="c1"># Load state from previous model.load_state_dict() call within enable_fake_mode() context</span>
-                <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fake_context</span><span class="o">.</span><span class="n">state_dict_paths</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">_model_state_files</span><span class="p">:</span>
-                        <span class="c1"># ignore duplicate</span>
-                        <span class="k">continue</span>
-                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>  <span class="c1"># type: ignore[arg-type]</span>
-                        <span class="n">_model_state_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># self.model_proto.graph.initializer.clear() not available in older protobuf versions</span>
-            <span class="n">initializer_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">initializer</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">initializer_count</span><span class="p">):</span>
-                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">initializer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">_model_state_files</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="s2">&quot;`destination` must be a string with a path when `model_state` is specified.&quot;</span>
-                <span class="p">)</span>
-            <span class="n">destination_path</span><span class="p">,</span> <span class="n">destination_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
-            <span class="n">destination_path</span> <span class="o">=</span> <span class="n">destination_path</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-            <span class="n">onnx_model_location</span> <span class="o">=</span> <span class="n">destination_filename</span>
-
-            <span class="c1"># TODO: Should this be part of the serializer?</span>
-            <span class="n">fx_serialization</span><span class="o">.</span><span class="n">save_model_with_external_data</span><span class="p">(</span>
-                <span class="n">destination_path</span><span class="p">,</span>
-                <span class="n">onnx_model_location</span><span class="p">,</span>
-                <span class="s2">&quot;&quot;</span><span class="p">,</span>  <span class="c1"># When initializers &gt;2GB, must be in the same folder as the model</span>
-                <span class="nb">tuple</span><span class="p">(</span><span class="n">_model_state_files</span><span class="p">),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="o">.</span><span class="n">ByteSize</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">_PROTOBUF_SIZE_MAX_LIMIT</span><span class="p">:</span>
-                        <span class="n">onnx</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="c1"># ValueError: Message onnx.ModelProto exceeds maximum protobuf size of 2GB</span>
-                        <span class="c1"># Fallback to serializing the model with external data.</span>
-                        <span class="n">onnx</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span>  <span class="c1"># type: ignore[attr-defined]</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="p">,</span>
-                            <span class="n">destination</span><span class="p">,</span>
-                            <span class="n">save_as_external_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">all_tensors_to_one_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">destination</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_proto</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
-                <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="s2">&quot;&#39;destination&#39; should be provided as a path-like string when saving a model larger than 2GB. &quot;</span>
-                        <span class="s2">&quot;External tensor data will be saved alongside the model on disk.&quot;</span>
-                    <span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span></div>
-
-<div class="viewcode-block" id="ONNXProgram.save_diagnostics"><a class="viewcode-back" href="../../../../onnx_dynamo.html#torch.onnx.ONNXProgram.save_diagnostics">[docs]</a>    <span class="k">def</span> <span class="nf">save_diagnostics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Saves the export diagnostics as a SARIF log to the specified destination path.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            destination: The destination to save the diagnostics SARIF log.</span>
-<span class="sd">                It must have a `.sarif` extension.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            ValueError: If the destination path does not end with `.sarif` extension.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">destination</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.sarif&quot;</span><span class="p">):</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;destination&#39; must have a .sarif extension, got </span><span class="si">{</span><span class="n">destination</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">diagnostic_context</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span></div>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_from_failure</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">,</span>
-        <span class="n">export_exception</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">,</span>
-        <span class="n">diagnostic_context</span><span class="p">:</span> <span class="n">diagnostics</span><span class="o">.</span><span class="n">DiagnosticContext</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates an instance of :class:`ONNXProgram` when the export process encounters a failure.</span>
-
-<span class="sd">        In case of a failed export, this method is used to encapsulate the exception</span>
-<span class="sd">        and associated diagnostic context within an :class:`ONNXProgram` instance for</span>
-<span class="sd">        easier handling and debugging.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            export_exception: The exception raised during the export process.</span>
-<span class="sd">            diagnostic_context: The context associated with diagnostics during export.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            An instance of :class:`ONNXProgram` representing the failed ONNX program.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Defer `import onnx` out of `import torch` path</span>
-        <span class="c1"># https://github.com/pytorch/pytorch/issues/103764</span>
-        <span class="kn">import</span> <span class="nn">onnx</span>
-
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
-            <span class="n">onnx</span><span class="o">.</span><span class="n">ModelProto</span><span class="p">(),</span>  <span class="c1"># type: ignore[attr-defined]</span>
-            <span class="n">io_adapter</span><span class="o">.</span><span class="n">InputAdapter</span><span class="p">(),</span>
-            <span class="n">io_adapter</span><span class="o">.</span><span class="n">OutputAdapter</span><span class="p">(),</span>
-            <span class="n">diagnostic_context</span><span class="p">,</span>
-            <span class="n">export_exception</span><span class="o">=</span><span class="n">export_exception</span><span class="p">,</span>
-        <span class="p">)</span>
-
-
 <span class="k">class</span> <span class="nc">FXGraphExtractor</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract interface for FX graph extractor engines.</span>
 <span class="sd">    This class isolates FX extraction logic from the rest of the export logic.</span>
@@ -1489,7 +1074,7 @@
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_assert_fake_tensor_mode</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ONNXProgram</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_onnx_program</span><span class="o">.</span><span class="n">ONNXProgram</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">torch.export._trace</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># TODO: Prevent circular dependency</span>
             <span class="n">DEFAULT_EXPORT_DYNAMO_CONFIG</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1551,13 +1136,8 @@
                     <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Detail:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">ONNXProgram</span><span class="p">(</span>
-                <span class="n">onnx_model</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">fx_tracer</span><span class="o">.</span><span class="n">input_adapter</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">fx_tracer</span><span class="o">.</span><span class="n">output_adapter</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">diagnostic_context</span><span class="p">,</span>
-                <span class="n">fake_context</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">fake_context</span><span class="p">,</span>
-                <span class="n">model_torch</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+            <span class="k">return</span> <span class="n">_onnx_program</span><span class="o">.</span><span class="n">ONNXProgram</span><span class="p">(</span>
+                <span class="n">ir</span><span class="o">.</span><span class="n">serde</span><span class="o">.</span><span class="n">deserialize_model</span><span class="p">(</span><span class="n">onnx_model</span><span class="p">),</span> <span class="kc">None</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_assert_fake_tensor_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1660,7 +1240,7 @@
     <span class="o">*</span><span class="n">model_args</span><span class="p">,</span>
     <span class="n">export_options</span><span class="p">:</span> <span class="n">ExportOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">model_kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ONNXProgram</span> <span class="o">|</span> <span class="n">Any</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_onnx_program</span><span class="o">.</span><span class="n">ONNXProgram</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Export a torch.nn.Module to an ONNX graph.</span>
 
 <span class="sd">    Args:</span>

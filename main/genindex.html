@@ -279,7 +279,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite0f84f4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git9629835 ) &#x25BC</a>
     </div>
     
 
@@ -781,10 +781,6 @@
 </li>
       <li><a href="export.html#torch.export.unflatten.FlatArgsAdapter.adapt">adapt() (torch.export.unflatten.FlatArgsAdapter method)</a>
 </li>
-      <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.adapt_torch_inputs_to_onnx">adapt_torch_inputs_to_onnx() (torch.onnx.ONNXProgram method)</a>
-</li>
-      <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.adapt_torch_outputs_to_onnx">adapt_torch_outputs_to_onnx() (torch.onnx.ONNXProgram method)</a>
-</li>
       <li><a href="benchmark_utils.html#torch.utils.benchmark.Timer.adaptive_autorange">adaptive_autorange() (torch.utils.benchmark.Timer method)</a>
 </li>
       <li><a href="generated/torch.nn.functional.adaptive_avg_pool1d.html#torch.nn.functional.adaptive_avg_pool1d">adaptive_avg_pool1d() (in module torch.nn.functional)</a>
@@ -1040,6 +1036,8 @@
       <li><a href="generated/torch.cuda.MemPool.html#torch.cuda.MemPool.allocator">allocator (torch.cuda.MemPool property)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction">allow_bf16_reduced_precision_reduction (in module torch.backends.cuda.matmul)</a>
+</li>
+      <li><a href="backends.html#torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp">allow_fp16_bf16_reduction_math_sdp() (in module torch.backends.cuda)</a>
 </li>
       <li><a href="backends.html#torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction">allow_fp16_reduced_precision_reduction (in module torch.backends.cuda.matmul)</a>
 </li>
@@ -2921,8 +2919,6 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.diagnostic_context">diagnostic_context (torch.onnx.ONNXProgram property)</a>
-</li>
       <li><a href="onnx_dynamo.html#torch.onnx.DiagnosticOptions">DiagnosticOptions (class in torch.onnx)</a>
 </li>
       <li><a href="generated/torch.diagonal.html#torch.diagonal">diagonal() (in module torch)</a>
@@ -3682,8 +3678,6 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.fake_context">fake_context (torch.onnx.ONNXProgram property)</a>
-</li>
       <li><a href="generated/torch.fake_quantize_per_channel_affine.html#torch.fake_quantize_per_channel_affine">fake_quantize_per_channel_affine() (in module torch)</a>
 </li>
       <li><a href="generated/torch.fake_quantize_per_tensor_affine.html#torch.fake_quantize_per_tensor_affine">fake_quantize_per_tensor_affine() (in module torch)</a>
@@ -3985,6 +3979,8 @@
       <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction.forward_extended">forward_extended() (torch.autograd.function.NestedIOFunction method)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.Transform.forward_shape">forward_shape() (torch.distributions.transforms.Transform method)</a>
+</li>
+      <li><a href="backends.html#torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed">fp16_bf16_reduction_math_sdp_allowed() (in module torch.backends.cuda)</a>
 </li>
       <li><a href="ddp_comm_hooks.html#torch.distributed.algorithms.ddp_comm_hooks.default_hooks.fp16_compress_hook">fp16_compress_hook() (in module torch.distributed.algorithms.ddp_comm_hooks.default_hooks)</a>
 </li>
@@ -5172,6 +5168,8 @@
         <li><a href="generated/torch.Generator.html#torch.Generator.initial_seed">(torch.Generator method)</a>
 </li>
       </ul></li>
+      <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.initialize_inference_session">initialize_inference_session() (torch.onnx.ONNXProgram method)</a>
+</li>
       <li><a href="generated/torch.nn.modules.lazy.LazyModuleMixin.html#torch.nn.modules.lazy.LazyModuleMixin.initialize_parameters">initialize_parameters() (torch.nn.modules.lazy.LazyModuleMixin method)</a>
 </li>
       <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.inlined_graph">inlined_graph (torch.jit.ScriptModule property)</a>
@@ -5266,10 +5264,10 @@
       </ul></li>
       <li><a href="distributions.html#torch.distributions.transforms.Transform.inverse_shape">inverse_shape() (torch.distributions.transforms.Transform method)</a>
 </li>
-      <li><a href="distributions.html#torch.distributions.inverse_gamma.InverseGamma">InverseGamma (class in torch.distributions.inverse_gamma)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="distributions.html#torch.distributions.inverse_gamma.InverseGamma">InverseGamma (class in torch.distributions.inverse_gamma)</a>
+</li>
       <li><a href="generated/torch.cuda.ipc_collect.html#torch.cuda.ipc_collect">ipc_collect() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event.ipc_handle">ipc_handle() (torch.cuda.Event method)</a>
@@ -10058,7 +10056,11 @@
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.RelaxedUnspecConstraint.html#torch.fx.experimental.symbolic_shapes.RelaxedUnspecConstraint">RelaxedUnspecConstraint (class in torch.fx.experimental.symbolic_shapes)</a>
 </li>
       <li><a href="elastic/timer.html#torch.distributed.elastic.timer.TimerClient.release">release() (torch.distributed.elastic.timer.TimerClient method)</a>
+
+      <ul>
+        <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.release">(torch.onnx.ONNXProgram method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.nn.ReLU.html#torch.nn.ReLU">ReLU (class in torch.nn)</a>
 </li>
       <li><a href="generated/torch.nn.functional.relu.html#torch.nn.functional.relu">relu() (in module torch.nn.functional)</a>
@@ -10512,8 +10514,6 @@
 </li>
       </ul></li>
       <li><a href="package.html#torch.package.PackageExporter.save_binary">save_binary() (torch.package.PackageExporter method)</a>
-</li>
-      <li><a href="onnx_dynamo.html#torch.onnx.ONNXProgram.save_diagnostics">save_diagnostics() (torch.onnx.ONNXProgram method)</a>
 </li>
       <li><a href="generated/torch.autograd.function.BackwardCFunction.html#torch.autograd.function.BackwardCFunction.save_for_backward">save_for_backward() (torch.autograd.function.BackwardCFunction method)</a>
 
