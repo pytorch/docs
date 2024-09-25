@@ -516,7 +516,7 @@
 <p>Ordinarily, “automatic mixed precision training” means training with
 <a class="reference internal" href="../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> and <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.amp.GradScaler</span></code> together.</p>
 <p>Instances of <a class="reference internal" href="../amp.html#torch.autocast" title="torch.autocast"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autocast</span></code></a> enable autocasting for chosen regions.
-Autocasting automatically chooses the precision for GPU operations to improve performance
+Autocasting automatically chooses the precision for operations to improve performance
 while maintaining accuracy.</p>
 <p>Instances of <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.amp.GradScaler</span></code> help perform the steps of
 gradient scaling conveniently.  Gradient scaling improves convergence for networks with <code class="docutils literal notranslate"><span class="pre">float16</span></code> (by default on CUDA and XPU)

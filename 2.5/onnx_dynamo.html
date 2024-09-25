@@ -741,8 +741,7 @@ exporting large models without the actual memory footprint needed for executing 
 are too large to fit into memory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">ONNXFakeContext</span></code> object that must be passed to <a class="reference internal" href="#torch.onnx.dynamo_export" title="torch.onnx.dynamo_export"><code class="xref py py-func docutils literal notranslate"><span class="pre">dynamo_export()</span></code></a>
-through the <code class="xref py py-attr docutils literal notranslate"><span class="pre">ExportOptions.fake_context</span></code> argument.</p>
+<dd class="field-odd"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">ONNXFakeContext</span></code> object.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -760,15 +759,16 @@ through the <code class="xref py py-attr docutils literal notranslate"><span cla
 <span class="o">...</span>     <span class="n">my_nn_module</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
 <span class="o">...</span>     <span class="n">arg1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># positional input 1</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">export_options</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">ExportOptions</span><span class="p">(</span><span class="n">fake_context</span><span class="o">=</span><span class="n">fake_context</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">dynamo_export</span><span class="p">(</span>
-<span class="o">...</span>     <span class="n">my_nn_module</span><span class="p">,</span>
-<span class="o">...</span>     <span class="n">arg1</span><span class="p">,</span>
-<span class="o">...</span>     <span class="n">export_options</span><span class="o">=</span><span class="n">export_options</span>
-<span class="o">...</span> <span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">my_nn_module</span><span class="p">,</span> <span class="p">(</span><span class="n">arg1</span><span class="p">,),</span> <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">apply_weights</span><span class="p">(</span><span class="n">MyModel</span><span class="p">()</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="c1"># Saving model WITHOUT initializers</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;my_model_without_initializers.onnx&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+<span class="o">...</span>     <span class="s2">&quot;my_model_without_initializers.onnx&quot;</span><span class="p">,</span>
+<span class="o">...</span>     <span class="n">include_initializers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="o">...</span>     <span class="n">keep_initializers_as_inputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="o">...</span> <span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="c1"># Saving model WITH initializers</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;my_model_with_initializers.onnx&quot;</span><span class="p">,</span> <span class="n">model_state</span><span class="o">=</span><span class="n">MyModel</span><span class="p">()</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;my_model_with_initializers.onnx&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition warning">

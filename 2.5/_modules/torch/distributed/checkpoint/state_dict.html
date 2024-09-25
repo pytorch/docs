@@ -1106,17 +1106,17 @@
         <span class="c1"># The optimizer state is initialized.</span>
         <span class="k">return</span>
 
+    <span class="c1"># There are some stateless optimizers like SGD. These optimizer will</span>
+    <span class="c1"># not return in the above condition. So if gradients exist, we should also</span>
+    <span class="c1"># return. If gradients do not exist, the following initialization should</span>
+    <span class="c1"># not disturb SGD because the gradients and lr are both zero.</span>
     <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="n">optim</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_group</span><span class="p">[</span><span class="n">_PARAMS</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="s2">&quot;state_dict can only be used if the optimizer &quot;</span>
-                    <span class="s2">&quot;states are initialized (usually after one step() with &quot;</span>
-                    <span class="s2">&quot;gradients) or gradients are None. For the later case, &quot;</span>
-                    <span class="s2">&quot;state_dict will fake the gradients as zero &quot;</span>
-                    <span class="s2">&quot;to initialize the optimizer states. However, the &quot;</span>
-                    <span class="s2">&quot;gradients are not None.&quot;</span>
-                <span class="p">)</span>
+                <span class="k">return</span>
+
+    <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="n">optim</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_group</span><span class="p">[</span><span class="n">_PARAMS</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
                 <span class="n">param</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
 
