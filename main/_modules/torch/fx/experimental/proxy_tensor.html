@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git9629835 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git9223c16 ) &#x25BC</a>
     </div>
     
 
@@ -573,6 +573,7 @@
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">SymBool</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">Tensor</span>
 <span class="kn">from</span> <span class="nn">torch._dispatch.python</span> <span class="kn">import</span> <span class="n">enable_python_dispatcher</span>
 <span class="kn">from</span> <span class="nn">torch._library.fake_class_registry</span> <span class="kn">import</span> <span class="n">FakeScriptObject</span>
+<span class="kn">from</span> <span class="nn">torch._logging</span> <span class="kn">import</span> <span class="n">trace_structured</span>
 <span class="kn">from</span> <span class="nn">torch._subclasses.fake_impls</span> <span class="kn">import</span> <span class="n">fast_detach</span>
 <span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">FakeTensor</span><span class="p">,</span>
@@ -2572,11 +2573,27 @@
             <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">_set_make_fx_tracer</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
             <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">fx_tracer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="n">dispatch_trace</span><span class="p">(</span>
-                <span class="n">wrap_key</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fx_tracer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_dispatch</span><span class="p">),</span>
-                <span class="n">tracer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fx_tracer</span><span class="p">,</span>
-                <span class="n">concrete_args</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">phs</span><span class="p">),</span>
-            <span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">dispatch_trace</span><span class="p">(</span>
+                    <span class="n">wrap_key</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fx_tracer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_dispatch</span><span class="p">),</span>
+                    <span class="n">tracer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fx_tracer</span><span class="p">,</span>
+                    <span class="n">concrete_args</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">phs</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">trace_structured</span><span class="p">(</span>
+                    <span class="s2">&quot;artifact&quot;</span><span class="p">,</span>
+                    <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;make_fx_fail_partial&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="n">payload_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fx_tracer</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">python_code</span><span class="p">(</span>  <span class="c1"># type: ignore[union-attr]</span>
+                        <span class="n">root_module</span><span class="o">=</span><span class="s2">&quot;self&quot;</span><span class="p">,</span>
+                        <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">include_stride</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">include_device</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">src</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">raise</span>
 
         <span class="c1"># TODO: kind of a bad way to do it, should maybe figure out a better way</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracing_mode</span> <span class="o">==</span> <span class="s2">&quot;symbolic&quot;</span><span class="p">:</span>

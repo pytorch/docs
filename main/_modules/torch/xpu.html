@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git9629835 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git9223c16 ) &#x25BC</a>
     </div>
     
 
@@ -758,8 +758,15 @@
 <span class="sd">        Dict[str, Any]: the xpu capability dictionary of the device</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">props</span> <span class="o">=</span> <span class="n">get_device_properties</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="c1"># pybind service attributes are no longer needed and their presence breaks</span>
+    <span class="c1"># the further logic related to the serialization of the created dictionary.</span>
+    <span class="c1"># In particular it filters out `&lt;bound method PyCapsule._pybind11_conduit_v1_ of _XpuDeviceProperties..&gt;`</span>
+    <span class="c1"># to fix Triton tests.</span>
+    <span class="c1"># This field appears after updating pybind to 2.13.6.</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="n">prop</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">props</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span> <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">props</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">prop</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span>
+        <span class="n">prop</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">props</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">props</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">prop</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;__&quot;</span><span class="p">,</span> <span class="s2">&quot;_pybind11_&quot;</span><span class="p">))</span>
     <span class="p">}</span></div>
 
 
