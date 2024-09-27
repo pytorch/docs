@@ -322,7 +322,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/fsdp.html">FSDP Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes/get_start_xpu.html">Getting Started on Intel GPU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -547,10 +547,11 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="nn-apis-torch-nn">
 <h3>NN APIs (torch.nn)<a class="headerlink" href="#nn-apis-torch-nn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Greg Chanan (<a class="reference external" href="https://github.com/gchanan">gchanan</a>)</p></li>
-<li><p>Soumith Chintala (<a class="reference external" href="https://github.com/soumith">soumith</a>)</p></li>
-<li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
+<li><p>Mikayla Gawarecki (<a class="reference external" href="https://github.com/mikaylagawarecki">mikaylagawarecki</a>)</p></li>
 <li><p>Alban Desmaison (<a class="reference external" href="https://github.com/albanD">albanD</a>)</p></li>
+<li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
+<li><p>(emeritus) Greg Chanan (<a class="reference external" href="https://github.com/gchanan">gchanan</a>)</p></li>
+<li><p>(emeritus) Soumith Chintala (<a class="reference external" href="https://github.com/soumith">soumith</a>)</p></li>
 <li><p>(emeritus) Sam Gross (<a class="reference external" href="https://github.com/colesbury">colesbury</a>)</p></li>
 <li><p>(emeritus) Adam Paszke (<a class="reference external" href="https://github.com/apaszke">apaszke</a>)</p></li>
 </ul>
@@ -558,9 +559,10 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="optimizers-torch-optim">
 <h3>Optimizers (torch.optim)<a class="headerlink" href="#optimizers-torch-optim" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
+<li><p>Jane Xu (<a class="reference external" href="https://github.com/janeyx99">janeyx99</a>)</p></li>
 <li><p>Alban Desmaison (<a class="reference external" href="https://github.com/albanD">albanD</a>)</p></li>
 <li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
-<li><p>Soumith Chintala (<a class="reference external" href="https://github.com/soumith">soumith</a>)</p></li>
+<li><p>(emeritus) Soumith Chintala (<a class="reference external" href="https://github.com/soumith">soumith</a>)</p></li>
 <li><p>(emeritus) Ilqar Ramazanli (<a class="reference external" href="https://github.com/iramazanli">iramazanli</a>)</p></li>
 <li><p>(emeritus) Vincent Quenneville-Belair (<a class="reference external" href="https://github.com/vincentqb">vincentqb</a>)</p></li>
 </ul>
@@ -568,21 +570,68 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="autograd-torch-autograd">
 <h3>Autograd (torch.autograd)<a class="headerlink" href="#autograd-torch-autograd" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
-<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/alband">alband</a>)</p></li>
 <li><p>Jeffrey Wan (<a class="reference external" href="https://github.com/soulitzer">soulitzer</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/alband">alband</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
 <li><p>(emeritus) Adam Paszke (<a class="reference external" href="https://github.com/apaszke">apaszke</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="compilers-jit-torchscript-fx-torchdynamo">
-<h3>Compilers (JIT / TorchScript / FX / TorchDynamo)<a class="headerlink" href="#compilers-jit-torchscript-fx-torchdynamo" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="torchdynamo">
+<h3>TorchDynamo<a class="headerlink" href="#torchdynamo" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Animesh Jain (<a class="reference external" href="https://github.com/anijain2305">anijain2305</a>)</p></li>
+<li><p>Jason Ansel (<a class="reference external" href="https://github.com/jansel">jansel</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="torchinductor">
+<h3>TorchInductor<a class="headerlink" href="#torchinductor" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Elias Ellison (<a class="reference external" href="https://github.com/eellison">eellison</a>)</p></li>
-<li><p>Michael Suo (<a class="reference external" href="https://github.com/suo">suo</a>)</p></li>
-<li><p>Yanan Cao (<a class="reference external" href="https://github.com/gmagogsfm">gmagogsfm</a>)</p></li>
-<li><p>James Reed (<a class="reference external" href="https://github.com/jamesr66a">jamesr66a</a>)</p></li>
+<li><p>Horace He (<a class="reference external" href="https://github.com/Chillee">Chillee</a>)</p></li>
+<li><p>Shunting Zhang (<a class="reference external" href="https://github.com/shunting314">shunting314</a>)</p></li>
 <li><p>Jason Ansel (<a class="reference external" href="https://github.com/jansel">jansel</a>)</p></li>
-<li><p>Jiong Gong (<a class="reference external" href="https://github.com/jgong5">jgong5</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="cudagraph-tree">
+<h3>Cudagraph Tree<a class="headerlink" href="#cudagraph-tree" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Elias Ellison (<a class="reference external" href="https://github.com/eellison">eellison</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="pt2-dispatcher">
+<h3>PT2 Dispatcher<a class="headerlink" href="#pt2-dispatcher" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Brian Hirsh (<a class="reference external" href="https://github.com/bdhirsh">bdhirsh</a>)</p></li>
+<li><p>Richard Zou (<a class="reference external" href="https://github.com/zou3519">zou3519</a>)</p></li>
+<li><p>Horace He (<a class="reference external" href="https://github.com/Chillee">Chillee</a>)</p></li>
+<li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="pt2-export-torch-export">
+<h3>PT2 Export (torch.export)<a class="headerlink" href="#pt2-export-torch-export" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Avik Chaudhuri (<a class="reference external" href="https://github.com/avikchaudhuri">avikchaudhuri</a>)</p></li>
+<li><p>Yanan Cao (<a class="reference external" href="https://github.com/gmagogsfm">gmagogsfm</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="aot-inductor-aoti-aoti-runtime">
+<h3>AOT Inductor (AOTI) &amp; AOTI Runtime<a class="headerlink" href="#aot-inductor-aoti-aoti-runtime" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Bin Bao (<a class="reference external" href="https://github.com/desertfire">desertfire</a>)</p></li>
+<li><p>Angela Yi (<a class="reference external" href="https://github.com/angelayi">angelayi</a>)</p></li>
+<li><p>Yang Chen (<a class="reference external" href="https://github.com/chenyang78">chenyang78</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="compilers-jit-torchscript-package-deploy">
+<h3>Compilers (JIT / TorchScript / Package / Deploy)<a class="headerlink" href="#compilers-jit-torchscript-package-deploy" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Elias Ellison (<a class="reference external" href="https://github.com/eellison">eellison</a>)</p></li>
+<li><p>(emeritus) Michael Suo (<a class="reference external" href="https://github.com/suo">suo</a>)</p></li>
+<li><p>(emeritus) Yanan Cao (<a class="reference external" href="https://github.com/gmagogsfm">gmagogsfm</a>)</p></li>
+<li><p>(emeritus) James Reed (<a class="reference external" href="https://github.com/jamesr66a">jamesr66a</a>)</p></li>
+<li><p>(emeritus) Jason Ansel (<a class="reference external" href="https://github.com/jansel">jansel</a>)</p></li>
+<li><p>(emeritus) Jiong Gong (<a class="reference external" href="https://github.com/jgong5">jgong5</a>)</p></li>
 <li><p>(emeritus) Zach Devito (<a class="reference external" href="https://github.com/zdevito">zdevito</a>)</p></li>
 </ul>
 </div>
@@ -598,27 +647,29 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="distributed">
 <h3>Distributed<a class="headerlink" href="#distributed" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Shen Li (<a class="reference external" href="https://github.com/mrshenli">mrshenli</a>)</p></li>
-<li><p>Pritam Damania (<a class="reference external" href="https://github.com/pritamdamania87">pritamdamania87</a>)</p></li>
-<li><p>Yanli Zhao (<a class="reference external" href="https://github.com/zhaojuanmao">zhaojuanmao</a>)</p></li>
-<li><p>Rohan Varma (<a class="reference external" href="https://github.com/rohan-varma">rohan-varma</a>)</p></li>
-<li><p>Wanchao Liang (<a class="reference external" href="https://github.com/wanchaol">wanchaol</a>)</p></li>
-<li><p>Junjie Wang (<a class="reference external" href="https://github.com/fduwjj">fduwjj</a>)</p></li>
+<li><p>Will Constable (<a class="reference external" href="https://github.com/wconstab">wconstab</a>)</p></li>
 <li><p>Howard Huang (<a class="reference external" href="https://github.com/H-Huang">H-Huang</a>)</p></li>
-<li><p>Tristan Rice (<a class="reference external" href="https://github.com/d4l3k">d4l3k</a>)</p></li>
-<li><p>Alisson Azzolini (<a class="reference external" href="https://github.com/aazzolini">aazzolini</a>)</p></li>
+<li><p>Wanchao Liang (<a class="reference external" href="https://github.com/wanchaol">wanchaol</a>)</p></li>
 <li><p>Ke Wen (<a class="reference external" href="https://github.com/kwen2501">kwen2501</a>)</p></li>
-<li><p>James Reed (<a class="reference external" href="https://github.com/jamesr66a">jamesr66a</a>)</p></li>
-<li><p>Kiuk Chung (<a class="reference external" href="https://github.com/kiukchung">kiukchung</a>)</p></li>
+<li><p>Chien-Chin Huang (<a class="reference external" href="https://github.com/fegin">fegin</a>)</p></li>
+<li><p>Tristan Rice (<a class="reference external" href="https://github.com/d4l3k">d4l3k</a>)</p></li>
+<li><p>(emeritus) Shen Li (<a class="reference external" href="https://github.com/mrshenli">mrshenli</a>)</p></li>
+<li><p>(emeritus) Pritam Damania (<a class="reference external" href="https://github.com/pritamdamania87">pritamdamania87</a>)</p></li>
+<li><p>(emeritus) Yanli Zhao (<a class="reference external" href="https://github.com/zhaojuanmao">zhaojuanmao</a>)</p></li>
+<li><p>(emeritus) Rohan Varma (<a class="reference external" href="https://github.com/rohan-varma">rohan-varma</a>)</p></li>
+<li><p>(emeritus) Junjie Wang (<a class="reference external" href="https://github.com/fduwjj">fduwjj</a>)</p></li>
+<li><p>(emeritus) Alisson Azzolini (<a class="reference external" href="https://github.com/aazzolini">aazzolini</a>)</p></li>
+<li><p>(emeritus) James Reed (<a class="reference external" href="https://github.com/jamesr66a">jamesr66a</a>)</p></li>
+<li><p>(emeritus) Kiuk Chung (<a class="reference external" href="https://github.com/kiukchung">kiukchung</a>)</p></li>
 <li><p>(emeritus) Pieter Noordhuis (<a class="reference external" href="https://github.com/pietern">pietern</a>)</p></li>
 <li><p>(emeritus) Mingzhe Li (<a class="reference external" href="https://github.com/mingzhe09088">mingzhe09088</a>)</p></li>
 <li><p>(emeritus) Omkar Salpekar (<a class="reference external" href="https://github.com/osalpekar">osalpekar</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="multiprocessing-and-dataloaders">
-<h3>Multiprocessing and DataLoaders<a class="headerlink" href="#multiprocessing-and-dataloaders" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="multiprocessing">
+<h3>Multiprocessing<a class="headerlink" href="#multiprocessing" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Simon Wang (<a class="reference external" href="https://github.com/SsnL">SsnL</a>)</p></li>
+<li><p>(emeritus) Simon Wang (<a class="reference external" href="https://github.com/SsnL">SsnL</a>)</p></li>
 <li><p>(emeritus) Vitaly Fedyunin (<a class="reference external" href="https://github.com/VitalyFedyunin">VitalyFedyunin</a>)</p></li>
 <li><p>(emeritus) Adam Paszke (<a class="reference external" href="https://github.com/apaszke">apaszke</a>)</p></li>
 </ul>
@@ -626,31 +677,31 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="linear-algebra-torch-linalg">
 <h3>Linear Algebra (torch.linalg)<a class="headerlink" href="#linear-algebra-torch-linalg" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Mike Ruberry (<a class="reference external" href="https://github.com/mruberry">mruberry</a>)</p></li>
 <li><p>Mario Lezcano (<a class="reference external" href="https://github.com/lezcano">lezcano</a>)</p></li>
-<li><p>Ivan Yashchuk (<a class="reference external" href="https://github.com/IvanYashchuk">IvanYashchuk</a>)</p></li>
+<li><p>(emeritus) Mike Ruberry (<a class="reference external" href="https://github.com/mruberry">mruberry</a>)</p></li>
+<li><p>(emeritus) Ivan Yashchuk (<a class="reference external" href="https://github.com/IvanYashchuk">IvanYashchuk</a>)</p></li>
 <li><p>(emeritus) Vishwak Srinivasan (<a class="reference external" href="https://github.com/vishwakftw">vishwakftw</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="sparse-torch-sparse">
 <h3>Sparse (torch.sparse)<a class="headerlink" href="#sparse-torch-sparse" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Pearu Peterson (<a class="reference external" href="https://github.com/pearu">pearu</a>)</p></li>
-<li><p>Nikita Vedeneev (<a class="reference external" href="https://github.com/nikitaved">nikitaved</a>)</p></li>
-<li><p>Ivan Yashchuk (<a class="reference external" href="https://github.com/IvanYashchuk">IvanYashchuk</a>)</p></li>
-<li><p>Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
-<li><p>Andrew James (<a class="reference external" href="https://github.com/amjames">amjames</a>)</p></li>
+<li><p>(emeritus) Pearu Peterson (<a class="reference external" href="https://github.com/pearu">pearu</a>)</p></li>
+<li><p>(emeritus) Nikita Vedeneev (<a class="reference external" href="https://github.com/nikitaved">nikitaved</a>)</p></li>
+<li><p>(emeritus) Ivan Yashchuk (<a class="reference external" href="https://github.com/IvanYashchuk">IvanYashchuk</a>)</p></li>
+<li><p>(emeritus) Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
+<li><p>(emeritus) Andrew James (<a class="reference external" href="https://github.com/amjames">amjames</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="nestedtensor-torch-nested">
 <h3>NestedTensor (torch.nested)<a class="headerlink" href="#nestedtensor-torch-nested" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/albanD">albanD</a>)</p></li>
+<li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
 <li><p>Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
 <li><p>Driss Guessous (<a class="reference external" href="https://github.com/drisspg">drisspg</a>)</p></li>
-<li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
 <li><p>Mikayla Gawarecki (<a class="reference external" href="https://github.com/mikaylagawarecki">mikaylagawarecki</a>)</p></li>
-<li><p>Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
+<li><p>Alban Desmaison (<a class="reference external" href="https://github.com/albanD">albanD</a>)</p></li>
+<li><p>(emeritus) Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="maskedtensor-torch-masked">
@@ -663,16 +714,16 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="fast-fourier-transform-torch-fft">
 <h3>Fast Fourier Transform (torch.fft)<a class="headerlink" href="#fast-fourier-transform-torch-fft" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Mike Ruberry (<a class="reference external" href="https://github.com/mruberry">mruberry</a>)</p></li>
-<li><p>Peter Bell (<a class="reference external" href="https://github.com/peterbell10">peterbell10</a>)</p></li>
+<li><p>(emeritus) Mike Ruberry (<a class="reference external" href="https://github.com/mruberry">mruberry</a>)</p></li>
+<li><p>(emeritus) Peter Bell (<a class="reference external" href="https://github.com/peterbell10">peterbell10</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="cpu-performance-torch-inductor-mkldnn">
-<h3>CPU Performance (Torch Inductor / MKLDNN)<a class="headerlink" href="#cpu-performance-torch-inductor-mkldnn" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="mkldnn">
+<h3>MKLDNN<a class="headerlink" href="#mkldnn" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
+<li><p>Xiaobing Zhang (<a class="reference external" href="https://github.com/XiaobingSuper">XiaobingSuper</a>)</p></li>
 <li><p>Mingfei Ma (<a class="reference external" href="https://github.com/mingfeima">mingfeima</a>)</p></li>
 <li><p>Jiong Gong (<a class="reference external" href="https://github.com/jgong5">jgong5</a>)</p></li>
-<li><p>Xiaobing Zhang (<a class="reference external" href="https://github.com/XiaobingSuper">XiaobingSuper</a>)</p></li>
 <li><p>(emeritus) Xiaoqiang Zheng (<a class="reference external" href="https://github.com/zheng-xq">zheng-xq</a>)</p></li>
 <li><p>(emeritus) Sam Gross (<a class="reference external" href="https://github.com/colesbury">colesbury</a>)</p></li>
 <li><p>(emeritus) Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
@@ -683,32 +734,22 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <li><p>(emeritus) Jianhui Li (<a class="reference external" href="https://github.com/Jianhui-Li">Jianhui-Li</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="gpu-performance-torch-inductor-triton-cuda">
-<h3>GPU Performance (Torch Inductor / Triton / CUDA)<a class="headerlink" href="#gpu-performance-torch-inductor-triton-cuda" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="cuda">
+<h3>CUDA<a class="headerlink" href="#cuda" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
 <li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
 <li><p>Piotr Bialecki (<a class="reference external" href="https://github.com/ptrblck">ptrblck</a>)</p></li>
 <li><p>Christian Sarofeen (<a class="reference external" href="https://github.com/csarofeen">csarofeen</a>)</p></li>
-<li><p>Andrew Tulloch (<a class="reference external" href="https://github.com/ajtulloch">ajtulloch</a>)</p></li>
+<li><p>(emeritus) Andrew Tulloch (<a class="reference external" href="https://github.com/ajtulloch">ajtulloch</a>)</p></li>
 <li><p>(emeritus) Xiaoqiang Zheng (<a class="reference external" href="https://github.com/zheng-xq">zheng-xq</a>)</p></li>
-</ul>
-</div>
-<div class="section" id="nvfuser">
-<h3>NVFuser<a class="headerlink" href="#nvfuser" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Christian Sarofeen (<a class="reference external" href="https://github.com/csarofeen">csarofeen</a>)</p></li>
-<li><p>Alex Jann (<a class="reference external" href="https://github.com/jjsjann123">jjsjann123</a>)</p></li>
-<li><p>Piotr Bialecki (<a class="reference external" href="https://github.com/ptrblck">ptrblck</a>)</p></li>
-<li><p>Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="amd-rocm-hip">
 <h3>AMD/ROCm/HIP<a class="headerlink" href="#amd-rocm-hip" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Peng Sun (<a class="reference external" href="https://github.com/sunway513">sunway513</a>)</p></li>
-<li><p>Jithun Nair (<a class="reference external" href="https://github.com/jithunnair-amd">jithunnair-amd</a>)</p></li>
 <li><p>Jeff Daily (<a class="reference external" href="https://github.com/jeffdaily">jeffdaily</a>)</p></li>
+<li><p>Jithun Nair (<a class="reference external" href="https://github.com/jithunnair-amd">jithunnair-amd</a>)</p></li>
 <li><p>(emeritus) Junjie Bai (<a class="reference external" href="https://github.com/bddppq">bddppq</a>)</p></li>
 </ul>
 </div>
@@ -718,11 +759,11 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <li><p>Nikita Shulga (<a class="reference external" href="https://github.com/malfet">malfet</a>)</p></li>
 <li><p>Eli Uriegas (<a class="reference external" href="https://github.com/seemethere">seemethere</a>)</p></li>
 <li><p>Alban Desmaison (<a class="reference external" href="https://github.com/alband">alband</a>)</p></li>
-<li><p>Mikey Dagitses (<a class="reference external" href="https://github.com/dagitses">dagitses</a>)</p></li>
-<li><p>Omkar Salpekar (<a class="reference external" href="https://github.com/osalpekar">osalpekar</a>)</p></li>
-<li><p>Zain Rizvi (<a class="reference external" href="https://github.com/ZainRizvi">ZainRizvi</a>)</p></li>
-<li><p>Nirav Mehta (<a class="reference external" href="https://github.com/mehtanirav">mehtanirav</a>)</p></li>
 <li><p>Andrey Talman (<a class="reference external" href="https://github.com/atalman">atalman</a>)</p></li>
+<li><p>Zain Rizvi (<a class="reference external" href="https://github.com/ZainRizvi">ZainRizvi</a>)</p></li>
+<li><p>(emeritus) Mikey Dagitses (<a class="reference external" href="https://github.com/dagitses">dagitses</a>)</p></li>
+<li><p>(emeritus) Omkar Salpekar (<a class="reference external" href="https://github.com/osalpekar">osalpekar</a>)</p></li>
+<li><p>(emeritus) Nirav Mehta (<a class="reference external" href="https://github.com/mehtanirav">mehtanirav</a>)</p></li>
 <li><p>(emeritus) Zhuojie Zhou (<a class="reference external" href="https://github.com/zhouzhuojie">zhouzhuojie</a>)</p></li>
 <li><p>(emeritus) Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
 <li><p>(emeritus) Karl Ostmo (<a class="reference external" href="https://github.com/kostmo">kostmo</a>)</p></li>
@@ -731,11 +772,8 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="performance-tools">
 <h3>Performance Tools<a class="headerlink" href="#performance-tools" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Adnan Aziz (<a class="reference external" href="https://github.com/adnanaziz">adnanaziz</a>)</p></li>
-<li><p>CK Luk (<a class="reference external" href="https://github.com/ckluk">ckluk</a>)</p></li>
 <li><p>Taylor Robie (<a class="reference external" href="https://github.com/robieta">robieta</a>)</p></li>
 <li><p>Xu Zhao (<a class="reference external" href="https://github.com/xuzhao9">xuzhao9</a>)</p></li>
-<li><p>Geeta Chauhan (<a class="reference external" href="https://github.com/chauhang">chauhang</a>)</p></li>
 <li><p>(emeritus) Victor Bittorf (<a class="reference external" href="https://github.com/bitfort">bitfort</a>)</p></li>
 <li><p>(emeritus) Gisle Dankel (<a class="reference external" href="https://github.com/gdankel">gdankel</a>)</p></li>
 <li><p>(emeritus) Natalia Gimelshein (<a class="reference external" href="https://github.com/ngimel">ngimel</a>)</p></li>
@@ -745,7 +783,7 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="c-api">
 <h3>C++ API<a class="headerlink" href="#c-api" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
+<li><p>(emeritus) Joel Schlosser (<a class="reference external" href="https://github.com/jbschlosser">jbschlosser</a>)</p></li>
 <li><p>(emeritus) Will Feng (<a class="reference external" href="https://github.com/yf225">yf225</a>)</p></li>
 </ul>
 </div>
@@ -754,7 +792,7 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <ul class="simple">
 <li><p>Brian Hirsh (<a class="reference external" href="https://github.com/bdhirsh">bdhirsh</a>)</p></li>
 <li><p>Edward Yang (<a class="reference external" href="https://github.com/ezyang">ezyang</a>)</p></li>
-<li><p>Dmytro Dzhulgakov (<a class="reference external" href="https://github.com/dzhulgakov">dzhulgakov</a>)</p></li>
+<li><p>(emeritus) Dmytro Dzhulgakov (<a class="reference external" href="https://github.com/dzhulgakov">dzhulgakov</a>)</p></li>
 <li><p>(emeritus) Sebastian Messmer (<a class="reference external" href="https://github.com/smessmer">smessmer</a>)</p></li>
 </ul>
 </div>
@@ -775,22 +813,22 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <li><p>(emeritus) Spandan Tiwari (<a class="reference external" href="https://github.com/spandantiwari">spandantiwari</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="mobile-edge">
-<h3>Mobile / Edge<a class="headerlink" href="#mobile-edge" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="liteinterpreter">
+<h3>LiteInterpreter<a class="headerlink" href="#liteinterpreter" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>David Reiss (<a class="reference external" href="https://github.com/dreiss">dreiss</a>)</p></li>
-<li><p>Raziel Guevara (<a class="reference external" href="https://github.com/raziel">raziel</a>)</p></li>
-<li><p>Linbin Yu (<a class="reference external" href="https://github.com/linbinyu">linbinyu</a>)</p></li>
-<li><p>Ivan Kobzarev (<a class="reference external" href="https://github.com/IvanKobzarev">IvanKobzarev</a>)</p></li>
-<li><p>Tao Xu (<a class="reference external" href="https://github.com/xta0">xta0</a>)</p></li>
+<li><p>(emeritus) David Reiss (<a class="reference external" href="https://github.com/dreiss">dreiss</a>)</p></li>
+<li><p>(emeritus) Raziel Guevara (<a class="reference external" href="https://github.com/raziel">raziel</a>)</p></li>
+<li><p>(emeritus) Linbin Yu (<a class="reference external" href="https://github.com/linbinyu">linbinyu</a>)</p></li>
+<li><p>(emeritus) Ivan Kobzarev (<a class="reference external" href="https://github.com/IvanKobzarev">IvanKobzarev</a>)</p></li>
+<li><p>(emeritus) Tao Xu (<a class="reference external" href="https://github.com/xta0">xta0</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="model-compression-optimization">
-<h3>Model Compression &amp; Optimization<a class="headerlink" href="#model-compression-optimization" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="quantization-torch-ao">
+<h3>Quantization (torch/ao)<a class="headerlink" href="#quantization-torch-ao" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
+<li><p>Mark Saroufim (<a class="reference external" href="https://github.com/msaroufim">msaroufim</a>)</p></li>
 <li><p>Vasiliy Kuznetsov (<a class="reference external" href="https://github.com/vkuzo">vkuzo</a>)</p></li>
 <li><p>Jerry Zhang (<a class="reference external" href="https://github.com/jerryzh168">jerryzh168</a>)</p></li>
-<li><p>Supriya Rao (<a class="reference external" href="https://github.com/supriyar">supriyar</a>)</p></li>
 <li><p>(emeritus) Zafar Takhirov (<a class="reference external" href="https://github.com/z-a-f">z-a-f</a>)</p></li>
 <li><p>(emeritus) Raghuraman Krishnamoorthi (<a class="reference external" href="https://github.com/raghuramank100">raghuramank100</a>)</p></li>
 </ul>
@@ -803,19 +841,19 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <li><p>(emeritus) Peter Johnson (<a class="reference external" href="https://github.com/peterjc123">peterjc123</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="apple-m1-mps">
-<h3>Apple M1/MPS<a class="headerlink" href="#apple-m1-mps" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="apple-m1-mps-metal">
+<h3>Apple M1/MPS/Metal<a class="headerlink" href="#apple-m1-mps-metal" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
+<li><p>Kulin Seth (<a class="reference external" href="https://github.com/kulinseth">kulinseth</a>)</p></li>
 <li><p>Alban Desmaison (<a class="reference external" href="https://github.com/alband">alband</a>)</p></li>
 <li><p>Nikita Shulga (<a class="reference external" href="https://github.com/malfet">malfet</a>)</p></li>
-<li><p>Kulin Seth (<a class="reference external" href="https://github.com/kulinseth">kulinseth</a>)</p></li>
-<li><p>Ramin Azarmehr (<a class="reference external" href="https://github.com/razarmehr">razarmehr</a>)</p></li>
+<li><p>(emeritus) Ramin Azarmehr (<a class="reference external" href="https://github.com/razarmehr">razarmehr</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="powerpc">
 <h3>PowerPC<a class="headerlink" href="#powerpc" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Alfredo Mendoza (<a class="reference external" href="https://github.com/avmgithub">avmgithub</a>)</p></li>
+<li><p>(emeritus) Alfredo Mendoza (<a class="reference external" href="https://github.com/avmgithub">avmgithub</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="aarch64-cpu">
@@ -849,28 +887,31 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="torchserve">
 <h3>TorchServe<a class="headerlink" href="#torchserve" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Geeta Chauhan (<a class="reference external" href="https://github.com/chauhang">chauhang</a>)</p></li>
-<li><p>Manoj Rao (<a class="reference external" href="https://github.com/mycpuorg">mycpuorg</a>)</p></li>
-<li><p>Vamshi Dantu (<a class="reference external" href="https://github.com/vdantu">vdantu</a>)</p></li>
-<li><p>Dhanasekar Karuppasamy (<a class="reference external" href="https://github.com/dhanainme">dhanainme</a>)</p></li>
+<li><p>Li Ning (<a class="reference external" href="https://github.com/lxning">lxning</a>)</p></li>
+<li><p>Ankith Gunapal (<a class="reference external" href="https://github.com/agunapal">agunapal</a>)</p></li>
+<li><p>Hamid Shojanazeri (<a class="reference external" href="https://github.com/HamidShojanazeri">HamidShojanazeri</a>)</p></li>
+<li><p>(emeritus) Mark Saroufim (<a class="reference external" href="https://github.com/msaroufIm">msaroufIm</a>)</p></li>
+<li><p>(emeritus) Manoj Rao (<a class="reference external" href="https://github.com/mycpuorg">mycpuorg</a>)</p></li>
+<li><p>(emeritus) Vamshi Dantu (<a class="reference external" href="https://github.com/vdantu">vdantu</a>)</p></li>
+<li><p>(emeritus) Dhanasekar Karuppasamy (<a class="reference external" href="https://github.com/dhanainme">dhanainme</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="torchvision">
 <h3>TorchVision<a class="headerlink" href="#torchvision" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Francisco Massa (<a class="reference external" href="https://github.com/fmassa">fmassa</a>)</p></li>
-<li><p>Vasilis Vryniotis (<a class="reference external" href="https://github.com/datumbox">datumbox</a>)</p></li>
 <li><p>Nicolas Hug (<a class="reference external" href="https://github.com/NicolasHug">NicolasHug</a>)</p></li>
-<li><p>Yosua Michael Maranatha (<a class="reference external" href="https://github.com/YosuaMichael">YosuaMichael</a>)</p></li>
-<li><p>Joao Gomes (<a class="reference external" href="https://github.com/jdsgomes">jdsgomes</a>)</p></li>
 <li><p>Philip Meier (<a class="reference external" href="https://github.com/pmeier">pmeier</a>)</p></li>
 <li><p>Victor Fomin (<a class="reference external" href="https://github.com/vfdev-5">vfdev-5</a>)</p></li>
+<li><p>(emeritus) Francisco Massa (<a class="reference external" href="https://github.com/fmassa">fmassa</a>)</p></li>
+<li><p>(emeritus) Vasilis Vryniotis (<a class="reference external" href="https://github.com/datumbox">datumbox</a>)</p></li>
+<li><p>(emeritus) Yosua Michael Maranatha (<a class="reference external" href="https://github.com/YosuaMichael">YosuaMichael</a>)</p></li>
+<li><p>(emeritus) Joao Gomes (<a class="reference external" href="https://github.com/jdsgomes">jdsgomes</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="torchtext">
 <h3>TorchText<a class="headerlink" href="#torchtext" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Nayef Ahmed (<a class="reference external" href="https://github.com/Nayef211">Nayef211</a>)</p></li>
+<li><p>(emeritus) Nayef Ahmed (<a class="reference external" href="https://github.com/Nayef211">Nayef211</a>)</p></li>
 <li><p>(emeritus) Parmeet Singh Bhatia (<a class="reference external" href="https://github.com/parmeet">parmeet</a>)</p></li>
 <li><p>(emeritus) Guanheng George Zhang (<a class="reference external" href="https://github.com/zhangguanheng66">zhangguanheng66</a>)</p></li>
 <li><p>(emeritus) Christian Puhrsch (<a class="reference external" href="https://github.com/cpuhrsch">cpuhrsch</a>)</p></li>
@@ -880,7 +921,7 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <h3>TorchAudio<a class="headerlink" href="#torchaudio" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Moto Hira (<a class="reference external" href="https://github.com/mthrok">mthrok</a>)</p></li>
-<li><p>Jeff Hwang (<a class="reference external" href="https://github.com/hwangjeff">hwangjeff</a>)</p></li>
+<li><p>(emeritus) Jeff Hwang (<a class="reference external" href="https://github.com/hwangjeff">hwangjeff</a>)</p></li>
 <li><p>(emeritus) Caroline Chen (<a class="reference external" href="https://github.com/carolineechen">carolineechen</a>)</p></li>
 <li><p>(emeritus) Xiaohui Zhang (<a class="reference external" href="https://github.com/xiaohui-zhang">xiaohui-zhang</a>)</p></li>
 <li><p>(emeritus) Zhaoheng Ni (<a class="reference external" href="https://github.com/nateanl">nateanl</a>)</p></li>
@@ -891,22 +932,63 @@ and <a class="reference external" href="https://dev-discuss.pytorch.org/">dev-di
 <div class="section" id="torchrec">
 <h3>TorchRec<a class="headerlink" href="#torchrec" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Dmytro Ivchenko (<a class="reference external" href="https://github.com/divchenko">divchenko</a>)</p></li>
 <li><p>Colin Taylor (<a class="reference external" href="https://github.com/colin2328">colin2328</a>)</p></li>
+<li><p>Paul Zhang (<a class="reference external" href="https://github.com/PaulZhang12">PaulZhang12</a>)</p></li>
+<li><p>(emeritus) Dmytro Ivchenko (<a class="reference external" href="https://github.com/divchenko">divchenko</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="torchx">
 <h3>TorchX<a class="headerlink" href="#torchx" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Tristan Rice (<a class="reference external" href="https://github.com/d4l3k">d4l3k</a>)</p></li>
-<li><p>Kiuk Chung (<a class="reference external" href="https://github.com/kiukchung">kiukchung</a>)</p></li>
+<li><p>(emeritus) Tristan Rice (<a class="reference external" href="https://github.com/d4l3k">d4l3k</a>)</p></li>
+<li><p>(emeritus) Kiuk Chung (<a class="reference external" href="https://github.com/kiukchung">kiukchung</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="torchdata-torcharrow">
-<h3>TorchData / TorchArrow<a class="headerlink" href="#torchdata-torcharrow" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="torchdata">
+<h3>TorchData<a class="headerlink" href="#torchdata" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Wenlei Xie (<a class="reference external" href="https://github.com/wenleix">wenleix</a>)</p></li>
+<li><p>Andrew Ho (<a class="reference external" href="https://github.com/andrewkho">andrewkho</a>)</p></li>
+<li><p>Divyansh Khanna (<a class="reference external" href="https://github.com/divyanshk">divyanshk</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="torcharrow">
+<h3>TorchArrow<a class="headerlink" href="#torcharrow" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(emeritus) Wenlei Xie (<a class="reference external" href="https://github.com/wenleix">wenleix</a>)</p></li>
 <li><p>(emeritus) Vitaly Fedyunin (<a class="reference external" href="https://github.com/VitalyFedyunin">VitalyFedyunin</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="executorch-edge-mobile">
+<h3>ExecuTorch (Edge, Mobile)<a class="headerlink" href="#executorch-edge-mobile" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Mergen Nachin (<a class="reference external" href="https://github.com/mergennachin">mergennachin</a>)</p></li>
+<li><p>Kimish Patel (<a class="reference external" href="https://github.com/kimishpatel">kimishpatel</a>)</p></li>
+<li><p>Dave Bort (<a class="reference external" href="https://github.com/dbort">dbort</a>)</p></li>
+<li><p>Martin Yuan (<a class="reference external" href="https://github.com/iseeyuan">iseeyuan</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="torchtune">
+<h3>TorchTune<a class="headerlink" href="#torchtune" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Kartikay Khandelwal (<a class="reference external" href="https://github.com/kartikayk">kartikayk</a>)</p></li>
+<li><p>Evan Smothers (<a class="reference external" href="https://github.com/ebsmothers">ebsmothers</a>)</p></li>
+<li><p>Joe Cummings (<a class="reference external" href="https://github.com/joecummings">joecummings</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="torchchat">
+<h3>TorchChat<a class="headerlink" href="#torchchat" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Jack Khuu (<a class="reference external" href="https://github.com/Jack-Khuu">Jack-Khuu</a>)</p></li>
+<li><p>Jesse White (<a class="reference external" href="https://github.com/byjlw">byjlw</a>)</p></li>
+<li><p>(emeritus) Michael Gschwind (<a class="reference external" href="https://github.com/mikekgfb">mikekgfb</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="torchcodec">
+<h3>TorchCodec<a class="headerlink" href="#torchcodec" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Nicolas Hug (<a class="reference external" href="https://github.com/nicolashug">nicolashug</a>)</p></li>
+<li><p>Ahmad Sharif (<a class="reference external" href="https://github.com/ahmadsharif1">ahmadsharif1</a>)</p></li>
+<li><p>Scott Schneider (<a class="reference external" href="https://github.com/scotts">scotts</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -974,28 +1056,33 @@ if (url)
 <li><a class="reference internal" href="#nn-apis-torch-nn">NN APIs (torch.nn)</a></li>
 <li><a class="reference internal" href="#optimizers-torch-optim">Optimizers (torch.optim)</a></li>
 <li><a class="reference internal" href="#autograd-torch-autograd">Autograd (torch.autograd)</a></li>
-<li><a class="reference internal" href="#compilers-jit-torchscript-fx-torchdynamo">Compilers (JIT / TorchScript / FX / TorchDynamo)</a></li>
+<li><a class="reference internal" href="#torchdynamo">TorchDynamo</a></li>
+<li><a class="reference internal" href="#torchinductor">TorchInductor</a></li>
+<li><a class="reference internal" href="#cudagraph-tree">Cudagraph Tree</a></li>
+<li><a class="reference internal" href="#pt2-dispatcher">PT2 Dispatcher</a></li>
+<li><a class="reference internal" href="#pt2-export-torch-export">PT2 Export (torch.export)</a></li>
+<li><a class="reference internal" href="#aot-inductor-aoti-aoti-runtime">AOT Inductor (AOTI) &amp; AOTI Runtime</a></li>
+<li><a class="reference internal" href="#compilers-jit-torchscript-package-deploy">Compilers (JIT / TorchScript / Package / Deploy)</a></li>
 <li><a class="reference internal" href="#distributions-rng">Distributions &amp; RNG</a></li>
 <li><a class="reference internal" href="#distributed">Distributed</a></li>
-<li><a class="reference internal" href="#multiprocessing-and-dataloaders">Multiprocessing and DataLoaders</a></li>
+<li><a class="reference internal" href="#multiprocessing">Multiprocessing</a></li>
 <li><a class="reference internal" href="#linear-algebra-torch-linalg">Linear Algebra (torch.linalg)</a></li>
 <li><a class="reference internal" href="#sparse-torch-sparse">Sparse (torch.sparse)</a></li>
 <li><a class="reference internal" href="#nestedtensor-torch-nested">NestedTensor (torch.nested)</a></li>
 <li><a class="reference internal" href="#maskedtensor-torch-masked">MaskedTensor (torch.masked)</a></li>
 <li><a class="reference internal" href="#fast-fourier-transform-torch-fft">Fast Fourier Transform (torch.fft)</a></li>
-<li><a class="reference internal" href="#cpu-performance-torch-inductor-mkldnn">CPU Performance (Torch Inductor / MKLDNN)</a></li>
-<li><a class="reference internal" href="#gpu-performance-torch-inductor-triton-cuda">GPU Performance (Torch Inductor / Triton / CUDA)</a></li>
-<li><a class="reference internal" href="#nvfuser">NVFuser</a></li>
+<li><a class="reference internal" href="#mkldnn">MKLDNN</a></li>
+<li><a class="reference internal" href="#cuda">CUDA</a></li>
 <li><a class="reference internal" href="#amd-rocm-hip">AMD/ROCm/HIP</a></li>
 <li><a class="reference internal" href="#build-ci">Build + CI</a></li>
 <li><a class="reference internal" href="#performance-tools">Performance Tools</a></li>
 <li><a class="reference internal" href="#c-api">C++ API</a></li>
 <li><a class="reference internal" href="#c10-utils-and-operator-dispatch">C10 utils and operator dispatch</a></li>
 <li><a class="reference internal" href="#onnx-exporter">ONNX exporter</a></li>
-<li><a class="reference internal" href="#mobile-edge">Mobile / Edge</a></li>
-<li><a class="reference internal" href="#model-compression-optimization">Model Compression &amp; Optimization</a></li>
+<li><a class="reference internal" href="#liteinterpreter">LiteInterpreter</a></li>
+<li><a class="reference internal" href="#quantization-torch-ao">Quantization (torch/ao)</a></li>
 <li><a class="reference internal" href="#windows">Windows</a></li>
-<li><a class="reference internal" href="#apple-m1-mps">Apple M1/MPS</a></li>
+<li><a class="reference internal" href="#apple-m1-mps-metal">Apple M1/MPS/Metal</a></li>
 <li><a class="reference internal" href="#powerpc">PowerPC</a></li>
 <li><a class="reference internal" href="#aarch64-cpu">AArch64 CPU</a></li>
 <li><a class="reference internal" href="#docs-tutorials">Docs / Tutorials</a></li>
@@ -1009,7 +1096,12 @@ if (url)
 <li><a class="reference internal" href="#torchaudio">TorchAudio</a></li>
 <li><a class="reference internal" href="#torchrec">TorchRec</a></li>
 <li><a class="reference internal" href="#torchx">TorchX</a></li>
-<li><a class="reference internal" href="#torchdata-torcharrow">TorchData / TorchArrow</a></li>
+<li><a class="reference internal" href="#torchdata">TorchData</a></li>
+<li><a class="reference internal" href="#torcharrow">TorchArrow</a></li>
+<li><a class="reference internal" href="#executorch-edge-mobile">ExecuTorch (Edge, Mobile)</a></li>
+<li><a class="reference internal" href="#torchtune">TorchTune</a></li>
+<li><a class="reference internal" href="#torchchat">TorchChat</a></li>
+<li><a class="reference internal" href="#torchcodec">TorchCodec</a></li>
 </ul>
 </li>
 </ul>

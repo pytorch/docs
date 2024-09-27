@@ -321,7 +321,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/fsdp.html">FSDP Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notes/get_start_xpu.html">Getting Started on Intel GPU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -783,14 +783,14 @@
 <span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
 <span class="sd">        padding (int, tuple or str, optional): Padding added to both sides of</span>
 <span class="sd">            the input. Default: 0</span>
-<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
-<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 <span class="sd">        dilation (int or tuple, optional): Spacing between kernel</span>
 <span class="sd">            elements. Default: 1</span>
 <span class="sd">        groups (int, optional): Number of blocked connections from input</span>
 <span class="sd">            channels to output channels. Default: 1</span>
 <span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
 <span class="sd">            output. Default: ``True``</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
+<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 
 <span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
@@ -956,13 +956,13 @@
 <span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
 <span class="sd">        padding (int, tuple or str, optional): Padding added to all four sides of</span>
 <span class="sd">            the input. Default: 0</span>
-<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
-<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 <span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
 <span class="sd">        groups (int, optional): Number of blocked connections from input</span>
 <span class="sd">            channels to output channels. Default: 1</span>
 <span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
 <span class="sd">            output. Default: ``True``</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
+<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 <span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
         <span class="p">)</span>
@@ -1128,10 +1128,10 @@
 <span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
 <span class="sd">        padding (int, tuple or str, optional): Padding added to all six sides of</span>
 <span class="sd">            the input. Default: 0</span>
-<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``, ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 <span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
 <span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
 <span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``, ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 <span class="sd">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="o">**</span><span class="n">reproducibility_notes</span><span class="p">,</span> <span class="o">**</span><span class="n">convolution_notes</span>
         <span class="p">)</span>
@@ -1980,14 +1980,14 @@
 <span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
 <span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of</span>
 <span class="sd">            the input. Default: 0</span>
-<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
-<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 <span class="sd">        dilation (int or tuple, optional): Spacing between kernel</span>
 <span class="sd">            elements. Default: 1</span>
 <span class="sd">        groups (int, optional): Number of blocked connections from input</span>
 <span class="sd">            channels to output channels. Default: 1</span>
 <span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
 <span class="sd">            output. Default: ``True``</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
+<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 
 <span class="sd">    .. seealso:: :class:`torch.nn.Conv1d` and :class:`torch.nn.modules.lazy.LazyModuleMixin`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2049,14 +2049,14 @@
 <span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
 <span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of</span>
 <span class="sd">            the input. Default: 0</span>
-<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
-<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 <span class="sd">        dilation (int or tuple, optional): Spacing between kernel</span>
 <span class="sd">            elements. Default: 1</span>
 <span class="sd">        groups (int, optional): Number of blocked connections from input</span>
 <span class="sd">            channels to output channels. Default: 1</span>
 <span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
 <span class="sd">            output. Default: ``True``</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
+<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 
 <span class="sd">    .. seealso:: :class:`torch.nn.Conv2d` and :class:`torch.nn.modules.lazy.LazyModuleMixin`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2119,14 +2119,14 @@
 <span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
 <span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of</span>
 <span class="sd">            the input. Default: 0</span>
-<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
-<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 <span class="sd">        dilation (int or tuple, optional): Spacing between kernel</span>
 <span class="sd">            elements. Default: 1</span>
 <span class="sd">        groups (int, optional): Number of blocked connections from input</span>
 <span class="sd">            channels to output channels. Default: 1</span>
 <span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the</span>
 <span class="sd">            output. Default: ``True``</span>
+<span class="sd">        padding_mode (str, optional): ``&#39;zeros&#39;``, ``&#39;reflect&#39;``,</span>
+<span class="sd">            ``&#39;replicate&#39;`` or ``&#39;circular&#39;``. Default: ``&#39;zeros&#39;``</span>
 
 <span class="sd">    .. seealso:: :class:`torch.nn.Conv3d` and :class:`torch.nn.modules.lazy.LazyModuleMixin`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
