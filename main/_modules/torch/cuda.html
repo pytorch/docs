@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git9223c16 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git193073b ) &#x25BC</a>
     </div>
     
 
@@ -334,7 +334,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/fsdp.html">FSDP Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../notes/get_start_xpu.html">Pytorch 2.4: Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notes/get_start_xpu.html">Getting Started on Intel GPU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
@@ -1036,12 +1036,14 @@
     <span class="k">return</span> <span class="n">prop</span><span class="o">.</span><span class="n">major</span><span class="p">,</span> <span class="n">prop</span><span class="o">.</span><span class="n">minor</span></div>
 
 
-<div class="viewcode-block" id="get_device_properties"><a class="viewcode-back" href="../../generated/torch.cuda.get_device_properties.html#torch.cuda.get_device_properties">[docs]</a><span class="k">def</span> <span class="nf">get_device_properties</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">_device_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_CudaDeviceProperties</span><span class="p">:</span>
+<div class="viewcode-block" id="get_device_properties"><a class="viewcode-back" href="../../generated/torch.cuda.get_device_properties.html#torch.cuda.get_device_properties">[docs]</a><span class="k">def</span> <span class="nf">get_device_properties</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_device_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_CudaDeviceProperties</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get the properties of a device.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        device (torch.device or int or str): device for which to return the</span>
-<span class="sd">            properties of the device.</span>
+<span class="sd">        device (torch.device or int or str, optional): device for which to return the</span>
+<span class="sd">            properties of the device.  It uses the current device, given by</span>
+<span class="sd">            :func:`~torch.cuda.current_device`, if :attr:`device` is ``None``</span>
+<span class="sd">            (default).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        _CudaDeviceProperties: the properties of the device</span>
