@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git193073b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf42e88f ) &#x25BC</a>
     </div>
     
 
@@ -849,7 +849,14 @@ such as one particular type of worker role.</p>
 <dt class="sig sig-object py" id="torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks">
 <span class="sig-name descname"><span class="pre">_assign_worker_ranks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/distributed/elastic/agent/server/api.html#SimpleElasticAgent._assign_worker_ranks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.agent.server.SimpleElasticAgent._assign_worker_ranks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine proper ranks for worker processes.</p>
-<p>The rank assignment is done according to the following algorithm:</p>
+<p>Fast Path: when all workers have the same role and world size. We calculate
+the global rank to be group_rank * group_world_size + local_rank. And the
+<cite>role_world_size</cite> is the same as <cite>global_world_size</cite>. No TCP store is used in
+this case. This is only enabled when users set the environment variable
+<cite>TORCH_ELASTIC_WORKER_IDENTICAL</cite> to 1.</p>
+<p>Time complexity: each worker O(1), overall O(1)</p>
+<p>Slow Path: when workers have different roles and world sizes. We use the
+the following algorithm:</p>
 <ol class="arabic simple">
 <li><p>Each agent writes its configuration(group_rank, group_world_size
 , num_workers) to the common store.</p></li>

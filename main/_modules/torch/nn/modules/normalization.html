@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git193073b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf42e88f ) &#x25BC</a>
     </div>
     
 
@@ -851,11 +851,12 @@
 <span class="sd">    the paper `Root Mean Square Layer Normalization &lt;https://arxiv.org/pdf/1910.07467.pdf&gt;`__</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">        y = \frac{x}{\sqrt{\mathrm{RMS}[x] + \epsilon}} * \gamma</span>
+<span class="sd">        y = \frac{x}{\mathrm{RMS}[x]} * \gamma \quad</span>
+<span class="sd">        \text{where} \quad \text{RMS}(x) = \sqrt{\epsilon + \frac{1}{n} \sum_{i=1}^{n} x_i^2}</span>
 
-<span class="sd">    The root mean squared norm is taken over the last ``D`` dimensions, where ``D``</span>
+<span class="sd">    The RMS is taken over the last ``D`` dimensions, where ``D``</span>
 <span class="sd">    is the dimension of :attr:`normalized_shape`. For example, if :attr:`normalized_shape`</span>
-<span class="sd">    is ``(3, 5)`` (a 2-dimensional shape), the rms norm is computed over</span>
+<span class="sd">    is ``(3, 5)`` (a 2-dimensional shape), the RMS is computed over</span>
 <span class="sd">    the last 2 dimensions of the input.</span>
 
 <span class="sd">    Args:</span>

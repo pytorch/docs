@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git193073b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf42e88f ) &#x25BC</a>
     </div>
     
 
@@ -1309,129 +1309,6 @@
         <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_shapes_for_default_dynamic</span><span class="p">(</span>
-    <span class="n">combined_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-    <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    In the long run this might not be needed, but this exists because export.export() and _dynamo.export()</span>
-<span class="sd">    historically have different semantics for how dynamic_shapes are specified, but go through the same</span>
-<span class="sd">    process of producing constraints, and now both use assume_static_by_default=False.</span>
-
-<span class="sd">    For _dynamo.export(), the semantics for dynamic_shapes are:</span>
-<span class="sd">    - None: dynamic, allocated a symbol</span>
-<span class="sd">    - Dim/DerivedDim: a strict assertion on the min/max range for this symbol, and require a specification</span>
-<span class="sd">      for all dims governed by this symbol (i.e. relations, equality, linear relations, etc.)</span>
-
-<span class="sd">    For export.export(), historically dynamism for unspecified dims has been undesirable, so the semantics are:</span>
-<span class="sd">    - Dim.AUTO: dynamic, allocated a symbol</span>
-<span class="sd">    - None/unspecified/Dim.STATIC: static</span>
-<span class="sd">    - Dim/DerivedDims: also a strict assertion</span>
-
-<span class="sd">    To allow both APIs to follow the same process for producing constraints, this function converts dynamic_shapes</span>
-<span class="sd">    for export.export() to be compatible with _process_dynamic_shapes() and assume_static_by_default=False, turning them</span>
-<span class="sd">    into essentially what they&#39;d look like for _dynamo.export().</span>
-
-<span class="sd">    An example conversion might look like, for a 3-d input tensor:</span>
-
-<span class="sd">        input spec: {</span>
-<span class="sd">            0: Dim.AUTO,</span>
-<span class="sd">            1: None,  # or Dim.STATIC</span>
-<span class="sd">            2: Dim(&quot;dx&quot;),</span>
-<span class="sd">        }</span>
-<span class="sd">        output spec: {</span>
-<span class="sd">            0: None,  # None: dynamic by default</span>
-<span class="sd">            1: 32,  # explicitly provide static shape</span>
-<span class="sd">            2: Dim(&quot;dx&quot;),  # remains the same</span>
-<span class="sd">        }</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">_tree_map_helper</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        If the user generally specifies dynamic_shapes=None for a pytree input,</span>
-<span class="sd">        we&#39;d like to convert this into a tree of Nones following the input spec,</span>
-<span class="sd">        so we can explicitly specify static dims for all tensor dimensions.</span>
-<span class="sd">        Non-builtin types for pytree (e.g. custom dataclasses) creates some difficulty,</span>
-<span class="sd">        in which case the correct format is a list containing specs for each child attribute.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">node_type</span> <span class="o">:=</span> <span class="n">_get_node_type</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SUPPORTED_NODES</span><span class="p">:</span>  <span class="c1"># is_leaf</span>
-            <span class="k">return</span> <span class="n">val</span>
-        <span class="n">flatten_fn</span> <span class="o">=</span> <span class="n">SUPPORTED_NODES</span><span class="p">[</span><span class="n">node_type</span><span class="p">]</span><span class="o">.</span><span class="n">flatten_fn</span>
-        <span class="n">child_pytrees</span><span class="p">,</span> <span class="n">context</span> <span class="o">=</span> <span class="n">flatten_fn</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>  <span class="c1"># flatten from whatever original type</span>
-        <span class="n">unflatten_fn</span> <span class="o">=</span> <span class="n">SUPPORTED_NODES</span><span class="p">[</span>
-            <span class="n">node_type</span> <span class="k">if</span> <span class="n">node_type</span> <span class="ow">in</span> <span class="n">BUILTIN_TYPES</span> <span class="k">else</span> <span class="nb">list</span>
-        <span class="p">]</span><span class="o">.</span><span class="n">unflatten_fn</span>
-        <span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">_tree_map_helper</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_pytrees</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">unflatten_fn</span><span class="p">(</span>
-            <span class="n">children</span><span class="p">,</span> <span class="n">context</span>
-        <span class="p">)</span>  <span class="c1"># unflatten into original type, or list if not built-in type</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="n">dynamic_shapes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="p">):</span>  <span class="c1"># create pytree structure of static dim</span>
-        <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="n">_tree_map_helper</span><span class="p">(</span><span class="n">combined_args</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-        <span class="n">combined_args</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)(</span><span class="n">combined_args</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># type: ignore[assignment, misc]</span>
-
-    <span class="k">def</span> <span class="nf">transform_shapes</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
-        <span class="n">out</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
-                <span class="n">dim</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">STATIC</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
-                    <span class="c1"># don&#39;t have to specify anything if dynamic</span>
-                    <span class="c1"># None also works, since assume_static_by_default=False</span>
-                    <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">maybe_mark_dynamic</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>  <span class="c1"># avoid duck sizing</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">):</span>
-                    <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-                    <span class="c1"># important that this is dim and not val,</span>
-                    <span class="c1"># so we can raise error if user-specified dim != val</span>
-                    <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span>
-                <span class="k">elif</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">_warn_on_None_dynamic_shape_dimension</span><span class="p">()</span>
-                    <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># make explicitly static</span>
-                    <span class="k">assert</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">STATIC</span>
-                    <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
-                <span class="n">dim</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
-                    <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">maybe_mark_dynamic</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>  <span class="c1"># avoid duck sizing</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">):</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">_warn_on_None_dynamic_shape_dimension</span><span class="p">()</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">assert</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">STATIC</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">shape</span><span class="p">)(</span><span class="n">out</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-                <span class="n">out</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">out</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">out</span>
-
-    <span class="k">def</span> <span class="nf">transform_shape</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">transform_shapes</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">)</span>
-
-    <span class="n">result</span> <span class="o">=</span> <span class="n">_tree_map_with_path</span><span class="p">(</span>
-        <span class="n">transform_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">tree_name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">result</span>
-
-
 <span class="k">def</span> <span class="nf">_process_dynamic_shapes</span><span class="p">(</span>
     <span class="n">combined_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
@@ -1539,6 +1416,12 @@
         <span class="k">def</span> <span class="nf">_create_static_dim</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">_StaticDim</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="p">(</span><span class="nb">int</span><span class="p">,),</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
 
+        <span class="c1"># clean out decorators from user side, or previous export call</span>
+        <span class="n">tensor</span><span class="o">.</span><span class="n">_dynamo_weak_dynamic_indices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">tensor</span><span class="o">.</span><span class="n">_dynamo_dynamic_indices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">tensor</span><span class="o">.</span><span class="n">_dynamo_static_indices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">tensor</span><span class="o">.</span><span class="n">_dynamo_unbacked_indices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">shape</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">)):</span>
@@ -1546,6 +1429,13 @@
                         <span class="n">dim</span> <span class="o">=</span> <span class="n">_create_static_dim</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
                     <span class="n">constraint</span> <span class="o">=</span> <span class="n">to_constraint</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
                     <span class="n">symbols</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_DimHint</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
+                        <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">maybe_mark_dynamic</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">STATIC</span><span class="p">:</span>
+                        <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">)):</span>
@@ -1553,6 +1443,16 @@
                         <span class="n">dim</span> <span class="o">=</span> <span class="n">_create_static_dim</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
                     <span class="n">constraint</span> <span class="o">=</span> <span class="n">to_constraint</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
                     <span class="n">symbols</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_DimHint</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
+                        <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">maybe_mark_dynamic</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">STATIC</span><span class="p">:</span>
+                        <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">dim</span><span class="p">()):</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">assoc_shape</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dynamic_shape</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
@@ -1592,10 +1492,12 @@
             <span class="k">continue</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">continue</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">)</span>  <span class="c1"># dim hints should have boiled away</span>
-        <span class="n">name_to_dim</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_DerivedDim</span><span class="p">):</span>
-            <span class="n">name_to_dim</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span><span class="o">.</span><span class="n">root</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">):</span>
+            <span class="n">name_to_dim</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_DerivedDim</span><span class="p">):</span>
+                <span class="n">name_to_dim</span><span class="p">[</span><span class="n">dim</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span><span class="o">.</span><span class="n">root</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">_DimHint</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">name_to_dim</span>
 
 
