@@ -601,6 +601,12 @@ reduced-precision reductions are problematic, they can be turned off with
 <code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction</span> <span class="pre">=</span> <span class="pre">False</span></code></p>
 <p>For more information see <a class="reference internal" href="cuda.html#fp16reducedprecision"><span class="std std-ref">allow_fp16_reduced_precision_reduction</span></a> and <a class="reference internal" href="cuda.html#bf16reducedprecision"><span class="std std-ref">allow_bf16_reduced_precision_reduction</span></a></p>
 </div>
+<div class="section" id="reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa">
+<h2>Reduced Precision Reduction for FP16 and BF16 in Scaled Dot Product Attention (SDPA)<a class="headerlink" href="#reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa" title="Permalink to this heading">¶</a></h2>
+<p>A naive SDPA math backend, when using FP16/BF16 inputs, can accumulate significant numerical errors due to the usage of low-precision intermediate buffers. To mitigate this issue, the default behavior now involves upcasting FP16/BF16 inputs to FP32. Computations are performed in FP32/TF32, and the final FP32 results are then downcasted back to FP16/BF16. This will improve numerical accuracy of the final output for the math backend with FP16/BF16 inputs, but increases memory usages and may cause the performance regressions in the math backend as computations shift from FP16/BF16 BMM to FP32/TF32 BMM/Matmul.</p>
+<p>For scenarios where reduced-precision reductions are preferred for speed, they can be enabled with the following setting:
+<code class="docutils literal notranslate"><span class="pre">torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp(True)</span></code></p>
+</div>
 <div class="section" id="reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices">
 <span id="fp16-on-mi200"></span><h2>Reduced Precision FP16 and BF16 GEMMs and Convolutions on AMD Instinct MI200 devices<a class="headerlink" href="#reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices" title="Permalink to this heading">¶</a></h2>
 <p>On AMD Instinct MI200 GPUs, the FP16 and BF16 V_DOT2 and MFMA matrix instructions flush input and output denormal values to zero. FP32 and FP64 MFMA matrix instructions do not flush input and output denormal values to zero. The affected instructions are only used by rocBLAS (GEMM) and MIOpen (convolution) kernels; all other PyTorch operations will not encounter this behavior. All other supported AMD GPUs will not encounter this behavior.</p>
@@ -726,6 +732,7 @@ if (url)
 </li>
 <li><a class="reference internal" href="#tensorfloat-32-tf32-on-nvidia-ampere-and-later-devices">TensorFloat-32(TF32) on Nvidia Ampere (and later) devices</a></li>
 <li><a class="reference internal" href="#reduced-precision-reduction-for-fp16-and-bf16-gemms">Reduced Precision Reduction for FP16 and BF16 GEMMs</a></li>
+<li><a class="reference internal" href="#reduced-precision-reduction-for-fp16-and-bf16-in-scaled-dot-product-attention-sdpa">Reduced Precision Reduction for FP16 and BF16 in Scaled Dot Product Attention (SDPA)</a></li>
 <li><a class="reference internal" href="#reduced-precision-fp16-and-bf16-gemms-and-convolutions-on-amd-instinct-mi200-devices">Reduced Precision FP16 and BF16 GEMMs and Convolutions on AMD Instinct MI200 devices</a></li>
 </ul>
 </li>

@@ -538,6 +538,8 @@
     <span class="s2">&quot;mem_efficient_sdp_enabled&quot;</span><span class="p">,</span>
     <span class="s2">&quot;math_sdp_enabled&quot;</span><span class="p">,</span>
     <span class="s2">&quot;enable_math_sdp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;allow_fp16_bf16_reduction_math_sdp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fp16_bf16_reduction_math_sdp_allowed&quot;</span><span class="p">,</span>
     <span class="s2">&quot;is_flash_attention_available&quot;</span><span class="p">,</span>
     <span class="s2">&quot;can_use_flash_attention&quot;</span><span class="p">,</span>
     <span class="s2">&quot;can_use_efficient_attention&quot;</span><span class="p">,</span>
@@ -833,6 +835,24 @@
 <span class="sd">    Enables or disables math scaled dot product attention.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_set_sdp_use_math</span><span class="p">(</span><span class="n">enabled</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="allow_fp16_bf16_reduction_math_sdp"><a class="viewcode-back" href="../../../backends.html#torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp">[docs]</a><span class="k">def</span> <span class="nf">allow_fp16_bf16_reduction_math_sdp</span><span class="p">(</span><span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. warning:: This flag is beta and subject to change.</span>
+
+<span class="sd">    Enables or disables fp16/bf16 reduction in math scaled dot product attention.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_set_math_sdp_allow_fp16_bf16_reduction</span><span class="p">(</span><span class="n">enabled</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fp16_bf16_reduction_math_sdp_allowed"><a class="viewcode-back" href="../../../backends.html#torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed">[docs]</a><span class="k">def</span> <span class="nf">fp16_bf16_reduction_math_sdp_allowed</span><span class="p">():</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. warning:: This flag is beta and subject to change.</span>
+
+<span class="sd">    Returns whether fp16/bf16 reduction in math scaled dot product attention is enabled or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_get_math_sdp_allow_fp16_bf16_reduction</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="is_flash_attention_available"><a class="viewcode-back" href="../../../backends.html#torch.backends.cuda.is_flash_attention_available">[docs]</a><span class="k">def</span> <span class="nf">is_flash_attention_available</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
