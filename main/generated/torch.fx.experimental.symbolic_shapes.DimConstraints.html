@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git19a4d68 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd725758 ) &#x25BC</a>
     </div>
     
 
@@ -533,6 +533,8 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.fx.experimental.symbolic_shapes.</span></span><span class="sig-name descname"><span class="pre">DimConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol_to_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_to_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marked_dynamic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_name_to_debug_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom solver for a system of constraints on symbolic dimensions.
 Solutions are “static” values or simplified “dynamic” constraints.</p>
+<dl class="field-list simple">
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.DimConstraints.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.add" title="Permalink to this definition">¶</a></dt>
@@ -549,19 +551,29 @@ Solutions are “static” values or simplified “dynamic” constraints.</p>
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.DimConstraints.add_equality">
 <span class="sig-name descname"><span class="pre">add_equality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints.add_equality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.add_equality" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an equality constraint</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.DimConstraints.forced_specializations">
 <span class="sig-name descname"><span class="pre">forced_specializations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints.forced_specializations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.forced_specializations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary of the names of symbols to their specialized value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <em>Expr</em>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.DimConstraints.prettify_results">
-<span class="sig-name descname"><span class="pre">prettify_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_violation_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_specializations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints.prettify_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.prettify_results" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">prettify_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_shapes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_violation_error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_specializations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints.prettify_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.prettify_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format a message for constraint violation erros</p>
 <dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -571,12 +583,19 @@ Solutions are “static” values or simplified “dynamic” constraints.</p>
 <dd><p>Eliminate expressions of the form b // d and b % d while adding congruences of the form b % d == k.
 This leaves rational operators (in particular of the form b / d) that our inequality solver can handle.
 We solve the added congruences separately (using our congruence solver, see below).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>_SympyT</em></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.DimConstraints.solve">
 <span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#DimConstraints.solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.DimConstraints.solve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solve the system of constraint equations to find simplified constraints</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 </dd></dl>

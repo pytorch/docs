@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git19a4d68 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd725758 ) &#x25BC</a>
     </div>
     
 
@@ -557,6 +557,11 @@ and symbols that already have replacements won’t get bindings.</p>
 it’s different enough that it seemed cleanest to make
 another copy.  This assumes the guards are already checked,
 though if it’s cheap we’ll check for shenanigans</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dict[sympy.Symbol, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -584,6 +589,8 @@ though if it’s cheap we’ll check for shenanigans</p>
 <dd><p>Break reference cycles.</p>
 <p>This destroys the stacks. If you really want to keep them, we
 just need some way to break references on code objects.</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -604,6 +611,9 @@ just need some way to break references on code objects.</p>
 We try our best to express stride in terms of the sizes, so as to not
 introduce new symbolic variables.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference internal" href="../torch.html#torch.SymInt" title="torch.SymInt"><em>SymInt</em></a>], …], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference internal" href="../torch.html#torch.SymInt" title="torch.SymInt"><em>SymInt</em></a>], …], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference internal" href="../torch.html#torch.SymInt" title="torch.SymInt"><em>SymInt</em></a>]]</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -612,6 +622,9 @@ introduce new symbolic variables.</p>
 <span class="sig-name descname"><span class="pre">create_symboolnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.create_symboolnode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symboolnode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a SymBool object from a sympy boolean expression</p>
 <dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../torch.html#torch.SymBool" title="torch.SymBool"><em>SymBool</em></a></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -620,6 +633,9 @@ introduce new symbolic variables.</p>
 <span class="sig-name descname"><span class="pre">create_symfloatnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.create_symfloatnode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_symfloatnode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a SymFloat value from a symbolic expression</p>
 <dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>, <a class="reference internal" href="../torch.html#torch.SymFloat" title="torch.SymFloat"><em>SymFloat</em></a>]</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -631,6 +647,9 @@ introduce new symbolic variables.</p>
 is, pass it into hint.  Otherwise, pass None and we will make our best
 guess</p>
 <dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference internal" href="../torch.html#torch.SymInt" title="torch.SymInt"><em>SymInt</em></a>]</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -638,18 +657,33 @@ guess</p>
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symbool">
 <span class="sig-name descname"><span class="pre">create_unbacked_symbool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.create_unbacked_symbool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symbool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a symbolic boolean without a hint value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../torch.html#torch.SymBool" title="torch.SymBool"><em>SymBool</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symfloat">
 <span class="sig-name descname"><span class="pre">create_unbacked_symfloat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.create_unbacked_symfloat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symfloat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a symbolic float without a hint value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../torch.html#torch.SymFloat" title="torch.SymFloat"><em>SymFloat</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symint">
 <span class="sig-name descname"><span class="pre">create_unbacked_symint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.create_unbacked_symint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a symbolic integer without a hint value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../torch.html#torch.SymInt" title="torch.SymInt"><em>SymInt</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -669,6 +703,11 @@ nor do we specialze on zero or one values.</p>
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symint_and_symbol">
 <span class="sig-name descname"><span class="pre">create_unspecified_symint_and_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.create_unspecified_symint_and_symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unspecified_symint_and_symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a SymInt wrapping a new unspecified symbol</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference internal" href="../torch.html#torch.SymInt" title="torch.SymInt"><em>SymInt</em></a>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -684,6 +723,9 @@ nor do we specialze on zero or one values.</p>
 to the expression, if applicable</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -692,24 +734,44 @@ to the expression, if applicable</p></li>
 <span class="sig-name descname"><span class="pre">evaluate_guards_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.evaluate_guards_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_expression" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expected to be used with produce_guards_expression(). Evaluates an expression
 generated by produce_guards_expression for the given concrete args.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_for_args">
 <span class="sig-name descname"><span class="pre">evaluate_guards_for_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">placeholders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.evaluate_guards_for_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_for_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate guards for a graph’s placeholder values and evaluate the guards with args</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_symexpr">
 <span class="sig-name descname"><span class="pre">evaluate_symexpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.evaluate_symexpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_symexpr" title="Permalink to this definition">¶</a></dt>
 <dd><p>To be used by compile_fx to evaluate symexprs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards">
 <span class="sig-name descname"><span class="pre">format_guards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.format_guards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.format_guards" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format this shape env’s guard expressions with optional traceback info if verbose</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -718,6 +780,8 @@ generated by produce_guards_expression for the given concrete args.</p>
 <dd><p>Freeze this ShapeEnv to stop accumulating guards</p>
 <p>A frozen ShapeEnv will ignore any further guards generated on it and
 only emit a warning which may lead to accuracy problems.</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -728,6 +792,8 @@ only emit a warning which may lead to accuracy problems.</p>
 frozen.  This would indicate a lowering violation, or perhaps something
 we know statically is already True but we are checking it again in a way
 that is not clearly dischargeable.</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -738,7 +804,7 @@ concatenated with all the guards.
 If symbols is None, it returns all the runtime asserts (and all the guards)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<em>Expr</em>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<em>Boolean</em>, …]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -749,7 +815,7 @@ If symbols is None, it returns all the runtime asserts (and all the guards)</p>
 <dd><p>Given a expression, it returns a list of predicates that follow from it</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<em>Expr</em>, <em>BooleanAtom</em>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<em>Boolean</em>, <em>BooleanAtom</em>], …]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -758,6 +824,11 @@ If symbols is None, it returns all the runtime asserts (and all the guards)</p>
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards">
 <span class="sig-name descname"><span class="pre">get_nontrivial_guards</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.get_nontrivial_guards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of guard expressions that aren’t statically known (i.e. not trivial)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<em>Boolean</em>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -765,6 +836,11 @@ If symbols is None, it returns all the runtime asserts (and all the guards)</p>
 <span class="sig-name descname"><span class="pre">get_pruned_guards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symints</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.get_pruned_guards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_pruned_guards" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of guards, but pruned so it only provides guards that
 reference symints from the passed in input</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<em>ShapeGuard</em>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -772,6 +848,11 @@ reference symints from the passed in input</p>
 <span class="sig-name descname"><span class="pre">ignore_fresh_unbacked_symbols</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.ignore_fresh_unbacked_symbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates that the newly allocated unbacked SymInts are being
 discarded</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterator" title="(in Python v3.12)"><em>Iterator</em></a>[None]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -804,6 +885,9 @@ discarded</p>
 for the given placeholders and returns a string expression to be evaluated
 by evaluate_guards_expression given concrete values for the placeholders.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -825,7 +909,7 @@ output to print them too).  It’s private because it’s not
 intended for normal use</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]]</p>
+<dd class="field-odd"><p>Tuple[List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>], List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -836,7 +920,7 @@ intended for normal use</p>
 <dd><p>Apply symbol replacements to any symbols in the given expression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><em>Expr</em></p>
+<dd class="field-odd"><p><em>_SympyT</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -856,7 +940,7 @@ unbacked symbol, which can be used last resort to resolve hints.</p>
 <dd><p>Use known constraints and replacements to simplify the given expr</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><em>Expr</em></p>
+<dd class="field-odd"><p><em>_SympyT</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -868,6 +952,9 @@ unbacked symbol, which can be used last resort to resolve hints.</p>
 Does not introduce a guard, so only use this when you can guarantee that
 your code is still valid for arbitrary shapes (such as optimization decisions)</p>
 <dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a>[<em>Basic</em>]</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -875,6 +962,11 @@ your code is still valid for arbitrary shapes (such as optimization decisions)</
 <dt class="sig sig-object py" id="torch.fx.experimental.symbolic_shapes.ShapeEnv.suppress_guards">
 <span class="sig-name descname"><span class="pre">suppress_guards</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/fx/experimental/symbolic_shapes.html#ShapeEnv.suppress_guards"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.fx.experimental.symbolic_shapes.ShapeEnv.suppress_guards" title="Permalink to this definition">¶</a></dt>
 <dd><p>Context manager to ignore all guards generated inside</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterator" title="(in Python v3.12)"><em>Iterator</em></a>[None]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

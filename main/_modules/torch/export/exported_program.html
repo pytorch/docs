@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git19a4d68 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd725758 ) &#x25BC</a>
     </div>
     
 
@@ -800,7 +800,7 @@
 <span class="k">def</span> <span class="nf">_split_decomp_table_to_cia_and_python_decomp</span><span class="p">(</span>
     <span class="n">decomp_table</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OperatorBase</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OperatorBase</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">torch._decomp</span> <span class="kn">import</span> <span class="n">_collect_all_valid_cia_ops</span>
+    <span class="kn">from</span> <span class="nn">torch._decomp</span> <span class="kn">import</span> <span class="n">_collect_all_valid_cia_ops</span><span class="p">,</span> <span class="n">_is_preservable_cia_op</span>
 
     <span class="n">all_preservable_cia_ops</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_collect_all_valid_cia_ops</span><span class="p">())</span>
     <span class="n">cia_ops_to_callable</span> <span class="o">=</span> <span class="p">{}</span>
@@ -824,12 +824,16 @@
         <span class="c1"># In both cases, we want to remove this CIA op from the decomp_table as it is special</span>
         <span class="c1"># handled.</span>
         <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">all_preservable_cia_ops</span><span class="p">:</span>
-            <span class="c1"># TODO this is annpying case where aten.item has</span>
-            <span class="c1"># prim decomposition which later calls into aten.item</span>
-            <span class="c1"># and recurses infinitely. (https://github.com/pytorch/pytorch/issues/136050)</span>
             <span class="n">cia_ops_to_callable</span><span class="p">[</span><span class="n">op</span><span class="p">]</span> <span class="o">=</span> <span class="n">decomp_table</span><span class="p">[</span><span class="n">op</span><span class="p">]</span>
             <span class="n">all_preservable_cia_ops</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
             <span class="k">del</span> <span class="n">decomp_table</span><span class="p">[</span><span class="n">op</span><span class="p">]</span>
+        <span class="c1"># If it is a custom op, we want to still preserve or do whatever</span>
+        <span class="c1"># with it if it is a functional CIA. The reason we don&#39;t remove</span>
+        <span class="c1"># from CIA list is because we don&#39;t query custom ops.</span>
+        <span class="k">elif</span> <span class="n">_is_preservable_cia_op</span><span class="p">(</span><span class="n">op</span><span class="p">):</span>
+            <span class="n">op_name</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">op_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;aten&quot;</span><span class="p">),</span> <span class="s2">&quot;This should be a custom op&quot;</span>
+            <span class="n">cia_ops_to_callable</span><span class="p">[</span><span class="n">op</span><span class="p">]</span> <span class="o">=</span> <span class="n">decomp_table</span><span class="p">[</span><span class="n">op</span><span class="p">]</span>
 
     <span class="c1"># If we reached here, it means user intentionally deleted these CIA ops from</span>
     <span class="c1"># decomp table.</span>
@@ -1581,6 +1585,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">torch._decomp</span> <span class="kn">import</span> <span class="p">(</span>
             <span class="n">_decomp_table_to_post_autograd_aten</span><span class="p">,</span>
+            <span class="n">_is_preservable_cia_op</span><span class="p">,</span>
             <span class="n">core_aten_decompositions</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="kn">from</span> <span class="nn">torch._inductor</span> <span class="kn">import</span> <span class="n">config</span>
@@ -1607,6 +1612,10 @@
         <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">_preserve_ops</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">_decomp_table</span><span class="p">:</span>
                 <span class="k">del</span> <span class="n">_decomp_table</span><span class="p">[</span><span class="n">op</span><span class="p">]</span>
+            <span class="c1"># This is needed when the op they want to preserve is a</span>
+            <span class="c1"># CIA op.</span>
+            <span class="k">elif</span> <span class="n">_is_preservable_cia_op</span><span class="p">(</span><span class="n">op</span><span class="p">):</span>
+                <span class="n">_decomp_table</span><span class="p">[</span><span class="n">op</span><span class="p">]</span> <span class="o">=</span> <span class="n">_special_op_to_preserve_cia</span>
 
         <span class="c1"># Note [Seperating decomp_table into CIA decomps and non-CIA decomps]</span>
         <span class="c1"># At this point, we have a decomp_table that contains decomp behaviour for</span>
