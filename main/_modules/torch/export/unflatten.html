@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git6241006 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git60d19cb ) &#x25BC</a>
     </div>
     
 
@@ -531,9 +531,11 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -596,35 +598,47 @@
     <span class="n">persistent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">field</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="c1"># We need to generate all submodules of `to_module` that are at `prefix` and</span>
+    <span class="c1"># variants of `prefix` that differ only by call name. All of these submodules</span>
+    <span class="c1"># will then be assigned `from_obj` at `field` so that they can share this attribute.</span>
+    <span class="c1"># For example, if target is foo.bar.f, foo has another call name foo@1,</span>
+    <span class="c1"># and bar has other call names bar@1, bar@2, then we will assign f to</span>
+    <span class="c1"># foo.bar, foo.bar@1, foo.bar@2, foo@1.bar, foo@1.bar@1, foo@1.bar@2.</span>
+    <span class="n">to_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">to_module</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">ts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">to_module</span> <span class="ow">in</span> <span class="n">to_modules</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">())</span>
+            <span class="n">ts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="n">t_call</span>  <span class="c1"># type: ignore[misc]</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">t_call</span> <span class="ow">in</span> <span class="n">to_module</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">_is_call_name</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">to_modules</span> <span class="o">=</span> <span class="n">ts</span>
 
-        <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">()</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-        <span class="n">to_module</span> <span class="o">=</span> <span class="n">t</span>
-
-    <span class="k">if</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">PARAMETER</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
-        <span class="n">to_module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">BUFFER</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
-        <span class="n">to_module</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="n">persistent</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">CONSTANT</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">from_obj</span><span class="p">,</span> <span class="n">FakeScriptObject</span>
-        <span class="p">),</span> <span class="s2">&quot;FakeScriptObject should only exist during tracing.&quot;</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">from_obj</span><span class="p">,</span>
-            <span class="p">(</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">ScriptObject</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">MODULE</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">to_module</span> <span class="ow">in</span> <span class="n">to_modules</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">PARAMETER</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
+            <span class="n">to_module</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">BUFFER</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+            <span class="n">to_module</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="n">persistent</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">CONSTANT</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">from_obj</span><span class="p">,</span> <span class="n">FakeScriptObject</span>
+            <span class="p">),</span> <span class="s2">&quot;FakeScriptObject should only exist during tracing.&quot;</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">from_obj</span><span class="p">,</span>
+                <span class="p">(</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">ScriptObject</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">attr_kind</span> <span class="o">==</span> <span class="n">_AttrKind</span><span class="o">.</span><span class="n">MODULE</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">from_obj</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="InterpreterModule"><a class="viewcode-back" href="../../../export.html#torch.export.unflatten.InterpreterModule">[docs]</a><span class="k">class</span> <span class="nc">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -748,7 +762,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_run_with_interpeter</span> <span class="o">=</span> <span class="n">RUN_WITH_INTERPRETER</span>
 
         <span class="n">_inplace_buffer_mutations</span><span class="p">(</span><span class="n">export_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">)</span>
-        <span class="n">_outline_submodules</span><span class="p">(</span><span class="n">export_graph</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">seen_modules</span> <span class="o">=</span> <span class="n">_outline_submodules</span><span class="p">(</span><span class="n">export_graph</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">range_constraints</span> <span class="o">=</span> <span class="n">export_module</span><span class="o">.</span><span class="n">range_constraints</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">equality_constraints</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[]</span>
@@ -920,6 +934,7 @@
                 <span class="n">inputs_to_state</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">targets</span>
 
         <span class="n">_sink_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs_to_state</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">_deduplicate_modules</span><span class="p">(</span><span class="n">seen_modules</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
         <span class="c1"># Helper function to check input nodes of `module` has been processed.</span>
         <span class="k">def</span> <span class="nf">check_module_inputs</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
@@ -964,9 +979,6 @@
             <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fqn_order</span><span class="p">:</span>
                 <span class="n">fqn_order</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fqn_order</span><span class="p">)</span>
         <span class="n">_reorder_submodules</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fqn_order</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="p">[</span><span class="n">fqn</span> <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">named_modules</span><span class="p">(</span><span class="n">remove_duplicate</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span>
-            <span class="n">fqn_order</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">lint</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_print_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1172,7 +1184,7 @@
     <span class="k">return</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">child_split</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">parent_split</span><span class="p">)</span> <span class="p">:])</span>
 
 
-<span class="k">def</span> <span class="nf">_verify_graph_equivalence</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_check_graph_equivalence</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">graph_dump</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">nodes_idx</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1193,7 +1205,7 @@
             <span class="n">nodes_idx</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">node</span><span class="p">)]</span> <span class="o">=</span> <span class="n">i</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
 
-    <span class="k">assert</span> <span class="n">graph_dump</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span> <span class="o">==</span> <span class="n">graph_dump</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">graph_dump</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span> <span class="o">==</span> <span class="n">graph_dump</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_add_spec</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -1252,6 +1264,17 @@
     <span class="n">mod</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">module_to_add</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">_call_name</span><span class="p">(</span><span class="n">base</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="c1"># Given n &gt;= 0, generate call names to a submodule `base` of the form</span>
+    <span class="c1"># `base`, `base@1`, `base@2`, etc.</span>
+    <span class="k">return</span> <span class="n">base</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_is_call_name</span><span class="p">(</span><span class="n">call_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="c1"># Recognize when call_name = _call_name(base, n) for some n &gt;= 0.</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;(@\d+)?$&quot;</span><span class="p">,</span> <span class="n">call_name</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+
 <span class="k">class</span> <span class="nc">_ModuleFrame</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1281,11 +1304,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cached_graph_module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cached_graph_module</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">graph</span>
 
@@ -1295,17 +1313,31 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">accessor</span> <span class="o">=</span> <span class="n">_compute_accessor</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">)</span>
-            <span class="n">_add_submodule</span><span class="p">(</span>
-                <span class="n">parent</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
-                <span class="n">accessor</span><span class="p">,</span>
-                <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">module</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cached_graph_module</span> <span class="ow">is</span> <span class="kc">None</span>
-                    <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">cached_graph_module</span>
-                <span class="p">),</span>
+            <span class="n">num_calls</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">fqn</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">]</span>
             <span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fqn</span> <span class="ow">in</span> <span class="n">module_call_graph</span> <span class="ow">and</span> <span class="n">num_calls</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Cannot unflatten multiple calls to module </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="si">}</span><span class="s2"> while preserving its signature &quot;</span>
+                    <span class="s2">&quot;because each of these calls might have generated a different specialized graph. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;If the reason you want to preserve the signature is to swap </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="si">}</span><span class="s2"> with another module, &quot;</span>
+                    <span class="s2">&quot;consider using _swap_modules() directly on the exported program instead of unflattening it.&quot;</span>
+                <span class="p">)</span>
+            <span class="c1"># generate call name for self.fqn</span>
+            <span class="n">child_fqn</span> <span class="o">=</span> <span class="n">_call_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">num_calls</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">accessor</span> <span class="o">=</span> <span class="n">_compute_accessor</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">child_fqn</span><span class="p">)</span>
+            <span class="n">_add_submodule</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">accessor</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">_SubmoduleEntry</span><span class="p">(</span>
+                    <span class="n">parent_fqn</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span>
+                    <span class="n">parent_module</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
+                    <span class="n">parent_call_module</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span><span class="p">,</span>
+                    <span class="n">fqn</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span>
+                    <span class="n">call_idx</span><span class="o">=</span><span class="n">num_calls</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">module</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="n">signature</span> <span class="o">=</span> <span class="n">module_call_graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">signature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1530,9 +1562,6 @@
                 <span class="n">proxy_out</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_output</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;val&quot;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">orig_output</span><span class="p">]</span> <span class="o">=</span> <span class="n">proxy_out</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cached_graph_module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">_verify_graph_equivalence</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cached_graph_module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">copy_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="s2">&quot;copying&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">format_node</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">node_copy</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">remap_input</span><span class="p">)</span>
@@ -1643,9 +1672,19 @@
             <span class="n">node_idx</span> <span class="o">+=</span> <span class="mi">1</span>
 
 
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">_SubmoduleEntry</span><span class="p">:</span>
+    <span class="n">parent_fqn</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parent_module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span>
+    <span class="n">parent_call_module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span>
+    <span class="n">fqn</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">call_idx</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span>
+
+
 <span class="k">def</span> <span class="nf">_outline_submodules</span><span class="p">(</span><span class="n">orig_graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">root_module</span><span class="p">:</span> <span class="n">UnflattenedModule</span><span class="p">):</span>
     <span class="n">seen_nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">seen_modules</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">seen_modules</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">_SubmoduleEntry</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
     <span class="n">_ModuleFrame</span><span class="p">(</span>
         <span class="n">orig_graph</span><span class="p">,</span>
         <span class="nb">tuple</span><span class="p">(</span><span class="n">orig_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span>
@@ -1661,6 +1700,7 @@
         <span class="p">},</span>
         <span class="n">module</span><span class="o">=</span><span class="n">root_module</span><span class="p">,</span>
     <span class="p">)</span><span class="o">.</span><span class="n">run_outer</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">seen_modules</span>
 
 
 <span class="k">def</span> <span class="nf">_reorder_submodules</span><span class="p">(</span>
@@ -1683,6 +1723,46 @@
     <span class="n">children</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
         <span class="n">parent</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_deduplicate_modules</span><span class="p">(</span><span class="n">partitions</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">shared_submodules</span> <span class="ow">in</span> <span class="n">partitions</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shared_submodules</span><span class="p">):</span>
+            <span class="n">child_fqn</span> <span class="o">=</span> <span class="n">_call_name</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">call_idx</span><span class="p">)</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">_compute_accessor</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">parent_fqn</span><span class="p">,</span> <span class="n">child_fqn</span><span class="p">)</span>
+            <span class="n">deduplicated</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># Iterate over all previously seen modules, and deduplicate if possible</span>
+            <span class="k">for</span> <span class="n">seen</span> <span class="ow">in</span> <span class="n">shared_submodules</span><span class="p">[:</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">_check_graph_equivalence</span><span class="p">(</span><span class="n">seen</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">module</span><span class="p">):</span>
+                    <span class="c1"># Since graphs are equivalent, we can deduplicate.</span>
+                    <span class="c1"># There are two cases.</span>
+                    <span class="k">if</span> <span class="n">seen</span><span class="o">.</span><span class="n">fqn</span> <span class="o">==</span> <span class="n">entry</span><span class="o">.</span><span class="n">fqn</span><span class="p">:</span>
+                        <span class="c1"># Case 1: The current module has the same fqn as the seen module.</span>
+                        <span class="c1"># In this case we have generated a call name that can be optimized away.</span>
+                        <span class="c1"># So we remove the current module from the hierarchy and replace</span>
+                        <span class="c1"># the current call name with the seen call name in the parent graph.</span>
+                        <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+                        <span class="n">_recursive_getattr</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">parent_module</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span>
+                            <span class="n">name</span>
+                        <span class="p">)</span>
+                        <span class="n">seen_child_fqn</span> <span class="o">=</span> <span class="n">_call_name</span><span class="p">(</span><span class="n">seen</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">seen</span><span class="o">.</span><span class="n">call_idx</span><span class="p">)</span>
+                        <span class="n">seen_target</span> <span class="o">=</span> <span class="n">_compute_accessor</span><span class="p">(</span>
+                            <span class="n">entry</span><span class="o">.</span><span class="n">parent_fqn</span><span class="p">,</span> <span class="n">seen_child_fqn</span>
+                        <span class="p">)</span>
+                        <span class="n">entry</span><span class="o">.</span><span class="n">parent_call_module</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">seen_target</span>  <span class="c1"># type: ignore[union-attr]</span>
+                        <span class="k">break</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="n">deduplicated</span><span class="p">:</span>
+                        <span class="c1"># Case 2: The current module has a different fqn than the seen module.</span>
+                        <span class="c1"># In this case we replace the current module with the seen module.</span>
+                        <span class="c1"># There should be nothing pointing to the current module any more,</span>
+                        <span class="c1"># so it can be garbage collected.</span>
+                        <span class="c1"># NOTE: We *do not* replace the current call name with the seen call name</span>
+                        <span class="c1"># in the parent graph, because this will lose information on which fqn</span>
+                        <span class="c1"># was actually called. However, it is possible that the current call name</span>
+                        <span class="c1"># will be optimized away when we find another seen module with the same fqn,</span>
+                        <span class="c1"># so we do not break out of the loop yet.</span>
+                        <span class="n">entry</span><span class="o">.</span><span class="n">parent_module</span><span class="o">.</span><span class="n">set_submodule</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">seen</span><span class="o">.</span><span class="n">module</span><span class="p">)</span>
+                        <span class="n">deduplicated</span> <span class="o">=</span> <span class="kc">True</span>
 
 
 <span class="k">def</span> <span class="nf">_sink_params</span><span class="p">(</span>
