@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git60d19cb ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd6f340f ) &#x25BC</a>
     </div>
     
 
@@ -554,6 +554,7 @@
 
 <span class="n">_USER_PRESERVED_ATTRIBUTES_KEY</span> <span class="o">=</span> <span class="s2">&quot;_user_preserved_attributes&quot;</span>
 
+
 <span class="c1"># Normal exec loses the source code, however we can work with</span>
 <span class="c1"># the linecache module to recover it.</span>
 <span class="c1"># Using _exec_with_source will add it to our local cache</span>
@@ -639,7 +640,9 @@
 
 
 <span class="k">def</span> <span class="nf">_format_import_block</span><span class="p">(</span><span class="nb">globals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">importer</span><span class="p">:</span> <span class="n">Importer</span><span class="p">):</span>
-    <span class="n">import_strs</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">_format_import_statement</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">importer</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">globals</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">import_strs</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">_format_import_statement</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">importer</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">globals</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
     <span class="c1"># Sort the imports so we have a stable import block that allows us to</span>
     <span class="c1"># hash the graph module and get a consistent key for use in a cache.</span>
     <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">import_strs</span><span class="p">))</span>
@@ -683,7 +686,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="n">body</span>
 
 
-<span class="k">def</span> <span class="nf">_deserialize_graph_module</span><span class="p">(</span><span class="n">forward</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">graph_module_cls</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_deserialize_graph_module</span><span class="p">(</span>
+    <span class="n">forward</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">graph_module_cls</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Deserialize a GraphModule given the dictionary of the original module,</span>
 <span class="sd">    using the code to reconstruct the graph. We delete the actual graph before</span>
@@ -721,7 +726,10 @@
     <span class="c1"># referencing the private local subclass KeepModules.</span>
     <span class="n">graph</span><span class="o">.</span><span class="n">_tracer_cls</span> <span class="o">=</span> <span class="n">tracer_cls</span>
     <span class="kn">from</span> <span class="nn">._lazy_graph_module</span> <span class="kn">import</span> <span class="n">_make_graph_module</span>
-    <span class="n">gm</span> <span class="o">=</span> <span class="n">_make_graph_module</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="n">graphmodule_cls_name</span><span class="p">,</span> <span class="n">graph_module_cls</span><span class="o">=</span><span class="n">graph_module_cls</span><span class="p">)</span>
+
+    <span class="n">gm</span> <span class="o">=</span> <span class="n">_make_graph_module</span><span class="p">(</span>
+        <span class="n">com</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="n">graphmodule_cls_name</span><span class="p">,</span> <span class="n">graph_module_cls</span><span class="o">=</span><span class="n">graph_module_cls</span>
+    <span class="p">)</span>
 
     <span class="c1"># The GraphModule constructor only retains attributes referenced by the graph.</span>
     <span class="c1"># In this case, our goal is return a GraphModule as close to identical as the one</span>
@@ -783,6 +791,34 @@
         <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
 
 
+<span class="c1"># Recursively look up target from a graph module.</span>
+<span class="k">def</span> <span class="nf">_get_attr</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_get_attr_via_attr_list</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_get_attr_via_attr_list</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">attr_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">attr_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">model</span>
+    <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">field</span> <span class="o">=</span> <span class="n">attr_list</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">model</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="k">assert</span> <span class="n">t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_has_attr</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">field</span> <span class="o">=</span> <span class="n">attr_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">model</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_print_readable</span><span class="p">(</span>
     <span class="n">module</span><span class="p">,</span>
     <span class="n">module_name</span><span class="p">,</span>
@@ -792,7 +828,9 @@
     <span class="n">colored</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="n">graph</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">graph</span>
-    <span class="k">assert</span> <span class="n">graph</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">),</span> <span class="s2">&quot;print_readable must be used on a module with a graph&quot;</span>
+    <span class="k">assert</span> <span class="n">graph</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+        <span class="n">graph</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span>
+    <span class="p">),</span> <span class="s2">&quot;print_readable must be used on a module with a graph&quot;</span>
 
     <span class="n">verbose_python_code</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">python_code</span><span class="p">(</span>
         <span class="n">root_module</span><span class="o">=</span><span class="s2">&quot;self&quot;</span><span class="p">,</span>
@@ -874,9 +912,11 @@
                 <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">e</span><span class="o">.</span><span class="n">__traceback__</span>
-            <span class="n">topmost_framesummary</span><span class="p">:</span> <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">traceback</span><span class="o">.</span><span class="n">StackSummary</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">walk_tb</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">topmost_framesummary</span><span class="p">:</span> <span class="p">(</span>
+                <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">StackSummary</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">walk_tb</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">))[</span>
+                <span class="o">-</span><span class="mi">1</span>
+            <span class="p">]</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="k">if</span> <span class="s2">&quot;eval_with_key&quot;</span> <span class="ow">in</span> <span class="n">topmost_framesummary</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span>
                     <span class="n">_WrappedCall</span><span class="o">.</span><span class="n">_generate_error_message</span><span class="p">(</span><span class="n">topmost_framesummary</span><span class="p">),</span>
@@ -885,6 +925,7 @@
                 <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># noqa: B904</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">e</span>
+
 
 <div class="viewcode-block" id="GraphModule"><a class="viewcode-back" href="../../../fx.html#torch.fx.GraphModule">[docs]</a><span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">GraphModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -1094,7 +1135,9 @@
                 <span class="n">blobified_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
                 <span class="n">module_repr</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
                 <span class="c1"># weights_only=False as this is legacy code that saves the model</span>
-                <span class="n">module_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;torch.load(r&#39;</span><span class="si">{</span><span class="n">module_file</span><span class="si">}</span><span class="s2">&#39;, weights_only=False) # </span><span class="si">{</span><span class="n">module_repr</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">module_str</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;torch.load(r&#39;</span><span class="si">{</span><span class="n">module_file</span><span class="si">}</span><span class="s2">&#39;, weights_only=False) # </span><span class="si">{</span><span class="n">module_repr</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
             <span class="n">model_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="o">*</span><span class="mi">2</span><span class="si">}</span><span class="s2">self.</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">module_str</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
 
         <span class="k">for</span> <span class="n">buffer_name</span><span class="p">,</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1375,7 +1418,7 @@
             <span class="s2">&quot;_load_state_dict_post_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_replace_hook&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_create_node_hooks&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;_erase_node_hooks&quot;</span>
+            <span class="s2">&quot;_erase_node_hooks&quot;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">extra_preserved_attrs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
@@ -1388,12 +1431,19 @@
 
     <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">._lazy_graph_module</span> <span class="kn">import</span> <span class="n">_make_graph_module</span>
+
         <span class="n">res</span> <span class="o">=</span> <span class="n">_make_graph_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
         <span class="n">res</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="k">return</span> <span class="n">res</span>
 
 <div class="viewcode-block" id="GraphModule.print_readable"><a class="viewcode-back" href="../../../fx.html#torch.fx.GraphModule.print_readable">[docs]</a>    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">print_readable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_stride</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_device</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colored</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">print_readable</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">print_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">include_stride</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_device</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">colored</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the Python code generated for current GraphModule and its children GraphModules</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1464,6 +1514,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;erase_node hook must be a callable.&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_erase_node_hooks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
+
 
 <span class="c1"># workarounds for issues in __torch_function__</span>
 
