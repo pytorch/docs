@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd1b87e2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git395e098 ) &#x25BC</a>
     </div>
     
 
@@ -598,7 +598,7 @@ Users can compose it together with RowwiseParallel to achieve the sharding of mo
 become a DTensor. If not specified, we assume the input tensor to be replicated.</p></li>
 <li><p><strong>output_layouts</strong> (<a class="reference internal" href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><em>Placement</em></a><em>, </em><em>optional</em>) – The DTensor layout of the output for the nn.Module, this is used to ensure the output of the nn.Module
 with the user desired layout. If not specified, the output tensor is sharded on the last dimension.</p></li>
-<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module output, default: True.</p></li>
+<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module output, default: True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -642,7 +642,7 @@ Users can compose it with ColwiseParallel to achieve the sharding of more compli
 become a DTensor. If not specified, we assume the input tensor to be sharded on the last dimension.</p></li>
 <li><p><strong>output_layouts</strong> (<a class="reference internal" href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><em>Placement</em></a><em>, </em><em>optional</em>) – The DTensor layout of the output for the nn.Module, this is used to ensure the output of the nn.Module
 with the user desired layout. If not specified, the output tensor is replicated.</p></li>
-<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module output, default: True.</p></li>
+<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module output, default: True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -683,9 +683,9 @@ redistribute the input to be sharded on the sequence dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sequence_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The sequence dimension of the input tensor for the <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, this is used to annotate the input tensor to
+<li><p><strong>sequence_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – The sequence dimension of the input tensor for the <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, this is used to annotate the input tensor to
 become a DTensor that is sharded on the sequence dimension, default: 1.</p></li>
-<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module output, default: False.</p></li>
+<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module output, default: False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -734,12 +734,12 @@ DTensors. If some inputs are not torch.Tensor or no need to convert to DTensors,
 as a placeholder. default: None.</p></li>
 <li><p><strong>desired_input_layouts</strong> (<em>Union</em><em>[</em><a class="reference internal" href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><em>Placement</em></a><em>, </em><em>Tuple</em><em>[</em><em>Optional</em><em>[</em><a class="reference internal" href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><em>Placement</em></a><em>]</em><em>]</em><em>]</em>) – The desired DTensor layout of input tensors for the nn.Module, this is used to ensure the inputs of the nn.Module
 have the desired DTensor layouts. This argument needs to have the same length with <code class="docutils literal notranslate"><span class="pre">input_layouts</span></code>. default: None.</p></li>
-<li><p><strong>input_kwarg_layouts</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference internal" href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><em>Placement</em></a><em>]</em>) – The DTensor layouts of input kwargs for the nn.Module, this is used to convert the input kwarg tensors to DTensors.
+<li><p><strong>input_kwarg_layouts</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference internal" href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><em>Placement</em></a><em>]</em>) – The DTensor layouts of input kwargs for the nn.Module, this is used to convert the input kwarg tensors to DTensors.
 default: None</p></li>
 <li><p><strong>desired_input_kwarg_layouts</strong> – (Dict[str, Placement]):
 The desired DTensor layout of input kwargs for the nn.Module, this is used to ensure the inputs of the nn.Module
 have the desired DTensor layouts. default: None.</p></li>
-<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module inputs, default: False.</p></li>
+<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module inputs, default: False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -784,7 +784,7 @@ DTensors if they are <a class="reference internal" href="tensors.html#torch.Tens
 <code class="docutils literal notranslate"><span class="pre">None</span></code> need to be specified as a placeholder.</p></li>
 <li><p><strong>desired_output_layouts</strong> (<em>Union</em><em>[</em><a class="reference internal" href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><em>Placement</em></a><em>, </em><em>Tuple</em><em>[</em><a class="reference internal" href="distributed.tensor.html#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><em>Placement</em></a><em>]</em><em>]</em>) – The desired DTensor layouts of output tensors for the nn.Module, this is used to ensure the outputs of the nn.Module
 have the desired DTensor layouts.</p></li>
-<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module outputs, default: True.</p></li>
+<li><p><strong>use_local_output</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to use local <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> for the module outputs, default: True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
