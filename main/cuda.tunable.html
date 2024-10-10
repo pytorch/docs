@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git23c531b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git47a515d ) &#x25BC</a>
     </div>
     
 
@@ -679,6 +679,26 @@ the entry.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="torch.cuda.tunable.record_untuned_enable">
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/cuda/tunable.html#record_untuned_enable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable recording untuned of TunableOp perations for offline tuning.</p>
+<p>When enabled, if a tuned entry isn’t found, write it to the untuned file.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.cuda.tunable.record_untuned_is_enabled">
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">record_untuned_is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/cuda/tunable.html#record_untuned_is_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.record_untuned_is_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether TunableOp operations are recorded for offline tuning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.tunable.set_max_tuning_duration">
 <span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">set_max_tuning_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/cuda/tunable.html#set_max_tuning_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.set_max_tuning_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set max time in milliseconds to spend tuning a given solution.</p>
@@ -799,6 +819,14 @@ your results can be achieved by manually calling <code class="docutils literal n
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.cuda.tunable.tune_gemm_in_file">
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.tunable.</span></span><span class="sig-name descname"><span class="pre">tune_gemm_in_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/cuda/tunable.html#tune_gemm_in_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.tunable.tune_gemm_in_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>tune GEMM in file.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 </div>
 </div>
 
@@ -873,6 +901,8 @@ if (url)
 <li><a class="reference internal" href="#torch.cuda.tunable.is_enabled"><code class="docutils literal notranslate"><span class="pre">is_enabled()</span></code></a></li>
 <li><a class="reference internal" href="#torch.cuda.tunable.tuning_enable"><code class="docutils literal notranslate"><span class="pre">tuning_enable()</span></code></a></li>
 <li><a class="reference internal" href="#torch.cuda.tunable.tuning_is_enabled"><code class="docutils literal notranslate"><span class="pre">tuning_is_enabled()</span></code></a></li>
+<li><a class="reference internal" href="#torch.cuda.tunable.record_untuned_enable"><code class="docutils literal notranslate"><span class="pre">record_untuned_enable()</span></code></a></li>
+<li><a class="reference internal" href="#torch.cuda.tunable.record_untuned_is_enabled"><code class="docutils literal notranslate"><span class="pre">record_untuned_is_enabled()</span></code></a></li>
 <li><a class="reference internal" href="#torch.cuda.tunable.set_max_tuning_duration"><code class="docutils literal notranslate"><span class="pre">set_max_tuning_duration()</span></code></a></li>
 <li><a class="reference internal" href="#torch.cuda.tunable.get_max_tuning_duration"><code class="docutils literal notranslate"><span class="pre">get_max_tuning_duration()</span></code></a></li>
 <li><a class="reference internal" href="#torch.cuda.tunable.set_max_tuning_iterations"><code class="docutils literal notranslate"><span class="pre">set_max_tuning_iterations()</span></code></a></li>
@@ -884,6 +914,7 @@ if (url)
 <li><a class="reference internal" href="#torch.cuda.tunable.write_file_on_exit"><code class="docutils literal notranslate"><span class="pre">write_file_on_exit()</span></code></a></li>
 <li><a class="reference internal" href="#torch.cuda.tunable.write_file"><code class="docutils literal notranslate"><span class="pre">write_file()</span></code></a></li>
 <li><a class="reference internal" href="#torch.cuda.tunable.read_file"><code class="docutils literal notranslate"><span class="pre">read_file()</span></code></a></li>
+<li><a class="reference internal" href="#torch.cuda.tunable.tune_gemm_in_file"><code class="docutils literal notranslate"><span class="pre">tune_gemm_in_file()</span></code></a></li>
 </ul>
 </li>
 </ul>

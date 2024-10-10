@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git23c531b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git47a515d ) &#x25BC</a>
     </div>
     
 
@@ -548,7 +548,7 @@
 <span class="kn">import</span> <span class="nn">torch.fx.traceback</span> <span class="k">as</span> <span class="nn">fx_traceback</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TracerBase&#39;</span><span class="p">,</span> <span class="s1">&#39;GraphAppendingTracer&#39;</span><span class="p">,</span> <span class="s1">&#39;TraceError&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;Proxy&#39;</span><span class="p">,</span> <span class="s1">&#39;Attribute&#39;</span><span class="p">,</span> <span class="s1">&#39;ParameterProxy&#39;</span><span class="p">,</span> <span class="s1">&#39;Scope&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Proxy&#39;</span><span class="p">,</span> <span class="s1">&#39;MetaProxy&#39;</span><span class="p">,</span> <span class="s1">&#39;Attribute&#39;</span><span class="p">,</span> <span class="s1">&#39;ParameterProxy&#39;</span><span class="p">,</span> <span class="s1">&#39;Scope&#39;</span><span class="p">,</span>
            <span class="s1">&#39;ScopeContextManager&#39;</span><span class="p">]</span>
 
 
@@ -1054,6 +1054,40 @@
             <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_function&#39;</span><span class="p">,</span> <span class="n">orig_method</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span>
                                        <span class="n">name</span><span class="o">=</span><span class="n">tracer</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">_target_to_str</span><span class="p">(</span><span class="n">orig_method</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span></div>
 
+
+<span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MetaProxy</span><span class="p">(</span><span class="n">Proxy</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Proxy subclass that propagates metadata (meta[&#39;val&#39;]) during graph tracing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">tracer</span><span class="p">:</span> <span class="s1">&#39;Optional[TracerBase]&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fake_mode</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">tracer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_mode</span> <span class="o">=</span> <span class="n">fake_mode</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;MetaProxy(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">orig_method</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">args</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="p">()</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
+
+        <span class="n">meta_proxy</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">MetaProxy</span><span class="p">):</span>
+                <span class="n">meta_proxy</span> <span class="o">=</span> <span class="n">arg</span>
+                <span class="k">break</span>
+
+        <span class="k">assert</span> <span class="n">meta_proxy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;No MetaProxy found in arguments, but one is expected.&quot;</span>
+
+        <span class="n">proxy</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__torch_function__</span><span class="p">(</span><span class="n">orig_method</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">meta_proxy</span><span class="o">.</span><span class="n">fake_mode</span><span class="p">:</span>
+            <span class="n">proxy</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_method</span><span class="p">(</span>
+                <span class="o">*</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">)</span> <span class="k">else</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">],</span>
+                <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">MetaProxy</span><span class="p">(</span><span class="n">proxy</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">proxy</span><span class="o">.</span><span class="n">tracer</span><span class="p">,</span> <span class="n">meta_proxy</span><span class="o">.</span><span class="n">fake_mode</span><span class="p">)</span>
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Attribute</span><span class="p">(</span><span class="n">Proxy</span><span class="p">):</span>

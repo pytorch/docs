@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git23c531b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git47a515d ) &#x25BC</a>
     </div>
     
 
@@ -573,15 +573,19 @@ covered by the ellipsis to be summed over, that is, ellipsis are not required to
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This function uses opt_einsum (<a class="reference external" href="https://optimized-einsum.readthedocs.io/en/stable/">https://optimized-einsum.readthedocs.io/en/stable/</a>) to speed up computation or to
-consume less memory by optimizing contraction order. This optimization occurs when there are at least three
-inputs, since the order does not matter otherwise. Note that finding _the_ optimal path is an NP-hard problem,
-thus, opt_einsum relies on different heuristics to achieve near-optimal results. If opt_einsum is not available,
-the default order is to contract from left to right.</p>
-<p>To bypass this default behavior, add the following line to disable the usage of opt_einsum and skip path
-calculation: <cite>torch.backends.opt_einsum.enabled = False</cite></p>
+<p>Please install opt-einsum (<a class="reference external" href="https://optimized-einsum.readthedocs.io/en/stable/">https://optimized-einsum.readthedocs.io/en/stable/</a>) in order to enroll into a more
+performant einsum. You can install when installing torch like so: <cite>pip install torch[opt-einsum]</cite> or by itself
+with <cite>pip install opt-einsum</cite>.</p>
+<p>If opt-einsum is available, this function will automatically speed up computation and/or consume less memory
+by optimizing contraction order through our opt_einsum backend <a class="reference internal" href="../backends.html#module-torch.backends.opt_einsum" title="torch.backends.opt_einsum"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.backends.opt_einsum</span></code></a> (The _ vs - is
+confusing, I know). This optimization occurs when there are at least three inputs, since the order does not matter
+otherwise. Note that finding <cite>the</cite> optimal path is an NP-hard problem, thus, opt-einsum relies on different
+heuristics to achieve near-optimal results. If opt-einsum is not available, the default order is to contract
+from left to right.</p>
+<p>To bypass this default behavior, add the following to disable opt_einsum and skip path calculation:
+<code class="docutils literal notranslate"><span class="pre">torch.backends.opt_einsum.enabled</span> <span class="pre">=</span> <span class="pre">False</span></code></p>
 <p>To specify which strategy you’d like for opt_einsum to compute the contraction path, add the following line:
-<cite>torch.backends.opt_einsum.strategy = ‘auto’</cite>. The default strategy is ‘auto’, and we also support ‘greedy’ and
+<code class="docutils literal notranslate"><span class="pre">torch.backends.opt_einsum.strategy</span> <span class="pre">=</span> <span class="pre">'auto'</span></code>. The default strategy is ‘auto’, and we also support ‘greedy’ and
 ‘optimal’. Disclaimer that the runtime of ‘optimal’ is factorial in the number of inputs! See more details in
 the opt_einsum documentation (<a class="reference external" href="https://optimized-einsum.readthedocs.io/en/stable/path_finding.html">https://optimized-einsum.readthedocs.io/en/stable/path_finding.html</a>).</p>
 </div>

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git23c531b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git47a515d ) &#x25BC</a>
     </div>
     
 
@@ -3926,12 +3926,10 @@
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">TLS</span><span class="p">,</span> <span class="s2">&quot;ignore_fresh_unbacked_symbols&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">_ignore_fresh_unbacked_symbols_enter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">TLS</span><span class="o">.</span><span class="n">ignore_fresh_unbacked_symbols</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">_ignore_fresh_unbacked_symbols_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">TLS</span><span class="o">.</span><span class="n">ignore_fresh_unbacked_symbols</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">def</span> <span class="nf">_ignore_fresh_unbacked_symbols_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_tls</span><span class="p">()</span>
+        <span class="n">TLS</span><span class="o">.</span><span class="n">ignore_fresh_unbacked_symbols</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="k">return</span> <span class="n">prev</span>
 
 <div class="viewcode-block" id="ShapeEnv.ignore_fresh_unbacked_symbols"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.ignore_fresh_unbacked_symbols">[docs]</a>    <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">ignore_fresh_unbacked_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="kc">None</span><span class="p">]:</span>
@@ -3939,11 +3937,11 @@
 <span class="sd">        Indicates that the newly allocated unbacked SymInts are being</span>
 <span class="sd">        discarded</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_enter</span><span class="p">()</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_set</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">yield</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_exit</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_fresh_unbacked_symbols_set</span><span class="p">(</span><span class="n">prev</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ShapeEnv.freeze"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.freeze">[docs]</a>    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">freeze</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -6884,7 +6882,8 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress_guards_tls</span><span class="p">():</span>
             <span class="c1"># If you&#39;re here because of this assert, read Note [Backwards runtime asserts]</span>
             <span class="c1"># in torch/_inductor/graph.py</span>
-            <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime_asserts_frozen</span><span class="p">,</span> <span class="n">expr</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime_asserts_frozen</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;runtime_asserts_frozen but then got </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expr</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_frozen</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">true</span><span class="p">)</span>
 
