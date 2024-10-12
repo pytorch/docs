@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita919742 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git69bcf10 ) &#x25BC</a>
     </div>
     
 
@@ -535,7 +535,7 @@
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">nullcontext</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -1184,6 +1184,19 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]:</span>
     <span class="k">assert</span> <span class="n">mask</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">_broadcast_to_dim</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">padding_needed_for_multiple</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">multiple</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_round_up_to_multiple</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">multiple</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span>
+
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+        <span class="n">mask</span><span class="p">,</span>
+        <span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="n">padding_needed_for_multiple</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">KV_BLOCK_SIZE</span><span class="p">),</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="n">padding_needed_for_multiple</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">Q_BLOCK_SIZE</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">KV</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span>
     <span class="k">assert</span> <span class="n">Q</span> <span class="o">%</span> <span class="n">Q_BLOCK_SIZE</span> <span class="o">==</span> <span class="mi">0</span>
     <span class="k">assert</span> <span class="n">KV</span> <span class="o">%</span> <span class="n">KV_BLOCK_SIZE</span> <span class="o">==</span> <span class="mi">0</span>
@@ -1282,7 +1295,6 @@
     <span class="n">Q_LEN</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">KV_LEN</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span>
-    <span class="n">_compile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This function creates a mask tensor from a mod_fn function.</span>
 
@@ -1305,15 +1317,9 @@
     <span class="n">h</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Q_LEN</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">KV_LEN</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
-    <span class="c1"># TODO: fix this</span>
-    <span class="c1"># Lack instantiation support for __torch_function__ mode support under compile</span>
-    <span class="k">if</span> <span class="n">_compile</span><span class="p">:</span>
-        <span class="n">ctx</span> <span class="o">=</span> <span class="n">nullcontext</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">ctx</span> <span class="o">=</span> <span class="n">TransformGetItemToIndex</span><span class="p">()</span>  <span class="c1"># type: ignore[assignment]</span>
     <span class="n">mod_type</span> <span class="o">=</span> <span class="n">_get_mod_type</span><span class="p">(</span><span class="n">mod_fn</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">ctx</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">TransformGetItemToIndex</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">mod_type</span> <span class="o">==</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">SCORE_MOD</span><span class="p">:</span>
             <span class="n">score_mod</span> <span class="o">=</span> <span class="n">mod_fn</span>
             <span class="n">score_mod</span> <span class="o">=</span> <span class="n">_vmap_for_bhqkv</span><span class="p">(</span><span class="n">score_mod</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,))</span>  <span class="c1"># first input is score</span>
@@ -1327,30 +1333,6 @@
             <span class="k">return</span> <span class="n">mask</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span></div>
-
-
-<span class="k">def</span> <span class="nf">_create_block_mask_inner</span><span class="p">(</span>
-    <span class="n">mask_mod</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">B</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">H</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">Q_LEN</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">KV_LEN</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">device</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">Q_BLOCK_SIZE</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">KV_BLOCK_SIZE</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-<span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Work around for being unable to instantiate __torch_function__ mode under compile.</span>
-<span class="sd">    `create_block_mask` will compile this inner function and wrap the call to this</span>
-<span class="sd">    with the __torch_function__ mode.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">mask_tensor</span> <span class="o">=</span> <span class="n">create_mask</span><span class="p">(</span><span class="n">mask_mod</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">Q_LEN</span><span class="p">,</span> <span class="n">KV_LEN</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">_compile</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">partial_block_mask</span><span class="p">,</span> <span class="n">full_block_mask</span> <span class="o">=</span> <span class="n">_convert_mask_to_block_mask</span><span class="p">(</span>
-        <span class="n">mask_tensor</span><span class="p">,</span>
-        <span class="n">Q_BLOCK_SIZE</span><span class="o">=</span><span class="n">Q_BLOCK_SIZE</span><span class="p">,</span>
-        <span class="n">KV_BLOCK_SIZE</span><span class="o">=</span><span class="n">KV_BLOCK_SIZE</span><span class="p">,</span>
-        <span class="n">separate_full_blocks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">partial_block_mask</span><span class="p">,</span> <span class="n">full_block_mask</span>
 
 
 <div class="viewcode-block" id="create_block_mask"><a class="viewcode-back" href="../../../../nn.attention.flex_attention.html#torch.nn.attention.flex_attention.create_block_mask">[docs]</a><span class="k">def</span> <span class="nf">create_block_mask</span><span class="p">(</span>
@@ -1377,7 +1359,6 @@
 <span class="sd">        KV_LEN (int): Sequence length of key/value.</span>
 <span class="sd">        device (str): Device to run the mask creation on.</span>
 <span class="sd">        BLOCK_SIZE (int or Tuple[int, int]): Block size for the block mask. If a single int is provided it is used for both query and key/value.</span>
-<span class="sd">        _compile (bool): Whether to compile the mask_mod function. Default is False.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        BlockMask:  A BlockMask object that contains the block mask information.</span>
@@ -1398,7 +1379,6 @@
     <span class="k">assert</span> <span class="p">(</span>
         <span class="n">mod_type</span> <span class="o">==</span> <span class="n">_ModificationType</span><span class="o">.</span><span class="n">MASK_MOD</span>
     <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;create-block_mask requires a mask_mod function! Got </span><span class="si">{</span><span class="n">mask_mod</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">inner_func</span> <span class="o">=</span> <span class="n">_create_block_mask_inner</span>
     <span class="k">if</span> <span class="n">B</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">B</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="n">H</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1409,20 +1389,25 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">Q_BLOCK_SIZE</span><span class="p">,</span> <span class="n">KV_BLOCK_SIZE</span> <span class="o">=</span> <span class="n">BLOCK_SIZE</span>
 
-    <span class="k">if</span> <span class="n">Q_LEN</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">:</span>
-        <span class="n">Q_BLOCK_SIZE</span> <span class="o">=</span> <span class="n">Q_LEN</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">Q_LEN</span> <span class="o">=</span> <span class="n">_round_up_to_multiple</span><span class="p">(</span><span class="n">Q_LEN</span><span class="p">,</span> <span class="n">Q_BLOCK_SIZE</span><span class="p">)</span>
-    <span class="n">KV_LEN</span> <span class="o">=</span> <span class="n">_round_up_to_multiple</span><span class="p">(</span><span class="n">KV_LEN</span><span class="p">,</span> <span class="n">KV_BLOCK_SIZE</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_compile</span><span class="p">:</span>
-        <span class="n">inner_func</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">inner_func</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">TransformGetItemToIndex</span><span class="p">():</span>
-        <span class="n">partial_block_mask</span><span class="p">,</span> <span class="n">full_block_mask</span> <span class="o">=</span> <span class="n">inner_func</span><span class="p">(</span>
-            <span class="n">mask_mod</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">Q_LEN</span><span class="p">,</span> <span class="n">KV_LEN</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">Q_BLOCK_SIZE</span><span class="p">,</span> <span class="n">KV_BLOCK_SIZE</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;_compile flag on create_block_mask was originally added to work around a torch.compile limitation. That limitation has since been addressed. So, to compile create_block_mask, we suggest doing torch.compile(create_block_mask). This still works for now, but will be removed in the future.&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">block_mask</span> <span class="o">=</span> <span class="n">_create_sparse_block_from_block_mask</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">partial_block_mask</span><span class="p">,</span> <span class="n">full_block_mask</span><span class="p">),</span> <span class="n">mask_mod</span><span class="p">,</span> <span class="n">Q_BLOCK_SIZE</span><span class="p">,</span> <span class="n">KV_BLOCK_SIZE</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">create_block_mask</span><span class="p">)(</span>
+            <span class="n">mask_mod</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">Q_LEN</span><span class="p">,</span> <span class="n">KV_LEN</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">BLOCK_SIZE</span>
         <span class="p">)</span>
+
+    <span class="n">mask_tensor</span> <span class="o">=</span> <span class="n">create_mask</span><span class="p">(</span><span class="n">mask_mod</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">Q_LEN</span><span class="p">,</span> <span class="n">KV_LEN</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="n">partial_block_mask</span><span class="p">,</span> <span class="n">full_block_mask</span> <span class="o">=</span> <span class="n">_convert_mask_to_block_mask</span><span class="p">(</span>
+        <span class="n">mask_tensor</span><span class="p">,</span>
+        <span class="n">Q_BLOCK_SIZE</span><span class="o">=</span><span class="n">Q_BLOCK_SIZE</span><span class="p">,</span>
+        <span class="n">KV_BLOCK_SIZE</span><span class="o">=</span><span class="n">KV_BLOCK_SIZE</span><span class="p">,</span>
+        <span class="n">separate_full_blocks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">block_mask</span> <span class="o">=</span> <span class="n">_create_sparse_block_from_block_mask</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">partial_block_mask</span><span class="p">,</span> <span class="n">full_block_mask</span><span class="p">),</span> <span class="n">mask_mod</span><span class="p">,</span> <span class="n">Q_BLOCK_SIZE</span><span class="p">,</span> <span class="n">KV_BLOCK_SIZE</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">block_mask</span></div>
 
 

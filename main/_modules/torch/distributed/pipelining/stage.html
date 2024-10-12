@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita919742 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git69bcf10 ) &#x25BC</a>
     </div>
     
 
@@ -782,7 +782,9 @@
     <span class="k">def</span> <span class="nf">_prepare_forward_infra</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">):</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="k">def</span> <span class="nf">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -1376,15 +1378,21 @@
     <span class="k">def</span> <span class="nf">_prepare_forward_infra</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">):</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create send/recv infrastructures for activations (during forward)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(whc)</span>
+        <span class="c1"># this method should be deleted once lazy buffer allocation is implemented</span>
+        <span class="c1"># for now, it ignores args/kwargs becuase it should not need to do shape inference</span>
         <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_microbatches</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="n">chunk</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_act_recv_info</span><span class="p">()</span>
 
         <span class="c1"># Send info during forward for each activation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">act_send_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_act_send_info</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">get_stage_index_of_submod</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1762,10 +1770,13 @@
 <div class="viewcode-block" id="PipelineStage"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.stage.PipelineStage">[docs]</a><span class="k">class</span> <span class="nc">PipelineStage</span><span class="p">(</span><span class="n">_PipelineStageBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a pipeline stage in a pipeline parallelism setup.</span>
-<span class="sd">    This class is created manually by providing a example input (and optionally output)</span>
-<span class="sd">    as opposed to the PipelineStage class that is outputed from pipeline().</span>
-<span class="sd">    This class extends the `_PipelineStageBase` class and can similarly be used</span>
-<span class="sd">    in `PipelineScheule`.</span>
+
+<span class="sd">    PipelineStage assumes sequential partitioning of the model, i.e. the model is split into chunks where outputs from</span>
+<span class="sd">    one chunk feed into inputs of the next chunk, with no skip connections.</span>
+
+<span class="sd">    PipelineStage performs runtime shape/dtype inference automatically by propagating the outputs from stage0 to</span>
+<span class="sd">    stage1 and so forth, in linear order.  To bypass shape inference, pass the `input_args` and `output_args` to each</span>
+<span class="sd">    PipelineStage instance.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        submodule (nn.Module): The PyTorch module wrapped by this stage.</span>
@@ -1784,33 +1795,49 @@
         <span class="n">stage_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
-        <span class="n">input_args</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
+        <span class="n">input_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">output_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dw_builder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">submodule</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">,</span> <span class="n">num_stages</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">dw_builder</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># Note: inputs and submod should ideally be on meta device. We decided not to assert this (yet) becuase it</span>
         <span class="c1"># might be breaking for existing users.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="p">(</span><span class="n">input_args</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_args</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="n">input_args</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="n">output_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">output_args</span> <span class="o">=</span> <span class="n">submodule</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span><span class="p">)</span>
-                <span class="n">output_args</span> <span class="o">=</span> <span class="n">tree_map_only</span><span class="p">(</span>
-                    <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">),</span> <span class="n">output_args</span>
+        <span class="k">if</span> <span class="n">input_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">output_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+                <span class="s2">&quot;If specifying output_args, input_args must also be specified. &quot;</span>
+                <span class="s2">&quot;Otherwise, shape inference will be performed at runtime&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">input_args</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_args</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="n">input_args</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">output_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;Deprecation warning: passing input_args and performing init-time shape inference is deprecated. &quot;</span>
+                    <span class="s2">&quot;PipelineStage now supports runtime shape inference using the real inputs provided to schedule step(). &quot;</span>
+                    <span class="s2">&quot;Either delete `input_args` arg to `PipelineStage` to opt-into runtime shape inference, &quot;</span>
+                    <span class="s2">&quot;or additionally pass `output_args` to `PipelineStage` to fully override shape inference. &quot;</span>
                 <span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="s2">&quot;Failed to perform pipeline shape inference- are your inputs on the same device as your module?&quot;</span>
-                <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-        <span class="k">assert</span> <span class="n">output_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>  <span class="c1"># for mypy</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_configure_outputs_meta</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">output_args</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_args</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="n">output_args</span>
-        <span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                        <span class="n">output_args</span> <span class="o">=</span> <span class="n">submodule</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span><span class="p">)</span>
+                    <span class="n">output_args</span> <span class="o">=</span> <span class="n">tree_map_only</span><span class="p">(</span>
+                        <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">),</span> <span class="n">output_args</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                        <span class="s2">&quot;Failed to perform pipeline shape inference- are your inputs on the same device as your module?&quot;</span>
+                    <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="n">output_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="p">),</span> <span class="s2">&quot;If passing input_args, also pass output_args to override shape inference&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_configure_outputs_meta</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">output_args</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_args</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="n">output_args</span>
+            <span class="p">)</span>
+
         <span class="c1"># these are the buffers used in backwards send/recv, they are allocated later</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outputs_grad</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1821,22 +1848,133 @@
                 <span class="k">else</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_global_rank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">peer_rank</span><span class="p">)</span>
             <span class="p">)</span>
 
+        <span class="c1"># TODO: we name this &#39;stage&#39; but we really mean &#39;rank&#39;! this is bad!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prev_stage</span> <span class="o">=</span> <span class="n">stage_global_rank</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">next_stage</span> <span class="o">=</span> <span class="n">stage_global_rank</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;finished pipeline stage init, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="si">=}</span><span class="s2">, &quot;</span>  <span class="c1"># noqa: G004</span>
+        <span class="n">dbg_str</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Finished pipeline stage init, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="si">=}</span><span class="s2">, &quot;</span>  <span class="c1"># noqa: G004</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_stages</span><span class="si">=}</span><span class="s2">, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;inputs: </span><span class="si">{</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">inp</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;output: </span><span class="si">{</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">get_outputs_meta</span><span class="p">()]</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dbg_str</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;inputs: </span><span class="si">{</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">inp</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;output: </span><span class="si">{</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">get_outputs_meta</span><span class="p">()]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dbg_str</span> <span class="o">+=</span> <span class="s2">&quot; running shape-inference at runtime&quot;</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">dbg_str</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_shape_inference</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">assert</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Args may be an empty tuple but not None&quot;</span>
+
+        <span class="c1"># We skip recv communication if we&#39;re the first stage, but also if the previous stage is on the same rank</span>
+        <span class="c1"># and can pass its output shapes in as args instead of using send/recv.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span>
+            <span class="c1"># if not first stage, then check if prev stage is on the same rank</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span>
+        <span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Shape inference: stage </span><span class="si">%s</span><span class="s2"> skipping recv, because shape info passed in via `args`&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">tree_map_only</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">),</span> <span class="n">args</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="p">),</span> <span class="s2">&quot;Can&#39;t supply input args for shape inference on non-first stage&quot;</span>
+            <span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Shape inference: stage </span><span class="si">%s</span><span class="s2"> receiving from stage </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">dist</span><span class="o">.</span><span class="n">recv_object_list</span><span class="p">(</span>
+                <span class="n">objects</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_stage</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+            <span class="p">)</span>
+            <span class="n">recv_args</span> <span class="o">=</span> <span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">recv_args</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">recv_args</span><span class="p">)</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">recv_args</span>
+
+        <span class="c1"># cache input shapes for use during recv buffer allocation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">tree_map_only</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="n">args</span>
+        <span class="p">)</span>
+
+        <span class="c1"># set attributes needed for forward</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Shape inference: stage </span><span class="si">%s</span><span class="s2"> running forward&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="p">)</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># if single tensor, convert so it is always a list</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">outputs</span><span class="p">]</span>
+
+        <span class="c1"># communicate meta outputs not real outputs for two reasons</span>
+        <span class="c1"># 1 - its faster (esp. since obj coll pickles tensor data!)</span>
+        <span class="c1"># 2 - avoid activating a cuda context for the src rank when unpickling on the recv end!</span>
+        <span class="n">outputs_meta</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">tree_map_only</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">),</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configure_outputs_meta</span><span class="p">(</span><span class="n">outputs_meta</span><span class="p">)</span>
+
+        <span class="c1"># Passing outputs to the next stage:</span>
+        <span class="c1"># two cases-</span>
+        <span class="c1"># 1. Usually: use send/recv communication to pass the output</span>
+        <span class="c1"># 2. Special case: for V-schedules, 2 &#39;adjacent&#39; stages (e.g. stage 3, 4 in an 8-stage 4-rank V)</span>
+        <span class="c1">#    pass their shape info via return value and function args rather than send/recv.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span>
+            <span class="c1"># if not last stage, then check if next stage is on the same rank</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span>
+        <span class="p">):</span>
+            <span class="c1"># Case (2) above: pass shape info via return value and caller passes it as args to next stage&#39;s</span>
+            <span class="c1"># _shape_inference call</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Shape inference: stage </span><span class="si">%s</span><span class="s2"> skipping send to next stage&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Case (1): send shapes via send operation, and ensure not to return it to the caller</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Shape inference: stage </span><span class="si">%s</span><span class="s2"> sending to stage </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">dist</span><span class="o">.</span><span class="n">send_object_list</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">outputs_meta</span><span class="p">],</span>
+                <span class="n">dst</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">next_stage</span><span class="p">,</span>
+                <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span>
+                <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">outputs_meta</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">outputs_meta</span>
 
     <span class="k">def</span> <span class="nf">_prepare_forward_infra</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
         <span class="c1"># TODO move self.device to an argument from step API (from its input tensors)?</span>
+        <span class="k">assert</span> <span class="n">num_microbatches</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;TODO fix num_microbatches&quot;</span>
 
+        <span class="n">outputs</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape_inference</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs_meta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="c1"># Receive info during forward</span>
         <span class="c1"># TODO: create args_recv_info lazily? (same needed for PipelineStage)</span>
         <span class="k">for</span> <span class="n">chunk_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_microbatches</span><span class="p">):</span>
@@ -1867,14 +2005,14 @@
         <span class="c1"># only need the rank that is being sent to</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">act_send_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># TODO: we didn&#39;t require output args at __init__ before, but now we do. enforce it. until we enable lazy-init</span>
-        <span class="c1"># get_outputs_meta will assert for us</span>
         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_outputs_meta</span><span class="p">())):</span>
             <span class="c1"># We assume we always send to stage + 1</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">act_send_info</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">act_send_info</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">return</span> <span class="n">outputs</span>
 
     <span class="k">def</span> <span class="nf">_create_grad_recv_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita919742 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git69bcf10 ) &#x25BC</a>
     </div>
     
 
@@ -1110,6 +1110,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">has_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stage_initialized</span> <span class="o">=</span> <span class="kc">False</span>
 
+    <span class="k">def</span> <span class="nf">_initialize_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stage_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
 <div class="viewcode-block" id="PipelineScheduleSingle.step"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleSingle.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">losses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run one iteration of the pipeline schedule with *whole-batch* input.</span>
@@ -1167,8 +1173,7 @@
 
         <span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_inputs</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage_initialized</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stage_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_stage</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="c1"># Delay send waits</span>
         <span class="n">fwd_sends_to_wait</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">Work</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1219,10 +1224,7 @@
         <span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_inputs</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage_initialized</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stage_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_stage</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="c1"># Delay send waits</span>
         <span class="n">fwd_sends_to_wait</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">Work</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1305,10 +1307,7 @@
         <span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_inputs</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage_initialized</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stage_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_stage</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="c1"># Last stage has 1 warmup, second-to-last 2 warmups, ...</span>
         <span class="c1"># first stage `num_stages` warmups</span>
@@ -1624,6 +1623,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_full_backward</span> <span class="o">=</span> <span class="n">use_full_backward</span>
 
+    <span class="k">def</span> <span class="nf">_initialize_stages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># may be &#39;none&#39; value (if this stage sends its output shapes to the next stage via P2P)</span>
+        <span class="c1"># or real value (if this stage and next stage are on the same device)</span>
+        <span class="n">next_stage_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">stage</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
+                <span class="n">next_stage_args</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">next_stage_args</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span> <span class="n">next_stage_args</span><span class="p">,</span> <span class="n">kwargs</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
+                <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stages_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
     <span class="k">def</span> <span class="nf">_dump_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Dump a CSV representation of the schedule into a file with the provided filename.&quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
@@ -1757,12 +1774,7 @@
         <span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_inputs</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages_initialized</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">:</span>
-                <span class="c1"># TODO: why do i pass args/kwargs here? its not used?</span>
-                <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
-                    <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stages_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_stages</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="c1"># Based on the plan in Step 1 created in __init__:</span>
         <span class="c1"># 2. Perform communication based on the pipeline_order</span>
@@ -1991,12 +2003,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_inputs</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">,</span> <span class="n">kwarg_mbs</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages_initialized</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">:</span>
-                <span class="c1"># TODO: why do i pass args/kwargs here? its not used?</span>
-                <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_forward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_backward</span><span class="p">:</span>
-                    <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stages_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_stages</span><span class="p">(</span><span class="n">arg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="c1"># Based on the plan in Step 1 created in __init__:</span>
         <span class="c1"># 2. Perform communication based on the pipeline_order</span>

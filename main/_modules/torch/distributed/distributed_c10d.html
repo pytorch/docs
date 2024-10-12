@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita919742 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git69bcf10 ) &#x25BC</a>
     </div>
     
 
@@ -2234,6 +2234,20 @@
         <span class="n">backend</span><span class="o">.</span><span class="n">_shutdown</span><span class="p">()</span>
 
 
+<span class="k">def</span> <span class="nf">_abort_backend</span><span class="p">(</span><span class="n">pg</span><span class="p">:</span> <span class="n">ProcessGroup</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abort the backend of a process group.</span>
+<span class="sd">    Currently, only ProcessGroupNCCL backend is supported.</span>
+<span class="sd">    No op for other backends.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">_get_backend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">ProcessGroupNCCL</span><span class="p">):</span>
+        <span class="n">backend</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+
+
 <span class="k">def</span> <span class="nf">_new_process_group_helper</span><span class="p">(</span>
     <span class="n">group_size</span><span class="p">,</span>
     <span class="n">group_rank</span><span class="p">,</span>
@@ -2577,6 +2591,101 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="s2">&quot;Some coalesced collectives haven&#39;t been launched when &quot;</span>
                 <span class="s2">&quot;ProcessGroup is destroyed. They will be cleaned.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">del</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_coalesce_state</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span>
+
+        <span class="n">tag</span> <span class="o">=</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_to_tag</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pg</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_to_tag</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_world</span><span class="o">.</span><span class="n">tags_to_pg</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pg</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ptd:&quot;</span><span class="p">):</span>
+                    <span class="n">_world</span><span class="o">.</span><span class="n">tags_to_pg</span><span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pg</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="n">_unregister_process_group</span><span class="p">(</span><span class="n">pg</span><span class="o">.</span><span class="n">group_name</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_abort_process_group</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abort a given process group. If group.WORLD (i.e. `None`) is given, all</span>
+<span class="sd">    process groups including the default one will be aborted.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        group (ProcessGroup, optional): The process group to be aborted.</span>
+
+<span class="sd">    .. note:: this API is experimental and currently only works with the NCCL</span>
+<span class="sd">        backend.</span>
+
+<span class="sd">    .. note:: this API should be used with `TORCH_NCCL_ASYNC_ERROR_HANDLING`</span>
+<span class="sd">        turned off (i.e. set to 0). Otherwise, ProcessGroupNCCL&#39;s watchdog may</span>
+<span class="sd">        automatically handle errors or timeouts for you including aborting the</span>
+<span class="sd">        ProcessGroup.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_world</span>
+
+    <span class="k">if</span> <span class="n">group</span> <span class="o">==</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">NON_GROUP_MEMBER</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">pg</span> <span class="o">=</span> <span class="n">group</span> <span class="ow">or</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span>
+
+    <span class="k">assert</span> <span class="n">pg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pg</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid process group specified or has been destroyed.&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">_get_backend</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">ProcessGroupNCCL</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;`abort_process_group` currently only has implementation for ProcessGroupNCCL; &quot;</span>
+            <span class="s2">&quot;however, no NCCL backend is found. This call will be a no-op.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">group</span> <span class="o">==</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
+        <span class="c1"># Abort all backends within a ncclGroupStart|End semantic.</span>
+        <span class="c1"># This ensures that different NCCL communicators&#39; abort calls won&#39;t</span>
+        <span class="c1"># deadlock each other.</span>
+        <span class="c1"># For details, please see: https://github.com/pytorch/pytorch/issues/119797</span>
+        <span class="n">backend</span><span class="o">.</span><span class="n">_group_start</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">pg_to_abort</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">_world</span><span class="o">.</span><span class="n">pg_names</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_names</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">):</span>
+            <span class="n">_abort_backend</span><span class="p">(</span><span class="n">pg_to_abort</span><span class="p">)</span>
+        <span class="n">backend</span><span class="o">.</span><span class="n">_group_end</span><span class="p">()</span>
+
+        <span class="n">_update_default_pg</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">_world</span><span class="o">.</span><span class="n">pg_map</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">_world</span><span class="o">.</span><span class="n">pg_names</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">_world</span><span class="o">.</span><span class="n">pg_group_ranks</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">_world</span><span class="o">.</span><span class="n">pg_backend_config</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">_world</span><span class="o">.</span><span class="n">pg_to_tag</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">_world</span><span class="o">.</span><span class="n">tags_to_pg</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">_world</span><span class="o">.</span><span class="n">pg_coalesce_state</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">_unregister_all_process_groups</span><span class="p">()</span>
+
+        <span class="c1"># when process group doesn&#39;t have an explicit name (only WORLD (default)</span>
+        <span class="c1"># process group can have an explicit name), we use global _world.group_count</span>
+        <span class="c1"># to generate the name. We need to reset the counter on destruction to</span>
+        <span class="c1"># allow consistent value to be generated when we re-create process</span>
+        <span class="c1"># groups after some trainers recover from failure</span>
+        <span class="c1">#</span>
+        <span class="c1"># We only reset this when WORLD is being destroyed because if this</span>
+        <span class="c1"># process group is in good state, we aren&#39;t dealing with failures.</span>
+        <span class="n">_world</span><span class="o">.</span><span class="n">group_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_abort_backend</span><span class="p">(</span><span class="n">pg</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_map</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_names</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_group_ranks</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_backend_config</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">pg</span> <span class="ow">in</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_coalesce_state</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Some coalesced collectives haven&#39;t been launched when &quot;</span>
+                <span class="s2">&quot;ProcessGroup is aborted. They will be cleaned.&quot;</span>
             <span class="p">)</span>
             <span class="k">del</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_coalesce_state</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span>
 
