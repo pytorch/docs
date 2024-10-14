@@ -604,8 +604,8 @@ no copy is performed and the original object is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The destination GPU id. Defaults to the current device.</p></li>
-<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
+<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The destination GPU id. Defaults to the current device.</p></li>
+<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
 </ul>
@@ -644,7 +644,7 @@ the argument has no effect.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.TypedStorage.filename">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.TypedStorage.filename" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.TypedStorage.filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the file name associated with this storage if the storage was memory mapped from a file.
 or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the storage was not created by memory mapping a file.</p>
 </dd></dl>
@@ -702,10 +702,10 @@ then the file must contain at least <code class="docutils literal notranslate"><
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – file name to map</p></li>
-<li><p><strong>shared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to share memory (whether <code class="docutils literal notranslate"><span class="pre">MAP_SHARED</span></code> or <code class="docutils literal notranslate"><span class="pre">MAP_PRIVATE</span></code> is passed to the
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – file name to map</p></li>
+<li><p><strong>shared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to share memory (whether <code class="docutils literal notranslate"><span class="pre">MAP_SHARED</span></code> or <code class="docutils literal notranslate"><span class="pre">MAP_PRIVATE</span></code> is passed to the
 underlying <a class="reference external" href="https://man7.org/linux/man-pages/man2/mmap.2.html">mmap(2) call</a>)</p></li>
-<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of elements in the storage</p></li>
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of elements in the storage</p></li>
 </ul>
 </dd>
 </dl>
@@ -716,7 +716,7 @@ underlying <a class="reference external" href="https://man7.org/linux/man-pages/
 <span class="sig-name descname"><span class="pre">get_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/storage.html#TypedStorage.get_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.TypedStorage.get_device" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -736,8 +736,8 @@ no copy is performed and the original object is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The destination HPU id. Defaults to the current device.</p></li>
-<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
+<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The destination HPU id. Defaults to the current device.</p></li>
+<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
 </ul>
@@ -770,7 +770,7 @@ the argument has no effect.</p></li>
 <dd><p>Determine whether the CPU TypedStorage is already pinned on device.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device to pin memory on. Default: <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code></p>
+<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device to pin memory on. Default: <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code></p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean variable.</p>
@@ -785,7 +785,7 @@ the argument has no effect.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.TypedStorage.is_sparse">
-<span class="sig-name descname"><span class="pre">is_sparse</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.TypedStorage.is_sparse" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_sparse</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.TypedStorage.is_sparse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -810,7 +810,7 @@ the argument has no effect.</p></li>
 <dd><p>Copy the CPU TypedStorage to pinned memory, if it’s not already pinned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device to pin memory on. Default: <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code>.</p>
+<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device to pin memory on. Default: <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A pinned CPU storage.</p>
@@ -854,8 +854,8 @@ and the original object is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The destination device.</p></li>
-<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
+<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The destination device.</p></li>
+<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
 </ul>
@@ -882,8 +882,8 @@ original object is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.12)"><em>type</em></a><em> or </em><em>string</em>) – The desired type</p></li>
-<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, and the source is in pinned memory
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.13)"><em>type</em></a><em> or </em><em>string</em>) – The desired type</p></li>
+<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, and the source is in pinned memory
 and destination is on the GPU or vice versa, the copy is performed
 asynchronously with respect to the host. Otherwise, the argument
 has no effect.</p></li>
@@ -892,7 +892,7 @@ the <code class="docutils literal notranslate"><span class="pre">non_blocking</s
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -976,14 +976,14 @@ no copy is performed and the original object is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The destination GPU id. Defaults to the current device.</p></li>
-<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
+<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The destination GPU id. Defaults to the current device.</p></li>
+<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1011,7 +1011,7 @@ the argument has no effect.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.UntypedStorage.filename">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.UntypedStorage.filename" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.UntypedStorage.filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the file name associated with this storage.</p>
 <p>The file name will be a string if the storage is on CPU and was created via
 <a class="reference internal" href="generated/torch.from_file.html#torch.from_file" title="torch.from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">shared</span></code> as <code class="docutils literal notranslate"><span class="pre">True</span></code>. This attribute is <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise.</p>
@@ -1071,11 +1071,11 @@ least <code class="docutils literal notranslate"><span class="pre">size</span></
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – file name to map</p></li>
-<li><p><strong>shared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – <p>whether to share memory (whether <code class="docutils literal notranslate"><span class="pre">MAP_SHARED</span></code> or <code class="docutils literal notranslate"><span class="pre">MAP_PRIVATE</span></code> is passed to the
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – file name to map</p></li>
+<li><p><strong>shared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – <p>whether to share memory (whether <code class="docutils literal notranslate"><span class="pre">MAP_SHARED</span></code> or <code class="docutils literal notranslate"><span class="pre">MAP_PRIVATE</span></code> is passed to the
 underlying <a class="reference external" href="https://man7.org/linux/man-pages/man2/mmap.2.html">mmap(2) call</a>)</p>
 </p></li>
-<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of elements in the storage</p></li>
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of elements in the storage</p></li>
 </ul>
 </dd>
 </dl>
@@ -1086,7 +1086,7 @@ underlying <a class="reference external" href="https://man7.org/linux/man-pages/
 <span class="sig-name descname"><span class="pre">get_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.get_device" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1106,14 +1106,14 @@ no copy is performed and the original object is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The destination HPU id. Defaults to the current device.</p></li>
-<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
+<li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The destination HPU id. Defaults to the current device.</p></li>
+<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> and the source is in pinned memory,
 the copy will be asynchronous with respect to the host. Otherwise,
 the argument has no effect.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1140,7 +1140,7 @@ the argument has no effect.</p></li>
 <dd><p>Determine whether the CPU storage is already pinned on device.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device to pin memory on. Default: <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code>.</p>
+<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device to pin memory on. Default: <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean variable.</p>
@@ -1155,12 +1155,12 @@ the argument has no effect.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.UntypedStorage.is_sparse">
-<span class="sig-name descname"><span class="pre">is_sparse</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.UntypedStorage.is_sparse" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_sparse</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.UntypedStorage.is_sparse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.UntypedStorage.is_sparse_csr">
-<span class="sig-name descname"><span class="pre">is_sparse_csr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.UntypedStorage.is_sparse_csr" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_sparse_csr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#torch.UntypedStorage.is_sparse_csr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1191,7 +1191,7 @@ the argument has no effect.</p></li>
 <dd><p>Copy the CPU storage to pinned memory, if it’s not already pinned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device to pin memory on. Default: <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code>.</p>
+<dd class="field-odd"><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference internal" href="tensor_attributes.html#torch.device" title="torch.device"><em>torch.device</em></a>) – The device to pin memory on. Default: <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A pinned CPU storage.</p>
@@ -1255,7 +1255,7 @@ file. This file is persistent and will remain until it is deleted by the user.</
 <span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.size" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1265,7 +1265,7 @@ file. This file is persistent and will remain until it is deleted by the user.</
 <span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.to" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1281,7 +1281,7 @@ file. This file is persistent and will remain until it is deleted by the user.</
 <span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.UntypedStorage.type" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<em>_StorageBase</em>, <a class="reference internal" href="#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>

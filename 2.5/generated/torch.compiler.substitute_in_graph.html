@@ -536,11 +536,11 @@ behavior as the original function.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>original_fn</strong> (<em>callable</em>) – The original function, usually a C function, to register a polyfill
 handler for.</p></li>
-<li><p><strong>can_constant_fold_through</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the polyfill handler can be constant
+<li><p><strong>can_constant_fold_through</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the polyfill handler can be constant
 folded through. That is, if the polyfill handler is a pure function and its arguments
 are constant, the result of the polyfill handler can be constant folded during the
 compilation. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>skip_signature_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to skip the signature check between the
+<li><p><strong>skip_signature_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to skip the signature check between the
 original function and the polyfill handler. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 </ul>
 </dd>
@@ -548,7 +548,7 @@ original function and the polyfill handler. Defaults to <code class="docutils li
 <dd class="field-even"><p>A decorator that registers the polyfill handler for the original function.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a>[[<em>_F</em>], <em>_F</em>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a>[[<em>_F</em>], <em>_F</em>]</p>
 </dd>
 </dl>
 <p>Example:</p>

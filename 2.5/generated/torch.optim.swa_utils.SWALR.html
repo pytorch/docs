@@ -525,14 +525,14 @@ Averaging (SWA) method (see <cite>torch.optim.swa_utils.AveragedModel</cite>).</
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>optimizer</strong> (<a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>torch.optim.Optimizer</em></a>) – wrapped optimizer</p></li>
-<li><p><strong>swa_lrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – the learning rate value for all param groups
+<li><p><strong>swa_lrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – the learning rate value for all param groups
 together or separately for each group.</p></li>
-<li><p><strong>annealing_epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of epochs in the annealing phase
+<li><p><strong>annealing_epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of epochs in the annealing phase
 (default: 10)</p></li>
-<li><p><strong>annealing_strategy</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – “cos” or “linear”; specifies the annealing
+<li><p><strong>annealing_strategy</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – “cos” or “linear”; specifies the annealing
 strategy: “cos” for cosine annealing, “linear” for linear annealing
 (default: “cos”)</p></li>
-<li><p><strong>last_epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – the index of the last epoch (default: -1)</p></li>
+<li><p><strong>last_epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the index of the last epoch (default: -1)</p></li>
 </ul>
 </dd>
 </dl>
@@ -564,7 +564,7 @@ as in the example below.</p>
 <dd><p>Return last computed learning rate by current scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -581,7 +581,7 @@ as in the example below.</p>
 <dd><p>Load the scheduler’s state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – scheduler state. Should be an object returned
+<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – scheduler state. Should be an object returned
 from a call to <a class="reference internal" href="#torch.optim.swa_utils.SWALR.state_dict" title="torch.optim.swa_utils.SWALR.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a>.</p>
 </dd>
 </dl>
@@ -602,7 +602,7 @@ learning rate.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.swa_utils.SWALR.state_dict">
 <span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.optim.swa_utils.SWALR.state_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
+<dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains an entry for every variable in self.__dict__ which
 is not the optimizer.</p>
 </dd></dl>

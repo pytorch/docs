@@ -534,10 +534,10 @@ at least <code class="docutils literal notranslate"><span class="pre">size</span
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – file name to map</p></li>
-<li><p><strong>shared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – whether to share memory (whether <code class="docutils literal notranslate"><span class="pre">MAP_SHARED</span></code> or <code class="docutils literal notranslate"><span class="pre">MAP_PRIVATE</span></code> is passed to the
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – file name to map</p></li>
+<li><p><strong>shared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – whether to share memory (whether <code class="docutils literal notranslate"><span class="pre">MAP_SHARED</span></code> or <code class="docutils literal notranslate"><span class="pre">MAP_PRIVATE</span></code> is passed to the
 underlying <a class="reference external" href="https://man7.org/linux/man-pages/man2/mmap.2.html">mmap(2) call</a>)</p></li>
-<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of elements in the tensor</p></li>
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – number of elements in the tensor</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
@@ -550,7 +550,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">torch.stri
 Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses the current device for the default tensor type
 (see <a class="reference internal" href="torch.set_default_device.html#torch.set_default_device" title="torch.set_default_device"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_device()</span></code></a>). <a class="reference internal" href="../tensor_attributes.html#torch.device" title="torch.device"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code></a> will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.</p></li>
-<li><p><strong>pin_memory</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If set, returned tensor would be allocated in
+<li><p><strong>pin_memory</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 </ul>
 </dd>

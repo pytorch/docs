@@ -867,11 +867,11 @@ tagger with a higher priority than the existing tagger.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>priority</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Indicates the priority associated with the tagger and deserializer, where a lower
+<li><p><strong>priority</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Indicates the priority associated with the tagger and deserializer, where a lower
 value indicates higher priority.</p></li>
-<li><p><strong>tagger</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><em>Storage</em><em>, </em><a class="reference internal" href="../storage.html#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a><em>, </em><a class="reference internal" href="../storage.html#torch.UntypedStorage" title="torch.storage.UntypedStorage"><em>UntypedStorage</em></a><em>]</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em><em>]</em>) – Callable that takes in a storage object and returns its tagged device as a string
+<li><p><strong>tagger</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><em>Storage</em><em>, </em><a class="reference internal" href="../storage.html#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a><em>, </em><a class="reference internal" href="../storage.html#torch.UntypedStorage" title="torch.storage.UntypedStorage"><em>UntypedStorage</em></a><em>]</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em><em>]</em>) – Callable that takes in a storage object and returns its tagged device as a string
 or None.</p></li>
-<li><p><strong>deserializer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><em>Storage</em><em>, </em><a class="reference internal" href="../storage.html#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a><em>, </em><a class="reference internal" href="../storage.html#torch.UntypedStorage" title="torch.storage.UntypedStorage"><em>UntypedStorage</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><em>Storage</em><em>, </em><a class="reference internal" href="../storage.html#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a><em>, </em><a class="reference internal" href="../storage.html#torch.UntypedStorage" title="torch.storage.UntypedStorage"><em>UntypedStorage</em></a><em>]</em><em>]</em><em>]</em>) – Callable that takes in storage object and a device string and returns a storage
+<li><p><strong>deserializer</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><em>Storage</em><em>, </em><a class="reference internal" href="../storage.html#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a><em>, </em><a class="reference internal" href="../storage.html#torch.UntypedStorage" title="torch.storage.UntypedStorage"><em>UntypedStorage</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><em>Storage</em><em>, </em><a class="reference internal" href="../storage.html#torch.TypedStorage" title="torch.storage.TypedStorage"><em>TypedStorage</em></a><em>, </em><a class="reference internal" href="../storage.html#torch.UntypedStorage" title="torch.storage.UntypedStorage"><em>UntypedStorage</em></a><em>]</em><em>]</em><em>]</em>) – Callable that takes in storage object and a device string and returns a storage
 object on the appropriate device or None.</p></li>
 </ul>
 </dd>
@@ -952,7 +952,7 @@ Please open an issue if you need any other option to be added here.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>flags</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <code class="docutils literal notranslate"><span class="pre">mmap.MAP_PRIVATE</span></code> or <code class="docutils literal notranslate"><span class="pre">mmap.MAP_SHARED</span></code></p>
+<dd class="field-odd"><p><strong>flags</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – <code class="docutils literal notranslate"><span class="pre">mmap.MAP_PRIVATE</span></code> or <code class="docutils literal notranslate"><span class="pre">mmap.MAP_SHARED</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1000,7 +1000,7 @@ and have state set.</p>
 <dd><p>Returns the list of user-added globals that are safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1011,7 +1011,7 @@ and have state set.</p>
 <dd><p>Context-manager that adds certain globals as safe for <code class="docutils literal notranslate"><span class="pre">weights_only</span></code> load.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>safe_globals</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – List of globals for weights_only load.</p>
+<dd class="field-odd"><p><strong>safe_globals</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>]</em>) – List of globals for weights_only load.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -1045,7 +1045,7 @@ will be empty space. The storage bytes can then be populated in a separate pass.
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>materialize_fake_tensors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether to materialize FakeTensors.</p>
+<dd class="field-odd"><p><strong>materialize_fake_tensors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to materialize FakeTensors.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>

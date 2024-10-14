@@ -575,20 +575,20 @@ use <code class="docutils literal notranslate"><span class="pre">opcheck</span><
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>op</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><em>OpOverload</em><em>, </em><em>OpOverloadPacket</em><em>, </em><a class="reference internal" href="#torch._library.custom_ops.CustomOpDef" title="torch._library.custom_ops.CustomOpDef"><em>CustomOpDef</em></a><em>]</em>) – The operator. Must either be a function decorated with
+<li><p><strong>op</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><em>OpOverload</em><em>, </em><em>OpOverloadPacket</em><em>, </em><a class="reference internal" href="#torch._library.custom_ops.CustomOpDef" title="torch._library.custom_ops.CustomOpDef"><em>CustomOpDef</em></a><em>]</em>) – The operator. Must either be a function decorated with
 <a class="reference internal" href="#torch.library.custom_op" title="torch.library.custom_op"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.library.custom_op()</span></code></a> or an OpOverload/OpOverloadPacket
 found in torch.ops.* (e.g. torch.ops.aten.sin, torch.ops.mylib.foo)</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>, </em><em>...</em><em>]</em>) – The args to the operator</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – The kwargs to the operator</p></li>
-<li><p><strong>test_utils</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em><em>]</em>) – Tests that we should run. Default: all of them.
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>, </em><em>...</em><em>]</em>) – The args to the operator</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>]</em><em>]</em>) – The kwargs to the operator</p></li>
+<li><p><strong>test_utils</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.13)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em><em>]</em>) – Tests that we should run. Default: all of them.
 Example: (“test_schema”, “test_faketensor”)</p></li>
-<li><p><strong>raise_exception</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If we should raise an exception on the first
+<li><p><strong>raise_exception</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If we should raise an exception on the first
 error. If False, we will return a dict with information
 on if each test passed or not.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]</p>
 </dd>
 </dl>
 <div class="admonition warning">
@@ -650,21 +650,21 @@ with PyTorch’s various subsystems.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A name for the custom op that looks like “{namespace}::{name}”,
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A name for the custom op that looks like “{namespace}::{name}”,
 e.g. “mylib::my_linear”. The name is used as the op’s stable identifier
 in PyTorch subsystems (e.g. torch.export, FX graphs).
 To avoid name collisions, please use your project name as the namespace;
 e.g. all custom ops in pytorch/fbgemm use “fbgemm” as the namespace.</p></li>
-<li><p><strong>mutates_args</strong> (<em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>] or </em><em>&quot;unknown&quot;</em>) – The names of args that the function mutates.
+<li><p><strong>mutates_args</strong> (<em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] or </em><em>&quot;unknown&quot;</em>) – The names of args that the function mutates.
 This MUST be accurate, otherwise, the behavior is undefined. If “unknown”,
 it pessimistically assumes that all inputs to the operator are being mutated.</p></li>
-<li><p><strong>device_types</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device type(s) the function
+<li><p><strong>device_types</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The device type(s) the function
 is valid for. If no device type is provided, then the function
 is used as the default implementation for all device types.
 Examples: “cpu”, “cuda”.
 When registering a device-specific implementation for an operator that accepts no Tensors,
 we require the operator to have a “device: torch.device argument”.</p></li>
-<li><p><strong>schema</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A schema string for the operator. If None
+<li><p><strong>schema</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A schema string for the operator. If None
 (recommended) we’ll infer a schema for the operator from its type
 annotations. We recommend letting us infer a schema unless you
 have a specific reason not to.
@@ -672,7 +672,7 @@ Example: “(Tensor x, int y) -&gt; (Tensor, Tensor)”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a></p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -752,7 +752,7 @@ This API may be used as a decorator.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fn</strong> (<em>Callable</em>) – The function to register as the implementation for
 the given device types.</p></li>
-<li><p><strong>device_types</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device_types to register an impl to.
+<li><p><strong>device_types</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The device_types to register an impl to.
 If None, we will register to all device types – please only use
 this option if your implementation is truly device-type-agnostic.</p></li>
 </ul>
@@ -1116,18 +1116,18 @@ function’s type hints, and can be used to define a new operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>prototype_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a>) – The function from which to infer a schema for from its type annotations.</p></li>
-<li><p><strong>op_name</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The name of the operator in the schema. If <code class="docutils literal notranslate"><span class="pre">name</span></code> is None, then the
+<li><p><strong>prototype_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a>) – The function from which to infer a schema for from its type annotations.</p></li>
+<li><p><strong>op_name</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The name of the operator in the schema. If <code class="docutils literal notranslate"><span class="pre">name</span></code> is None, then the
 name is not included in the inferred schema. Note that the input schema to
 <code class="docutils literal notranslate"><span class="pre">torch.library.Library.define</span></code> requires a operator name.</p></li>
-<li><p><strong>mutates_args</strong> (<em>&quot;unknown&quot;</em><em> | </em><em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The arguments that are mutated in the function.</p></li>
+<li><p><strong>mutates_args</strong> (<em>&quot;unknown&quot;</em><em> | </em><em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The arguments that are mutated in the function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The inferred schema.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -1165,8 +1165,8 @@ custom op.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The device type to disable/enable the kernel for.</p></li>
-<li><p><strong>disable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether to disable or enable the kernel.</p></li>
+<li><p><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The device type to disable/enable the kernel for.</p></li>
+<li><p><strong>disable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to disable or enable the kernel.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1341,13 +1341,13 @@ you must then perform the second step by calling various
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>qualname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The qualified name for the operator. Should be
+<li><p><strong>qualname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The qualified name for the operator. Should be
 a string that looks like “namespace::name”, e.g. “aten::sin”.
 Operators in PyTorch need a namespace to
 avoid name collisions; a given operator may only be created once.
 If you are writing a Python library, we recommend the namespace to
 be the name of your top-level module.</p></li>
-<li><p><strong>schema</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The schema of the operator. E.g. “(Tensor x) -&gt; Tensor”
+<li><p><strong>schema</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The schema of the operator. E.g. “(Tensor x) -&gt; Tensor”
 for an op that accepts one Tensor and returns one Tensor. It does
 not contain the operator name (that is passed in <code class="docutils literal notranslate"><span class="pre">qualname</span></code>).</p></li>
 <li><p><strong>lib</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.library.Library" title="torch.library.Library"><em>Library</em></a><em>]</em>) – If provided, the lifetime of this operator
@@ -1395,8 +1395,8 @@ for example, this is true if it is a composition of built-in PyTorch operators.<
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>qualname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Should be a string that looks like “namespace::operator_name”.</p></li>
-<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The device types to register an impl to.</p></li>
+<li><p><strong>qualname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Should be a string that looks like “namespace::operator_name”.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The device types to register an impl to.</p></li>
 <li><p><strong>lib</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#torch.library.Library" title="torch.library.Library"><em>Library</em></a><em>]</em>) – If provided, the lifetime of this registration
 will be tied to the lifetime of the Library object.</p></li>
 </ul>

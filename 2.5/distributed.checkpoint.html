@@ -555,8 +555,8 @@ group needs to be passed in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
-<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
+<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
@@ -614,8 +614,8 @@ staging storage (defaults to CPU memory), and then calls the <cite>save</cite> i
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
-<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
+<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
@@ -692,8 +692,8 @@ pos-processing and non-tensor data properly propagates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
-<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
+<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
@@ -790,7 +790,7 @@ at the appropriate time.</p>
 </ol>
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">should_synchronize_after_execute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><a class="headerlink" href="#torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">should_synchronize_after_execute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></em><a class="headerlink" href="#torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether to synchronize after executing the stage.</p>
 </dd></dl>
 
@@ -801,7 +801,7 @@ at the appropriate time.</p>
 innoculated from any updates incurred after the stage call is complete.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -831,7 +831,7 @@ This implementation also provides an option to optimize stage latency using pinn
 <dd><p>Returns a copy of <cite>state_dict</cite> on the CPU.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -858,7 +858,7 @@ This implementation also provides an option to optimize stage latency using pinn
 <dd><p>Restore the object’s state from the provided state_dict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – The state dict to restore from</p>
+<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>]</em>) – The state dict to restore from</p>
 </dd>
 </dl>
 </dd></dl>
@@ -913,13 +913,13 @@ is told its role.</p>
 way is to store storage specific data in LoadPlan::storage_data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>plans</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a><em>]</em>) – A list of <code class="docutils literal notranslate"><span class="pre">LoadPlan</span></code> instances, one for each rank.</p>
+<dd class="field-odd"><p><strong>plans</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a><em>[</em><a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a><em>]</em>) – A list of <code class="docutils literal notranslate"><span class="pre">LoadPlan</span></code> instances, one for each rank.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of transformed <code class="docutils literal notranslate"><span class="pre">LoadPlan</span></code> after storage global planning</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -993,7 +993,7 @@ storage-dependent. It can be a path to a folder/file or a key for
 a key-value storage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<dd class="field-odd"><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is more like a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p>
@@ -1009,7 +1009,7 @@ It can also be a key if the storage is more like a key-value store.
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>metadata</strong> (<em>Metadata</em>) – The metadata schema to use.</p></li>
-<li><p><strong>is_coordinator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether this instance is responsible for coordinating
+<li><p><strong>is_coordinator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether this instance is responsible for coordinating
 the checkpoint.</p></li>
 </ul>
 </dd>
@@ -1023,7 +1023,7 @@ the checkpoint.</p></li>
 us to enable automatic storage selection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1057,7 +1057,7 @@ in to the same object graph.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>metadata</strong> (<em>Metadata</em>) – metadata for the new checkpoint</p></li>
-<li><p><strong>results</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><em>WriteResult</em><em>]</em><em>]</em>) – A list of WriteResults from all ranks.</p></li>
+<li><p><strong>results</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a><em>[</em><em>WriteResult</em><em>]</em><em>]</em>) – A list of WriteResults from all ranks.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1078,13 +1078,13 @@ in to the same object graph.</p>
 way is to store storage specific data in SavePlan::storage_data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>plans</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a><em>]</em>) – A list of <code class="docutils literal notranslate"><span class="pre">SavePlan</span></code> instances, one for each rank.</p>
+<dd class="field-odd"><p><strong>plans</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a><em>[</em><a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a><em>]</em>) – A list of <code class="docutils literal notranslate"><span class="pre">SavePlan</span></code> instances, one for each rank.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of transformed <code class="docutils literal notranslate"><span class="pre">SavePlan</span></code> after storage global planning</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1118,7 +1118,7 @@ storage-dependent. It can be a path to a folder/file or a key for
 a key-value storage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<dd class="field-odd"><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p>
@@ -1132,7 +1132,7 @@ It can also be a key if the storage is a key-value store.
 <dd><p>Initialize this instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>is_coordinator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Whether this instance is responsible for coordinating
+<dd class="field-odd"><p><strong>is_coordinator</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether this instance is responsible for coordinating
 the checkpoint.</p>
 </dd>
 </dl>
@@ -1147,7 +1147,7 @@ is passed to the <code class="docutils literal notranslate"><span class="pre">Sa
 <p>TODO: provide an example</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a>[<em>StorageMeta</em>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><em>Optional</em></a>[<em>StorageMeta</em>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1159,7 +1159,7 @@ is passed to the <code class="docutils literal notranslate"><span class="pre">Sa
 us to enable automatic storage selection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1187,7 +1187,7 @@ In case of tensors, make following assumptions:</p>
 <dd class="field-even"><p>A future that completes to a list of WriteResult</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="futures.html#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<em>WriteResult</em>]]</p>
+<dd class="field-odd"><p><a class="reference internal" href="futures.html#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a>[<em>WriteResult</em>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1291,7 +1291,7 @@ copying it back to the one in the state_dict.</p>
 <p>. N.B. This is called on the coordinator rank only</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1487,7 +1487,7 @@ the global planner aggregate them:</p>
 <p>This is called on the coordinator rank only.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>], <em>Metadata</em>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>], <em>Metadata</em>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1533,7 +1533,7 @@ is called in order to reduce peak memory required by checkpointing.</p>
 It’s the storage layer responsibility to figure out how to save them.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <em>BytesIO</em>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <em>BytesIO</em>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1572,7 +1572,7 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 <dd class="field-odd"><p>Optional[int] storage size, in bytes of underlying tensor if any.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><em>Optional</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1587,7 +1587,7 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.FileSystemReader.checkpoint_id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkpoint_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemReader.checkpoint_id" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkpoint_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemReader.checkpoint_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>return the checkpoint_id that will be used to load the checkpoint.</p>
 </dd></dl>
 
@@ -1612,7 +1612,7 @@ a <cite>.metadata</cite> file with the serialized metadata.</p>
 <dd><p>Override of AsyncStager.stage</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a>[<em>StatefulT</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1632,7 +1632,7 @@ can handle all of torch.distributed constructs such as FSDP, DDP, ShardedTensor 
 <dd><p>Extension from the planner interface to make it easy to extend the default planner.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1744,7 +1744,7 @@ model state_dict and optimizer state_dict should be returned. See
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Tuple</span></code> that contain model state_dict and optimizer state_dict.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, ValueType], OptimizerStateType]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, ValueType], OptimizerStateType]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1769,7 +1769,7 @@ model state_dict and optimizer state_dict should be returned. See
 <dd class="field-even"><p>The state_dict for <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, ValueType]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, ValueType]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1816,7 +1816,7 @@ the canonical FQNs.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>nn.Module</em></a>) – the nn.Module to the model.</p></li>
 <li><p><strong>optimizers</strong> (<em>Union</em><em>[</em><a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>Optimizer</em></a><em>, </em><em>Iterable</em><em>[</em><a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>Optimizer</em></a><em>]</em><em>]</em>) – The optimizers that are used to optimize <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
-<li><p><strong>model_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>ValueType</em><em>]</em>) – (Union[Dict[nn.Module, Dict[str, ValueType]], Dict[str, ValueType]]):
+<li><p><strong>model_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>ValueType</em><em>]</em>) – (Union[Dict[nn.Module, Dict[str, ValueType]], Dict[str, ValueType]]):
 the model state_dict to load. If the key of the <code class="docutils literal notranslate"><span class="pre">model_state_dict</span></code>
 is nn.Module, the key is a submodule of <code class="docutils literal notranslate"><span class="pre">model</span></code> and the value should
 be the state_dict of the submodule. When loading the state_dict,
@@ -1851,7 +1851,7 @@ model. See <code class="docutils literal notranslate"><span class="pre">set_stat
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>nn.Module</em></a>) – the nn.Module to the model.</p></li>
-<li><p><strong>model_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>ValueType</em><em>]</em>) – (Dict[str, ValueType]):
+<li><p><strong>model_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>ValueType</em><em>]</em>) – (Dict[str, ValueType]):
 the model state_dict to load. If the key of the <code class="docutils literal notranslate"><span class="pre">model_state_dict</span></code>
 is nn.Module, the key is a submodule of <code class="docutils literal notranslate"><span class="pre">model</span></code> and the value should
 be the state_dict of the submodule. When loading the state_dict,
@@ -1949,8 +1949,8 @@ Torch save file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dcp_checkpoint_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>PathLike</em></a><em>]</em>) – Directory containing the DCP checkpoint.</p></li>
-<li><p><strong>torch_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>PathLike</em></a><em>]</em>) – Filename to store the converted Torch save file.</p></li>
+<li><p><strong>dcp_checkpoint_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>PathLike</em></a><em>]</em>) – Directory containing the DCP checkpoint.</p></li>
+<li><p><strong>torch_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>PathLike</em></a><em>]</em>) – Filename to store the converted Torch save file.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1967,8 +1967,8 @@ Torch save file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>torch_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>PathLike</em></a><em>]</em>) – Filename of the Torch save file.</p></li>
-<li><p><strong>dcp_checkpoint_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.12)"><em>PathLike</em></a><em>]</em>) – Directory to store the DCP checkpoint.</p></li>
+<li><p><strong>torch_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>PathLike</em></a><em>]</em>) – Filename of the Torch save file.</p></li>
+<li><p><strong>dcp_checkpoint_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><em>PathLike</em></a><em>]</em>) – Directory to store the DCP checkpoint.</p></li>
 </ul>
 </dd>
 </dl>
@@ -2006,7 +2006,7 @@ on the coordinator rank, and then broadcast and shard each tensor to all ranks.<
 <dd><p>Implementation of the StorageReader method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><em>List</em></a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2068,7 +2068,7 @@ the entire checkpoint on each rank, hopefully preventing OOM issues</p>
 <dd><p>Implementation of the StorageReader method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>

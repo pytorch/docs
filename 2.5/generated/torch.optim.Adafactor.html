@@ -601,31 +601,31 @@ c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z"/></svg><
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>iterable</em>) – iterable of parameters to optimize or dicts defining
 parameter groups</p></li>
-<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – unlike other optimizers, Adafactor does not require a
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – unlike other optimizers, Adafactor does not require a
 learning rate, and Shazeer, Noam, and Mitchell Stern do not use lr at all.
 Deviating from the paper, this implementation uses lr for applying weight
 decay and as the maximum value for relative step size rho_t. Note that in
 the paper, a constant of 0.01 is used as the maximum value for relative
 step size, and so we set 0.01 as the default value. (default: 1e-2)</p></li>
-<li><p><strong>beta2_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – the decay rate of beta2. beta2 standardly refers
+<li><p><strong>beta2_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – the decay rate of beta2. beta2 standardly refers
 to the coefficient used for computing the running average of the gradient
 squared. (default: -0.8)</p></li>
-<li><p><strong>eps</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – epsilon1 is the term added to the denominator
+<li><p><strong>eps</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – epsilon1 is the term added to the denominator
 of the update calculation to improve numerical stability. This use of epsilon1
 deviates from the algorithm written in the paper! See note below for more details.
 epsilon2 is the term used to avoid having too small a weight update when applying
 parameter scaling. (default: (None, 1e-3))</p></li>
-<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – the clipping threshold, used to avoid larger-than-desired
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – the clipping threshold, used to avoid larger-than-desired
 updates.</p></li>
-<li><p><strong>weight_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – weight decay coefficient (default: 1e-2)</p></li>
-<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – whether foreach implementation of optimizer is used. Note
+<li><p><strong>weight_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – weight decay coefficient (default: 1e-2)</p></li>
+<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – whether foreach implementation of optimizer is used. Note
 that the foreach implementation uses ~ sizeof(params) more peak memory than the
 for-loop version due to the intermediates being a tensorlist vs just one tensor.
 As Adafactor is commonly used when memory is prohibitive, Adafactor will default
 to the slower single tensor for-loop implementation unless this flag is explicitly
 True. This behavior is contrary to other optimizers, which will attempt defaulting
 to foreach on CUDA for faster runtime. (default: None)</p></li>
-<li><p><strong>maximize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – maximize the objective with respect to the
+<li><p><strong>maximize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – maximize the objective with respect to the
 params, instead of minimizing (default: False)</p></li>
 </ul>
 </dd>
@@ -749,7 +749,7 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 trainable and added to the <a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a> as training progresses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>param_group</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Specifies what Tensors should be optimized along with group
+<dd class="field-odd"><p><strong>param_group</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Specifies what Tensors should be optimized along with group
 specific optimization options.</p>
 </dd>
 </dl>
@@ -761,7 +761,7 @@ specific optimization options.</p>
 <dd><p>Load the optimizer state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – optimizer state. Should be an object returned
+<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – optimizer state. Should be an object returned
 from a call to <a class="reference internal" href="#torch.optim.Adafactor.state_dict" title="torch.optim.Adafactor.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a>.</p>
 </dd>
 </dl>
@@ -785,7 +785,7 @@ perform post-processing after <code class="docutils literal notranslate"><span c
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>hook</strong> (<em>Callable</em>) – The user defined hook to be registered.</p></li>
-<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If True, the provided post <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired before
+<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, the provided post <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired before
 all the already registered post-hooks on <code class="docutils literal notranslate"><span class="pre">load_state_dict</span></code>. Otherwise,
 the provided <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired after all the already registered
 post-hooks. (default: False)</p></li>
@@ -822,7 +822,7 @@ perform pre-processing before the <code class="docutils literal notranslate"><sp
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>hook</strong> (<em>Callable</em>) – The user defined hook to be registered.</p></li>
-<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If True, the provided pre <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired before
+<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, the provided pre <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired before
 all the already registered pre-hooks on <code class="docutils literal notranslate"><span class="pre">load_state_dict</span></code>. Otherwise,
 the provided <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired after all the already registered
 pre-hooks. (default: False)</p></li>
@@ -854,7 +854,7 @@ on the <code class="docutils literal notranslate"><span class="pre">state_dict</
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>hook</strong> (<em>Callable</em>) – The user defined hook to be registered.</p></li>
-<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If True, the provided post <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired before
+<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, the provided post <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired before
 all the already registered post-hooks on <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>. Otherwise,
 the provided <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired after all the already registered
 post-hooks. (default: False)</p></li>
@@ -886,7 +886,7 @@ call is made.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>hook</strong> (<em>Callable</em>) – The user defined hook to be registered.</p></li>
-<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If True, the provided pre <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired before
+<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, the provided pre <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired before
 all the already registered pre-hooks on <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>. Otherwise,
 the provided <code class="docutils literal notranslate"><span class="pre">hook</span></code> will be fired after all the already registered
 pre-hooks. (default: False)</p></li>
@@ -953,7 +953,7 @@ values are returned as a tuple containing the new_args and new_kwargs.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.Adafactor.state_dict">
 <span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.optim.Adafactor.state_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the state of the optimizer as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
+<dd><p>Return the state of the optimizer as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains two entries:</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -1004,7 +1004,7 @@ match state WITHOUT additional verification.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1027,7 +1027,7 @@ and returns the loss.</p>
 <dd><p>Reset the gradients of all optimized <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>set_to_none</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – instead of setting to zero, set the grads to None.
+<dd class="field-odd"><p><strong>set_to_none</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – instead of setting to zero, set the grads to None.
 This will in general have lower memory footprint, and can modestly improve performance.
 However, it changes certain behaviors. For example:
 1. When the user tries to access a gradient and perform manual ops on it,
