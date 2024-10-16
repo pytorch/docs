@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git406db6a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita1b22e3 ) &#x25BC</a>
     </div>
     
 
@@ -1276,11 +1276,15 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Cannot get amd device handler&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">uuid</span> <span class="o">=</span> <span class="n">amdsmi</span><span class="o">.</span><span class="n">amdsmi_get_gpu_device_uuid</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+            <span class="n">uuid</span> <span class="o">=</span> <span class="n">amdsmi</span><span class="o">.</span><span class="n">amdsmi_get_gpu_asic_info</span><span class="p">(</span><span class="n">handler</span><span class="p">)[</span><span class="s2">&quot;asic_serial&quot;</span><span class="p">][</span>
+                <span class="mi">2</span><span class="p">:</span>
+            <span class="p">]</span>  <span class="c1"># Removes 0x prefix from serial</span>
         <span class="k">except</span> <span class="n">amdsmi</span><span class="o">.</span><span class="n">AmdSmiException</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Cannot get uuid for amd device&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">uuids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">))</span>
+        <span class="n">uuids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="p">)</span>  <span class="c1"># Lower-case to match expected HIP_VISIBLE_DEVICES uuid input</span>
     <span class="k">return</span> <span class="n">uuids</span>
 
 
@@ -1319,7 +1323,7 @@
 <span class="k">def</span> <span class="nf">_transform_uuid_to_ordinals</span><span class="p">(</span><span class="n">candidates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">uuids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Given the set of partial uuids and list of known uuids builds a set of ordinals excluding ambiguous partials IDs.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">uuid_to_orinal</span><span class="p">(</span><span class="n">candidate</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">uuids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">uuid_to_ordinal</span><span class="p">(</span><span class="n">candidate</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">uuids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="n">best_match</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">uuid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">uuids</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">uuid</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
@@ -1332,7 +1336,11 @@
 
     <span class="n">rc</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
-        <span class="n">idx</span> <span class="o">=</span> <span class="n">uuid_to_orinal</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="n">uuids</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">hip</span><span class="p">:</span>
+            <span class="n">candidate</span> <span class="o">=</span> <span class="n">candidate</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="s2">&quot;GPU-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="p">)</span>  <span class="c1"># Remove GPU-prefix to match amdsmi asic serial</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">uuid_to_ordinal</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="n">uuids</span><span class="p">)</span>
         <span class="c1"># First invalid ordinal stops parsing</span>
         <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">break</span>
@@ -1349,7 +1357,12 @@
         <span class="k">return</span> <span class="mi">0</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">visible_devices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
-            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">uuids</span> <span class="o">=</span> <span class="n">_raw_device_uuid_amdsmi</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">uuids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c1"># Create string version of visible devices to avoid mypy warnings</span>
+            <span class="n">visible_device_str</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">)</span>
+            <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">_transform_uuid_to_ordinals</span><span class="p">(</span><span class="n">visible_device_str</span><span class="p">,</span> <span class="n">uuids</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">raw_cnt</span> <span class="o">=</span> <span class="n">_raw_device_count_amdsmi</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">raw_cnt</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -1608,7 +1621,13 @@
     <span class="n">idx</span> <span class="o">=</span> <span class="n">_get_device_index</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">_parse_visible_devices</span><span class="p">()</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">visible_devices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;HIP_VISIBLE_DEVICES should be indices and not strings&quot;</span><span class="p">)</span>
+        <span class="n">uuids</span> <span class="o">=</span> <span class="n">_raw_device_uuid_amdsmi</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">uuids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get device UUIDs&quot;</span><span class="p">)</span>
+        <span class="n">visible_devices_str</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span>
+        <span class="p">)</span>  <span class="c1"># Create str variable for mypy</span>
+        <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">_transform_uuid_to_ordinals</span><span class="p">(</span><span class="n">visible_devices_str</span><span class="p">,</span> <span class="n">uuids</span><span class="p">)</span>
     <span class="n">idx_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">)))</span>
     <span class="k">if</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">idx_map</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
