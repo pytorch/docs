@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="../../../_static/sphinx-dropdown.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
 
@@ -280,21 +281,12 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2f91d7c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite8b1409 ) &#x25BC</a>
     </div>
-    
-
-
-  
-
-
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search Docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
+     <div class="searchbox">
+        <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+        <div class="gcse-search"></div>
+     </div>
 
           </div>
 
@@ -1437,13 +1429,25 @@
             <span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;initial_lr&quot;</span><span class="p">]</span>
 
         <span class="c1"># &quot;Undo&quot; the step performed by other schedulers</span>
-        <span class="k">for</span> <span class="n">scheduler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedulers</span><span class="p">:</span>
-            <span class="n">scheduler</span><span class="o">.</span><span class="n">last_epoch</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recursive_undo</span><span class="p">()</span>
 
         <span class="c1"># Perform the initial step for only the first scheduler</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_schedulers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_initial_step</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_lr</span> <span class="o">=</span> <span class="n">schedulers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_last_lr</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SequentialLR.recursive_undo"><a class="viewcode-back" href="../../../generated/torch.optim.lr_scheduler.SequentialLR.html#torch.optim.lr_scheduler.SequentialLR.recursive_undo">[docs]</a>    <span class="k">def</span> <span class="nf">recursive_undo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sched</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursively undo any step performed by the initialisation of</span>
+<span class="sd">        schedulers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scheds</span> <span class="o">=</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">sched</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">sched</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">scheds</span><span class="p">,</span> <span class="s2">&quot;_schedulers&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scheds</span><span class="o">.</span><span class="n">_schedulers</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recursive_undo</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">scheds</span><span class="p">,</span> <span class="s2">&quot;last_epoch&quot;</span><span class="p">):</span>
+            <span class="n">scheds</span><span class="o">.</span><span class="n">last_epoch</span> <span class="o">-=</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="SequentialLR.step"><a class="viewcode-back" href="../../../generated/torch.optim.lr_scheduler.SequentialLR.html#torch.optim.lr_scheduler.SequentialLR.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># type: ignore[override]</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a step.&quot;&quot;&quot;</span>

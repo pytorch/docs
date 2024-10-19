@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="_static/sphinx-dropdown.css" type="text/css" />
   <link rel="stylesheet" href="_static/panels-bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
 
@@ -279,21 +280,12 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2f91d7c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite8b1409 ) &#x25BC</a>
     </div>
-    
-
-
-  
-
-
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search Docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
+     <div class="searchbox">
+        <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+        <div class="gcse-search"></div>
+     </div>
 
           </div>
 
@@ -2197,10 +2189,10 @@
         <li><a href="elastic/timer.html#torch.distributed.elastic.timer.configure">(in module torch.distributed.elastic.timer)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.confirmed_by_owner">confirmed_by_owner() (torch.distributed.rpc.PyRRef method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.conj.html#torch.conj">conj() (in module torch)</a>
 
       <ul>
@@ -2384,6 +2376,8 @@
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.copy">copy() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
+        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.copy">(torch.export.decomp_utils.CustomDecompTable method)</a>
+</li>
         <li><a href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict.copy">(torch.nn.ParameterDict method)</a>
 </li>
       </ul></li>
@@ -2402,8 +2396,6 @@
 </li>
       </ul></li>
       <li><a href="generated/torch.Tensor.copysign_.html#torch.Tensor.copysign_">copysign_() (torch.Tensor method)</a>
-</li>
-      <li><a href="export.html#torch.export.exported_program.core_aten_decompositions">core_aten_decompositions() (in module torch.export.exported_program)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.CorrCholeskyTransform">CorrCholeskyTransform (class in torch.distributions.transforms)</a>
 </li>
@@ -2679,6 +2671,8 @@
 </li>
       <li><a href="library.html#torch.library.custom_op">custom_op() (in module torch.library)</a>
 </li>
+      <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable">CustomDecompTable (class in torch.export.decomp_utils)</a>
+</li>
       <li><a href="generated/torch.nn.utils.prune.CustomFromMask.html#torch.nn.utils.prune.CustomFromMask">CustomFromMask (class in torch.nn.utils.prune)</a>
 </li>
       <li><a href="export.html#torch.export.graph_signature.CustomObjArgument">CustomObjArgument (class in torch.export.graph_signature)</a>
@@ -2730,6 +2724,8 @@
       <li><a href="generated/torch.ao.quantization.observer.default_debug_observer.html#torch.ao.quantization.observer.default_debug_observer">default_debug_observer (in module torch.ao.quantization.observer)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.qconfig.default_debug_qconfig.html#torch.ao.quantization.qconfig.default_debug_qconfig">default_debug_qconfig (in module torch.ao.quantization.qconfig)</a>
+</li>
+      <li><a href="export.html#torch.export.exported_program.default_decompositions">default_decompositions() (in module torch.export.exported_program)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.qconfig.default_dynamic_qconfig.html#torch.ao.quantization.qconfig.default_dynamic_qconfig">default_dynamic_qconfig (in module torch.ao.quantization.qconfig)</a>
 </li>
@@ -4283,7 +4279,11 @@
       <li><a href="generated/torch.cuda.get_allocator_backend.html#torch.cuda.get_allocator_backend">get_allocator_backend() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.get_arch_list.html#torch.cuda.get_arch_list">get_arch_list() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.get_arch_list.html#torch.xpu.get_arch_list">(in module torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_bool">get_as_bool() (torch.distributed.elastic.rendezvous.RendezvousParameters method)</a>
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousParameters.get_as_int">get_as_int() (torch.distributed.elastic.rendezvous.RendezvousParameters method)</a>
@@ -4395,7 +4395,11 @@
       <li><a href="fx.html#torch.fx.Tracer.get_fresh_qualname">get_fresh_qualname() (torch.fx.Tracer method)</a>
 </li>
       <li><a href="generated/torch.cuda.get_gencode_flags.html#torch.cuda.get_gencode_flags">get_gencode_flags() (in module torch.cuda)</a>
+
+      <ul>
+        <li><a href="generated/torch.xpu.get_gencode_flags.html#torch.xpu.get_gencode_flags">(in module torch.xpu)</a>
 </li>
+      </ul></li>
       <li><a href="distributed.html#torch.distributed.get_global_rank">get_global_rank() (in module torch.distributed)</a>
 </li>
       <li><a href="autograd.html#torch.autograd.graph.get_gradient_edge">get_gradient_edge() (in module torch.autograd.graph)</a>
@@ -4448,6 +4452,8 @@
 </li>
       <li><a href="elastic/events.html#torch.distributed.elastic.events.get_logging_handler">get_logging_handler() (in module torch.distributed.elastic.events)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.optim.lr_scheduler.ChainedScheduler.html#torch.optim.lr_scheduler.ChainedScheduler.get_lr">get_lr() (torch.optim.lr_scheduler.ChainedScheduler method)</a>
 
       <ul>
@@ -4484,8 +4490,6 @@
         <li><a href="generated/torch.optim.swa_utils.SWALR.html#torch.optim.swa_utils.SWALR.get_lr">(torch.optim.swa_utils.SWALR method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="torch.ao.ns._numeric_suite.html#torch.ao.ns._numeric_suite.get_matching_activations">get_matching_activations() (in module torch.ao.ns._numeric_suite)</a>
 </li>
       <li><a href="cuda.tunable.html#torch.cuda.tunable.get_max_tuning_duration">get_max_tuning_duration() (in module torch.cuda.tunable)</a>
@@ -5268,10 +5272,10 @@
       </ul></li>
       <li><a href="distributions.html#torch.distributions.transforms.Transform.inverse_shape">inverse_shape() (torch.distributions.transforms.Transform method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.inverse_gamma.InverseGamma">InverseGamma (class in torch.distributions.inverse_gamma)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.cuda.ipc_collect.html#torch.cuda.ipc_collect">ipc_collect() (in module torch.cuda)</a>
 </li>
       <li><a href="generated/torch.cuda.Event.html#torch.cuda.Event.ipc_handle">ipc_handle() (torch.cuda.Event method)</a>
@@ -5571,6 +5575,8 @@
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.items">items() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
+        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.items">(torch.export.decomp_utils.CustomDecompTable method)</a>
+</li>
         <li><a href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict.items">(torch.nn.ModuleDict method)</a>
 </li>
         <li><a href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict.items">(torch.nn.ParameterDict method)</a>
@@ -5669,6 +5675,8 @@
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.keys">keys() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
+        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.keys">(torch.export.decomp_utils.CustomDecompTable method)</a>
+</li>
         <li><a href="fx.html#torch.fx.Tracer.keys">(torch.fx.Tracer method)</a>
 </li>
         <li><a href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict.keys">(torch.nn.ModuleDict method)</a>
@@ -6440,6 +6448,8 @@
         <li><a href="generated/torch.Tensor.masked_select.html#torch.Tensor.masked_select">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.materialize">materialize() (torch.export.decomp_utils.CustomDecompTable method)</a>
+</li>
       <li><a href="backends.html#torch.backends.cuda.math_sdp_enabled">math_sdp_enabled() (in module torch.backends.cuda)</a>
 </li>
       <li><a href="generated/torch.matmul.html#torch.matmul">matmul() (in module torch)</a>
@@ -7591,6 +7601,8 @@
         <li><a href="export.html#module-torch.export">torch.export</a>
 </li>
         <li><a href="export.html#module-torch.export.custom_obj">torch.export.custom_obj</a>
+</li>
+        <li><a href="export.html#module-torch.export.decomp_utils">torch.export.decomp_utils</a>
 </li>
         <li><a href="export.html#module-torch.export.dynamic_shapes">torch.export.dynamic_shapes</a>
 </li>
@@ -9166,6 +9178,8 @@
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.pop">pop() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
+        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.pop">(torch.export.decomp_utils.CustomDecompTable method)</a>
+</li>
         <li><a href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict.pop">(torch.nn.ModuleDict method)</a>
 </li>
         <li><a href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict.pop">(torch.nn.ParameterDict method)</a>
@@ -9664,6 +9678,8 @@
       <li><a href="cuda.tunable.html#torch.cuda.tunable.record_untuned_is_enabled">record_untuned_is_enabled() (in module torch.cuda.tunable)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.observer.RecordingObserver.html#torch.ao.quantization.observer.RecordingObserver">RecordingObserver (class in torch.ao.quantization.observer)</a>
+</li>
+      <li><a href="generated/torch.optim.lr_scheduler.SequentialLR.html#torch.optim.lr_scheduler.SequentialLR.recursive_undo">recursive_undo() (torch.optim.lr_scheduler.SequentialLR method)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.recv">recv() (in module torch.distributed)</a>
 </li>
@@ -14868,12 +14884,21 @@
 </li>
       </ul></li>
       <li>
+    torch.export.decomp_utils
+
+      <ul>
+        <li><a href="export.html#module-torch.export.decomp_utils">module</a>
+</li>
+      </ul></li>
+      <li>
     torch.export.dynamic_shapes
 
       <ul>
         <li><a href="export.html#module-torch.export.dynamic_shapes">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.experimental
 
@@ -14881,8 +14906,6 @@
         <li><a href="export.html#module-torch.export.experimental">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.exported_program
 
@@ -18058,6 +18081,8 @@
       <li><a href="generated/torch.autograd.profiler_util.StringTable.html#torch.autograd.profiler_util.StringTable.update">update() (torch.autograd.profiler_util.StringTable method)</a>
 
       <ul>
+        <li><a href="export.html#torch.export.decomp_utils.CustomDecompTable.update">(torch.export.decomp_utils.CustomDecompTable method)</a>
+</li>
         <li><a href="generated/torch.nn.ModuleDict.html#torch.nn.ModuleDict.update">(torch.nn.ModuleDict method)</a>
 </li>
         <li><a href="generated/torch.nn.ParameterDict.html#torch.nn.ParameterDict.update">(torch.nn.ParameterDict method)</a>

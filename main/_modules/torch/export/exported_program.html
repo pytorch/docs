@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="../../../_static/sphinx-dropdown.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
 
@@ -280,21 +281,12 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2f91d7c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite8b1409 ) &#x25BC</a>
     </div>
-    
-
-
-  
-
-
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search Docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
+     <div class="searchbox">
+        <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+        <div class="gcse-search"></div>
+     </div>
 
           </div>
 
@@ -572,18 +564,24 @@
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.utils._pytree</span> <span class="k">as</span> <span class="nn">pytree</span>
 <span class="kn">from</span> <span class="nn">torch._export.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_collect_all_valid_cia_ops</span><span class="p">,</span>
     <span class="n">_collect_and_set_constant_attrs</span><span class="p">,</span>
     <span class="n">_collect_param_buffer_metadata</span><span class="p">,</span>
+    <span class="n">_decomp_table_to_post_autograd_aten</span><span class="p">,</span>
     <span class="n">_detect_fake_mode_from_gm</span><span class="p">,</span>
+    <span class="n">_get_decomp_for_cia</span><span class="p">,</span>
+    <span class="n">_is_preservable_cia_op</span><span class="p">,</span>
     <span class="n">_name_hoo_subgraph_placeholders</span><span class="p">,</span>
     <span class="n">_overwrite_signature_for_non_persistent_buffers</span><span class="p">,</span>
     <span class="n">_populate_param_buffer_metadata_to_new_gm</span><span class="p">,</span>
     <span class="n">_rename_without_collisions</span><span class="p">,</span>
+    <span class="n">_special_op_to_preserve_cia</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch._export.verifier</span> <span class="kn">import</span> <span class="n">Verifier</span>
 <span class="kn">from</span> <span class="nn">torch._guards</span> <span class="kn">import</span> <span class="n">detect_fake_mode</span>
 <span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">unset_fake_temporarily</span>
 <span class="kn">from</span> <span class="nn">torch.export._tree_utils</span> <span class="kn">import</span> <span class="n">is_equivalent</span><span class="p">,</span> <span class="n">reorder_kwargs</span>
+<span class="kn">from</span> <span class="nn">torch.export.decomp_utils</span> <span class="kn">import</span> <span class="n">CustomDecompTable</span>
 <span class="kn">from</span> <span class="nn">torch.fx._compatibility</span> <span class="kn">import</span> <span class="n">compatibility</span>
 <span class="kn">from</span> <span class="nn">torch.fx.passes.infra.pass_base</span> <span class="kn">import</span> <span class="n">PassResult</span>
 <span class="kn">from</span> <span class="nn">torch.fx.passes.infra.pass_manager</span> <span class="kn">import</span> <span class="n">PassManager</span>
@@ -607,7 +605,7 @@
     <span class="s2">&quot;ExportedProgram&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ModuleCallEntry&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ModuleCallSignature&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;core_aten_decompositions&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;default_decompositions&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -724,8 +722,6 @@
     <span class="c1"># replace their CompositeImplicitAutograd kernels with NotImplemented.</span>
     <span class="c1"># The only current users of this mode are variants of aten::to that we will</span>
     <span class="c1"># replace with aten::_to_copy in FunctionalTensorMode.__torch_dispatch__.</span>
-    <span class="kn">from</span> <span class="nn">torch._decomp</span> <span class="kn">import</span> <span class="n">_get_decomp_for_cia</span>
-
     <span class="n">saved_tables</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">patched_ops</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">op_overload</span><span class="p">,</span> <span class="n">decomp_callable</span> <span class="ow">in</span> <span class="n">cia_ops_to_callable</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -776,13 +772,6 @@
             <span class="n">op</span><span class="o">.</span><span class="n">_dispatch_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">_special_op_to_preserve_cia</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This is an special marker that tells our infra that we shouldn&#39;t decompose this op.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">NotImplemented</span>
-
-
 <span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">_override_decomp_aten_to_variants</span><span class="p">():</span>
     <span class="c1"># Preserve variants of aten::to understanding that they are mutating/aliasing</span>
@@ -801,8 +790,6 @@
 <span class="k">def</span> <span class="nf">_split_decomp_table_to_cia_and_python_decomp</span><span class="p">(</span>
     <span class="n">decomp_table</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OperatorBase</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OperatorBase</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
-    <span class="kn">from</span> <span class="nn">torch._decomp</span> <span class="kn">import</span> <span class="n">_collect_all_valid_cia_ops</span><span class="p">,</span> <span class="n">_is_preservable_cia_op</span>
-
     <span class="n">all_preservable_cia_ops</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_collect_all_valid_cia_ops</span><span class="p">())</span>
     <span class="n">cia_ops_to_callable</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -844,15 +831,13 @@
     <span class="k">return</span> <span class="n">cia_ops_to_callable</span><span class="p">,</span> <span class="n">decomp_table</span>
 
 
-<div class="viewcode-block" id="core_aten_decompositions"><a class="viewcode-back" href="../../../export.html#torch.export.exported_program.core_aten_decompositions">[docs]</a><span class="k">def</span> <span class="nf">core_aten_decompositions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OperatorBase</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
+<div class="viewcode-block" id="default_decompositions"><a class="viewcode-back" href="../../../export.html#torch.export.exported_program.default_decompositions">[docs]</a><span class="k">def</span> <span class="nf">default_decompositions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;CustomDecompTable&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the default decomposition table which contains decomposition of</span>
 <span class="sd">    all ATEN operators to core aten opset. Use this API together with</span>
 <span class="sd">    :func:`run_decompositions()`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">torch._decomp</span> <span class="kn">import</span> <span class="n">core_aten_decompositions</span>
-
-    <span class="k">return</span> <span class="n">core_aten_decompositions</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">CustomDecompTable</span><span class="p">()</span></div>
 
 
 <span class="k">def</span> <span class="nf">_decompose_and_get_gm_with_new_signature_constants</span><span class="p">(</span>
@@ -1587,15 +1572,10 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            ep = torch.export.export(model, ...)</span>
-<span class="sd">            decomp_table = torch.export.core_aten_decompositions()</span>
+<span class="sd">            decomp_table = torch.export.default_decompositions()</span>
 <span class="sd">            decomp_table[your_op] = your_custom_decomp</span>
 <span class="sd">            ep = ep.run_decompositions(decomp_table=decomp_table)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">torch._decomp</span> <span class="kn">import</span> <span class="p">(</span>
-            <span class="n">_decomp_table_to_post_autograd_aten</span><span class="p">,</span>
-            <span class="n">_is_preservable_cia_op</span><span class="p">,</span>
-            <span class="n">core_aten_decompositions</span><span class="p">,</span>
-        <span class="p">)</span>
         <span class="kn">from</span> <span class="nn">torch._inductor</span> <span class="kn">import</span> <span class="n">config</span>
 
         <span class="c1"># FIXME delete this option after PTC, Executorch syncing is</span>
@@ -1608,7 +1588,7 @@
             <span class="p">)</span>
 
         <span class="n">_decomp_table</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">core_aten_decompositions</span><span class="p">()</span> <span class="k">if</span> <span class="n">decomp_table</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">dict</span><span class="p">(</span><span class="n">decomp_table</span><span class="p">)</span>
+            <span class="n">default_decompositions</span><span class="p">()</span> <span class="k">if</span> <span class="n">decomp_table</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">dict</span><span class="p">(</span><span class="n">decomp_table</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">is_fbcode</span><span class="p">():</span>
@@ -1620,10 +1600,9 @@
         <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">_preserve_ops</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">_decomp_table</span><span class="p">:</span>
                 <span class="k">del</span> <span class="n">_decomp_table</span><span class="p">[</span><span class="n">op</span><span class="p">]</span>
-            <span class="c1"># This is needed when the op they want to preserve is a</span>
-            <span class="c1"># CIA op.</span>
-            <span class="k">elif</span> <span class="n">_is_preservable_cia_op</span><span class="p">(</span><span class="n">op</span><span class="p">):</span>
-                <span class="n">_decomp_table</span><span class="p">[</span><span class="n">op</span><span class="p">]</span> <span class="o">=</span> <span class="n">_special_op_to_preserve_cia</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_decomp_table</span><span class="p">,</span> <span class="n">CustomDecompTable</span><span class="p">):</span>
+            <span class="n">_decomp_table</span> <span class="o">=</span> <span class="n">_decomp_table</span><span class="o">.</span><span class="n">materialize</span><span class="p">()</span>
 
         <span class="c1"># Note [Seperating decomp_table into CIA decomps and non-CIA decomps]</span>
         <span class="c1"># At this point, we have a decomp_table that contains decomp behaviour for</span>

@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="../_static/sphinx-dropdown.css" type="text/css" />
   <link rel="stylesheet" href="../_static/panels-bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="torch.as_strided" href="torch.as_strided.html" />
@@ -281,21 +282,12 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2f91d7c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite8b1409 ) &#x25BC</a>
     </div>
-    
-
-
-  
-
-
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search Docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
+     <div class="searchbox">
+        <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+        <div class="gcse-search"></div>
+     </div>
 
           </div>
 
@@ -530,7 +522,7 @@
 <h1>torch.as_tensor<a class="headerlink" href="#torch-as-tensor" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.as_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">as_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#torch.as_tensor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">as_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Any,</span> <span class="pre">dtype:</span> <span class="pre">Optional[dtype]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">device:</span> <span class="pre">Optional[DeviceLikeType]</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#torch.as_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> into a tensor, sharing data and preserving autograd
 history if possible.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> is already a tensor with the requested dtype and device

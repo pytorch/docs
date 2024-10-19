@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="../_static/sphinx-dropdown.css" type="text/css" />
   <link rel="stylesheet" href="../_static/panels-bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="ReduceLROnPlateau" href="torch.optim.lr_scheduler.ReduceLROnPlateau.html" />
@@ -281,21 +282,12 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2f91d7c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite8b1409 ) &#x25BC</a>
     </div>
-    
-
-
-  
-
-
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search Docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
+     <div class="searchbox">
+        <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+        <div class="gcse-search"></div>
+     </div>
 
           </div>
 
@@ -613,6 +605,13 @@ learning rate.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="torch.optim.lr_scheduler.SequentialLR.recursive_undo">
+<span class="sig-name descname"><span class="pre">recursive_undo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sched</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/optim/lr_scheduler.html#SequentialLR.recursive_undo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.SequentialLR.recursive_undo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively undo any step performed by the initialisation of
+schedulers.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.SequentialLR.state_dict">
 <span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/optim/lr_scheduler.html#SequentialLR.state_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.SequentialLR.state_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
@@ -691,6 +690,7 @@ if (url)
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.SequentialLR.get_lr"><code class="docutils literal notranslate"><span class="pre">SequentialLR.get_lr()</span></code></a></li>
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.SequentialLR.load_state_dict"><code class="docutils literal notranslate"><span class="pre">SequentialLR.load_state_dict()</span></code></a></li>
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.SequentialLR.print_lr"><code class="docutils literal notranslate"><span class="pre">SequentialLR.print_lr()</span></code></a></li>
+<li><a class="reference internal" href="#torch.optim.lr_scheduler.SequentialLR.recursive_undo"><code class="docutils literal notranslate"><span class="pre">SequentialLR.recursive_undo()</span></code></a></li>
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.SequentialLR.state_dict"><code class="docutils literal notranslate"><span class="pre">SequentialLR.state_dict()</span></code></a></li>
 <li><a class="reference internal" href="#torch.optim.lr_scheduler.SequentialLR.step"><code class="docutils literal notranslate"><span class="pre">SequentialLR.step()</span></code></a></li>
 </ul>

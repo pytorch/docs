@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="_static/sphinx-dropdown.css" type="text/css" />
   <link rel="stylesheet" href="_static/panels-bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="torch.export IR Specification" href="export.ir_spec.html" />
@@ -281,21 +282,12 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2f91d7c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite8b1409 ) &#x25BC</a>
     </div>
-    
-
-
-  
-
-
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search Docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
+     <div class="searchbox">
+        <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+        <div class="gcse-search"></div>
+     </div>
 
           </div>
 
@@ -844,7 +836,7 @@ as <code class="xref py py-func docutils literal notranslate"><span class="pre">
 form. This op is non-functional and will be lowered to different ops when running inference.</p>
 <p>You can also go from this IR to an inference IR via <code class="xref py py-func docutils literal notranslate"><span class="pre">run_decompositions()</span></code> with arbitrary customizations.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lower to core aten inference IR, but keep conv2d</span>
-<span class="n">decomp_table</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">core_aten_decompositions</span><span class="p">()</span>
+<span class="n">decomp_table</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">default_decompositions</span><span class="p">()</span>
 <span class="k">del</span> <span class="n">decomp_table</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">conv2d</span><span class="o">.</span><span class="n">default</span><span class="p">]</span>
 <span class="n">ep_for_inference</span> <span class="o">=</span> <span class="n">ep_for_training</span><span class="o">.</span><span class="n">run_decompositions</span><span class="p">(</span><span class="n">decomp_table</span><span class="p">)</span>
 
@@ -888,7 +880,7 @@ containing core aten operators except for <cite>conv2d</cite>.</p>
 <p>You can do even more customization by directly registering your chosen decomposition behaviors.</p>
 <p>You can do even more customizations by directly registering custom decomp behaviour</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lower to core aten inference IR, but customize conv2d</span>
-<span class="n">decomp_table</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">core_aten_decompositions</span><span class="p">()</span>
+<span class="n">decomp_table</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">default_decompositions</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">my_awesome_custom_conv2d_function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dilation</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">groups</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">groups</span><span class="p">)</span>
@@ -1508,14 +1500,14 @@ can be described by the same type.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="torch.export.exported_program.core_aten_decompositions">
-<span class="sig-prename descclassname"><span class="pre">torch.export.exported_program.</span></span><span class="sig-name descname"><span class="pre">core_aten_decompositions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/exported_program.html#core_aten_decompositions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.exported_program.core_aten_decompositions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="torch.export.exported_program.default_decompositions">
+<span class="sig-prename descclassname"><span class="pre">torch.export.exported_program.</span></span><span class="sig-name descname"><span class="pre">default_decompositions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/exported_program.html#default_decompositions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.exported_program.default_decompositions" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the default decomposition table which contains decomposition of
 all ATEN operators to core aten opset. Use this API together with
 <code class="xref py py-func docutils literal notranslate"><span class="pre">run_decompositions()</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<em>OperatorBase</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a>]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable" title="torch.export.decomp_utils.CustomDecompTable"><em>CustomDecompTable</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1714,7 +1706,7 @@ get operators in the
 </div>
 <p>If you want to get a core aten operator set except for certain operator, you can do following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">decomp_table</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">core_aten_decompositions</span><span class="p">()</span>
+<span class="n">decomp_table</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">default_decompositions</span><span class="p">()</span>
 <span class="n">decomp_table</span><span class="p">[</span><span class="n">your_op</span><span class="p">]</span> <span class="o">=</span> <span class="n">your_custom_decomp</span>
 <span class="n">ep</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">run_decompositions</span><span class="p">(</span><span class="n">decomp_table</span><span class="o">=</span><span class="n">decomp_table</span><span class="p">)</span>
 </pre></div>
@@ -1815,6 +1807,66 @@ modeled as additional outputs of Export Graph.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.export.</span></span><span class="sig-name descname"><span class="pre">ModuleCallEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fqn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.export.ModuleCallSignature" title="torch.export.exported_program.ModuleCallSignature"><span class="pre">torch.export.exported_program.ModuleCallSignature</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/exported_program.html#ModuleCallEntry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.ModuleCallEntry" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 </dl>
+</dd></dl>
+
+<span class="target" id="module-torch.export.decomp_utils"></span><dl class="py class">
+<dt class="sig sig-object py" id="torch.export.decomp_utils.CustomDecompTable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.export.decomp_utils.</span></span><span class="sig-name descname"><span class="pre">CustomDecompTable</span></span><a class="reference internal" href="_modules/torch/export/decomp_utils.html#CustomDecompTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.decomp_utils.CustomDecompTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a custom dictionary that is specifically used for handling decomp_table in export.
+The reason we need this is because in the new world, you can only <em>delete</em> an op from decomp
+table to preserve it. This is problematic for custom ops because we don’t know when the custom
+op will actually be loaded to the dispatcher. As a result, we need to record the custom ops operations
+until we really need to materialize it (which is when we run decomposition pass.)</p>
+<dl class="simple">
+<dt>Invariants we hold are:</dt><dd><ol class="arabic simple">
+<li><p>All aten decomp is loaded at the init time</p></li>
+<li><p>We materialize ALL ops when user ever reads from the table to make it more likely
+that dispatcher picks up the custom op.</p></li>
+<li><p>If it is write operation, we don’t necessarily materialize</p></li>
+<li><p>We load the final time during export, right before calling run_decompositions()</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.export.decomp_utils.CustomDecompTable.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/decomp_utils.html#CustomDecompTable.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.decomp_utils.CustomDecompTable.copy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable" title="torch.export.decomp_utils.CustomDecompTable"><em>CustomDecompTable</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.export.decomp_utils.CustomDecompTable.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/decomp_utils.html#CustomDecompTable.items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.decomp_utils.CustomDecompTable.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.export.decomp_utils.CustomDecompTable.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/decomp_utils.html#CustomDecompTable.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.decomp_utils.CustomDecompTable.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.export.decomp_utils.CustomDecompTable.materialize">
+<span class="sig-name descname"><span class="pre">materialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/decomp_utils.html#CustomDecompTable.materialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.decomp_utils.CustomDecompTable.materialize" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><em>Dict</em></a>[<em>OperatorBase</em>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.13)"><em>Callable</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.export.decomp_utils.CustomDecompTable.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/decomp_utils.html#CustomDecompTable.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.decomp_utils.CustomDecompTable.pop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.export.decomp_utils.CustomDecompTable.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/decomp_utils.html#CustomDecompTable.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.decomp_utils.CustomDecompTable.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-torch.export.exported_program"></span><span class="target" id="module-torch.export.graph_signature"></span><dl class="py class">
@@ -2109,7 +2161,7 @@ if (url)
 <li><a class="reference internal" href="#torch.export.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.register_dataclass"><code class="docutils literal notranslate"><span class="pre">register_dataclass()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.dynamic_shapes.Dim"><code class="docutils literal notranslate"><span class="pre">Dim()</span></code></a></li>
-<li><a class="reference internal" href="#torch.export.exported_program.core_aten_decompositions"><code class="docutils literal notranslate"><span class="pre">core_aten_decompositions()</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.exported_program.default_decompositions"><code class="docutils literal notranslate"><span class="pre">default_decompositions()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.dims"><code class="docutils literal notranslate"><span class="pre">dims()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.dynamic_shapes.ShapesCollection"><code class="docutils literal notranslate"><span class="pre">ShapesCollection</span></code></a><ul>
 <li><a class="reference internal" href="#torch.export.dynamic_shapes.ShapesCollection.dynamic_shapes"><code class="docutils literal notranslate"><span class="pre">ShapesCollection.dynamic_shapes()</span></code></a></li>
@@ -2130,6 +2182,15 @@ if (url)
 <li><a class="reference internal" href="#torch.export.ExportGraphSignature"><code class="docutils literal notranslate"><span class="pre">ExportGraphSignature</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.ModuleCallSignature"><code class="docutils literal notranslate"><span class="pre">ModuleCallSignature</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.ModuleCallEntry"><code class="docutils literal notranslate"><span class="pre">ModuleCallEntry</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable"><code class="docutils literal notranslate"><span class="pre">CustomDecompTable</span></code></a><ul>
+<li><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable.copy"><code class="docutils literal notranslate"><span class="pre">CustomDecompTable.copy()</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable.items"><code class="docutils literal notranslate"><span class="pre">CustomDecompTable.items()</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable.keys"><code class="docutils literal notranslate"><span class="pre">CustomDecompTable.keys()</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable.materialize"><code class="docutils literal notranslate"><span class="pre">CustomDecompTable.materialize()</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable.pop"><code class="docutils literal notranslate"><span class="pre">CustomDecompTable.pop()</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.decomp_utils.CustomDecompTable.update"><code class="docutils literal notranslate"><span class="pre">CustomDecompTable.update()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#torch.export.graph_signature.InputKind"><code class="docutils literal notranslate"><span class="pre">InputKind</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.graph_signature.InputSpec"><code class="docutils literal notranslate"><span class="pre">InputSpec</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.graph_signature.OutputKind"><code class="docutils literal notranslate"><span class="pre">OutputKind</span></code></a></li>

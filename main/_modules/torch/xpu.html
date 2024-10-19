@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="../../_static/sphinx-dropdown.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/panels-bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 
@@ -280,21 +281,12 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2f91d7c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite8b1409 ) &#x25BC</a>
     </div>
-    
-
-
-  
-
-
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search Docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
+     <div class="searchbox">
+        <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+        <div class="gcse-search"></div>
+     </div>
 
           </div>
 
@@ -921,6 +913,24 @@
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_xpu_synchronize</span><span class="p">(</span><span class="n">device</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="get_arch_list"><a class="viewcode-back" href="../../generated/torch.xpu.get_arch_list.html#torch.xpu.get_arch_list">[docs]</a><span class="k">def</span> <span class="nf">get_arch_list</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return list XPU architectures this library was compiled for.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_available</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">arch_flags</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_xpu_getArchFlags</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">arch_flags</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="n">arch_flags</span><span class="o">.</span><span class="n">split</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_gencode_flags"><a class="viewcode-back" href="../../generated/torch.xpu.get_gencode_flags.html#torch.xpu.get_gencode_flags">[docs]</a><span class="k">def</span> <span class="nf">get_gencode_flags</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return XPU AOT(ahead-of-time) build flags this library was compiled with.&quot;&quot;&quot;</span>
+    <span class="n">arch_list</span> <span class="o">=</span> <span class="n">get_arch_list</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arch_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;-device </span><span class="si">{</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arch</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">arch</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">arch_list</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span></div>
+
+
 <span class="k">def</span> <span class="nf">_get_generator</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Generator</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the XPU Generator object for the given device.</span>
 
@@ -1004,9 +1014,11 @@
     <span class="s2">&quot;device_of&quot;</span><span class="p">,</span>
     <span class="s2">&quot;device_count&quot;</span><span class="p">,</span>
     <span class="s2">&quot;empty_cache&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_arch_list&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_device_capability&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_device_name&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_device_properties&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_gencode_flags&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_rng_state&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_rng_state_all&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_stream&quot;</span><span class="p">,</span>
