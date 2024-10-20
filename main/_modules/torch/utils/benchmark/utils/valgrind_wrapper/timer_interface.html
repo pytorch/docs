@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite8b1409 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb1b7c71 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -698,7 +698,6 @@
     <span class="n">stmt_callgrind_out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">newline</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>  <span class="c1"># `\` cannot appear in fstring code section.</span>
         <span class="n">base_stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">baseline_exclusive_stats</span>
         <span class="n">output</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="si">{</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="si">}</span>
@@ -1185,7 +1184,7 @@
                 <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to collect callgrind profile:</span><span class="se">\n</span><span class="si">{</span><span class="n">error_report</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
             <span class="k">def</span> <span class="nf">parse_output</span><span class="p">(</span><span class="n">fpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">inclusive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FunctionCounts</span><span class="p">:</span>
-                <span class="n">annotate_invocation</span><span class="p">,</span> <span class="n">annotate_invocation_output</span> <span class="o">=</span> <span class="n">run</span><span class="p">([</span>
+                <span class="n">_annotate_invocation</span><span class="p">,</span> <span class="n">annotate_invocation_output</span> <span class="o">=</span> <span class="n">run</span><span class="p">([</span>
                     <span class="s2">&quot;callgrind_annotate&quot;</span><span class="p">,</span>
                     <span class="sa">f</span><span class="s2">&quot;--inclusive=</span><span class="si">{</span><span class="s1">&#39;yes&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">inclusive</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;no&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;--threshold=100&quot;</span><span class="p">,</span>
