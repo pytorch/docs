@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite4ad028 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd7e0e1d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -536,6 +536,7 @@
 
 <span class="kn">from</span> <span class="nn">._compatibility</span> <span class="kn">import</span> <span class="n">compatibility</span>
 <span class="kn">from</span> <span class="nn">.graph</span> <span class="kn">import</span> <span class="n">_custom_builtins</span><span class="p">,</span> <span class="n">_is_from_torch</span><span class="p">,</span> <span class="n">_PyTreeCodeGen</span><span class="p">,</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">PythonCode</span>
+
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;reduce_graph_module&quot;</span><span class="p">,</span>
@@ -904,11 +905,9 @@
                 <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">e</span><span class="o">.</span><span class="n">__traceback__</span>
-            <span class="n">topmost_framesummary</span><span class="p">:</span> <span class="p">(</span>
-                <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span>
-            <span class="p">)</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">StackSummary</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">walk_tb</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">))[</span>
-                <span class="o">-</span><span class="mi">1</span>
-            <span class="p">]</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">topmost_framesummary</span><span class="p">:</span> <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">traceback</span><span class="o">.</span><span class="n">StackSummary</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">walk_tb</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="s2">&quot;eval_with_key&quot;</span> <span class="ow">in</span> <span class="n">topmost_framesummary</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span>
                     <span class="n">_WrappedCall</span><span class="o">.</span><span class="n">_generate_error_message</span><span class="p">(</span><span class="n">topmost_framesummary</span><span class="p">),</span>
@@ -1130,20 +1129,20 @@
                 <span class="n">module_str</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;torch.load(r&#39;</span><span class="si">{</span><span class="n">module_file</span><span class="si">}</span><span class="s2">&#39;, weights_only=False) # </span><span class="si">{</span><span class="n">module_repr</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
-            <span class="n">model_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="o">*</span><span class="mi">2</span><span class="si">}</span><span class="s2">self.</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">module_str</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">model_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">self.</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">module_str</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
 
         <span class="k">for</span> <span class="n">buffer_name</span><span class="p">,</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">buffer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">model_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="o">*</span><span class="mi">2</span><span class="si">}</span><span class="s2">self.register_buffer(&#39;</span><span class="si">{</span><span class="n">buffer_name</span><span class="si">}</span><span class="s2">&#39;, torch.empty(</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s2">, dtype=</span><span class="si">{</span><span class="n">buffer</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">))</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">model_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">self.register_buffer(&#39;</span><span class="si">{</span><span class="n">buffer_name</span><span class="si">}</span><span class="s2">&#39;, torch.empty(</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s2">, dtype=</span><span class="si">{</span><span class="n">buffer</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">))</span><span class="se">\n</span><span class="s2">&quot;</span>  <span class="c1"># noqa: B950</span>
 
         <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">model_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="o">*</span><span class="mi">2</span><span class="si">}</span><span class="s2">self.</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s2"> = torch.nn.Parameter(torch.empty(</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s2">, dtype=</span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">))</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">model_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">self.</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s2"> = torch.nn.Parameter(torch.empty(</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s2">, dtype=</span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">))</span><span class="se">\n</span><span class="s2">&quot;</span>  <span class="c1"># noqa: B950</span>
 
         <span class="n">model_str</span> <span class="o">+=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="o">*</span><span class="mi">2</span><span class="si">}</span><span class="s2">self.load_state_dict(torch.load(r&#39;</span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">/state_dict.pt&#39;))</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tab</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">self.load_state_dict(torch.load(r&#39;</span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">/state_dict.pt&#39;))</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="p">)</span>
         <span class="n">model_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_addindent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
 
@@ -1185,7 +1184,6 @@
         <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="bp">self</span>
 
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
-
             <span class="n">submod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">submod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1225,7 +1223,6 @@
 
         <span class="c1"># Get the parent module</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
-
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">False</span>
 
@@ -1261,9 +1258,7 @@
         <span class="n">used</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-
             <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_module&quot;</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;get_attr&quot;</span><span class="p">:</span>
-
                 <span class="c1"># A list of strings representing the different parts</span>
                 <span class="c1"># of the path. For example, `foo.bar.baz` gives us</span>
                 <span class="c1"># [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;]</span>

@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite4ad028 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd7e0e1d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -569,6 +569,7 @@
         <span class="n">is_initialized</span><span class="p">,</span>
         <span class="n">new_group</span><span class="p">,</span>
         <span class="n">ProcessGroup</span><span class="p">,</span>
+        <span class="n">split_group</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -1019,11 +1020,11 @@
             <span class="c1"># functional collectives. See details in:</span>
             <span class="c1"># https://github.com/pytorch/pytorch/issues/93173#issuecomment-1907095208</span>
             <span class="n">dim_group_infos</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">default_group</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="n">get_world_size</span><span class="p">():</span>
                 <span class="c1"># Append the default pg to the first dim groups only if the default pg is compatible with `self.device_type`.</span>
                 <span class="c1"># Otherwise, create new pg.</span>
-                <span class="n">default_group</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
                 <span class="n">ranks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">get_world_size</span><span class="p">()))</span>
                 <span class="n">dim_group</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="n">new_group</span><span class="p">(</span>
@@ -1050,35 +1051,66 @@
                     <span class="n">pg_ranks_by_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">swapdims</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
                         <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
                     <span class="p">)</span>
-                    <span class="c1"># multi-dim mesh, create subgroups by looping over the pg_ranks</span>
-                    <span class="c1"># for each dim and append the groups</span>
+
+                    <span class="c1"># Respect dim group options specified via _MeshEnv.set_dim_group_options().</span>
+                    <span class="c1"># Inherit from the parent group if no options are specified for the group.</span>
+                    <span class="k">if</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">mesh_dim_group_options</span><span class="p">:</span>
+                        <span class="p">(</span>
+                            <span class="n">backend</span><span class="p">,</span>
+                            <span class="n">pg_options</span><span class="p">,</span>
+                        <span class="p">)</span> <span class="o">=</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">mesh_dim_group_options</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">backend</span><span class="p">,</span> <span class="n">pg_options</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+                    <span class="c1"># If we have a 2D mesh with mesh_dim_names (&quot;dp&quot;, &quot;tp&quot;), the group description</span>
+                    <span class="c1"># of the subgroups would be `mesh_dim_dp` and `mesh_name_tp`.</span>
+                    <span class="c1"># If the mesh doesn&#39;t not have a mesh_dim_names, then the group description of the</span>
+                    <span class="c1"># subgroup would be `mesh_dim_0` and `mesh_dim_1`.</span>
+                    <span class="n">group_desc</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;mesh_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span>
+                        <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;mesh_dim_</span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+                    <span class="c1"># If bound_device_id exists, it means the nccl communicator has been eagerly initialized</span>
+                    <span class="c1"># so that we can use `split_group` to create subgroups through `ncclCommSplit`.</span>
+                    <span class="c1"># In this case, we only need to make one API call (`split_group``) for the subgroup creation</span>
+                    <span class="c1"># for each mesh dimension. In a 2 * 4 mesh, we only need to make 2 API calls per ranks to create</span>
+                    <span class="c1"># all the subgroups.</span>
+                    <span class="c1"># Otherwise, we need to make more than one API call (`new_group`) for subgroup creations. The</span>
+                    <span class="c1"># numbers of API calls are equal to the number of subgroups for each mesh dimension. In a 2 * 4</span>
+                    <span class="c1"># mesh, we need to make 2 + 4 = 6 API calls per ranks to create all the subgroups.</span>
+                    <span class="n">dim_group</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">bound_device_id</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span>
+                            <span class="n">default_group</span><span class="p">,</span> <span class="s2">&quot;bound_device_id&quot;</span><span class="p">,</span> <span class="kc">None</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">dim_group</span> <span class="o">=</span> <span class="n">split_group</span><span class="p">(</span>
+                            <span class="n">parent_pg</span><span class="o">=</span><span class="n">default_group</span><span class="p">,</span>
+                            <span class="n">pg_options</span><span class="o">=</span><span class="n">pg_options</span><span class="p">,</span>
+                            <span class="n">split_ranks</span><span class="o">=</span><span class="n">pg_ranks_by_dim</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                            <span class="n">group_desc</span><span class="o">=</span><span class="n">group_desc</span><span class="p">,</span>
+                        <span class="p">)</span>
+
+                    <span class="c1"># If the subgroup has been already created through `split_group`, we simply loop over `pg_ranks_by_dim`</span>
+                    <span class="c1"># and append the `(group_tag, subgroup_ranks, and group_name)` tuple to the `dim_group_infos` list when</span>
+                    <span class="c1"># the current rank is in the subgroup.</span>
+                    <span class="c1"># Otherwise, we use `new_group` instead of `split_group` to create subgroups by looping over `pg_ranks_by_dim`</span>
+                    <span class="c1"># along with appending information to the `dim_group_infos` list whenever necessary.</span>
                     <span class="k">for</span> <span class="n">dim_mesh</span> <span class="ow">in</span> <span class="n">pg_ranks_by_dim</span><span class="p">:</span>
                         <span class="n">subgroup_ranks</span> <span class="o">=</span> <span class="n">dim_mesh</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-
-                        <span class="c1"># Respect dim group options specified via _MeshEnv.set_dim_group_options().</span>
-                        <span class="c1"># Inherit from the parent group if no options are specified for the group.</span>
-                        <span class="k">if</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">mesh_dim_group_options</span><span class="p">:</span>
-                            <span class="p">(</span>
-                                <span class="n">backend</span><span class="p">,</span>
-                                <span class="n">pg_options</span><span class="p">,</span>
-                            <span class="p">)</span> <span class="o">=</span> <span class="n">_mesh_resources</span><span class="o">.</span><span class="n">mesh_dim_group_options</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">backend</span><span class="p">,</span> <span class="n">pg_options</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
                         <span class="c1"># We temporarily revert the re-use subgroup, since it breaks two internal tests.</span>
                         <span class="c1"># Temporarily reverting to resolve test timeout while root-causing.</span>
                         <span class="c1"># TODO: Add two tests to cover internal tests scenarios and re-enable reuse subgroup if exists.</span>
-                        <span class="n">group_desc</span> <span class="o">=</span> <span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;mesh_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh_dim_names</span>
-                            <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;mesh_dim_</span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">&quot;</span>
-                        <span class="p">)</span>
-                        <span class="n">dim_group</span> <span class="o">=</span> <span class="n">new_group</span><span class="p">(</span>
-                            <span class="n">ranks</span><span class="o">=</span><span class="n">subgroup_ranks</span><span class="p">,</span>
-                            <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span>
-                            <span class="n">pg_options</span><span class="o">=</span><span class="n">pg_options</span><span class="p">,</span>
-                            <span class="n">group_desc</span><span class="o">=</span><span class="n">group_desc</span><span class="p">,</span>
-                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="n">bound_device_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">dim_group</span> <span class="o">=</span> <span class="n">new_group</span><span class="p">(</span>
+                                <span class="n">ranks</span><span class="o">=</span><span class="n">subgroup_ranks</span><span class="p">,</span>
+                                <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span>
+                                <span class="n">pg_options</span><span class="o">=</span><span class="n">pg_options</span><span class="p">,</span>
+                                <span class="n">group_desc</span><span class="o">=</span><span class="n">group_desc</span><span class="p">,</span>
+                            <span class="p">)</span>
 
                         <span class="c1"># only add to dim_groups if the current rank in the subgroup</span>
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rank</span><span class="p">()</span> <span class="ow">in</span> <span class="n">subgroup_ranks</span><span class="p">:</span>

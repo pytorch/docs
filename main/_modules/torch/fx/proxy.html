@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite4ad028 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd7e0e1d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -518,30 +518,38 @@
   <h1>Source code for torch.fx.proxy</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: ignore-errors</span>
 
-<span class="kn">import</span> <span class="nn">enum</span>
-<span class="kn">import</span> <span class="nn">dis</span>
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">dis</span>
+<span class="kn">import</span> <span class="nn">enum</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">fields</span><span class="p">,</span> <span class="n">is_dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">is_dataclass</span><span class="p">,</span> <span class="n">fields</span>
-
-
-<span class="kn">from</span> <span class="nn">.graph</span> <span class="kn">import</span> <span class="n">magic_methods</span><span class="p">,</span> <span class="n">reflectable_magic_methods</span><span class="p">,</span> <span class="n">Graph</span>
-<span class="kn">from</span> <span class="nn">torch.utils._traceback</span> <span class="kn">import</span> <span class="n">CapturedTraceback</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Callable</span>
-<span class="kn">from</span> <span class="nn">.node</span> <span class="kn">import</span> <span class="n">Target</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Argument</span><span class="p">,</span> <span class="n">base_types</span><span class="p">,</span> <span class="n">map_aggregate</span>
-<span class="kn">from</span> <span class="nn">._compatibility</span> <span class="kn">import</span> <span class="n">compatibility</span>
-<span class="kn">from</span> <span class="nn">.operator_schemas</span> <span class="kn">import</span> <span class="n">check_for_mutable_operation</span>
+<span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx.traceback</span> <span class="k">as</span> <span class="nn">fx_traceback</span>
+<span class="kn">from</span> <span class="nn">torch.utils._traceback</span> <span class="kn">import</span> <span class="n">CapturedTraceback</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TracerBase&#39;</span><span class="p">,</span> <span class="s1">&#39;GraphAppendingTracer&#39;</span><span class="p">,</span> <span class="s1">&#39;TraceError&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;Proxy&#39;</span><span class="p">,</span> <span class="s1">&#39;MetaProxy&#39;</span><span class="p">,</span> <span class="s1">&#39;Attribute&#39;</span><span class="p">,</span> <span class="s1">&#39;ParameterProxy&#39;</span><span class="p">,</span> <span class="s1">&#39;Scope&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;ScopeContextManager&#39;</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">._compatibility</span> <span class="kn">import</span> <span class="n">compatibility</span>
+<span class="kn">from</span> <span class="nn">.graph</span> <span class="kn">import</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">magic_methods</span><span class="p">,</span> <span class="n">reflectable_magic_methods</span>
+<span class="kn">from</span> <span class="nn">.node</span> <span class="kn">import</span> <span class="n">Argument</span><span class="p">,</span> <span class="n">base_types</span><span class="p">,</span> <span class="n">map_aggregate</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Target</span>
+<span class="kn">from</span> <span class="nn">.operator_schemas</span> <span class="kn">import</span> <span class="n">check_for_mutable_operation</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;TracerBase&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GraphAppendingTracer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TraceError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Proxy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MetaProxy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Attribute&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ParameterProxy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Scope&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ScopeContextManager&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -549,7 +557,7 @@
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Scope</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Scope object that records the module path and the module type</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Scope object that records the module path and the module type</span>
 <span class="sd">    of a module. Scope is used to track the information of the module</span>
 <span class="sd">    that contains a Node in a Graph of GraphModule. For example::</span>
 
@@ -558,6 +566,7 @@
 <span class="sd">                # This will be a call_method Node in GraphModule,</span>
 <span class="sd">                # scope for this would be (module_path=&quot;sub&quot;, module_type=Sub)</span>
 <span class="sd">                return x.transpose(1, 2)</span>
+
 
 <span class="sd">        class M(torch.nn.Module):</span>
 <span class="sd">            def __init__(self) -&gt; None:</span>
@@ -580,7 +589,7 @@
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">ScopeContextManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; A context manager to track the Scope of Node during symbolic tracing.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager to track the Scope of Node during symbolic tracing.</span>
 <span class="sd">    When entering a forward function of a Module, we&#39;ll update the scope information of</span>
 <span class="sd">    the current module, and when we exit, we&#39;ll restore the previous scope information.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -620,28 +629,28 @@
     <span class="s2">&quot;quantization_tag&quot;</span><span class="p">,</span>  <span class="c1"># TODO deprecated</span>
     <span class="s2">&quot;_numeric_debug_handle&quot;</span><span class="p">,</span>  <span class="c1"># TODO deprecated</span>
     <span class="s2">&quot;custom&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;partitioner_tag&quot;</span>
+    <span class="s2">&quot;partitioner_tag&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">TracerBase</span><span class="p">:</span>
     <span class="n">graph</span><span class="p">:</span> <span class="n">Graph</span>
-    <span class="n">record_stack_traces</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">record_stack_traces</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="c1"># Feature flag for mutable schema checking</span>
     <span class="c1"># Enableby default in 1.12</span>
-    <span class="n">check_mutable_operations</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">check_mutable_operations</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="c1"># Feature flag for assert tracing</span>
-    <span class="n">trace_asserts</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">trace_asserts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="c1"># Feature flag for proxying accesses to buffer values</span>
-    <span class="n">proxy_buffer_attributes</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">proxy_buffer_attributes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="c1"># Name of the function to be traced. It will only be used when</span>
     <span class="c1"># ``root`` is an instance of ``nn.Module``</span>
     <span class="n">traced_func_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;forward&quot;</span>
 
     <span class="c1"># Maps the containing module&#39;s name to the operator name</span>
-    <span class="n">scope</span> <span class="p">:</span> <span class="n">Scope</span>
+    <span class="n">scope</span><span class="p">:</span> <span class="n">Scope</span>
 
     <span class="c1"># Records the module call stack</span>
     <span class="n">module_stack</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
@@ -650,9 +659,15 @@
     <span class="n">node_name_to_scope</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]]</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span> <span class="p">:</span> <span class="n">Target</span><span class="p">,</span>
-                    <span class="n">args</span> <span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Argument</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Argument</span><span class="p">],</span> <span class="n">name</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="n">type_expr</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">Target</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Argument</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Argument</span><span class="p">],</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">type_expr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inserts a graph node given target, args, kwargs, and name.</span>
 
@@ -661,7 +676,7 @@
 <span class="sd">        want to disallow in-place operations from being recorded.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;call_function&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_mutable_operations</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_mutable_operations</span><span class="p">:</span>
             <span class="n">check_for_mutable_operation</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_expr</span><span class="p">)</span>
@@ -700,20 +715,27 @@
             <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;seq_nr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_seq_nr</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span><span class="p">:</span>
-            <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;nn_module_stack&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;nn_module_stack&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span><span class="p">)</span>
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;create_node </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">node</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Proxy&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Proxy&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Proxy</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Target</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-                     <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">type_expr</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                     <span class="n">proxy_factory_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Node</span><span class="p">],</span> <span class="s1">&#39;Proxy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">create_proxy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">Target</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">type_expr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">proxy_factory_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Node</span><span class="p">],</span> <span class="s2">&quot;Proxy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a Node from the given arguments, then return the Node</span>
 <span class="sd">        wrapped in a Proxy object.</span>
 
@@ -721,7 +743,7 @@
 <span class="sd">        represents the parameter of a function. If we need to encode</span>
 <span class="sd">        a default parameter, we use the ``args`` tuple. ``args`` is</span>
 <span class="sd">        otherwise empty for ``placeholder`` Nodes.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">args_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
         <span class="n">kwargs_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -736,8 +758,7 @@
             <span class="n">proxy</span> <span class="o">=</span> <span class="n">proxy_factory_fn</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_stack_traces</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">proxy</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">stack_trace</span><span class="p">:</span>
-            <span class="n">proxy</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">stack_trace</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">())</span>
-
+            <span class="n">proxy</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">stack_trace</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">())</span>
 
         <span class="k">return</span> <span class="n">proxy</span>
 
@@ -751,20 +772,23 @@
         <span class="c1"># the user code during tracing.</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span>
 
-        <span class="n">pt_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;torch/fx/proxy.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/fx/_symbolic_trace.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/fx/experimental/proxy_tensor.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/_ops.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/_tensor.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/utils/_python_dispatch.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/_prims_common/wrappers.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/_refs/__init__.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/_refs/nn/functional/__init__.py&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;torch/utils/_stats.py&#39;</span><span class="p">,</span>
-                    <span class="p">]</span>
+        <span class="n">pt_files</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;torch/fx/proxy.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/fx/_symbolic_trace.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/fx/experimental/proxy_tensor.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/_ops.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/_tensor.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/utils/_python_dispatch.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/_prims_common/wrappers.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/_refs/__init__.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/_refs/nn/functional/__init__.py&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;torch/utils/_stats.py&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
         <span class="k">while</span> <span class="n">frame</span><span class="p">:</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_back</span>
-            <span class="k">if</span> <span class="n">frame</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="ow">not</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">pt_files</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">frame</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span>
+                <span class="ow">not</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">pt_files</span>
+            <span class="p">):</span>
                 <span class="k">break</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">frame</span><span class="p">:</span>
@@ -782,11 +806,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span>  <span class="c1"># most common arg type goes first</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s1">&#39;__fx_create_arg__&#39;</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&quot;__fx_create_arg__&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">__fx_create_arg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># aggregates</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s1">&#39;_fields&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&quot;_fields&quot;</span><span class="p">):</span>
                 <span class="c1"># NamedTuple constructors don&#39;t seem to like getting a generator</span>
                 <span class="c1"># expression as an argument to their constructor, so build this</span>
                 <span class="c1"># intermediate tuple and unpack it into the NamedTuple constructor</span>
@@ -796,10 +820,13 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+
             <span class="k">def</span> <span class="nf">no_node</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Keys for dictionaries used as an argument cannot contain a &quot;</span>
-                                       <span class="sa">f</span><span class="s2">&quot;Node. Got key: </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                        <span class="s2">&quot;Keys for dictionaries used as an argument cannot contain a &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;Node. Got key: </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
 
             <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -812,16 +839,27 @@
                 <span class="n">r</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">r</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">step</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">step</span><span class="p">),</span>
+            <span class="p">)</span>
 
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">range</span><span class="p">):</span>
-            <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">step</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">range</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">step</span><span class="p">),</span>
+            <span class="p">)</span>
 
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OpOverload</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">HigherOrderOperator</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">a</span>
 
         <span class="k">elif</span> <span class="n">is_dataclass</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">))</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="n">a</span><span class="p">)}</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_arg</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="p">}</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">(),</span> <span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">base_types</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">))</span> <span class="ow">or</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">a</span> <span class="ow">is</span> <span class="o">...</span><span class="p">:</span>
@@ -830,37 +868,41 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;argument of type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">to_bool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="s1">&#39;Proxy&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">to_bool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;Proxy&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a proxy object is being converted to a boolean, such as</span>
 <span class="sd">        when used in control flow.  Normally we don&#39;t know what to do because</span>
 <span class="sd">        we don&#39;t know the value of the proxy, but a custom tracer can attach more</span>
 <span class="sd">        information to the graph node using create_node and can choose to return a value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="n">TraceError</span><span class="p">(</span><span class="s1">&#39;symbolically traced variables cannot be used as inputs to control flow&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">TraceError</span><span class="p">(</span>
+            <span class="s2">&quot;symbolically traced variables cannot be used as inputs to control flow&quot;</span>
+        <span class="p">)</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="s1">&#39;Proxy&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;Proxy&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a proxy object is being iterated over, such as</span>
 <span class="sd">        when used in control flow.  Normally we don&#39;t know what to do because</span>
 <span class="sd">        we don&#39;t know the value of the proxy, but a custom tracer can attach more</span>
 <span class="sd">        information to the graph node using create_node and can choose to return an iterator.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="n">TraceError</span><span class="p">(</span><span class="s1">&#39;Proxy object cannot be iterated. This can be &#39;</span>
-                         <span class="s1">&#39;attempted when the Proxy is used in a loop or&#39;</span>
-                         <span class="s1">&#39; as a *args or **kwargs function argument. &#39;</span>
-                         <span class="s1">&#39;See the torch.fx docs on pytorch.org for a &#39;</span>
-                         <span class="s1">&#39;more detailed explanation of what types of &#39;</span>
-                         <span class="s1">&#39;control flow can be traced, and check out the&#39;</span>
-                         <span class="s1">&#39; Proxy docstring for help troubleshooting &#39;</span>
-                         <span class="s1">&#39;Proxy iteration errors&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">TraceError</span><span class="p">(</span>
+            <span class="s2">&quot;Proxy object cannot be iterated. This can be &quot;</span>
+            <span class="s2">&quot;attempted when the Proxy is used in a loop or&quot;</span>
+            <span class="s2">&quot; as a *args or **kwargs function argument. &quot;</span>
+            <span class="s2">&quot;See the torch.fx docs on pytorch.org for a &quot;</span>
+            <span class="s2">&quot;more detailed explanation of what types of &quot;</span>
+            <span class="s2">&quot;control flow can be traced, and check out the&quot;</span>
+            <span class="s2">&quot; Proxy docstring for help troubleshooting &quot;</span>
+            <span class="s2">&quot;Proxy iteration errors&quot;</span>
+        <span class="p">)</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="s1">&#39;Proxy&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;Proxy&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when a proxy object is has the keys() method called.</span>
 <span class="sd">        This is what happens when ** is called on a proxy. This should return an</span>
 <span class="sd">        iterator it ** is suppose to work in your custom tracer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Attribute</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;keys&#39;</span><span class="p">)()</span>
+        <span class="k">return</span> <span class="n">Attribute</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;keys&quot;</span><span class="p">)()</span>
 
 
 <span class="c1"># used in Proxy object when just appending to the graph while not tracing.</span>
@@ -873,13 +915,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">node_name_to_scope</span> <span class="o">=</span> <span class="p">{}</span>
 
+
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">assert_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">assert</span> <span class="n">x</span>
 
+
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">TraceError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
     <span class="k">pass</span>
+
 
 <div class="viewcode-block" id="Proxy"><a class="viewcode-back" href="../../../fx.html#torch.fx.Proxy">[docs]</a><span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Proxy</span><span class="p">:</span>
@@ -912,7 +957,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">tracer</span><span class="p">:</span> <span class="s1">&#39;Optional[TracerBase]&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">tracer</span><span class="p">:</span> <span class="s2">&quot;Optional[TracerBase]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">tracer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># This allows you to create a Proxy object around a raw Node</span>
             <span class="n">tracer</span> <span class="o">=</span> <span class="n">GraphAppendingTracer</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
@@ -920,9 +965,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Proxy(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Proxy(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Attribute&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Attribute&quot;</span><span class="p">:</span>
         <span class="c1"># note: not added to the graph yet, if this is a method call</span>
         <span class="c1"># we peephole optimize to the method invocation</span>
         <span class="k">return</span> <span class="n">Attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
@@ -935,6 +980,7 @@
         <span class="c1"># will go to __getattr__(self, &quot;__deepcopy__&quot;) and return a</span>
         <span class="c1"># Attribute(__deepcopy__), and may go into an infinite loop in some cases.</span>
         <span class="kn">import</span> <span class="nn">copy</span>
+
         <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">try</span><span class="p">:</span>
@@ -942,7 +988,10 @@
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                     <span class="s2">&quot;Shallow copy </span><span class="si">%s</span><span class="s2"> of Proxy because it cannot be deepcopied. &quot;</span>
-                    <span class="s2">&quot;Proxy is created for node </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="s2">&quot;Proxy is created for node </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">k</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="n">new_obj</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
             <span class="n">new_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_obj</span>
         <span class="k">assert</span> <span class="s2">&quot;node&quot;</span> <span class="ow">in</span> <span class="n">new_dict</span>
@@ -956,10 +1005,12 @@
         <span class="c1"># This is called when being unpickled/loaded.</span>
         <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="n">d</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Proxy&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_method&#39;</span><span class="p">,</span> <span class="s1">&#39;__call__&#39;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,)</span> <span class="o">+</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Proxy&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span>
+            <span class="s2">&quot;call_method&quot;</span><span class="p">,</span> <span class="s2">&quot;__call__&quot;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,)</span> <span class="o">+</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Proxy&#39;</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s2">&quot;Proxy&quot;</span><span class="p">]:</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span>
         <span class="k">assert</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">calling_frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_back</span>
@@ -967,17 +1018,20 @@
         <span class="n">inst_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dis</span><span class="o">.</span><span class="n">get_instructions</span><span class="p">(</span><span class="n">calling_frame</span><span class="o">.</span><span class="n">f_code</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
             <span class="kn">from</span> <span class="nn">bisect</span> <span class="kn">import</span> <span class="n">bisect_left</span>
-            <span class="n">inst_idx</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span><span class="n">inst_list</span><span class="p">,</span> <span class="n">calling_frame</span><span class="o">.</span><span class="n">f_lasti</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+
+            <span class="n">inst_idx</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span>
+                <span class="n">inst_list</span><span class="p">,</span> <span class="n">calling_frame</span><span class="o">.</span><span class="n">f_lasti</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">offset</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">inst_idx</span> <span class="o">=</span> <span class="n">calling_frame</span><span class="o">.</span><span class="n">f_lasti</span> <span class="o">//</span> <span class="mi">2</span>
         <span class="n">inst</span> <span class="o">=</span> <span class="n">inst_list</span><span class="p">[</span><span class="n">inst_idx</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s1">&#39;UNPACK_SEQUENCE&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;UNPACK_SEQUENCE&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">argval</span><span class="p">))</span>  <span class="c1"># type: ignore[index]</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_function&#39;</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">abs</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="p">{})</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">abs</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="p">{})</span>
 
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">trace_asserts</span><span class="p">:</span>
@@ -990,19 +1044,23 @@
             <span class="n">insts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dis</span><span class="o">.</span><span class="n">get_instructions</span><span class="p">(</span><span class="n">calling_frame</span><span class="o">.</span><span class="n">f_code</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
                 <span class="kn">from</span> <span class="nn">bisect</span> <span class="kn">import</span> <span class="n">bisect_left</span>
+
                 <span class="n">cur</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span><span class="n">insts</span><span class="p">,</span> <span class="n">calling_frame</span><span class="o">.</span><span class="n">f_lasti</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">cur</span> <span class="o">=</span> <span class="n">calling_frame</span><span class="o">.</span><span class="n">f_lasti</span> <span class="o">//</span> <span class="mi">2</span>
             <span class="n">inst</span> <span class="o">=</span> <span class="n">insts</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s1">&#39;POP_JUMP_IF_TRUE&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;POP_JUMP_IF_TRUE&quot;</span><span class="p">:</span>
                 <span class="n">first</span> <span class="o">=</span> <span class="n">insts</span><span class="p">[</span><span class="n">cur</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
                 <span class="k">assert</span> <span class="n">inst</span><span class="o">.</span><span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                 <span class="n">last</span> <span class="o">=</span> <span class="n">insts</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">arg</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="n">starts_with_assert</span> <span class="o">=</span> <span class="p">(</span><span class="n">first</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s1">&#39;LOAD_GLOBAL&#39;</span> <span class="ow">and</span> <span class="n">first</span><span class="o">.</span><span class="n">argval</span> <span class="o">==</span> <span class="s1">&#39;AssertionError&#39;</span>
-                                      <span class="ow">or</span> <span class="n">first</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s1">&#39;LOAD_ASSERTION_ERROR&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">starts_with_assert</span> <span class="ow">and</span> <span class="n">last</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s1">&#39;RAISE_VARARGS&#39;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_function&#39;</span><span class="p">,</span> <span class="n">assert_fn</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="p">{})</span>
+                <span class="n">starts_with_assert</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">first</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;LOAD_GLOBAL&quot;</span>
+                    <span class="ow">and</span> <span class="n">first</span><span class="o">.</span><span class="n">argval</span> <span class="o">==</span> <span class="s2">&quot;AssertionError&quot;</span>
+                    <span class="ow">or</span> <span class="n">first</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;LOAD_ASSERTION_ERROR&quot;</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">starts_with_assert</span> <span class="ow">and</span> <span class="n">last</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;RAISE_VARARGS&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">assert_fn</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="p">{})</span>
                     <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">to_bool</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -1012,39 +1070,51 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;&#39;len&#39; is not supported in symbolic tracing by default. If you want &quot;</span>
-                           <span class="s2">&quot;this call to be recorded, please call torch.fx.wrap(&#39;len&#39;) at &quot;</span>
-                           <span class="s2">&quot;module scope&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;&#39;len&#39; is not supported in symbolic tracing by default. If you want &quot;</span>
+            <span class="s2">&quot;this call to be recorded, please call torch.fx.wrap(&#39;len&#39;) at &quot;</span>
+            <span class="s2">&quot;module scope&quot;</span>
+        <span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">orig_method</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">args</span> <span class="o">=</span> <span class="n">args</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="p">()</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
 
-        <span class="n">tracers</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tracers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">def</span> <span class="nf">find_tracer</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
                 <span class="n">tracers</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">tracer</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">map_aggregate</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">find_tracer</span><span class="p">)</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">map_aggregate</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">find_tracer</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tracers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found multiple different tracers </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">tracers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s1"> while &#39;</span>
-                               <span class="sa">f</span><span class="s1">&#39;trying to trace operations </span><span class="si">{</span><span class="n">orig_method</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Found multiple different tracers </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">tracers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2"> while &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;trying to trace operations </span><span class="si">{</span><span class="n">orig_method</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
         <span class="n">tracer</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">tracers</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orig_method</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">ScriptMethod</span><span class="p">):</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">orig_method</span><span class="o">.</span><span class="n">owner</span><span class="p">,)</span> <span class="o">+</span> <span class="n">args</span>
-            <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_method&#39;</span><span class="p">,</span> <span class="n">orig_method</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s2">&quot;call_method&quot;</span><span class="p">,</span> <span class="n">orig_method</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">overrides</span><span class="o">.</span><span class="n">is_tensor_method_or_property</span><span class="p">(</span><span class="n">orig_method</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_method&#39;</span><span class="p">,</span> <span class="n">orig_method</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span>
+                <span class="s2">&quot;call_method&quot;</span><span class="p">,</span> <span class="n">orig_method</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orig_method</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">HigherOrderOperator</span><span class="p">):</span>
                 <span class="c1"># TODO: Define how to symbolically trace HigherOrderOperators</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to symbolically trace HigherOrderOperators&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_function&#39;</span><span class="p">,</span> <span class="n">orig_method</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span>
-                                       <span class="n">name</span><span class="o">=</span><span class="n">tracer</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">_target_to_str</span><span class="p">(</span><span class="n">orig_method</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span></div>
+            <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span>
+                <span class="s2">&quot;call_function&quot;</span><span class="p">,</span>
+                <span class="n">orig_method</span><span class="p">,</span>
+                <span class="n">args</span><span class="p">,</span>
+                <span class="n">kwargs</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">tracer</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">_target_to_str</span><span class="p">(</span><span class="n">orig_method</span><span class="o">.</span><span class="vm">__name__</span><span class="p">),</span>
+            <span class="p">)</span></div>
 
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1053,12 +1123,14 @@
 <span class="sd">    A Proxy subclass that propagates metadata (meta[&#39;val&#39;]) during graph tracing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">tracer</span><span class="p">:</span> <span class="s1">&#39;Optional[TracerBase]&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fake_mode</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">tracer</span><span class="p">:</span> <span class="s2">&quot;Optional[TracerBase]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fake_mode</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">tracer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fake_mode</span> <span class="o">=</span> <span class="n">fake_mode</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;MetaProxy(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;MetaProxy(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">orig_method</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1071,15 +1143,18 @@
                 <span class="n">meta_proxy</span> <span class="o">=</span> <span class="n">arg</span>
                 <span class="k">break</span>
 
-        <span class="k">assert</span> <span class="n">meta_proxy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;No MetaProxy found in arguments, but one is expected.&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">meta_proxy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">),</span> <span class="s2">&quot;No MetaProxy found in arguments, but one is expected.&quot;</span>
 
         <span class="n">proxy</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__torch_function__</span><span class="p">(</span><span class="n">orig_method</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">meta_proxy</span><span class="o">.</span><span class="n">fake_mode</span><span class="p">:</span>
             <span class="n">proxy</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig_method</span><span class="p">(</span>
                 <span class="o">*</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">)</span> <span class="k">else</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">],</span>
-                <span class="o">**</span><span class="n">kwargs</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">MetaProxy</span><span class="p">(</span><span class="n">proxy</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">proxy</span><span class="o">.</span><span class="n">tracer</span><span class="p">,</span> <span class="n">meta_proxy</span><span class="o">.</span><span class="n">fake_mode</span><span class="p">)</span>
+
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Attribute</span><span class="p">(</span><span class="n">Proxy</span><span class="p">):</span>
@@ -1095,11 +1170,15 @@
         <span class="c1"># the node for attributes is added lazily, since most will just be method calls</span>
         <span class="c1"># which do not rely on the getitem call</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_function&#39;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr</span><span class="p">),</span> <span class="p">{})</span><span class="o">.</span><span class="n">node</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span>
+                <span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr</span><span class="p">),</span> <span class="p">{}</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">node</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_method&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,)</span> <span class="o">+</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span>
+            <span class="s2">&quot;call_method&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,)</span> <span class="o">+</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+        <span class="p">)</span>
 
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1109,6 +1188,7 @@
 <span class="sd">    attribute accesses pass through to the underlying  module parameter object,</span>
 <span class="sd">    so that conditional tests on these attributes will not throw exception during tracing</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracer</span><span class="p">:</span> <span class="n">TracerBase</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">tracer</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
@@ -1116,7 +1196,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;ParameterProxy(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;ParameterProxy(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1140,25 +1220,31 @@
 
 
 <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">magic_methods</span><span class="p">:</span>
+
     <span class="k">def</span> <span class="nf">_scope</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="n">tracer</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tracer</span>
             <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_function&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
         <span class="n">impl</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">method</span>
         <span class="n">as_magic</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;__</span><span class="si">{</span><span class="n">method</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">__&#39;</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">Proxy</span><span class="p">,</span> <span class="n">as_magic</span><span class="p">,</span> <span class="n">impl</span><span class="p">)</span>
+
     <span class="n">_scope</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">_define_reflectable</span><span class="p">(</span><span class="n">orig_method_name</span><span class="p">):</span>
     <span class="n">method_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;__r</span><span class="si">{</span><span class="n">orig_method_name</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">__&#39;</span>
 
     <span class="k">def</span> <span class="nf">impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
         <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">orig_method_name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s1">&#39;call_function&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="p">),</span> <span class="p">{})</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">create_proxy</span><span class="p">(</span><span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="p">),</span> <span class="p">{})</span>
+
     <span class="n">impl</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">method_name</span>
     <span class="n">impl</span><span class="o">.</span><span class="vm">__qualname__</span> <span class="o">=</span> <span class="n">method_name</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">Proxy</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">impl</span><span class="p">)</span>
+
 
 <span class="k">for</span> <span class="n">orig_method_name</span> <span class="ow">in</span> <span class="n">reflectable_magic_methods</span><span class="p">:</span>
     <span class="n">_define_reflectable</span><span class="p">(</span><span class="n">orig_method_name</span><span class="p">)</span>

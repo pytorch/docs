@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite4ad028 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd7e0e1d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -1795,19 +1795,36 @@
             <span class="s2">&quot;is not supported yet. Please call torch.load outside the skip_data context manager.&quot;</span>
         <span class="p">)</span>
 
+    <span class="n">true_values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">]</span>
+    <span class="c1"># Add ability to force safe only or non-safe weight loads via environment variables</span>
+    <span class="n">force_weights_only_load</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TORCH_FORCE_WEIGHTS_ONLY_LOAD&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">true_values</span>
+    <span class="p">)</span>
+    <span class="n">force_no_weights_only_load</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">true_values</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">force_weights_only_load</span> <span class="ow">and</span> <span class="n">force_no_weights_only_load</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Only one of `TORCH_FORCE_WEIGHTS_ONLY_LOAD` or `TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD` &quot;</span>
+            <span class="s2">&quot;should be set, but both were set.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">force_weights_only_load</span><span class="p">:</span>
+        <span class="n">weights_only</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">force_no_weights_only_load</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">weights_only</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the&quot;</span>
+                <span class="s2">&quot;`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.&quot;</span><span class="p">,</span>
+                <span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">weights_only</span> <span class="o">=</span> <span class="kc">False</span>
+
     <span class="k">if</span> <span class="n">weights_only</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">weights_only</span><span class="p">,</span> <span class="n">warn_weights_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">warn_weights_only</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="c1"># Add ability to force safe only weight loads via environment variable</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TORCH_FORCE_WEIGHTS_ONLY_LOAD&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span>
-        <span class="s2">&quot;1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;y&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;yes&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-    <span class="p">]:</span>
-        <span class="n">weights_only</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">if</span> <span class="n">weights_only</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">pickle_module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
