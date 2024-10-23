@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd7e0e1d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git38d3c27 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -1452,10 +1452,10 @@
             <span class="ow">and</span> <span class="n">rhs</span> <span class="ow">in</span> <span class="n">pending</span>
         <span class="p">):</span>
             <span class="c1"># TODO: DivideByKey needs to test divisibility at runtime!</span>
-            <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">DivideByKey</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">lhs</span><span class="p">)),)</span>
+            <span class="n">r</span><span class="p">[</span><span class="n">rhs</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">DivideByKey</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">lhs</span><span class="p">)),)</span>
             <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-                <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">real</span> <span class="o">//</span> <span class="nb">int</span><span class="p">(</span><span class="n">lhs</span><span class="p">))</span>
+                <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">real</span> <span class="o">//</span> <span class="nb">int</span><span class="p">(</span><span class="n">lhs</span><span class="p">))</span>
             <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span>
         <span class="c1"># The annoyance here arises from the fact that SymBool is</span>
         <span class="c1"># allocated by allocating a SymInt and then testing if it&#39;s equal</span>
@@ -2008,6 +2008,7 @@
         <span class="n">Tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span>
     <span class="p">]</span>
     <span class="n">phantom_symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span>
+    <span class="n">relaxed_sources</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Source</span><span class="p">]</span>
 
     <span class="n">_parents</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Source</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">_defs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -2073,10 +2074,12 @@
     <span class="k">def</span> <span class="nf">is_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source1</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span> <span class="n">source2</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="c1"># check whether source1 and source2 have the same root</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">source1</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">source2</span><span class="p">)</span>
-            <span class="ow">or</span>
+            <span class="c1"># or are relaxed</span>
+            <span class="p">(</span><span class="n">src1</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">source1</span><span class="p">))</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">relaxed_sources</span>
+            <span class="ow">or</span> <span class="p">(</span><span class="n">src2</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">source2</span><span class="p">))</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">relaxed_sources</span>
+            <span class="ow">or</span> <span class="n">src1</span> <span class="o">==</span> <span class="n">src2</span>
             <span class="c1"># check whether source1 is derived equal to source2</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">is_derived</span><span class="p">(</span><span class="n">source1</span><span class="p">,</span> <span class="n">source2</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_derived</span><span class="p">(</span><span class="n">source1</span><span class="p">,</span> <span class="n">source2</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">is_derived</span><span class="p">(</span>
@@ -3299,7 +3302,10 @@
                 <span class="n">relation_with_digit</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">flip</span><span class="p">(</span><span class="n">op</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">left</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">assert</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="n">t</span>
-                <span class="n">results</span><span class="p">[</span><span class="n">left</span><span class="p">][</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">results</span><span class="p">[</span><span class="n">left</span><span class="p">][</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># rhs source is not linked to Dim name</span>
+                    <span class="k">pass</span>
 
         <span class="c1"># order forced specializations based on name</span>
         <span class="n">forced_specializations</span> <span class="o">=</span> <span class="p">{</span>
@@ -7147,7 +7153,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2023, PyTorch Contributors.
+        &copy; Copyright 2024, PyTorch Contributors.
 
     </p>
   </div>

@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd7e0e1d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git38d3c27 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -894,7 +894,24 @@
         <span class="p">}</span>
 
 
-<span class="n">Constraint</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">_Constraint</span><span class="p">,</span> <span class="n">_DerivedConstraint</span><span class="p">]</span>
+<span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">_RelaxedConstraint</span><span class="p">(</span><span class="n">_ConstraintTarget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This represents a dim marked with Dim.AUTO/DYNAMIC (i.e. mark_dynamic() or maybe_mark_dynamic()),</span>
+<span class="sd">    which leaves relations &amp; min/max ranges for inference, instead of requiring explicit specification.</span>
+<span class="sd">    The intention is for constraint violations to not be raised if produce_guards() finds equalities or</span>
+<span class="sd">    relations between a _RelaxedConstraint and another type of _Constraint.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">serializable_spec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;t_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_id</span><span class="p">,</span>
+            <span class="s2">&quot;dim&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span>
+        <span class="p">}</span>
+
+
+<span class="n">Constraint</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">_Constraint</span><span class="p">,</span> <span class="n">_DerivedConstraint</span><span class="p">,</span> <span class="n">_RelaxedConstraint</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_process_equalities</span><span class="p">(</span>
@@ -905,6 +922,7 @@
     <span class="n">source_pairs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Source&quot;</span><span class="p">,</span> <span class="s2">&quot;Source&quot;</span><span class="p">]],</span>
     <span class="n">derived_equalities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Source&quot;</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Source&quot;</span><span class="p">,</span> <span class="s2">&quot;Symbol&quot;</span><span class="p">],</span> <span class="n">Callable</span><span class="p">]],</span>
     <span class="n">phantom_symbols</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Symbol&quot;</span><span class="p">],</span>
+    <span class="n">relaxed_sources</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Source&quot;</span><span class="p">],</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Updates `source_pairs`, `derived_equalities`, and `phantom_symbols` (which become</span>
@@ -919,7 +937,7 @@
     <span class="c1"># When t.size()[dim] maps to src0, src1, ..., srcN, we add</span>
     <span class="c1"># constraints that make src0 &quot;equal&quot; to src1, ..., srcN.</span>
     <span class="n">source_pairs</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">other_source</span><span class="p">)</span> <span class="k">for</span> <span class="n">other_source</span> <span class="ow">in</span> <span class="n">other_sources</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="n">_DerivedConstraint</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="n">_Constraint</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">constraint</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
             <span class="n">shared_t_id</span><span class="p">,</span> <span class="n">shared_dim</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">constraint</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
             <span class="n">other_sources</span> <span class="o">=</span> <span class="n">get_sources</span><span class="p">(</span><span class="n">shared_t_id</span><span class="p">,</span> <span class="n">shared_dim</span><span class="p">)</span>
@@ -928,7 +946,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">names</span><span class="p">[</span><span class="n">constraint</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">constraint</span><span class="o">.</span><span class="n">t_id</span><span class="p">,</span> <span class="n">constraint</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="n">_DerivedConstraint</span><span class="p">):</span>
         <span class="c1"># branch based on the root of the _DerivedConstraint</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">_PhantomRoot</span><span class="p">):</span>
             <span class="c1"># either root points to an input source</span>
@@ -951,6 +969,8 @@
         <span class="c1"># A derived equality (source, root, fn) informally corresponds to source = fn(root).</span>
         <span class="c1"># Here source describes an input and root might describe another input or a phantom symbol.</span>
         <span class="n">derived_equalities</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">fn</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="n">_RelaxedConstraint</span><span class="p">):</span>
+        <span class="n">relaxed_sources</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_tree_map_with_path</span><span class="p">(</span>
@@ -1182,7 +1202,6 @@
 <span class="sd">    using combined args + kwargs as reference for inputs structure.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">torch._dynamo.exc</span> <span class="kn">import</span> <span class="n">UserError</span><span class="p">,</span> <span class="n">UserErrorType</span>
-    <span class="kn">from</span> <span class="nn">torch._export.non_strict_utils</span> <span class="kn">import</span> <span class="n">_flatten_dynamic_shapes</span>
 
     <span class="k">if</span> <span class="n">dynamic_shapes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dynamic_shapes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span>
@@ -1287,24 +1306,6 @@
                 <span class="p">)</span>
 
     <span class="n">_tree_map_with_path</span><span class="p">(</span><span class="n">check_shape</span><span class="p">,</span> <span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">,</span> <span class="n">tree_name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span><span class="p">)</span>
-
-    <span class="c1"># raise user warning if both Dim.AUTO &amp; Dims are specified in dynamic_shapes</span>
-    <span class="n">flat_dynamic_shapes</span> <span class="o">=</span> <span class="n">_flatten_dynamic_shapes</span><span class="p">(</span><span class="n">combined_args</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="p">)</span>
-    <span class="n">flatter_dynamic_shapes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">tree_flatten</span><span class="p">(</span><span class="n">flat_dynamic_shapes</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">_Dim</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">flatter_dynamic_shapes</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
-        <span class="n">s</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">AUTO</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">flatter_dynamic_shapes</span>
-    <span class="p">):</span>
-        <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>
-            <span class="n">UserErrorType</span><span class="o">.</span><span class="n">INVALID_INPUT</span><span class="p">,</span>
-            <span class="s2">&quot;Specifying both `Dim.AUTO/Dim.DYNAMIC` and `Dim/DerivedDim` in `dynamic_shapes` is not &quot;</span>
-            <span class="s2">&quot;well supported at the moment, and can easily lead to constraint violation errors or obscure errors &quot;</span>
-            <span class="s2">&quot;in torch.export. Dim/DerivedDims expect all equal or related dimensions to be specified, &quot;</span>
-            <span class="s2">&quot;and do not yet compose well with `Dim.AUTO`. We suggest using `Dim.AUTO/Dim.DYNAMIC` mixed with &quot;</span>
-            <span class="s2">&quot;`Dim.STATIC` for auto-dynamic + static shapes, plus torch._check(dim &gt;= min), torch._check(dim &lt;= max) &quot;</span>
-            <span class="s2">&quot;calls in your program to specify min/max ranges, or `Dim`/`DerivedDim` mixed with `Dim.STATIC` &quot;</span>
-            <span class="s2">&quot;if you want to assert on the exact specification of your program&#39;s dynamic shapes behavior.&quot;</span><span class="p">,</span>
-            <span class="n">case_name</span><span class="o">=</span><span class="s2">&quot;dynamic_shapes_validation&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_process_dynamic_shapes</span><span class="p">(</span>
@@ -1439,6 +1440,7 @@
                         <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">DYNAMIC</span><span class="p">:</span>
                         <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_dynamic</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_RelaxedConstraint</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">),</span> <span class="n">i</span><span class="p">))</span>
                 <span class="k">elif</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
@@ -1455,6 +1457,7 @@
                         <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">dim</span> <span class="o">==</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">DYNAMIC</span><span class="p">:</span>
                         <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_dynamic</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_RelaxedConstraint</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">),</span> <span class="n">i</span><span class="p">))</span>
                 <span class="k">elif</span> <span class="n">dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">mark_static</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1660,7 +1663,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2023, PyTorch Contributors.
+        &copy; Copyright 2024, PyTorch Contributors.
 
     </p>
   </div>
