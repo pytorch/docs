@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git38d3c27 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git889717a ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -749,6 +749,16 @@
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_extract</span><span class="p">())</span>
+
+
+<span class="k">def</span> <span class="nf">_nested_int_aware_sort</span><span class="p">(</span><span class="n">tup</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="c1"># Order nested ints by their coefficients.</span>
+        <span class="c1"># 1 here to order nested ints after non-nested-ints.</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">nested_int_coeff</span><span class="p">(),</span> <span class="n">tup</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">is_nested_int</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">tup</span><span class="p">)</span>
+    <span class="p">)</span>
 
 
 <span class="c1"># Wrapper on lru_cache that reports statistics at process end</span>
@@ -1532,11 +1542,10 @@
 <span class="sd">    that would cause the expression to return True.</span>
 
 <span class="sd">    When is it appropriate to use definitely_true?  First, if you can use</span>
-<span class="sd">    a higher level combinator like parallel_or/parallel_and, prefer using</span>
-<span class="sd">    those instead, they are definitely safe (modulo short-circuiting).</span>
+<span class="sd">    a higher level combinator prefer using those instead, they are definitely</span>
+<span class="sd">    safe (modulo short-circuiting).</span>
 <span class="sd">    Second, it can be used if the program would behave equivalently if</span>
-<span class="sd">    definitely_true always returned False (parallel_or/parallel_and are</span>
-<span class="sd">    examples of this pattern, modulo short-circuiting).  Finally, it even</span>
+<span class="sd">    definitely_true always returned False. Finally, it even</span>
 <span class="sd">    be OK if the program wouldn&#39;t behave equivalently, so long as the</span>
 <span class="sd">    change is semantics preserving.  It can be semantics preserving if</span>
 <span class="sd">    the program errors in more cases than it did previously (but otherwise</span>
@@ -1590,30 +1599,6 @@
         <span class="k">return</span> <span class="kc">False</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span></div>
-
-
-<div class="viewcode-block" id="parallel_or"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.parallel_or.html#torch.fx.experimental.symbolic_shapes.parallel_or">[docs]</a><span class="k">def</span> <span class="nf">parallel_or</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">BoolLikeType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BoolLikeType</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Evaluate the logical OR of several arguments, avoiding guarding on</span>
-<span class="sd">    unbacked SymInts if another argument is definitely True.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">statically_known_true</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">definitely_true</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="parallel_and"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.parallel_and.html#torch.fx.experimental.symbolic_shapes.parallel_and">[docs]</a><span class="k">def</span> <span class="nf">parallel_and</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">BoolLikeType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BoolLikeType</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Evaluate the logical FALSE of several arguments, avoiding guarding on</span>
-<span class="sd">    unbacked SymInts if another argument is definitely False.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">statically_known_true</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sym_not</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">definitely_false</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="sym_eq"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.sym_eq.html#torch.fx.experimental.symbolic_shapes.sym_eq">[docs]</a><span class="k">def</span> <span class="nf">sym_eq</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">_T</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">SymBool</span><span class="p">]:</span>
@@ -4314,17 +4299,6 @@
             <span class="p">}</span>
 
             <span class="c1"># iterate over unbound strides in sorted order</span>
-            <span class="k">def</span> <span class="nf">_nested_int_aware_sort</span><span class="p">(</span>
-                <span class="n">tup</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span>
-            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-                <span class="k">return</span> <span class="p">(</span>
-                    <span class="c1"># Order nested ints by their coefficients.</span>
-                    <span class="c1"># 1 here to order nested ints after non-nested-ints.</span>
-                    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">nested_int_coeff</span><span class="p">(),</span> <span class="n">tup</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                    <span class="k">if</span> <span class="n">is_nested_int</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                    <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">tup</span><span class="p">)</span>
-                <span class="p">)</span>
-
             <span class="n">val_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
                 <span class="p">[(</span><span class="n">ex_stride</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stride</span><span class="p">))</span> <span class="k">if</span> <span class="n">stride</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">],</span>
                 <span class="n">key</span><span class="o">=</span><span class="n">_nested_int_aware_sort</span><span class="p">,</span>
