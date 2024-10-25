@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git889717a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git1d98a52 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -539,6 +539,7 @@
 <span class="kn">from</span> <span class="nn">torch.export.exported_program</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ConstantArgument</span><span class="p">,</span>
     <span class="n">ExportedProgram</span><span class="p">,</span>
+    <span class="n">ExportGraphSignature</span><span class="p">,</span>
     <span class="n">InputKind</span><span class="p">,</span>
     <span class="n">ModuleCallSignature</span><span class="p">,</span>
     <span class="n">SymIntArgument</span><span class="p">,</span>
@@ -739,19 +740,6 @@
         <span class="k">if</span> <span class="n">export_module</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">backward_signature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unflattening on JointExportModule NYI&quot;</span><span class="p">)</span>
 
-        <span class="n">preserved_module_targets_with_multiple_calls</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">entry</span><span class="o">.</span><span class="n">fqn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">export_module</span><span class="o">.</span><span class="n">module_call_graph</span>
-            <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">fqn</span>
-        <span class="p">]</span>
-        <span class="k">for</span> <span class="n">buf</span> <span class="ow">in</span> <span class="n">export_module</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">buffers_to_mutate</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">preserved_module_targets_with_multiple_calls</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">buf</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">fqn</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;Found multiple calls of module </span><span class="si">{</span><span class="n">fqn</span><span class="si">}</span><span class="s2"> that mutate buffer </span><span class="si">{</span><span class="n">buf</span><span class="si">}</span><span class="s2">. &quot;</span>
-                        <span class="s2">&quot;Unflattening while preserving signatures is NYI for this case.&quot;</span>
-                    <span class="p">)</span>
-
         <span class="n">fqn_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">fqn</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">export_module</span><span class="o">.</span><span class="n">module_call_graph</span><span class="p">]</span>
         <span class="k">assert</span> <span class="n">fqn_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
         <span class="n">export_graph</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">export_module</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
@@ -765,7 +753,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_run_with_interpeter</span> <span class="o">=</span> <span class="n">RUN_WITH_INTERPRETER</span>
 
         <span class="n">_inplace_buffer_mutations</span><span class="p">(</span><span class="n">export_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ivals</span> <span class="o">=</span> <span class="n">_IVals</span><span class="p">()</span>
+        <span class="c1"># record any intermediate value x that is used, with the modules that used it,</span>
+        <span class="c1"># and generate instructions to read the corresponding attribute</span>
         <span class="n">seen_modules</span> <span class="o">=</span> <span class="n">_outline_submodules</span><span class="p">(</span><span class="n">export_graph</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># for each read intermediate value x, find the module that created it,</span>
+        <span class="c1"># and generate instructions to update the corresponding attribute;</span>
+        <span class="c1"># finally, initialize all these attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ivals</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">seen_modules</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">range_constraints</span> <span class="o">=</span> <span class="n">export_module</span><span class="o">.</span><span class="n">range_constraints</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">equality_constraints</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1104,7 +1100,10 @@
     <span class="k">return</span> <span class="n">UnflattenedModule</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">flat_args_adapter</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">_inplace_buffer_mutations</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">graph_signature</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_inplace_buffer_mutations</span><span class="p">(</span>
+    <span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
+    <span class="n">graph_signature</span><span class="p">:</span> <span class="n">ExportGraphSignature</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform buffer mutations from their functionalized form into a copy_</span>
 <span class="sd">    node in the graph.</span>
 
@@ -1304,8 +1303,10 @@
 
         <span class="k">if</span> <span class="n">module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ivals</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">ivals</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;ivals&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ivals</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">ivals</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">graph</span>
 
@@ -1468,6 +1469,10 @@
             <span class="c1"># if module call signature needs to be preserved</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">copy_sym_call_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_call_graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># x is an ival that is not in placeholders, so create a</span>
+            <span class="c1"># get_attr node corresponding to attribute __ival__x</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ivals</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Could not run remap_input() on op type: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">op</span><span class="si">}</span><span class="s2"> for node </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -1716,6 +1721,106 @@
     <span class="n">children</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
         <span class="n">parent</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_IVals</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Collect the intermediate values of buffer mutations in a graph,</span>
+<span class="sd">    along with the module call fqns that create and use them. Later,</span>
+<span class="sd">    in each fqn associated with an intermediate value we will install</span>
+<span class="sd">    a corresponding attribute, so that it can be updated and read.</span>
+
+<span class="sd">    Example: in the following graph, suppose that buf_in and buf_out</span>
+<span class="sd">    are the input and output values of a buffer.</span>
+
+<span class="sd">        buf_in = placeholder()</span>
+<span class="sd">        ...</span>
+<span class="sd">        ival1 = f0(buf_in, ...)  # inside self.n0(...)</span>
+<span class="sd">        ...</span>
+<span class="sd">        ival2 = f1(ival1, ...)  # inside self.n1(...)</span>
+<span class="sd">        ...</span>
+<span class="sd">        buf_out = f2(ival2, ...)  # inside self.n2(...)</span>
+<span class="sd">        return buf_out, ...</span>
+
+<span class="sd">    Here ival1 and ival2 are intermediate values created inside</span>
+<span class="sd">    calls to n0 and n1 respectively, and used inside calls to</span>
+<span class="sd">    n1 and n2 respectively.</span>
+
+<span class="sd">    Thus our analysis will produce {ival1: {n0, n1}, ival2: {n1, n2}}.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># ival node name -&gt; set of fqns that create and use it</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fqns</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="c1"># ival node name -&gt; tensor storage for corresponding attribute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read attribute corresponding to a given intermediate value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># to read ival x, get attribute __ival__x</span>
+        <span class="k">with</span> <span class="n">graph</span><span class="o">.</span><span class="n">inserting_before</span><span class="p">(</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">ival_node</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="s2">&quot;__ival__&quot;</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">type_expr</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="n">ival_node</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">:</span>
+            <span class="c1"># create empty tensor matching fake, using a cache</span>
+            <span class="c1"># to ensure the same tensor is returned per ival_name</span>
+            <span class="n">fake</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">fake</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">fake</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fqns</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ival_node</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update attribute corresponding to a given intermediate value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fqns</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
+
+        <span class="c1"># to update ival x, get attribute __ival__x and copy x to __ival__x</span>
+        <span class="k">with</span> <span class="n">graph</span><span class="o">.</span><span class="n">inserting_after</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">ival_node</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="s2">&quot;__ival__&quot;</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">type_expr</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="n">ival_node</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">graph</span><span class="o">.</span><span class="n">inserting_after</span><span class="p">(</span><span class="n">ival_node</span><span class="p">):</span>
+            <span class="n">new_ival_node</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span>
+                <span class="s2">&quot;call_function&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">copy_</span><span class="p">,</span> <span class="p">(</span><span class="n">ival_node</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">new_ival_node</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partitions</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update attributes corresponding to intermediate values that were read.</span>
+<span class="sd">        Finally, initialize attributes in all modules that read or update</span>
+<span class="sd">        corresponding intermediate values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">entries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">shared_submodules</span> <span class="ow">in</span> <span class="n">partitions</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">shared_submodules</span><span class="p">:</span>
+                <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                <span class="n">graph</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">graph</span>
+                <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+
+        <span class="c1"># fqn -&gt; list of ival node names read or updated through it</span>
+        <span class="n">ivals</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">fqns</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fqns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">fqns</span><span class="p">:</span>
+                <span class="n">ivals</span><span class="p">[</span><span class="n">fqn</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ivals</span><span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">fqn</span><span class="p">]:</span>
+                <span class="n">ival_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;__ival__</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="c1"># for a ival named x created in module call m,</span>
+                <span class="c1"># create attribute m.__ival__x, initially empty</span>
+                <span class="nb">setattr</span><span class="p">(</span>
+                    <span class="n">entry</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
+                    <span class="n">ival_name</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">[</span><span class="n">name</span><span class="p">],</span>
+                <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_deduplicate_modules</span><span class="p">(</span><span class="n">partitions</span><span class="p">):</span>
