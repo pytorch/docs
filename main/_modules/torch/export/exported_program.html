@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git1d98a52 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita3de067 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -567,7 +567,6 @@
     <span class="n">_collect_all_valid_cia_ops</span><span class="p">,</span>
     <span class="n">_collect_and_set_constant_attrs</span><span class="p">,</span>
     <span class="n">_collect_param_buffer_metadata</span><span class="p">,</span>
-    <span class="n">_decomp_table_to_post_autograd_aten</span><span class="p">,</span>
     <span class="n">_detect_fake_mode_from_gm</span><span class="p">,</span>
     <span class="n">_get_decomp_for_cia</span><span class="p">,</span>
     <span class="n">_is_preservable_cia_op</span><span class="p">,</span>
@@ -1574,7 +1573,6 @@
     <span class="k">def</span> <span class="nf">run_decompositions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">decomp_table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OperatorBase</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">_preserve_ops</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">OpOverload</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ExportedProgram&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run a set of decompositions on the exported program and returns a new</span>
@@ -1609,30 +1607,9 @@
 <span class="sd">            decomp_table[your_op] = your_custom_decomp</span>
 <span class="sd">            ep = ep.run_decompositions(decomp_table=decomp_table)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">torch._inductor</span> <span class="kn">import</span> <span class="n">config</span>
-
-        <span class="c1"># FIXME delete this option after PTC, Executorch syncing is</span>
-        <span class="c1"># bit annoying so can&#39;t get rid of it easily</span>
-        <span class="k">if</span> <span class="n">_preserve_ops</span> <span class="o">!=</span> <span class="p">():</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s2">&quot;This API is deprecated and soon will be removed. &quot;</span>
-                <span class="s2">&quot;Please look at the docstring to see how to preserve &quot;</span>
-                <span class="s2">&quot;an operator.&quot;</span>
-            <span class="p">)</span>
-
         <span class="n">_decomp_table</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">default_decompositions</span><span class="p">()</span> <span class="k">if</span> <span class="n">decomp_table</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">dict</span><span class="p">(</span><span class="n">decomp_table</span><span class="p">)</span>
         <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">is_fbcode</span><span class="p">():</span>
-            <span class="c1"># This means the decomp_table would only be containing post-autograd ops</span>
-            <span class="c1"># We should manually add CIA decomps</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">_decomp_table_to_post_autograd_aten</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">_decomp_table</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-
-        <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">_preserve_ops</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">_decomp_table</span><span class="p">:</span>
-                <span class="k">del</span> <span class="n">_decomp_table</span><span class="p">[</span><span class="n">op</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_decomp_table</span><span class="p">,</span> <span class="n">CustomDecompTable</span><span class="p">):</span>
             <span class="n">_decomp_table</span> <span class="o">=</span> <span class="n">_decomp_table</span><span class="o">.</span><span class="n">materialize</span><span class="p">()</span>
