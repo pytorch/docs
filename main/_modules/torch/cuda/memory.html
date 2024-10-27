@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita3de067 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git4299423 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -1500,6 +1500,25 @@
     <span class="k">return</span> <span class="n">_CUDAAllocator</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_getAllocator</span><span class="p">())</span>
 
 
+<div class="viewcode-block" id="MemPoolContext"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPoolContext.html#torch.cuda.memory.MemPoolContext">[docs]</a><span class="k">class</span> <span class="nc">MemPoolContext</span><span class="p">(</span><span class="n">_MemPoolContext</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;MemPoolContext holds the currently active pool and stashes the previous</span>
+<span class="sd">    pool. On deletion it makes the previous pool active.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pool(torch.cuda.MemPool): a MemPool object to be made active so that</span>
+<span class="sd">        allocations route to this pool.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">:</span> <span class="n">_MemPool</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MemPoolContext.active_pool"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPoolContext.html#torch.cuda.memory.MemPoolContext.active_pool">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">active_pool</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_MemPool</span><span class="p">]:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the active MemPool&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_MemPoolContext</span><span class="o">.</span><span class="n">active_pool</span><span class="p">()</span></div></div>
+
+
 <div class="viewcode-block" id="MemPool"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPool.html#torch.cuda.memory.MemPool">[docs]</a><span class="k">class</span> <span class="nc">MemPool</span><span class="p">(</span><span class="n">_MemPool</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;MemPool represents a pool of memory in a caching allocator. Currently,</span>
 <span class="sd">    it&#39;s just the ID of the pool object maintained in the CUDACachingAllocator.</span>
@@ -1528,26 +1547,25 @@
 
 <div class="viewcode-block" id="MemPool.use_count"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPool.html#torch.cuda.memory.MemPool.use_count">[docs]</a>    <span class="k">def</span> <span class="nf">use_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the reference count of this pool.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">use_count</span><span class="p">()</span></div></div>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">use_count</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="MemPool.snapshot"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPool.html#torch.cuda.memory.MemPool.snapshot">[docs]</a>    <span class="k">def</span> <span class="nf">snapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return a snapshot of the CUDA memory allocator pool state across all</span>
+<span class="sd">        devices.</span>
 
-<div class="viewcode-block" id="MemPoolContext"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPoolContext.html#torch.cuda.memory.MemPoolContext">[docs]</a><span class="k">class</span> <span class="nc">MemPoolContext</span><span class="p">(</span><span class="n">_MemPoolContext</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;MemPoolContext holds the currently active pool and stashes the previous</span>
-<span class="sd">    pool. On deletion it makes the previous pool active.</span>
+<span class="sd">        Interpreting the output of this function requires familiarity with the</span>
+<span class="sd">        memory allocator internals.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        pool(torch.cuda.MemPool): a MemPool object to be made active so that</span>
-<span class="sd">        allocations route to this pool.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">:</span> <span class="n">MemPool</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
-
-<div class="viewcode-block" id="MemPoolContext.active_pool"><a class="viewcode-back" href="../../../generated/torch.cuda.MemPoolContext.html#torch.cuda.memory.MemPoolContext.active_pool">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">active_pool</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_MemPool</span><span class="p">]:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the active MemPool&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">_MemPoolContext</span><span class="o">.</span><span class="n">active_pool</span><span class="p">()</span></div></div>
+<span class="sd">        .. note::</span>
+<span class="sd">            See :ref:`cuda-memory-management` for more details about GPU memory</span>
+<span class="sd">            management.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ctx</span> <span class="o">=</span> <span class="n">MemPoolContext</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">snapshot</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">memory_snapshot</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">ctx</span>
+        <span class="k">return</span> <span class="n">snapshot</span></div></div>
 
 
 <div class="viewcode-block" id="use_mem_pool"><a class="viewcode-back" href="../../../cuda.html#torch.cuda.memory.use_mem_pool">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
