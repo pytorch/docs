@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git4299423 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd2ec289 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -354,6 +354,7 @@
 <li class="toctree-l1"><a class="reference internal" href="amp.html">torch.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autograd.html">torch.autograd</a></li>
 <li class="toctree-l1"><a class="reference internal" href="library.html">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accelerator.html">torch.accelerator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpu.html">torch.cpu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cuda.html">torch.cuda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
@@ -2191,14 +2192,14 @@
       </ul></li>
       <li><a href="rpc.html#torch.distributed.rpc.PyRRef.confirmed_by_owner">confirmed_by_owner() (torch.distributed.rpc.PyRRef method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.conj.html#torch.conj">conj() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.conj.html#torch.Tensor.conj">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.conj_physical.html#torch.conj_physical">conj_physical() (in module torch)</a>
 
       <ul>
@@ -2627,6 +2628,8 @@
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.CumulativeDistributionTransform">CumulativeDistributionTransform (class in torch.distributions.transforms)</a>
 </li>
+      <li><a href="generated/torch.accelerator.current_accelerator.html#torch.accelerator.current_accelerator">current_accelerator() (in module torch.accelerator)</a>
+</li>
       <li><a href="generated/torch.mps.current_allocated_memory.html#torch.mps.current_allocated_memory">current_allocated_memory() (in module torch.mps)</a>
 </li>
       <li><a href="generated/torch.cuda.current_blas_handle.html#torch.cuda.current_blas_handle">current_blas_handle() (in module torch.cuda)</a>
@@ -2641,11 +2644,15 @@
         <li><a href="generated/torch.xpu.current_device.html#torch.xpu.current_device">(in module torch.xpu)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.accelerator.current_device_idx.html#torch.accelerator.current_device_idx">current_device_idx() (in module torch.accelerator)</a>
+</li>
       <li><a href="generated/torch.autograd.profiler.KinetoStepTracker.html#torch.autograd.profiler.KinetoStepTracker.current_step">current_step() (torch.autograd.profiler.KinetoStepTracker class method)</a>
 </li>
-      <li><a href="generated/torch.cpu.current_stream.html#torch.cpu.current_stream">current_stream() (in module torch.cpu)</a>
+      <li><a href="generated/torch.accelerator.current_stream.html#torch.accelerator.current_stream">current_stream() (in module torch.accelerator)</a>
 
       <ul>
+        <li><a href="generated/torch.cpu.current_stream.html#torch.cpu.current_stream">(in module torch.cpu)</a>
+</li>
         <li><a href="generated/torch.cuda.current_stream.html#torch.cuda.current_stream">(in module torch.cuda)</a>
 </li>
         <li><a href="generated/torch.mtia.current_stream.html#torch.mtia.current_stream">(in module torch.mtia)</a>
@@ -2871,9 +2878,11 @@
         <li><a href="storage.html#torch.UntypedStorage.device">(torch.UntypedStorage attribute)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.cpu.device_count.html#torch.cpu.device_count">device_count() (in module torch.cpu)</a>
+      <li><a href="generated/torch.accelerator.device_count.html#torch.accelerator.device_count">device_count() (in module torch.accelerator)</a>
 
       <ul>
+        <li><a href="generated/torch.cpu.device_count.html#torch.cpu.device_count">(in module torch.cpu)</a>
+</li>
         <li><a href="generated/torch.cuda.device_count.html#torch.cuda.device_count">(in module torch.cuda)</a>
 </li>
         <li><a href="generated/torch.mps.device_count.html#torch.mps.device_count">(in module torch.mps)</a>
@@ -2911,14 +2920,14 @@
         <li><a href="generated/torch.Tensor.diag_embed.html#torch.Tensor.diag_embed">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.diagflat.html#torch.diagflat">diagflat() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.diagflat.html#torch.Tensor.diagflat">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="onnx_dynamo.html#torch.onnx.DiagnosticOptions">DiagnosticOptions (class in torch.onnx)</a>
 </li>
       <li><a href="generated/torch.diagonal.html#torch.diagonal">diagonal() (in module torch)</a>
@@ -4320,6 +4329,8 @@
 </li>
       <li><a href="backends.html#torch.backends.cpu.get_cpu_capability">get_cpu_capability() (in module torch.backends.cpu)</a>
 </li>
+      <li><a href="notes/serialization.html#torch.serialization.get_crc32_options">get_crc32_options() (in module torch.serialization)</a>
+</li>
       <li><a href="library.html#torch.library.get_ctx">get_ctx() (in module torch.library)</a>
 </li>
       <li><a href="generated/torch.jit.ScriptFunction.html#torch.jit.ScriptFunction.get_debug_state">get_debug_state() (torch.jit.ScriptFunction method)</a>
@@ -5298,9 +5309,11 @@
 </li>
       <li><a href="amp.html#torch.amp.autocast_mode.is_autocast_available">is_autocast_available() (in module torch.amp.autocast_mode)</a>
 </li>
-      <li><a href="backends.html#torch.backends.cudnn.is_available">is_available() (in module torch.backends.cudnn)</a>
+      <li><a href="generated/torch.accelerator.is_available.html#torch.accelerator.is_available">is_available() (in module torch.accelerator)</a>
 
       <ul>
+        <li><a href="backends.html#torch.backends.cudnn.is_available">(in module torch.backends.cudnn)</a>
+</li>
         <li><a href="backends.html#torch.backends.cusparselt.is_available">(in module torch.backends.cusparselt)</a>
 </li>
         <li><a href="backends.html#torch.backends.mkl.is_available">(in module torch.backends.mkl)</a>
@@ -6799,6 +6812,8 @@
         <li><a href="future_mod.html#module-torch.__future__">torch.__future__</a>
 </li>
         <li><a href="logging.html#module-torch._logging">torch._logging</a>
+</li>
+        <li><a href="accelerator.html#module-torch.accelerator">torch.accelerator</a>
 </li>
         <li><a href="amp.html#module-torch.amp">torch.amp</a>
 </li>
@@ -10743,6 +10758,8 @@
 </li>
       <li><a href="fx.html#torch.fx.Graph.set_codegen">set_codegen() (torch.fx.Graph method)</a>
 </li>
+      <li><a href="notes/serialization.html#torch.serialization.set_crc32_options">set_crc32_options() (in module torch.serialization)</a>
+</li>
       <li><a href="generated/torch.set_default_device.html#torch.set_default_device">set_default_device() (in module torch)</a>
 </li>
       <li><a href="generated/torch.set_default_dtype.html#torch.set_default_dtype">set_default_dtype() (in module torch)</a>
@@ -10769,6 +10786,8 @@
         <li><a href="generated/torch.xpu.set_device.html#torch.xpu.set_device">(in module torch.xpu)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.accelerator.set_device_idx.html#torch.accelerator.set_device_idx">set_device_idx() (in module torch.accelerator)</a>
+</li>
       <li><a href="rpc.html#torch.distributed.rpc.TensorPipeRpcBackendOptions.set_device_map">set_device_map() (torch.distributed.rpc.TensorPipeRpcBackendOptions method)</a>
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.TensorPipeRpcBackendOptions.set_devices">set_devices() (torch.distributed.rpc.TensorPipeRpcBackendOptions method)</a>
@@ -10931,9 +10950,11 @@
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.set_state_dict_type">set_state_dict_type() (torch.distributed.fsdp.FullyShardedDataParallel static method)</a>
 </li>
-      <li><a href="generated/torch.cuda.set_stream.html#torch.cuda.set_stream">set_stream() (in module torch.cuda)</a>
+      <li><a href="generated/torch.accelerator.set_stream.html#torch.accelerator.set_stream">set_stream() (in module torch.accelerator)</a>
 
       <ul>
+        <li><a href="generated/torch.cuda.set_stream.html#torch.cuda.set_stream">(in module torch.cuda)</a>
+</li>
         <li><a href="generated/torch.mtia.set_stream.html#torch.mtia.set_stream">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.set_stream.html#torch.xpu.set_stream">(in module torch.xpu)</a>
@@ -11169,10 +11190,10 @@
       </ul></li>
       <li><a href="generated/torch.nn.functional.smooth_l1_loss.html#torch.nn.functional.smooth_l1_loss">smooth_l1_loss() (in module torch.nn.functional)</a>
 </li>
-      <li><a href="generated/torch.nn.SmoothL1Loss.html#torch.nn.SmoothL1Loss">SmoothL1Loss (class in torch.nn)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/torch.nn.SmoothL1Loss.html#torch.nn.SmoothL1Loss">SmoothL1Loss (class in torch.nn)</a>
+</li>
       <li><a href="generated/torch.cuda.MemPool.html#torch.cuda.MemPool.snapshot">snapshot() (torch.cuda.MemPool method)</a>
 </li>
       <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine">SobolEngine (class in torch.quasirandom)</a>
@@ -11799,9 +11820,11 @@
 </li>
       <li><a href="generated/torch.nn.SyncBatchNorm.html#torch.nn.SyncBatchNorm">SyncBatchNorm (class in torch.nn)</a>
 </li>
-      <li><a href="generated/torch.cpu.synchronize.html#torch.cpu.synchronize">synchronize() (in module torch.cpu)</a>
+      <li><a href="generated/torch.accelerator.synchronize.html#torch.accelerator.synchronize">synchronize() (in module torch.accelerator)</a>
 
       <ul>
+        <li><a href="generated/torch.cpu.synchronize.html#torch.cpu.synchronize">(in module torch.cpu)</a>
+</li>
         <li><a href="generated/torch.cuda.synchronize.html#torch.cuda.synchronize">(in module torch.cuda)</a>
 </li>
         <li><a href="generated/torch.mps.synchronize.html#torch.mps.synchronize">(in module torch.mps)</a>
@@ -12079,6 +12102,13 @@
 
       <ul>
         <li><a href="logging.html#module-torch._logging">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.accelerator
+
+      <ul>
+        <li><a href="accelerator.html#module-torch.accelerator">module</a>
 </li>
       </ul></li>
       <li>
