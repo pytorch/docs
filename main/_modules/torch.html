@@ -281,11 +281,15 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd2ec289 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git383d9e3 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
         <div class="gcse-search"></div>
+     </div>
+     <!--temporarily add a link to survey -->
+     <div class="survey-link">
+       <p><i class="fas fa-poll" aria-hidden="true">&nbsp </i><a href="https://forms.gle/tdrnwJhaQ9tUePxz9">Share Your Feedback</a> about our new search</p>
      </div>
 
           </div>
@@ -1393,6 +1397,8 @@
     <span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">overrides</span><span class="o">.</span><span class="n">has_torch_function_unary</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">overrides</span><span class="o">.</span><span class="n">handle_torch_function</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,),</span> <span class="n">a</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sym_float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;__sym_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">__&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;__sym_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">__&quot;</span><span class="p">)()</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">math</span><span class="p">,</span> <span class="n">name</span><span class="p">)(</span><span class="n">a</span><span class="p">)</span>
@@ -1412,6 +1418,7 @@
     <span class="s2">&quot;asin&quot;</span><span class="p">,</span>
     <span class="s2">&quot;acos&quot;</span><span class="p">,</span>
     <span class="s2">&quot;atan&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;log2&quot;</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="n">__sym_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_sym_</span><span class="si">{</span><span class="n">__name</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="n">__fn</span> <span class="o">=</span> <span class="n">_get_sym_math_fn</span><span class="p">(</span><span class="n">__name</span><span class="p">)</span>

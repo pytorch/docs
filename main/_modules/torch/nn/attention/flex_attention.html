@@ -281,11 +281,15 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd2ec289 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git383d9e3 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
         <div class="gcse-search"></div>
+     </div>
+     <!--temporarily add a link to survey -->
+     <div class="survey-link">
+       <p><i class="fas fa-poll" aria-hidden="true">&nbsp </i><a href="https://forms.gle/tdrnwJhaQ9tUePxz9">Share Your Feedback</a> about our new search</p>
      </div>
 
           </div>
@@ -550,6 +554,7 @@
     <span class="s2">&quot;flex_attention&quot;</span><span class="p">,</span>
     <span class="s2">&quot;create_block_mask&quot;</span><span class="p">,</span>
     <span class="s2">&quot;create_mask&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;create_nested_block_mask&quot;</span><span class="p">,</span>
     <span class="s2">&quot;or_masks&quot;</span><span class="p">,</span>
     <span class="s2">&quot;and_masks&quot;</span><span class="p">,</span>
     <span class="s2">&quot;noop_mask&quot;</span><span class="p">,</span>
@@ -1416,6 +1421,130 @@
     <span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">_nested_mod_func_adapter</span><span class="p">(</span>
+    <span class="n">orig_mod_func</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">_score_mod_signature</span><span class="p">,</span> <span class="n">_mask_mod_signature</span><span class="p">],</span>
+    <span class="n">nt</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">is_score_mod</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">_score_mod_signature</span><span class="p">,</span> <span class="n">_mask_mod_signature</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Adapter to convert a score_mod / mask_mod to be NJT-compatible. The given mod func</span>
+<span class="sd">    should be written as if operating over a single sequence at a item. This adapter will</span>
+<span class="sd">    handle conversion from indices operating over a &quot;stacked sequence&quot; of length ``sum(S)``</span>
+<span class="sd">    for sequence length ``S`` in the NJT to &quot;sequence relative&quot; indices in range ``[0, S)``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        orig_mod_func (Callable): Function to modify attention scores. It takes four or five</span>
+<span class="sd">            arguments, depending on whether a mask_mod or score_mod func is passed.</span>
+<span class="sd">        nt (torch.Tensor): Jagged layout nested tensor (NJT) that defines the sequence length</span>
+<span class="sd">            structure for query / key / value.</span>
+<span class="sd">        is_score_mod (bool): Indicates whether the mod function is a score_mod.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nt_score_mod: An NJT-compatible version of orig_score_mod</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Used to convert indices within the &quot;stacked&quot; sequence (range [0, sum(*)))</span>
+    <span class="c1"># to &quot;sequence local&quot; indices (range [0, S) for each S).</span>
+    <span class="k">def</span> <span class="nf">_build_seq_idx</span><span class="p">(</span><span class="n">offsets</span><span class="p">,</span> <span class="n">total_length</span><span class="p">):</span>
+        <span class="n">range_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span>
+            <span class="n">total_length</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">offsets</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Use searchsorted to find the index for each position</span>
+        <span class="c1"># NB: This assumes offsets[0] to offsets[-1] spans the packed dim of values.</span>
+        <span class="c1"># If we ever loosen this restriction, this logic will need to be updated.</span>
+        <span class="n">seq_idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">offsets</span><span class="p">,</span> <span class="n">range_tensor</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">seq_idx</span>
+
+    <span class="n">offsets</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">_offsets</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="n">total_length</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">nt</span><span class="o">.</span><span class="n">_ragged_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="n">seq_idx</span> <span class="o">=</span> <span class="n">_build_seq_idx</span><span class="p">(</span><span class="n">offsets</span><span class="p">,</span> <span class="n">total_length</span><span class="p">)</span>
+
+    <span class="c1"># Converts q_idx / kv_idx from [0, total_length) -&gt; [0, S), where S refers</span>
+    <span class="c1"># to the sequence length for each sequence in the NJT, for use in given</span>
+    <span class="c1"># score_mod. This allows the user to write a score_mod as if it were</span>
+    <span class="c1"># operating on a single sequence and the &quot;stacked sequence&quot; is split</span>
+    <span class="c1"># automatically into individual sequences for them.</span>
+    <span class="k">if</span> <span class="n">is_score_mod</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">nt_score_mod</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_idx</span><span class="p">,</span> <span class="n">kv_idx</span><span class="p">):</span>
+            <span class="n">q_nested</span> <span class="o">=</span> <span class="n">q_idx</span> <span class="o">-</span> <span class="n">offsets</span><span class="p">[</span><span class="n">seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]]</span>
+            <span class="n">kv_nested</span> <span class="o">=</span> <span class="n">kv_idx</span> <span class="o">-</span> <span class="n">offsets</span><span class="p">[</span><span class="n">seq_idx</span><span class="p">[</span><span class="n">kv_idx</span><span class="p">]]</span>
+            <span class="n">is_same_sequence</span> <span class="o">=</span> <span class="n">seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq_idx</span><span class="p">[</span><span class="n">kv_idx</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="n">is_same_sequence</span><span class="p">,</span>
+                <span class="n">orig_mod_func</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_nested</span><span class="p">,</span> <span class="n">kv_nested</span><span class="p">),</span>  <span class="c1"># type: ignore[call-arg]</span>
+                <span class="c1"># don&#39;t allow inter-sequence attention</span>
+                <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">nt_score_mod</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">nt_mask_mod</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_idx</span><span class="p">,</span> <span class="n">kv_idx</span><span class="p">):</span>
+            <span class="n">q_nested</span> <span class="o">=</span> <span class="n">q_idx</span> <span class="o">-</span> <span class="n">offsets</span><span class="p">[</span><span class="n">seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]]</span>
+            <span class="n">kv_nested</span> <span class="o">=</span> <span class="n">kv_idx</span> <span class="o">-</span> <span class="n">offsets</span><span class="p">[</span><span class="n">seq_idx</span><span class="p">[</span><span class="n">kv_idx</span><span class="p">]]</span>
+            <span class="c1"># don&#39;t allow inter-sequence attention</span>
+            <span class="n">is_same_sequence</span> <span class="o">=</span> <span class="n">seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq_idx</span><span class="p">[</span><span class="n">kv_idx</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">orig_mod_func</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_nested</span><span class="p">,</span> <span class="n">kv_nested</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">is_same_sequence</span>  <span class="c1"># type: ignore[call-arg]</span>
+
+        <span class="k">return</span> <span class="n">nt_mask_mod</span>
+
+
+<div class="viewcode-block" id="create_nested_block_mask"><a class="viewcode-back" href="../../../../nn.attention.flex_attention.html#torch.nn.attention.flex_attention.create_nested_block_mask">[docs]</a><span class="k">def</span> <span class="nf">create_nested_block_mask</span><span class="p">(</span>
+    <span class="n">mask_mod</span><span class="p">:</span> <span class="n">_mask_mod_signature</span><span class="p">,</span>
+    <span class="n">B</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="n">H</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="n">nt</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
+    <span class="n">_compile</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockMask</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This function creates a nested tensor compatible block mask tuple from a mask_mod</span>
+<span class="sd">    function. The returned BlockMask will be on the device specified by the input nested tensor.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mask_mod (Callable): mask_mod function. This is a callable that defines the</span>
+<span class="sd">            masking pattern for the attention mechanism. It takes four arguments:</span>
+<span class="sd">            b (batch size), h (number of heads), q_idx (query index), and kv_idx (key/value index).</span>
+<span class="sd">            It should return a boolean tensor indicating which attention connections are allowed</span>
+<span class="sd">            (True) or masked out (False).</span>
+<span class="sd">        B (int): Batch size.</span>
+<span class="sd">        H (int): Number of query heads.</span>
+<span class="sd">        nt (torch.Tensor): Jagged layout nested tensor (NJT) that defines the sequence length</span>
+<span class="sd">            structure for query / key / value. The block mask will be constructed to operate on</span>
+<span class="sd">            a &quot;stacked sequence&quot; of length ``sum(S)`` for sequence length ``S`` from the NJT.</span>
+<span class="sd">        BLOCK_SIZE (int or Tuple[int, int]): Block size for the block mask. If a single int is</span>
+<span class="sd">            provided it is used for both query and key/value.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        BlockMask:  A BlockMask object that contains the block mask information.</span>
+
+<span class="sd">    Example Usage:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            query = torch.randn(1, 1, 8192, 64, device=&quot;cuda&quot;, dtype=torch.float16)</span>
+<span class="sd">            key = torch.randn(1, 1, 8192, 64, device=&quot;cuda&quot;, dtype=torch.float16)</span>
+<span class="sd">            value = torch.randn(1, 1, 8192, 64, device=&quot;cuda&quot;, dtype=torch.float16)</span>
+
+<span class="sd">            def causal_mask(b, h, q_idx, kv_idx):</span>
+<span class="sd">                return q_idx &gt;= kv_idx</span>
+
+<span class="sd">            block_mask = create_nested_block_mask(causal_mask, 1, 1, query, _compile=True)</span>
+<span class="sd">            output = flex_attention(query, key, value, block_mask=block_mask)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">create_block_mask</span><span class="p">(</span>
+        <span class="n">_nested_mod_func_adapter</span><span class="p">(</span><span class="n">mask_mod</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span> <span class="n">is_score_mod</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="n">B</span><span class="p">,</span>
+        <span class="n">H</span><span class="p">,</span>
+        <span class="n">nt</span><span class="o">.</span><span class="n">_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">nt</span><span class="o">.</span><span class="n">_ragged_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="n">nt</span><span class="o">.</span><span class="n">_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">nt</span><span class="o">.</span><span class="n">_ragged_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">nt</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="c1"># compile is important so we don&#39;t materialize a mask_tensor of</span>
+        <span class="c1"># shape (1, 1, total_seqlen, total_seqlen)</span>
+        <span class="n">BLOCK_SIZE</span><span class="o">=</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+        <span class="n">_compile</span><span class="o">=</span><span class="n">_compile</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
 <span class="k">def</span> <span class="nf">_apply_kernel_options</span><span class="p">(</span>
     <span class="n">query</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">return_lse</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">kernel_options</span>
 <span class="p">):</span>
@@ -1462,6 +1591,25 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">&quot;FlexAttention is only supported on CUDA devices. &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;Found input tensors on </span><span class="si">{</span><span class="n">query</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> device.&quot;</span>
+        <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_validate_nestedness</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
+    <span class="c1"># Currently, inputs can only be all nested or no nested.</span>
+    <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">is_nested</span> <span class="o">!=</span> <span class="n">key</span><span class="o">.</span><span class="n">is_nested</span> <span class="ow">or</span> <span class="n">key</span><span class="o">.</span><span class="n">is_nested</span> <span class="o">!=</span> <span class="n">value</span><span class="o">.</span><span class="n">is_nested</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;FlexAttention does not support mixed nested tensor / non-nested tensor inputs. &quot;</span>
+            <span class="s2">&quot;Please file an issue requesting this if it is important to you.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">is_nested</span> <span class="ow">and</span> <span class="n">query</span><span class="o">.</span><span class="n">_lengths</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">is_nested</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">_lengths</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">is_nested</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">_lengths</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;FlexAttention does not support nested tensors that are non-contiguous with holes. &quot;</span>
+            <span class="s2">&quot;Please file an issue requesting this if it is important to you.&quot;</span>
         <span class="p">)</span>
 
 
@@ -1532,6 +1680,7 @@
     <span class="n">_validate_sdpa_input</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
     <span class="n">_validate_embed_dim</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
     <span class="n">_validate_device</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="n">_validate_nestedness</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">key</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;NYI: query, key, and value must be 4D tensors&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">enable_gqa</span><span class="p">)</span> <span class="ow">and</span> <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">!=</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">):</span>
@@ -1551,15 +1700,29 @@
 
     <span class="k">if</span> <span class="n">score_mod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">score_mod</span> <span class="o">=</span> <span class="n">_identity</span>
+    <span class="k">elif</span> <span class="n">query</span><span class="o">.</span><span class="n">is_nested</span><span class="p">:</span>
+        <span class="n">score_mod</span> <span class="o">=</span> <span class="n">_nested_mod_func_adapter</span><span class="p">(</span><span class="n">score_mod</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">is_score_mod</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+
     <span class="k">if</span> <span class="n">block_mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">block_mask</span> <span class="o">=</span> <span class="n">_create_empty_block_mask</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="p">(</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">query</span><span class="o">.</span><span class="n">is_nested</span> <span class="ow">and</span> <span class="p">(</span>
         <span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="ow">or</span> <span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">kv_indices</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="p">):</span>
         <span class="n">new_q_len</span> <span class="o">=</span> <span class="n">_round_up_to_multiple</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">new_kv_len</span> <span class="o">=</span> <span class="n">_round_up_to_multiple</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">block_mask</span> <span class="o">=</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">_adjust</span><span class="p">(</span><span class="n">new_q_len</span><span class="p">,</span> <span class="n">new_kv_len</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">query</span><span class="o">.</span><span class="n">is_nested</span> <span class="ow">and</span> <span class="p">(</span>
+        <span class="n">block_mask</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="o">!=</span> <span class="n">_round_up_to_multiple</span><span class="p">(</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">_values</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">_ragged_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">block_mask</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="p">)</span>
+    <span class="p">):</span>
+        <span class="c1"># TODO: Maybe we want to auto-adjust for this case as well?</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;block_mask of shape </span><span class="si">{</span><span class="n">block_mask</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> is not compatible with nested tensor input &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;with total sequence length of </span><span class="si">{</span><span class="n">query</span><span class="o">.</span><span class="n">_values</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">_ragged_idx</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="p">)</span>
     <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">scale</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 
