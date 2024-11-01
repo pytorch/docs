@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb4836e5 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb6b9596 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -559,6 +559,11 @@
 <div class="viewcode-block" id="get_ema_multi_avg_fn"><a class="viewcode-back" href="../../../optim.html#torch.optim.swa_utils.get_ema_multi_avg_fn">[docs]</a><span class="k">def</span> <span class="nf">get_ema_multi_avg_fn</span><span class="p">(</span><span class="n">decay</span><span class="o">=</span><span class="mf">0.999</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the function applying exponential moving average (EMA) across multiple params.&quot;&quot;&quot;</span>
 
+    <span class="k">if</span> <span class="n">decay</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">decay</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid decay value </span><span class="si">{</span><span class="n">decay</span><span class="si">}</span><span class="s2"> provided. Please provide a value in [0,1] range.&quot;</span>
+        <span class="p">)</span>
+
     <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">ema_update</span><span class="p">(</span><span class="n">ema_param_list</span><span class="p">:</span> <span class="n">PARAM_LIST</span><span class="p">,</span> <span class="n">current_param_list</span><span class="p">:</span> <span class="n">PARAM_LIST</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
         <span class="c1"># foreach lerp only handles float and complex</span>
@@ -607,6 +612,11 @@
 
 <span class="k">def</span> <span class="nf">get_ema_avg_fn</span><span class="p">(</span><span class="n">decay</span><span class="o">=</span><span class="mf">0.999</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the function applying exponential moving average (EMA) across a single param.&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">decay</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">decay</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid decay value </span><span class="si">{</span><span class="n">decay</span><span class="si">}</span><span class="s2"> provided. Please provide a value in [0,1] range.&quot;</span>
+        <span class="p">)</span>
 
     <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">ema_update</span><span class="p">(</span><span class="n">ema_param</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">current_param</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">num_averaged</span><span class="p">):</span>

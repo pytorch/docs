@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb4836e5 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb6b9596 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -551,6 +551,39 @@
 <span class="p">]</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_normalize_model_output_as_tuple</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[Note: pipeline model output type]</span>
+
+<span class="sd">    The output of the model passed to pipelining can be any type, controlled by the user.</span>
+
+<span class="sd">    However, there are 2 API surfaces that complicate this.</span>
+<span class="sd">    (1) the outputs of intermediate stages are passed via Send/Recv ops to subsequent stages. The implicit assumption</span>
+<span class="sd">    is that each element of the outputs is a tensor.  Otherwise, Send/Recv would not be supported.  The exception</span>
+<span class="sd">    is the last layer of the model, which can output anything any which won&#39;t be communicated via Send/Recv.</span>
+<span class="sd">    (2) the outputs of the last layer of the model are returned to the user, or, passed to the loss function.</span>
+<span class="sd">    The loss function can be written in any way, such that its inputs match the outputs of the model.</span>
+
+<span class="sd">    It would be convenient if we could strictly type the output signature of the pipeline stage wrapping the model,</span>
+<span class="sd">    but we do not want to impose an unnecessary constraint on user provided models.</span>
+
+<span class="sd">    Currently, we let user provided models return either a Tensor or a tuple of Tensors from each stage. Due to</span>
+<span class="sd">    torch.export tracing, compiled models may also return a list instead of a Tuple, which we will normalize back to a</span>
+<span class="sd">    tuple for consistency.</span>
+
+<span class="sd">    TODO: should we be stricter about asserting that stage modules (intermediate and output) all return only Tensor</span>
+<span class="sd">    values?</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="c1"># HACK: this is a hacky workaround for the fact that export creates</span>
+        <span class="c1"># output in list format</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+    <span class="c1"># Unify output form to tuple for easy correspondance with</span>
+    <span class="c1"># `act_send_info`</span>
+    <span class="n">output_tuple</span> <span class="o">=</span> <span class="n">output</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="k">else</span> <span class="p">(</span><span class="n">output</span><span class="p">,)</span>
+    <span class="k">return</span> <span class="n">output_tuple</span>
 
 
 <span class="k">class</span> <span class="nc">_RootArgPlaceholder</span><span class="p">:</span>
@@ -826,6 +859,84 @@
 
         <span class="k">return</span> <span class="n">ops</span>
 
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[Note: V-schedule special case]</span>
+
+<span class="sd">    V-Schedules have a special case where 2 stages with adjacent stage_id are on the same rank.</span>
+
+<span class="sd">    ex: 2 ranks, 4 stages forms a simple V:</span>
+<span class="sd">    rank0:  stage 0                   stage 3</span>
+<span class="sd">    rank1:          stage 1  stage 2</span>
+
+<span class="sd">    stage 0,1 and 2,3 communicate activations using send/recv as usual, but stage 1,2 do not need to</span>
+<span class="sd">    use communication ops.  Instead, they should pass tensor data directly via function call.</span>
+
+<span class="sd">    set_local_fwd_input and (get_local_bwd_output + set_local_bwd_input) facilitate this optimization, and</span>
+<span class="sd">    should be called at the appropriate time during the pipeline schedule (after forward or backward execution).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_local_fwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prev_stage_outputs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Moves &#39;prev_stage_outputs&#39; from another stage on the same rank into place as inputs for this stage. Avoids</span>
+<span class="sd">        copying tensor data or using send/recv op.  Detaches original tensor and sets requires_grad so the</span>
+<span class="sd">        tensor can serve as a leaf for autograd and gradients can be collected from it during backward.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">recv_infos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">InputInfo</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="n">mb_index</span><span class="p">]</span>
+
+        <span class="c1"># See [Note: pipeline model output type]</span>
+        <span class="n">prev_stage_outputs</span> <span class="o">=</span> <span class="n">_normalize_model_output_as_tuple</span><span class="p">(</span><span class="n">prev_stage_outputs</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">info</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">recv_infos</span><span class="p">,</span> <span class="n">prev_stage_outputs</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;expected tensor values as outputs from prev stage, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">info</span><span class="p">,</span> <span class="n">_RecvInfo</span>
+            <span class="p">),</span> <span class="s2">&quot;set_local_Fwd_input should only be called on non-first stage, which should always have RecvInfo&quot;</span>
+
+            <span class="c1"># We don&#39;t need to do a data copy here, since we can directly pass the activation tensor reference from</span>
+            <span class="c1"># one stage to the next.  However, we do need to mark the activation as a leaf tensor since it will serve</span>
+            <span class="c1"># as the input tensor for a fresh autograd graph, not part of the previous stage&#39;s autograd graph.</span>
+            <span class="c1"># TODO: confirm, do we use this activation as the root of the backward call for the previous stage? does</span>
+            <span class="c1"># detach have any affect on that?</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_local_bwd_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the input grad tensors for this stage, which correspond to the stage inputs during forward.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">has_backward</span>
+        <span class="p">),</span> <span class="s2">&quot;can&#39;t steal_bwd_input if this stage doesn&#39;t have backward&quot;</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">,</span> <span class="s2">&quot;can&#39;t get bwd output if this stage is first&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_chunk_id</span><span class="p">(</span><span class="n">mb_index</span><span class="p">)</span>
+        <span class="c1"># TODO(whc) we should be indexing mb_index into self.grads_input, but it appears we are only storing</span>
+        <span class="c1"># the most recently created grads which needs to be fixed not only here but also for get_bwd_send_ops.</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span>
+
+    <span class="k">def</span> <span class="nf">set_local_bwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">next_stage_bwd_outputs</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">mb_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Moves &#39;grad input&#39; tensors from the next stage to &#39;grad_output&#39; on this stage, avoiding a copy or send/recv.</span>
+<span class="sd">        Does not detach or set &#39;_requires_grad&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(whc) discrepancy between list/tuple type here. need to clean up</span>
+        <span class="c1"># assert isinstance(next_stage_bwd_outputs, tuple), f&quot;Expected tuple, got {type(next_stage_bwd_outputs)}&quot;</span>
+
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">has_backward</span>
+        <span class="p">),</span> <span class="s2">&quot;can&#39;t set bwd input if this stage doesn&#39;t have backward&quot;</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="p">,</span> <span class="s2">&quot;can&#39;t set bwd input if this stage is last&quot;</span>
+        <span class="n">recv_infos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_recv_info</span><span class="p">[</span><span class="n">mb_index</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">info</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">recv_infos</span><span class="p">,</span> <span class="n">next_stage_bwd_outputs</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;expected tensor values as outputs from prev stage, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">info</span><span class="p">,</span> <span class="n">_RecvInfo</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Expected a recv info, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">info</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">tensor</span>
+
     <span class="k">def</span> <span class="nf">get_fwd_recv_ops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of ops that are needed to receive the input arguments</span>
@@ -1003,6 +1114,7 @@
             <span class="n">last_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># type: ignore[operator]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># For backwards are split into weight and input, we will see twice as many bwd_chunks</span>
+            <span class="c1"># -1 because we skip the first bwd_chunk backward</span>
             <span class="n">last_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># type: ignore[operator]</span>
 
         <span class="k">def</span> <span class="nf">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">):</span>
@@ -1064,8 +1176,6 @@
             <span class="c1"># Non-DP submodule, regular backward</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">)()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">+=</span> <span class="mi">1</span>
-
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="c1"># for stage_backward_input()</span>
             <span class="n">grads</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="n">result</span>
@@ -1113,14 +1223,9 @@
 <span class="s2">            &quot;&quot;&quot;</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">exc_msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="c1"># HACK: this is a hacky workaround for the fact that export creates</span>
-            <span class="c1"># output in list format</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="c1"># See [Note: pipeline model output type]</span>
+        <span class="n">output_tuple</span> <span class="o">=</span> <span class="n">_normalize_model_output_as_tuple</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
-        <span class="c1"># Unify output form to tuple for easy correspondance with</span>
-        <span class="c1"># `act_send_info`</span>
-        <span class="n">output_tuple</span> <span class="o">=</span> <span class="n">output</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="k">else</span> <span class="p">(</span><span class="n">output</span><span class="p">,)</span>
         <span class="c1"># Prepare for final output merge or reduction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
@@ -1140,6 +1245,9 @@
             <span class="n">map_debug_info</span><span class="p">(</span><span class="n">output</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_fwd_outputs</span><span class="p">(</span><span class="n">output_tuple</span><span class="p">)</span>
+
+        <span class="c1"># We return the original user-provied output, not normalized to tuple.</span>
+        <span class="c1"># See [Note: pipeline model output type]</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">def</span> <span class="nf">backward_one_chunk</span><span class="p">(</span>
@@ -1201,14 +1309,19 @@
                     <span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># perform the partial backwards for the inputs with a custom backward function</span>
-                <span class="c1"># when the &quot;stage_ouput&quot; is a loss, then it is a tensor, otherwise it is a tuple of tensors</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],)</span>
+                <span class="n">grads_input</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">param_groups</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="c1"># Skip the backward for the first stage since we will perform the weight update with</span>
+                <span class="c1"># autograd.backward in backward_weight_one_chunk</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                        <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],)</span>
 
-                <span class="n">grads_input</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
-                    <span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span>
-                <span class="p">)</span>
+                    <span class="c1"># perform the partial backwards for the inputs with a custom backward function</span>
+                    <span class="c1"># when the &quot;stage_ouput&quot; is a loss, then it is a tensor, otherwise it is a tuple of tensors</span>
+                    <span class="n">grads_input</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
+                        <span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span>
+                    <span class="p">)</span>
 
                 <span class="c1"># TODO: we dont need to save this, add to dw_runner?</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">backward_state</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -1221,7 +1334,7 @@
                 <span class="c1"># Save a placeholder for the dw_runner</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
             <span class="c1"># Autograd dependencies:</span>
             <span class="c1">#    rest_of_autograd_graph -&gt; stage_output -&gt; loss</span>
             <span class="c1"># stage_output is no longer used in the last stage for backward and only needed</span>
@@ -1229,6 +1342,8 @@
             <span class="c1"># this should be detached to release autograd graph context and free memory earlier</span>
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">stage_output</span><span class="p">:</span>
                 <span class="n">t</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Backwarded chunk </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_prefix</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">backward_weight_one_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bwd_chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -1267,6 +1382,8 @@
                     <span class="s2">&quot;full_backward&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
                 <span class="p">}</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bwd_chunks</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">_validate_fwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Raises a RuntimeError if shapes of input args/kwargs do not match the shapes configured for this stage.&quot;&quot;&quot;</span>

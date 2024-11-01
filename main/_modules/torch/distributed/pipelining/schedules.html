@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb4836e5 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb6b9596 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -576,26 +576,28 @@
 <span class="k">class</span> <span class="nc">_ComputationType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="c1"># TODO(whc) rename to _ActType?</span>
     <span class="n">FORWARD</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">BACKWARD</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">WEIGHT</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">BACKWARD_INPUT</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">BACKWARD_WEIGHT</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">UNSHARD</span> <span class="o">=</span> <span class="mi">4</span>
     <span class="n">RESHARD</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">SEND_F</span> <span class="o">=</span> <span class="mi">6</span>
     <span class="n">RECV_F</span> <span class="o">=</span> <span class="mi">7</span>
     <span class="n">SEND_B</span> <span class="o">=</span> <span class="mi">8</span>
     <span class="n">RECV_B</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="n">FULL_BACKWARD</span> <span class="o">=</span> <span class="mi">10</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">str_map</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">:</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span>
-            <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span>
-            <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span><span class="p">:</span> <span class="s2">&quot;W&quot;</span><span class="p">,</span>
+            <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_INPUT</span><span class="p">:</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span>
+            <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span><span class="p">:</span> <span class="s2">&quot;W&quot;</span><span class="p">,</span>
             <span class="n">_ComputationType</span><span class="o">.</span><span class="n">UNSHARD</span><span class="p">:</span> <span class="s2">&quot;UNSHARD&quot;</span><span class="p">,</span>
             <span class="n">_ComputationType</span><span class="o">.</span><span class="n">RESHARD</span><span class="p">:</span> <span class="s2">&quot;RESHARD&quot;</span><span class="p">,</span>
             <span class="n">_ComputationType</span><span class="o">.</span><span class="n">SEND_F</span><span class="p">:</span> <span class="s2">&quot;SEND_F&quot;</span><span class="p">,</span>
             <span class="n">_ComputationType</span><span class="o">.</span><span class="n">RECV_F</span><span class="p">:</span> <span class="s2">&quot;RECV_F&quot;</span><span class="p">,</span>
             <span class="n">_ComputationType</span><span class="o">.</span><span class="n">SEND_B</span><span class="p">:</span> <span class="s2">&quot;SEND_B&quot;</span><span class="p">,</span>
             <span class="n">_ComputationType</span><span class="o">.</span><span class="n">RECV_B</span><span class="p">:</span> <span class="s2">&quot;RECV_B&quot;</span><span class="p">,</span>
+            <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">str_map</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span>
 
@@ -603,10 +605,10 @@
     <span class="k">def</span> <span class="nf">from_str</span><span class="p">(</span><span class="n">action</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span>
-        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_INPUT</span>
         <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;W&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span>
+            <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span>
         <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;UNSHARD&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">UNSHARD</span>
         <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;RESHARD&quot;</span><span class="p">:</span>
@@ -619,28 +621,32 @@
             <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">SEND_B</span>
         <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;RECV_B&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">RECV_B</span>
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid computation type </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
 <span class="n">FORWARD</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span>
-<span class="n">BACKWARD</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span>
-<span class="n">WEIGHT</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span>
+<span class="n">BACKWARD_INPUT</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_INPUT</span>
+<span class="n">BACKWARD_WEIGHT</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span>
 <span class="n">UNSHARD</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">UNSHARD</span>
 <span class="n">RESHARD</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">RESHARD</span>
 <span class="n">SEND_F</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">SEND_F</span>
 <span class="n">RECV_F</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">RECV_F</span>
 <span class="n">SEND_B</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">SEND_B</span>
 <span class="n">RECV_B</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">RECV_B</span>
+<span class="n">FULL_BACKWARD</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span>
 
 <span class="c1"># Convenience shorthand for compute actions only since they are used in &#39;simple schedule format&#39;</span>
 <span class="n">F</span> <span class="o">=</span> <span class="n">FORWARD</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">BACKWARD</span>
-<span class="n">W</span> <span class="o">=</span> <span class="n">WEIGHT</span>
+<span class="n">I</span> <span class="o">=</span> <span class="n">BACKWARD_INPUT</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">BACKWARD_WEIGHT</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">FULL_BACKWARD</span>
 
 <span class="c1"># Helper to parse an action string like 1F0 into a tuple of (stage_index, computation_type, microbatch_index)</span>
 <span class="n">_action_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-    <span class="sa">r</span><span class="s2">&quot;(\d+)(F|B|W|UNSHARD|RESHARD|SEND_F|RECV_F|SEND_B|RECV_B)(\d*)&quot;</span>
+    <span class="sa">r</span><span class="s2">&quot;(\d+)(F|I|B|W|UNSHARD|RESHARD|SEND_F|RECV_F|SEND_B|RECV_B)(\d*)&quot;</span>
 <span class="p">)</span>
 
 
@@ -758,7 +764,7 @@
 
             <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">computation_type</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span>
-                <span class="k">if</span> <span class="n">computation_type</span> <span class="o">!=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">computation_type</span> <span class="o">!=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span><span class="p">:</span>
                     <span class="n">current_timestep_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
 
         <span class="c1"># TODO: enable this</span>
@@ -798,11 +804,11 @@
                 <span class="k">if</span> <span class="n">prev_computation</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">prev_stage</span> <span class="o">==</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">expected_stage</span> <span class="o">=</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span>
-                        <span class="n">expected_computation</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span>
+                        <span class="n">expected_computation</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">expected_stage</span> <span class="o">=</span> <span class="n">prev_stage</span> <span class="o">+</span> <span class="mi">1</span>
                         <span class="n">expected_computation</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span>
-                <span class="k">elif</span> <span class="n">prev_computation</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">prev_computation</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">prev_stage</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="n">error_msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                             <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">mb_index</span><span class="si">=}</span><span class="s2">] already finished backward computation&quot;</span>
@@ -810,7 +816,7 @@
                         <span class="k">break</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">expected_stage</span> <span class="o">=</span> <span class="n">prev_stage</span> <span class="o">-</span> <span class="mi">1</span>
-                        <span class="n">expected_computation</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span>
+                        <span class="n">expected_computation</span> <span class="o">=</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">&quot;Computation type </span><span class="si">{</span><span class="n">prev_computation</span><span class="si">}</span><span class="s2"> not supported&quot;</span>
@@ -850,10 +856,10 @@
                 <span class="n">stage_index</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span>
                 <span class="n">computation_type</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span>
                 <span class="n">mb_index</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span>
-                <span class="k">if</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">mb_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">backward_steps</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">mb_index</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">))</span>
-                <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span><span class="p">:</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">mb_index</span><span class="p">,</span> <span class="n">stage_index</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">backward_steps</span><span class="p">:</span>
                         <span class="n">error_msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mb_index</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">stage_index</span><span class="si">=}</span><span class="s2"> Weight happened before bwd&quot;</span>
@@ -1500,18 +1506,58 @@
     <span class="k">return</span> <span class="n">fsdp_aware_actions</span>
 
 
+<span class="k">def</span> <span class="nf">_merge_bw</span><span class="p">(</span>
+    <span class="n">compute_actions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">_Action</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a basic schedule involving only compute actions (F,I,W), merge adjacent I and W ops into B ops.</span>
+<span class="sd">    (note: I = BACKWARD_INPUT, W = BACKWARD_WEIGHT, B = FULL_BACKWARD)</span>
+
+<span class="sd">    B refers to running the whole backward (not separating grad_input and grad_weight), which can be more efficient</span>
+<span class="sd">    in some cases.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">merged_actions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">compute_actions</span><span class="p">:</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">compute_actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">next_action</span> <span class="o">:=</span> <span class="n">compute_actions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># remove any None actions between &#39;action&#39; and &#39;next_action&#39;</span>
+            <span class="n">compute_actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">BACKWARD_INPUT</span>
+            <span class="ow">and</span> <span class="n">next_action</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">next_action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">BACKWARD_WEIGHT</span>
+            <span class="ow">and</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">==</span> <span class="n">next_action</span><span class="o">.</span><span class="n">stage_index</span>
+            <span class="ow">and</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span> <span class="o">==</span> <span class="n">next_action</span><span class="o">.</span><span class="n">microbatch_index</span>
+        <span class="p">):</span>
+            <span class="n">merged_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">FULL_BACKWARD</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">compute_actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">merged_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">merged_actions</span>
+
+
 <span class="k">def</span> <span class="nf">_add_send_recv</span><span class="p">(</span>
     <span class="n">compute_actions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">_Action</span><span class="p">]],</span>
     <span class="n">stage_to_rank</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]:</span>
     <span class="n">comm_actions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">rank</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">compute_actions</span><span class="p">}</span>
+    <span class="n">prev_actions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">rank</span><span class="p">:</span> <span class="nb">set</span><span class="p">()</span> <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">compute_actions</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">_has_comms</span><span class="p">(</span><span class="n">action</span><span class="p">:</span> <span class="n">_Action</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">F</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">!=</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">B</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">!=</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">!=</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">stage_to_rank</span><span class="p">(</span>
+                <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="p">)</span> <span class="o">!=</span> <span class="n">stage_to_rank</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">BACKWARD_INPUT</span><span class="p">,</span> <span class="n">FULL_BACKWARD</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">stage_to_rank</span><span class="p">(</span>
+                <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="p">)</span> <span class="o">!=</span> <span class="n">stage_to_rank</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_get_comms</span><span class="p">(</span><span class="n">action</span><span class="p">:</span> <span class="n">_Action</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_Action</span><span class="p">,</span> <span class="n">_Action</span><span class="p">]:</span>
@@ -1525,7 +1571,7 @@
         <span class="k">return</span> <span class="n">send</span><span class="p">,</span> <span class="n">recv</span>
 
     <span class="k">def</span> <span class="nf">_ready_to_schedule</span><span class="p">(</span>
-        <span class="n">action</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">],</span> <span class="n">prev_actions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_Action</span><span class="p">]</span>
+        <span class="n">action</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">],</span> <span class="n">prev_actions</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">_Action</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;We don&#39;t put our own recv ops in the schedule, we let a sender on another rank put our recv ops in place.</span>
 <span class="sd">        This helps ensure a sane (non-hanging) ordering of sends and recvs.</span>
@@ -1534,40 +1580,63 @@
         <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">F</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">expected_recv</span> <span class="o">=</span> <span class="n">_Action</span><span class="p">(</span>
-                <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span>
-                <span class="n">RECV_F</span> <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">F</span> <span class="k">else</span> <span class="n">RECV_B</span><span class="p">,</span>
-                <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="n">expected_recv</span> <span class="ow">in</span> <span class="n">prev_actions</span>
-        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">B</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">==</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">expected_recv</span> <span class="o">=</span> <span class="n">_Action</span><span class="p">(</span>
-                <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span>
-                <span class="n">RECV_F</span> <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">F</span> <span class="k">else</span> <span class="n">RECV_B</span><span class="p">,</span>
-                <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="n">expected_recv</span> <span class="ow">in</span> <span class="n">prev_actions</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">RECV_F</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+                <span class="ow">in</span> <span class="n">prev_actions</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+                <span class="ow">in</span> <span class="n">prev_actions</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">BACKWARD_INPUT</span><span class="p">,</span> <span class="n">FULL_BACKWARD</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">==</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">RECV_B</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+                <span class="ow">in</span> <span class="n">prev_actions</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">BACKWARD_INPUT</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+                <span class="ow">in</span> <span class="n">prev_actions</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">FULL_BACKWARD</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+                <span class="ow">in</span> <span class="n">prev_actions</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">while</span> <span class="n">compute_actions</span><span class="p">:</span>
         <span class="n">progress</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># go in order of ranks even if dict keys aren&#39;t ordered</span>
-        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">)):</span>
-            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rank</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span><span class="si">=}</span><span class="s2">&quot;</span>
             <span class="n">action</span> <span class="o">=</span> <span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">_ready_to_schedule</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">comm_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_ready_to_schedule</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">prev_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]):</span>
                 <span class="k">continue</span>
 
             <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">comm_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                <span class="n">prev_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">_has_comms</span><span class="p">(</span><span class="n">action</span><span class="p">):</span>
                     <span class="n">send</span><span class="p">,</span> <span class="n">recv</span> <span class="o">=</span> <span class="n">_get_comms</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
                     <span class="c1"># TODO we can avoid send/recv if the 2 stages are on the same rank.</span>
                     <span class="c1"># should we avoid that in the runtime or here?</span>
                     <span class="n">comm_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">send</span><span class="p">)</span>
+                    <span class="n">prev_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">send</span><span class="p">)</span>
                     <span class="n">comm_actions</span><span class="p">[</span><span class="n">stage_to_rank</span><span class="p">(</span><span class="n">recv</span><span class="o">.</span><span class="n">stage_index</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recv</span><span class="p">)</span>
+                    <span class="n">prev_actions</span><span class="p">[</span><span class="n">stage_to_rank</span><span class="p">(</span><span class="n">recv</span><span class="o">.</span><span class="n">stage_index</span><span class="p">)]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">recv</span><span class="p">)</span>
 
             <span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1594,10 +1663,6 @@
         <span class="n">stage_index_to_group_rank</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">use_full_backward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stages</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Multi-stage schedule expects at least two stages but got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">stages</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
         <span class="c1"># Init parent</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">n_microbatches</span><span class="o">=</span><span class="n">n_microbatches</span><span class="p">,</span>
@@ -1818,7 +1883,11 @@
                         <span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_compute_loss</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
                         <span class="n">ops</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">get_fwd_send_ops</span><span class="p">(</span><span class="n">mb_index</span><span class="p">))</span>
-                    <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">:</span>
+
+                    <span class="c1"># TODO(whc) for now i&#39;m going with the hopefully backward-compatible position that legacy IR with</span>
+                    <span class="c1"># &#39;B&#39; maps to ambiguous backward that is either full or d_Input based on &#39;use_full_backward&#39; flag.</span>
+                    <span class="c1"># Later, we should deprecate this flag, and rely on the IR to determine the type of backward</span>
+                    <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">:</span>
                         <span class="c1"># perform backward computation</span>
                         <span class="n">stage</span> <span class="o">=</span> <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_index</span><span class="p">]</span>
                         <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_get_loss</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
@@ -1826,7 +1895,7 @@
                             <span class="n">mb_index</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">full_backward</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_full_backward</span>
                         <span class="p">)</span>
                         <span class="n">ops</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">get_bwd_send_ops</span><span class="p">(</span><span class="n">mb_index</span><span class="p">))</span>
-                    <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span><span class="p">:</span>
+                    <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span><span class="p">:</span>
                         <span class="c1"># perform weight update</span>
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_full_backward</span><span class="p">:</span>
                             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -1861,8 +1930,8 @@
                                 <span class="n">stage</span> <span class="o">=</span> <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
                                 <span class="n">ops</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">get_fwd_recv_ops</span><span class="p">(</span><span class="n">mb_index</span><span class="p">))</span>
                         <span class="k">elif</span> <span class="p">(</span>
-                            <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span>
-                            <span class="ow">or</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span>
+                            <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span>
+                            <span class="ow">or</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span>
                         <span class="p">):</span>
                             <span class="c1"># Previous rank doing backward or weight update has no influence for the current rank forward recv</span>
                             <span class="k">pass</span>
@@ -1885,11 +1954,11 @@
                         <span class="c1"># Only handle receives for the backwards from a next rank</span>
                         <span class="k">if</span> <span class="p">(</span>
                             <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span>
-                            <span class="ow">or</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span>
+                            <span class="ow">or</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span>
                         <span class="p">):</span>
                             <span class="c1"># Next rank doing forward or weight update has no influence for the current rank backward recv</span>
                             <span class="k">pass</span>
-                        <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">:</span>
+                        <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">:</span>
                             <span class="c1"># If not the first stage, then receive bwd gradients</span>
                             <span class="k">if</span> <span class="n">stage_index</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">stage_index_to_stage</span><span class="p">:</span>
                                 <span class="c1"># TODO: We are assuming that stage will always receive from stage+1</span>
@@ -1995,6 +2064,13 @@
             <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span><span class="p">:</span>
                 <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span>
 
+    <span class="k">def</span> <span class="nf">_simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_simulate_comms_compute</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span><span class="p">,</span>
+            <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">[</span><span class="n">s</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span><span class="p">,</span>
+        <span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_step_microbatches</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">arg_mbs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2058,6 +2134,9 @@
                 <span class="n">stage_idx</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span>
                 <span class="n">stage</span> <span class="o">=</span> <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_idx</span><span class="p">]</span>
                 <span class="n">stage_uses_fsdp</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">submod</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">)</span>
+                <span class="c1"># see [Note: V-schedule special case]</span>
+                <span class="n">is_next_stage_on_this_rank</span> <span class="o">=</span> <span class="n">stage_idx</span> <span class="o">+</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">stage_index_to_stage</span>
+                <span class="n">is_prev_stage_on_this_rank</span> <span class="o">=</span> <span class="n">stage_idx</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">stage_index_to_stage</span>
 
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="s2">&quot;_PipelineScheduleRuntime running time_step </span><span class="si">%d</span><span class="s2">, action </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -2110,19 +2189,66 @@
                     <span class="k">if</span> <span class="n">stage_uses_fsdp</span><span class="p">:</span>
                         <span class="n">_assert_unsharded</span><span class="p">(</span><span class="n">stage_idx</span><span class="p">)</span>
 
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">stage</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="ow">not</span> <span class="n">stage</span><span class="o">.</span><span class="n">is_first</span>
+                        <span class="c1"># no recv op expected for V-schedule special case (see [Note: V-schedule special case])</span>
+                        <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_prev_stage_on_this_rank</span>
+                    <span class="p">):</span>
                         <span class="k">assert</span> <span class="p">(</span>
                             <span class="n">stage_idx</span><span class="p">,</span>
                             <span class="n">mb_index</span><span class="p">,</span>
                         <span class="p">)</span> <span class="ow">in</span> <span class="n">fwd_recv_ops</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Computing </span><span class="si">{</span><span class="n">action</span><span class="si">=}</span><span class="s2"> before receiving input&quot;</span>
                         <span class="n">fwd_recv_ops</span><span class="o">.</span><span class="n">pop</span><span class="p">((</span><span class="n">stage_idx</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">))</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
                     <span class="n">output</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">forward_one_chunk</span><span class="p">(</span>
                         <span class="n">mb_index</span><span class="p">,</span> <span class="n">arg_mbs</span><span class="p">[</span><span class="n">mb_index</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="n">mb_index</span><span class="p">]</span>
                     <span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_compute_loss</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">comp_type</span> <span class="o">==</span> <span class="n">BACKWARD</span><span class="p">:</span>
+
+                    <span class="c1"># SEND/RECV op are avoided for special case with 2 adjacent stages on same rank</span>
+                    <span class="c1"># see [Note: V-schedule special case]</span>
+                    <span class="k">if</span> <span class="n">is_next_stage_on_this_rank</span><span class="p">:</span>
+                        <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_local_fwd_input</span><span class="p">(</span>
+                            <span class="n">output</span><span class="p">,</span> <span class="n">mb_index</span>
+                        <span class="p">)</span>
+
+                <span class="k">elif</span> <span class="n">comp_type</span> <span class="o">==</span> <span class="n">FULL_BACKWARD</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">stage_uses_fsdp</span><span class="p">:</span>
                         <span class="n">_assert_unsharded</span><span class="p">(</span><span class="n">stage_idx</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="ow">not</span> <span class="n">stage</span><span class="o">.</span><span class="n">is_last</span>
+                        <span class="c1"># no recv op expected for V-schedule special case (see [Note: V-schedule special case])</span>
+                        <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_next_stage_on_this_rank</span>
+                    <span class="p">):</span>
+                        <span class="k">assert</span> <span class="p">(</span>
+                            <span class="n">stage_idx</span><span class="p">,</span>
+                            <span class="n">mb_index</span><span class="p">,</span>
+                        <span class="p">)</span> <span class="ow">in</span> <span class="n">bwd_recv_ops</span><span class="p">,</span> <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Attempted to run compute </span><span class="si">{</span><span class="n">action</span><span class="si">=}</span><span class="s2"> before receiving input&quot;</span>
+                        <span class="p">)</span>
+                        <span class="n">bwd_recv_ops</span><span class="o">.</span><span class="n">pop</span><span class="p">((</span><span class="n">stage_idx</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">))</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+                    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_get_loss</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
+                    <span class="n">stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span>
+                        <span class="n">mb_index</span><span class="p">,</span>
+                        <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
+                        <span class="n">full_backward</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="c1"># SEND/RECV op are avoided for special case with 2 adjacent stages on same rank</span>
+                    <span class="c1"># see [Note: V-schedule special case]</span>
+                    <span class="k">if</span> <span class="n">is_prev_stage_on_this_rank</span><span class="p">:</span>
+                        <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_local_bwd_input</span><span class="p">(</span>
+                            <span class="n">stage</span><span class="o">.</span><span class="n">get_local_bwd_output</span><span class="p">(</span><span class="n">mb_index</span><span class="p">),</span> <span class="n">mb_index</span>
+                        <span class="p">)</span>
+                <span class="k">elif</span> <span class="n">comp_type</span> <span class="o">==</span> <span class="n">BACKWARD_INPUT</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">stage_uses_fsdp</span><span class="p">:</span>
+                        <span class="n">_assert_unsharded</span><span class="p">(</span><span class="n">stage_idx</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_full_backward</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;We detected a weight update in the pipeline schedule, but </span><span class="se">\</span>
+<span class="s2">                            </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">use_full_backward</span><span class="si">=}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
 
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">stage</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
                         <span class="k">assert</span> <span class="p">(</span>
@@ -2134,9 +2260,17 @@
                         <span class="n">bwd_recv_ops</span><span class="o">.</span><span class="n">pop</span><span class="p">((</span><span class="n">stage_idx</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">))</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
                     <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_get_loss</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
                     <span class="n">stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span>
-                        <span class="n">mb_index</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">full_backward</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_full_backward</span>
+                        <span class="n">mb_index</span><span class="p">,</span>
+                        <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
+                        <span class="n">full_backward</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                     <span class="p">)</span>
-                <span class="k">elif</span> <span class="n">comp_type</span> <span class="o">==</span> <span class="n">WEIGHT</span><span class="p">:</span>
+                    <span class="c1"># SEND/RECV op are avoided for special case with 2 adjacent stages on same rank</span>
+                    <span class="c1"># see [Note: V-schedule special case]</span>
+                    <span class="k">if</span> <span class="n">is_prev_stage_on_this_rank</span><span class="p">:</span>
+                        <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_local_bwd_input</span><span class="p">(</span>
+                            <span class="n">stage</span><span class="o">.</span><span class="n">get_local_bwd_output</span><span class="p">(</span><span class="n">mb_index</span><span class="p">),</span> <span class="n">mb_index</span>
+                        <span class="p">)</span>
+                <span class="k">elif</span> <span class="n">comp_type</span> <span class="o">==</span> <span class="n">BACKWARD_WEIGHT</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">stage_uses_fsdp</span><span class="p">:</span>
                         <span class="n">_assert_unsharded</span><span class="p">(</span><span class="n">stage_idx</span><span class="p">)</span>
 
@@ -2228,7 +2362,7 @@
         <span class="k">for</span> <span class="n">stage_index</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">stage_indices</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">mb_index</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)):</span>
                 <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">_Action</span><span class="p">(</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
+                    <span class="n">_Action</span><span class="p">(</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">rank_ops</span></div>
 
@@ -2302,7 +2436,7 @@
                 <span class="n">bwd_mb_index</span> <span class="o">:=</span> <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span>
             <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">_Action</span><span class="p">(</span><span class="n">bwd_stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">)</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">bwd_stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">)</span>
             <span class="p">)</span>
             <span class="n">backward_op_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
 
@@ -2315,7 +2449,9 @@
                 <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="n">_Action</span><span class="p">(</span>
-                        <span class="n">weight_stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span><span class="p">,</span> <span class="n">weight_mb_index</span>
+                        <span class="n">weight_stage_index</span><span class="p">,</span>
+                        <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span><span class="p">,</span>
+                        <span class="n">weight_mb_index</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
                 <span class="n">weight_op_count</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -2331,7 +2467,7 @@
                 <span class="n">bwd_mb_index</span> <span class="o">:=</span> <span class="n">bwd_stage_mb_index</span><span class="p">[</span><span class="n">bwd_stage_index</span><span class="p">]</span>
             <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">_Action</span><span class="p">(</span><span class="n">bwd_stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">)</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">bwd_stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">)</span>
             <span class="p">)</span>
             <span class="n">backward_op_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
 
@@ -2344,7 +2480,9 @@
                 <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="n">_Action</span><span class="p">(</span>
-                        <span class="n">weight_stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span><span class="p">,</span> <span class="n">weight_mb_index</span>
+                        <span class="n">weight_stage_index</span><span class="p">,</span>
+                        <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span><span class="p">,</span>
+                        <span class="n">weight_mb_index</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
                 <span class="n">weight_op_count</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -2355,7 +2493,9 @@
             <span class="n">weight_mb_index</span> <span class="o">:=</span> <span class="n">weight_stage_mb_index</span><span class="p">[</span><span class="n">weight_stage_index</span><span class="p">]</span>
         <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">rank_ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="n">_Action</span><span class="p">(</span><span class="n">weight_stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">WEIGHT</span><span class="p">,</span> <span class="n">weight_mb_index</span><span class="p">)</span>
+            <span class="n">_Action</span><span class="p">(</span>
+                <span class="n">weight_stage_index</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span><span class="p">,</span> <span class="n">weight_mb_index</span>
+            <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">weight_op_count</span> <span class="o">+=</span> <span class="mi">1</span>
 
@@ -2602,7 +2742,7 @@
             <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">stage</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">stage</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">microbatch</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen_ops</span><span class="p">:</span>
                     <span class="k">return</span> <span class="kc">True</span>
-            <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FULL_BACKWARD</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">stage</span> <span class="o">==</span> <span class="n">num_stages_global</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">return</span> <span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">,</span> <span class="n">microbatch</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen_ops</span>
                 <span class="k">return</span> <span class="p">(</span><span class="n">stage</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">microbatch</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen_ops</span>
@@ -2685,6 +2825,175 @@
             <span class="sa">f</span><span class="s2">&quot;Unknown schedule name &#39;</span><span class="si">{</span><span class="n">schedule_name</span><span class="si">}</span><span class="s2">&#39;. The valid options are </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">schedule_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">schedule_map</span><span class="p">[</span><span class="n">lowercase_keys</span><span class="p">[</span><span class="n">lowercase_schedule_name</span><span class="p">]]</span>
+
+
+<span class="k">def</span> <span class="nf">_simulate_comms_compute</span><span class="p">(</span>
+    <span class="n">pipeline_order</span><span class="p">,</span> <span class="n">stage_to_rank</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function dry-run simulates the actions in the schedule from the perspective of all ranks, and flags</span>
+<span class="sd">    any deadlocks caused by missing or misordered communications.  It also simulates any bubbles in time where a rank</span>
+<span class="sd">    can not execute any action due to waiting for unmet dependencies.  The total number of simulator steps can be used</span>
+<span class="sd">    as a metric for unit tests involving IR optimization passes as reordering and merging of IR can reduce the number</span>
+<span class="sd">    of simulated steps.</span>
+
+<span class="sd">    The simulation is not high-fidelity and does not model overlapping of compute and communication, or cuda streams.</span>
+<span class="sd">    Future work may be to enhance this and model the compute time, comms overlap, and even memory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pipeline_order</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">rank</span><span class="p">:</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">_schedule</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">_Action</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">rank</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">_prev_ops_rank</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">rank</span><span class="p">:</span> <span class="nb">set</span><span class="p">()</span> <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">_schedule</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">add_to_schedule</span><span class="p">(</span><span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">]):</span>
+        <span class="n">_schedule</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_prev_ops_rank</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_ready_to_schedule</span><span class="p">(</span><span class="n">action</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="n">stage_idx</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span>
+        <span class="n">prev_ops</span> <span class="o">=</span> <span class="n">_prev_ops_rank</span><span class="p">[</span><span class="n">stage_to_rank</span><span class="p">(</span><span class="n">stage_idx</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">F</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">RECV_F</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span> <span class="ow">in</span> <span class="n">prev_ops</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span> <span class="ow">in</span> <span class="n">prev_ops</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">BACKWARD_INPUT</span><span class="p">,</span> <span class="n">FULL_BACKWARD</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">==</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">RECV_B</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span> <span class="ow">in</span> <span class="n">prev_ops</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">BACKWARD_INPUT</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+                <span class="ow">in</span> <span class="n">prev_ops</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">FULL_BACKWARD</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+                <span class="ow">in</span> <span class="n">prev_ops</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">BACKWARD_WEIGHT</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">SEND_F</span><span class="p">:</span>
+            <span class="n">expected_f</span> <span class="o">=</span> <span class="n">_Action</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">expected_f</span> <span class="ow">in</span> <span class="n">prev_ops</span>
+        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">RECV_F</span><span class="p">:</span>
+            <span class="n">peer_stage_idx</span> <span class="o">=</span> <span class="n">stage_idx</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">expected_send</span> <span class="o">=</span> <span class="n">_Action</span><span class="p">(</span><span class="n">peer_stage_idx</span><span class="p">,</span> <span class="n">SEND_F</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">expected_send</span> <span class="ow">in</span> <span class="n">_prev_ops_rank</span><span class="p">[</span><span class="n">stage_to_rank</span><span class="p">(</span><span class="n">peer_stage_idx</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">SEND_B</span><span class="p">:</span>
+            <span class="n">expected_b</span> <span class="o">=</span> <span class="n">_Action</span><span class="p">(</span>
+                <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">BACKWARD_INPUT</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span>
+            <span class="p">)</span>
+            <span class="n">expected_bw</span> <span class="o">=</span> <span class="n">_Action</span><span class="p">(</span>
+                <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span><span class="p">,</span> <span class="n">FULL_BACKWARD</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">expected_b</span> <span class="ow">in</span> <span class="n">prev_ops</span> <span class="ow">or</span> <span class="n">expected_bw</span> <span class="ow">in</span> <span class="n">prev_ops</span>
+        <span class="k">elif</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="o">==</span> <span class="n">RECV_B</span><span class="p">:</span>
+            <span class="n">peer_stage_idx</span> <span class="o">=</span> <span class="n">stage_idx</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">expected_send</span> <span class="o">=</span> <span class="n">_Action</span><span class="p">(</span><span class="n">peer_stage_idx</span><span class="p">,</span> <span class="n">SEND_B</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">expected_send</span> <span class="ow">in</span> <span class="n">_prev_ops_rank</span><span class="p">[</span><span class="n">stage_to_rank</span><span class="p">(</span><span class="n">peer_stage_idx</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported action type </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">pipeline_order</span><span class="p">:</span>
+        <span class="n">progress</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">action</span> <span class="o">=</span> <span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">_ready_to_schedule</span><span class="p">(</span><span class="n">action</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">add_to_schedule</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+                <span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">progress</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">add_to_schedule</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">pipeline_order</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c1"># hacky, but do a second pass to replace any &#39;none&#39; at this timestep with a real action, if it got unblocked</span>
+        <span class="c1"># by one of the later ranks</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">_schedule</span><span class="p">[</span><span class="n">rank</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">action</span> <span class="o">=</span> <span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">_ready_to_schedule</span><span class="p">(</span><span class="n">action</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_schedule</span><span class="p">[</span><span class="n">rank</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
+                    <span class="n">_prev_ops_rank</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                <span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">pipeline_order</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">progress</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WIP comms schedule:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_format_pipeline_order</span><span class="p">(</span><span class="n">_schedule</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">pipeline_order</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rank</span><span class="si">=}</span><span class="s2"> next action= </span><span class="si">{</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Schedule is not progressing&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_schedule</span>
+
+
+<span class="k">def</span> <span class="nf">_dump_chrometrace</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function dumps a schedule IR into a chrometrace format so it can be visualized.</span>
+
+<span class="sd">    It is currently very basic and only serves as a graphical alternative to dumping the schedule IR as text.</span>
+
+<span class="sd">    As future work we may extend this to include more accurate heuristics for durations, or let users input durations,</span>
+<span class="sd">    add &#39;flow events&#39; to let the UI show the connection between sends and recvs, and model cuda streams for comm/compute</span>
+<span class="sd">    as separate streams on the chrometrace view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">schedule</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">timestep</span><span class="p">,</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">schedule</span><span class="p">[</span><span class="n">rank</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">action</span><span class="p">),</span>
+                    <span class="s2">&quot;cat&quot;</span><span class="p">:</span> <span class="p">(</span>
+                        <span class="s2">&quot;computation&quot;</span>
+                        <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+                        <span class="k">else</span> <span class="s2">&quot;communication&quot;</span>
+                    <span class="p">),</span>
+                    <span class="s2">&quot;ph&quot;</span><span class="p">:</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="n">rank</span><span class="p">,</span>
+                    <span class="s2">&quot;tid&quot;</span><span class="p">:</span> <span class="n">rank</span><span class="p">,</span>
+                    <span class="s2">&quot;ts&quot;</span><span class="p">:</span> <span class="n">timestep</span><span class="p">,</span>
+                    <span class="s2">&quot;dur&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">json</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">&quot;traceEvents&quot;</span><span class="p">:</span> <span class="n">events</span><span class="p">},</span> <span class="n">f</span><span class="p">)</span>
 </pre></div>
 
              </article>

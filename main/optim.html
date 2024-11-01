@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb4836e5 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb6b9596 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -1241,7 +1241,7 @@ normalization statistics at the end of training.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">averaged_model</span> <span class="o">=</span> <span class="n">AveragedModel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">multi_avg_fn</span><span class="o">=</span><span class="n">get_ema_multi_avg_fn</span><span class="p">(</span><span class="n">decay</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Decay is a parameter between 0 and 1 that controls how fast the averaged parameters are decayed. If not provided to <a class="reference internal" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="torch.optim.swa_utils.get_ema_multi_avg_fn"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.optim.swa_utils.get_ema_multi_avg_fn()</span></code></a>, the default is 0.999.</p>
+<p>Decay is a parameter between 0 and 1 that controls how fast the averaged parameters are decayed. If not provided to <a class="reference internal" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="torch.optim.swa_utils.get_ema_multi_avg_fn"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.optim.swa_utils.get_ema_multi_avg_fn()</span></code></a>, the default is 0.999. Decay value should be close to 1.0, as smaller values can cause optimization convergence issues.</p>
 <p><a class="reference internal" href="#torch.optim.swa_utils.get_ema_multi_avg_fn" title="torch.optim.swa_utils.get_ema_multi_avg_fn"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.optim.swa_utils.get_ema_multi_avg_fn()</span></code></a> returns a function that applies the following EMA equation to the weights:</p>
 <div class="math">
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>W</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mtext>EMA</mtext></msubsup><mo>=</mo><mi>α</mi><msubsup><mi>W</mi><mi>t</mi><mtext>EMA</mtext></msubsup><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><msubsup><mi>W</mi><mi>t</mi><mtext>model</mtext></msubsup></mrow><annotation encoding="application/x-tex">W^\textrm{EMA}_{t+1} = \alpha W^\textrm{EMA}_{t} + (1 - \alpha) W^\textrm{model}_t
