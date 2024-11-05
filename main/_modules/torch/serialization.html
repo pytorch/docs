@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git3242049 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git1b6f0b2 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -590,6 +590,7 @@
     <span class="s2">&quot;skip_data&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
+<span class="n">IS_FBCODE</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="s2">&quot;git_version&quot;</span><span class="p">)</span>
 
 <span class="n">DEFAULT_PROTOCOL</span> <span class="o">=</span> <span class="mi">2</span>
 
@@ -613,6 +614,10 @@
     <span class="kn">from</span> <span class="nn">mmap</span> <span class="kn">import</span> <span class="n">MAP_PRIVATE</span><span class="p">,</span> <span class="n">MAP_SHARED</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">MAP_PRIVATE</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
+
+
+<span class="k">def</span> <span class="nf">_default_to_weights_only</span><span class="p">(</span><span class="n">pickle_module</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pickle_module</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">IS_FBCODE</span>
 
 
 <span class="c1"># _serialization_tls is used to store thread local state specific to serialization</span>
@@ -1728,7 +1733,7 @@
     <span class="c1"># documentation. We need it so that Sphinx doesn&#39;t leak `pickle`s path from</span>
     <span class="c1"># the build environment (e.g. `&lt;module &#39;pickle&#39; from &#39;/leaked/path&#39;).</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;load(f, map_location=None, pickle_module=pickle, *, weights_only=False, mmap=None, **pickle_load_args)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;load(f, map_location=None, pickle_module=pickle, *, weights_only=True, mmap=None, **pickle_load_args)</span>
 
 <span class="sd">    Loads an object saved with :func:`torch.save` from a file.</span>
 
@@ -1870,6 +1875,11 @@
             <span class="s2">&quot;is not supported yet. Please call torch.load outside the skip_data context manager.&quot;</span>
         <span class="p">)</span>
 
+    <span class="n">weights_only_not_set</span> <span class="o">=</span> <span class="n">weights_only</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">weights_only_not_set</span><span class="p">:</span>
+        <span class="n">weights_only</span> <span class="o">=</span> <span class="n">_default_to_weights_only</span><span class="p">(</span><span class="n">pickle_module</span><span class="p">)</span>
+
     <span class="n">true_values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">]</span>
     <span class="c1"># Add ability to force safe only or non-safe weight loads via environment variables</span>
     <span class="n">force_weights_only_load</span> <span class="o">=</span> <span class="p">(</span>
@@ -1887,7 +1897,8 @@
     <span class="k">elif</span> <span class="n">force_weights_only_load</span><span class="p">:</span>
         <span class="n">weights_only</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">force_no_weights_only_load</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">weights_only</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD can only override if callsite did not explicitly set weights_only</span>
+        <span class="k">if</span> <span class="n">weights_only_not_set</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="s2">&quot;Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the&quot;</span>
                 <span class="s2">&quot;`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.&quot;</span><span class="p">,</span>
@@ -1896,11 +1907,6 @@
             <span class="p">)</span>
             <span class="n">weights_only</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">if</span> <span class="n">weights_only</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">weights_only</span><span class="p">,</span> <span class="n">warn_weights_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">warn_weights_only</span> <span class="o">=</span> <span class="kc">False</span>
-
     <span class="k">if</span> <span class="n">weights_only</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">pickle_module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -1908,21 +1914,6 @@
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">pickle_module</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">warn_weights_only</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="s2">&quot;You are using `torch.load` with `weights_only=False` (the current default value), which uses &quot;</span>
-                    <span class="s2">&quot;the default pickle module implicitly. It is possible to construct malicious pickle data &quot;</span>
-                    <span class="s2">&quot;which will execute arbitrary code during unpickling (See &quot;</span>
-                    <span class="s2">&quot;https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). &quot;</span>
-                    <span class="s2">&quot;In a future release, the default value for `weights_only` will be flipped to `True`. This &quot;</span>
-                    <span class="s2">&quot;limits the functions that could be executed during unpickling. Arbitrary objects will no &quot;</span>
-                    <span class="s2">&quot;longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the &quot;</span>
-                    <span class="s2">&quot;user via `torch.serialization.add_safe_globals`. We recommend you start setting &quot;</span>
-                    <span class="s2">&quot;`weights_only=True` for any use case where you don&#39;t have full control of the loaded file. &quot;</span>
-                    <span class="s2">&quot;Please open an issue on GitHub for any issues related to this experimental feature.&quot;</span><span class="p">,</span>
-                    <span class="ne">FutureWarning</span><span class="p">,</span>
-                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="p">)</span>
             <span class="n">pickle_module</span> <span class="o">=</span> <span class="n">pickle</span>
 
     <span class="c1"># make flipping default BC-compatible</span>

@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git3242049 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git1b6f0b2 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -901,6 +901,21 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span> <span class="n">expr</span>
         <span class="k">return</span> <span class="n">expr</span></div>
+
+
+<span class="k">def</span> <span class="nf">_guard_sizes_oblivious</span><span class="p">(</span>
+    <span class="n">lhs_sizes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]],</span>
+    <span class="n">rhs_sizes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Leverage guard_size_oblivious to compare if two lists of int/symint are equal.</span>
+<span class="sd">    Useful to compare sizes, strides etc.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">lhs_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">rhs_sizes</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span>
+        <span class="n">guard_size_oblivious</span><span class="p">(</span><span class="n">lhs_item</span> <span class="o">==</span> <span class="n">rhs_item</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">lhs_item</span><span class="p">,</span> <span class="n">rhs_item</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lhs_sizes</span><span class="p">,</span> <span class="n">rhs_sizes</span><span class="p">)</span>
+    <span class="p">)</span>
 
 
 <div class="viewcode-block" id="check_consistent"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.check_consistent.html#torch.fx.experimental.symbolic_shapes.check_consistent">[docs]</a><span class="k">def</span> <span class="nf">check_consistent</span><span class="p">(</span><span class="n">new</span><span class="p">:</span> <span class="n">_T</span><span class="p">,</span> <span class="n">old</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2505,6 +2520,16 @@
     <span class="s2">&quot;IntTrueDiv&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">truediv</span><span class="p">,</span>
     <span class="s2">&quot;FloatTrueDiv&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">truediv</span><span class="p">,</span>
     <span class="s2">&quot;ToFloat&quot;</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_cos&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_cosh&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_acos&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_sin&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_sinh&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_asin&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_tan&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_tanh&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_atan&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">,</span>
+    <span class="s2">&quot;OpaqueUnaryFn_sqrt&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">,</span>
 <span class="p">}</span>
 
 
@@ -3577,7 +3602,7 @@
         <span class="c1"># they get assigned the same symbolic variable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">val_to_var</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">specialize_zero_one</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">val_to_var</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="mi">1</span><span class="p">)}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">val_to_var</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">Zero</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">One</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_symfloat_counter</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_symint_counter</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
         <span class="c1"># Similar to guards, but these MUST evaluate to true and can</span>
@@ -5861,8 +5886,8 @@
 <span class="sd">        could then potentially guard on.</span>
 
 <span class="sd">        Use compute_hint == True if you are trying to compute a non-binding</span>
-<span class="sd">        hint for the particular hint values of backed SymInts, e.g., if</span>
-<span class="sd">        s0 happens to be 3 this run, compute_hint will subsitute s0 with 3.</span>
+<span class="sd">        hint for the particular hint values of backed and unbacked SymInts,</span>
+<span class="sd">        e.g., if s0 happens to be 3 this run, compute_hint will subsitute s0 with 3.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># axioms with compute hint NYE</span>
@@ -5871,7 +5896,7 @@
         <span class="n">expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">compute_hint</span><span class="p">:</span>
-            <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">)</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">)</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">)</span>
 
         <span class="n">expr</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
@@ -6663,6 +6688,8 @@
         <span class="c1">#   1. &#39;translation_validation&#39; is set</span>
         <span class="c1">#   2. the corresponding &#39;fx_node&#39; is not &#39;None&#39;</span>
         <span class="c1">#   3. the guard should not be suppressed</span>
+        <span class="c1">#   4. the guard doesn&#39;t contain backed symfloat symbols</span>
+        <span class="c1">#      since z3 can&#39;t handle floats</span>
         <span class="c1">#</span>
         <span class="c1"># If all of the above check, we create an FX node representing the</span>
         <span class="c1"># actual expression to be guarded.</span>
@@ -6673,6 +6700,7 @@
             <span class="ow">and</span> <span class="n">fx_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress_guards_tls</span><span class="p">()</span>
             <span class="ow">and</span> <span class="ow">not</span> <span class="n">size_oblivious</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">symbol_is_type</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SymT</span><span class="o">.</span><span class="n">FLOAT</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">orig_expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="c1"># TODO: does this even worked with unbacked :think:</span>
             <span class="n">concrete_val</span> <span class="o">=</span> <span class="n">compute_concrete_val</span><span class="p">()</span>
@@ -7122,7 +7150,7 @@
         <span class="sa">f</span><span class="s2">&quot;torch._check(</span><span class="si">{</span><span class="n">printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Not</span><span class="p">(</span><span class="n">cond</span><span class="p">))</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
     <span class="p">]</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fix</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">suggested_fixes</span><span class="p">):</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fix</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fix</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="n">src_mapped</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">` with </span><span class="si">{</span><span class="s1">&#39; or &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">src_map</span><span class="p">[</span><span class="n">s</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">cond</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">)</span>

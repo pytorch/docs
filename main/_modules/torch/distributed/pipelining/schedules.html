@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git3242049 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git1b6f0b2 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -532,7 +532,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Any</span><span class="p">,</span>
@@ -1138,7 +1138,9 @@
                     <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
                 <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_get_loss</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span>
+                    <span class="n">i</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">last_backward</span><span class="o">=</span><span class="n">i</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="p">)</span>
 
                 <span class="n">ops</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">get_bwd_send_ops</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                 <span class="n">works</span> <span class="o">=</span> <span class="n">_sorted_batch_p2p</span><span class="p">(</span><span class="n">ops</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;bwd_send&quot;</span><span class="p">)</span>
@@ -1234,7 +1236,11 @@
 
             <span class="c1"># Backward one chunk</span>
             <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_get_loss</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span><span class="n">bwd_mb_index</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span>
+                <span class="n">bwd_mb_index</span><span class="p">,</span>
+                <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
+                <span class="n">last_backward</span><span class="o">=</span><span class="n">bwd_mb_index</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
 
             <span class="c1"># Get the bwd send ops, but don&#39;t fire, to be fused with the 1F below</span>
             <span class="n">bwd_sends</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">get_bwd_send_ops</span><span class="p">(</span><span class="n">bwd_mb_index</span><span class="p">)</span>
@@ -1273,7 +1279,11 @@
 
             <span class="c1"># Backward one chunk</span>
             <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_get_loss</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span> <span class="n">bwd_mb_index</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span><span class="n">bwd_mb_index</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span>
+                <span class="n">bwd_mb_index</span><span class="p">,</span>
+                <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
+                <span class="n">last_backward</span><span class="o">=</span><span class="n">bwd_mb_index</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
 
             <span class="c1"># Clear previous chunk&#39;s backward sends (hopefully they have well finished)</span>
             <span class="k">if</span> <span class="n">send_work</span><span class="p">:</span>
@@ -1728,7 +1738,8 @@
                 <span class="n">all_prev_ranks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">[</span><span class="n">stage_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">stage_index</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">all_next_ranks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span><span class="p">[</span><span class="n">stage_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
-
+        <span class="c1"># count either full_backward or backward_weight together, to determine when to sync DP grads</span>
+        <span class="n">backward_counter</span><span class="p">:</span> <span class="n">Counter</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">time_step</span><span class="p">,</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">]):</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">ops</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1751,10 +1762,13 @@
                         <span class="c1"># perform backward computation</span>
                         <span class="n">stage</span> <span class="o">=</span> <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_index</span><span class="p">]</span>
                         <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_get_loss</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
+                        <span class="n">backward_counter</span><span class="p">[</span><span class="n">stage_index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
                         <span class="n">stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span>
                             <span class="n">mb_index</span><span class="p">,</span>
                             <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
                             <span class="n">full_backward</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">last_backward</span><span class="o">=</span><span class="n">backward_counter</span><span class="p">[</span><span class="n">stage_index</span><span class="p">]</span>
+                            <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span>
                         <span class="p">)</span>
                         <span class="n">ops</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">get_bwd_send_ops</span><span class="p">(</span><span class="n">mb_index</span><span class="p">))</span>
                     <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_INPUT</span><span class="p">:</span>
@@ -1765,12 +1779,18 @@
                             <span class="n">mb_index</span><span class="p">,</span>
                             <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
                             <span class="n">full_backward</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">last_backward</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                         <span class="p">)</span>
                         <span class="n">ops</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">get_bwd_send_ops</span><span class="p">(</span><span class="n">mb_index</span><span class="p">))</span>
                     <span class="k">elif</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">BACKWARD_WEIGHT</span><span class="p">:</span>
                         <span class="c1"># perform weight update</span>
                         <span class="n">stage</span> <span class="o">=</span> <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_index</span><span class="p">]</span>
-                        <span class="n">stage</span><span class="o">.</span><span class="n">backward_weight_one_chunk</span><span class="p">(</span><span class="n">mb_index</span><span class="p">)</span>
+                        <span class="n">backward_counter</span><span class="p">[</span><span class="n">stage_index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">stage</span><span class="o">.</span><span class="n">backward_weight_one_chunk</span><span class="p">(</span>
+                            <span class="n">mb_index</span><span class="p">,</span>
+                            <span class="n">last_backward</span><span class="o">=</span><span class="n">backward_counter</span><span class="p">[</span><span class="n">stage_index</span><span class="p">]</span>
+                            <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span>
+                        <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown computation type </span><span class="si">{</span><span class="n">computation_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -1984,6 +2004,8 @@
                 <span class="n">stage_idx</span> <span class="ow">in</span> <span class="n">unsharded_stages</span>
             <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Attempted to compute on sharded </span><span class="si">{</span><span class="n">stage_idx</span><span class="si">=}</span><span class="s2">&quot;</span>
 
+        <span class="c1"># count either full_backward or backward_weight together, to determine when to sync DP grads</span>
+        <span class="n">backward_counter</span><span class="p">:</span> <span class="n">Counter</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">time_step</span><span class="p">,</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">]):</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">comp_type</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span>
@@ -2094,10 +2116,13 @@
                         <span class="p">)</span>
                         <span class="n">bwd_recv_ops</span><span class="o">.</span><span class="n">pop</span><span class="p">((</span><span class="n">stage_idx</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">))</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
                     <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_get_loss</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)</span>
+                    <span class="n">backward_counter</span><span class="p">[</span><span class="n">stage_idx</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
                     <span class="n">stage</span><span class="o">.</span><span class="n">backward_one_chunk</span><span class="p">(</span>
                         <span class="n">mb_index</span><span class="p">,</span>
                         <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
                         <span class="n">full_backward</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">last_backward</span><span class="o">=</span><span class="n">backward_counter</span><span class="p">[</span><span class="n">stage_idx</span><span class="p">]</span>
+                        <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span>
                     <span class="p">)</span>
                     <span class="c1"># SEND/RECV op are avoided for special case with 2 adjacent stages on same rank</span>
                     <span class="c1"># see [Note: V-schedule special case]</span>
@@ -2122,6 +2147,7 @@
                         <span class="n">mb_index</span><span class="p">,</span>
                         <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
                         <span class="n">full_backward</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">last_backward</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                     <span class="p">)</span>
                     <span class="c1"># SEND/RECV op are avoided for special case with 2 adjacent stages on same rank</span>
                     <span class="c1"># see [Note: V-schedule special case]</span>
@@ -2132,8 +2158,12 @@
                 <span class="k">elif</span> <span class="n">comp_type</span> <span class="o">==</span> <span class="n">BACKWARD_WEIGHT</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">stage_uses_fsdp</span><span class="p">:</span>
                         <span class="n">_assert_unsharded</span><span class="p">(</span><span class="n">stage_idx</span><span class="p">)</span>
-
-                    <span class="n">stage</span><span class="o">.</span><span class="n">backward_weight_one_chunk</span><span class="p">(</span><span class="n">mb_index</span><span class="p">)</span>
+                    <span class="n">backward_counter</span><span class="p">[</span><span class="n">stage_idx</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">stage</span><span class="o">.</span><span class="n">backward_weight_one_chunk</span><span class="p">(</span>
+                        <span class="n">mb_index</span><span class="p">,</span>
+                        <span class="n">last_backward</span><span class="o">=</span><span class="n">backward_counter</span><span class="p">[</span><span class="n">stage_idx</span><span class="p">]</span>
+                        <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">action</span><span class="si">=}</span><span class="s2"> is unknown or unsupported&quot;</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
