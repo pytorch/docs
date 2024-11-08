@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git52446d7 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitbf1b8ad ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -750,37 +750,32 @@ that converts user input and model parameters into <code class="xref py py-class
 is a <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> with the ability to run PyTorch code without having to
 actually do computation through tensors allocated on a <code class="docutils literal notranslate"><span class="pre">meta</span></code> device. Because
 there is no actual data being allocated on the device, this API allows for
-exporting large models without the actual memory footprint needed for executing it.</p>
-<p>It is highly recommended to enable fake mode when exporting models that
+initializing and exporting large models without the actual memory footprint needed for executing it.</p>
+<p>It is highly recommended to initialize the model in fake mode when exporting models that
 are too large to fit into memory.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">ONNXFakeContext</span></code> object.</p>
-</dd>
-</dl>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># xdoctest: +REQUIRES(env:TORCH_DOCTEST_ONNX)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">torch</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">torch.onnx</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>  <span class="c1"># Dummy model</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>  <span class="c1"># Model with a parameter</span>
 <span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="o">...</span>         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">42.0</span><span class="p">))</span>
 <span class="o">...</span>     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<span class="o">...</span>         <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="o">...</span>         <span class="k">return</span> <span class="n">out</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">+</span> <span class="n">x</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">enable_fake_mode</span><span class="p">():</span>
+<span class="o">...</span>     <span class="c1"># When initialized in fake mode, the model&#39;s parameters are fake tensors</span>
+<span class="o">...</span>     <span class="c1"># They do not take up memory so we can initialize large models</span>
 <span class="o">...</span>     <span class="n">my_nn_module</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
-<span class="o">...</span>     <span class="n">arg1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># positional input 1</span>
+<span class="o">...</span>     <span class="n">arg1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">onnx</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">my_nn_module</span><span class="p">,</span> <span class="p">(</span><span class="n">arg1</span><span class="p">,),</span> <span class="n">dynamo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="c1"># Saving model WITHOUT initializers</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c1"># Saving model WITHOUT initializers (only the architecture)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
 <span class="o">...</span>     <span class="s2">&quot;my_model_without_initializers.onnx&quot;</span><span class="p">,</span>
 <span class="o">...</span>     <span class="n">include_initializers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="o">...</span>     <span class="n">keep_initializers_as_inputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="o">...</span> <span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="c1"># Saving model WITH initializers</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">apply_weights</span><span class="p">(</span><span class="n">MyModel</span><span class="p">()</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c1"># Saving model WITH initializers after applying concrete weights</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">apply_weights</span><span class="p">({</span><span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">42.0</span><span class="p">)})</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">onnx_program</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;my_model_with_initializers.onnx&quot;</span><span class="p">)</span>
 </pre></div>
 </div>

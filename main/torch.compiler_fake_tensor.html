@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git52446d7 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitbf1b8ad ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -581,11 +581,13 @@
 </div>
 <p>detect_fake_mode will search a number of locations to try to find “the” fake tensor mode associated with the lifecycle. Typically it will be pulled off of the tracing context.</p>
 <p>PT2 post-AOTAutograd usage:</p>
-<p># Fake mode is enabled! example_inputs is typically fake already
-# TODO: we probably want to change this
-# Still do this to access fake mode
-fake_mode = detect_fake_mode(example_inputs)
-# But in general you don’t have to turn it on</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fake mode is enabled! example_inputs is typically fake already</span>
+<span class="c1"># TODO: we probably want to change this</span>
+<span class="c1"># Still do this to access fake mode</span>
+<span class="n">fake_mode</span> <span class="o">=</span> <span class="n">detect_fake_mode</span><span class="p">(</span><span class="n">example_inputs</span><span class="p">)</span>
+<span class="c1"># But in general you don&#39;t have to turn it on</span>
+</pre></div>
+</div>
 <p>Other useful stuff:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">unset_fake_temporarily</span>
 <span class="k">with</span> <span class="n">unset_fake_temporarily</span><span class="p">():</span>

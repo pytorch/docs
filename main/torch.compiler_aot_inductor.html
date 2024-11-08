@@ -41,7 +41,7 @@
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="TorchInductor GPU Profiling" href="torch.compiler_inductor_profiling.html" />
+    <link rel="next" title="torch._logging" href="logging.html" />
     <link rel="prev" title="TorchDynamo APIs for fine-grained tracing" href="torch.compiler_fine_grain_apis.html" />
 
 <!--
@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git52446d7 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitbf1b8ad ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -689,6 +689,17 @@ Result<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </
 </pre></div>
 </div>
 </div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">¶</a></h2>
+<p>Below are some useful tools for debugging AOT Inductor.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Debugging Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.compiler_aot_inductor_minifier.html">AOTInductor Minifier</a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -699,7 +710,7 @@ Result<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="torch.compiler_inductor_profiling.html" class="btn btn-neutral float-right" title="TorchInductor GPU Profiling" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="logging.html" class="btn btn-neutral float-right" title="torch._logging" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
         <a href="torch.compiler_fine_grain_apis.html" class="btn btn-neutral" title="TorchDynamo APIs for fine-grained tracing" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
@@ -748,6 +759,7 @@ if (url)
 <li><a class="reference internal" href="#">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><ul>
 <li><a class="reference internal" href="#model-compilation">Model Compilation</a></li>
 <li><a class="reference internal" href="#inference-in-c">Inference in C++</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
