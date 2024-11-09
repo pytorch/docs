@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitbf1b8ad ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git7eb6617 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -541,14 +541,15 @@ compiling it into a shared library, and conducting model predictions using C++.<
 <div class="section" id="model-compilation">
 <h2>Model Compilation<a class="headerlink" href="#model-compilation" title="Permalink to this heading">¶</a></h2>
 <p>Using AOTInductor, you can still author the model in Python. The following
-example demonstrates how to invoke <code class="docutils literal notranslate"><span class="pre">aot_compile</span></code> to transform the model into a
+example demonstrates how to invoke <code class="docutils literal notranslate"><span class="pre">aoti_compile_and_package</span></code> to transform the model into a
 shared library.</p>
-<p>This API uses <code class="docutils literal notranslate"><span class="pre">torch.export</span></code> to capture the model into a computational graph,
+<p>This API uses <code class="docutils literal notranslate"><span class="pre">torch.export.export</span></code> to capture the model into a computational graph,
 and then uses TorchInductor to generate a .so which can be run in a non-Python
-environment.  For comprehensive details on the <code class="docutils literal notranslate"><span class="pre">torch._export.aot_compile</span></code>
+environment.  For comprehensive details on the
+<code class="docutils literal notranslate"><span class="pre">torch._inductor.aoti_compile_and_package</span></code>
 API, you can refer to the code
-<a class="reference external" href="https://github.com/pytorch/pytorch/blob/92cc52ab0e48a27d77becd37f1683fd442992120/torch/_export/__init__.py#L891-L900C9">here</a>.
-For more details on <code class="docutils literal notranslate"><span class="pre">torch.export</span></code>, you can refer to the <a class="reference internal" href="export.html#torch-export"><span class="std std-ref">torch.export docs</span></a>.</p>
+<a class="reference external" href="https://github.com/pytorch/pytorch/blob/6ed237e5b528e3b01a7f1b6366b009dc6f30e6d6/torch/_inductor/__init__.py#L38-L105">here</a>.
+For more details on <code class="docutils literal notranslate"><span class="pre">torch.export.export</span></code>, you can refer to the <a class="reference internal" href="export.html#torch-export"><span class="std std-ref">torch.export docs</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have a CUDA-enabled device on your machine and you installed PyTorch with CUDA support,
@@ -580,13 +581,18 @@ before running the Python script below.</p>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
     <span class="n">example_inputs</span><span class="o">=</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">),)</span>
     <span class="n">batch_dim</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
-    <span class="n">so_path</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_export</span><span class="o">.</span><span class="n">aot_compile</span><span class="p">(</span>
-        <span class="n">model</span><span class="p">,</span>
+    <span class="c1"># [Optional] Specify the first dimension of the input x as dynamic.</span>
+    <span class="n">exported</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_inputs</span><span class="p">,</span> <span class="n">dynamic_shapes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">batch_dim</span><span class="p">}})</span>
+    <span class="c1"># [Note] In this example we directly feed the exported module to aoti_compile_and_package.</span>
+    <span class="c1"># Depending on your use case, e.g. if your training platform and inference platform</span>
+    <span class="c1"># are different, you may choose to save the exported model using torch.export.save and</span>
+    <span class="c1"># then load it back using torch.export.load on your inference platform to run AOT compilation.</span>
+    <span class="n">output_path</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">aoti_compile_and_package</span><span class="p">(</span>
+        <span class="n">exported</span><span class="p">,</span>
         <span class="n">example_inputs</span><span class="p">,</span>
-        <span class="c1"># Specify the first dimension of the input x as dynamic</span>
-        <span class="n">dynamic_shapes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">batch_dim</span><span class="p">}},</span>
-        <span class="c1"># Specify the generated shared library path</span>
-        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;aot_inductor.output_path&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;model.so&quot;</span><span class="p">)},</span>
+        <span class="c1"># [Optional] Specify the generated shared library path. If not specified,</span>
+        <span class="c1"># the generated artifact is stored in your system temp directory.</span>
+        <span class="n">package_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;model.pt2&quot;</span><span class="p">),</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -595,39 +601,46 @@ the input variable “x” as dynamic. Notably, the path and name of the compile
 resulting in the shared library being stored in a temporary directory.
 To access this path from the C++ side, we save it to a file for later retrieval within the C++ code.</p>
 </div>
+<div class="section" id="inference-in-python">
+<h2>Inference in Python<a class="headerlink" href="#inference-in-python" title="Permalink to this heading">¶</a></h2>
+<p>There are multiple ways to deploy the compiled artifact for inference, and one of that is using Python.
+We have provided a convinient utility API in Python <code class="docutils literal notranslate"><span class="pre">torch._inductor.aoti_load_package</span></code> for loading
+and running the artifact, as shown in the following example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">aoti_load_package</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;model.pt2&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="inference-in-c">
 <h2>Inference in C++<a class="headerlink" href="#inference-in-c" title="Permalink to this heading">¶</a></h2>
-<p>Next, we use the following C++ file <code class="docutils literal notranslate"><span class="pre">inference.cpp</span></code> to load the shared library generated in the
-previous step, enabling us to conduct model predictions directly within a C++ environment.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The following code snippet assumes your system has a CUDA-enabled device and your model was
-compiled to run on CUDA as shown previously.
-In the absence of a GPU, it’s necessary to make these adjustments in order to run it on a CPU:
-1. Change <code class="docutils literal notranslate"><span class="pre">model_container_runner_cuda.h</span></code> to <code class="docutils literal notranslate"><span class="pre">model_container_runner_cpu.h</span></code>
-2. Change <code class="docutils literal notranslate"><span class="pre">AOTIModelContainerRunnerCuda</span></code> to <code class="docutils literal notranslate"><span class="pre">AOTIModelContainerRunnerCpu</span></code>
-3. Change <code class="docutils literal notranslate"><span class="pre">at::kCUDA</span></code> to <code class="docutils literal notranslate"><span class="pre">at::kCPU</span></code></p>
-</div>
+<p>Next, we use the following example C++ file <code class="docutils literal notranslate"><span class="pre">inference.cpp</span></code> to load the compiled artifact,
+enabling us to conduct model predictions directly within a C++ environment.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;torch/torch.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;torch/csrc/inductor/aoti_runner/model_container_runner_cuda.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;torch/csrc/inductor/aoti_package/model_package_loader.h&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">c10</span><span class="o">::</span><span class="n">InferenceMode</span><span class="w"> </span><span class="n">mode</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">torch</span><span class="o">::</span><span class="n">inductor</span><span class="o">::</span><span class="n">AOTIModelContainerRunnerCuda</span><span class="w"> </span><span class="n">runner</span><span class="p">(</span><span class="s">&quot;model.so&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">torch</span><span class="o">::</span><span class="n">inductor</span><span class="o">::</span><span class="n">AOTIModelPackageLoader</span><span class="w"> </span><span class="n">loader</span><span class="p">(</span><span class="s">&quot;model.pt2&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">torch</span><span class="o">::</span><span class="n">inductor</span><span class="o">::</span><span class="n">AOTIModelContainerRunner</span><span class="o">*</span><span class="w"> </span><span class="n">runner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loader</span><span class="p">.</span><span class="n">get_runner</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// Assume running on CUDA</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">torch</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">torch</span><span class="o">::</span><span class="n">randn</span><span class="p">({</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">},</span><span class="w"> </span><span class="n">at</span><span class="o">::</span><span class="n">kCUDA</span><span class="p">)};</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">torch</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">torch</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">(</span><span class="n">inputs</span><span class="p">);</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Result from the first inference:&quot;</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// The second inference uses a different batch size and it works because we</span>
-<span class="w">    </span><span class="c1">// specified that dimension as dynamic when compiling model.so.</span>
+<span class="w">    </span><span class="c1">// specified that dimension as dynamic when compiling model.pt2.</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Result from the second inference:&quot;</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">torch</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">inputs2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">torch</span><span class="o">::</span><span class="n">randn</span><span class="p">({</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">},</span><span class="w"> </span><span class="n">at</span><span class="o">::</span><span class="n">kCUDA</span><span class="p">)};</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">inputs2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Assume running on CUDA</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">runner</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">({</span><span class="n">torch</span><span class="o">::</span><span class="n">randn</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">},</span><span class="w"> </span><span class="n">at</span><span class="o">::</span><span class="n">kCUDA</span><span class="p">)})[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
@@ -641,10 +654,10 @@ automates the process of invoking <code class="docutils literal notranslate"><sp
 
 <span class="nb">find_package</span><span class="p">(</span><span class="s">Torch</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
 
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">aoti_example</span><span class="w"> </span><span class="s">inference.cpp</span><span class="w"> </span><span class="s">model.so</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">aoti_example</span><span class="w"> </span><span class="s">inference.cpp</span><span class="w"> </span><span class="s">model.pt2</span><span class="p">)</span>
 
 <span class="nb">add_custom_command</span><span class="p">(</span>
-<span class="w">    </span><span class="s">OUTPUT</span><span class="w"> </span><span class="s">model.so</span>
+<span class="w">    </span><span class="s">OUTPUT</span><span class="w"> </span><span class="s">model.pt2</span>
 <span class="w">    </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">python</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/model.py</span>
 <span class="w">    </span><span class="s">DEPENDS</span><span class="w"> </span><span class="s">model.py</span>
 <span class="p">)</span>
@@ -758,6 +771,7 @@ if (url)
               <ul>
 <li><a class="reference internal" href="#">AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models</a><ul>
 <li><a class="reference internal" href="#model-compilation">Model Compilation</a></li>
+<li><a class="reference internal" href="#inference-in-python">Inference in Python</a></li>
 <li><a class="reference internal" href="#inference-in-c">Inference in C++</a></li>
 <li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
