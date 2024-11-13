@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitdbb55b4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git3d2dd14 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -2034,6 +2034,16 @@ and makes it easier to debug execution.</p>
 </dl>
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.export.unflatten.InterpreterModuleDispatcher">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.export.unflatten.</span></span><span class="sig-name descname"><span class="pre">InterpreterModuleDispatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call_modules</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/unflatten.html#InterpreterModuleDispatcher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.unflatten.InterpreterModuleDispatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>A module that carries a sequence of InterpreterModules corresponding to
+a sequence of calls of that module. Each call to the module dispatches
+to the next InterpreterModule, and wraps back around after the last.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.export.unflatten.unflatten">
 <span class="sig-prename descclassname"><span class="pre">torch.export.unflatten.</span></span><span class="sig-name descname"><span class="pre">unflatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flat_args_adapter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/export/unflatten.html#unflatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.export.unflatten.unflatten" title="Permalink to this definition">¶</a></dt>
@@ -2227,6 +2237,7 @@ if (url)
 </ul>
 </li>
 <li><a class="reference internal" href="#torch.export.unflatten.InterpreterModule"><code class="docutils literal notranslate"><span class="pre">InterpreterModule</span></code></a></li>
+<li><a class="reference internal" href="#torch.export.unflatten.InterpreterModuleDispatcher"><code class="docutils literal notranslate"><span class="pre">InterpreterModuleDispatcher</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.unflatten.unflatten"><code class="docutils literal notranslate"><span class="pre">unflatten()</span></code></a></li>
 <li><a class="reference internal" href="#torch.export.passes.move_to_device_pass"><code class="docutils literal notranslate"><span class="pre">move_to_device_pass()</span></code></a></li>
 </ul>

@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitdbb55b4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git3d2dd14 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -528,7 +528,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
@@ -870,7 +870,7 @@
 <span class="sd">    should be called at the appropriate time during the pipeline schedule (after forward or backward execution).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">set_local_fwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prev_stage_outputs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_local_fwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prev_stage_outputs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Moves &#39;prev_stage_outputs&#39; from another stage on the same rank into place as inputs for this stage. Avoids</span>
 <span class="sd">        copying tensor data or using send/recv op.  Detaches original tensor and sets requires_grad so the</span>
@@ -911,13 +911,16 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span>
 
-    <span class="k">def</span> <span class="nf">set_local_bwd_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">next_stage_bwd_outputs</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">mb_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_local_bwd_input</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">next_stage_bwd_outputs</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">mb_index</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Moves &#39;grad input&#39; tensors from the next stage to &#39;grad_output&#39; on this stage, avoiding a copy or send/recv.</span>
 <span class="sd">        Does not detach or set &#39;_requires_grad&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO(whc) discrepancy between list/tuple type here. need to clean up</span>
-        <span class="c1"># assert isinstance(next_stage_bwd_outputs, tuple), f&quot;Expected tuple, got {type(next_stage_bwd_outputs)}&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">next_stage_bwd_outputs</span><span class="p">,</span> <span class="nb">tuple</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Expected tuple, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">next_stage_bwd_outputs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
 
         <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">has_backward</span>
@@ -1098,7 +1101,7 @@
 
     <span class="k">def</span> <span class="nf">backward_maybe_with_nosync</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">backward_type</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">last_backward</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Whether using PP with FSDP or DDP, there are some runtime differences between the last backward step and the</span>
 <span class="sd">        other steps.  Namely, we need to accumulate gradients on previous steps and reduce them on the last step, but</span>
@@ -1106,12 +1109,20 @@
 <span class="sd">        This helper should adapt any pipeline parallel schedule to work with common/supported data parallel libraries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">perform_backward</span><span class="p">(</span>
+            <span class="n">backward_type</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span>
+            <span class="p">[],</span>
+            <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]],</span>
+        <span class="p">]:</span>
             <span class="k">if</span> <span class="n">backward_type</span> <span class="o">==</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">stage_backward</span><span class="p">(</span>
-                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
-                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
-                    <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;input_values&quot;</span><span class="p">],</span>
+                <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="n">stage_backward</span><span class="p">(</span>
+                        <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
+                        <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
+                        <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;input_values&quot;</span><span class="p">],</span>
+                    <span class="p">),</span>
+                    <span class="kc">None</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="n">backward_type</span> <span class="o">==</span> <span class="s2">&quot;input&quot;</span><span class="p">:</span>
                 <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">stage_backward_input</span><span class="p">(</span>
@@ -1121,8 +1132,11 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="n">backward_type</span> <span class="o">==</span> <span class="s2">&quot;weight&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">stage_backward_weight</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;param_groups&quot;</span><span class="p">]</span>
+                <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="n">stage_backward_weight</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;param_groups&quot;</span><span class="p">]</span>
+                    <span class="p">),</span>
+                    <span class="kc">None</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown backward type: </span><span class="si">{</span><span class="n">backward_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1165,12 +1179,7 @@
             <span class="c1"># Non-DP submodule, regular backward</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">)()</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="c1"># for stage_backward_input()</span>
-            <span class="n">grads</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="n">result</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">grads</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="n">result</span><span class="p">,</span> <span class="kc">None</span>
-
+        <span class="n">grads</span><span class="p">,</span> <span class="n">param_groups</span> <span class="o">=</span> <span class="n">result</span>
         <span class="k">return</span> <span class="n">grads</span><span class="p">,</span> <span class="n">param_groups</span>
 
     <span class="k">def</span> <span class="nf">forward_one_chunk</span><span class="p">(</span>
@@ -1304,8 +1313,8 @@
                     <span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">,</span> <span class="n">last_backward</span><span class="o">=</span><span class="n">last_backward</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">grads_input</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="n">param_groups</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">grads_input</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+                <span class="n">param_groups</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="c1"># Skip the backward for the first stage since we will perform the weight update with</span>
                 <span class="c1"># autograd.backward in backward_weight_one_chunk</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
@@ -1727,163 +1736,6 @@
     <span class="p">)</span></div>
 
 
-<span class="c1"># Manual PipelineStage functions and definition</span>
-
-<span class="n">METADATA_TENSOR_LEN</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">PLACEHOLDER_VAL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-
-
-<span class="k">def</span> <span class="nf">_create_empty_tensors</span><span class="p">(</span>
-    <span class="n">tensor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]],</span> <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates a list of empty tensors with the same properties (like shape and dtype) as the input tensor(s),</span>
-<span class="sd">    and places them on the specified device.</span>
-<span class="sd">    Args:</span>
-<span class="sd">        tensor (Union[torch.Tensor, List[torch.tensor]]): The input tensor(s).</span>
-<span class="sd">        device (torch.device): The device where the new tensors will be placed.</span>
-<span class="sd">    Returns:</span>
-<span class="sd">        List[torch.Tensor]: A list of empty tensors with the same properties as the input tensor(s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)]</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tensor</span><span class="p">]</span>
-    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span><span class="si">}</span><span class="s2"> cannot create empty tensors&quot;</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">_create_metadata_tensor</span><span class="p">(</span>
-    <span class="n">tensors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">),</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create a metadata tensor that can be sent over the wire.</span>
-<span class="sd">    This tensor contains the number of dimensions and the shape of each tensor being sent.</span>
-
-<span class="sd">    The data is of format [num_dims, dim1, dim2, ...].</span>
-<span class="sd">    If the tensor is None, a tensor of only placeholder values will be returned.</span>
-
-<span class="sd">    Inputs:</span>
-<span class="sd">        tensors: A list of tensors, the tensors will converted into its shape dimensions and</span>
-<span class="sd">                 these dimensions will be concatenated.</span>
-<span class="sd">        device: The device where the metadata tensor will be created.</span>
-<span class="sd">    If the tensor is None, then this tensor will contain PLACEHOLDER_VALs.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">metadata_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">METADATA_TENSOR_LEN</span><span class="p">,),</span>
-        <span class="n">PLACEHOLDER_VAL</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
-        <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="k">if</span> <span class="n">tensors</span><span class="p">:</span>
-        <span class="c1"># Create a list of tensors containing the number of dimensions and the shape of each tensor</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="c1"># data is of format [num_dims, dim1, dim2, ...]</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
-                <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
-                <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
-                <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">tensors</span>
-        <span class="p">]</span>
-        <span class="c1"># Concatenate the data into a single tensor</span>
-        <span class="n">data_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">dt_shape</span> <span class="o">=</span> <span class="n">data_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">dt_shape</span> <span class="o">&gt;</span> <span class="n">METADATA_TENSOR_LEN</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Metadata tensor size (</span><span class="si">{</span><span class="n">dt_shape</span><span class="si">}</span><span class="s2">) exceeds maximum allowed length (</span><span class="si">{</span><span class="n">METADATA_TENSOR_LEN</span><span class="si">}</span><span class="s2">).&quot;</span>
-            <span class="p">)</span>
-        <span class="n">metadata_tensor</span><span class="p">[:</span><span class="n">dt_shape</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_tensor</span>
-    <span class="k">return</span> <span class="n">metadata_tensor</span>
-
-
-<span class="k">def</span> <span class="nf">_extract_metadata_from_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Extract the number of dimensions and the shape of each tensor from a metadata tensor.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">metadata</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="n">tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">PLACEHOLDER_VAL</span><span class="p">:</span>
-        <span class="n">num_dims</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-        <span class="n">shape</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">(</span><span class="n">tensor</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">num_dims</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-        <span class="n">metadata</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="n">num_dims</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">metadata</span>
-
-
-<span class="k">def</span> <span class="nf">_get_stage_shapes</span><span class="p">(</span>
-    <span class="n">stage_modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">],</span>
-    <span class="n">stage_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-    <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">world_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
-    <span class="n">microbatch</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs a dry run through all the pipeline stages (a rank can have multiple pipeline stages in the case of</span>
-<span class="sd">    virtual pipelining) and returns the shape of the inputs and outputs of the module.</span>
-<span class="sd">    Only the first stage must pass in a microbatch.</span>
-
-<span class="sd">    Each rank must call _get_stage_shapes or the program will hang.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        stage_modules: The chunks assigned to this rank. Rhe length should be 1 for any</span>
-<span class="sd">                non-interleaved schedules and &gt;1 for any interleaved schedules.</span>
-<span class="sd">        stage_ids: The id of the stages assigned to this rank.</span>
-<span class="sd">        num_stages: Total number of stages.</span>
-<span class="sd">        rank: Rank of the current process.</span>
-<span class="sd">        world_size: Number of processes participating in the pipeline.</span>
-<span class="sd">        device: Device where the tensors are allocated.</span>
-
-<span class="sd">    Returns a dictionary containing the following keys:</span>
-<span class="sd">        &quot;inputs&quot;: Shape of the inputs to the module</span>
-<span class="sd">        &quot;outputs&quot;: Shape of the outputs of the module</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">stage_id_to_shapes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">stage_id</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stage_ids</span><span class="p">,</span> <span class="n">stage_modules</span><span class="p">):</span>
-        <span class="n">input_shape_metadata_tensor</span> <span class="o">=</span> <span class="n">_create_metadata_tensor</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
-        <span class="c1"># TODO: Assumes prev_stage == rank - 1 and next_stage == rank + 1</span>
-        <span class="n">prev_rank</span> <span class="o">=</span> <span class="p">(</span><span class="n">rank</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">world_size</span>
-        <span class="n">next_rank</span> <span class="o">=</span> <span class="p">(</span><span class="n">rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">world_size</span>
-        <span class="n">shapes</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="c1"># first stage doesn&#39;t receive anything and uses a microbatch</span>
-        <span class="k">if</span> <span class="n">stage_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">microbatch</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Microbatch is required for first stage&quot;</span><span class="p">)</span>
-            <span class="n">example_fwd_inputs</span> <span class="o">=</span> <span class="n">microbatch</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example_fwd_inputs</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-                <span class="n">example_fwd_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">example_fwd_inputs</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># other stages must receive shape information</span>
-            <span class="c1"># TODO: send/recv should take a group, rather than use the default group</span>
-            <span class="n">dist</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">input_shape_metadata_tensor</span><span class="p">,</span> <span class="n">prev_rank</span><span class="p">)</span>
-            <span class="n">metadata</span> <span class="o">=</span> <span class="n">_extract_metadata_from_tensor</span><span class="p">(</span><span class="n">input_shape_metadata_tensor</span><span class="p">)</span>
-            <span class="n">example_fwd_inputs</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape_list</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">shape_list</span> <span class="ow">in</span> <span class="n">metadata</span>
-            <span class="p">]</span>
-        <span class="n">shapes</span><span class="p">[</span><span class="s2">&quot;inputs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">fwd_input</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">fwd_input</span> <span class="ow">in</span> <span class="n">example_fwd_inputs</span><span class="p">]</span>
-
-        <span class="c1"># perform forward</span>
-        <span class="c1"># TODO: if forward fails raise a more descriptive error explaining which stage failed</span>
-        <span class="n">fwd_outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">*</span><span class="n">example_fwd_inputs</span><span class="p">)</span>
-        <span class="n">fwd_outputs</span> <span class="o">=</span> <span class="n">_create_empty_tensors</span><span class="p">(</span><span class="n">fwd_outputs</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
-        <span class="n">shapes</span><span class="p">[</span><span class="s2">&quot;outputs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">fwd_output</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">fwd_output</span> <span class="ow">in</span> <span class="n">fwd_outputs</span><span class="p">]</span>
-
-        <span class="c1"># send shape dims</span>
-        <span class="k">if</span> <span class="n">stage_id</span> <span class="o">!=</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">output_shape_metadata_tensor</span> <span class="o">=</span> <span class="n">_create_metadata_tensor</span><span class="p">(</span>
-                <span class="n">fwd_outputs</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span>
-            <span class="p">)</span>
-            <span class="n">dist</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">output_shape_metadata_tensor</span><span class="p">,</span> <span class="n">next_rank</span><span class="p">)</span>
-        <span class="n">stage_id_to_shapes</span><span class="p">[</span><span class="n">stage_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapes</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">stage_id_to_shapes</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">stage_id_to_shapes</span>
-
-
 <div class="viewcode-block" id="PipelineStage"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.stage.PipelineStage">[docs]</a><span class="k">class</span> <span class="nc">PipelineStage</span><span class="p">(</span><span class="n">_PipelineStageBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a pipeline stage in a pipeline parallelism setup.</span>
@@ -2175,103 +2027,6 @@
             <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">irecv</span><span class="p">,</span> <span class="n">recv_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="kc">True</span></div>
-
-
-<span class="k">def</span> <span class="nf">_validate_stage_shapes</span><span class="p">(</span><span class="n">pipeline_stages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PipelineStage</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Check that the buffer shapes match between stages was expected by performing an all_gather between</span>
-<span class="sd">    all stages.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pipeline_stages</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No pipeline stages provided.&quot;</span><span class="p">)</span>
-
-    <span class="n">virtual_pipeline_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pipeline_stages</span><span class="p">)</span>
-    <span class="n">all_inputs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">all_outputs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">world_size</span> <span class="o">=</span> <span class="n">pipeline_stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">group_size</span>
-    <span class="n">num_stages</span> <span class="o">=</span> <span class="n">pipeline_stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">num_stages</span>
-
-    <span class="c1"># perform all gathers between all stages</span>
-    <span class="k">for</span> <span class="n">virtual_id</span><span class="p">,</span> <span class="n">stage</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pipeline_stages</span><span class="p">):</span>
-        <span class="n">world_size</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">group_size</span>
-        <span class="n">stage_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">stage_index</span>
-        <span class="n">rank</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">group_rank</span>
-        <span class="c1"># check that world_size and num_stages are consistent across all stages</span>
-        <span class="k">if</span> <span class="n">stage</span><span class="o">.</span><span class="n">group_size</span> <span class="o">!=</span> <span class="n">world_size</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Stage id </span><span class="si">{</span><span class="n">stage_id</span><span class="si">}</span><span class="s2"> has world size (</span><span class="si">{</span><span class="n">stage</span><span class="o">.</span><span class="n">group_size</span><span class="si">}</span><span class="s2">) </span><span class="se">\</span>
-<span class="s2">                which does not match world size (</span><span class="si">{</span><span class="n">world_size</span><span class="si">}</span><span class="s2">) of other stages.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">stage</span><span class="o">.</span><span class="n">num_stages</span> <span class="o">!=</span> <span class="n">num_stages</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Stage id </span><span class="si">{</span><span class="n">stage_id</span><span class="si">}</span><span class="s2"> has num stages (</span><span class="si">{</span><span class="n">stage</span><span class="o">.</span><span class="n">num_stages</span><span class="si">}</span><span class="s2">) </span><span class="se">\</span>
-<span class="s2">                which does not match num stages (</span><span class="si">{</span><span class="n">num_stages</span><span class="si">}</span><span class="s2">) of other stages.&quot;</span>
-            <span class="p">)</span>
-
-        <span class="n">pg_rank</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">group</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">rank</span> <span class="o">!=</span> <span class="n">pg_rank</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> is not equal to process group rank </span><span class="si">{</span><span class="n">pg_rank</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">num_stages</span> <span class="o">:=</span> <span class="n">stage</span><span class="o">.</span><span class="n">num_stages</span><span class="p">)</span> <span class="o">%</span> <span class="n">world_size</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Number of stages (</span><span class="si">{</span><span class="n">num_stages</span><span class="si">}</span><span class="s2">) must be a multiple of the world_size (</span><span class="si">{</span><span class="n">world_size</span><span class="si">}</span><span class="s2">)&quot;</span>
-            <span class="p">)</span>
-
-        <span class="c1"># all gather each ranks inputs</span>
-        <span class="n">tensor_list</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">_create_metadata_tensor</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">stage</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="n">expected_inputs</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">inputs</span>
-        <span class="n">stage_input</span> <span class="o">=</span> <span class="n">_create_metadata_tensor</span><span class="p">(</span><span class="n">expected_inputs</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">stage</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-        <span class="n">dist</span><span class="o">.</span><span class="n">all_gather</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">,</span> <span class="n">stage_input</span><span class="p">)</span>
-        <span class="n">stage_input_shapes</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">_extract_metadata_from_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span> <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">tensor_list</span>
-        <span class="p">]</span>
-
-        <span class="c1"># all gather each ranks outputs</span>
-        <span class="n">tensor_list</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">_create_metadata_tensor</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">stage</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="n">outputs_meta</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">get_outputs_meta</span><span class="p">()</span>
-        <span class="c1"># TODO, (1) are we deleting output validation when we move to shape inference?</span>
-        <span class="c1"># (2) if not, we should support multiple outputs</span>
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="nb">len</span><span class="p">(</span><span class="n">outputs_meta</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;validation logic assumes single output, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outputs_meta</span><span class="p">)</span><span class="si">}</span><span class="s2"> outputs &quot;</span>
-        <span class="n">dist</span><span class="o">.</span><span class="n">all_gather</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">,</span> <span class="n">outputs_meta</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">stage_output_shapes</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">_extract_metadata_from_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span> <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">tensor_list</span>
-        <span class="p">]</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Rank: </span><span class="si">{</span><span class="n">pg_rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># noqa: G004</span>
-            <span class="sa">f</span><span class="s2">&quot;Stage id: </span><span class="si">{</span><span class="n">stage_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;Stage num stages: </span><span class="si">{</span><span class="n">stage</span><span class="o">.</span><span class="n">num_stages</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;Stage rank: </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;Stage world size: </span><span class="si">{</span><span class="n">world_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;Stage </span><span class="si">{</span><span class="n">virtual_id</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">world_size</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="p">(</span><span class="n">virtual_id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">world_size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> input shapes: </span><span class="si">{</span><span class="n">stage_input_shapes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># noqa: G003</span>
-            <span class="sa">f</span><span class="s2">&quot;Stage </span><span class="si">{</span><span class="n">virtual_id</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">world_size</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="p">(</span><span class="n">virtual_id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">world_size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> output shapes: </span><span class="si">{</span><span class="n">stage_output_shapes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># noqa: G003</span>
-        <span class="p">)</span>
-
-        <span class="n">all_inputs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stage_input_shapes</span><span class="p">)</span>
-        <span class="n">all_outputs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stage_output_shapes</span><span class="p">)</span>
-
-        <span class="c1"># log only rank 0&#39;s view, they will all be equivalent</span>
-        <span class="k">if</span> <span class="n">pg_rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;all stage inputs: </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> all stage outputs: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">all_inputs</span><span class="p">,</span> <span class="n">all_outputs</span>
-            <span class="p">)</span>
-
-    <span class="c1"># Check if the output for stage 0 matches the input at stage 1, and so forth</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">virtual_pipeline_size</span> <span class="o">*</span> <span class="n">world_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">out</span> <span class="o">:=</span> <span class="n">all_outputs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">!=</span> <span class="p">(</span><span class="n">inp</span> <span class="o">:=</span> <span class="n">all_inputs</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Stage_id </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> output shape </span><span class="si">{</span><span class="n">out</span><span class="si">}</span><span class="s2"> at does not match stage_id </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> input shape </span><span class="si">{</span><span class="n">inp</span><span class="si">}</span><span class="s2">.&quot;</span>
-            <span class="p">)</span>
 </pre></div>
 
              </article>
