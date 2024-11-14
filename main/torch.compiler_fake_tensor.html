@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git3d2dd14 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf85e433 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -576,7 +576,7 @@
 <span class="n">converter</span> <span class="o">=</span> <span class="n">fake_mode</span><span class="o">.</span><span class="n">fake_tensor_converter</span>
 <span class="n">fake_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">converter</span><span class="o">.</span><span class="n">from_real_tensor</span><span class="p">(</span><span class="n">fake_mode</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
 <span class="k">with</span> <span class="n">fake_mode</span><span class="p">:</span>
-<span class="o">...</span> <span class="n">do</span> <span class="n">stuff</span> <span class="k">with</span> <span class="n">the</span> <span class="n">fake</span> <span class="n">args</span><span class="p">,</span> <span class="k">if</span> <span class="n">needed</span> <span class="o">...</span>
+    <span class="o">...</span> <span class="c1"># do stuff with the fake args, if needed ...</span>
 </pre></div>
 </div>
 <p>detect_fake_mode will search a number of locations to try to find “the” fake tensor mode associated with the lifecycle. Typically it will be pulled off of the tracing context.</p>
@@ -591,12 +591,11 @@
 <p>Other useful stuff:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">unset_fake_temporarily</span>
 <span class="k">with</span> <span class="n">unset_fake_temporarily</span><span class="p">():</span>
-    <span class="c1"># fake mode is disabled here, you can do real tensor compute</span>
+    <span class="o">...</span> <span class="c1"># fake mode is disabled here, you can do real tensor compute</span>
 </pre></div>
 </div>
 <p>When might you want to disable fake tensor mode? Usually you don’t want to do this. One niche case where we’ve found it useful is to implement constant propagation on fake tensors: in this case, we need to do some actual tensor computation even though we’re in a fake tensor mode.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FakeTensorProp</span>
-<span class="kn">from</span> <span class="nn">torch.fx.passes.fake_tensor_prop</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">FakeTensorProp</span> <span class="kn">from</span> <span class="nn">torch.fx.passes.fake_tensor_prop</span>
 <span class="n">gm</span><span class="p">:</span> <span class="n">GraphModule</span>
 <span class="n">real_inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
 <span class="n">FakeTensorProp</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="o">*</span><span class="n">real_inputs</span><span class="p">)</span>
@@ -614,7 +613,7 @@
 <p>Auto-convert or not?
 Originally, FakeTensorMode would not automatically fakeify real tensors if you tried to do compute on them inside a FakeTensorMode region. The motivation behind this was to prevent the following footgun:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">FakeTensorMode</span><span class="p">():</span>
-<span class="n">real_tensor</span><span class="o">.</span><span class="n">t_</span><span class="p">()</span>
+    <span class="n">real_tensor</span><span class="o">.</span><span class="n">t_</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>What should this code do? It would be surprising if we actually modified the metadata on the real tensor. But at the same time, there isn’t any obvious opportunity to create a FakeTensor. So we conservatively decided to make this raise an error: “Invoking operators with non-Fake Tensor inputs in FakeTensorMode is not yet supported. Please convert all Tensors to FakeTensors first.”</p>
