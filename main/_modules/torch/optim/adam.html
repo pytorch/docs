@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git14ecbfe ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitbaf756a ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -547,6 +547,7 @@
     <span class="n">_use_grad_for_differentiable</span><span class="p">,</span>
     <span class="n">_view_as_real</span><span class="p">,</span>
     <span class="n">DeviceDict</span><span class="p">,</span>
+    <span class="n">DeviceDtypeDict</span><span class="p">,</span>
     <span class="n">Optimizer</span><span class="p">,</span>
     <span class="n">ParamsT</span><span class="p">,</span>
 <span class="p">)</span>
@@ -560,7 +561,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">ParamsT</span><span class="p">,</span>
         <span class="n">lr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span>
-        <span class="n">betas</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span>
+        <span class="n">betas</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span>
         <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
         <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">amsgrad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -588,6 +589,25 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid beta parameter at index 1: </span><span class="si">{</span><span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">weight_decay</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid weight_decay value: </span><span class="si">{</span><span class="n">weight_decay</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">betas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">float</span><span class="p">))</span>
+            <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">betas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">))</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;betas must be either both floats or both Tensors&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">betas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">capturable</span> <span class="ow">and</span> <span class="n">foreach</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;betas[0] as a Tensor is not supported for capturable=False and foreach=True&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">betas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tensor betas[0] must be 1-element&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">capturable</span> <span class="ow">and</span> <span class="n">foreach</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;betas[1] as a Tensor is not supported for capturable=False and foreach=True&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tensor betas[1] must be 1-element&quot;</span><span class="p">)</span>
 
         <span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
             <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
@@ -854,8 +874,8 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">amsgrad</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">has_complex</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">beta1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">beta2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">beta1</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">beta2</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
     <span class="n">lr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
     <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -870,6 +890,17 @@
         <span class="c1"># have overloads to handle both float and Tensor lrs, so we just assert it&#39;s</span>
         <span class="c1"># a float since most people using JIT are using floats</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">beta2</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+    <span class="c1"># We only shuffle around the beta when it is a Tensor, otherwise, we prefer</span>
+    <span class="c1"># treating it as a scalar.</span>
+    <span class="c1"># Note: ensure type declaration is under conditional check for isinstance</span>
+    <span class="c1"># or else torchscript will get cranky about the DeviceDict type.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">beta1_dict</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceDtypeDict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{(</span><span class="n">beta1</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">beta1</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span> <span class="n">beta1</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">beta1_dict</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
         <span class="n">grad</span> <span class="o">=</span> <span class="n">grads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">maximize</span> <span class="k">else</span> <span class="o">-</span><span class="n">grads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -899,8 +930,23 @@
                 <span class="n">max_exp_avg_sqs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">max_exp_avg_sqs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">param</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
 
+        <span class="n">device</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">device</span>
+
+        <span class="k">if</span> <span class="n">beta1_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">dtype</span>  <span class="c1"># type: ignore[union-attr]</span>
+
+            <span class="c1"># cast to workaround https://github.com/pytorch/pytorch/issues/140601</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">beta1_dict</span><span class="p">:</span>
+                <span class="n">beta1_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta1</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[union-attr]</span>
+
+            <span class="n">device_beta1</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta1_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">device_beta1</span> <span class="o">=</span> <span class="n">beta1</span>
+
         <span class="c1"># Decay the first and second moment running average coefficient</span>
-        <span class="n">exp_avg</span><span class="o">.</span><span class="n">lerp_</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta1</span><span class="p">)</span>
+        <span class="n">exp_avg</span><span class="o">.</span><span class="n">lerp_</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">device_beta1</span><span class="p">)</span>
+
         <span class="n">exp_avg_sq</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">beta2</span><span class="p">)</span><span class="o">.</span><span class="n">addcmul_</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">grad</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta2</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">capturable</span> <span class="ow">or</span> <span class="n">differentiable</span><span class="p">:</span>
@@ -973,8 +1019,8 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">amsgrad</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">has_complex</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">beta1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">beta2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">beta1</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">beta2</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
     <span class="n">lr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
     <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -989,6 +1035,22 @@
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="s2">&quot;lr as a Tensor is not supported for capturable=False and foreach=True&quot;</span>
         <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">capturable</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;beta1 as a Tensor is not supported for capturable=False and foreach=True&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">beta1</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tensor beta1 must be 1-element&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">beta2</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">capturable</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;beta2 as a Tensor is not supported for capturable=False and foreach=True&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">beta2</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tensor beta2 must be 1-element&quot;</span><span class="p">)</span>
 
     <span class="c1"># If compiling, the compiler will handle cudagraph checks, see note [torch.compile x capturable]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">is_compiling</span><span class="p">()</span> <span class="ow">and</span> <span class="n">capturable</span><span class="p">:</span>
@@ -1008,6 +1070,15 @@
     <span class="n">grouped_tensors</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="o">.</span><span class="n">_group_tensors_by_device_and_dtype</span><span class="p">(</span>
         <span class="p">[</span><span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">exp_avgs</span><span class="p">,</span> <span class="n">exp_avg_sqs</span><span class="p">,</span> <span class="n">max_exp_avg_sqs</span><span class="p">,</span> <span class="n">state_steps</span><span class="p">]</span>  <span class="c1"># type: ignore[list-item]</span>
     <span class="p">)</span>
+
+    <span class="c1"># We only shuffle around the beta when it is a Tensor and on CUDA, otherwise, we prefer</span>
+    <span class="c1"># treating it as a scalar.</span>
+    <span class="n">beta1_dict</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceDict</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="p">{</span><span class="n">beta1</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="n">beta1</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">beta1</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;cpu&quot;</span>
+        <span class="k">else</span> <span class="kc">None</span>
+    <span class="p">)</span>
+
     <span class="k">for</span> <span class="p">(</span>
         <span class="n">device_params_</span><span class="p">,</span>
         <span class="n">device_grads_</span><span class="p">,</span>
@@ -1021,6 +1092,12 @@
         <span class="n">device_exp_avgs</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">device_exp_avgs_</span><span class="p">)</span>
         <span class="n">device_exp_avg_sqs</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">device_exp_avg_sqs_</span><span class="p">)</span>
         <span class="n">device_state_steps</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">device_state_steps_</span><span class="p">)</span>
+
+        <span class="n">device</span> <span class="o">=</span> <span class="n">device_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">device</span>
+        <span class="k">if</span> <span class="n">beta1_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">device</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">beta1_dict</span><span class="p">:</span>
+            <span class="n">beta1_dict</span><span class="p">[</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta1</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[union-attr, attr-defined]</span>
+
+        <span class="n">device_beta1</span> <span class="o">=</span> <span class="n">beta1_dict</span><span class="p">[</span><span class="n">device</span><span class="p">]</span> <span class="k">if</span> <span class="n">beta1_dict</span> <span class="k">else</span> <span class="n">beta1</span>
 
         <span class="c1"># Handle complex parameters</span>
         <span class="k">if</span> <span class="n">has_complex</span><span class="p">:</span>
@@ -1062,23 +1139,38 @@
                 <span class="p">)</span>
 
         <span class="c1"># Decay the first and second moment running average coefficient</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_lerp_</span><span class="p">(</span><span class="n">device_exp_avgs</span><span class="p">,</span> <span class="n">device_grads</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta1</span><span class="p">)</span>
+        <span class="c1"># Use device beta1 if beta1 is a tensor to ensure all</span>
+        <span class="c1"># tensors are on the same device</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_lerp_</span><span class="p">(</span><span class="n">device_exp_avgs</span><span class="p">,</span> <span class="n">device_grads</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">device_beta1</span><span class="p">)</span>
 
         <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_mul_</span><span class="p">(</span><span class="n">device_exp_avg_sqs</span><span class="p">,</span> <span class="n">beta2</span><span class="p">)</span>
+
+        <span class="c1"># Due to the strictness of the _foreach_addcmul API, we can&#39;t have a single</span>
+        <span class="c1"># tensor scalar as the scalar arg (only python number is supported there)</span>
+        <span class="c1"># as a result, separate out the value mul</span>
+        <span class="c1"># Filed https://github.com/pytorch/pytorch/issues/139795</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">beta2</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">scaled_device_grads</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_mul</span><span class="p">(</span><span class="n">device_grads</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta2</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scaled_device_grads</span> <span class="o">=</span> <span class="n">device_grads</span>  <span class="c1"># type: ignore[assignment]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta2</span>
+
         <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_addcmul_</span><span class="p">(</span>
-            <span class="n">device_exp_avg_sqs</span><span class="p">,</span> <span class="n">device_grads</span><span class="p">,</span> <span class="n">device_grads</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">beta2</span>
+            <span class="n">device_exp_avg_sqs</span><span class="p">,</span> <span class="n">scaled_device_grads</span><span class="p">,</span> <span class="n">device_grads</span><span class="p">,</span> <span class="n">value</span>
         <span class="p">)</span>
 
-        <span class="c1"># Delete the local intermediate since it won&#39;t be used anymore to save on peak memory</span>
+        <span class="c1"># Delete the local intermediate(s) since they won&#39;t be used anymore to save on peak memory</span>
         <span class="k">del</span> <span class="n">device_grads</span>
+        <span class="k">del</span> <span class="n">scaled_device_grads</span>
 
         <span class="n">bias_correction1</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
         <span class="n">bias_correction2</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
         <span class="n">bias_correction2_sqrt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
 
         <span class="k">if</span> <span class="n">capturable</span><span class="p">:</span>
-            <span class="n">bias_correction1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_pow</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="n">device_state_steps</span><span class="p">)</span>
-            <span class="n">bias_correction2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_pow</span><span class="p">(</span><span class="n">beta2</span><span class="p">,</span> <span class="n">device_state_steps</span><span class="p">)</span>
+            <span class="n">bias_correction1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_pow</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="n">device_state_steps</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">bias_correction2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_pow</span><span class="p">(</span><span class="n">beta2</span><span class="p">,</span> <span class="n">device_state_steps</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="c1"># foreach_sub doesn&#39;t allow a scalar as the first arg</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_sub_</span><span class="p">(</span><span class="n">bias_correction1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_sub_</span><span class="p">(</span><span class="n">bias_correction2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
