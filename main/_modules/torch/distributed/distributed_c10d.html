@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitbaf756a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb86b534 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -1637,6 +1637,38 @@
         <span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProcessGroup</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">group</span>
+
+
+<span class="k">def</span> <span class="nf">_canonicalize_group_rank</span><span class="p">(</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">ProcessGroup</span><span class="p">,</span>
+    <span class="n">global_rank</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_rank</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper method to take _either_ a global rank or a group rank and produce a group rank.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">group_rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">global_rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t specify both group_rank and global_rank&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">global_rank</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Must specify global_rank or group_rank&quot;</span><span class="p">)</span>
+        <span class="n">group_rank</span> <span class="o">=</span> <span class="n">get_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">global_rank</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">group_rank</span>
+
+
+<span class="k">def</span> <span class="nf">_check_not_self_rank</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="n">ProcessGroup</span><span class="p">,</span> <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rank_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">group</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span> <span class="o">==</span> <span class="n">rank</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid </span><span class="si">{</span><span class="n">rank_type</span><span class="si">}</span><span class="s2"> rank: </span><span class="si">{</span><span class="n">rank_type</span><span class="si">}</span><span class="s2"> rank should not be the same as &quot;</span>
+            <span class="s2">&quot;the rank of the current process.&quot;</span>
+        <span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_as_iterable</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">obj</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">obj</span><span class="p">,)</span>
 
@@ -2742,7 +2774,11 @@
 
 
 <div class="viewcode-block" id="isend"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.isend">[docs]</a><span class="k">def</span> <span class="nf">isend</span><span class="p">(</span>
-    <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dst</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">dst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">group_dst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Work</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Send a tensor asynchronously.</span>
@@ -2754,18 +2790,23 @@
 <span class="sd">    .. warning::</span>
 <span class="sd">        ``tag`` is not supported with the NCCL backend.</span>
 
+<span class="sd">    Unlike send, which is blocking, isend allows src == dst rank, i.e. send to self.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        tensor (Tensor): Tensor to send.</span>
 <span class="sd">        dst (int): Destination rank on global process group (regardless of ``group`` argument)</span>
 <span class="sd">        group (ProcessGroup, optional): The process group to work on. If None,</span>
 <span class="sd">            the default process group will be used.</span>
 <span class="sd">        tag (int, optional): Tag to match send with remote recv</span>
+<span class="sd">        group_dst (int, optional): Destination rank on ``group``.  Invalid to specify both ``dst`` and ``group_dst``</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A distributed request object.</span>
 <span class="sd">        None, if not part of the group</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">group_dst</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">group_dst</span><span class="p">)</span>
     <span class="n">_check_single_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="s2">&quot;tensor&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_rank_not_in_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
         <span class="n">_warn_not_in_group</span><span class="p">(</span><span class="s2">&quot;isend&quot;</span><span class="p">)</span>
@@ -2774,13 +2815,7 @@
     <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_complex</span><span class="p">():</span>
         <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
-        <span class="n">pg</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">pg</span> <span class="o">=</span> <span class="n">group</span>
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">get_group_rank</span><span class="p">(</span><span class="n">pg</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">pg</span><span class="o">.</span><span class="n">send</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">dst</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">group</span><span class="o">.</span><span class="n">send</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">group_dst</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="irecv"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.irecv">[docs]</a><span class="k">def</span> <span class="nf">irecv</span><span class="p">(</span>
@@ -2788,12 +2823,15 @@
     <span class="n">src</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">tag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">group_src</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Work</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Receives a tensor asynchronously.</span>
 
 <span class="sd">    .. warning::</span>
 <span class="sd">        ``tag`` is not supported with the NCCL backend.</span>
+
+<span class="sd">    Unlike recv, which is blocking, irecv allows src == dst rank, i.e. recv from self.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        tensor (Tensor): Tensor to fill with received data.</span>
@@ -2802,6 +2840,7 @@
 <span class="sd">        group (ProcessGroup, optional): The process group to work on. If None,</span>
 <span class="sd">            the default process group will be used.</span>
 <span class="sd">        tag (int, optional): Tag to match recv with remote send</span>
+<span class="sd">        group_src (int, optional): Destination rank on ``group``.  Invalid to specify both ``src`` and ``group_src``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A distributed request object.</span>
@@ -2816,24 +2855,21 @@
     <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_complex</span><span class="p">():</span>
         <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
-        <span class="n">pg</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">src</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">group_src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">group</span><span class="o">.</span><span class="n">recv_anysource</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">tag</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">pg</span> <span class="o">=</span> <span class="n">group</span>
-
-    <span class="k">if</span> <span class="n">src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">pg</span><span class="o">.</span><span class="n">recv_anysource</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">tag</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">pg</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">pg</span><span class="o">.</span><span class="n">recv</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">src</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">group_src_rank</span> <span class="o">=</span> <span class="n">get_group_rank</span><span class="p">(</span><span class="n">pg</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">pg</span><span class="o">.</span><span class="n">recv</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">group_src_rank</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></div>
+        <span class="n">group_src</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">group_src</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">group</span><span class="o">.</span><span class="n">recv</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">group_src</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="send"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.send">[docs]</a><span class="nd">@_exception_logger</span>
 <span class="k">def</span> <span class="nf">send</span><span class="p">(</span>
-    <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dst</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">dst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">group_dst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Send a tensor synchronously.</span>
@@ -2848,28 +2884,15 @@
 <span class="sd">        group (ProcessGroup, optional): The process group to work on. If None,</span>
 <span class="sd">            the default process group will be used.</span>
 <span class="sd">        tag (int, optional): Tag to match send with remote recv</span>
+<span class="sd">        group_dst (int, optional): Destination rank on ``group``.  Invalid to specify both ``dst`` and ``group_dst``.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">get_rank</span><span class="p">()</span> <span class="o">==</span> <span class="n">dst</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Invalid destination rank: destination rank should not be the same as &quot;</span>
-            <span class="s2">&quot;the rank of the current process.&quot;</span>
-        <span class="p">)</span>
-
-    <span class="n">_check_single_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="s2">&quot;tensor&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">_rank_not_in_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
-        <span class="n">_warn_not_in_group</span><span class="p">(</span><span class="s2">&quot;send&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_complex</span><span class="p">():</span>
-        <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
-        <span class="n">default_pg</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
-        <span class="n">default_pg</span><span class="o">.</span><span class="n">send</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">dst</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">group_dst_rank</span> <span class="o">=</span> <span class="n">get_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
-        <span class="n">group</span><span class="o">.</span><span class="n">send</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">group_dst_rank</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">group_dst</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">group_dst</span><span class="p">)</span>
+    <span class="n">_check_not_self_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">group_dst</span><span class="p">,</span> <span class="s2">&quot;destination&quot;</span><span class="p">)</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">isend</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">group_dst</span><span class="o">=</span><span class="n">group_dst</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="recv"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.recv">[docs]</a><span class="nd">@_exception_logger</span>
@@ -2878,6 +2901,7 @@
     <span class="n">src</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">tag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">group_src</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Receives a tensor synchronously.</span>
@@ -2892,37 +2916,23 @@
 <span class="sd">        group (ProcessGroup, optional): The process group to work on. If None,</span>
 <span class="sd">            the default process group will be used.</span>
 <span class="sd">        tag (int, optional): Tag to match recv with remote send</span>
-
+<span class="sd">        group_src (int, optional): Destination rank on ``group``.  Invalid to specify both ``src`` and ``group_src``.</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        Sender rank</span>
 <span class="sd">        -1, if not part of the group</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_check_single_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="s2">&quot;tensor&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">_rank_not_in_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
-        <span class="n">_warn_not_in_group</span><span class="p">(</span><span class="s2">&quot;recv&quot;</span><span class="p">)</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">irecv</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">group_src</span><span class="o">=</span><span class="n">group_src</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">work</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
-
-    <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_complex</span><span class="p">():</span>
-        <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
-
-    <span class="n">pg</span> <span class="o">=</span> <span class="n">group</span> <span class="ow">or</span> <span class="n">_get_default_group</span><span class="p">()</span>
-
+    <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">work</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">recv_anysource</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">tag</span><span class="p">)</span>
-        <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-        <span class="n">src_rank</span> <span class="o">=</span> <span class="n">work</span><span class="o">.</span><span class="n">_source_rank</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">src_rank</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">get_global_rank</span><span class="p">(</span><span class="n">pg</span><span class="p">,</span> <span class="n">src_rank</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
-            <span class="n">pg</span><span class="o">.</span><span class="n">recv</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">src</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">group_src_rank</span> <span class="o">=</span> <span class="n">get_group_rank</span><span class="p">(</span><span class="n">pg</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
-            <span class="n">pg</span><span class="o">.</span><span class="n">recv</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">group_src_rank</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">src</span></div>
+        <span class="k">if</span> <span class="n">group_src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">group_src</span> <span class="o">=</span> <span class="n">work</span><span class="o">.</span><span class="n">_source_rank</span><span class="p">()</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+        <span class="n">_check_not_self_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">group_src</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">get_global_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">group_src</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">src</span></div>
 
 
 <span class="k">class</span> <span class="nc">_IllegalWork</span><span class="p">(</span><span class="n">Work</span><span class="p">):</span>
