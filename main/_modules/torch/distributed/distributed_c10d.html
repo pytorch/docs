@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb86b534 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git625c24a ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -1647,18 +1647,23 @@
     <span class="n">group</span><span class="p">:</span> <span class="n">ProcessGroup</span><span class="p">,</span>
     <span class="n">global_rank</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">group_rank</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">return_global</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper method to take _either_ a global rank or a group rank and produce a group rank.</span>
+
+<span class="sd">    If &#39;return_global&#39; is true, produce a global rank instead of a group rank.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="n">group_rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">global_rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t specify both group_rank and global_rank&quot;</span><span class="p">)</span>
+        <span class="n">global_rank</span> <span class="o">=</span> <span class="n">get_global_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">group_rank</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">global_rank</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Must specify global_rank or group_rank&quot;</span><span class="p">)</span>
         <span class="n">group_rank</span> <span class="o">=</span> <span class="n">get_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">global_rank</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">group_rank</span>
+    <span class="k">return</span> <span class="n">global_rank</span> <span class="k">if</span> <span class="n">return_global</span> <span class="k">else</span> <span class="n">group_rank</span>
 
 
 <span class="k">def</span> <span class="nf">_check_not_self_rank</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="n">ProcessGroup</span><span class="p">,</span> <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rank_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -3476,7 +3481,13 @@
 
 
 <div class="viewcode-block" id="gather_object"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.gather_object">[docs]</a><span class="nd">@_exception_logger</span>
-<span class="k">def</span> <span class="nf">gather_object</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">object_gather_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">gather_object</span><span class="p">(</span>
+    <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">object_gather_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_dst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gathers picklable objects from the whole group in a single process.</span>
 
@@ -3489,9 +3500,11 @@
 <span class="sd">            should be correctly sized as the size of the group for this</span>
 <span class="sd">            collective and will contain the output. Must be ``None`` on non-dst</span>
 <span class="sd">            ranks. (default is ``None``)</span>
-<span class="sd">        dst (int, optional): Destination rank on global process group (regardless of ``group`` argument). (default is 0)</span>
+<span class="sd">        dst (int, optional): Destination rank on global process group (regardless of ``group`` argument).</span>
+<span class="sd">            (If both ``dst`` and ``group_dst`` are None, default is global rank 0)</span>
 <span class="sd">        group: (ProcessGroup, optional): The process group to work on. If None,</span>
 <span class="sd">            the default process group will be used. Default is ``None``.</span>
+<span class="sd">        group_dst (int, optional): Destination rank on ``group``.  Invalid to specify both ``dst`` and ``group_dst``</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None. On the ``dst`` rank, ``object_gather_list`` will contain the</span>
@@ -3535,13 +3548,17 @@
 <span class="sd">        &gt;&gt;&gt; output</span>
 <span class="sd">        [&#39;foo&#39;, 12, {1: 2}]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dst</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">group_dst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dst</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">global_dst</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">group_dst</span><span class="p">,</span> <span class="n">return_global</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_rank_not_in_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
         <span class="n">_warn_not_in_group</span><span class="p">(</span><span class="s2">&quot;gather_object&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="c1"># Ensure object_gather_list is specified appropriately.</span>
-    <span class="n">my_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>
-    <span class="n">_validate_output_list_for_rank</span><span class="p">(</span><span class="n">my_rank</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">object_gather_list</span><span class="p">)</span>
+    <span class="n">my_global_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>
+    <span class="n">_validate_output_list_for_rank</span><span class="p">(</span><span class="n">my_global_rank</span><span class="p">,</span> <span class="n">global_dst</span><span class="p">,</span> <span class="n">object_gather_list</span><span class="p">)</span>
     <span class="n">current_device</span> <span class="o">=</span> <span class="n">_get_object_coll_device</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
     <span class="n">input_tensor</span><span class="p">,</span> <span class="n">local_size</span> <span class="o">=</span> <span class="n">_object_to_tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">current_device</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
 
@@ -3562,7 +3579,7 @@
     <span class="c1"># Resize tensor to max size across all ranks.</span>
     <span class="n">input_tensor</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">max_object_size</span><span class="p">)</span>
     <span class="c1"># Avoid populating output tensors if the result won&#39;t be gathered on this rank.</span>
-    <span class="k">if</span> <span class="n">my_rank</span> <span class="o">==</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">my_global_rank</span> <span class="o">==</span> <span class="n">global_dst</span><span class="p">:</span>
         <span class="n">coalesced_output_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
             <span class="n">max_object_size</span> <span class="o">*</span> <span class="n">group_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">current_device</span>
         <span class="p">)</span>
@@ -3574,12 +3591,14 @@
     <span class="c1"># All ranks call gather with equal-sized tensors.</span>
     <span class="n">gather</span><span class="p">(</span>
         <span class="n">input_tensor</span><span class="p">,</span>
-        <span class="n">gather_list</span><span class="o">=</span><span class="n">output_tensors</span> <span class="k">if</span> <span class="n">my_rank</span> <span class="o">==</span> <span class="n">dst</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
-        <span class="n">dst</span><span class="o">=</span><span class="n">dst</span><span class="p">,</span>
+        <span class="n">gather_list</span><span class="o">=</span><span class="n">output_tensors</span> <span class="k">if</span> <span class="n">my_global_rank</span> <span class="o">==</span> <span class="n">global_dst</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+        <span class="n">dst</span><span class="o">=</span><span class="n">global_dst</span><span class="p">,</span>
         <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">if</span> <span class="n">my_rank</span> <span class="o">!=</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">my_global_rank</span> <span class="o">!=</span> <span class="n">global_dst</span><span class="p">:</span>
         <span class="k">return</span>
+
+    <span class="k">assert</span> <span class="n">object_gather_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Must provide object_gather_list on dst rank&quot;</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">output_tensors</span><span class="p">):</span>
         <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
         <span class="n">tensor_size</span> <span class="o">=</span> <span class="n">object_size_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -3891,7 +3910,11 @@
 
 <div class="viewcode-block" id="scatter_object_list"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.scatter_object_list">[docs]</a><span class="nd">@_exception_logger</span>
 <span class="k">def</span> <span class="nf">scatter_object_list</span><span class="p">(</span>
-    <span class="n">scatter_object_output_list</span><span class="p">,</span> <span class="n">scatter_object_input_list</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">scatter_object_output_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
+    <span class="n">scatter_object_input_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">src</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_src</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Scatters picklable objects in ``scatter_object_input_list`` to the whole group.</span>
@@ -3904,13 +3927,15 @@
 <span class="sd">    Args:</span>
 <span class="sd">        scatter_object_output_list (List[Any]): Non-empty list whose first</span>
 <span class="sd">            element will store the object scattered to this rank.</span>
-<span class="sd">        scatter_object_input_list (List[Any]): List of input objects to scatter.</span>
+<span class="sd">        scatter_object_input_list (List[Any], optional): List of input objects to scatter.</span>
 <span class="sd">            Each object must be picklable. Only objects on the ``src`` rank will</span>
 <span class="sd">            be scattered, and the argument can be ``None`` for non-src ranks.</span>
 <span class="sd">        src (int): Source rank from which to scatter ``scatter_object_input_list``.</span>
 <span class="sd">            Source rank is based on global process group (regardless of ``group`` argument).</span>
+<span class="sd">            (If both ``src`` and ``group_src`` are None, default is global rank 0)</span>
 <span class="sd">        group: (ProcessGroup, optional): The process group to work on. If None,</span>
 <span class="sd">            the default process group will be used. Default is ``None``.</span>
+<span class="sd">        group_src (int, optional): Source rank on ``group``.  Invalid to specify both ``src`` and ``group_src``</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        ``None``. If rank is part of the group, ``scatter_object_output_list``</span>
@@ -3947,6 +3972,10 @@
 <span class="sd">        &gt;&gt;&gt; output_list</span>
 <span class="sd">        [{1: 2}]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">src</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">group_src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">global_src</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">group_src</span><span class="p">,</span> <span class="n">return_global</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_rank_not_in_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
         <span class="n">_warn_not_in_group</span><span class="p">(</span><span class="s2">&quot;scatter_object_list&quot;</span><span class="p">)</span>
         <span class="k">return</span>
@@ -3959,9 +3988,13 @@
             <span class="s2">&quot;Expected argument scatter_object_output_list to be a list of size at least 1.&quot;</span>
         <span class="p">)</span>
 
-    <span class="n">my_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>
+    <span class="n">my_global_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>
     <span class="n">pg_device</span> <span class="o">=</span> <span class="n">_get_object_coll_device</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">my_rank</span> <span class="o">==</span> <span class="n">src</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">my_global_rank</span> <span class="o">==</span> <span class="n">global_src</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">scatter_object_input_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;source rank must provide non-None scatter_object_input_list&quot;</span>
+            <span class="p">)</span>
         <span class="n">tensor_list</span><span class="p">,</span> <span class="n">tensor_sizes</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
             <span class="o">*</span><span class="p">[</span>
                 <span class="n">_object_to_tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">pg_device</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
@@ -3970,15 +4003,14 @@
         <span class="p">)</span>
         <span class="n">tensor_list</span><span class="p">,</span> <span class="n">tensor_sizes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tensor_list</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">tensor_sizes</span><span class="p">)</span>
 
-    <span class="c1"># Src rank broadcasts the maximum tensor size. This is because all ranks are</span>
-    <span class="c1"># expected to call into scatter() with equal-sized tensors.</span>
-    <span class="k">if</span> <span class="n">my_rank</span> <span class="o">==</span> <span class="n">src</span><span class="p">:</span>
+        <span class="c1"># Src rank broadcasts the maximum tensor size. This is because all ranks are</span>
+        <span class="c1"># expected to call into scatter() with equal-sized tensors.</span>
         <span class="n">max_tensor_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">tensor_sizes</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
         <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">tensor_list</span><span class="p">:</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
             <span class="n">tensor</span><span class="o">.</span><span class="n">resize_</span><span class="p">(</span><span class="n">max_tensor_size</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">max_tensor_size</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">pg_device</span><span class="p">)</span>
-    <span class="n">broadcast</span><span class="p">(</span><span class="n">max_tensor_size</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">broadcast</span><span class="p">(</span><span class="n">max_tensor_size</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="n">global_src</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
 
     <span class="c1"># Scatter actual serialized objects</span>
     <span class="n">output_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
@@ -3986,8 +4018,8 @@
     <span class="p">)</span>
     <span class="n">scatter</span><span class="p">(</span>
         <span class="n">output_tensor</span><span class="p">,</span>
-        <span class="n">scatter_list</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">my_rank</span> <span class="o">!=</span> <span class="n">src</span> <span class="k">else</span> <span class="n">tensor_list</span><span class="p">,</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
-        <span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span>
+        <span class="n">scatter_list</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">my_global_rank</span> <span class="o">!=</span> <span class="n">global_src</span> <span class="k">else</span> <span class="n">tensor_list</span><span class="p">,</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+        <span class="n">src</span><span class="o">=</span><span class="n">global_src</span><span class="p">,</span>
         <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
     <span class="p">)</span>
 
@@ -3995,8 +4027,8 @@
     <span class="n">obj_tensor_size</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">pg_device</span><span class="p">)</span>
     <span class="n">scatter</span><span class="p">(</span>
         <span class="n">obj_tensor_size</span><span class="p">,</span>
-        <span class="n">scatter_list</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">my_rank</span> <span class="o">!=</span> <span class="n">src</span> <span class="k">else</span> <span class="n">tensor_sizes</span><span class="p">,</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
-        <span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span>
+        <span class="n">scatter_list</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">my_global_rank</span> <span class="o">!=</span> <span class="n">global_src</span> <span class="k">else</span> <span class="n">tensor_sizes</span><span class="p">,</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+        <span class="n">src</span><span class="o">=</span><span class="n">global_src</span><span class="p">,</span>
         <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
     <span class="p">)</span>
 
@@ -4304,7 +4336,14 @@
 
 
 <div class="viewcode-block" id="gather"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.gather">[docs]</a><span class="nd">@_exception_logger</span>
-<span class="k">def</span> <span class="nf">gather</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">gather_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">gather</span><span class="p">(</span>
+    <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">gather_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">async_op</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">group_dst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gathers a list of tensors in a single process.</span>
 
@@ -4315,10 +4354,12 @@
 <span class="sd">        gather_list (list[Tensor], optional): List of appropriately,</span>
 <span class="sd">            same-sized tensors to use for gathered data</span>
 <span class="sd">            (default is None, must be specified on the destination rank)</span>
-<span class="sd">        dst (int, optional): Destination rank on global process group (regardless of ``group`` argument). (default is 0)</span>
+<span class="sd">        dst (int, optional): Destination rank on global process group (regardless of ``group`` argument).</span>
+<span class="sd">            (If both ``dst`` and ``group_dst`` are None, default is global rank 0)</span>
 <span class="sd">        group (ProcessGroup, optional): The process group to work on. If None,</span>
 <span class="sd">            the default process group will be used.</span>
 <span class="sd">        async_op (bool, optional): Whether this op should be an async op</span>
+<span class="sd">        group_dst (int, optional): Destination rank on ``group``.  Invalid to specify both ``dst`` and ``group_dst``</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Async work handle, if async_op is set to True.</span>
@@ -4351,26 +4392,22 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">gather_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">_ensure_all_tensors_same_dtype</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">gather_list</span><span class="p">)</span>
-
+    <span class="n">group</span> <span class="o">=</span> <span class="n">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_rank_not_in_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
         <span class="n">_warn_not_in_group</span><span class="p">(</span><span class="s2">&quot;gather&quot;</span><span class="p">)</span>
         <span class="k">return</span>
-
-    <span class="n">my_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>
-    <span class="n">_validate_output_list_for_rank</span><span class="p">(</span><span class="n">my_rank</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">gather_list</span><span class="p">)</span>
-    <span class="n">output_tensors</span> <span class="o">=</span> <span class="p">[</span><span class="n">gather_list</span><span class="p">]</span> <span class="k">if</span> <span class="n">dst</span> <span class="o">==</span> <span class="n">my_rank</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">dst</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">group_dst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dst</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">global_dst</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">group_dst</span><span class="p">,</span> <span class="n">return_global</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">group_dst</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">group_dst</span><span class="p">,</span> <span class="n">return_global</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">my_global_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>
+    <span class="n">_validate_output_list_for_rank</span><span class="p">(</span><span class="n">my_global_rank</span><span class="p">,</span> <span class="n">global_dst</span><span class="p">,</span> <span class="n">gather_list</span><span class="p">)</span>
+    <span class="n">output_tensors</span> <span class="o">=</span> <span class="p">[</span><span class="n">gather_list</span><span class="p">]</span> <span class="k">if</span> <span class="n">global_dst</span> <span class="o">==</span> <span class="n">my_global_rank</span> <span class="k">else</span> <span class="p">[]</span>
     <span class="n">input_tensors</span> <span class="o">=</span> <span class="p">[</span><span class="n">tensor</span><span class="p">]</span>
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">GatherOptions</span><span class="p">()</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">rootRank</span> <span class="o">=</span> <span class="n">dst</span>
-
-    <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
-        <span class="n">default_pg</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
-        <span class="n">work</span> <span class="o">=</span> <span class="n">default_pg</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">output_tensors</span><span class="p">,</span> <span class="n">input_tensors</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">group_dst_rank</span> <span class="o">=</span> <span class="n">get_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
-        <span class="n">opts</span><span class="o">.</span><span class="n">rootRank</span> <span class="o">=</span> <span class="n">group_dst_rank</span>
-        <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">output_tensors</span><span class="p">,</span> <span class="n">input_tensors</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+    <span class="n">opts</span><span class="o">.</span><span class="n">rootRank</span> <span class="o">=</span> <span class="n">group_dst</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">output_tensors</span><span class="p">,</span> <span class="n">input_tensors</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
@@ -4379,7 +4416,14 @@
 
 
 <div class="viewcode-block" id="scatter"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.scatter">[docs]</a><span class="nd">@_exception_logger</span>
-<span class="k">def</span> <span class="nf">scatter</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">scatter_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">scatter</span><span class="p">(</span>
+    <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">scatter_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">src</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">async_op</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">group_src</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Scatters a list of tensors to all processes in a group.</span>
 
@@ -4393,10 +4437,11 @@
 <span class="sd">        scatter_list (list[Tensor]): List of tensors to scatter (default is</span>
 <span class="sd">            None, must be specified on the source rank)</span>
 <span class="sd">        src (int): Source rank on global process group (regardless of ``group`` argument).</span>
-<span class="sd">            Default is 0</span>
+<span class="sd">            (If both ``src`` and ``group_src`` are None, default is global rank 0)</span>
 <span class="sd">        group (ProcessGroup, optional): The process group to work on. If None,</span>
 <span class="sd">            the default process group will be used.</span>
 <span class="sd">        async_op (bool, optional): Whether this op should be an async op</span>
+<span class="sd">        group_src (int, optional): Source rank on ``group``.  Invalid to specify both ``src`` and ``group_src``</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Async work handle, if async_op is set to True.</span>
@@ -4427,14 +4472,17 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_check_single_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="s2">&quot;tensor&quot;</span><span class="p">)</span>
-
     <span class="c1"># Parameter ``scatter_list`` may be left unspecified on non-src ranks.</span>
     <span class="k">if</span> <span class="n">scatter_list</span><span class="p">:</span>
         <span class="n">_check_tensor_list</span><span class="p">(</span><span class="n">scatter_list</span><span class="p">,</span> <span class="s2">&quot;scatter_list&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">scatter_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">_ensure_all_tensors_same_dtype</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">scatter_list</span><span class="p">)</span>
-
+    <span class="n">group</span> <span class="o">=</span> <span class="n">_group_or_default_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">src</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">group_src</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">global_src</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">group_src</span><span class="p">,</span> <span class="n">return_global</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">group_src</span> <span class="o">=</span> <span class="n">_canonicalize_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">group_src</span><span class="p">,</span> <span class="n">return_global</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_rank_not_in_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
         <span class="n">_warn_not_in_group</span><span class="p">(</span><span class="s2">&quot;scatter&quot;</span><span class="p">)</span>
         <span class="k">return</span>
@@ -4443,8 +4491,8 @@
     <span class="p">]</span>
     <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_complex</span><span class="p">()</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
 
-    <span class="n">my_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">src</span> <span class="o">==</span> <span class="n">my_rank</span><span class="p">:</span>
+    <span class="n">my_global_rank</span> <span class="o">=</span> <span class="n">get_rank</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">global_src</span> <span class="o">==</span> <span class="n">my_global_rank</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">scatter_list</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Argument ``scatter_list`` must be specified on source rank.&quot;</span>
@@ -4461,16 +4509,9 @@
         <span class="n">output_tensors</span> <span class="o">=</span> <span class="p">[</span><span class="n">tensor</span><span class="p">]</span>
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">ScatterOptions</span><span class="p">()</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">rootRank</span> <span class="o">=</span> <span class="n">src</span>
+    <span class="n">opts</span><span class="o">.</span><span class="n">rootRank</span> <span class="o">=</span> <span class="n">group_src</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
-
-    <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">GroupMember</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
-        <span class="n">default_pg</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
-        <span class="n">work</span> <span class="o">=</span> <span class="n">default_pg</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">output_tensors</span><span class="p">,</span> <span class="n">input_tensors</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">group_src_rank</span> <span class="o">=</span> <span class="n">get_group_rank</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
-        <span class="n">opts</span><span class="o">.</span><span class="n">rootRank</span> <span class="o">=</span> <span class="n">group_src_rank</span>
-        <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">output_tensors</span><span class="p">,</span> <span class="n">input_tensors</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">output_tensors</span><span class="p">,</span> <span class="n">input_tensors</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
