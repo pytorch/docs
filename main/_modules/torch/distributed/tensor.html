@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git98e441f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git0443398 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -569,6 +569,22 @@
     <span class="s2">&quot;randn&quot;</span><span class="p">,</span>
     <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
 <span class="p">]</span>
+
+<span class="c1"># For weights_only torch.load</span>
+<span class="kn">from</span> <span class="nn">._dtensor_spec</span> <span class="kn">import</span> <span class="n">DTensorSpec</span> <span class="k">as</span> <span class="n">_DTensorSpec</span><span class="p">,</span> <span class="n">TensorMeta</span> <span class="k">as</span> <span class="n">_TensorMeta</span>
+
+
+<span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">add_safe_globals</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">DeviceMesh</span><span class="p">,</span>
+        <span class="n">_DTensorSpec</span><span class="p">,</span>
+        <span class="n">_TensorMeta</span><span class="p">,</span>
+        <span class="n">DTensor</span><span class="p">,</span>
+        <span class="n">Partial</span><span class="p">,</span>
+        <span class="n">Replicate</span><span class="p">,</span>
+        <span class="n">Shard</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
 
 
 <span class="c1"># Append DTensor to the list of supported types for foreach implementation for optimizer</span>
