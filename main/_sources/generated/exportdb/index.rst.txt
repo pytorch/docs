@@ -19,8 +19,8 @@ support in export please create an issue in the pytorch/pytorch repo with a modu
     :caption: Tags
 
     torch.escape-hatch
-    torch.cond
     torch.dynamic-shape
+    torch.cond
     python.closure
     torch.dynamic-value
     python.data-structure
@@ -212,7 +212,7 @@ cond_branch_class_method
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -288,7 +288,7 @@ cond_branch_nested_function
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -361,7 +361,7 @@ cond_branch_nonlocal_variables
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -442,10 +442,10 @@ Result:
                      add: "f32[6]" = torch.ops.aten.add.Tensor(x, 100)
                 
                      lift_fresh_copy: "f32[]" = torch.ops.aten.lift_fresh_copy.default(c_lifted_tensor_0);  c_lifted_tensor_0 = None
-                detach: "f32[]" = torch.ops.aten.detach.default(lift_fresh_copy);  lift_fresh_copy = None
+                detach_: "f32[]" = torch.ops.aten.detach_.default(lift_fresh_copy);  lift_fresh_copy = None
                 
                      add_1: "f32[6]" = torch.ops.aten.add.Tensor(x, add);  x = add = None
-                add_2: "f32[6]" = torch.ops.aten.add.Tensor(add_1, detach);  add_1 = detach = None
+                add_2: "f32[6]" = torch.ops.aten.add.Tensor(add_1, detach_);  add_1 = detach_ = None
                 return (add_2,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.CONSTANT_TENSOR: 4>, arg=TensorArgument(name='c_lifted_tensor_0'), target='lifted_tensor_0', persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_2'), target=None)])
@@ -458,7 +458,7 @@ cond_closed_over_variable
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`python.closure <python.closure>`
+    Tags: :doc:`python.closure <python.closure>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -499,6 +499,8 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, pred: "b8[]", x: "f32[3, 2]"):
+                     add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 1);  add = None
+                
                      true_graph_0 = self.true_graph_0
                 false_graph_0 = self.false_graph_0
                 cond = torch.ops.higher_order.cond(pred, true_graph_0, false_graph_0, [x]);  pred = true_graph_0 = false_graph_0 = x = None
@@ -525,7 +527,7 @@ cond_operands
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -593,13 +595,13 @@ Result:
                 
             class true_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
-                             add_3: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
-                    return (add_3,)
+                             add: "f32[s0, 2]" = torch.ops.aten.add.Tensor(x, y);  x = y = None
+                    return (add,)
                     
             class false_graph_0(torch.nn.Module):
                 def forward(self, x: "f32[s0, 2]", y: "f32[2]"):
-                             sub_1: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
-                    return (sub_1,)
+                             sub: "f32[s0, 2]" = torch.ops.aten.sub.Tensor(x, y);  x = y = None
+                    return (sub,)
                     
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='getitem'), target=None)])
     Range constraints: {s0: VR[0, int_oo]}
@@ -611,7 +613,7 @@ cond_predicate
 
 .. note::
 
-    Tags: :doc:`torch.cond <torch.cond>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.cond <torch.cond>`
 
     Support Level: SUPPORTED
 
@@ -668,7 +670,7 @@ constrain_as_size_example
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
+    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
 
     Support Level: SUPPORTED
 
@@ -726,7 +728,7 @@ Result:
                 return (zeros,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='zeros'), target=None)])
-    Range constraints: {u0: VR[0, 5], u1: VR[0, 5], u2: VR[0, 5]}
+    Range constraints: {u0: VR[0, 5], u1: VR[0, 5]}
     
 
 
@@ -735,7 +737,7 @@ constrain_as_value_example
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-value <torch.dynamic-value>`, :doc:`torch.escape-hatch <torch.escape-hatch>`
+    Tags: :doc:`torch.escape-hatch <torch.escape-hatch>`, :doc:`torch.dynamic-value <torch.dynamic-value>`
 
     Support Level: SUPPORTED
 
@@ -792,7 +794,7 @@ Result:
                 return (sin,)
                 
     Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='y'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='sin'), target=None)])
-    Range constraints: {u0: VR[0, 5], u1: VR[0, 5], u2: VR[0, 5]}
+    Range constraints: {u0: VR[0, 5], u1: VR[0, 5]}
     
 
 
@@ -1284,7 +1286,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
+    Tags: :doc:`python.assert <python.assert>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1433,13 +1435,13 @@ Result:
                 
                      sub: "f32[3, 2]" = torch.ops.aten.sub.Tensor(a, b);  a = b = None
                 
-                     add_1: "f32[3, 2]" = torch.ops.aten.add.Tensor(add, 1);  add = None
+                     add_: "f32[3, 2]" = torch.ops.aten.add_.Tensor(add, 1);  add = None
                 
-                     mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(add_1, add_1);  add_1 = None
-                add_2: "f32[3, 2]" = torch.ops.aten.add.Tensor(mul, sub);  mul = sub = None
-                return (add_2,)
+                     mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(add_, add_);  add_ = None
+                add_1: "f32[3, 2]" = torch.ops.aten.add.Tensor(mul, sub);  mul = sub = None
+                return (add_1,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='a'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='b'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_2'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='a'), target=None, persistent=None), InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='b'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='add_1'), target=None)])
     Range constraints: {}
     
 
@@ -1686,9 +1688,8 @@ Original source code:
         """
     
         def forward(self, x):
-            ret = []
-            for i in range(10):  # constant
-                ret.append(i + x)
+            # constant
+            ret = [i + x for i in range(10)]
             return ret
     
     example_args = (torch.randn(3, 2),)
@@ -1812,6 +1813,8 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2]", attr):
+                     randn: "f32[3, 2]" = torch.ops.aten.randn.default([3, 2], device = device(type='cpu'), pin_memory = False);  randn = None
+                
                      add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 4);  x = None
                 return (add,)
                 
@@ -1915,12 +1918,12 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2]"):
-                     mul: "f32[3, 2]" = torch.ops.aten.mul.Tensor(x, 2);  x = None
+                     mul_: "f32[3, 2]" = torch.ops.aten.mul_.Tensor(x, 2);  x = None
                 
-                     cos: "f32[3, 2]" = torch.ops.aten.cos.default(mul)
-                return (mul, cos)
+                     cos: "f32[3, 2]" = torch.ops.aten.cos.default(mul_);  mul_ = None
+                return (cos,)
                 
-    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_INPUT_MUTATION: 6>, arg=TensorArgument(name='mul'), target='x'), OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='cos'), target=None)])
+    Graph signature: ExportGraphSignature(input_specs=[InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='x'), target=None, persistent=None)], output_specs=[OutputSpec(kind=<OutputKind.USER_OUTPUT: 1>, arg=TensorArgument(name='cos'), target=None)])
     Range constraints: {}
     
 
@@ -2106,6 +2109,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f46b2b67790>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7feabd6d3700>
 
 

@@ -84,6 +84,8 @@ Result:
     ExportedProgram:
         class GraphModule(torch.nn.Module):
             def forward(self, x: "f32[3, 2]", attr):
+                     randn: "f32[3, 2]" = torch.ops.aten.randn.default([3, 2], device = device(type='cpu'), pin_memory = False);  randn = None
+                
                      add: "f32[3, 2]" = torch.ops.aten.add.Tensor(x, 4);  x = None
                 return (add,)
                 

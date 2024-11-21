@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git0443398 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitc7d072d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -549,7 +549,7 @@
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">torch._higher_order_ops.utils</span> <span class="kn">import</span> <span class="n">autograd_not_implemented</span>
-<span class="kn">from</span> <span class="nn">torch._library.fake_class_registry</span> <span class="kn">import</span> <span class="n">FakeScriptObject</span><span class="p">,</span> <span class="n">maybe_to_fake_obj</span>
+<span class="kn">from</span> <span class="nn">torch._library.fake_class_registry</span> <span class="kn">import</span> <span class="n">FakeScriptObject</span>
 <span class="kn">from</span> <span class="nn">torch._subclasses.fake_impls</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_deregister_op_impl</span><span class="p">,</span>
     <span class="n">_is_op_registered_to_fake_rule</span><span class="p">,</span>
@@ -906,7 +906,7 @@
         <span class="n">fake_mode</span> <span class="o">=</span> <span class="n">_detect_fake_mode_from_gm</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">graph_module</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">fake_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">fake_mode</span> <span class="o">=</span> <span class="n">FakeTensorMode</span><span class="p">(</span><span class="n">shape_env</span><span class="o">=</span><span class="n">ShapeEnv</span><span class="p">(),</span> <span class="n">export</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">fake_args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">retracing_args</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">],</span> <span class="n">CustomObjArgument</span><span class="p">):</span>
@@ -915,11 +915,11 @@
                         <span class="n">real_script_obj</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">constants</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">real_script_obj</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fake_val</span><span class="o">.</span><span class="n">real_obj</span>
-                    <span class="n">fake_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">maybe_to_fake_obj</span><span class="p">(</span><span class="n">fake_mode</span><span class="p">,</span> <span class="n">real_script_obj</span><span class="p">))</span>
+                    <span class="n">retracing_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">real_script_obj</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">fake_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">])</span>
+                    <span class="n">retracing_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">])</span>
 
-        <span class="n">fake_args_unwrapped</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_unflatten</span><span class="p">(</span><span class="n">fake_args</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">_in_spec</span><span class="p">)</span>
+        <span class="n">retracing_args_unwrapped</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_unflatten</span><span class="p">(</span><span class="n">retracing_args</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">_in_spec</span><span class="p">)</span>
         <span class="c1"># Fix the graph output signature to be tuple if scalar</span>
         <span class="n">out_spec</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">_out_spec</span>
 
@@ -942,33 +942,56 @@
         <span class="c1"># the exported module will store constants &amp; non-persistent buffers such that</span>
         <span class="c1"># retracing treats them as persistent buffers, so we inform the constants lifting pass</span>
         <span class="c1"># and overwrite the new graph signature using the previous program.</span>
-        <span class="n">constant_attrs</span> <span class="o">=</span> <span class="n">_collect_and_set_constant_attrs</span><span class="p">(</span>
-            <span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">constants</span><span class="p">,</span> <span class="n">mod</span>
-        <span class="p">)</span>
+        <span class="n">_collect_and_set_constant_attrs</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">constants</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
 
         <span class="c1"># get params &amp; buffers after excluding constants</span>
         <span class="n">fake_params_buffers</span> <span class="o">=</span> <span class="n">_fakify_params_buffers</span><span class="p">(</span><span class="n">fake_mode</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
 
         <span class="n">params_buffers_to_node_meta</span> <span class="o">=</span> <span class="n">_collect_param_buffer_metadata</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="n">_ignore_backend_decomps</span><span class="p">(),</span> <span class="p">(</span>
+        <span class="c1"># TODO (tmanlaibaatar) Ideally run_decomp should just call _non_strict_export</span>
+        <span class="c1"># but due to special handling of constants as non-persistent buffers make it little</span>
+        <span class="c1"># diffucult. But we should unify this code path together. T206837815</span>
+        <span class="kn">from</span> <span class="nn">torch._export.non_strict_utils</span> <span class="kn">import</span> <span class="n">_fakify_script_objects</span>
+
+        <span class="k">with</span> <span class="p">(</span>
             <span class="n">fake_mode</span>
         <span class="p">),</span> <span class="n">_override_decomp_aten_to_variants</span><span class="p">(),</span> <span class="n">_override_composite_implicit_decomp</span><span class="p">(</span>
             <span class="n">cia_to_decomp</span><span class="p">,</span>
         <span class="p">):</span>
-            <span class="n">aten_export_artifact</span> <span class="o">=</span> <span class="n">_export_to_aten_ir</span><span class="p">(</span>
+            <span class="c1"># this requires empty kwargs, but not in pytree.flattened format</span>
+            <span class="k">with</span> <span class="n">_fakify_script_objects</span><span class="p">(</span>
                 <span class="n">mod</span><span class="p">,</span>
-                <span class="c1"># this requires empty kwargs, but not in pytree.flattened format</span>
                 <span class="p">(</span>
-                    <span class="o">*</span><span class="n">fake_args_unwrapped</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="o">*</span><span class="n">fake_args_unwrapped</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+                    <span class="o">*</span><span class="n">retracing_args_unwrapped</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="o">*</span><span class="n">retracing_args_unwrapped</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
                 <span class="p">),</span>
                 <span class="p">{},</span>
-                <span class="n">fake_params_buffers</span><span class="p">,</span>
-                <span class="n">constant_attrs</span><span class="p">,</span>
-                <span class="n">decomp_table</span><span class="o">=</span><span class="n">python_decomp_table</span><span class="p">,</span>
-                <span class="n">_check_autograd_state</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="p">)</span>
+                <span class="n">fake_mode</span><span class="p">,</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="p">(</span>
+                <span class="n">patched_mod</span><span class="p">,</span>
+                <span class="n">new_fake_args</span><span class="p">,</span>
+                <span class="n">new_fake_kwargs</span><span class="p">,</span>
+                <span class="n">new_fake_constant_attrs</span><span class="p">,</span>
+                <span class="n">map_fake_to_real</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="n">aten_export_artifact</span> <span class="o">=</span> <span class="n">_export_to_aten_ir</span><span class="p">(</span>
+                    <span class="n">patched_mod</span><span class="p">,</span>
+                    <span class="n">new_fake_args</span><span class="p">,</span>
+                    <span class="n">new_fake_kwargs</span><span class="p">,</span>
+                    <span class="n">fake_params_buffers</span><span class="p">,</span>
+                    <span class="n">new_fake_constant_attrs</span><span class="p">,</span>
+                    <span class="n">decomp_table</span><span class="o">=</span><span class="n">python_decomp_table</span><span class="p">,</span>
+                    <span class="n">_check_autograd_state</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="c1"># aten_export_artifact.constants contains only fake script objects, we need to map them back</span>
+                <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">constants</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">fqn</span><span class="p">:</span> <span class="n">map_fake_to_real</span><span class="p">[</span><span class="n">obj</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">FakeScriptObject</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="n">obj</span>
+                    <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">}</span>
 
         <span class="n">gm</span> <span class="o">=</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">gm</span>
         <span class="n">new_graph_signature</span> <span class="o">=</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">sig</span>
@@ -1337,20 +1360,40 @@
     <span class="k">def</span> <span class="nf">graph_module</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph_module</span>
 
+    <span class="nd">@graph_module</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">graph_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s graph_module attribute.&quot;</span><span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph_module</span><span class="o">.</span><span class="n">graph</span>
+
+    <span class="nd">@graph</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s graph attribute.&quot;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">graph_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph_signature</span>
 
+    <span class="nd">@graph_signature</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">graph_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s graph_signature attribute.&quot;</span><span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_dict</span>
+
+    <span class="nd">@state_dict</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s state_dict attribute.&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ExportedProgram.parameters"><a class="viewcode-back" href="../../../export.html#torch.export.exported_program.ExportedProgram.parameters">[docs]</a>    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">]:</span>
@@ -1395,15 +1438,51 @@
     <span class="k">def</span> <span class="nf">range_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_constraints</span>
 
+    <span class="nd">@range_constraints</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">range_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to set ExportedProgram&#39;s range_constraints attribute.&quot;</span>
+        <span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">module_call_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_module_call_graph</span>
 
+    <span class="nd">@module_call_graph</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">module_call_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to set ExportedProgram&#39;s module_call_graph attribute.&quot;</span>
+        <span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">example_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_example_inputs</span>
+
+    <span class="nd">@example_inputs</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">example_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># This is allowed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Example inputs should be a tuple containing example arguments (as &quot;</span>
+                <span class="s2">&quot;a tuple), and example kwargs (as a dictionary).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="kn">from</span> <span class="nn">._unlift</span> <span class="kn">import</span> <span class="n">_check_inputs_match</span>
+
+        <span class="n">_check_inputs_match</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_spec</span><span class="o">.</span><span class="n">in_spec</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_example_inputs</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1418,10 +1497,20 @@
             <span class="n">out_spec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">module_call_graph</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signature</span><span class="o">.</span><span class="n">out_spec</span><span class="p">,</span>
         <span class="p">)</span>
 
+    <span class="nd">@call_spec</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">call_spec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s call_spec attribute.&quot;</span><span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">verifier</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verifiers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@verifier</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">verifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s verifier attribute.&quot;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1429,20 +1518,42 @@
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verifiers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verifiers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dialect</span>
 
+    <span class="nd">@dialect</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">dialect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s dialect attribute.&quot;</span><span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">verifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verifiers</span>
+
+    <span class="nd">@verifiers</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">verifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s verifiers attribute.&quot;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">tensor_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants</span>
 
+    <span class="nd">@tensor_constants</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">tensor_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to set ExportedProgram&#39;s tensor_constants attribute.&quot;</span>
+        <span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">constants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants</span>
+
+    <span class="nd">@constants</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unable to set ExportedProgram&#39;s constants attribute.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_flat_args_with_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Flatten args, kwargs using pytree, then, check specs.</span>

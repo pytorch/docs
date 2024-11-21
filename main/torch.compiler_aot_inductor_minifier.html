@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git0443398 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitc7d072d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -562,7 +562,7 @@ to create a minimal nn.Module that reproduce the error by setting <code class="d
     <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
     <span class="n">example_inputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">),)</span>
     <span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">example_inputs</span><span class="p">)</span>
-    <span class="n">package_path</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">aoti_compile_and_package</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">example_inputs</span><span class="p">)</span>
+    <span class="n">package_path</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">aoti_compile_and_package</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
     <span class="n">compiled_model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">aoti_load_package</span><span class="p">(</span><span class="n">package_path</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">compiled_model</span><span class="p">(</span><span class="o">*</span><span class="n">example_inputs</span><span class="p">)</span>
 </pre></div>

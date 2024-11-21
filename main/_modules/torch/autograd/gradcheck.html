@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git0443398 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitc7d072d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -580,10 +580,11 @@
     <span class="c1"># of `t.numel` and width of `numel_output`. Otherwise, for each tensor, returns</span>
     <span class="c1"># a 1-d tensor with size `(t.numel,)`. Each new tensor will be strided and have</span>
     <span class="c1"># the same dtype and device as those of the corresponding input.</span>
-    <span class="n">out</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">input_tensors</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">_is_float_or_complex_tensor</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
-            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">((</span><span class="n">t</span><span class="o">.</span><span class="n">numel</span><span class="p">(),</span> <span class="n">numel_output</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">))</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">((</span><span class="n">t</span><span class="o">.</span><span class="n">numel</span><span class="p">(),</span> <span class="n">numel_output</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">input_tensors</span>
+        <span class="k">if</span> <span class="n">_is_float_or_complex_tensor</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">requires_grad</span>
+    <span class="p">]</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 
 
@@ -594,11 +595,12 @@
     <span class="c1"># in `output_tensors`, returns a new zero-filled tensor with height of `dim` and</span>
     <span class="c1"># width of `t.numel`. Otherwise, for each tensor, returns a 1-d tensor with size</span>
     <span class="c1"># (t.numel,).</span>
-    <span class="n">out</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;layout&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">}</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">output_tensors</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">_is_float_or_complex_tensor</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">((</span><span class="n">numel_input</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">numel</span><span class="p">()),</span> <span class="o">**</span><span class="n">options</span><span class="p">))</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">((</span><span class="n">numel_input</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">numel</span><span class="p">()),</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">output_tensors</span>
+        <span class="k">if</span> <span class="n">_is_float_or_complex_tensor</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="p">]</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 
 
@@ -1429,10 +1431,10 @@
 <span class="k">def</span> <span class="nf">_get_analytical_vjps_wrt_specific_output</span><span class="p">(</span>
     <span class="n">vjp_fn</span><span class="p">,</span> <span class="n">sample_output</span><span class="p">,</span> <span class="n">v</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]:</span>
-    <span class="n">vjps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">grad_inputs</span> <span class="o">=</span> <span class="n">vjp_fn</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sample_output</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">vjp</span> <span class="ow">in</span> <span class="n">grad_inputs</span><span class="p">:</span>
-        <span class="n">vjps</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">vjp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vjp</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="n">vjps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="n">vjp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vjp</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">]</span> <span class="k">for</span> <span class="n">vjp</span> <span class="ow">in</span> <span class="n">grad_inputs</span>
+    <span class="p">]</span>
     <span class="k">return</span> <span class="n">vjps</span>
 
 

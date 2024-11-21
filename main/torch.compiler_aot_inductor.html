@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git0443398 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitc7d072d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -589,7 +589,6 @@ before running the Python script below.</p>
     <span class="c1"># then load it back using torch.export.load on your inference platform to run AOT compilation.</span>
     <span class="n">output_path</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_inductor</span><span class="o">.</span><span class="n">aoti_compile_and_package</span><span class="p">(</span>
         <span class="n">exported</span><span class="p">,</span>
-        <span class="n">example_inputs</span><span class="p">,</span>
         <span class="c1"># [Optional] Specify the generated shared library path. If not specified,</span>
         <span class="c1"># the generated artifact is stored in your system temp directory.</span>
         <span class="n">package_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;model.pt2&quot;</span><span class="p">),</span>
