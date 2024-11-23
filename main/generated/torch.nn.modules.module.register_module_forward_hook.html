@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git612122a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2e7ba0b ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -527,7 +527,7 @@
 <h1>torch.nn.modules.module.register_module_forward_hook<a class="headerlink" href="#torch-nn-modules-module-register-module-forward-hook" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.modules.module.register_module_forward_hook">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.modules.module.</span></span><span class="sig-name descname"><span class="pre">register_module_forward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">always_call</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/module.html#register_module_forward_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.module.register_module_forward_hook" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.modules.module.</span></span><span class="sig-name descname"><span class="pre">register_module_forward_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">always_call</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/module.html#register_module_forward_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2e7ba0b194cdb9e1120c88ffc338d88bfcd7beab/torch/nn/modules/module.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.modules.module.register_module_forward_hook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a global forward hook for all the modules.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -541,9 +541,8 @@ It should have the following signature:</p>
 </div>
 <p>The input contains only the positional arguments given to the module.
 Keyword arguments won’t be passed to the hooks and only to the <code class="docutils literal notranslate"><span class="pre">forward</span></code>.
-The hook can modify the output. It can modify the input inplace but
-it will not have effect on forward since this is called after
-<code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> is called.</p>
+You can optionally modify the output of the module by returning a new value
+that will replace the output from the <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

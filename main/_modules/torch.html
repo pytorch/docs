@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git612122a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2e7ba0b ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -1057,6 +1057,12 @@
     <span class="k">def</span> <span class="fm">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;IntLikeType&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymInt&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymInt&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SymInt&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;type stub not overridden&quot;</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_graph_repr</span><span class="p">()</span>
 
@@ -1442,6 +1448,7 @@
     <span class="n">__fn</span> <span class="o">=</span> <span class="n">_get_sym_math_fn</span><span class="p">(</span><span class="n">__name</span><span class="p">)</span>
     <span class="n">__fn</span><span class="o">.</span><span class="vm">__qualname__</span> <span class="o">=</span> <span class="n">__fn</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">__sym_name</span>
     <span class="nb">globals</span><span class="p">()[</span><span class="n">__sym_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">__fn</span>
+
 
 <span class="k">del</span> <span class="n">__fn</span><span class="p">,</span> <span class="n">__name</span><span class="p">,</span> <span class="n">__sym_name</span><span class="p">,</span> <span class="n">_get_sym_math_fn</span>
 
