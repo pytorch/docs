@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2e7ba0b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git11c786d ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -702,6 +702,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_outputs_meta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># map microbatch ID to list of forward tensor args</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fwd_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># map microbatch ID to list of backward grad tensor args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bwd_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Caching chunk outputs for final output merge or reduction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_chunks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -906,10 +908,7 @@
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">,</span> <span class="s2">&quot;can&#39;t get bwd output if this stage is first&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_chunk_id</span><span class="p">(</span><span class="n">mb_index</span><span class="p">)</span>
-        <span class="c1"># TODO(whc) we should be indexing mb_index into self.grads_input, but it appears we are only storing</span>
-        <span class="c1"># the most recently created grads which needs to be fixed not only here but also for get_bwd_send_ops.</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bwd_cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">mb_index</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">set_local_bwd_input</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">next_stage_bwd_outputs</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">mb_index</span><span class="p">:</span> <span class="nb">int</span>
@@ -1006,7 +1005,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">grad_send_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_grad_send_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args_recv_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="n">ops</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">grad</span><span class="p">,</span> <span class="n">grad_recv_stage</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_send_info</span><span class="p">):</span>
+        <span class="n">grads_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bwd_cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">bwd_chunk_id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">grad</span><span class="p">,</span> <span class="n">grad_recv_stage</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">grads_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_send_info</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="n">grad_recv_stage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Sending gradient to Stage </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -1296,11 +1296,13 @@
                 <span class="s2">&quot;input_values&quot;</span><span class="p">:</span> <span class="n">input_values</span><span class="p">,</span>
             <span class="p">}</span>
 
+        <span class="n">grads_input</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+
         <span class="c1"># Custom backward function</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">:</span>
             <span class="c1"># TODO: We may want to change our semantics so we are allowed to ignore</span>
             <span class="c1"># the &#39;dw_builder&#39; and call full_backward directly when it is a full_backward op.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
+            <span class="n">grads_input</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
                 <span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">,</span> <span class="n">last_backward</span><span class="o">=</span><span class="n">last_backward</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">full_backward</span><span class="p">:</span>
@@ -1309,11 +1311,10 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">full_backward</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
+                <span class="n">grads_input</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
                     <span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">,</span> <span class="n">last_backward</span><span class="o">=</span><span class="n">last_backward</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">grads_input</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="n">param_groups</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="c1"># Skip the backward for the first stage since we will perform the weight update with</span>
                 <span class="c1"># autograd.backward in backward_weight_one_chunk</span>
@@ -1334,9 +1335,10 @@
                     <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;stage_output&quot;</span><span class="p">],</span>
                     <span class="n">bwd_kwargs</span><span class="p">[</span><span class="s2">&quot;output_grads&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">grads_input</span> <span class="o">=</span> <span class="n">grads_input</span>
                 <span class="c1"># Save a placeholder for the dw_runner</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dw_runner</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bwd_cache</span><span class="p">[</span><span class="n">bwd_chunk_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">grads_input</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
             <span class="c1"># Autograd dependencies:</span>
