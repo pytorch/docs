@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git11c786d ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git6a096a0 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -977,7 +977,6 @@
 <span class="sd">    has the old binding information) and the new result (which we can extract the</span>
 <span class="sd">    new unbacked SymInts out from).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">torch._dynamo.tensor_version_op</span> <span class="kn">import</span> <span class="n">_tensor_version</span>
 
     <span class="c1"># Inputs never need rebinding</span>
     <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
@@ -989,12 +988,51 @@
         <span class="k">assert</span> <span class="n">shape_env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">raw_u0</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">bindings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">u1</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">key_get</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-            <span class="c1"># tensor_version ops get specialized after AOTAutograd, it&#39;s OK,</span>
-            <span class="c1"># we don&#39;t actually want to do asserts on them.  This is all a bit</span>
-            <span class="c1"># questionable though</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">n</span><span class="o">.</span><span class="n">target</span> <span class="ow">is</span> <span class="n">_tensor_version</span><span class="p">:</span>
+            <span class="c1"># Sometimes, things were previously unbacked bindings become constants.</span>
+            <span class="c1"># There are two situations this can happen.</span>
+            <span class="c1">#</span>
+            <span class="c1"># First, you might have a runtime assert that causes the</span>
+            <span class="c1"># constant-ification.  In this case, the /binding/ itself will</span>
+            <span class="c1"># still be an unbacked symbol (because we will only force it</span>
+            <span class="c1"># to be a constant later in fake tensor propagation).  In this</span>
+            <span class="c1"># case, u1 is a SymInt and we still do all our work as normal.</span>
+            <span class="c1">#</span>
+            <span class="c1"># But second, it might be that fake tensor propagation DIRECTLY</span>
+            <span class="c1"># converted the unbacked SymInt into a constant.  This happens</span>
+            <span class="c1"># more rarely, but we have identified two situations it can</span>
+            <span class="c1"># validly occur:</span>
+            <span class="c1">#</span>
+            <span class="c1"># - If you have a tensor_version operator, these are initially</span>
+            <span class="c1">#   allocated as unbacked SymInts, but after AOTAutograd they</span>
+            <span class="c1">#   get forced specialized to specific values.  In this case,</span>
+            <span class="c1">#   there is no reason to do runtime asserts on them, this is</span>
+            <span class="c1">#   just a hack to properly keep track of them to start.</span>
+            <span class="c1">#</span>
+            <span class="c1"># - If you have an item() call on a constant tensor, the result</span>
+            <span class="c1">#   of the item() call is constant and we do not need runtime</span>
+            <span class="c1">#   asserts on this symbol.  In</span>
+            <span class="c1">#   https://github.com/pytorch/pytorch/issues/140625 we have a</span>
+            <span class="c1">#   case where in the initial trace of the program we are unable</span>
+            <span class="c1">#   to determine that torch.tensor is constant, but then</span>
+            <span class="c1">#   subsequent passes cause torch.tensor to become a constant and</span>
+            <span class="c1">#   then the unbacked symbol goes poof.</span>
+            <span class="c1">#</span>
+            <span class="c1"># In all of these cases, it is no longer necessary to generate</span>
+            <span class="c1"># deferred runtime asserts, since other subsystems (e.g., the</span>
+            <span class="c1"># constant-ification pass) ensure that the quantity is now truly</span>
+            <span class="c1"># static and cannot change at runtime.  So it&#39;s OK to discard</span>
+            <span class="c1"># in these situations.</span>
+            <span class="c1">#</span>
+            <span class="c1"># There is one more hazard (re</span>
+            <span class="c1"># https://github.com/pytorch/pytorch/issues/141248), the problem</span>
+            <span class="c1"># is that you can end up with &quot;dangling&quot; unbacked symbols that</span>
+            <span class="c1"># exist in the ShapeEnv but are never bound anywhere.  You might</span>
+            <span class="c1"># like an invariant that unbacked symbols never get lost.  But</span>
+            <span class="c1"># we do not have this invariant, so do not try to enforce it.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">u1</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                    <span class="s2">&quot;rebind_unbacked: discard _tensor_version </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;rebind_unbacked: discard </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">n</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
                     <span class="n">raw_u0</span><span class="p">,</span>
                     <span class="n">path</span><span class="p">,</span>
                     <span class="n">u1</span><span class="p">,</span>
@@ -1030,7 +1068,13 @@
                 <span class="c1"># Cancel the to_int(to_bool(x)). This is sound because x in</span>
                 <span class="c1"># [0, 1]</span>
                 <span class="n">raw_u1</span> <span class="o">=</span> <span class="n">new_raw_u1</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_u1</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_u1</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="p">(</span>
+                    <span class="ow">not</span> <span class="n">raw_u1</span><span class="o">.</span><span class="n">free_symbols</span>
+                <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;should have been constant, but got </span><span class="si">{</span><span class="n">raw_u1</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">continue</span>
+
             <span class="c1"># The old and new could be the same if you improperly hit the memo</span>
             <span class="c1"># while retracing.  Make sure you updated FakeTensorMode.epoch</span>
             <span class="k">assert</span> <span class="n">raw_u0</span> <span class="o">!=</span> <span class="n">raw_u1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_u0</span><span class="si">}</span><span class="s2"> possible memo disaster&quot;</span>
