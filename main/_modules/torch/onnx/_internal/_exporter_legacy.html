@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git6a096a0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git5d7c370 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -545,14 +545,14 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">TypeVar</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch._ops</span>
 <span class="kn">import</span> <span class="nn">torch.utils._pytree</span> <span class="k">as</span> <span class="nn">pytree</span>
 <span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">errors</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">io_adapter</span>
-<span class="kn">from</span> <span class="nn">torch.onnx._internal._lazy_import</span> <span class="kn">import</span> <span class="n">onnxscript_ir</span> <span class="k">as</span> <span class="n">ir</span>
+<span class="kn">from</span> <span class="nn">torch.onnx._internal._lazy_import</span> <span class="kn">import</span> <span class="n">onnxscript_apis</span><span class="p">,</span> <span class="n">onnxscript_ir</span> <span class="k">as</span> <span class="n">ir</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal.diagnostics</span> <span class="kn">import</span> <span class="n">infra</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal.exporter</span> <span class="kn">import</span> <span class="n">_onnx_program</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal.fx</span> <span class="kn">import</span> <span class="p">(</span>
@@ -573,11 +573,6 @@
 
     <span class="kn">from</span> <span class="nn">torch._subclasses</span> <span class="kn">import</span> <span class="n">fake_tensor</span>
     <span class="kn">from</span> <span class="nn">torch.onnx._internal.fx</span> <span class="kn">import</span> <span class="n">diagnostics</span>
-
-<span class="n">_DEFAULT_OPSET_VERSION</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">18</span>
-<span class="sd">&quot;&quot;&quot;The default ONNX opset version the exporter will use if one is not specified explicitly</span>
-<span class="sd">through :class:`ExportOptions`. This should NEVER be accessed outside of this module! Users</span>
-<span class="sd">should reference :attr:`ExportOptions.opset_version`.&quot;&quot;&quot;</span>
 
 <span class="n">_PYTORCH_GITHUB_ISSUES_URL</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/pytorch/pytorch/issues&quot;</span>
 <span class="sd">&quot;&quot;&quot;The URL to the PyTorch GitHub issues page.&quot;&quot;&quot;</span>
@@ -627,9 +622,7 @@
             <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="c1"># opset_version is unused for now, since torchlib only supports opset18.</span>
-        <span class="c1"># TODO: get opset version from torchlib</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_opset_version</span> <span class="o">=</span> <span class="n">_DEFAULT_OPSET_VERSION</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opset_version</span> <span class="o">=</span> <span class="n">onnxscript_apis</span><span class="o">.</span><span class="n">torchlib_opset_version</span><span class="p">()</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;torch.onnx.dynamo_export only implements opset version </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_opset_version</span><span class="si">}</span><span class="s2"> for now. If you need to use a &quot;</span>
             <span class="s2">&quot;different opset version, please register them with register_custom_op.&quot;</span>
@@ -639,9 +632,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">opset_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The ONNX opset version the exporter should target. Defaults to the latest</span>
-<span class="sd">        supported ONNX opset version: 18. The default version will increment over time as</span>
-<span class="sd">        ONNX continues to evolve.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The ONNX opset version the exporter should target.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opset_version</span>
 
@@ -651,8 +642,6 @@
 <span class="sd">        Args:</span>
 <span class="sd">            torchlib_registry: The torchlib registry to use for populating the registry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">onnxscript._framework_apis.torch_2_6</span> <span class="k">as</span> <span class="nn">onnxscript_apis</span>
-
         <span class="k">for</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">onnxscript_apis</span><span class="o">.</span><span class="n">get_torchlib_ops</span><span class="p">():</span>
             <span class="n">internal_name_instance</span> <span class="o">=</span> <span class="n">registration</span><span class="o">.</span><span class="n">OpName</span><span class="o">.</span><span class="n">from_qualified_name</span><span class="p">(</span>
                 <span class="n">meta</span><span class="o">.</span><span class="n">qualified_name</span>
@@ -1112,16 +1101,10 @@
             <span class="n">onnx_model</span> <span class="o">=</span> <span class="n">onnxscript_graph</span><span class="o">.</span><span class="n">to_model_proto</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">onnx_registry</span><span class="o">.</span><span class="n">opset_version</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="n">ir_model</span> <span class="o">=</span> <span class="n">ir</span><span class="o">.</span><span class="n">serde</span><span class="o">.</span><span class="n">deserialize_model</span><span class="p">(</span><span class="n">onnx_model</span><span class="p">)</span>
 
             <span class="k">try</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">onnxscript</span> <span class="kn">import</span> <span class="n">optimizer</span>
-
-                <span class="n">onnx_model</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">onnx_model</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="s2">&quot;ONNXScript optimizer is not available. Skipping optimization. &quot;</span>
-                    <span class="s2">&quot;Please `pip install onnxscript -U` to enable post-export optimization.&quot;</span>
-                <span class="p">)</span>
+                <span class="n">ir_model</span> <span class="o">=</span> <span class="n">onnxscript_apis</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">ir_model</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="s2">&quot;ONNXScript optimizer failed. Skipping optimization. &quot;</span>
@@ -1129,9 +1112,7 @@
                     <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Detail:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">_onnx_program</span><span class="o">.</span><span class="n">ONNXProgram</span><span class="p">(</span>
-                <span class="n">ir</span><span class="o">.</span><span class="n">serde</span><span class="o">.</span><span class="n">deserialize_model</span><span class="p">(</span><span class="n">onnx_model</span><span class="p">),</span> <span class="kc">None</span>
-            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">_onnx_program</span><span class="o">.</span><span class="n">ONNXProgram</span><span class="p">(</span><span class="n">ir_model</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_assert_fake_tensor_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Asserts that the model and its input do not contain fake tensors.&quot;&quot;&quot;</span>
