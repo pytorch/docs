@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git5d7c370 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git07850bb ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -574,7 +574,7 @@
 <span class="sd">  GemmTunableOp_float_NT,nt_25088_4096_64,1219,1.262</span>
 <span class="sd">  GemmTunableOp_float_NT,nt_4096_4096_64,1216,0.033</span>
 
-<span class="sd">Note the &quot;Validator&quot; lines. If you change a library verison, or ROCm version, or</span>
+<span class="sd">Note the &quot;Validator&quot; lines. If you change a library version, or ROCm version, or</span>
 <span class="sd">PyTorch version, TunableOp will detect this and reject the tunings file because</span>
 <span class="sd">the prior tunings are likely affected by other software changes.</span>
 
@@ -637,6 +637,11 @@
 <span class="sd">C++ or Python APIs.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">concurrent.futures</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
@@ -662,6 +667,7 @@
     <span class="s2">&quot;write_file&quot;</span><span class="p">,</span>
     <span class="s2">&quot;read_file&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tune_gemm_in_file&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mgpu_tune_gemm_in_file&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -790,59 +796,253 @@
     <span class="k">assert</span> <span class="n">is_enabled</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">tuning_is_enabled</span><span class="p">()</span>
 
+    <span class="n">deviceid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">current_device</span><span class="p">()</span>
+
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Gemm&quot;</span><span class="p">):</span>
-                <span class="n">untuned_gemm</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[:]</span>
-                <span class="p">[</span><span class="n">op_sig</span><span class="p">,</span> <span class="n">data_type</span><span class="p">,</span> <span class="n">layout</span><span class="p">]</span> <span class="o">=</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;Gemm&quot;</span><span class="p">,</span> <span class="s2">&quot;ScaledGemm&quot;</span><span class="p">)):</span>
+                <span class="n">_process_single_offline_gemm</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">deviceid</span><span class="p">)</span></div>
 
-                <span class="n">transA</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span> <span class="k">else</span> <span class="kc">False</span>
-                <span class="n">transB</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">layout</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span> <span class="k">else</span> <span class="kc">False</span>
 
-                <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
-                    <span class="s2">&quot;double&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
-                    <span class="s2">&quot;BFloat16&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">,</span>
-                    <span class="s2">&quot;Half&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">half</span><span class="p">,</span>
-                    <span class="s2">&quot;c10::complex&lt;double&gt;&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">complex128</span><span class="p">,</span>
-                    <span class="s2">&quot;c10::complex&lt;float&gt;&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">complex64</span><span class="p">,</span>
-                    <span class="s2">&quot;Float8_e4m3fn&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float8_e4m3fn</span><span class="p">,</span>
-                    <span class="s2">&quot;Float8_e5m2&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float8_e5m2</span><span class="p">,</span>
-                    <span class="s2">&quot;Float8_e4m3fnuz&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float8_e4m3fnuz</span><span class="p">,</span>
-                    <span class="s2">&quot;Float8_e5m2fnuz&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float8_e5m2fnuz</span><span class="p">,</span>
-                <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_type</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">half</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_gather_unique_untuned_gemm_from_files</span><span class="p">(</span><span class="n">filename_pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Process multiple untuned results file and return a set with duplicates removed.&quot;&quot;&quot;</span>
+    <span class="n">unique_gemm_entries</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># set will avoid duplicates</span>
 
-                <span class="k">if</span> <span class="n">op_sig</span> <span class="o">==</span> <span class="s2">&quot;GemmTunableOp&quot;</span><span class="p">:</span>
-                    <span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]]</span>
-                    <span class="n">matA</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
-                        <span class="k">if</span> <span class="n">transB</span>
-                        <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-                    <span class="p">)</span>
-                    <span class="n">matB</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
-                        <span class="k">if</span> <span class="n">transA</span>
-                        <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-                    <span class="p">)</span>
-                    <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">op_sig</span> <span class="o">==</span> <span class="s2">&quot;GemmStridedBatchedTunableOp&quot;</span><span class="p">:</span>
-                    <span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span>
-                    <span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">5</span><span class="p">:</span><span class="mi">6</span><span class="p">]]</span>
-                    <span class="n">matA</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">transB</span>
-                        <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-                    <span class="p">)</span>
-                    <span class="n">matB</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">transA</span>
-                        <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-                    <span class="p">)</span>
-                    <span class="n">matA</span> <span class="o">=</span> <span class="n">matA</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">transB</span> <span class="k">else</span> <span class="n">matA</span>
-                    <span class="n">matB</span> <span class="o">=</span> <span class="n">matB</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">transA</span> <span class="k">else</span> <span class="n">matB</span>
-                    <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">filename_pattern</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;Gemm&quot;</span><span class="p">,</span> <span class="s2">&quot;ScaledGemm&quot;</span><span class="p">)):</span>
+                    <span class="n">unique_gemm_entries</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">unique_gemm_entries</span>
+
+
+<span class="k">def</span> <span class="nf">_gather_tunableop_results</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gather results from multiple tunableop results file and create a single file.&quot;&quot;&quot;</span>
+    <span class="n">gemm_lines</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">validator_lines</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Need to allow for the possibility that results filename was</span>
+    <span class="c1"># set with the Python API instead of with environment variable.</span>
+    <span class="c1"># Also possible that results filename was not set at all.</span>
+    <span class="c1"># There are several test cases to check, but ultimately we</span>
+    <span class="c1"># need a glob-able expression</span>
+    <span class="n">results_filename</span> <span class="o">=</span> <span class="n">get_filename</span><span class="p">()</span>  <span class="c1"># Note empty string could be returned here</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">results_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">results_filename</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
+    <span class="p">):</span>  <span class="c1"># Case were the Python API was used to set the filename</span>
+        <span class="n">dot_pos</span> <span class="o">=</span> <span class="n">results_filename</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dot_pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">dot_pos</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Replace the character just to the left of the dot</span>
+            <span class="n">filename_pattern</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">results_filename</span><span class="p">[:</span> <span class="n">dot_pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="n">results_filename</span><span class="p">[</span><span class="n">dot_pos</span><span class="p">:]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename_pattern</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># Needed to make linter happy</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># Case where the environment variable was used to set the filename.</span>
+        <span class="n">results_filename_env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PYTORCH_TUNABLEOP_FILENAME&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">results_filename_env</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">results_filename_env</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">filename_pattern</span> <span class="o">=</span> <span class="s2">&quot;tunableop_results?.csv&quot;</span>
+        <span class="k">elif</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">results_filename_env</span><span class="p">:</span>
+            <span class="n">filename_pattern</span> <span class="o">=</span> <span class="n">results_filename_env</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename_pattern</span> <span class="o">=</span> <span class="n">results_filename_env</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;?.&quot;</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="s2">&quot;?&quot;</span> <span class="ow">in</span> <span class="n">filename_pattern</span>
+
+    <span class="n">FirstFile</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">matching_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">filename_pattern</span><span class="p">)</span>
+    <span class="n">num_matching_files</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching_files</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">matching_files</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Validator&quot;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">FirstFile</span><span class="p">):</span>
+                        <span class="c1"># Only read Validator from first file</span>
+                        <span class="n">validator_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;error: unkown op </span><span class="si">{</span><span class="n">op_sig</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+                    <span class="n">gemm_lines</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="n">FirstFile</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">output_file</span> <span class="o">=</span> <span class="n">filename_pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;_full0&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">validator_lines</span><span class="p">:</span>
+            <span class="n">out_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">gemm_lines</span><span class="p">:</span>
+            <span class="n">out_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="c1"># Create num_matching_copies of the results file</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_matching_files</span><span class="p">):</span>
+        <span class="n">duplicate_file</span> <span class="o">=</span> <span class="n">output_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">duplicate_file</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_process_single_offline_gemm</span><span class="p">(</span><span class="n">untuned_gemm_line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">gpu_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Process a single untuned GEMM.&quot;&quot;&quot;</span>
+
+    <span class="n">deviceid</span> <span class="o">=</span> <span class="s2">&quot;cuda:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">gpu_id</span><span class="p">)</span>
+
+    <span class="n">dtype_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="s2">&quot;double&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+        <span class="s2">&quot;BFloat16&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">,</span>
+        <span class="s2">&quot;Half&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">half</span><span class="p">,</span>
+        <span class="s2">&quot;c10::complex&lt;double&gt;&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">complex128</span><span class="p">,</span>
+        <span class="s2">&quot;c10::complex&lt;float&gt;&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">complex64</span><span class="p">,</span>
+        <span class="s2">&quot;Float8_e4m3fn&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float8_e4m3fn</span><span class="p">,</span>
+        <span class="s2">&quot;Float8_e5m2&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float8_e5m2</span><span class="p">,</span>
+        <span class="s2">&quot;Float8_e4m3fnuz&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float8_e4m3fnuz</span><span class="p">,</span>
+        <span class="s2">&quot;Float8_e5m2fnuz&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float8_e5m2fnuz</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">untuned_gemm</span> <span class="o">=</span> <span class="n">untuned_gemm_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[:]</span>
+
+    <span class="n">underscore_count</span> <span class="o">=</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize dtype to make linter happy</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dtypeA</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dtypeB</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dtypeC</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">underscore_count</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">op_sig</span><span class="p">,</span> <span class="n">data_type</span><span class="p">,</span> <span class="n">layout</span><span class="p">]</span> <span class="o">=</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+        <span class="n">transA</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span>
+        <span class="n">transB</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_type</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># ScaledGEMM</span>
+        <span class="n">untuned_gemm_temp</span> <span class="o">=</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+        <span class="n">op_sig</span> <span class="o">=</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">data_typeA</span> <span class="o">=</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">data_typeB</span> <span class="o">=</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">data_typeC</span> <span class="o">=</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="n">transA</span> <span class="o">=</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span>
+        <span class="n">transB</span> <span class="o">=</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span>
+        <span class="n">dtypeA</span> <span class="o">=</span> <span class="n">dtype_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_typeA</span><span class="p">)</span>
+        <span class="n">dtypeB</span> <span class="o">=</span> <span class="n">dtype_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_typeB</span><span class="p">)</span>
+        <span class="n">dtypeC</span> <span class="o">=</span> <span class="n">dtype_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_typeC</span><span class="p">)</span>
+
+    <span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">op_sig</span> <span class="o">==</span> <span class="s2">&quot;GemmTunableOp&quot;</span><span class="p">:</span>
+        <span class="n">matA</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">transB</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">matB</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">transA</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">op_sig</span> <span class="o">==</span> <span class="s2">&quot;GemmStridedBatchedTunableOp&quot;</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">untuned_gemm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">5</span><span class="p">:</span><span class="mi">6</span><span class="p">]]</span>
+        <span class="n">matA</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">transB</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">matB</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">transA</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">matA</span> <span class="o">=</span> <span class="n">matA</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">transB</span> <span class="k">else</span> <span class="n">matA</span>
+        <span class="n">matB</span> <span class="o">=</span> <span class="n">matB</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">transA</span> <span class="k">else</span> <span class="n">matB</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">op_sig</span> <span class="o">==</span> <span class="s2">&quot;ScaledGemmTunableOp&quot;</span><span class="p">:</span>
+        <span class="n">fillA</span> <span class="o">=</span> <span class="mf">0.25</span>
+        <span class="n">fillB</span> <span class="o">=</span> <span class="mf">0.75</span>
+        <span class="n">scaleA</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="n">scaleB</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="n">matA</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="n">fillA</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypeA</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">transB</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">fillA</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypeA</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">matB</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">fillB</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypeB</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">transA</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fillB</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypeB</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">_scaled_mm</span><span class="p">(</span><span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">,</span> <span class="n">scale_a</span><span class="o">=</span><span class="n">scaleA</span><span class="p">,</span> <span class="n">scale_b</span><span class="o">=</span><span class="n">scaleB</span><span class="p">,</span> <span class="n">out_dtype</span><span class="o">=</span><span class="n">dtypeC</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">op_sig</span> <span class="o">==</span> <span class="s2">&quot;GemmAndBiasTunableOp&quot;</span><span class="p">:</span>
+        <span class="c1"># y = x*A^T + b</span>
+        <span class="k">assert</span> <span class="n">transA</span> <span class="o">!=</span> <span class="n">transB</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">transB</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">matA</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">transA</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">bias</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">transA</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">matA</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;error: unknown op </span><span class="si">{</span><span class="n">op_sig</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_tuning_assertions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Helper function for multi-GPU tuning case. Need to check that TunableOp feature</span>
+<span class="sd">    is enabled and that tuning is enabled.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">is_enabled</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">tuning_is_enabled</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="mgpu_tune_gemm_in_file"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.mgpu_tune_gemm_in_file">[docs]</a><span class="k">def</span> <span class="nf">mgpu_tune_gemm_in_file</span><span class="p">(</span><span class="n">filename_pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_gpus</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Process one or more files and distribute work over one or more GPUs.&quot;&quot;&quot;</span>
+    <span class="n">unique_gemm_entries</span> <span class="o">=</span> <span class="n">_gather_unique_untuned_gemm_from_files</span><span class="p">(</span><span class="n">filename_pattern</span><span class="p">)</span>
+
+    <span class="n">total_gpus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">num_gpus</span> <span class="o">&lt;=</span> <span class="n">total_gpus</span>
+
+    <span class="n">mp_context</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="s2">&quot;spawn&quot;</span><span class="p">)</span>
+
+    <span class="n">checks</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># empty list to hold futures</span>
+    <span class="n">futures</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># empty list to hold futures</span>
+
+    <span class="c1"># GEMM are assigned to GPUs in a round robin manner</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">with</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ProcessPoolExecutor</span><span class="p">(</span>
+        <span class="n">max_workers</span><span class="o">=</span><span class="n">num_gpus</span><span class="p">,</span> <span class="n">mp_context</span><span class="o">=</span><span class="n">mp_context</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+        <span class="c1"># The workers are a separate process. TunableOp will be</span>
+        <span class="c1"># enabled in the child processes if the environment variable</span>
+        <span class="c1"># is set. However, if we enable TunableOp via the API</span>
+        <span class="c1"># the workers do not inherit this state. As a precaution,</span>
+        <span class="c1"># we need to check that TuningOp feature and tuning is</span>
+        <span class="c1"># enabled in the pool of processes.</span>
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_gpus</span><span class="p">):</span>
+            <span class="n">check</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">_check_tuning_assertions</span><span class="p">)</span>
+            <span class="n">checks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">check</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">check</span> <span class="ow">in</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">as_completed</span><span class="p">(</span><span class="n">checks</span><span class="p">):</span>
+            <span class="n">check</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">unique_gemm_entries</span><span class="p">:</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">_process_single_offline_gemm</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+            <span class="n">futures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_gpus</span>
+
+        <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">as_completed</span><span class="p">(</span><span class="n">futures</span><span class="p">):</span>
+            <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+
+    <span class="n">_gather_tunableop_results</span><span class="p">()</span></div>
 </pre></div>
 
              </article>

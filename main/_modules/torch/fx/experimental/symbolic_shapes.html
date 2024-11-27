@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git5d7c370 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git07850bb ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -533,7 +533,6 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">atexit</span>
-<span class="kn">import</span> <span class="nn">builtins</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
@@ -605,6 +604,7 @@
     <span class="n">PythonMod</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.utils._sympy.numbers</span> <span class="kn">import</span> <span class="n">int_oo</span>
+<span class="kn">from</span> <span class="nn">torch.utils._sympy.printers</span> <span class="kn">import</span> <span class="n">PythonPrinter</span>
 <span class="kn">from</span> <span class="nn">torch.utils._sympy.singleton_int</span> <span class="kn">import</span> <span class="n">SingletonInt</span>
 <span class="kn">from</span> <span class="nn">torch.utils._sympy.solve</span> <span class="kn">import</span> <span class="n">try_solve</span>
 <span class="kn">from</span> <span class="nn">torch.utils._sympy.symbol</span> <span class="kn">import</span> <span class="n">make_symbol</span><span class="p">,</span> <span class="n">symbol_is_type</span><span class="p">,</span> <span class="n">SymT</span>
@@ -632,8 +632,6 @@
 
 <span class="kn">import</span> <span class="nn">sympy</span>
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">S</span>
-<span class="kn">from</span> <span class="nn">sympy.printing.precedence</span> <span class="kn">import</span> <span class="n">PRECEDENCE</span><span class="p">,</span> <span class="n">precedence</span>
-<span class="kn">from</span> <span class="nn">sympy.printing.str</span> <span class="kn">import</span> <span class="n">StrPrinter</span>
 
 
 <span class="k">class</span> <span class="nc">GuardOnDataDependentSymNode</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
@@ -2555,45 +2553,9 @@
 
 
 <span class="n">SYMPY_INTERP</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;Abs&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">abs</span><span class="p">,</span>
-    <span class="s2">&quot;Eq&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span>
-    <span class="s2">&quot;Ne&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">ne</span><span class="p">,</span>
-    <span class="s2">&quot;Gt&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">gt</span><span class="p">,</span>
-    <span class="s2">&quot;Lt&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">lt</span><span class="p">,</span>
-    <span class="s2">&quot;Le&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">le</span><span class="p">,</span>
-    <span class="s2">&quot;Ge&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">ge</span><span class="p">,</span>
-    <span class="s2">&quot;Min&quot;</span><span class="p">:</span> <span class="nb">min</span><span class="p">,</span>
-    <span class="s2">&quot;Max&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">,</span>
-    <span class="s2">&quot;Mod&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span>
-    <span class="s2">&quot;PythonMod&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span>
-    <span class="s2">&quot;FloorDiv&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">floordiv</span><span class="p">,</span>
-    <span class="s2">&quot;TrueDiv&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">truediv</span><span class="p">,</span>
-    <span class="s2">&quot;PowByNatural&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">pow</span><span class="p">,</span>
     <span class="s2">&quot;IsNonOverlappingAndDenseIndicator&quot;</span><span class="p">:</span> <span class="n">eval_is_non_overlapping_and_dense</span><span class="p">,</span>
-    <span class="s2">&quot;floor&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span>
-    <span class="s2">&quot;ceiling&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">,</span>
-    <span class="s2">&quot;FloorToInt&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span>
-    <span class="s2">&quot;FloatPow&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">,</span>
-    <span class="s2">&quot;CeilToInt&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">,</span>
     <span class="s2">&quot;cast_symbool_to_symint_guardless&quot;</span><span class="p">:</span> <span class="n">cast_symbool_to_symint_guardless</span><span class="p">,</span>
-    <span class="s2">&quot;RoundToInt&quot;</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">round</span><span class="p">,</span>
-    <span class="s2">&quot;RoundDecimal&quot;</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">round</span><span class="p">,</span>
-    <span class="s2">&quot;TruncToInt&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">trunc</span><span class="p">,</span>
-    <span class="s2">&quot;IntTrueDiv&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">truediv</span><span class="p">,</span>
-    <span class="s2">&quot;FloatTrueDiv&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">truediv</span><span class="p">,</span>
-    <span class="s2">&quot;ToFloat&quot;</span><span class="p">:</span> <span class="n">builtins</span><span class="o">.</span><span class="n">float</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_cos&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_cosh&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_acos&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_sin&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_sinh&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_asin&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_tan&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_tanh&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_atan&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">,</span>
-    <span class="s2">&quot;OpaqueUnaryFn_sqrt&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">,</span>
-    <span class="s2">&quot;BitwiseFn_bitwise_and&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">and_</span><span class="p">,</span>
-    <span class="s2">&quot;BitwiseFn_bitwise_or&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">or_</span><span class="p">,</span>
+    <span class="s2">&quot;math&quot;</span><span class="p">:</span> <span class="n">math</span><span class="p">,</span>
 <span class="p">}</span>
 
 
@@ -2664,12 +2626,12 @@
 
 
 <span class="c1"># Used for printing SymExprs in compile_fx</span>
-<span class="k">class</span> <span class="nc">SymExprPrinter</span><span class="p">(</span><span class="n">StrPrinter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SymExprPrinter</span><span class="p">(</span><span class="n">PythonPrinter</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">_print_Float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
 
 
-<span class="k">class</span> <span class="nc">ShapeGuardPrinter</span><span class="p">(</span><span class="n">SymExprPrinter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ShapeGuardPrinter</span><span class="p">(</span><span class="n">PythonPrinter</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">symbol_to_source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
@@ -2681,14 +2643,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">source_ref</span> <span class="o">=</span> <span class="n">source_ref</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span> <span class="o">=</span> <span class="n">var_to_sources</span>
 
-    <span class="k">def</span> <span class="nf">_print_Not</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;not </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">PRECEDENCE</span><span class="p">[</span><span class="s2">&quot;Not&quot;</span><span class="p">]))</span>
-
-    <span class="k">def</span> <span class="nf">_print_And</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="s2">&quot; and &quot;</span><span class="p">,</span> <span class="n">PRECEDENCE</span><span class="p">[</span><span class="s2">&quot;And&quot;</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">_print_Or</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="s2">&quot; or &quot;</span><span class="p">,</span> <span class="n">PRECEDENCE</span><span class="p">[</span><span class="s2">&quot;Or&quot;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">_print_Float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_print_Symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
@@ -2714,7 +2670,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">var_to_sources</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">var_to_sources</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">DynamicDimConstraintPrinter</span><span class="p">(</span><span class="n">StrPrinter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">DynamicDimConstraintPrinter</span><span class="p">(</span><span class="n">PythonPrinter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Printer for dynamic dim constraints.</span>
 <span class="sd">    - Instead of symbol s_k it prints its source t.size()[i]</span>
@@ -2738,9 +2694,6 @@
             <span class="n">expr</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Unknown symbol </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2"> created by constraints solver&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol_to_source</span><span class="p">[</span><span class="n">expr</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_print_Relational</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">relational</span><span class="o">.</span><span class="n">Relational</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">expr</span><span class="o">.</span><span class="n">rel_op</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span><span class="w"> </span><span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
 
 <div class="viewcode-block" id="DimConstraints"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints">[docs]</a><span class="k">class</span> <span class="nc">DimConstraints</span><span class="p">:</span>
@@ -7179,7 +7132,7 @@
     <span class="n">e</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">msg</span><span class="p">,)</span>
 
 
-<span class="k">class</span> <span class="nc">_PythonPrinter</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">StrPrinter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_PythonMsgPrinter</span><span class="p">(</span><span class="n">PythonPrinter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Util printer that replaces sympy symbols with their source-level names</span>
 <span class="sd">    and renders sympy relational operators (e.g., Eq, Ne, Ge, Le) inline</span>
@@ -7193,13 +7146,6 @@
     <span class="k">def</span> <span class="nf">_print_Symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sym</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">src_map</span><span class="p">[</span><span class="n">sym</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_print_Relational</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">relational</span><span class="o">.</span><span class="n">Relational</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">lhs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">precedence</span><span class="o">.</span><span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
-        <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="s2">&quot;rel_op&quot;</span><span class="p">)</span>
-        <span class="n">rel_op</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">rel_op</span>
-        <span class="n">rhs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parenthesize</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">precedence</span><span class="o">.</span><span class="n">precedence</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lhs</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rel_op</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rhs</span><span class="si">}</span><span class="s2">&quot;</span>
-
 
 <span class="k">def</span> <span class="nf">_suggest_torch_checks</span><span class="p">(</span>
     <span class="n">e</span><span class="p">:</span> <span class="n">GuardOnDataDependentSymNode</span><span class="p">,</span> <span class="n">src_map</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
@@ -7210,7 +7156,7 @@
     <span class="k">if</span> <span class="n">diff</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unable to find user code corresponding to {</span><span class="si">%s</span><span class="s2">}&quot;</span><span class="p">,</span> <span class="n">diff</span><span class="p">)</span>
         <span class="k">return</span>
-    <span class="n">printer</span> <span class="o">=</span> <span class="n">_PythonPrinter</span><span class="p">(</span><span class="n">src_map</span><span class="p">)</span>
+    <span class="n">printer</span> <span class="o">=</span> <span class="n">_PythonMsgPrinter</span><span class="p">(</span><span class="n">src_map</span><span class="p">)</span>
     <span class="n">msg</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">To fix the error, insert one of the following checks before this call:&quot;</span>
     <span class="c1"># suggested fixes to resolve `cond`` are to tell the compiler to assume</span>
