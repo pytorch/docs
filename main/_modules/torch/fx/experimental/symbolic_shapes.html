@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git07850bb ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git45ed7c1 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -532,6 +532,7 @@
 <span class="sd">need to make use of these APIs to setup dynamic shapes support appropriately.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">import</span> <span class="nn">atexit</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">functools</span>
@@ -569,7 +570,7 @@
     <span class="n">TypeVar</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeAlias</span><span class="p">,</span> <span class="n">TypeGuard</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span><span class="p">,</span> <span class="n">TypeAlias</span><span class="p">,</span> <span class="n">TypeGuard</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx</span>
@@ -2631,17 +2632,17 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
 
 
-<span class="k">class</span> <span class="nc">ShapeGuardPrinter</span><span class="p">(</span><span class="n">PythonPrinter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_ShapeGuardPrinter</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">symbol_to_source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
         <span class="n">source_ref</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Source</span><span class="p">],</span> <span class="nb">str</span><span class="p">],</span>
         <span class="n">var_to_sources</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symbol_to_source</span> <span class="o">=</span> <span class="n">symbol_to_source</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source_ref</span> <span class="o">=</span> <span class="n">source_ref</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span> <span class="o">=</span> <span class="n">var_to_sources</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_print_Float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
@@ -2662,10 +2663,31 @@
             <span class="sa">f</span><span class="s2">&quot;not in </span><span class="si">{</span><span class="n">repr_symbol_to_source</span><span class="p">()</span><span class="si">}</span><span class="s2">.  If this assert is failing, it could be &quot;</span>
             <span class="s2">&quot;due to the issue described in https://github.com/pytorch/pytorch/pull/90665&quot;</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_ref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol_to_source</span><span class="p">[</span><span class="n">expr</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_source</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol_to_source</span><span class="p">[</span><span class="n">expr</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="o">...</span>
 
 
-<span class="k">class</span> <span class="nc">LoggingShapeGuardPrinter</span><span class="p">(</span><span class="n">ShapeGuardPrinter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ShapeGuardPythonPrinter</span><span class="p">(</span><span class="n">_ShapeGuardPrinter</span><span class="p">,</span> <span class="n">PythonPrinter</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">print_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_ref</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span>
+    <span class="s2">&quot;`torch.fx.experimental.symbolic_shapes.ShapeGuardPrinter` is deprecated, &quot;</span>
+    <span class="s2">&quot;please use `torch.fx.experimental.symbolic_shapes.ShapeGuardPythonPrinter` instead.&quot;</span><span class="p">,</span>
+    <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">class</span> <span class="nc">ShapeGuardPrinter</span><span class="p">(</span><span class="n">ShapeGuardPythonPrinter</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">LoggingShapeGuardPrinter</span><span class="p">(</span><span class="n">ShapeGuardPythonPrinter</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_to_sources</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]]):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">var_to_sources</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">var_to_sources</span><span class="p">)</span>
 
@@ -4559,6 +4581,17 @@
             <span class="n">maybe_extra_debug</span><span class="p">,</span>
             <span class="n">stack_info</span><span class="o">=</span><span class="n">is_debug</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="n">trace_structured</span><span class="p">(</span>
+            <span class="s2">&quot;create_unbacked_symbol&quot;</span><span class="p">,</span>
+            <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">symbol</span><span class="p">),</span>
+                <span class="s2">&quot;vr&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;user_stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span><span class="n">TracingContext</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()),</span>
+                <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span>
+                    <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+                <span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="ShapeEnv.create_unbacked_symfloat"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.create_unbacked_symfloat">[docs]</a>    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">create_unbacked_symfloat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SymFloat</span><span class="p">:</span>
@@ -4868,6 +4901,21 @@
                 <span class="n">maybe_extra_debug</span><span class="p">,</span>
                 <span class="n">stack_info</span><span class="o">=</span><span class="n">is_debug</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="n">trace_structured</span><span class="p">(</span>
+                <span class="s2">&quot;create_symbol&quot;</span><span class="p">,</span>
+                <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">sympy_expr</span><span class="p">),</span>
+                    <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">val</span><span class="p">),</span>
+                    <span class="s2">&quot;vr&quot;</span><span class="p">:</span> <span class="n">range_str</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
+                    <span class="s2">&quot;user_stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span>
+                        <span class="n">TracingContext</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()</span>
+                    <span class="p">),</span>
+                    <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span>
+                        <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+                    <span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">[</span><span class="s2">&quot;create_symbol&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
@@ -4948,7 +4996,7 @@
         <span class="n">_simplified</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="c1"># Indicates if we should produce guards for known static values.</span>
         <span class="n">ignore_static</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># regular, verbose</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># python, verbose</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates a list of guards strings which, when evaluated in a context that</span>
 <span class="sd">        defines tensors for all the sources, returns True or False depending</span>
@@ -5077,11 +5125,17 @@
         <span class="c1"># the symbol mapping is</span>
         <span class="n">input_guards</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">symbol_to_source</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span>
+            <span class="nb">list</span>
+        <span class="p">)</span>
         <span class="n">symbol_to_constraints</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span>
             <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
         <span class="n">constraint_violations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">py_printer</span> <span class="o">=</span> <span class="n">ShapeGuardPythonPrinter</span><span class="p">(</span>
+            <span class="n">symbol_to_source</span><span class="p">,</span> <span class="n">source_ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span>
+        <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">record_constraint_violation</span><span class="p">(</span>
             <span class="n">warn_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
@@ -5203,9 +5257,7 @@
                         <span class="k">assert</span> <span class="n">constraint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
                         <span class="k">def</span> <span class="nf">hint</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-                            <span class="n">sexpr</span> <span class="o">=</span> <span class="n">ShapeGuardPrinter</span><span class="p">(</span>
-                                <span class="n">symbol_to_source</span><span class="p">,</span> <span class="n">source_ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span>
-                            <span class="p">)</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+                            <span class="n">sexpr</span> <span class="o">=</span> <span class="n">py_printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
                             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sexpr</span><span class="si">}</span><span class="s2">.&quot;</span>
 
                         <span class="n">var_with_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render_range_for_constraint_violation</span><span class="p">(</span>
@@ -5341,7 +5393,7 @@
         <span class="c1">#    stored on the placeholder.  Given a placeholder (s0*2, s1),</span>
         <span class="c1">#    if we have an input (2, 3), we must show s0*2 == 2 and s1 == 3.</span>
         <span class="c1">#    This does a lot of work: it covers duck sizing and equality guards.</span>
-        <span class="n">exprs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">python_exprs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">verbose_exprs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_constraints</span> <span class="o">=</span> <span class="n">DimConstraints</span><span class="p">(</span>
             <span class="n">symbol_to_source</span><span class="p">,</span>
@@ -5381,11 +5433,9 @@
                 <span class="k">if</span> <span class="n">is_dim</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dim_constraints</span><span class="o">.</span><span class="n">add_equality</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">expr</span><span class="p">)</span>
 
-                <span class="n">sexpr</span> <span class="o">=</span> <span class="n">ShapeGuardPrinter</span><span class="p">(</span>
-                    <span class="n">symbol_to_source</span><span class="p">,</span> <span class="n">source_ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span>
-                <span class="p">)</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
-                <span class="n">res</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">source_ref</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="si">}</span><span class="s2"> == </span><span class="si">{</span><span class="n">sexpr</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="n">exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">py_printer</span><span class="o">.</span><span class="n">print_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="si">}</span><span class="s2"> == </span><span class="si">{</span><span class="n">py_printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">python_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
                 <span class="k">if</span> <span class="p">(</span><span class="n">s0</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_to_var</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">srcname</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">source</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span><span class="p">[</span><span class="n">s0</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
                         <span class="n">verbose_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -5474,10 +5524,8 @@
                 <span class="p">):</span>
                     <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_constraints</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                     <span class="n">is_trivial</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
-                <span class="n">guard_expr</span> <span class="o">=</span> <span class="n">ShapeGuardPrinter</span><span class="p">(</span>
-                    <span class="n">symbol_to_source</span><span class="p">,</span> <span class="n">source_ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span>
-                <span class="p">)</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
-                <span class="n">exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">guard_expr</span><span class="p">)</span>
+                <span class="n">guard_expr</span> <span class="o">=</span> <span class="n">py_printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+                <span class="n">python_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">guard_expr</span><span class="p">)</span>
                 <span class="n">verbose_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">guard_expr</span><span class="si">}</span><span class="s2">  # </span><span class="si">{</span><span class="n">guard</span><span class="o">.</span><span class="n">sloc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_add_target_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
                 <span class="c1"># A non-relational constraint on a single sizevar can violate</span>
@@ -5546,17 +5594,17 @@
                 <span class="c1"># Only print lower bound in simplified mode if it is not the</span>
                 <span class="c1"># default</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">_simplified</span> <span class="ow">or</span> <span class="n">r</span><span class="o">.</span><span class="n">lower</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value_range</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">:</span>
-                    <span class="n">bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">lower</span><span class="p">))</span>
+                    <span class="n">bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">evaluate</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
                 <span class="n">verbose_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2"> &lt;= </span><span class="si">{</span><span class="n">rf</span><span class="si">}</span><span class="s2">  # </span><span class="si">{</span><span class="n">vr_sloc</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rf</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">upper</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">oo</span><span class="p">,</span> <span class="n">int_oo</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">is_dim</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dim_constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">upper</span><span class="p">))</span>
                 <span class="c1"># nontrivial upper bound is always interesting</span>
-                <span class="n">bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">upper</span><span class="p">))</span>
+                <span class="n">bounds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span> <span class="n">evaluate</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
                 <span class="n">verbose_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rf</span><span class="si">}</span><span class="s2"> &lt;= </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">  # </span><span class="si">{</span><span class="n">vr_sloc</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &lt;= &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bounds</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">bounds</span><span class="p">:</span>
+                <span class="n">bound</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="o">*</span><span class="n">bounds</span><span class="p">,</span> <span class="n">evaluate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">python_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">py_printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">bound</span><span class="p">))</span>
                 <span class="c1"># NB: verbose_exprs are done above</span>
 
                 <span class="c1"># Check constraints</span>
@@ -5571,9 +5619,7 @@
                             <span class="n">expr</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">And</span><span class="p">(</span>
                                 <span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">symbol</span><span class="p">),</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
                             <span class="p">)</span>
-                            <span class="n">guard_expr</span> <span class="o">=</span> <span class="n">ShapeGuardPrinter</span><span class="p">(</span>
-                                <span class="n">symbol_to_source</span><span class="p">,</span> <span class="n">source_ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span>
-                            <span class="p">)</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+                            <span class="n">guard_expr</span> <span class="o">=</span> <span class="n">py_printer</span><span class="o">.</span><span class="n">doprint</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
                             <span class="n">var_with_range</span> <span class="o">=</span> <span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_render_range_for_constraint_violation</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
                             <span class="p">)</span>
@@ -5588,8 +5634,8 @@
             <span class="c1"># if you have something like an equality guard, nan will play</span>
             <span class="c1"># merry hell with the reasoning.</span>
             <span class="k">if</span> <span class="n">symbol_is_type</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">SymT</span><span class="o">.</span><span class="n">FLOAT</span><span class="p">):</span>
-                <span class="n">res</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;not __math_isnan(</span><span class="si">{</span><span class="n">source_ref</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">)&quot;</span>
-                <span class="n">exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;not __math_isnan(</span><span class="si">{</span><span class="n">py_printer</span><span class="o">.</span><span class="n">print_source</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="n">python_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
                 <span class="n">verbose_exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">res</span><span class="si">}</span><span class="s2">  # implicit guard for float input due to NaN specialization in the framework&quot;</span>
                 <span class="p">)</span>
@@ -5623,7 +5669,7 @@
             <span class="p">{</span>
                 <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">co_fields</span><span class="p">,</span>
                 <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span>
-                <span class="s2">&quot;num_guards&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">exprs</span><span class="p">),</span>
+                <span class="s2">&quot;num_guards&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">python_exprs</span><span class="p">),</span>
                 <span class="s2">&quot;free_symbols&quot;</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">symbol_to_source</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">),</span>
                 <span class="c1"># The keys are meaningless from an aggregate perspective, so</span>
                 <span class="c1"># don&#39;t include them.  Biggest first.</span>
@@ -5660,7 +5706,7 @@
         <span class="c1"># Only run translation validation when we are not passing custom guards</span>
         <span class="k">if</span> <span class="n">guards</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_translation_validate</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">exprs</span><span class="p">,</span> <span class="n">verbose_exprs</span></div>
+        <span class="k">return</span> <span class="n">python_exprs</span><span class="p">,</span> <span class="n">verbose_exprs</span></div>
 
 <div class="viewcode-block" id="ShapeEnv.produce_guards_expression"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards_expression">[docs]</a>    <span class="k">def</span> <span class="nf">produce_guards_expression</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -6622,6 +6668,16 @@
                     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_to_var</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">free_symbols</span>
                 <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">trace_structured</span><span class="p">(</span>
+            <span class="s2">&quot;guard_added_fast&quot;</span><span class="p">,</span>
+            <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;expr&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="p">),</span>
+                <span class="s2">&quot;user_stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span><span class="n">TracingContext</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()),</span>
+                <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span>
+                    <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+                <span class="p">),</span>
             <span class="p">},</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
