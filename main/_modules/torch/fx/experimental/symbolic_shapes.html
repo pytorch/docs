@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git45ed7c1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git7224cd4 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -3716,6 +3716,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_prev_cache_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_key</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_version_counter</span> <span class="o">=</span> <span class="mi">0</span>
 
+        <span class="c1"># Each time divisible is changed this should be set to True, this is set in _update_version_counter.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_resimplify_floor_div_axioms</span> <span class="o">=</span> <span class="kc">True</span>
+
         <span class="c1"># Cache for FX nodes.</span>
         <span class="c1"># Maps an already built node a tuple of:</span>
         <span class="c1">#   1. node&#39;s target</span>
@@ -3829,6 +3832,7 @@
             <span class="c1"># source locations are OK to diverge</span>
             <span class="s2">&quot;var_to_range_sloc&quot;</span><span class="p">,</span>
             <span class="s2">&quot;replacements_slocs&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_resimplify_floor_div_axioms&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Mapping of the value of each to-be-compared field into the values that</span>
@@ -4162,7 +4166,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Context manager to ignore all guards generated inside&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">_suppress_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_get_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Defines the current &quot;state&quot; of the guards we&#39;ve accumulated in this ShapeEnv.</span>
 <span class="sd">        Determines when we need to invalidate our cache</span>
@@ -4175,12 +4179,20 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_version_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># if the change to shape env effects self.divisible set</span>
+        <span class="c1"># _resimplify_floor_div_axioms.</span>
+        <span class="c1"># This is used to trigger a resimplication of FloorDiv to CleanDivs</span>
+        <span class="c1"># in implication inside the function resimplify_floor_div.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">divisible</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_cache_key</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_resimplify_floor_div_axioms</span> <span class="o">=</span> <span class="kc">True</span>
+
         <span class="c1"># The shape environment is queried orders of magnitude more often than</span>
         <span class="c1"># it is changed, so we summarise the cache key into a linearly</span>
         <span class="c1"># increasing version counter which is cheaper to check in _lru_cache</span>
 
         <span class="c1"># Only update version counter if the state actually changed</span>
         <span class="n">cur_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_key</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_cache_key</span> <span class="o">!=</span> <span class="n">cur_key</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_prev_cache_key</span> <span class="o">=</span> <span class="n">cur_key</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_version_counter</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -5957,7 +5969,6 @@
 
         <span class="c1"># axioms with compute hint NYE</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="n">compute_hint</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">axioms</span>
-
         <span class="n">expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">compute_hint</span><span class="p">:</span>
@@ -5965,14 +5976,32 @@
 
         <span class="n">expr</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
+        <span class="k">def</span> <span class="nf">resimplify_floor_div</span><span class="p">(</span><span class="n">axioms</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resimplify_floor_div_axioms</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_resimplify_floor_div_axioms</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">new_items</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">axioms</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1"># A FloorDiv in implications could have became CleanDiv at this point, due to new facts</span>
+                <span class="c1"># to the shapeEnv. This handles such issue but its not ideal. This is the only expression</span>
+                <span class="c1"># simplification that depends on the global state of shape env.</span>
+                <span class="c1"># TODO try to get rid of CleanDiv since it breaks the invariant thats simplifications of sympy</span>
+                <span class="c1"># expressions only depend on the expression itself.</span>
+                <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">FloorDiv</span><span class="p">):</span>
+                    <span class="n">new_items</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span><span class="p">})</span>
+            <span class="n">axioms</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_items</span><span class="p">)</span>
+
         <span class="c1"># Pattern matching</span>
         <span class="k">if</span> <span class="n">axioms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">resimplify_floor_div</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axioms</span><span class="p">)</span>
             <span class="n">subst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axioms</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">subst</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">axioms</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">free_symbols</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">):</span>
                     <span class="n">subst</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_implications</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">e</span><span class="p">))))</span>
+
+            <span class="n">resimplify_floor_div</span><span class="p">(</span><span class="n">subst</span><span class="p">)</span>
 
         <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="n">subst</span><span class="p">)</span>
         <span class="c1"># TODO: compute hint might have gotten broken here</span>

@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git45ed7c1 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git7224cd4 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -534,7 +534,7 @@
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx._pytree</span> <span class="k">as</span> <span class="nn">fx_pytree</span>
@@ -1023,7 +1023,6 @@
         <span class="c1"># Recurively check all input nodes have been processed.</span>
         <span class="n">check_module_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">[])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dispatch_modules</span><span class="p">(</span><span class="n">redirected_call_indices</span><span class="p">)</span>
-        <span class="n">fqn_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">fqn</span> <span class="k">for</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">fqn_list</span> <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fqn</span><span class="p">]</span>
 
         <span class="c1"># Cache so we don&#39;t have to compute this every time.</span>
         <span class="c1"># NOTE: this needs to be kept in sync with the placeholders in</span>
@@ -1171,27 +1170,16 @@
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">call_module</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">call_modules</span><span class="p">):</span>
                     <span class="n">fqn</span> <span class="o">=</span> <span class="n">_call_name</span><span class="p">(</span><span class="n">orig_fqn</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">fqn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">redirected_call_indices</span><span class="p">:</span>
-                        <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">fqn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
-                        <span class="n">_get_attr_via_attr_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_submodule</span><span class="p">(</span><span class="n">orig_fqn</span><span class="p">,</span> <span class="n">InterpreterModuleDispatcher</span><span class="p">(</span><span class="n">call_modules</span><span class="p">))</span>
 
         <span class="c1"># elide call indices in call modules because they are</span>
         <span class="c1"># tracked automatically inside the dispatcher module</span>
-        <span class="k">def</span> <span class="nf">elide_call_indices</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_module&quot;</span><span class="p">:</span>
-                    <span class="n">fqn</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">fqn</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="n">fqn</span>
-                    <span class="k">if</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">called_modules</span><span class="p">:</span>
-                        <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">fqn</span>
-
-        <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">named_modules</span><span class="p">(</span><span class="n">remove_duplicate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;graph&quot;</span><span class="p">):</span>
-                <span class="n">elide_call_indices</span><span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="n">mod</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;_call_modules&quot;</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">mod_</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">_call_modules</span><span class="p">:</span>
-                    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod_</span><span class="p">,</span> <span class="s2">&quot;graph&quot;</span><span class="p">)</span>
-                    <span class="n">elide_call_indices</span><span class="p">(</span><span class="n">fqn</span><span class="p">,</span> <span class="n">mod_</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_module&quot;</span><span class="p">:</span>
+                <span class="n">fqn</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">fqn</span> <span class="ow">in</span> <span class="n">called_modules</span><span class="p">:</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">fqn</span>
 
     <span class="k">def</span> <span class="nf">print_readable</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1388,22 +1376,14 @@
     <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_add_submodule</span><span class="p">(</span>
-    <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">module_to_add</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-    <span class="n">create_module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="k">def</span> <span class="nf">_add_submodule</span><span class="p">(</span><span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">module_to_add</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">field</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
         <span class="n">submod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">submod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">create_module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">submod</span> <span class="o">=</span> <span class="n">create_module</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prefix</span><span class="p">[:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">submod</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">()</span>
+            <span class="n">submod</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">()</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">submod</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -1433,7 +1413,6 @@
         <span class="n">seen_nodes</span><span class="p">,</span>
         <span class="n">seen_modules</span><span class="p">,</span>
         <span class="n">seen_attrs</span><span class="p">,</span>
-        <span class="n">created_modules</span><span class="p">,</span>
         <span class="n">parent</span><span class="p">,</span>
         <span class="n">module_stack</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
         <span class="n">module_id</span><span class="p">,</span>
@@ -1445,7 +1424,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">seen_nodes</span> <span class="o">=</span> <span class="n">seen_nodes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span> <span class="o">=</span> <span class="n">seen_modules</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seen_attrs</span> <span class="o">=</span> <span class="n">seen_attrs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span> <span class="o">=</span> <span class="n">created_modules</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span> <span class="o">=</span> <span class="n">module_stack</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">module_id</span> <span class="o">=</span> <span class="n">module_id</span>
@@ -1461,10 +1439,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ivals</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">ivals</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;ivals&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="p">{}</span>  <span class="c1"># type: ignore[var-annotated]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span>
-                <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()),</span>
-            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ivals</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">ivals</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">graph</span>
@@ -1476,16 +1451,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">accessor</span> <span class="o">=</span> <span class="n">_compute_accessor</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_fqn</span><span class="p">)</span>
-
-            <span class="k">def</span> <span class="nf">create_module</span><span class="p">(</span><span class="n">fqn</span><span class="p">):</span>
-                <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parent</span><span class="o">.</span><span class="n">fqn</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">fqn</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">fqn</span> <span class="k">else</span> <span class="n">fqn</span>
-                <span class="k">if</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="p">[</span><span class="n">path</span><span class="p">]</span>
-                <span class="n">submod</span> <span class="o">=</span> <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">submod</span>
-                <span class="k">return</span> <span class="n">submod</span>
-
-            <span class="n">_add_submodule</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">create_module</span><span class="p">)</span>
+            <span class="n">_add_submodule</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parent_call_module</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">accessor</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">module_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">_SubmoduleEntry</span><span class="p">(</span>
@@ -1650,8 +1616,6 @@
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">finalize_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
         <span class="n">orig_outputs</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="n">signature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_call_graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child_fqn</span><span class="p">)</span>
@@ -1831,7 +1795,6 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">seen_nodes</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">seen_modules</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">seen_attrs</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="p">,</span>
                     <span class="bp">self</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span> <span class="o">+</span> <span class="p">[</span><span class="n">next_module</span><span class="p">],</span>
                     <span class="n">next_module_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
@@ -1866,14 +1829,12 @@
     <span class="n">seen_nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">seen_modules</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">_SubmoduleEntry</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
     <span class="n">seen_attrs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
-    <span class="n">created_modules</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">_ModuleFrame</span><span class="p">(</span>
         <span class="n">orig_graph</span><span class="p">,</span>
         <span class="nb">tuple</span><span class="p">(</span><span class="n">orig_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span>
         <span class="n">seen_nodes</span><span class="p">,</span>
         <span class="n">seen_modules</span><span class="p">,</span>
         <span class="n">seen_attrs</span><span class="p">,</span>
-        <span class="n">created_modules</span><span class="p">,</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="p">[(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
         <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -2031,7 +1992,6 @@
             <span class="c1"># Iterate over all previously seen modules, and deduplicate if possible</span>
             <span class="k">for</span> <span class="n">seen</span> <span class="ow">in</span> <span class="n">shared_submodules</span><span class="p">[:</span><span class="n">i</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">_check_graph_equivalence</span><span class="p">(</span><span class="n">seen</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">module</span><span class="p">):</span>
-                    <span class="n">parent</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">parent_module</span>
                     <span class="c1"># Since graphs are equivalent, we can deduplicate.</span>
                     <span class="c1"># There are two cases.</span>
                     <span class="k">if</span> <span class="n">seen</span><span class="o">.</span><span class="n">fqn</span> <span class="o">==</span> <span class="n">entry</span><span class="o">.</span><span class="n">fqn</span><span class="p">:</span>
@@ -2040,7 +2000,9 @@
                         <span class="c1"># So we remove the current module from the hierarchy and replace</span>
                         <span class="c1"># the current call name with the seen call name in the parent graph.</span>
                         <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
-                        <span class="n">_get_attr_via_attr_list</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                        <span class="n">_get_attr_via_attr_list</span><span class="p">(</span>
+                            <span class="n">entry</span><span class="o">.</span><span class="n">parent_module</span><span class="p">,</span> <span class="n">prefix</span>
+                        <span class="p">)</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
                         <span class="n">seen_child_fqn</span> <span class="o">=</span> <span class="n">_call_name</span><span class="p">(</span><span class="n">seen</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">seen</span><span class="o">.</span><span class="n">call_idx</span><span class="p">)</span>
                         <span class="n">seen_target</span> <span class="o">=</span> <span class="n">_compute_accessor</span><span class="p">(</span>
                             <span class="n">entry</span><span class="o">.</span><span class="n">parent_fqn</span><span class="p">,</span> <span class="n">seen_child_fqn</span>
@@ -2058,7 +2020,7 @@
                         <span class="c1"># was actually called. However, it is possible that the current call name</span>
                         <span class="c1"># will be optimized away when we find another seen module with the same fqn,</span>
                         <span class="c1"># so we do not break out of the loop yet.</span>
-                        <span class="n">parent</span><span class="o">.</span><span class="n">set_submodule</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">seen</span><span class="o">.</span><span class="n">module</span><span class="p">)</span>
+                        <span class="n">entry</span><span class="o">.</span><span class="n">parent_module</span><span class="o">.</span><span class="n">set_submodule</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">seen</span><span class="o">.</span><span class="n">module</span><span class="p">)</span>
                         <span class="n">deduplicated</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">return</span> <span class="n">redirected_call_indices</span>
@@ -2082,9 +2044,6 @@
 <span class="sd">    inputs_to_state: mapping graph input names to the corresponding key in the state_dict.</span>
 <span class="sd">    scope: tracks where we are in the module hierarchy, so that we can emit the</span>
 <span class="sd">        right `getattr(self, &quot;foo.bar&quot;)` calls, etc.</span>
-<span class="sd">    module_id_to_inputs_removed: records inputs removed by child modules, mapping</span>
-<span class="sd">        the module object id to the list of placeholder node names in the child module</span>
-<span class="sd">        that were removed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">module_id_to_inputs_removed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -2094,19 +2053,16 @@
     <span class="c1"># explicitly want duplicate modules to show up in the traversal.</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">submod_id_to_inputs_removed</span> <span class="o">=</span> <span class="n">_sink_params</span><span class="p">(</span>
-            <span class="n">cast</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">submodule</span><span class="p">),</span>
-            <span class="n">inputs_to_state</span><span class="p">,</span>
-            <span class="n">scope</span> <span class="o">+</span> <span class="p">[</span><span class="n">name</span><span class="p">],</span>
-            <span class="n">module_id_to_inputs_removed</span><span class="p">,</span>
+            <span class="n">cast</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">submodule</span><span class="p">),</span> <span class="n">inputs_to_state</span><span class="p">,</span> <span class="n">scope</span> <span class="o">+</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">submod_id_to_inputs_removed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">module_id_to_inputs_removed</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-    <span class="n">graph</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;graph&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">graph</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;graph&quot;</span><span class="p">):</span>
         <span class="c1"># Not all modules have graphs defined, if they are empty modules with no operations (like ParameterList)</span>
         <span class="k">return</span> <span class="n">module_id_to_inputs_removed</span>
 
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">graph</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">,</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">))</span>  <span class="c1"># type: ignore[arg-type, union-attr, var-annotated]</span>
     <span class="n">the_last_input</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
