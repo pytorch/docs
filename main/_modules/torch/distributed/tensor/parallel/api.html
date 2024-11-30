@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git7224cd4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git7fafaa9 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -531,20 +531,13 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.distributed.tensor._random</span> <span class="k">as</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.device_mesh</span> <span class="kn">import</span> <span class="n">_mesh_resources</span><span class="p">,</span> <span class="n">DeviceMesh</span>
-<span class="kn">from</span> <span class="nn">torch.distributed.tensor._random</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">is_rng_supported_mesh</span><span class="p">,</span>
-    <span class="n">TensorParallelRNGTracker</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.tensor.parallel._utils</span> <span class="kn">import</span> <span class="n">_validate_tp_mesh_dim</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.tensor.parallel.style</span> <span class="kn">import</span> <span class="n">ParallelStyle</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;parallelize_module&quot;</span><span class="p">,</span>
-<span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;parallelize_module&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="parallelize_module"><a class="viewcode-back" href="../../../../../distributed.tensor.parallel.html#torch.distributed.tensor.parallel.parallelize_module">[docs]</a><span class="k">def</span> <span class="nf">parallelize_module</span><span class="p">(</span>  <span class="c1"># type: ignore[return]</span>
@@ -606,17 +599,8 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">module</span>
 
-    <span class="c1"># instantiate a TP RNG state tracker if it&#39;s not there</span>
-    <span class="k">if</span> <span class="n">is_rng_supported_mesh</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span><span class="p">,</span> <span class="n">TensorParallelRNGTracker</span>
-    <span class="p">):</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span> <span class="o">=</span> <span class="n">TensorParallelRNGTracker</span><span class="p">(</span><span class="n">device_mesh</span><span class="o">.</span><span class="n">device_type</span><span class="p">)</span>
-        <span class="c1"># TODO: we should allow user to pass in the default seed from a config</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span><span class="o">.</span><span class="n">_manual_seed</span><span class="p">(</span><span class="n">device_mesh</span><span class="p">,</span> <span class="n">base_seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">)</span>
-        <span class="c1"># By default we execute random ops in non-tensor-parallel region. If users want</span>
-        <span class="c1"># to execute in tensor-parallel region, they can manually set this field to True</span>
-        <span class="c1"># after parallelizing the model.</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">_rng_tracker</span><span class="o">.</span><span class="n">distribute_region_enabled</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="c1"># note: The RNG tracker will be initialized in distribute_tensor() call if it hasn&#39;t</span>
+    <span class="c1"># been initialized.</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parallelize_plan</span><span class="p">,</span> <span class="n">ParallelStyle</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">parallelize_plan</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">device_mesh</span><span class="p">)</span>
