@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git4959784 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita51a048 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -544,6 +544,11 @@
 
 <span class="sd">    For the description and the argument types, please, refer to :class:`~torch.nn.LSTMCell`</span>
 
+<span class="sd">    `split_gates`: specify True to compute the input/forget/cell/output gates separately</span>
+<span class="sd">    to avoid an intermediate tensor which is subsequently chunk&#39;d. This optimization can</span>
+<span class="sd">    be beneficial for on-device inference latency. This flag is cascaded down from the</span>
+<span class="sd">    parent classes.</span>
+
 <span class="sd">    Examples::</span>
 
 <span class="sd">        &gt;&gt;&gt; import torch.ao.nn.quantizable as nnqa</span>
@@ -557,6 +562,7 @@
 <span class="sd">        ...     output.append(hx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_FLOAT_MODULE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">LSTMCell</span>
+    <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;split_gates&quot;</span><span class="p">]</span>  <span class="c1"># for jit.script</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -565,20 +571,40 @@
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">split_gates</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">split_gates</span> <span class="o">=</span> <span class="n">split_gates</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">igates</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
-            <span class="n">input_dim</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hgates</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
-            <span class="n">hidden_dim</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gates</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">FloatFunctional</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">split_gates</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">igates</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
+                <span class="n">input_dim</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hgates</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
+                <span class="n">hidden_dim</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gates</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">FloatFunctional</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># keep separate Linear layers for each gate</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">igates</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleDict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hgates</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleDict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gates</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleDict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="s2">&quot;forget&quot;</span><span class="p">,</span> <span class="s2">&quot;cell&quot;</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">]:</span>
+                <span class="c1"># pyre-fixme[29]: `Union[torch._tensor.Tensor, torch.nn.modules.module.Module]`</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">igates</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
+                    <span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+                <span class="p">)</span>
+                <span class="c1"># pyre-fixme[29]: `Union[torch._tensor.Tensor, torch.nn.modules.module.Module]`</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hgates</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
+                    <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+                <span class="p">)</span>
+                <span class="c1"># pyre-fixme[29]: `Union[torch._tensor.Tensor, torch.nn.modules.module.Module]`</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gates</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ao</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">FloatFunctional</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">input_gate</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">forget_gate</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
@@ -603,16 +629,31 @@
             <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize_hidden</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">)</span>
         <span class="n">hx</span><span class="p">,</span> <span class="n">cx</span> <span class="o">=</span> <span class="n">hidden</span>
 
-        <span class="n">igates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">igates</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">hgates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hgates</span><span class="p">(</span><span class="n">hx</span><span class="p">)</span>
-        <span class="n">gates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gates</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">igates</span><span class="p">,</span> <span class="n">hgates</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_gates</span><span class="p">:</span>
+            <span class="n">igates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">igates</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">hgates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hgates</span><span class="p">(</span><span class="n">hx</span><span class="p">)</span>
+            <span class="n">gates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gates</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">igates</span><span class="p">,</span> <span class="n">hgates</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
 
-        <span class="n">input_gate</span><span class="p">,</span> <span class="n">forget_gate</span><span class="p">,</span> <span class="n">cell_gate</span><span class="p">,</span> <span class="n">out_gate</span> <span class="o">=</span> <span class="n">gates</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">input_gate</span><span class="p">,</span> <span class="n">forget_gate</span><span class="p">,</span> <span class="n">cell_gate</span><span class="p">,</span> <span class="n">out_gate</span> <span class="o">=</span> <span class="n">gates</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">input_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_gate</span><span class="p">(</span><span class="n">input_gate</span><span class="p">)</span>
-        <span class="n">forget_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forget_gate</span><span class="p">(</span><span class="n">forget_gate</span><span class="p">)</span>
-        <span class="n">cell_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_gate</span><span class="p">(</span><span class="n">cell_gate</span><span class="p">)</span>
-        <span class="n">out_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_gate</span><span class="p">(</span><span class="n">out_gate</span><span class="p">)</span>
+            <span class="n">input_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_gate</span><span class="p">(</span><span class="n">input_gate</span><span class="p">)</span>
+            <span class="n">forget_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forget_gate</span><span class="p">(</span><span class="n">forget_gate</span><span class="p">)</span>
+            <span class="n">cell_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_gate</span><span class="p">(</span><span class="n">cell_gate</span><span class="p">)</span>
+            <span class="n">out_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_gate</span><span class="p">(</span><span class="n">out_gate</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># apply each input + hidden projection and add together</span>
+            <span class="n">gate</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">gates</span><span class="p">),</span> <span class="n">igates</span><span class="p">,</span> <span class="n">hgates</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gates</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>  <span class="c1"># type: ignore[operator]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">igates</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>  <span class="c1"># type: ignore[operator]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hgates</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>  <span class="c1"># type: ignore[operator]</span>
+            <span class="p">):</span>
+                <span class="n">gate</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">gates</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">igates</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">hgates</span><span class="p">(</span><span class="n">hx</span><span class="p">))</span>
+
+            <span class="n">input_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_gate</span><span class="p">(</span><span class="n">gate</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">])</span>
+            <span class="n">forget_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forget_gate</span><span class="p">(</span><span class="n">gate</span><span class="p">[</span><span class="s2">&quot;forget&quot;</span><span class="p">])</span>
+            <span class="n">cell_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_gate</span><span class="p">(</span><span class="n">gate</span><span class="p">[</span><span class="s2">&quot;cell&quot;</span><span class="p">])</span>
+            <span class="n">out_gate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_gate</span><span class="p">(</span><span class="n">gate</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">])</span>
 
         <span class="n">fgate_cx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fgate_cx</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">forget_gate</span><span class="p">,</span> <span class="n">cx</span><span class="p">)</span>
         <span class="n">igate_cgate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">igate_cgate</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">input_gate</span><span class="p">,</span> <span class="n">cell_gate</span><span class="p">)</span>
@@ -645,7 +686,7 @@
         <span class="k">return</span> <span class="s2">&quot;QuantizableLSTMCell&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_params</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">wi</span><span class="p">,</span> <span class="n">wh</span><span class="p">,</span> <span class="n">bi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bh</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_params</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">wi</span><span class="p">,</span> <span class="n">wh</span><span class="p">,</span> <span class="n">bi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bh</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Uses the weights and biases to create a new LSTM cell.</span>
 
 <span class="sd">        Args:</span>
@@ -655,25 +696,52 @@
         <span class="k">assert</span> <span class="p">(</span><span class="n">bi</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">bh</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># Either both None or both have values</span>
         <span class="n">input_size</span> <span class="o">=</span> <span class="n">wi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">wh</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">cell</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="p">(</span><span class="n">bi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">))</span>
-        <span class="n">cell</span><span class="o">.</span><span class="n">igates</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">bi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cell</span><span class="o">.</span><span class="n">igates</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">bi</span><span class="p">)</span>
-        <span class="n">cell</span><span class="o">.</span><span class="n">hgates</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">wh</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">bh</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cell</span><span class="o">.</span><span class="n">hgates</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">bh</span><span class="p">)</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">input_dim</span><span class="o">=</span><span class="n">input_size</span><span class="p">,</span>
+            <span class="n">hidden_dim</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">,</span>
+            <span class="n">bias</span><span class="o">=</span><span class="p">(</span><span class="n">bi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">split_gates</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">igates</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">cell</span><span class="o">.</span><span class="n">igates</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">bi</span><span class="p">)</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">hgates</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">wh</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bh</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">cell</span><span class="o">.</span><span class="n">hgates</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">bh</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># split weight/bias</span>
+            <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">gates</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">wi</span><span class="p">,</span> <span class="n">wh</span><span class="p">],</span> <span class="p">[</span><span class="n">bi</span><span class="p">,</span> <span class="n">bh</span><span class="p">],</span> <span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">igates</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">hgates</span><span class="p">]):</span>
+                <span class="k">for</span> <span class="n">w_chunk</span><span class="p">,</span> <span class="n">gate</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">gates</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>  <span class="c1"># type: ignore[operator]</span>
+                    <span class="n">gate</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">w_chunk</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">b_chunk</span><span class="p">,</span> <span class="n">gate</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">gates</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>  <span class="c1"># type: ignore[operator]</span>
+                        <span class="n">gate</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">b_chunk</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">cell</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_float</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_float</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">use_precomputed_fake_quant</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span>
         <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">),</span> <span class="s2">&quot;The float module must have &#39;qconfig&#39;&quot;</span>
         <span class="n">observed</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_params</span><span class="p">(</span>
-            <span class="n">other</span><span class="o">.</span><span class="n">weight_ih</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">weight_hh</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">bias_ih</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">bias_hh</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">weight_ih</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">weight_hh</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">bias_ih</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">bias_hh</span><span class="p">,</span>
+            <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">observed</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">qconfig</span>
         <span class="n">observed</span><span class="o">.</span><span class="n">igates</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">qconfig</span>
         <span class="n">observed</span><span class="o">.</span><span class="n">hgates</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">qconfig</span>
+        <span class="k">if</span> <span class="n">split_gates</span><span class="p">:</span>
+            <span class="c1"># also apply qconfig directly to Linear modules</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">observed</span><span class="o">.</span><span class="n">igates</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">g</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">qconfig</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">observed</span><span class="o">.</span><span class="n">hgates</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">g</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">qconfig</span>
         <span class="k">return</span> <span class="n">observed</span>
 
 
@@ -691,10 +759,14 @@
         <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">split_gates</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span> <span class="o">=</span> <span class="n">LSTMCell</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span> <span class="o">=</span> <span class="n">LSTMCell</span><span class="p">(</span>
+            <span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
@@ -708,7 +780,9 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_params</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cell</span> <span class="o">=</span> <span class="n">LSTMCell</span><span class="o">.</span><span class="n">from_params</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">layer</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">split_gates</span>
+        <span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">cell</span> <span class="o">=</span> <span class="n">cell</span>
         <span class="k">return</span> <span class="n">layer</span>
 
@@ -725,17 +799,23 @@
         <span class="n">bidirectional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">split_gates</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">batch_first</span> <span class="o">=</span> <span class="n">batch_first</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bidirectional</span> <span class="o">=</span> <span class="n">bidirectional</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_fw</span> <span class="o">=</span> <span class="n">_LSTMSingleLayer</span><span class="p">(</span>
-            <span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+            <span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bidirectional</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layer_bw</span> <span class="o">=</span> <span class="n">_LSTMSingleLayer</span><span class="p">(</span>
-                <span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">factory_kwargs</span>
+                <span class="n">input_dim</span><span class="p">,</span>
+                <span class="n">hidden_dim</span><span class="p">,</span>
+                <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span>
+                <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -806,22 +886,34 @@
         <span class="n">bias</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bias&quot;</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
         <span class="n">batch_first</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;batch_first&quot;</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">batch_first</span><span class="p">)</span>
         <span class="n">bidirectional</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bidirectional&quot;</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">bidirectional</span><span class="p">)</span>
+        <span class="n">split_gates</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;split_gates&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
-        <span class="n">layer</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">batch_first</span><span class="p">,</span> <span class="n">bidirectional</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">input_size</span><span class="p">,</span>
+            <span class="n">hidden_size</span><span class="p">,</span>
+            <span class="n">bias</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="p">,</span>
+            <span class="n">bidirectional</span><span class="p">,</span>
+            <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">,</span> <span class="n">qconfig</span><span class="p">)</span>
         <span class="n">wi</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;weight_ih_l</span><span class="si">{</span><span class="n">layer_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">wh</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;weight_hh_l</span><span class="si">{</span><span class="n">layer_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">bi</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;bias_ih_l</span><span class="si">{</span><span class="n">layer_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">bh</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;bias_hh_l</span><span class="si">{</span><span class="n">layer_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-        <span class="n">layer</span><span class="o">.</span><span class="n">layer_fw</span> <span class="o">=</span> <span class="n">_LSTMSingleLayer</span><span class="o">.</span><span class="n">from_params</span><span class="p">(</span><span class="n">wi</span><span class="p">,</span> <span class="n">wh</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">bh</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">layer_fw</span> <span class="o">=</span> <span class="n">_LSTMSingleLayer</span><span class="o">.</span><span class="n">from_params</span><span class="p">(</span>
+            <span class="n">wi</span><span class="p">,</span> <span class="n">wh</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">bh</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="n">bidirectional</span><span class="p">:</span>
             <span class="n">wi</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;weight_ih_l</span><span class="si">{</span><span class="n">layer_idx</span><span class="si">}</span><span class="s2">_reverse&quot;</span><span class="p">)</span>
             <span class="n">wh</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;weight_hh_l</span><span class="si">{</span><span class="n">layer_idx</span><span class="si">}</span><span class="s2">_reverse&quot;</span><span class="p">)</span>
             <span class="n">bi</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;bias_ih_l</span><span class="si">{</span><span class="n">layer_idx</span><span class="si">}</span><span class="s2">_reverse&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="n">bh</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;bias_hh_l</span><span class="si">{</span><span class="n">layer_idx</span><span class="si">}</span><span class="s2">_reverse&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">layer</span><span class="o">.</span><span class="n">layer_bw</span> <span class="o">=</span> <span class="n">_LSTMSingleLayer</span><span class="o">.</span><span class="n">from_params</span><span class="p">(</span><span class="n">wi</span><span class="p">,</span> <span class="n">wh</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">bh</span><span class="p">)</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">layer_bw</span> <span class="o">=</span> <span class="n">_LSTMSingleLayer</span><span class="o">.</span><span class="n">from_params</span><span class="p">(</span>
+                <span class="n">wi</span><span class="p">,</span> <span class="n">wh</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">bh</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">layer</span>
 
 
@@ -865,6 +957,8 @@
         <span class="n">bidirectional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">split_gates</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">factory_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -909,6 +1003,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
                 <span class="n">batch_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">bidirectional</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bidirectional</span><span class="p">,</span>
+                <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">]</span>
@@ -919,6 +1014,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
                 <span class="n">batch_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">bidirectional</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bidirectional</span><span class="p">,</span>
+                <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">factory_kwargs</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">)</span>
@@ -984,7 +1080,7 @@
         <span class="k">return</span> <span class="s2">&quot;QuantizableLSTM&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_float</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">qconfig</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_float</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">qconfig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">qconfig</span>
         <span class="n">observed</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
@@ -995,11 +1091,12 @@
             <span class="n">other</span><span class="o">.</span><span class="n">batch_first</span><span class="p">,</span>
             <span class="n">other</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
             <span class="n">other</span><span class="o">.</span><span class="n">bidirectional</span><span class="p">,</span>
+            <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">observed</span><span class="o">.</span><span class="n">qconfig</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span><span class="p">,</span> <span class="n">qconfig</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">num_layers</span><span class="p">):</span>
             <span class="n">observed</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">_LSTMLayer</span><span class="o">.</span><span class="n">from_float</span><span class="p">(</span>
-                <span class="n">other</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">qconfig</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">False</span>
+                <span class="n">other</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">qconfig</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">split_gates</span><span class="o">=</span><span class="n">split_gates</span>
             <span class="p">)</span>
 
         <span class="c1"># Prepare the model</span>

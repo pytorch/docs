@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git4959784 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gita51a048 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -541,6 +541,7 @@
     <span class="n">device_types_t</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch._library.infer_schema</span> <span class="kn">import</span> <span class="n">infer_schema</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">torch._library.triton</span> <span class="kn">import</span> <span class="n">triton_op</span><span class="p">,</span> <span class="n">wrap_triton</span>
 <span class="kn">from</span> <span class="nn">torch._ops</span> <span class="kn">import</span> <span class="n">OpOverload</span>
 
 
@@ -555,6 +556,8 @@
     <span class="s2">&quot;register_vmap&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_ctx&quot;</span><span class="p">,</span>
     <span class="s2">&quot;custom_op&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;triton_op&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;wrap_triton&quot;</span><span class="p">,</span>
     <span class="s2">&quot;infer_schema&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
@@ -1391,6 +1394,10 @@
 <span class="sd">    not depend on or mutate global state. If you need a non-traceable backward,</span>
 <span class="sd">    you can make it a separate custom_op that you call inside ``backward_fn``.</span>
 
+<span class="sd">    If you need different autograd behavior on different devices, then we</span>
+<span class="sd">    recommend creating two different custom operators, one for each device</span>
+<span class="sd">    that needs different behavior, and switching between them at runtime.</span>
+
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; import torch</span>
 <span class="sd">        &gt;&gt;&gt; import numpy as np</span>
@@ -1841,12 +1848,12 @@
 
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +REQUIRES(env:TORCH_DOCTEST_CUDA)</span>
 <span class="sd">        &gt;&gt;&gt; @torch.library.custom_op(&quot;mylib::numpy_mul&quot;, mutates_args=())</span>
-<span class="sd">        &gt;&gt;&gt; def numpy_add(x: Tensor, y: float) -&gt; Tensor:</span>
+<span class="sd">        &gt;&gt;&gt; def numpy_mul(x: Tensor, y: float) -&gt; Tensor:</span>
 <span class="sd">        &gt;&gt;&gt;     x_np = x.numpy(force=True)</span>
-<span class="sd">        &gt;&gt;&gt;     z_np = x_np + y</span>
+<span class="sd">        &gt;&gt;&gt;     z_np = x_np * y</span>
 <span class="sd">        &gt;&gt;&gt;     return torch.from_numpy(z_np).to(x.device)</span>
 <span class="sd">        &gt;&gt;&gt;</span>
-<span class="sd">        &gt;&gt;&gt; @numpy_sin.register_fake</span>
+<span class="sd">        &gt;&gt;&gt; @numpy_mul.register_fake</span>
 <span class="sd">        &gt;&gt;&gt; def _(x, y):</span>
 <span class="sd">        &gt;&gt;&gt;     return torch.empty_like(x)</span>
 <span class="sd">        &gt;&gt;&gt;</span>
@@ -1857,7 +1864,7 @@
 <span class="sd">        &gt;&gt;&gt; def backward(ctx, grad):</span>
 <span class="sd">        &gt;&gt;&gt;     return grad * ctx.y, None</span>
 <span class="sd">        &gt;&gt;&gt;</span>
-<span class="sd">        &gt;&gt;&gt; numpy_sin.register_autograd(backward, setup_context=setup_context)</span>
+<span class="sd">        &gt;&gt;&gt; numpy_mul.register_autograd(backward, setup_context=setup_context)</span>
 <span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; sample_inputs = [</span>
 <span class="sd">        &gt;&gt;&gt;     (torch.randn(3), 3.14),</span>
@@ -1867,7 +1874,7 @@
 <span class="sd">        &gt;&gt;&gt; ]</span>
 <span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; for args in sample_inputs:</span>
-<span class="sd">        &gt;&gt;&gt;     torch.library.opcheck(foo, args)</span>
+<span class="sd">        &gt;&gt;&gt;     torch.library.opcheck(numpy_mul, args)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">torch.testing._internal.optests</span> <span class="k">as</span> <span class="nn">optests</span>
