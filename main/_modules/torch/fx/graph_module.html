@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gite6e75eb ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitefab8c4 ) &#x25BC</a>
     </div>
      <div class="searchbox">
         <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
@@ -377,6 +377,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../distributed.fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.optim.html">torch.distributed.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.pipelining.html">torch.distributed.pipelining</a></li>
@@ -1051,7 +1052,7 @@
 
         <span class="c1"># Dictionary to store metadata</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_node_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_erase_node_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
 
@@ -1408,7 +1409,7 @@
             <span class="s2">&quot;_state_dict_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_load_state_dict_pre_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_load_state_dict_post_hooks&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;_replace_hook&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_replace_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_create_node_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_erase_node_hooks&quot;</span><span class="p">,</span>
         <span class="p">]</span>
@@ -1469,11 +1470,29 @@
 <span class="sd">        user node which consumes the old node to be replaced.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;Replace hook must be a callable.&quot;</span>
-        <span class="n">prev</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span><span class="p">,</span> <span class="n">f</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_register_replace_node_hook</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">yield</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hook</span> <span class="o">=</span> <span class="n">prev</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unregister_replace_node_hook</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_register_replace_node_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes a callable which will be called everytime when we replace a node</span>
+<span class="sd">        to a new node, or change the node&#39;s name. Callable takes three arguments:</span>
+<span class="sd">        the old node we&#39;re changing, and NAME of the new node, followed by the</span>
+<span class="sd">        user node which consumes the old node to be replaced.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;create_node hook must be a callable.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_unregister_replace_node_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes a callable which was previously registered to be called everytime when we replace a node.</span>
+<span class="sd">        This function will unregister that callable so it is no longer invoked on node replacement.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;create_node hook must be a callable.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hooks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_register_create_node_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
