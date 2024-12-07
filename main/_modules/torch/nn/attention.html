@@ -281,12 +281,76 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitefab8c4 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git0052943 ) &#x25BC</a>
     </div>
-     <div class="searchbox">
-        <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
-        <div class="gcse-search"></div>
-     </div>
+    <div id="searchBox">
+    <div class="searchbox" id="googleSearchBox">
+      <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+      <div class="gcse-search"></div>
+    </div>
+    <div id="sphinxSearchBox" style="display: none;">
+      <div role="search">
+        <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+          <input type="text" name="q" placeholder="Search Docs" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+      </div>
+    </div>
+  </div>
+  <form id="searchForm">
+    <label style="margin-bottom: 1rem">
+      <input type="radio" name="searchType" value="google" checked>
+      Google Search
+    </label>
+    <label style="margin-bottom: 1rem">
+      <input type="radio" name="searchType" value="sphinx">
+      Classic Search
+    </label>
+  </form>
+
+  <script>
+     document.addEventListener('DOMContentLoaded', function() {
+      const searchForm = document.getElementById('searchForm');
+      const googleSearchBox = document.getElementById('googleSearchBox');
+      const sphinxSearchBox = document.getElementById('sphinxSearchBox');
+      // Function to toggle search box visibility
+      function toggleSearchBox(searchType) {
+        googleSearchBox.style.display = searchType === 'google' ? 'block' : 'none';
+        sphinxSearchBox.style.display = searchType === 'sphinx' ? 'block' : 'none';
+      }
+      // Determine the default search type
+      let defaultSearchType;
+      const currentUrl = window.location.href;
+      if (currentUrl.startsWith('https://pytorch.org/docs/stable')) {
+        // For the stable documentation, default to Google
+        defaultSearchType = localStorage.getItem('searchType') || 'google';
+      } else {
+        // For any other version, including docs-preview, default to Sphinx
+        defaultSearchType = 'sphinx';
+      }
+      // Set the default search type
+      document.querySelector(`input[name="searchType"][value="${defaultSearchType}"]`).checked = true;
+      toggleSearchBox(defaultSearchType);
+      // Event listener for changes in search type
+      searchForm.addEventListener('change', function(event) {
+        const selectedSearchType = event.target.value;
+        localStorage.setItem('searchType', selectedSearchType);
+        toggleSearchBox(selectedSearchType);
+      });
+      // Set placeholder text for Google search box
+      window.onload = function() {
+        var placeholderText = "Search Docs";
+        var googleSearchboxText = document.querySelector("#gsc-i-id1");
+        if (googleSearchboxText) {
+          googleSearchboxText.placeholder = placeholderText;
+          googleSearchboxText.style.fontFamily = 'FreightSans';
+          googleSearchboxText.style.fontSize = "1.2rem";
+          googleSearchboxText.style.color = '#262626';
+        }
+      };
+    });
+  </script>
      <!--temporarily add a link to survey -->
      <div class="survey-link">
        <p><i class="fas fa-poll" aria-hidden="true">&nbsp </i><a href="https://forms.gle/tdrnwJhaQ9tUePxz9">Share Your Feedback</a> about our new search</p>
@@ -377,7 +441,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../fsdp.html">torch.distributed.fsdp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../distributed.fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.optim.html">torch.distributed.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../distributed.pipelining.html">torch.distributed.pipelining</a></li>
@@ -611,7 +674,9 @@
 
 
 <div class="viewcode-block" id="sdpa_kernel"><a class="viewcode-back" href="../../../generated/torch.nn.attention.sdpa_kernel.html#torch.nn.attention.sdpa_kernel">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-<span class="k">def</span> <span class="nf">sdpa_kernel</span><span class="p">(</span><span class="n">backends</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SDPBackend</span><span class="p">],</span> <span class="n">SDPBackend</span><span class="p">]):</span>
+<span class="k">def</span> <span class="nf">sdpa_kernel</span><span class="p">(</span>
+    <span class="n">backends</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SDPBackend</span><span class="p">],</span> <span class="n">SDPBackend</span><span class="p">],</span> <span class="n">set_priority</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Context manager to select which backend to use for scaled dot product attention.</span>
 
@@ -619,6 +684,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        backends (Union[List[SDPBackend], SDPBackend]): A backend or list of backends for scaled dot product attention.</span>
+<span class="sd">        set_priority_order (bool=False): Whether the ordering of the backends is interpreted as their priority order.</span>
 
 <span class="sd">    Example:</span>
 
@@ -644,13 +710,28 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">backends</span><span class="p">,</span> <span class="n">SDPBackend</span><span class="p">):</span>
         <span class="n">backends</span> <span class="o">=</span> <span class="p">[</span><span class="n">backends</span><span class="p">]</span>
 
-    <span class="n">backends</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">backends</span><span class="p">)</span>
+    <span class="n">backends_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">backends</span><span class="p">)</span>
+    <span class="n">user_priority</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">previous_priority</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">set_priority</span><span class="p">:</span>
+        <span class="n">user_priority</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">backends</span><span class="p">)</span> <span class="k">if</span> <span class="n">backends</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">idx</span>  <span class="c1"># type: ignore[call-overload]</span>
+        <span class="p">]</span>
+        <span class="n">previous_priority</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_get_sdp_priority_order</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">backend</span> <span class="ow">in</span> <span class="n">previous_priority</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">backend</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_priority</span><span class="p">:</span>
+                <span class="n">user_priority</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">backend</span><span class="p">))</span>
     <span class="n">previous_backends</span> <span class="o">=</span> <span class="n">_cur_sdpa_kernel_backends</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">_sdpa_kernel</span><span class="p">(</span><span class="n">backends</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">set_priority</span><span class="p">:</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_set_sdp_priority_order</span><span class="p">(</span><span class="n">user_priority</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="n">_sdpa_kernel</span><span class="p">(</span><span class="n">backends_set</span><span class="p">)</span>
         <span class="k">yield</span> <span class="p">{}</span>
     <span class="k">finally</span><span class="p">:</span>
-        <span class="n">_sdpa_kernel</span><span class="p">(</span><span class="n">previous_backends</span><span class="p">)</span></div>
+        <span class="n">_sdpa_kernel</span><span class="p">(</span><span class="n">previous_backends</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">set_priority</span><span class="p">:</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_set_sdp_priority_order</span><span class="p">(</span><span class="n">previous_priority</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span></div>
 
 
 <span class="c1"># variadic version of sdpa_kernel for dynamo to use while reconstructing</span>
