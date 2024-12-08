@@ -280,7 +280,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git0052943 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitb1bb860 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -440,6 +440,7 @@
 <li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.optim.html">torch.distributed.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a></li>
@@ -2578,6 +2579,8 @@
       </ul></li>
       <li><a href="fsdp.html#torch.distributed.fsdp.CPUOffload">CPUOffload (class in torch.distributed.fsdp)</a>
 </li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.CPUOffloadPolicy">CPUOffloadPolicy (class in torch.distributed.fsdp)</a>
+</li>
       <li><a href="fx.html#torch.fx.Tracer.create_arg">create_arg() (torch.fx.Tracer method)</a>
 </li>
       <li><a href="fx.html#torch.fx.Tracer.create_args_for_root">create_args_for_root() (torch.fx.Tracer method)</a>
@@ -4219,6 +4222,8 @@
       </ul></li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel.fsdp_modules">fsdp_modules() (torch.distributed.fsdp.FullyShardedDataParallel static method)</a>
 </li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule">FSDPModule (class in torch.distributed.fsdp)</a>
+</li>
       <li><a href="generated/torch.full.html#torch.full">full() (in module torch)</a>
 
       <ul>
@@ -4242,6 +4247,8 @@
       <li><a href="fsdp.html#torch.distributed.fsdp.FullOptimStateDictConfig">FullOptimStateDictConfig (class in torch.distributed.fsdp)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullStateDictConfig">FullStateDictConfig (class in torch.distributed.fsdp)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.fully_shard">fully_shard() (in module torch.distributed.fsdp)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.FullyShardedDataParallel">FullyShardedDataParallel (class in torch.distributed.fsdp)</a>
 </li>
@@ -6863,6 +6870,8 @@
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.MixedPrecision">MixedPrecision (class in torch.distributed.fsdp)</a>
 </li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.MixedPrecisionPolicy">MixedPrecisionPolicy (class in torch.distributed.fsdp)</a>
+</li>
       <li><a href="distributions.html#torch.distributions.mixture_same_family.MixtureSameFamily.mixture_distribution">mixture_distribution (torch.distributions.mixture_same_family.MixtureSameFamily property)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.mixture_same_family.MixtureSameFamily">MixtureSameFamily (class in torch.distributions.mixture_same_family)</a>
@@ -9060,6 +9069,8 @@
 </li>
       <li><a href="generated/torch.ao.quantization.observer.ObserverBase.html#torch.ao.quantization.observer.ObserverBase">ObserverBase (class in torch.ao.quantization.observer)</a>
 </li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.OffloadPolicy">OffloadPolicy (class in torch.distributed.fsdp)</a>
+</li>
       <li><a href="fx.html#torch.fx.Graph.on_generate_code">on_generate_code() (torch.fx.Graph method)</a>
 </li>
       <li><a href="generated/torch.autograd.function.once_differentiable.html#torch.autograd.function.once_differentiable">once_differentiable() (in module torch.autograd.function)</a>
@@ -9106,10 +9117,10 @@
 </li>
       <li><a href="generated/torch.jit.optimize_for_inference.html#torch.jit.optimize_for_inference">optimize_for_inference() (in module torch.jit)</a>
 </li>
-      <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="mobile_optimizer.html#torch.utils.mobile_optimizer.optimize_for_mobile">optimize_for_mobile() (in module torch.utils.mobile_optimizer)</a>
+</li>
       <li><a href="optim.html#torch.optim.Optimizer">Optimizer (class in torch.optim)</a>
 </li>
       <li><a href="fsdp.html#torch.distributed.fsdp.OptimStateDictConfig">OptimStateDictConfig (class in torch.distributed.fsdp)</a>
@@ -9946,6 +9957,8 @@
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_forward_pre_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.register_fsdp_forward_method">register_fsdp_forward_method() (in module torch.distributed.fsdp)</a>
+</li>
       <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.register_full_backward_hook">register_full_backward_hook() (torch.jit.ScriptModule method)</a>
 
       <ul>
@@ -10455,6 +10468,8 @@
       <li><a href="generated/torch.Tensor.reshape_as.html#torch.Tensor.reshape_as">reshape_as() (torch.Tensor method)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.transforms.ReshapeTransform">ReshapeTransform (class in torch.distributions.transforms)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.reshard">reshard() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
       <li><a href="storage.html#torch.TypedStorage.resizable">resizable() (torch.TypedStorage method)</a>
 
@@ -11004,6 +11019,8 @@
 </li>
       <li><a href="generated/torch.ao.quantization.fx.custom_config.PrepareCustomConfig.html#torch.ao.quantization.fx.custom_config.PrepareCustomConfig.set_input_quantized_indexes">set_input_quantized_indexes() (torch.ao.quantization.fx.custom_config.PrepareCustomConfig method)</a>
 </li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_is_last_backward">set_is_last_backward() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
       <li><a href="library.html#torch._library.custom_ops.CustomOpDef.set_kernel_enabled">set_kernel_enabled() (torch._library.custom_ops.CustomOpDef method)</a>
 </li>
       <li><a href="generated/torch._logging.set_logs.html#torch._logging.set_logs">set_logs() (in module torch._logging)</a>
@@ -11031,6 +11048,10 @@
       <li><a href="generated/torch.ao.quantization.qconfig_mapping.QConfigMapping.html#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name_object_type_order">set_module_name_object_type_order() (torch.ao.quantization.qconfig_mapping.QConfigMapping method)</a>
 </li>
       <li><a href="generated/torch.ao.quantization.qconfig_mapping.QConfigMapping.html#torch.ao.quantization.qconfig_mapping.QConfigMapping.set_module_name_regex">set_module_name_regex() (torch.ao.quantization.qconfig_mapping.QConfigMapping method)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_modules_to_backward_prefetch">set_modules_to_backward_prefetch() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_modules_to_forward_prefetch">set_modules_to_forward_prefetch() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
       <li><a href="generated/torch.autograd.grad_mode.set_multithreading_enabled.html#torch.autograd.grad_mode.set_multithreading_enabled">set_multithreading_enabled (class in torch.autograd.grad_mode)</a>
 </li>
@@ -11064,6 +11085,8 @@
         <li><a href="generated/torch.mps.set_per_process_memory_fraction.html#torch.mps.set_per_process_memory_fraction">(in module torch.mps)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_post_optim_event">set_post_optim_event() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
       <li><a href="generated/torch.ao.quantization.fx.custom_config.ConvertCustomConfig.html#torch.ao.quantization.fx.custom_config.ConvertCustomConfig.set_preserved_attributes">set_preserved_attributes() (torch.ao.quantization.fx.custom_config.ConvertCustomConfig method)</a>
 
       <ul>
@@ -11076,7 +11099,15 @@
 </li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendPatternConfig.html#torch.ao.quantization.backend_config.BackendPatternConfig.set_qat_module">set_qat_module() (torch.ao.quantization.backend_config.BackendPatternConfig method)</a>
 </li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_reduce_scatter_divide_factor">set_reduce_scatter_divide_factor() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
       <li><a href="generated/torch.ao.quantization.backend_config.BackendPatternConfig.html#torch.ao.quantization.backend_config.BackendPatternConfig.set_reference_quantized_module">set_reference_quantized_module() (torch.ao.quantization.backend_config.BackendPatternConfig method)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_requires_all_reduce">set_requires_all_reduce() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_requires_gradient_sync">set_requires_gradient_sync() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_reshard_after_backward">set_reshard_after_backward() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
       <li><a href="futures.html#torch.futures.Future.set_result">set_result() (torch.futures.Future method)</a>
 </li>
@@ -11149,6 +11180,8 @@
       <li><a href="distributed.html#torch.distributed.Store.set_timeout">set_timeout() (torch.distributed.Store method)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.set_unbacked_var_to_val">set_unbacked_var_to_val() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_unshard_in_backward">set_unshard_in_backward() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner.set_up_planner">set_up_planner() (torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner method)</a>
 
@@ -11362,14 +11395,14 @@
         <li><a href="generated/torch.Tensor.smm.html#torch.Tensor.smm">(torch.Tensor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.functional.smooth_l1_loss.html#torch.nn.functional.smooth_l1_loss">smooth_l1_loss() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.SmoothL1Loss.html#torch.nn.SmoothL1Loss">SmoothL1Loss (class in torch.nn)</a>
 </li>
       <li><a href="generated/torch.cuda.MemPool.html#torch.cuda.MemPool.snapshot">snapshot() (torch.cuda.MemPool method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine">SobolEngine (class in torch.quasirandom)</a>
 </li>
       <li><a href="generated/torch.nn.functional.soft_margin_loss.html#torch.nn.functional.soft_margin_loss">soft_margin_loss() (in module torch.nn.functional)</a>
@@ -18299,16 +18332,20 @@
 </li>
       <li><a href="monitor.html#torch.monitor.unregister_event_handler">unregister_event_handler() (in module torch.monitor)</a>
 </li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.unshard">unshard() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.UnshardHandle">UnshardHandle (class in torch.distributed.fsdp)</a>
+</li>
       <li><a href="generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence.unsorted_indices">unsorted_indices (torch.nn.utils.rnn.PackedSequence attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.unsqueeze.html#torch.unsqueeze">unsqueeze() (in module torch)</a>
 
       <ul>
         <li><a href="generated/torch.Tensor.unsqueeze.html#torch.Tensor.unsqueeze">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.Tensor.unsqueeze_.html#torch.Tensor.unsqueeze_">unsqueeze_() (torch.Tensor method)</a>
 </li>
       <li><a href="storage.html#torch.TypedStorage.untyped">untyped() (torch.TypedStorage method)</a>
@@ -18572,6 +18609,8 @@
 </li>
         <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.etcd_store.EtcdStore.wait">(torch.distributed.elastic.rendezvous.etcd_store.EtcdStore method)</a>
 </li>
+        <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.UnshardHandle.wait">(torch.distributed.fsdp.UnshardHandle method)</a>
+</li>
         <li><a href="distributed.html#torch.distributed.Store.wait">(torch.distributed.Store method)</a>
 </li>
         <li><a href="distributed.html#torch.distributed.Work.wait">(torch.distributed.Work method)</a>
@@ -18613,10 +18652,10 @@
         <li><a href="generated/torch.xpu.Stream.html#torch.xpu.Stream.wait_stream">(torch.xpu.Stream method)</a>
 </li>
       </ul></li>
-      <li><a href="distributions.html#torch.distributions.weibull.Weibull">Weibull (class in torch.distributions.weibull)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="distributions.html#torch.distributions.weibull.Weibull">Weibull (class in torch.distributions.weibull)</a>
+</li>
       <li><a href="generated/torch.nn.utils.weight_norm.html#torch.nn.utils.weight_norm">weight_norm() (in module torch.nn.utils)</a>
 
       <ul>
