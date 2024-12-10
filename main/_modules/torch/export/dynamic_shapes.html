@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git29e985b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitec746f7 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -433,6 +433,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../xpu.html">torch.xpu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mtia.memory.html">torch.mtia.memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../export.html">torch.export</a></li>
@@ -1020,11 +1021,11 @@
         <span class="c1"># branch based on the root of the _DerivedConstraint</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">_PhantomRoot</span><span class="p">):</span>
             <span class="c1"># either root points to an input source</span>
-            <span class="n">root</span> <span class="o">=</span> <span class="n">get_sources</span><span class="p">(</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">t_id</span><span class="p">,</span> <span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">dim</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># type: ignore[assignment]</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">get_sources</span><span class="p">(</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">t_id</span><span class="p">,</span> <span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">dim</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># or root points to a phantom symbol</span>
             <span class="k">if</span> <span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">phantom_symbols</span><span class="p">:</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">phantom_symbols</span><span class="p">[</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>  <span class="c1"># type: ignore[assignment]</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">phantom_symbols</span><span class="p">[</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># create a phantom symbol in the shape env based on the _PhantomRoot</span>
                 <span class="n">root</span> <span class="o">=</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">create_symbol</span><span class="p">(</span>
@@ -1033,7 +1034,7 @@
                     <span class="n">dynamic_dim</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">symbolic_shapes</span><span class="o">.</span><span class="n">DimDynamic</span><span class="o">.</span><span class="n">DYNAMIC</span><span class="p">,</span>
                     <span class="n">constraint_dim</span><span class="o">=</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">constraint_range</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="n">phantom_symbols</span><span class="p">[</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span>  <span class="c1"># type: ignore[assignment]</span>
+                <span class="n">phantom_symbols</span><span class="p">[</span><span class="n">constraint</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span>
 
         <span class="n">fn</span> <span class="o">=</span> <span class="n">constraint</span><span class="o">.</span><span class="n">fn</span>
         <span class="c1"># A derived equality (source, root, fn) informally corresponds to source = fn(root).</span>
@@ -1415,7 +1416,7 @@
             <span class="n">expr</span> <span class="o">=</span> <span class="n">dim</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
             <span class="n">solution</span> <span class="o">=</span> <span class="n">try_solve</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">symbol</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">solution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">solution</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># type: ignore[call-overload]</span>
+                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">solution</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">UserError</span><span class="p">(</span>  <span class="c1"># noqa: B904</span>
                     <span class="n">UserErrorType</span><span class="o">.</span><span class="n">CONSTRAINT_VIOLATION</span><span class="p">,</span>
@@ -1555,7 +1556,7 @@
     <span class="k">for</span> <span class="n">dynamic_dims</span> <span class="ow">in</span> <span class="n">symbols</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="n">constraints</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">dynamic_dims</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">constraints</span>  <span class="c1"># type: ignore[return-value]</span>
+    <span class="k">return</span> <span class="n">constraints</span>
 
 
 <span class="k">def</span> <span class="nf">_get_dim_name_mapping</span><span class="p">(</span>
@@ -1655,7 +1656,7 @@
             <span class="n">expr</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Number</span><span class="p">):</span>
                 <span class="c1"># static, integer</span>
-                <span class="n">shape_fixes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+                <span class="n">shape_fixes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># relation or derived dim</span>
                 <span class="n">shape_fixes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">expr</span>
@@ -1691,11 +1692,11 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">symbol</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">fix</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">))</span>
                     <span class="c1"># try to locate symbol</span>
-                    <span class="k">if</span> <span class="n">symbol</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">shape_fixes</span><span class="p">:</span>  <span class="c1"># type: ignore[attr-defined]</span>
-                        <span class="n">root</span> <span class="o">=</span> <span class="n">shape_fixes</span><span class="p">[</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>  <span class="c1"># type: ignore[attr-defined]</span>
+                    <span class="k">if</span> <span class="n">symbol</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">shape_fixes</span><span class="p">:</span>
+                        <span class="n">root</span> <span class="o">=</span> <span class="n">shape_fixes</span><span class="p">[</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">assert</span> <span class="n">symbol</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">name_to_dim</span>  <span class="c1"># type: ignore[attr-defined]</span>
-                        <span class="n">root</span> <span class="o">=</span> <span class="n">name_to_dim</span><span class="p">[</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>  <span class="c1"># type: ignore[attr-defined]</span>
+                        <span class="k">assert</span> <span class="n">symbol</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">name_to_dim</span>
+                        <span class="n">root</span> <span class="o">=</span> <span class="n">name_to_dim</span><span class="p">[</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
                     <span class="c1"># figure out value of fix</span>
                     <span class="n">modulus</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">polys</span><span class="o">.</span><span class="n">polytools</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">fix</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span>
                     <span class="n">dim</span> <span class="o">=</span> <span class="n">root</span>

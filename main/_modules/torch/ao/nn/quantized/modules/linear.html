@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git29e985b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitec746f7 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -433,6 +433,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../mps.html">torch.mps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../xpu.html">torch.xpu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../mtia.memory.html">torch.mtia.memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../meta.html">Meta device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../backends.html">torch.backends</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../export.html">torch.export</a></li>
@@ -897,10 +898,14 @@
             <span class="c1"># the type mismatch in assignment. Also, mypy has an issue with</span>
             <span class="c1"># iterables not being implemented, so we are ignoring those too.</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
-                <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">]</span>  <span class="c1"># type: ignore[assignment]</span>
-            <span class="n">supported_modules</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">float_mod</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">float_mod</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">])</span>  <span class="c1"># type: ignore[attr-defined]</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">]</span>
+            <span class="n">supported_modules</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">float_mod</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">float_mod</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">]</span>
+            <span class="p">)</span>
             <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;nnq.</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.from_float only works for </span><span class="si">{</span><span class="n">supported_modules</span><span class="si">}</span><span class="s2">, but got: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="k">assert</span> <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span><span class="p">,</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="n">type_before_parametrizations</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_FLOAT_MODULE</span>
+            <span class="p">),</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>
             <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span>
                 <span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;qconfig&quot;</span>
             <span class="p">),</span> <span class="s2">&quot;Input float module must have qconfig defined&quot;</span>
