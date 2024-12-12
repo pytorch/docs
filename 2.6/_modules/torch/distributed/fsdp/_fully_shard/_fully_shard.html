@@ -1,0 +1,1443 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta name="robots" content="noindex">
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torch.distributed.fsdp._fully_shard._fully_shard &mdash; PyTorch 2.6 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://pytorch.org/docs/stable/_modules/torch/distributed/fsdp/_fully_shard/_fully_shard.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/katex-math.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/sphinx-dropdown.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/panels-bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+
+
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
+    <!-- End Google Tag Manager -->
+  
+
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Learn
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                  <span class=dropdown-title>Get Started</span>
+                  <p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                  <p>Whats new in PyTorch tutorials</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                  <p>Familiarize yourself with PyTorch concepts and modules</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                  <p>Bite-size, ready-to-deploy PyTorch code examples</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                  <p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Ecosystem
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+                  <span class="dropdown-title">Tools</span>
+                  <p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
+                  <span class=dropdown-title>Community</span>
+                  <p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
+                  <span class=dropdown-title>Forums</span>
+                  <p>A place to discuss PyTorch code, issues, install, research</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                  <p>Find resources and get questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2023">
+                  <span class="dropdown-title">Contributor Awards - 2023</span>
+                  <p>Award winners announced at this year's PyTorch Conference</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Edge
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/edge">
+                  <span class="dropdown-title">About PyTorch Edge</span>
+                  <p>Build innovative and privacy-aware AI experiences for edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
+                  <span class="dropdown-title">ExecuTorch</span>
+                  <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+              </div>
+            </div>  
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Docs
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                  <p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                  <span class="dropdown-title">PyTorch Domains</span>
+                  <p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Blogs & News 
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">PyTorch Blog</span>
+                  <p>Catch up on the latest technical news and happenings</p>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
+                  <span class="dropdown-title">Community Blog</span>
+                  <p>Stories from the PyTorch ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/videos">
+                  <span class="dropdown-title">Videos</span>
+                  <p>Learn about the latest PyTorch tutorials, new, and more </p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
+                  <span class="dropdown-title">Community Stories</span>
+                  <p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                  <p>Find events, webinars, and podcasts</p>
+                </a>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                About
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                  <p>Learn more about the PyTorch Foundation</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                  <p></p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown">
+              <a href="https://pytorch.org/join" data-cta="join">
+                Become a Member
+              </a>
+            </div>
+          </li>
+          <li>
+           <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="github-icon">
+             </a>
+           </div>
+          </li>
+          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <li>
+            <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="search-icon">
+             </a>
+            </div>
+          </li>
+          --->
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+  </div>
+</div>
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+    <div class="version">
+      <a href='https://pytorch.org/docs/versions.html'>2.6 &#x25BC</a>
+    </div>
+    <div id="searchBox">
+    <div class="searchbox" id="googleSearchBox">
+      <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+      <div class="gcse-search"></div>
+    </div>
+    <div id="sphinxSearchBox" style="display: none;">
+      <div role="search">
+        <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+          <input type="text" name="q" placeholder="Search Docs" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+      </div>
+    </div>
+  </div>
+  <form id="searchForm">
+    <label style="margin-bottom: 1rem">
+      <input type="radio" name="searchType" value="google" checked>
+      Google Search
+    </label>
+    <label style="margin-bottom: 1rem">
+      <input type="radio" name="searchType" value="sphinx">
+      Classic Search
+    </label>
+  </form>
+
+  <script>
+     document.addEventListener('DOMContentLoaded', function() {
+      const searchForm = document.getElementById('searchForm');
+      const googleSearchBox = document.getElementById('googleSearchBox');
+      const sphinxSearchBox = document.getElementById('sphinxSearchBox');
+      // Function to toggle search box visibility
+      function toggleSearchBox(searchType) {
+        googleSearchBox.style.display = searchType === 'google' ? 'block' : 'none';
+        sphinxSearchBox.style.display = searchType === 'sphinx' ? 'block' : 'none';
+      }
+      // Determine the default search type
+      let defaultSearchType;
+      const currentUrl = window.location.href;
+      if (currentUrl.startsWith('https://pytorch.org/docs/stable')) {
+        // For the stable documentation, default to Google
+        defaultSearchType = localStorage.getItem('searchType') || 'google';
+      } else {
+        // For any other version, including docs-preview, default to Sphinx
+        defaultSearchType = 'sphinx';
+      }
+      // Set the default search type
+      document.querySelector(`input[name="searchType"][value="${defaultSearchType}"]`).checked = true;
+      toggleSearchBox(defaultSearchType);
+      // Event listener for changes in search type
+      searchForm.addEventListener('change', function(event) {
+        const selectedSearchType = event.target.value;
+        localStorage.setItem('searchType', selectedSearchType);
+        toggleSearchBox(selectedSearchType);
+      });
+      // Set placeholder text for Google search box
+      window.onload = function() {
+        var placeholderText = "Search Docs";
+        var googleSearchboxText = document.querySelector("#gsc-i-id1");
+        if (googleSearchboxText) {
+          googleSearchboxText.placeholder = placeholderText;
+          googleSearchboxText.style.fontFamily = 'FreightSans';
+          googleSearchboxText.style.fontSize = "1.2rem";
+          googleSearchboxText.style.color = '#262626';
+        }
+      };
+    });
+  </script>
+     <!--temporarily add a link to survey -->
+     <div class="survey-link">
+       <p><i class="fas fa-poll" aria-hidden="true">&nbsp </i><a href="https://forms.gle/tdrnwJhaQ9tUePxz9">Share Your Feedback</a> about our new search</p>
+     </div>
+
+          </div>
+
+          
+
+
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../community/contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../community/design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../community/governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/get_start_xpu.html">Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/mps.html">MPS backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../notes/windows.html">Windows FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../cpp_index.html">C++</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../deploy.html">torch::deploy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch.html">torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tensors.html">torch.Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tensor_attributes.html">Tensor Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tensor_view.html">Tensor Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../amp.html">torch.amp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../autograd.html">torch.autograd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../library.html">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../accelerator.html">torch.accelerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../cpu.html">torch.cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../cuda.html">torch.cuda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../mtia.memory.html">torch.mtia.memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../meta.html">Meta device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../backends.html">torch.backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../export.html">torch.export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.elastic.html">torch.distributed.elastic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch.compiler.html">torch.compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../func.html">torch.func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../futures.html">torch.futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../hub.html">torch.hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../jit.html">torch.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../linalg.html">torch.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../monitor.html">torch.monitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../signal.html">torch.signal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../special.html">torch.special</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../package.html">torch.package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../profiler.html">torch.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../nn.init.html">torch.nn.init</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../nn.attention.html">torch.nn.attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../onnx.html">torch.onnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../optim.html">torch.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../complex_numbers.html">Complex Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../rpc.html">Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../random.html">torch.random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../masked.html">torch.masked</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../size.html">torch.Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../sparse.html">torch.sparse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../storage.html">torch.Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../testing.html">torch.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../bottleneck.html">torch.utils.bottleneck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../checkpoint.html">torch.utils.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../cpp_extension.html">torch.utils.cpp_extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../data.html">torch.utils.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../deterministic.html">torch.utils.deterministic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../dlpack.html">torch.utils.dlpack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../model_zoo.html">torch.utils.model_zoo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../module_tracker.html">torch.utils.module_tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../type_info.html">Type Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../named_tensor.html">Named Tensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../name_inference.html">Named Tensors operator coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../future_mod.html">torch.__future__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../torch_environment_variables.html">Torch Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/audio/stable">torchaudio</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/data">TorchData</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/torchrec">TorchRec</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/serve">TorchServe</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/text/stable">torchtext</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/vision/stable">torchvision</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/xla/">PyTorch on XLA Devices</a></li>
+</ul>
+
+            
+          
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../../../../torch.html">torch</a> &gt;</li>
+        
+          <li><a href="../../../distributed.html">torch.distributed</a> &gt;</li>
+        
+          <li><a href="../../fsdp.html">torch.distributed.fsdp</a> &gt;</li>
+        
+      <li>torch.distributed.fsdp._fully_shard._fully_shard</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+
+          <!-- Google Tag Manager (noscript) -->
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          <!-- End Google Tag Manager (noscript) -->
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for torch.distributed.fsdp._fully_shard._fully_shard</h1><div class="highlight"><pre>
+<span></span><span class="c1"># mypy: allow-untyped-decorators</span>
+<span class="c1"># mypy: allow-untyped-defs</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">cast</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">NoReturn</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch.distributed._composable</span> <span class="kn">import</span> <span class="n">contract</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.tensor</span> <span class="kn">import</span> <span class="n">DeviceMesh</span><span class="p">,</span> <span class="n">Shard</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.utils</span> <span class="kn">import</span> <span class="n">_get_root_modules</span>
+
+<span class="kn">from</span> <span class="nn">._fsdp_api</span> <span class="kn">import</span> <span class="n">MixedPrecisionPolicy</span><span class="p">,</span> <span class="n">OffloadPolicy</span>
+<span class="kn">from</span> <span class="nn">._fsdp_common</span> <span class="kn">import</span> <span class="n">FSDPMeshInfo</span><span class="p">,</span> <span class="n">HSDPMeshInfo</span>
+<span class="kn">from</span> <span class="nn">._fsdp_init</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_get_device_from_mesh</span><span class="p">,</span>
+    <span class="n">_get_managed_modules</span><span class="p">,</span>
+    <span class="n">_get_managed_states</span><span class="p">,</span>
+    <span class="n">_get_post_forward_mesh_info</span><span class="p">,</span>
+    <span class="n">_init_default_fully_shard_mesh</span><span class="p">,</span>
+    <span class="n">_move_states_to_device</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">._fsdp_param_group</span> <span class="kn">import</span> <span class="n">FSDPParamGroup</span>
+<span class="kn">from</span> <span class="nn">._fsdp_state</span> <span class="kn">import</span> <span class="n">_get_module_fsdp_state</span><span class="p">,</span> <span class="n">FSDPState</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;fully_shard&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FSDPModule&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;UnshardHandle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;register_fsdp_forward_method&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="n">cls_to_fsdp_cls</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Type</span><span class="p">,</span> <span class="n">Type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="c1"># The decorator adds a state object to `module` that can be accessed via</span>
+<span class="c1"># `fully_shard.state(module)`. The state object and module are 1:1.</span>
+<span class="nd">@contract</span><span class="p">(</span><span class="n">state_cls</span><span class="o">=</span><span class="n">FSDPState</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
+<span class="k">def</span> <span class="nf">fully_shard</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">reshard_after_forward</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">shard_placement_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Shard</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">mp_policy</span><span class="p">:</span> <span class="n">MixedPrecisionPolicy</span> <span class="o">=</span> <span class="n">MixedPrecisionPolicy</span><span class="p">(),</span>
+    <span class="n">offload_policy</span><span class="p">:</span> <span class="n">OffloadPolicy</span> <span class="o">=</span> <span class="n">OffloadPolicy</span><span class="p">(),</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply fully sharded data parallelism (FSDP) to ``module``, where FSDP</span>
+<span class="sd">    shards module parameters, gradients, and optimizer states across data</span>
+<span class="sd">    parallel workers to save memory at the cost of communication.</span>
+
+<span class="sd">    At initialization, FSDP shards the module&#39;s parameters across the data</span>
+<span class="sd">    parallel workers given by ``mesh``. Before forward, FSDP all-gathers the</span>
+<span class="sd">    sharded parameters across the data-parallel workers to get the unsharded</span>
+<span class="sd">    parameters for forward computation. If ``reshard_after_forward`` is</span>
+<span class="sd">    ``True``, then FSDP frees the unsharded parameters after forward and</span>
+<span class="sd">    re-all-gathers them in backward before gradient computation. After gradient</span>
+<span class="sd">    computation, FSDP frees the unsharded parameters and reduce-scatters the</span>
+<span class="sd">    unsharded gradients across data-parallel workers.</span>
+
+<span class="sd">    This implementation represents the sharded parameters as :class:`DTensor` s</span>
+<span class="sd">    sharded on dim-0, while the unsharded parameters will be like the original</span>
+<span class="sd">    parameters on ``module`` (e.g. :class:`torch.Tensor` if originally</span>
+<span class="sd">    :class:`torch.Tensor`). A module</span>
+<span class="sd">    `forward pre-hook &lt;https://pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_forward_pre_hook&gt;`_</span>
+<span class="sd">    on ``module`` all-gathers the parameters, and a module</span>
+<span class="sd">    `forward hook &lt;https://pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_forward_hook&gt;`_</span>
+<span class="sd">    on ``module`` frees them (if needed). Similar backward hooks all-gather</span>
+<span class="sd">    parameters and later free parameters and reduce-scatter gradients.</span>
+
+<span class="sd">    Since grouping multiple tensors together for one collective is critical for</span>
+<span class="sd">    communication efficiency, this implementation makes this grouping first</span>
+<span class="sd">    class. Calling :meth:`fully_shard` on ``module`` constructs one group that</span>
+<span class="sd">    includes the parameters in ``module.parameters()`` except those already</span>
+<span class="sd">    assigned to a group from an earlier call on a submodule. This means that</span>
+<span class="sd">    :meth:`fully_shard` should be called bottom-up on your model. Each group&#39;s</span>
+<span class="sd">    parameters are all-gathered in one collective, and its gradients are</span>
+<span class="sd">    reduce-scattered in one collective. Partitioning the model into multiple</span>
+<span class="sd">    groups (&quot;layer by layer&quot;) allows for peak memory savings and communication/computation</span>
+<span class="sd">    overlap. Users generally should *not* call :meth:`fully_shard` only on the</span>
+<span class="sd">    topmost root module.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        module (Union[nn.Module, List[nn.Module]): The module or modules to</span>
+<span class="sd">            shard with FSDP and group together for communication.</span>
+<span class="sd">        mesh (Optional[DeviceMesh]): This data parallel mesh defines the</span>
+<span class="sd">            sharding and device. If 1D, then parameters are fully sharded</span>
+<span class="sd">            across the 1D mesh (FSDP) with ``(Shard(0),)`` placement. If 2D,</span>
+<span class="sd">            then parameters are sharded across the 1st dim and replicated</span>
+<span class="sd">            across the 0th dim (HSDP) with ``(Replicate(), Shard(0))``</span>
+<span class="sd">            placement. The mesh&#39;s device type gives the device type used for</span>
+<span class="sd">            communication; if a CUDA or CUDA-like device type, then we use the</span>
+<span class="sd">            current device.</span>
+<span class="sd">        reshard_after_forward (Union[bool, int]): This controls the parameter</span>
+<span class="sd">            behavior after forward and can trade off memory and communication:</span>
+
+<span class="sd">            - If ``True``, then this reshards parameters after forward and</span>
+<span class="sd">              re-all-gathers in backward.</span>
+<span class="sd">            - If ``False``, then this keeps the unsharded parameters in memory</span>
+<span class="sd">              after forward and avoids the all-gather in backward.</span>
+<span class="sd">            - If an ``int``, then this represents the world size to reshard to</span>
+<span class="sd">              after forward. It should be a non-trivial divisor of the ``mesh``</span>
+<span class="sd">              shard dim size (i.e. excluding 1 and the dim size itself). A</span>
+<span class="sd">              choice may be the intra-node size (e.g. ``torch.cuda.device_count()``).</span>
+<span class="sd">              This allows the all-gather in backward to be over a smaller world</span>
+<span class="sd">              size at the cost of higher memory usage than setting to ``True``.</span>
+<span class="sd">            - The root FSDP state has its value specially set to ``False`` as a</span>
+<span class="sd">              heuristic since its parameters would typically be immediately</span>
+<span class="sd">              all-gathered for backward.</span>
+<span class="sd">            - After forward, the parameters registered to the module depend on</span>
+<span class="sd">              to this: The registered parameters are the sharded parameters if</span>
+<span class="sd">              ``True``; unsharded parameters if ``False``; and the paramters</span>
+<span class="sd">              resharded to the smaller mesh otherwise. To modify the parameters</span>
+<span class="sd">              between forward and backward, the registered parameters must be</span>
+<span class="sd">              the sharded parameters. For ``False`` or an ``int``, this can be</span>
+<span class="sd">              done by manually resharding via :meth:`reshard`.</span>
+<span class="sd">        shard_placement_fn (Optional[Callable[[nn.Parameter], Optional[Shard]]]):</span>
+<span class="sd">            This callable can be used to override the sharding placement for a</span>
+<span class="sd">            parameter to shard a parameter on a dimension other than dim-0. If</span>
+<span class="sd">            this callable returns a :class:`Shard` placement (not ``None``),</span>
+<span class="sd">            then FSDP will shard according to that placement (e.g. ``Shard(1)``).</span>
+<span class="sd">            If sharding on a nonzero dim, we currently require even sharding,</span>
+<span class="sd">            i.e. the tensor dim size on that dim must be divisible by the FSDP</span>
+<span class="sd">            shard mesh size.</span>
+<span class="sd">        mp_policy (MixedPrecisionPolicy): This controls the mixed precision</span>
+<span class="sd">            policy, which offers parameter/reduction mixed precision for this</span>
+<span class="sd">            module. See :class:`MixedPrecisionPolicy` for details.</span>
+<span class="sd">        offload_policy (OffloadPolicy): This controls the offloading policy,</span>
+<span class="sd">            which offers parameter/gradient/optimizer state offloading. See</span>
+<span class="sd">            :class:`OffloadPolicy` and its subclasses for details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleDict</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;fully_shard does not support containers that do not implement forward: </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span> <span class="ow">or</span> <span class="n">_init_default_fully_shard_mesh</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mesh</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;fully_shard expects a 1D or 2D DeviceMesh but got </span><span class="si">{</span><span class="n">mesh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mesh</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">mesh_info</span> <span class="o">=</span> <span class="n">FSDPMeshInfo</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">shard_mesh_dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mesh</span><span class="o">.</span><span class="n">mesh_dim_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
+                <span class="s2">&quot;Please init the 2D mesh for HSDP with mesh_dim_names specified&quot;</span>
+            <span class="p">)</span>
+        <span class="n">mesh_info</span> <span class="o">=</span> <span class="n">HSDPMeshInfo</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">shard_mesh_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">replicate_mesh_dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">_get_device_from_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+    <span class="n">post_forward_mesh_info</span> <span class="o">=</span> <span class="n">_get_post_forward_mesh_info</span><span class="p">(</span>
+        <span class="n">reshard_after_forward</span><span class="p">,</span> <span class="n">mesh_info</span>
+    <span class="p">)</span>
+
+    <span class="n">arg_module</span> <span class="o">=</span> <span class="n">module</span>
+    <span class="n">modules</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">module</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_get_root_modules</span><span class="p">(</span><span class="n">module</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">fully_shard</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">modules</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">state</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">modules</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">mp_policy</span><span class="p">)</span>
+
+    <span class="n">managed_modules</span> <span class="o">=</span> <span class="n">_get_managed_modules</span><span class="p">(</span><span class="n">modules</span><span class="p">)</span>
+    <span class="n">params</span><span class="p">,</span> <span class="n">buffers</span> <span class="o">=</span> <span class="n">_get_managed_states</span><span class="p">(</span><span class="n">managed_modules</span><span class="p">)</span>
+    <span class="n">_move_states_to_device</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">buffers</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span> <span class="o">=</span> <span class="n">FSDPParamGroup</span><span class="p">(</span>
+            <span class="n">params</span><span class="p">,</span>
+            <span class="n">modules</span><span class="p">,</span>
+            <span class="n">mesh_info</span><span class="p">,</span>
+            <span class="n">post_forward_mesh_info</span><span class="p">,</span>
+            <span class="n">device</span><span class="p">,</span>
+            <span class="n">shard_placement_fn</span><span class="p">,</span>
+            <span class="n">mp_policy</span><span class="p">,</span>
+            <span class="n">offload_policy</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># For Dynamo</span>
+    <span class="k">for</span> <span class="n">managed_module</span> <span class="ow">in</span> <span class="n">managed_modules</span><span class="p">:</span>
+        <span class="n">managed_module</span><span class="o">.</span><span class="n">_is_fsdp_managed_module</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="n">managed_module</span><span class="o">.</span><span class="n">_fsdp_use_orig_params</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># type: ignore[assignment]</span>
+
+    <span class="c1"># Place FSDP leftmost for highest priority in the method resolution order</span>
+    <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="n">new_cls</span> <span class="o">=</span> <span class="n">cls_to_fsdp_cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">new_cls</span><span class="p">:</span>
+            <span class="n">dct</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;__deepcopy__&quot;</span><span class="p">:</span> <span class="n">_unimplemented_deepcopy</span><span class="p">}</span>
+            <span class="n">new_cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FSDP</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">FSDPModule</span><span class="p">,</span> <span class="bp">cls</span><span class="p">),</span> <span class="n">dct</span><span class="p">)</span>
+            <span class="n">cls_to_fsdp_cls</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_cls</span>
+        <span class="n">module</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">=</span> <span class="n">new_cls</span>
+    <span class="k">return</span> <span class="n">arg_module</span>
+
+
+<span class="k">def</span> <span class="nf">_unimplemented_deepcopy</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
+        <span class="s2">&quot;FSDP does not support deepcopy. Please use state dict for serialization.&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FSDPModule</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Override ``__new__`` to remove the FSDP class and directly construct</span>
+<span class="sd">        the original class for cases like indexing into a container module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Use index 2 since 0 is the dynamically constructed `FSDP&lt;...&gt;` class</span>
+        <span class="c1"># and index 1 is the `FSDPModule` class itself</span>
+        <span class="n">orig_cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span> <span class="o">=</span> <span class="n">orig_cls</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">orig_cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="FSDPModule.reshard"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.reshard">[docs]</a>    <span class="k">def</span> <span class="nf">reshard</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reshards the module&#39;s parameters, freeing the unsharded parameters if</span>
+<span class="sd">        they are allocated and registering the sharded parameters to the</span>
+<span class="sd">        module. This method is *not* recursive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">:</span>
+            <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">reshard</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FSDPModule.unshard"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.unshard">[docs]</a>    <span class="k">def</span> <span class="nf">unshard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">async_op</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;UnshardHandle&quot;</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unshards the module&#39;s parameters by allocating memory and all-gathering</span>
+<span class="sd">        the parameters. This method is *not* recursive. The unshard follows the</span>
+<span class="sd">        :class:`MixedPrecisionPolicy`, so it will all-gather following</span>
+<span class="sd">        ``param_dtype`` if set.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            async_op (bool): If ``True``, then returns a :class:`UnshardHandle`</span>
+<span class="sd">                that has a :meth:`wait` method to wait on the unshard op. If</span>
+<span class="sd">                ``False``, then returns ``None`` and waits on the handle inside</span>
+<span class="sd">                this function.</span>
+
+<span class="sd">        .. note:: If ``async_op=True``, then FSDP will wait on the pending</span>
+<span class="sd">            unshard in the module&#39;s pre-forward for the user. The user only</span>
+<span class="sd">            needs to call :meth:`wait` explicitly if the wait should happen</span>
+<span class="sd">            before pre-forward.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+        <span class="n">fsdp_param_group</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span>
+        <span class="k">if</span> <span class="n">fsdp_param_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">lazy_init</span><span class="p">()</span>
+            <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">unshard</span><span class="p">(</span><span class="n">async_op</span><span class="o">=</span><span class="n">async_op</span><span class="p">)</span>
+        <span class="n">handle</span> <span class="o">=</span> <span class="n">_UnshardHandleImpl</span><span class="p">(</span><span class="n">fsdp_param_group</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">handle</span>
+        <span class="n">handle</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_is_last_backward"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_is_last_backward">[docs]</a>    <span class="k">def</span> <span class="nf">set_is_last_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_last_backward</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets whether the next backward is the last one. On the last backward,</span>
+<span class="sd">        FSDP waits on pending gradient reduction and clears internal data</span>
+<span class="sd">        data structures for backward prefetching. This can be useful for</span>
+<span class="sd">        microbatching.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_state_ctx</span><span class="o">.</span><span class="n">is_last_backward</span> <span class="o">=</span> <span class="n">is_last_backward</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_requires_gradient_sync"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_requires_gradient_sync">[docs]</a>    <span class="k">def</span> <span class="nf">set_requires_gradient_sync</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">requires_gradient_sync</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">recurse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets if the module should sync gradients. This can be used to implement</span>
+<span class="sd">        gradient accumulation *without communication*. For HSDP, this controls</span>
+<span class="sd">        both reduce-scatter and all-reduce together.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            requires_gradient_sync (bool): Whether to reduce gradients for the</span>
+<span class="sd">                module&#39;s parameters.</span>
+<span class="sd">            recurse (bool): Whether to set for all FSDP submodules or just the</span>
+<span class="sd">                passed-in module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">self_module</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">modules</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">self_module</span><span class="o">.</span><span class="n">modules</span><span class="p">())</span> <span class="k">if</span> <span class="n">recurse</span> <span class="k">else</span> <span class="p">[</span><span class="n">self_module</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">:</span>
+                    <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">reduce_grads</span> <span class="o">=</span> <span class="n">requires_gradient_sync</span>
+                    <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">all_reduce_grads</span> <span class="o">=</span> <span class="n">requires_gradient_sync</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_requires_all_reduce"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_requires_all_reduce">[docs]</a>    <span class="k">def</span> <span class="nf">set_requires_all_reduce</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">requires_all_reduce</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">recurse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets if the module should all-reduce gradients. This can be used to</span>
+<span class="sd">        implement gradient accumulation with only reduce-scatter but not</span>
+<span class="sd">        all-reduce for HSDP.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">self_module</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">modules</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">self_module</span><span class="o">.</span><span class="n">modules</span><span class="p">())</span> <span class="k">if</span> <span class="n">recurse</span> <span class="k">else</span> <span class="p">[</span><span class="n">self_module</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">:</span>
+                    <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">all_reduce_grads</span> <span class="o">=</span> <span class="n">requires_all_reduce</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_reshard_after_backward"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_reshard_after_backward">[docs]</a>    <span class="k">def</span> <span class="nf">set_reshard_after_backward</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">reshard_after_backward</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">recurse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets if the module should reshard parameters after backward. This can</span>
+<span class="sd">        be used during gradient accumulation to trade off higher memory for</span>
+<span class="sd">        reduced communication since the unsharded parameters do not need to be</span>
+<span class="sd">        re-all-gathered before the next forward.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            reshard_after_backward (bool): Whether to reshard parameters after</span>
+<span class="sd">                backward.</span>
+<span class="sd">            recurse (bool): Whether to set for all FSDP submodules or just the</span>
+<span class="sd">                passed-in module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">self_module</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">modules</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">self_module</span><span class="o">.</span><span class="n">modules</span><span class="p">())</span> <span class="k">if</span> <span class="n">recurse</span> <span class="k">else</span> <span class="p">[</span><span class="n">self_module</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">:</span>
+                    <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">reshard_after_backward</span> <span class="o">=</span> <span class="n">reshard_after_backward</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_modules_to_forward_prefetch"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_modules_to_forward_prefetch">[docs]</a>    <span class="k">def</span> <span class="nf">set_modules_to_forward_prefetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;FSDPModule&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the FSDP modules for which this FSDP module should explicitly</span>
+<span class="sd">        prefetch all-gathers in forward. The prefetching runs after this</span>
+<span class="sd">        module&#39;s all-gather copy-out.</span>
+
+<span class="sd">        Passing a singleton list containing the next FSDP module gives the same</span>
+<span class="sd">        all-gather overlap behavior as the default overlap behavior, except the</span>
+<span class="sd">        prefetched all-gather is issued earlier from the CPU. Passing a list</span>
+<span class="sd">        with at least length two is required for more aggressive overlap and</span>
+<span class="sd">        will use more reserved memory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            modules (List[FSDPModule]): FSDP modules to prefetch.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_assert_all_fsdp_modules</span><span class="p">(</span><span class="n">modules</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span><span class="o">.</span><span class="n">_states_to_forward_prefetch</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span> <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_modules_to_backward_prefetch"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_modules_to_backward_prefetch">[docs]</a>    <span class="k">def</span> <span class="nf">set_modules_to_backward_prefetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;FSDPModule&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the FSDP modules for which this FSDP module should explicitly</span>
+<span class="sd">        prefetch all-gathers in backward. This overrides the default backward</span>
+<span class="sd">        pretching implementation that prefetches the next FSDP module based on</span>
+<span class="sd">        the reverse post-forward order.</span>
+
+<span class="sd">        Passing a singleton list containing the previous FSDP module gives the</span>
+<span class="sd">        same all-gather overlap behavior as the default overlap behavior.</span>
+<span class="sd">        Passing a list with at least length two is required for more aggressive</span>
+<span class="sd">        overlap and will use more reserved memory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            modules (List[FSDPModule]): FSDP modules to prefetch.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_assert_all_fsdp_modules</span><span class="p">(</span><span class="n">modules</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span><span class="o">.</span><span class="n">_states_to_backward_prefetch</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span> <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_post_optim_event"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_post_optim_event">[docs]</a>    <span class="k">def</span> <span class="nf">set_post_optim_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets a post-optimizer-step event for the root FSDP module to wait the</span>
+<span class="sd">        all-gather streams on.</span>
+
+<span class="sd">        By default, the root FSDP module waits the all-gather streams on the</span>
+<span class="sd">        current stream to ensure that the optimizer step has finished before</span>
+<span class="sd">        all-gathering. However, this may introduce false dependencies if</span>
+<span class="sd">        there is unrelated computation after the optimizer step. This API</span>
+<span class="sd">        allows the user to provide their own event to wait on. After the root</span>
+<span class="sd">        waits on the event, the event is discarded, so this API should be</span>
+<span class="sd">        called with a new event each iteration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (torch.Event): Event recorded after the optimizer step</span>
+<span class="sd">                to wait all-gather streams on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span><span class="o">.</span><span class="n">_state_ctx</span><span class="o">.</span><span class="n">post_optim_event</span> <span class="o">=</span> <span class="n">event</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_reduce_scatter_divide_factor"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_reduce_scatter_divide_factor">[docs]</a>    <span class="k">def</span> <span class="nf">set_reduce_scatter_divide_factor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets a custom divide factor for the reduce-scatter. This becomes a</span>
+<span class="sd">        custom reduce op using NCCL&#39;s PreMulSum, which allows multiplying by</span>
+<span class="sd">        the factor before reduction.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            factor (float): Custom divide factor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mul_factor</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span>
+            <span class="n">reduce_op</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">_make_nccl_premul_sum</span><span class="p">(</span><span class="n">mul_factor</span><span class="p">)</span>
+            <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">reduce_scatter_reduce_op</span> <span class="o">=</span> <span class="n">reduce_op</span></div>
+
+<div class="viewcode-block" id="FSDPModule.set_unshard_in_backward"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_unshard_in_backward">[docs]</a>    <span class="k">def</span> <span class="nf">set_unshard_in_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unshard_in_backward</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets whether the FSDP module&#39;s parameters need to be unsharded in</span>
+<span class="sd">        backward. This can be used in expert cases when the user knows that all</span>
+<span class="sd">        parameters in this FSDP module&#39;s parameter group are not needed for</span>
+<span class="sd">        backward computation (e.g. embedding).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">unshard_in_backward</span> <span class="o">=</span> <span class="n">unshard_in_backward</span></div>
+
+    <span class="k">def</span> <span class="nf">_set_unshard_async_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">async_op</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets whether to use ``async_op=True`` or ``False`` for the pre-forward</span>
+<span class="sd">        and pre-backward unshard op. This defaults to ``False`` but can be set</span>
+<span class="sd">        to ``True`` with this method.</span>
+
+<span class="sd">        Setting this to ``True`` allows the all-gather allocations to happen in</span>
+<span class="sd">        the default stream, avoiding inter-stream memory fragmentation.</span>
+<span class="sd">        However, you must use explicit prefetching (e.g. via :meth:`unshard`)</span>
+<span class="sd">        in forward to still get overlap, and the pre-all-gather ops like dtype</span>
+<span class="sd">        casting and copy-in will not overlap with compute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">self_module</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">self_module</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">:</span>
+                    <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">unshard_async_op</span> <span class="o">=</span> <span class="n">async_op</span>
+
+    <span class="k">def</span> <span class="nf">_get_fsdp_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FSDPState</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="o">:=</span> <span class="n">_get_module_fsdp_state</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="bp">self</span><span class="p">)))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No FSDP state found on </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="k">def</span> <span class="nf">_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="c1"># Reshard to ensure that sharded parameters are registered</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reshard</span><span class="p">()</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">ret</span>
+        <span class="c1"># TODO: Remove this padding logic once DTensor pads the local tensor:</span>
+        <span class="c1"># https://github.com/pytorch/pytorch/issues/113045</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">fsdp_param</span> <span class="ow">in</span> <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">fsdp_params</span><span class="p">:</span>
+                <span class="n">fsdp_param</span><span class="o">.</span><span class="n">reset_sharded_param</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+
+<span class="k">class</span> <span class="nc">UnshardHandle</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A handle to wait on a :meth:`FSDPModule.unshard` op.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="UnshardHandle.wait"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.UnshardHandle.wait">[docs]</a>    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Waits on the unshard op. This ensures that the current stream can use</span>
+<span class="sd">        the unsharded parameters, which are now registered to the module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span></div>
+
+
+<span class="k">class</span> <span class="nc">_UnshardHandleImpl</span><span class="p">(</span><span class="n">UnshardHandle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fsdp_param_group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FSDPParamGroup</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fsdp_param_group</span> <span class="o">=</span> <span class="n">fsdp_param_group</span>
+
+    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fsdp_param_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="o">.</span><span class="n">wait_for_unshard</span><span class="p">()</span>
+            <span class="c1"># Avoid keeping a reference</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fsdp_param_group</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">register_fsdp_forward_method</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Registers a method on ``module`` to be considered a forward method for</span>
+<span class="sd">    FSDP.</span>
+
+<span class="sd">    FSDP all-gathers parameters pre-forward and optionally frees parameters</span>
+<span class="sd">    post-forward (depending on ``reshard_after_forward``). FSDP only knows to</span>
+<span class="sd">    do this for :meth:`nn.Module.forward` by default. This function patches a</span>
+<span class="sd">    user-specified method to run the pre/post-forward hooks before/after the</span>
+<span class="sd">    method, respectively. If ``module`` is not an :class:`FSDPModule`, then</span>
+<span class="sd">    this is a no-op.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        module (nn.Module): Module to register the forward method on.</span>
+<span class="sd">        method_name (str): Name of the forward method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
+        <span class="c1"># Make no-op to allow including both when using/not using FSDP</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">method_name</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="si">}</span><span class="s2"> does not have a method </span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">orig_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">orig_method</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapped_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">fsdp_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span>
+        <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">fsdp_state</span><span class="o">.</span><span class="n">_pre_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">orig_method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fsdp_state</span><span class="o">.</span><span class="n">_post_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+
+    <span class="c1"># Use `__get__` to make `wrapped_method` an instance method</span>
+    <span class="nb">setattr</span><span class="p">(</span>
+        <span class="n">module</span><span class="p">,</span>
+        <span class="n">method_name</span><span class="p">,</span>
+        <span class="n">wrapped_method</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">module</span><span class="p">)),</span>  <span class="c1"># type:ignore[attr-defined]</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_assert_all_fsdp_modules</span><span class="p">(</span><span class="n">modules</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">FSDPModule</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expects FSDPModule but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2024, PyTorch Contributors.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+<script>
+
+var match = window.location.href.match(/\/_[a-zA-Z0-9_]*.html|_dynamo/gi);
+var url = window.location.href.lastIndexOf(match[match.length-1]);
+
+if (url)
+  {
+    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-exclamation-circle" aria-hidden="true">&nbsp</i> This page describes an internal API which is not intended to be used outside of the PyTorch codebase and can be modified or removed without notice.</p></div>'
+    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
+  }
+</script>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+         <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+         <script src="../../../../../_static/jquery.js"></script>
+         <script src="../../../../../_static/underscore.js"></script>
+         <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+         <script src="../../../../../_static/doctools.js"></script>
+         <script src="../../../../../_static/sphinx_highlight.js"></script>
+         <script src="../../../../../_static/clipboard.min.js"></script>
+         <script src="../../../../../_static/copybutton.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['Developer Notes', 'Language Bindings', 'Libraries', 'Community'];
+</script>
+
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/795629140/?label=txkmCPmdtosBENSssfsC&amp;guid=ON&amp;script=0"/>
+
+
+  <!-- Begin Footer -->
+
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h2>Docs</h2>
+          <p>Access comprehensive developer documentation for PyTorch</p>
+          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Tutorials</h2>
+          <p>Get in-depth tutorials for beginners and advanced developers</p>
+          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Resources</h2>
+          <p>Find development resources and get your questions answered</p>
+          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="https://pytorch.org/" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+            <li><a href="https://pytorch.org/features">Features</a></li>
+            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+            <li><a href="https://pytorch.org/blog/">Blog</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">Stay up to date</li>
+            <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+            <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+            <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+          </ul>  
+          </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">PyTorch Podcasts</li>
+            <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+            <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+            <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+            <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+          </ul>
+         </div>
+        </div>
+        
+        <div class="privacy-policy">
+          <ul>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
+            <li class="privacy-policy-links">|</li>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+        <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+          <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
+          project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
+          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+      </div>
+     </div>
+
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="../../../../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+           <li class="resources-mobile-menu-title">
+             <a>Learn</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/get-started">Get Started</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials">Tutorials</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+             </li>
+           </ul>
+           <li class="resources-mobile-menu-title">
+             <a>Ecosystem</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/ecosystem">Tools</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/#community-module">Community</a>
+             </li>
+             <li>
+               <a href="https://discuss.pytorch.org/">Forums</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/resources">Developer Resources</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2023</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Edge</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+             </li>
+             
+             <li>
+               <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Docs</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+            </li>
+          </ul>
+
+          <li class="resources-mobile-menu-title">
+            <a>Blog & News</a>
+          </li>
+            
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/community-blog">Community Blog</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/videos">Videos</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/community-stories">Community Stories</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/events">Events</a>
+            </li>
+          </ul>
+          
+          <li class="resources-mobile-menu-title">
+            <a>About</a>
+          </li>
+
+          <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>
