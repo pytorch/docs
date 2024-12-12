@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitea152d2 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitdb81a3f ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -829,6 +829,7 @@
     <span class="n">compiled_autograd_verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">cudagraph_static_inputs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">benchmarking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">graph_region_expansion</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sets the log level for individual components and toggles individual log</span>
@@ -1005,6 +1006,9 @@
 <span class="sd">        cudagraph_static_inputs (:class:`bool`):</span>
 <span class="sd">            Whether to emit debug info for cudagraph static input detection. Default: ``False``</span>
 
+<span class="sd">        graph_region_expansion (:class:`bool`):</span>
+<span class="sd">            Whether to emit the detailed steps of the duplicate graph region tracker expansion algorithm. Default: ``False``</span>
+
 
 <span class="sd">    Example::</span>
 
@@ -1103,6 +1107,7 @@
         <span class="n">compiled_autograd_verbose</span><span class="o">=</span><span class="n">compiled_autograd_verbose</span><span class="p">,</span>
         <span class="n">cudagraph_static_inputs</span><span class="o">=</span><span class="n">cudagraph_static_inputs</span><span class="p">,</span>
         <span class="n">benchmarking</span><span class="o">=</span><span class="n">benchmarking</span><span class="p">,</span>
+        <span class="n">graph_region_expansion</span><span class="o">=</span><span class="n">graph_region_expansion</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
@@ -1610,8 +1615,10 @@
 
     <span class="k">def</span> <span class="nf">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ok</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">TRACE_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;/logs&quot;</span>
+                <span class="n">open_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_builtin_open</span>
 
                 <span class="kn">import</span> <span class="nn">torch.version</span> <span class="k">as</span> <span class="nn">torch_version</span>
 
