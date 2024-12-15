@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitd531648 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git91bf2e1 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -734,6 +734,8 @@
     <span class="s2">&quot;read_file&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tune_gemm_in_file&quot;</span><span class="p">,</span>
     <span class="s2">&quot;mgpu_tune_gemm_in_file&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;set_rotating_buffer_size&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_rotating_buffer_size&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -854,6 +856,19 @@
     <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">get_filename</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
+
+
+<div class="viewcode-block" id="set_rotating_buffer_size"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.set_rotating_buffer_size">[docs]</a><span class="k">def</span> <span class="nf">set_rotating_buffer_size</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Set rotating buffer size to this value in MB, if the buffer size is greater than zero.</span>
+
+<span class="sd">    If less than zero, query L2 cache size. If equal to zero, means deactivate rotating buffer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_set_rotating_buffer_size</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
+
+
+<div class="viewcode-block" id="get_rotating_buffer_size"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.get_rotating_buffer_size">[docs]</a><span class="k">def</span> <span class="nf">get_rotating_buffer_size</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get the rotating buffer size in kilobytes.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_tunableop_get_rotating_buffer_size</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span></div>
 
 
 <div class="viewcode-block" id="tune_gemm_in_file"><a class="viewcode-back" href="../../../cuda.tunable.html#torch.cuda.tunable.tune_gemm_in_file">[docs]</a><span class="k">def</span> <span class="nf">tune_gemm_in_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
