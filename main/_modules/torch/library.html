@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitdd2cd42 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf9da639 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1127,6 +1127,10 @@
 <span class="sd">    Please only use this if the implementation truly supports all device types;</span>
 <span class="sd">    for example, this is true if it is a composition of built-in PyTorch operators.</span>
 
+<span class="sd">    This API may be used as a decorator. You can use nested decorators</span>
+<span class="sd">    with this API provided they return a function and are placed inside</span>
+<span class="sd">    this API (see Example 2).</span>
+
 <span class="sd">    Some valid types are: &quot;cpu&quot;, &quot;cuda&quot;, &quot;xla&quot;, &quot;mps&quot;, &quot;ipu&quot;, &quot;xpu&quot;.</span>
 
 <span class="sd">    Args:</span>
@@ -1138,7 +1142,7 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; import torch</span>
 <span class="sd">        &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Example 1: Register function.</span>
 <span class="sd">        &gt;&gt;&gt; # Define the operator</span>
 <span class="sd">        &gt;&gt;&gt; torch.library.define(&quot;mylib::mysin&quot;, &quot;(Tensor x) -&gt; Tensor&quot;)</span>
 <span class="sd">        &gt;&gt;&gt;</span>
@@ -1150,6 +1154,28 @@
 <span class="sd">        &gt;&gt;&gt; x = torch.randn(3)</span>
 <span class="sd">        &gt;&gt;&gt; y = torch.ops.mylib.mysin(x)</span>
 <span class="sd">        &gt;&gt;&gt; assert torch.allclose(y, x.sin())</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Example 2: Register function with decorator.</span>
+<span class="sd">        &gt;&gt;&gt; def custom_decorator(func):</span>
+<span class="sd">        &gt;&gt;&gt;     def wrapper(*args, **kwargs):</span>
+<span class="sd">        &gt;&gt;&gt;         return func(*args, **kwargs) + 1</span>
+<span class="sd">        &gt;&gt;&gt;     return wrapper</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Define the operator</span>
+<span class="sd">        &gt;&gt;&gt; torch.library.define(&quot;mylib::sin_plus_one&quot;, &quot;(Tensor x) -&gt; Tensor&quot;)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Add implementations for the operator</span>
+<span class="sd">        &gt;&gt;&gt; @torch.library.impl(&quot;mylib::sin_plus_one&quot;, &quot;cpu&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; @custom_decorator</span>
+<span class="sd">        &gt;&gt;&gt; def f(x):</span>
+<span class="sd">        &gt;&gt;&gt;     return torch.from_numpy(np.sin(x.numpy()))</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Call the new operator from torch.ops.</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.randn(3)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; y1 = torch.ops.mylib.sin_plus_one(x)</span>
+<span class="sd">        &gt;&gt;&gt; y2 = torch.sin(x) + 1</span>
+<span class="sd">        &gt;&gt;&gt; assert torch.allclose(y1, y2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_impl</span><span class="p">(</span><span class="n">qualname</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">lib</span><span class="o">=</span><span class="n">lib</span><span class="p">,</span> <span class="n">disable_dynamo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
