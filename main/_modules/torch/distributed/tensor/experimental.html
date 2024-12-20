@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitf9da639 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git8136daf ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -591,9 +591,9 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.distributed.tensor.experimental</h1><div class="highlight"><pre>
-<span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
+<span></span><span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
 
 <span class="kn">from</span> <span class="nn">torch.distributed.tensor._api</span> <span class="kn">import</span> <span class="n">DTensor</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.tensor.experimental._attention</span> <span class="kn">import</span> <span class="n">context_parallel</span>
@@ -605,7 +605,7 @@
 
 
 <span class="nd">@contextmanager</span>
-<span class="k">def</span> <span class="nf">implicit_replication</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">implicit_replication</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This context manager allows :class:`DTensor` to implicitly treat all non-DTensors (``torch.Tensor``)</span>
 <span class="sd">    in the program be replicate :class:`DTensor` s during the operator computation.</span>
