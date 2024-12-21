@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git8136daf ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git553031f ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -608,13 +608,13 @@ covered in the <a class="reference internal" href="export.ir_spec.html#export-ir
 <p><a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> provides two modes of tracing.</p>
 <p>In <em>non-strict mode</em>, we trace through the program using the normal Python
 interpreter. Your code executes exactly as it would in eager mode; the only
-difference is that <strong>all Tensors are replaced by
-`fake Tensors &lt;https://pytorch.org/docs/main/torch.compiler_fake_tensor.html&gt;`__,
-which have shapes and other forms of metadata but no data</strong>, wrapped in
+difference is that all Tensors are replaced by
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_fake_tensor.html">fake Tensors</a>,
+<strong>which have shapes and other forms of metadata but no data</strong>, wrapped in
 <a class="reference external" href="https://pytorch.org/docs/main/fx.html">Proxy objects</a> that record all
 operations on them into a graph. We also capture
-<strong>`conditions on Tensor shapes &lt;https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#the-guard-model&gt;`__
-that guard the correctness of the generated code</strong>.</p>
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#the-guard-model">conditions on Tensor shapes</a>
+<strong>that guard the correctness of the generated code</strong>.</p>
 <p>In <em>strict mode</em>, we first trace through the program using
 <a class="reference internal" href="torch.compiler_dynamo_deepdive.html#torch-compiler-dynamo-deepdive"><span class="std std-ref">TorchDynamo</span></a>, a Python bytecode
 analysis engine. TorchDynamo does not actually execute your Python code.
@@ -643,7 +643,7 @@ the difference between <em>static</em> and <em>dynamic</em> values.</p>
 <p>A <em>static</em> value is a value that is <strong>fixed at export time and cannot change
 between executions of the exported program</strong>. When the value is encountered
 during tracing, we treat it as a constant and hard-code it into the graph.</p>
-<p>When an operation is performed (e.g. <cite>x + y</cite>) and all inputs are static,
+<p>When an operation is performed (e.g. <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code>) and all inputs are static,
 the output of the operation is directly hard-coded into the graph and the
 operation does not show up (i.e. it gets “constant-folded”).</p>
 <p>When a value has been hard-coded into the graph, we say that the graph has
@@ -666,8 +666,8 @@ been <em>specialized</em> to that value. For example:</p>
 <span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-<p>Here, we provide <cite>3</cite> as the traced value for <cite>y</cite>; it is treated as a static
-value and added to <cite>7</cite>, burning in the static value <cite>10</cite> in the graph.</p>
+<p>Here, we provide <code class="docutils literal notranslate"><span class="pre">3</span></code> as the traced value for <code class="docutils literal notranslate"><span class="pre">y</span></code>; it is treated as a static
+value and added to <code class="docutils literal notranslate"><span class="pre">7</span></code>, burning in the static value <code class="docutils literal notranslate"><span class="pre">10</span></code> in the graph.</p>
 </div>
 <div class="section" id="dynamic-values">
 <h3>Dynamic Values<a class="headerlink" href="#dynamic-values" title="Permalink to this heading">¶</a></h3>
@@ -692,19 +692,19 @@ for it.</p></li>
 always have static shapes.</p></li>
 </ul>
 </li>
-<li><p>Other forms of Tensor <em>metadata</em> (e.g. <cite>device</cite>, <cite>dtype</cite>) are static.</p></li>
+<li><p>Other forms of Tensor <em>metadata</em> (e.g. <code class="docutils literal notranslate"><span class="pre">device</span></code>, <code class="docutils literal notranslate"><span class="pre">dtype</span></code>) are static.</p></li>
 </ul>
 </li>
-<li><p>Python <em>primitives</em> (<cite>int</cite>, <cite>float</cite>, <cite>bool</cite>, <cite>str</cite>, <cite>None</cite>) are static.</p>
+<li><p>Python <em>primitives</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>) are static.</p>
 <ul>
-<li><p>There are dynamic variants for some primitive types (<cite>SymInt</cite>,
-<cite>SymFloat</cite>, <cite>SymBool</cite>). Typically users do not have to deal with them.</p></li>
+<li><p>There are dynamic variants for some primitive types (<code class="docutils literal notranslate"><span class="pre">SymInt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SymFloat</span></code>, <code class="docutils literal notranslate"><span class="pre">SymBool</span></code>). Typically users do not have to deal with them.</p></li>
 </ul>
 </li>
-<li><p>For Python <em>standard containers</em> (<cite>list</cite>, <cite>tuple</cite>, <cite>dict</cite>, <cite>namedtuple</cite>):</p>
+<li><p>For Python <em>standard containers</em> (<code class="docutils literal notranslate"><span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code>):</p>
 <ul>
-<li><p>The structure (i.e., length for <cite>list</cite> and <cite>tuple</cite> values, and key
-sequence for <cite>dict</cite> and <cite>namedtuple</cite> values) is static.</p></li>
+<li><p>The structure (i.e., length for <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">tuple</span></code> values, and key
+sequence for <code class="docutils literal notranslate"><span class="pre">dict</span></code> and <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code> values) is static.</p></li>
 <li><p>The contained elements have these rules applied to them recursively
 (basically the
 <a class="reference external" href="https://jax.readthedocs.io/en/latest/pytrees.html">PyTree</a> scheme)
@@ -730,8 +730,8 @@ are mostly values of Tensor types.</p></li>
 <p>By default, the types of inputs you can use for your program are:</p>
 <ul class="simple">
 <li><p>Tensor</p></li>
-<li><p>Python primitives (<cite>int</cite>, <cite>float</cite>, <cite>bool</cite>, <cite>str</cite>, <cite>None</cite>)</p></li>
-<li><p>Python standard containers (<cite>list</cite>, <cite>tuple</cite>, <cite>dict</cite>, <cite>namedtuple</cite>)</p></li>
+<li><p>Python primitives (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p>Python standard containers (<code class="docutils literal notranslate"><span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code>)</p></li>
 </ul>
 <div class="section" id="custom-input-types">
 <h3>Custom Input Types<a class="headerlink" href="#custom-input-types" title="Permalink to this heading">¶</a></h3>
@@ -744,7 +744,7 @@ an input type.</p>
     <span class="n">f</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="n">p</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">_export</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_dataclass_as_pytree_node</span><span class="p">(</span><span class="n">Input</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">register_dataclass</span><span class="p">(</span><span class="n">Input</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Input</span><span class="p">):</span>
@@ -805,8 +805,8 @@ that static values include static shapes, so control flow over static shapes
 is also covered by this case.)</p>
 <p>As mentioned above, we “burn in” static values, so the exported graph will
 never see any control flow over static values.</p>
-<p>In the case of an <cite>if</cite> statement, we will continue tracing the branch taken
-at export time. In the case of a <cite>for</cite> or <cite>while</cite> statement, we will continue
+<p>In the case of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, we will continue tracing the branch taken
+at export time. In the case of a <code class="docutils literal notranslate"><span class="pre">for</span></code> or <code class="docutils literal notranslate"><span class="pre">while</span></code> statement, we will continue
 tracing by unrolling the loop.</p>
 </div>
 <div class="section" id="dynamic-control-flow-shape-dependent-vs-data-dependent">
@@ -819,15 +819,15 @@ model are different in these cases.</p>
 <h4>Dynamic Shape-Dependent Control Flow<a class="headerlink" href="#dynamic-shape-dependent-control-flow" title="Permalink to this heading">¶</a></h4>
 <p>When the value involved in a control flow is a
 <a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html">dynamic shape</a>,
-<strong>in most cases we will also know the concrete value of the dynamic shape
+in most cases <strong>we will also know the concrete value of the dynamic shape
 during tracing</strong>: see the following section for more details on how the
 compiler tracks this information.</p>
 <p>In these cases we say that the control flow is shape-dependent. <strong>We use the
 concrete value of the dynamic shape to evaluate the condition</strong> to either
-<cite>True</cite> or <cite>False</cite> and continue tracing (as discussed above), additionally
+<code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> and continue tracing (as discussed above), additionally
 emitting a guard corresponding to the condition just evaluated.</p>
 <p>Otherwise the control flow is considered data-dependent. We cannot evaluate
-the condition to either True or False, so cannot continue tracing and have to
+the condition to either <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, so cannot continue tracing and have to
 raise an error at export time. See next section.</p>
 </div>
 <div class="section" id="dynamic-data-dependent-control-flow">
@@ -840,8 +840,8 @@ thus an error must be raised at export time.</p>
 <p>We provide <strong>operators to express general conditionals and loops over dynamic
 values</strong>, e.g., <cite>torch.cond</cite>, <cite>torch.map</cite>. Note that you only need to use these
 if you truly want <em>data-dependent control flow</em>.</p>
-<p>Here’s an example of an <cite>if</cite> statement on a data-dependent condition,
-<cite>x.sum() &gt; 0</cite>, where <cite>x</cite> is an input Tensor, rewritten using <cite>torch.cond</cite>.
+<p>Here’s an example of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement on a data-dependent condition,
+<code class="docutils literal notranslate"><span class="pre">x.sum()</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is an input Tensor, rewritten using <cite>torch.cond</cite>.
 Instead of having to decide which branch to trace, now both branches are
 traced.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -862,18 +862,18 @@ traced.</p>
 </pre></div>
 </div>
 <p>A special case of data-dependent control flow is where it involves a
-<em>`data-dependent dynamic shape &lt;https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#unbacked-symints&gt;`__</em>:
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#unbacked-symints">data-dependent dynamic shape</a>:
 typically, the shape of some intermediate Tensor that depends on input data
 rather than on input shapes (thus not shape-dependent). Instead of using a
 control flow operator, in this case you can provide an assertion that decides
-whether the condition is <cite>True</cite> or <cite>False</cite>. Given such an assertion, we can
+whether the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. Given such an assertion, we can
 continue tracing, emitting a guard as above.</p>
 <p>We provide <strong>operators to express assertions on dynamic shapes</strong>, e.g.,
 <cite>torch._check</cite>. Note that you only need to use this when there is control
 flow on data-dependent dynamic shapes.</p>
-<p>Here’s an example of an <cite>if</cite> statement on a condition involving a
-data-dependent dynamic shape, <cite>nz.shape[0] &gt; 0</cite>, where <cite>nz</cite> is the result of
-calling <cite>torch.nonzero</cite>, an operator whose output shape depends on input
+<p>Here’s an example of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement on a condition involving a
+data-dependent dynamic shape, <code class="docutils literal notranslate"><span class="pre">nz.shape[0]</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, where <code class="docutils literal notranslate"><span class="pre">nz</span></code> is the result of
+calling <a class="reference internal" href="generated/torch.nonzero.html#torch.nonzero" title="torch.nonzero"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nonzero()</span></code></a>, an operator whose output shape depends on input
 data. Instead of rewriting it, you can add an assertion using <cite>torch._check</cite>
 to effectively decide which branch to trace.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -901,18 +901,18 @@ to effectively decide which branch to trace.</p>
 <h2>Basics of Symbolic Shapes<a class="headerlink" href="#basics-of-symbolic-shapes" title="Permalink to this heading">¶</a></h2>
 <p>During tracing, dynamic Tensor shapes and conditions over them are encoded as
 “symbolic expressions.” (In contrast, static Tensor shapes and conditions
-over them are simply <cite>int`s and `bools</cite>.)</p>
+over them are simply <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">bool</span></code> values.)</p>
 <p>A <em>symbol</em> is like a variable; it describes a dynamic Tensor shape.</p>
 <p>As tracing proceeds, shapes of intermediate Tensors may be described by more
 general expressions, typically involving integer arithmetic operators. This
 is because <strong>for most PyTorch operators, shapes of output Tensors can be
 described as functions of shapes of input Tensors</strong>. For example, the shape of
-the output of <cite>torch.concat</cite> is the sum of the shapes of its inputs.</p>
+the output of <a class="reference internal" href="generated/torch.cat.html#torch.cat" title="torch.cat"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cat()</span></code></a> is the sum of the shapes of its inputs.</p>
 <p>Moreover, as we encounter control flow in the program, we create boolean
 expressions, typically involving relational operators, describing conditions
 along the traced path. These <strong>expressions are evaluated to decide which path
 to trace through the program</strong>, and recorded in a
-<em>`shape environment &lt;https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#overall-architecture&gt;`__</em>
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#overall-architecture">shape environment</a>
 to guard the correctness of the traced path and to evaluate subsequently
 created expressions.</p>
 <p>We briefly introduce these subsystems next.</p>
@@ -925,7 +925,7 @@ PyTorch operators with fake Tensors. Thus each operator needs to have an
 additional fake (a.k.a. “meta”) implementation, which inputs and outputs fake
 Tensors, that matches the behavior of the actual implementation in terms of
 shapes and other forms of metadata carried by fake Tensors.</p>
-<p>For example, note how the fake implementation of <cite>torch.index_select</cite>
+<p>For example, note how the fake implementation of <a class="reference internal" href="generated/torch.index_select.html#torch.index_select" title="torch.index_select"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.index_select()</span></code></a>
 computes the shape of the output using the shape of the input (while ignoring
 input data and returning empty output data).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">meta_index_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
@@ -965,13 +965,13 @@ value it is unbacked</strong>.</p></li>
 <div class="section" id="control-flow-guards-and-assertions">
 <h3>Control Flow: Guards and Assertions<a class="headerlink" href="#control-flow-guards-and-assertions" title="Permalink to this heading">¶</a></h3>
 <p>When a condition on shapes is encountered, it either involves only static
-shapes, in which case it is a <cite>bool</cite>, or it involves dynamic shapes, in which
+shapes, in which case it is a <code class="docutils literal notranslate"><span class="pre">bool</span></code>, or it involves dynamic shapes, in which
 case it is a symbolic boolean expression. For the latter:</p>
 <ul class="simple">
 <li><p>When the condition involves only backed dynamic shapes, we can use the
-concrete values of those dynamic shapes to evaluate the condition to <cite>True</cite>
-or <cite>False</cite>. We can then add a guard to the shape environment that states
-that the corresponding symbolic boolean expression is <cite>True</cite> or <cite>False</cite>,
+concrete values of those dynamic shapes to evaluate the condition to <code class="docutils literal notranslate"><span class="pre">True</span></code>
+or <code class="docutils literal notranslate"><span class="pre">False</span></code>. We can then add a guard to the shape environment that states
+that the corresponding symbolic boolean expression is <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>,
 and continue tracing.</p></li>
 <li><p>Otherwise the condition involves unbacked dynamic shapes. In general we
 cannot evaluate such a condition without additional information; thus we
@@ -979,7 +979,7 @@ cannot continue tracing, and we must raise an error at export time. The
 user is expected to use an explicit PyTorch operator for tracing to
 continue. This information is added as a guard in the shape environment,
 and can also possibly help evaluate other subsequently encountered
-conditions to <cite>True</cite> or <cite>False</cite>.</p></li>
+conditions to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 </ul>
 <p>Once the model is exported, <strong>any guards on backed dynamic shapes can be
 understood as conditions on input dynamic shapes</strong>. These are verified against
@@ -1008,7 +1008,7 @@ data-dependent operator calls.</p>
 <a class="reference external" href="https://pytorch.org/tutorials/advanced/python_custom_ops#python-custom-ops-tutorial">custom operators</a>.
 Defining a custom operator includes defining a fake implementation for it,
 just like any other PyTorch operator (see previous section).</p>
-<p>Here’s an example of a custom <cite>sin`</cite> operator that wraps NumPy, and its
+<p>Here’s an example of a custom <code class="docutils literal notranslate"><span class="pre">sin</span></code> operator that wraps NumPy, and its
 registered (trivial) fake implementation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::sin&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
 <span class="k">def</span> <span class="nf">sin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
@@ -1023,7 +1023,7 @@ registered (trivial) fake implementation.</p>
 </div>
 <p><strong>Sometimes your custom operator’s fake implementation will involve
 data-dependent shapes</strong>. Here’s how a fake implementation for a custom
-<cite>nonzero</cite> might look like.</p>
+<code class="docutils literal notranslate"><span class="pre">nonzero</span></code> might look like.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
 
 <span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::custom_nonzero&quot;</span><span class="p">)</span>
@@ -1043,7 +1043,7 @@ data-dependent shapes</strong>. Here’s how a fake implementation for a custom
 <li><p>On the other hand, parameters and buffers are always Tensors.</p></li>
 </ul>
 <p>Module states can be dynamic or static, based on their types as outlined
-above. For example, <cite>self.training</cite> is a <cite>bool</cite>, which means it is static; on
+above. For example, <code class="docutils literal notranslate"><span class="pre">self.training</span></code> is a <code class="docutils literal notranslate"><span class="pre">bool</span></code>, which means it is static; on
 the other hand, any parameter or buffer is dynamic.</p>
 <p>The <em>shapes</em> of any Tensors contained in module states cannot be dynamic, i.e.,
 those shapes are fixed at export time, and cannot change between executions
@@ -1063,10 +1063,10 @@ have any instructions to actually “get” or “set” such attributes.</p></l
 <li><p><strong>A dynamic regular attribute</strong> (e.g., of Tensor type) <strong>cannot be updated</strong>.
 To do so, it must be registered as a buffer during module initialization.</p></li>
 <li><p><strong>A buffer can be updated</strong>, where the updating can be in-place (e.g.,
-<cite>self.buffer[:] = …</cite>) or not (e.g., <cite>self.buffer = …</cite>).</p></li>
+<code class="docutils literal notranslate"><span class="pre">self.buffer[:]</span> <span class="pre">=</span> <span class="pre">...</span></code>) or not (e.g., <code class="docutils literal notranslate"><span class="pre">self.buffer</span> <span class="pre">=</span> <span class="pre">...</span></code>).</p></li>
 <li><p><strong>A parameter cannot be updated</strong>. Typically parameters are updated only
 during training, not during inference. We recommend exporting with
-<cite>no_grad()</cite> to avoid parameter updates at export time.</p></li>
+<a class="reference internal" href="generated/torch.no_grad.html#torch.no_grad" title="torch.no_grad"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.no_grad()</span></code></a> to avoid parameter updates at export time.</p></li>
 </ul>
 </div>
 <div class="section" id="effects-of-functionalization">

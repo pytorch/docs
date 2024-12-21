@@ -539,7 +539,6 @@ Original source code:
     import torch
     
     from torch.export import Dim
-    from functorch.experimental.control_flow import cond
     
     x = torch.randn(3, 2)
     y = torch.randn(2)
@@ -561,7 +560,7 @@ Original source code:
             def false_fn(x, y):
                 return x - y
     
-            return cond(x.shape[0] > 2, true_fn, false_fn, [x, y])
+            return torch.cond(x.shape[0] > 2, true_fn, false_fn, [x, y])
     
     example_args = (x, y)
     tags = {
@@ -1007,7 +1006,7 @@ dynamic_shape_if_guard
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1058,7 +1057,7 @@ dynamic_shape_map
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`torch.map <torch.map>`
+    Tags: :doc:`torch.map <torch.map>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
 
     Support Level: SUPPORTED
 
@@ -1286,7 +1285,7 @@ list_contains
 
 .. note::
 
-    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.data-structure <python.data-structure>`, :doc:`python.assert <python.assert>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.assert <python.assert>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -1936,7 +1935,7 @@ dynamic_shape_round
 
 .. note::
 
-    Tags: :doc:`python.builtin <python.builtin>`, :doc:`torch.dynamic-shape <torch.dynamic-shape>`
+    Tags: :doc:`torch.dynamic-shape <torch.dynamic-shape>`, :doc:`python.builtin <python.builtin>`
 
     Support Level: NOT_SUPPORTED_YET
 
@@ -2109,6 +2108,6 @@ Result:
 
 .. code-block::
 
-    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7fa0f11ba040>
+    Unsupported: torch.* op returned non-Tensor int call_function <function sym_min at 0x7f8be143e040>
 
 
