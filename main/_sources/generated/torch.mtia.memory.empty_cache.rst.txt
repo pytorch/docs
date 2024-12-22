@@ -1,6 +1,0 @@
-﻿torch.mtia.memory.empty\_cache
-==============================
-
-.. currentmodule:: torch.mtia.memory
-
-.. autofunction:: empty_cache

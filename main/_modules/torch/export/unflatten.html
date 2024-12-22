@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git553031f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git2293fe1 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -711,7 +711,14 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="n">to_module</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">from_obj</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="InterpreterModule"><a class="viewcode-back" href="../../../export.html#torch.export.unflatten.InterpreterModule">[docs]</a><span class="k">class</span> <span class="nc">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_SubmoduleBase</span><span class="p">:</span>
+    <span class="n">_ty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">type_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ty</span>
+
+
+<div class="viewcode-block" id="InterpreterModule"><a class="viewcode-back" href="../../../export.html#torch.export.unflatten.InterpreterModule">[docs]</a><span class="k">class</span> <span class="nc">InterpreterModule</span><span class="p">(</span><span class="n">_SubmoduleBase</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A module that uses torch.fx.Interpreter to execute instead of the usual</span>
 <span class="sd">    codegen that GraphModule uses. This provides better stack trace information</span>
 <span class="sd">    and makes it easier to debug execution.</span>
@@ -722,9 +729,11 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
+        <span class="n">ty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ty</span> <span class="o">=</span> <span class="n">ty</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">owning_module</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run_with_interpreter</span> <span class="o">=</span> <span class="n">RUN_WITH_INTERPRETER</span>
 
@@ -797,7 +806,7 @@
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="InterpreterModuleDispatcher"><a class="viewcode-back" href="../../../export.html#torch.export.unflatten.InterpreterModuleDispatcher">[docs]</a><span class="k">class</span> <span class="nc">InterpreterModuleDispatcher</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="InterpreterModuleDispatcher"><a class="viewcode-back" href="../../../export.html#torch.export.unflatten.InterpreterModuleDispatcher">[docs]</a><span class="k">class</span> <span class="nc">InterpreterModuleDispatcher</span><span class="p">(</span><span class="n">_SubmoduleBase</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A module that carries a sequence of InterpreterModules corresponding to</span>
 <span class="sd">    a sequence of calls of that module. Each call to the module dispatches</span>
@@ -810,6 +819,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_modules</span> <span class="o">=</span> <span class="n">call_modules</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_modules</span>
         <span class="k">for</span> <span class="n">accessor</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">accessor</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">call_modules</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">accessor</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ty</span> <span class="o">=</span> <span class="n">call_modules</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_ty</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_call_modules</span> <span class="o">=</span> <span class="n">call_modules</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_calls</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -1489,7 +1499,7 @@
         <span class="n">seen_attrs</span><span class="p">,</span>
         <span class="n">created_modules</span><span class="p">,</span>
         <span class="n">parent</span><span class="p">,</span>
-        <span class="n">module_stack</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+        <span class="n">module_stack</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">int</span><span class="p">]],</span>
         <span class="n">module_id</span><span class="p">,</span>
         <span class="n">module_call_graph</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ModuleCallSignature</span><span class="p">],</span>
         <span class="n">module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="n">UnflattenedModule</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1507,7 +1517,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">module_call_graph</span> <span class="o">=</span> <span class="n">module_call_graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">num_calls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">num_calls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="c1"># generate call name for self.fqn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">child_fqn</span> <span class="o">=</span> <span class="n">_call_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span> <span class="n">num_calls</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
@@ -1518,7 +1528,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">fqn</span><span class="p">,</span>
-                <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()),</span>
+                <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">(),</span> <span class="n">ty</span><span class="o">=</span><span class="n">ty</span><span class="p">),</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ivals</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">ivals</span>
 
@@ -1536,7 +1546,7 @@
                 <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parent</span><span class="o">.</span><span class="n">fqn</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">fqn</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">fqn</span> <span class="k">else</span> <span class="n">fqn</span>
                 <span class="k">if</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="p">:</span>
                     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="p">[</span><span class="n">path</span><span class="p">]</span>
-                <span class="n">submod</span> <span class="o">=</span> <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">())</span>
+                <span class="n">submod</span> <span class="o">=</span> <span class="n">InterpreterModule</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">(),</span> <span class="n">ty</span><span class="o">=</span><span class="n">ty</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">created_modules</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">submod</span>
                 <span class="k">return</span> <span class="n">submod</span>
 
@@ -1865,7 +1875,11 @@
                 <span class="n">node_module_stack</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_stack</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">node_module_stack</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">k</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="p">(</span>
+                        <span class="n">path</span><span class="p">,</span>
+                        <span class="n">ty</span> <span class="k">if</span> <span class="n">path</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">k</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="p">)</span>
                     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ty</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;nn_module_stack&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
                 <span class="p">]</span>
 
@@ -1940,7 +1954,7 @@
         <span class="n">seen_attrs</span><span class="p">,</span>
         <span class="n">created_modules</span><span class="p">,</span>
         <span class="kc">None</span><span class="p">,</span>
-        <span class="p">[(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+        <span class="p">[(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
         <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="p">{</span>
             <span class="n">entry</span><span class="o">.</span><span class="n">fqn</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">signature</span>

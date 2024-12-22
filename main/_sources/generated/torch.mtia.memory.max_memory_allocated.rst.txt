@@ -1,6 +1,0 @@
-﻿torch.mtia.memory.max\_memory\_allocated
-========================================
-
-.. currentmodule:: torch.mtia.memory
-
-.. autofunction:: max_memory_allocated
