@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git6ccb8ed ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git27b0d41 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -717,11 +717,11 @@
         <span class="c1"># Guess #2</span>
         <span class="n">hipcc_path</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s1">&#39;hipcc&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">hipcc_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">rocm_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">hipcc_path</span><span class="p">)))</span>
+            <span class="n">rocm_home_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">hipcc_path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
             <span class="c1"># can be either &lt;ROCM_HOME&gt;/hip/bin/hipcc or &lt;ROCM_HOME&gt;/bin/hipcc</span>
-            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">rocm_home</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;hip&#39;</span><span class="p">:</span>
-                <span class="n">rocm_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">rocm_home</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rocm_home_path</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;hip&#39;</span><span class="p">:</span>
+                <span class="n">rocm_home_path</span> <span class="o">=</span> <span class="n">rocm_home_path</span><span class="o">.</span><span class="n">parent</span>
+            <span class="n">rocm_home</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rocm_home_path</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Guess #3</span>
             <span class="n">fallback_path</span> <span class="o">=</span> <span class="s1">&#39;/opt/rocm&#39;</span>
@@ -738,8 +738,7 @@
     <span class="c1"># Guess 1: for source code build developer/user, we&#39;ll have icpx in PATH,</span>
     <span class="c1"># which will tell us the SYCL_HOME location.</span>
     <span class="k">if</span> <span class="n">icpx_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">sycl_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">icpx_path</span><span class="p">)))</span>
+        <span class="n">sycl_home</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">icpx_path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
 
     <span class="c1"># Guess 2: for users install Pytorch with XPU support, the sycl runtime is</span>
     <span class="c1"># inside intel-sycl-rt, which is automatically installed via pip dependency.</span>
@@ -748,7 +747,7 @@
             <span class="n">files</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="s1">&#39;intel-sycl-rt&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;libsycl.so&quot;</span><span class="p">:</span>
-                    <span class="n">sycl_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">locate</span><span class="p">())</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+                    <span class="n">sycl_home</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">locate</span><span class="p">())</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
                     <span class="k">break</span>
         <span class="k">except</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">PackageNotFoundError</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trying to find SYCL_HOME from intel-sycl-rt package, but it is not installed.&quot;</span><span class="p">,</span>

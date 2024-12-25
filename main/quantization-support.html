@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git6ccb8ed ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git27b0d41 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -950,6 +950,42 @@ the values observed during calibration (PTQ) or training (QAT).</p>
 </tr>
 <tr class="row-odd"><td><p><p id="torch.ao.quantization.observer.default_float_qparams_observer"/><a class="reference internal" href="generated/torch.ao.quantization.observer.default_float_qparams_observer.html#torch.ao.quantization.observer.default_float_qparams_observer" title="torch.ao.quantization.observer.default_float_qparams_observer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_float_qparams_observer</span></code></a></p></td>
 <td><p>Default observer for a floating point zero-point.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.ao.quantization.observer.AffineQuantizedObserverBase"/><a class="reference internal" href="generated/torch.ao.quantization.observer.AffineQuantizedObserverBase.html#torch.ao.quantization.observer.AffineQuantizedObserverBase" title="torch.ao.quantization.observer.AffineQuantizedObserverBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AffineQuantizedObserverBase</span></code></a></p></td>
+<td><p>Observer module for affine quantization (<a class="reference external" href="https://github.com/pytorch/ao/tree/main/torchao/quantization#affine-quantization">https://github.com/pytorch/ao/tree/main/torchao/quantization#affine-quantization</a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.ao.quantization.observer.Granularity"/><a class="reference internal" href="generated/torch.ao.quantization.observer.Granularity.html#torch.ao.quantization.observer.Granularity" title="torch.ao.quantization.observer.Granularity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Granularity</span></code></a></p></td>
+<td><p>Base class for representing the granularity of quantization.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.ao.quantization.observer.MappingType"/><a class="reference internal" href="generated/torch.ao.quantization.observer.MappingType.html#torch.ao.quantization.observer.MappingType" title="torch.ao.quantization.observer.MappingType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MappingType</span></code></a></p></td>
+<td><p>How floating point number is mapped to integer number</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.ao.quantization.observer.PerAxis"/><a class="reference internal" href="generated/torch.ao.quantization.observer.PerAxis.html#torch.ao.quantization.observer.PerAxis" title="torch.ao.quantization.observer.PerAxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PerAxis</span></code></a></p></td>
+<td><p>Represents per-axis granularity in quantization.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.ao.quantization.observer.PerBlock"/><a class="reference internal" href="generated/torch.ao.quantization.observer.PerBlock.html#torch.ao.quantization.observer.PerBlock" title="torch.ao.quantization.observer.PerBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PerBlock</span></code></a></p></td>
+<td><p>Represents per-block granularity in quantization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.ao.quantization.observer.PerGroup"/><a class="reference internal" href="generated/torch.ao.quantization.observer.PerGroup.html#torch.ao.quantization.observer.PerGroup" title="torch.ao.quantization.observer.PerGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PerGroup</span></code></a></p></td>
+<td><p>Represents per-channel group granularity in quantization.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.ao.quantization.observer.PerRow"/><a class="reference internal" href="generated/torch.ao.quantization.observer.PerRow.html#torch.ao.quantization.observer.PerRow" title="torch.ao.quantization.observer.PerRow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PerRow</span></code></a></p></td>
+<td><p>Represents row-wise granularity in quantization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.ao.quantization.observer.PerTensor"/><a class="reference internal" href="generated/torch.ao.quantization.observer.PerTensor.html#torch.ao.quantization.observer.PerTensor" title="torch.ao.quantization.observer.PerTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PerTensor</span></code></a></p></td>
+<td><p>Represents per-tensor granularity in quantization.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.ao.quantization.observer.PerToken"/><a class="reference internal" href="generated/torch.ao.quantization.observer.PerToken.html#torch.ao.quantization.observer.PerToken" title="torch.ao.quantization.observer.PerToken"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PerToken</span></code></a></p></td>
+<td><p>Represents per-token granularity in quantization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.ao.quantization.observer.TorchAODType"/><a class="reference internal" href="generated/torch.ao.quantization.observer.TorchAODType.html#torch.ao.quantization.observer.TorchAODType" title="torch.ao.quantization.observer.TorchAODType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchAODType</span></code></a></p></td>
+<td><p>Placeholder for dtypes that do not exist in PyTorch core yet.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.ao.quantization.observer.ZeroPointDomain"/><a class="reference internal" href="generated/torch.ao.quantization.observer.ZeroPointDomain.html#torch.ao.quantization.observer.ZeroPointDomain" title="torch.ao.quantization.observer.ZeroPointDomain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ZeroPointDomain</span></code></a></p></td>
+<td><p>Enum that indicate whether zero_point is in integer domain or floating point domain</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.ao.quantization.observer.get_block_size"/><a class="reference internal" href="generated/torch.ao.quantization.observer.get_block_size.html#torch.ao.quantization.observer.get_block_size" title="torch.ao.quantization.observer.get_block_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_block_size</span></code></a></p></td>
+<td><p>Get the block size based on the input shape and granularity type.</p></td>
 </tr>
 </tbody>
 </table>
