@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+gitbb5e439 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.6.0a0+git52742b0 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -851,8 +851,9 @@
 <span class="s2">            numerical stability (default: 1e-8)</span>
 <span class="s2">        weight_decay (float, optional): weight decay (L2 penalty) (default: 0)</span>
 <span class="s2">        momentum_decay (float, optional): momentum momentum_decay (default: 4e-3)</span>
-<span class="s2">        decoupled_weight_decay (bool, optional): whether to use decoupled weight</span>
-<span class="s2">            decay as in AdamW to obtain NAdamW (default: False)</span>
+<span class="s2">        decoupled_weight_decay (bool, optional): whether to decouple the weight</span>
+<span class="s2">            decay as in AdamW to obtain NAdamW. If True, the algorithm does not</span>
+<span class="s2">            accumulate weight decay in the momentum nor variance. (default: False)</span>
 <span class="s2">        </span><span class="si">{</span><span class="n">_foreach_doc</span><span class="si">}</span>
 <span class="s2">        </span><span class="si">{</span><span class="n">_maximize_doc</span><span class="si">}</span>
 <span class="s2">        </span><span class="si">{</span><span class="n">_capturable_doc</span><span class="si">}</span>
