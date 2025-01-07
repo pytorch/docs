@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git9f94710 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitf013cfe ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -831,9 +831,14 @@
 <span class="n">Dim</span><span class="o">.</span><span class="n">DYNAMIC</span> <span class="o">=</span> <span class="n">_DimHint</span><span class="o">.</span><span class="n">DYNAMIC</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
 
-<div class="viewcode-block" id="dims"><a class="viewcode-back" href="../../../export.html#torch.export.dynamic_shapes.dims">[docs]</a><span class="k">def</span> <span class="nf">dims</span><span class="p">(</span><span class="o">*</span><span class="n">names</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="dims"><a class="viewcode-back" href="../../../export.html#torch.export.dynamic_shapes.dims">[docs]</a><span class="k">def</span> <span class="nf">dims</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">names</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_Dim</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Util to create multiple :func:`Dim` types.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple of :func:`Dim` types.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">Dim</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="nb">max</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">)</span></div>
 
@@ -1189,7 +1194,12 @@
 <span class="sd">    Builder for dynamic_shapes.</span>
 <span class="sd">    Used to assign dynamic shape specifications to tensors that appear in inputs.</span>
 
+<span class="sd">    This is useful particularly when :func:`args` is a nested input structure, and it&#39;s</span>
+<span class="sd">    easier to index the input tensors, than to replicate the structure of :func:`args` in</span>
+<span class="sd">    the :func:`dynamic_shapes` specification.</span>
+
 <span class="sd">    Example::</span>
+
 <span class="sd">        args = ({&quot;x&quot;: tensor_x, &quot;others&quot;: [tensor_y, tensor_z]})</span>
 
 <span class="sd">        dim = torch.export.Dim(...)</span>
@@ -1231,7 +1241,7 @@
 
 <div class="viewcode-block" id="ShapesCollection.dynamic_shapes"><a class="viewcode-back" href="../../../export.html#torch.export.dynamic_shapes.ShapesCollection.dynamic_shapes">[docs]</a>    <span class="k">def</span> <span class="nf">dynamic_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate dynamic_shapes.</span>
+<span class="sd">        Generates the :func:`dynamic_shapes` pytree structure according to :func:`args` and :func:`kwargs`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">t_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -1586,42 +1596,31 @@
     <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    For working with export&#39;s dynamic shapes suggested fixes, and/or automatic dynamic shapes.</span>
-<span class="sd">    Refines the given dynamic shapes spec, given a ConstraintViolation error message and the original dynamic shapes.</span>
+<span class="sd">    When exporting with :func:`dynamic_shapes`, export may fail with a ConstraintViolation error if the specification</span>
+<span class="sd">    doesn&#39;t match the constraints inferred from tracing the model. The error message may provide suggested fixes -</span>
+<span class="sd">    changes that can be made to :func:`dynamic_shapes` to export successfully.</span>
 
-<span class="sd">    For most cases behavior is straightforward - i.e. for suggested fixes that specialize or refine a Dim&#39;s range,</span>
-<span class="sd">    or fixes that suggest a derived relation, the new dynamic shapes spec will be updated as such.</span>
+<span class="sd">    Example ConstraintViolation error message::</span>
 
-<span class="sd">    e.g.</span>
-<span class="sd">    Suggested fixes:</span>
+<span class="sd">        Suggested fixes:</span>
 
-<span class="sd">        dim = Dim(&#39;dim&#39;, min=3, max=6) -&gt; this just refines the dim&#39;s range</span>
-<span class="sd">        dim = 4 -&gt; this specializes to a constant</span>
-<span class="sd">        dy = dx + 1 -&gt; dy was specified as an independent dim, but is actually tied to dx with this relation</span>
+<span class="sd">            dim = Dim(&#39;dim&#39;, min=3, max=6)  # this just refines the dim&#39;s range</span>
+<span class="sd">            dim = 4  # this specializes to a constant</span>
+<span class="sd">            dy = dx + 1  # dy was specified as an independent dim, but is actually tied to dx with this relation</span>
 
-<span class="sd">    However, suggested fixes associated with derived dims can be more complicated.</span>
-<span class="sd">    For example, if a suggested fix is provided for a root dim, the new derived dim value is evaluated based on the root.</span>
+<span class="sd">    This is a helper function that takes the ConstraintViolation error message and the original :func:`dynamic_shapes` spec,</span>
+<span class="sd">    and returns a new :func:`dynamic_shapes` spec that incorporates the suggested fixes.</span>
 
-<span class="sd">    e.g.</span>
-<span class="sd">    dx = Dim(&#39;dx&#39;)</span>
-<span class="sd">    dy = dx + 2</span>
-<span class="sd">    dynamic_shapes = {&quot;x&quot;: (dx,), &quot;y&quot;: (dy,)}</span>
+<span class="sd">    Example usage::</span>
 
-<span class="sd">    Suggested fixes:</span>
+<span class="sd">        try:</span>
+<span class="sd">            ep = export(mod, args, dynamic_shapes=dynamic_shapes)</span>
+<span class="sd">        except torch._dynamo.exc.UserError as exc:</span>
+<span class="sd">            new_shapes = refine_dynamic_shapes_from_suggested_fixes(</span>
+<span class="sd">                exc.msg, dynamic_shapes</span>
+<span class="sd">            )</span>
+<span class="sd">            ep = export(mod, args, dynamic_shapes=new_shapes)</span>
 
-<span class="sd">        dx = 4  # specialization will lead to dy also specializing = 6</span>
-<span class="sd">        dx = Dim(&#39;dx&#39;, max=6)  # dy now has max = 8</span>
-
-<span class="sd">    Derived dims suggested fixes can also be used to express divisibility constraints.</span>
-<span class="sd">    This involves creating new root dims that aren&#39;t tied to a particular input shape.</span>
-<span class="sd">    In this case the root dims won&#39;t appear directly in the new spec, but as a root of</span>
-<span class="sd">    one of the dims.</span>
-
-<span class="sd">    e.g.</span>
-<span class="sd">    Suggested fixes:</span>
-
-<span class="sd">        _dx = Dim(&#39;_dx&#39;, max=1024)  # this won&#39;t appear in the return result, but dx will</span>
-<span class="sd">        dx = 4*_dx  # dx is now divisible by 4, with a max value of 4096</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">import</span> <span class="nn">re</span>
