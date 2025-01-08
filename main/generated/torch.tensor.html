@@ -282,7 +282,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitf013cfe ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git7c9cf28 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -600,8 +600,8 @@
 <p>When working with tensors prefer using <a class="reference internal" href="torch.Tensor.clone.html#torch.Tensor.clone" title="torch.Tensor.clone"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.clone()</span></code></a>,
 <a class="reference internal" href="torch.Tensor.detach.html#torch.Tensor.detach" title="torch.Tensor.detach"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.detach()</span></code></a>, and <a class="reference internal" href="torch.Tensor.requires_grad_.html#torch.Tensor.requires_grad_" title="torch.Tensor.requires_grad_"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.requires_grad_()</span></code></a> for
 readability. Letting <cite>t</cite> be a tensor, <code class="docutils literal notranslate"><span class="pre">torch.tensor(t)</span></code> is equivalent to
-<code class="docutils literal notranslate"><span class="pre">t.clone().detach()</span></code>, and <code class="docutils literal notranslate"><span class="pre">torch.tensor(t,</span> <span class="pre">requires_grad=True)</span></code>
-is equivalent to <code class="docutils literal notranslate"><span class="pre">t.clone().detach().requires_grad_(True)</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">t.detach().clone()</span></code>, and <code class="docutils literal notranslate"><span class="pre">torch.tensor(t,</span> <span class="pre">requires_grad=True)</span></code>
+is equivalent to <code class="docutils literal notranslate"><span class="pre">t.detach().clone().requires_grad_(True)</span></code>.</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
