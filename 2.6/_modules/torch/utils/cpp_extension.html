@@ -2396,14 +2396,6 @@
     <span class="n">build_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="s1">&#39;build.ninja&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Emitting ninja build file </span><span class="si">{</span><span class="n">build_file_path</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
-
-    <span class="c1"># Create build_directory if it does not exist</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">build_directory</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Creating directory </span><span class="si">{</span><span class="n">build_directory</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
-        <span class="c1"># This is like mkdir -p, i.e. will also create parent directories.</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
     <span class="n">_write_ninja_file</span><span class="p">(</span>
         <span class="n">path</span><span class="o">=</span><span class="n">build_file_path</span><span class="p">,</span>
         <span class="n">cflags</span><span class="o">=</span><span class="n">cflags</span><span class="p">,</span>
@@ -2452,14 +2444,6 @@
     <span class="n">build_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="s1">&#39;build.ninja&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Emitting ninja build file </span><span class="si">{</span><span class="n">build_file_path</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
-
-    <span class="c1"># Create build_directory if it does not exist</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">build_directory</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Creating directory </span><span class="si">{</span><span class="n">build_directory</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
-        <span class="c1"># This is like mkdir -p, i.e. will also create parent directories.</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
     <span class="c1"># NOTE: Emitting a new ninja build file does not cause re-compilation if</span>
     <span class="c1"># the sources did not change, so it&#39;s ok to re-emit (and it&#39;s fast).</span>
     <span class="n">_write_ninja_file_to_build_library</span><span class="p">(</span>
