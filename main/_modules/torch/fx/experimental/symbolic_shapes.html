@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git7c9cf28 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitbc57635 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1426,7 +1426,7 @@
         <span class="k">return</span> <span class="n">OrderedSet</span><span class="p">()</span>
 
     <span class="c1"># TODO: Apparently, returning an OrderedSet here breaks</span>
-    <span class="c1"># python test/distributed/_tensor/test_dtensor_compile.py TestDTensorCompile.test_dtensor_dynamic</span>
+    <span class="c1"># python test/distributed/tensor/test_dtensor_compile.py TestDTensorCompile.test_dtensor_dynamic</span>
     <span class="k">return</span> <span class="n">first_expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">free_symbols</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">itr</span><span class="p">))</span>  <span class="c1"># type: ignore[return-value]</span>
 
 
