@@ -1390,11 +1390,11 @@
             <span class="n">output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
 
             <span class="c1"># Note [Absolute include_dirs]</span>
-            <span class="c1"># Convert relative path in self.compiler.include_dirs to absolute path if any,</span>
-            <span class="c1"># For ninja build, the build location is not local, the build happens</span>
-            <span class="c1"># in a in script created build folder, relative path lost their correctness.</span>
+            <span class="c1"># Convert relative path in self.compiler.include_dirs to absolute path if any.</span>
+            <span class="c1"># For ninja build, the build location is not local, but instead, the build happens</span>
+            <span class="c1"># in a script-created build folder. Thus, relative paths lose their correctness.</span>
             <span class="c1"># To be consistent with jit extension, we allow user to enter relative include_dirs</span>
-            <span class="c1"># in setuptools.setup, and we convert the relative path to absolute path here</span>
+            <span class="c1"># in setuptools.setup, and we convert the relative path to absolute path here.</span>
             <span class="n">convert_to_absolute_paths_inplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">include_dirs</span><span class="p">)</span>
 
             <span class="n">_</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="n">extra_postargs</span><span class="p">,</span> <span class="n">pp_opts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> \
@@ -1542,6 +1542,15 @@
 <span class="sd">    constructor. Full list arguments can be found at</span>
 <span class="sd">    https://setuptools.pypa.io/en/latest/userguide/ext_modules.html#extension-api-reference</span>
 
+<span class="sd">    .. note::</span>
+<span class="sd">        The PyTorch python API (as provided in libtorch_python) cannot be built</span>
+<span class="sd">        with the flag ``py_limited_api=True``.  When this flag is passed, it is</span>
+<span class="sd">        the user&#39;s responsibility in their library to not use APIs from</span>
+<span class="sd">        libtorch_python (in particular pytorch/python bindings) and to only use</span>
+<span class="sd">        APIs from libtorch (aten objects, operators and the dispatcher). For</span>
+<span class="sd">        example, to give access to custom ops from python, the library should</span>
+<span class="sd">        register the ops through the dispatcher.</span>
+
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +REQUIRES(env:TORCH_DOCTEST_CPP_EXT)</span>
@@ -1572,7 +1581,9 @@
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;c10&#39;</span><span class="p">)</span>
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch&#39;</span><span class="p">)</span>
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_cpu&#39;</span><span class="p">)</span>
-    <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_python&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;py_limited_api&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># torch_python uses more than the python limited api</span>
+        <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_python&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">IS_WINDOWS</span> <span class="ow">and</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;arm64&quot;</span><span class="p">:</span>
         <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;sleef&quot;</span><span class="p">)</span>
 
@@ -1594,6 +1605,15 @@
 <span class="sd">    All arguments are forwarded to the :class:`setuptools.Extension`</span>
 <span class="sd">    constructor. Full list arguments can be found at</span>
 <span class="sd">    https://setuptools.pypa.io/en/latest/userguide/ext_modules.html#extension-api-reference</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The PyTorch python API (as provided in libtorch_python) cannot be built</span>
+<span class="sd">        with the flag ``py_limited_api=True``.  When this flag is passed, it is</span>
+<span class="sd">        the user&#39;s responsibility in their library to not use APIs from</span>
+<span class="sd">        libtorch_python (in particular pytorch/python bindings) and to only use</span>
+<span class="sd">        APIs from libtorch (aten objects, operators and the dispatcher). For</span>
+<span class="sd">        example, to give access to custom ops from python, the library should</span>
+<span class="sd">        register the ops through the dispatcher.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
@@ -1619,7 +1639,7 @@
 <span class="sd">    By default the extension will be compiled to run on all archs of the cards visible during the</span>
 <span class="sd">    building process of the extension, plus PTX. If down the road a new card is installed the</span>
 <span class="sd">    extension may need to be recompiled. If a visible card has a compute capability (CC) that&#39;s</span>
-<span class="sd">    newer than the newest version for which your nvcc can build fully-compiled binaries, Pytorch</span>
+<span class="sd">    newer than the newest version for which your nvcc can build fully-compiled binaries, PyTorch</span>
 <span class="sd">    will make nvcc fall back to building kernels with the newest version of PTX your nvcc does</span>
 <span class="sd">    support (see below for details on PTX).</span>
 
@@ -1663,7 +1683,7 @@
 <span class="sd">    An exception to this rule is &quot;dynamic parallelism&quot; (nested kernel launches)  which is not used a lot anymore.</span>
 <span class="sd">    `Relocatable device code` is less optimized so it needs to be used only on object files that need it.</span>
 <span class="sd">    Using `-dlto` (Device Link Time Optimization) at the device code compilation step and `dlink` step</span>
-<span class="sd">    help reduce the protentional perf degradation of `-rdc`.</span>
+<span class="sd">    helps reduce the protentional perf degradation of `-rdc`.</span>
 <span class="sd">    Note that it needs to be used at both steps to be useful.</span>
 
 <span class="sd">    If you have `rdc` objects you need to have an extra `-dlink` (device linking) step before the CPU symbol linking step.</span>
@@ -1692,7 +1712,9 @@
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;c10&#39;</span><span class="p">)</span>
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch&#39;</span><span class="p">)</span>
     <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_cpu&#39;</span><span class="p">)</span>
-    <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_python&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;py_limited_api&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># torch_python uses more than the python limited api</span>
+        <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;torch_python&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
         <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;amdhip64&#39;</span><span class="p">)</span>
         <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;c10_hip&#39;</span><span class="p">)</span>
@@ -1959,6 +1981,10 @@
     <span class="c1"># that can cause a hard to debug segfaults.</span>
     <span class="c1"># For PyTorch extensions we want to relax those restrictions and pass compiler, stdlib and abi properties</span>
     <span class="c1"># captured during PyTorch native library compilation in torch/csrc/Module.cpp</span>
+    <span class="c1">#</span>
+    <span class="c1"># Note that these flags don&#39;t have side effects even if the PyTorch extension does not</span>
+    <span class="c1"># require nor use pybind, so we do not do anything differently for them in the py_limited_api</span>
+    <span class="c1"># case.</span>
 
     <span class="n">abi_cflags</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">pname</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;COMPILER_TYPE&quot;</span><span class="p">,</span> <span class="s2">&quot;STDLIB&quot;</span><span class="p">,</span> <span class="s2">&quot;BUILD_ABI&quot;</span><span class="p">]:</span>
@@ -2396,6 +2422,14 @@
     <span class="n">build_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="s1">&#39;build.ninja&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Emitting ninja build file </span><span class="si">{</span><span class="n">build_file_path</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+
+    <span class="c1"># Create build_directory if it does not exist</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">build_directory</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Creating directory </span><span class="si">{</span><span class="n">build_directory</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="c1"># This is like mkdir -p, i.e. will also create parent directories.</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
     <span class="n">_write_ninja_file</span><span class="p">(</span>
         <span class="n">path</span><span class="o">=</span><span class="n">build_file_path</span><span class="p">,</span>
         <span class="n">cflags</span><span class="o">=</span><span class="n">cflags</span><span class="p">,</span>
@@ -2444,6 +2478,14 @@
     <span class="n">build_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="s1">&#39;build.ninja&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Emitting ninja build file </span><span class="si">{</span><span class="n">build_file_path</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+
+    <span class="c1"># Create build_directory if it does not exist</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">build_directory</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Creating directory </span><span class="si">{</span><span class="n">build_directory</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="c1"># This is like mkdir -p, i.e. will also create parent directories.</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
     <span class="c1"># NOTE: Emitting a new ninja build file does not cause re-compilation if</span>
     <span class="c1"># the sources did not change, so it&#39;s ok to re-emit (and it&#39;s fast).</span>
     <span class="n">_write_ninja_file_to_build_library</span><span class="p">(</span>

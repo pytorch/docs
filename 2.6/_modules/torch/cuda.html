@@ -1222,7 +1222,25 @@
 
     <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">hip</span><span class="p">:</span>
         <span class="n">hip_devices</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;HIP_VISIBLE_DEVICES&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">hip_devices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rocr_devices</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ROCR_VISIBLE_DEVICES&quot;</span><span class="p">)</span>
+
+        <span class="c1"># You must take care if both HIP and ROCR env vars are set as they have</span>
+        <span class="c1"># different meanings. Both env vars accept either a list of ints or a</span>
+        <span class="c1"># list of UUIDs. The ROCR env var is processed first which then reduces</span>
+        <span class="c1"># the number of GPUs that HIP can select from.</span>
+        <span class="k">if</span> <span class="n">rocr_devices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rocr_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rocr_devices</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">hip_devices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># sanity check if both env vars are set</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hip_devices</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">rocr_count</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                        <span class="s2">&quot;HIP_VISIBLE_DEVICES contains more devices than ROCR_VISIBLE_DEVICES&quot;</span>
+                    <span class="p">)</span>
+                <span class="c1"># HIP_VISIBLE_DEVICES is preferred over ROCR_VISIBLE_DEVICES</span>
+                <span class="n">var</span> <span class="o">=</span> <span class="n">hip_devices</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">rocr_count</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">hip_devices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">var</span> <span class="o">=</span> <span class="n">hip_devices</span>
 
     <span class="k">if</span> <span class="n">var</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

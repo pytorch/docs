@@ -1547,12 +1547,13 @@
     <span class="k">if</span> <span class="n">is_score_mod</span><span class="p">:</span>
 
         <span class="k">def</span> <span class="nf">nt_score_mod</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_idx</span><span class="p">,</span> <span class="n">kv_idx</span><span class="p">):</span>
+            <span class="n">b_nested</span> <span class="o">=</span> <span class="n">q_seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]</span>
             <span class="n">q_nested</span> <span class="o">=</span> <span class="n">q_idx</span> <span class="o">-</span> <span class="n">q_offsets</span><span class="p">[</span><span class="n">q_seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]]</span>
             <span class="n">kv_nested</span> <span class="o">=</span> <span class="n">kv_idx</span> <span class="o">-</span> <span class="n">kv_offsets</span><span class="p">[</span><span class="n">kv_seq_idx</span><span class="p">[</span><span class="n">kv_idx</span><span class="p">]]</span>
             <span class="n">is_same_sequence</span> <span class="o">=</span> <span class="n">q_seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">kv_seq_idx</span><span class="p">[</span><span class="n">kv_idx</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
                 <span class="n">is_same_sequence</span><span class="p">,</span>
-                <span class="n">orig_mod_func</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_nested</span><span class="p">,</span> <span class="n">kv_nested</span><span class="p">),</span>  <span class="c1"># type: ignore[call-arg]</span>
+                <span class="n">orig_mod_func</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">b_nested</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_nested</span><span class="p">,</span> <span class="n">kv_nested</span><span class="p">),</span>  <span class="c1"># type: ignore[call-arg]</span>
                 <span class="c1"># don&#39;t allow inter-sequence attention</span>
                 <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">),</span>
             <span class="p">)</span>
@@ -1561,11 +1562,12 @@
     <span class="k">else</span><span class="p">:</span>
 
         <span class="k">def</span> <span class="nf">nt_mask_mod</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_idx</span><span class="p">,</span> <span class="n">kv_idx</span><span class="p">):</span>
+            <span class="n">b_nested</span> <span class="o">=</span> <span class="n">q_seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]</span>
             <span class="n">q_nested</span> <span class="o">=</span> <span class="n">q_idx</span> <span class="o">-</span> <span class="n">q_offsets</span><span class="p">[</span><span class="n">q_seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]]</span>
             <span class="n">kv_nested</span> <span class="o">=</span> <span class="n">kv_idx</span> <span class="o">-</span> <span class="n">kv_offsets</span><span class="p">[</span><span class="n">kv_seq_idx</span><span class="p">[</span><span class="n">kv_idx</span><span class="p">]]</span>
             <span class="c1"># don&#39;t allow inter-sequence attention</span>
             <span class="n">is_same_sequence</span> <span class="o">=</span> <span class="n">q_seq_idx</span><span class="p">[</span><span class="n">q_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">kv_seq_idx</span><span class="p">[</span><span class="n">kv_idx</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">orig_mod_func</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_nested</span><span class="p">,</span> <span class="n">kv_nested</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">is_same_sequence</span>  <span class="c1"># type: ignore[call-arg]</span>
+            <span class="k">return</span> <span class="n">orig_mod_func</span><span class="p">(</span><span class="n">b_nested</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q_nested</span><span class="p">,</span> <span class="n">kv_nested</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">is_same_sequence</span>  <span class="c1"># type: ignore[call-arg]</span>
 
         <span class="k">return</span> <span class="n">nt_mask_mod</span>
 
