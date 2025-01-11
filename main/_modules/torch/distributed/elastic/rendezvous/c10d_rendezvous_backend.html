@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitbc57635 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc9afa00 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -602,7 +602,7 @@
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span><span class="p">,</span> <span class="n">b64encode</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">torch.distributed</span> <span class="kn">import</span> <span class="n">FileStore</span><span class="p">,</span> <span class="n">Store</span><span class="p">,</span> <span class="n">TCPStore</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.elastic.events</span> <span class="kn">import</span> <span class="n">construct_and_record_rdzv_event</span><span class="p">,</span> <span class="n">NodeState</span>
@@ -661,7 +661,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;See base class.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;c10d&quot;</span>
 
-<div class="viewcode-block" id="C10dRendezvousBackend.get_state"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.get_state">[docs]</a>    <span class="k">def</span> <span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Token</span><span class="p">]]:</span>
+<div class="viewcode-block" id="C10dRendezvousBackend.get_state"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.get_state">[docs]</a>    <span class="k">def</span> <span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Token</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;See base class.&quot;&quot;&quot;</span>
         <span class="n">base64_state</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_store</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">)</span>
 
@@ -669,7 +669,7 @@
 
 <div class="viewcode-block" id="C10dRendezvousBackend.set_state"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.C10dRendezvousBackend.set_state">[docs]</a>    <span class="k">def</span> <span class="nf">set_state</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Token</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Token</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Token</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;See base class.&quot;&quot;&quot;</span>
         <span class="n">base64_state_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
 
@@ -711,7 +711,7 @@
                 <span class="s2">&quot;The connection to the C10d store has failed. See inner exception for details.&quot;</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
 
-    <span class="k">def</span> <span class="nf">_decode_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base64_state</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Token</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">_decode_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base64_state</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Token</span><span class="p">]]:</span>
         <span class="k">if</span> <span class="n">base64_state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NULL_SENTINEL</span><span class="o">.</span><span class="n">encode</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -802,7 +802,7 @@
     <span class="k">return</span> <span class="n">store</span>
 
 
-<div class="viewcode-block" id="create_backend"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend">[docs]</a><span class="k">def</span> <span class="nf">create_backend</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">RendezvousParameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">C10dRendezvousBackend</span><span class="p">,</span> <span class="n">Store</span><span class="p">]:</span>
+<div class="viewcode-block" id="create_backend"><a class="viewcode-back" href="../../../../../elastic/rendezvous.html#torch.distributed.elastic.rendezvous.c10d_rendezvous_backend.create_backend">[docs]</a><span class="k">def</span> <span class="nf">create_backend</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">RendezvousParameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">C10dRendezvousBackend</span><span class="p">,</span> <span class="n">Store</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new :py:class:`C10dRendezvousBackend` from the specified parameters.</span>
 
 <span class="sd">    +--------------+-----------------------------------------------------------+</span>
@@ -878,7 +878,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2024, PyTorch Contributors.
+        &copy; Copyright PyTorch Contributors.
 
     </p>
   </div>

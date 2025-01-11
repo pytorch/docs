@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitbc57635 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc9afa00 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -595,7 +595,7 @@
 <span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
@@ -875,7 +875,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span>
             <span class="n">partition_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partition_linear_fn</span>
             <span class="c1"># rowwise linear runtime sharding requires input tensor shard on last dim</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Shard</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">desired_input_layouts</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Shard</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">):</span>
             <span class="n">partition_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partition_embedding_fn</span>
             <span class="c1"># rowwise embedding runtime sharding requires input tensor replicated</span>
@@ -1042,9 +1042,9 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">input_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">input_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">desired_input_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
-            <span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]]</span>
+            <span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Placement</span><span class="p">]]]</span>
         <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">input_kwarg_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">desired_input_kwarg_layouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Placement</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1189,8 +1189,8 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">output_layouts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">]],</span>
-        <span class="n">desired_output_layouts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">]],</span>
+        <span class="n">output_layouts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">]],</span>
+        <span class="n">desired_output_layouts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Placement</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Placement</span><span class="p">]],</span>
         <span class="n">use_local_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_layouts</span> <span class="o">=</span> <span class="p">(</span>
@@ -1260,7 +1260,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2024, PyTorch Contributors.
+        &copy; Copyright PyTorch Contributors.
 
     </p>
   </div>

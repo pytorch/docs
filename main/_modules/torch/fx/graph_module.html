@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitbc57635 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc9afa00 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1119,7 +1119,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_replace_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_node_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_erase_node_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_erase_node_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Used to remove hooks from deepcopied graph modules within a context manager.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deepcopy_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
 
     <span class="c1"># TorchScript breaks trying to compile the graph setter because of the</span>
     <span class="c1"># continued string literal. Issue here: https://github.com/pytorch/pytorch/issues/44842</span>
@@ -1477,6 +1479,7 @@
             <span class="s2">&quot;_replace_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_create_node_hooks&quot;</span><span class="p">,</span>
             <span class="s2">&quot;_erase_node_hooks&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_deepcopy_hooks&quot;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">extra_preserved_attrs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
@@ -1485,6 +1488,9 @@
         <span class="k">if</span> <span class="n">_USER_PRESERVED_ATTRIBUTES_KEY</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">_USER_PRESERVED_ATTRIBUTES_KEY</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_deepcopy_hooks&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deepcopy_hooks</span><span class="p">:</span>
+                <span class="n">hook</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">res</span>
 
     <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1589,7 +1595,23 @@
 <span class="sd">        This function will unregister that callable so it is no longer invoked on node erasure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;erase_node hook must be a callable.&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_erase_node_hooks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_erase_node_hooks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_register_deepcopy_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes a callable which will be called when we deepcopy this graph module. The</span>
+<span class="sd">        callable takes the resulting deepcopied graph module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;deepcopy hook must be a callable.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deepcopy_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_unregister_deepcopy_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes a callable which was previously registered to be called after deepcopy.</span>
+<span class="sd">        This function will unregister that callable so it is no longer invoked on deepcopy.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">&quot;deepcopy hook must be a callable.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deepcopy_hooks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
 
 <span class="c1"># workarounds for issues in __torch_function__</span>
@@ -1622,7 +1644,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2024, PyTorch Contributors.
+        &copy; Copyright PyTorch Contributors.
 
     </p>
   </div>

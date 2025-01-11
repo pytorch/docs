@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitbc57635 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc9afa00 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -650,10 +650,10 @@
 <span class="sd">            Default: ``True``</span>
 
 <span class="sd">    Shape:</span>
-<span class="sd">        - Input: :math:`(*, H_{in})` where :math:`*` means any number of</span>
-<span class="sd">          dimensions including none and :math:`H_{in} = \text{in\_features}`.</span>
-<span class="sd">        - Output: :math:`(*, H_{out})` where all but the last dimension</span>
-<span class="sd">          are the same shape as the input and :math:`H_{out} = \text{out\_features}`.</span>
+<span class="sd">        - Input: :math:`(*, H_\text{in})` where :math:`*` means any number of</span>
+<span class="sd">          dimensions including none and :math:`H_\text{in} = \text{in\_features}`.</span>
+<span class="sd">        - Output: :math:`(*, H_\text{out})` where all but the last dimension</span>
+<span class="sd">          are the same shape as the input and :math:`H_\text{out} = \text{out\_features}`.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        weight: the learnable weights of the module of shape</span>
@@ -743,15 +743,15 @@
 <span class="sd">        in1_features: size of each first input sample</span>
 <span class="sd">        in2_features: size of each second input sample</span>
 <span class="sd">        out_features: size of each output sample</span>
-<span class="sd">        bias: If set to False, the layer will not learn an additive bias.</span>
+<span class="sd">        bias: If set to ``False``, the layer will not learn an additive bias.</span>
 <span class="sd">            Default: ``True``</span>
 
 <span class="sd">    Shape:</span>
-<span class="sd">        - Input1: :math:`(*, H_{in1})` where :math:`H_{in1}=\text{in1\_features}` and</span>
+<span class="sd">        - Input1: :math:`(*, H_\text{in1})` where :math:`H_\text{in1}=\text{in1\_features}` and</span>
 <span class="sd">          :math:`*` means any number of additional dimensions including none. All but the last dimension</span>
 <span class="sd">          of the inputs should be the same.</span>
-<span class="sd">        - Input2: :math:`(*, H_{in2})` where :math:`H_{in2}=\text{in2\_features}`.</span>
-<span class="sd">        - Output: :math:`(*, H_{out})` where :math:`H_{out}=\text{out\_features}`</span>
+<span class="sd">        - Input2: :math:`(*, H_\text{in2})` where :math:`H_\text{in2}=\text{in2\_features}`.</span>
+<span class="sd">        - Output: :math:`(*, H_\text{out})` where :math:`H_\text{out}=\text{out\_features}`</span>
 <span class="sd">          and all but the last dimension are the same shape as the input.</span>
 
 <span class="sd">    Attributes:</span>
@@ -896,7 +896,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2024, PyTorch Contributors.
+        &copy; Copyright PyTorch Contributors.
 
     </p>
   </div>
