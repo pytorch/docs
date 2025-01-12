@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc9afa00 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git5e85825 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1239,6 +1239,11 @@
                     <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">fsdp_state</span><span class="o">.</span><span class="n">_state_ctx</span><span class="o">.</span><span class="n">all_states</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">:</span>
                             <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="o">.</span><span class="n">post_backward</span><span class="p">()</span>
+
+                    <span class="c1"># it would be much better if pipelining backward invoked .backward so autograd hooks</span>
+                    <span class="c1"># worked and modules like DDP/FSDP behaved as expected.  Working around this for the time being,</span>
+                    <span class="c1"># we need to call this too to ensure FSDP syncs its grad reduction ops back to the default stream.</span>
+                    <span class="n">fsdp_state</span><span class="o">.</span><span class="n">_root_post_backward_final_callback</span><span class="p">()</span>
 
                 <span class="n">run_post_backward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
