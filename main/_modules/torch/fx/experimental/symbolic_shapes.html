@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdcc04e9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git8c2aa0c ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1883,6 +1883,17 @@
         <span class="n">_constrain_range_for_size</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">_advise_is_bounded</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">SymNode</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">is_unbacked_symint</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">upper_bound</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>  <span class="c1"># TODO: relax</span>
+    <span class="p">):</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">_constrain_is_bounded</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_constrain_range_for_size</span><span class="p">(</span>
     <span class="n">a</span><span class="p">:</span> <span class="n">SymInt</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2529,7 +2540,9 @@
 <span class="nd">@lru_cache</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">_maybe_evaluate_static_worker</span><span class="p">(</span>
     <span class="n">expr</span><span class="p">:</span> <span class="n">_SympyT</span><span class="p">,</span>
-    <span class="n">symbol_info</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">symbol_info</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span>
+        <span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">],</span> <span class="o">...</span>
+    <span class="p">],</span>
     <span class="n">unbacked_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_SympyT</span><span class="p">]:</span>
@@ -2544,7 +2557,7 @@
     <span class="n">new_shape_env</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">new_range_env</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">sinfo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">symbol_info</span><span class="p">):</span>
-        <span class="n">k</span><span class="p">,</span> <span class="n">vr</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">is_size_like</span> <span class="o">=</span> <span class="n">sinfo</span>
+        <span class="n">k</span><span class="p">,</span> <span class="n">vr</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">is_size_like</span><span class="p">,</span> <span class="n">oblivious_upper_bound_exclusive</span> <span class="o">=</span> <span class="n">sinfo</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">SingletonInt</span><span class="p">):</span>
             <span class="c1"># Skip var_ranges logic for SingletonInt which is only used</span>
             <span class="c1"># for jagged layout NestedTensors today</span>
@@ -2558,6 +2571,8 @@
             <span class="c1"># This is similar to the flavor where size oblivious omits</span>
             <span class="c1"># 0/1, it changes semantics but in a benign way.</span>
             <span class="n">upper</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">48</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">oblivious_upper_bound_exclusive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">upper</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">oblivious_upper_bound_exclusive</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="c1"># This is a bit dodgy: what this means is that there was a</span>
             <span class="c1"># size-like unbacked symbol whose upper bound &lt; 2.  This</span>
             <span class="c1"># causes... problems.</span>
@@ -3748,6 +3763,13 @@
         <span class="c1"># practice</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range_sloc</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRangesSLoc</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># When doing a size-oblivious test, exclude this integer and</span>
+        <span class="c1"># everything higher than it from the acceptable range.  This solves</span>
+        <span class="c1"># https://github.com/pytorch/pytorch/issues/120288 for constant range</span>
+        <span class="c1"># case</span>
+        <span class="c1"># TODO: generalize this to work with expressions (in that case, we</span>
+        <span class="c1"># need to maintain a SET and we need extra symbolic reasoning on top)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oblivious_upper_bound_exclusive</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source_name_to_debug_name</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">CapturedTraceback</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -4053,6 +4075,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_renamings</span><span class="p">[</span><span class="n">orig_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_s</span>
         <span class="k">if</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_replacement</span><span class="p">(</span><span class="n">new_s</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="s2">&quot;rename_unbacked_to_dest&quot;</span><span class="p">)</span>
+
+    <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_constrain_is_bounded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oblivious_upper_bound_exclusive</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">oblivious_upper_bound_exclusive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">int_oo</span><span class="p">),</span>
+            <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">upper_bound</span><span class="p">),</span>
+        <span class="p">)</span>
 
     <span class="nd">@record_shapeenv_event</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">_constrain_range_for_size</span><span class="p">(</span>
@@ -6181,8 +6210,14 @@
             <span class="n">var_ranges</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">var_to_range</span><span class="p">)</span>
 
         <span class="n">symbol_info</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">var_ranges</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>  <span class="c1"># TODO: speed up sort?</span>
+            <span class="p">(</span>
+                <span class="n">s</span><span class="p">,</span>
+                <span class="n">var_ranges</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+                <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">oblivious_upper_bound_exclusive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>  <span class="c1"># TODO: speed up sort?</span>
         <span class="p">)</span>
 
         <span class="n">r</span> <span class="o">=</span> <span class="n">_maybe_evaluate_static_worker</span><span class="p">(</span>

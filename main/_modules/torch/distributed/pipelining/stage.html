@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdcc04e9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git8c2aa0c ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1165,8 +1165,27 @@
             <span class="n">out_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">out_val</span>
 
+    <span class="k">def</span> <span class="nf">scale_grads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad_scale_factor</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Scale gradients model gradients by `grad_scale_factor`, which should be specified in coordination with the</span>
+<span class="sd">        loss function used with pipelining.  For loss functions which perform &#39;mean&#39; loss reduction, `grad_scale_factor`</span>
+<span class="sd">        should be set to num_microbatches.  For loss functions that use `sum` reduction, `grad_scale_factor` should</span>
+<span class="sd">        be set to 1.</span>
+
+<span class="sd">        Should only be called once per pipeline schedule step, after all backwards passes have completed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># PP scales only for its own contribution (microbatches), but relies on DP to scale further</span>
+        <span class="c1"># for DP degree.</span>
+        <span class="k">if</span> <span class="n">grad_scale_factor</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+                <span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">div_</span><span class="p">(</span><span class="n">grad_scale_factor</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">backward_maybe_with_nosync</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">backward_type</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">last_backward</span><span class="o">=</span><span class="kc">False</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">backward_type</span><span class="p">,</span>
+        <span class="n">bwd_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">last_backward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Whether using PP with FSDP or DDP, there are some runtime differences between the last backward step and the</span>
@@ -1246,6 +1265,7 @@
                     <span class="n">fsdp_state</span><span class="o">.</span><span class="n">_root_post_backward_final_callback</span><span class="p">()</span>
 
                 <span class="n">run_post_backward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submod</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Non-DP submodule, regular backward</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">perform_backward</span><span class="p">(</span><span class="n">backward_type</span><span class="p">)()</span>
@@ -1374,7 +1394,9 @@
             <span class="c1"># TODO: We may want to change our semantics so we are allowed to ignore</span>
             <span class="c1"># the &#39;dw_builder&#39; and call full_backward directly when it is a full_backward op.</span>
             <span class="n">grads_input</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_maybe_with_nosync</span><span class="p">(</span>
-                <span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="n">bwd_kwargs</span><span class="p">,</span> <span class="n">last_backward</span><span class="o">=</span><span class="n">last_backward</span>
+                <span class="s2">&quot;full&quot;</span><span class="p">,</span>
+                <span class="n">bwd_kwargs</span><span class="p">,</span>
+                <span class="n">last_backward</span><span class="o">=</span><span class="n">last_backward</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">full_backward</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dw_builder</span><span class="p">()()</span>
