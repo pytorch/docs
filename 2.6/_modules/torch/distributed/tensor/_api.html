@@ -809,6 +809,9 @@
 <span class="sd">    To ensure numerical correctness of the ``DTensor`` sharded computation when calling PyTorch operators, ``DTensor``</span>
 <span class="sd">    requires every Tensor argument of the operator be DTensor.</span>
 
+<span class="sd">    .. note:: Directly using the Tensor subclass constructor here is not the recommended way to create a ``DTensor``</span>
+<span class="sd">        (i.e. it does not handle autograd correctly hence is not the public API). Please refer to the `create_dtensor`_</span>
+<span class="sd">        section to see how to create a ``DTensor``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_local_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>

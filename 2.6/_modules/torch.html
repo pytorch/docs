@@ -890,6 +890,24 @@
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="n">global_deps_lib_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">RTLD_GLOBAL</span><span class="p">)</span>
+        <span class="c1"># Workaround slim-wheel CUDA-12.4+ dependency bug in libcusparse by preloading nvjitlink</span>
+        <span class="c1"># In those versions of cuda cusparse depends on nvjitlink, but does not have rpath when</span>
+        <span class="c1"># shipped as wheel, which results in OS picking wrong/older version of nvjitlink library</span>
+        <span class="c1"># if `LD_LIBRARY_PATH` is defined</span>
+        <span class="c1"># See https://github.com/pytorch/pytorch/issues/138460</span>
+        <span class="k">if</span> <span class="n">version</span><span class="o">.</span><span class="n">cuda</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;12.4&quot;</span><span class="p">,</span> <span class="s2">&quot;12.6&quot;</span><span class="p">]:</span>  <span class="c1"># type: ignore[name-defined]</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/proc/self/maps&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">_maps</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="c1"># libtorch_global_deps.so always depends in cudart, check if its installed via wheel</span>
+            <span class="k">if</span> <span class="s2">&quot;nvidia/cuda_runtime/lib/libcudart.so&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_maps</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="c1"># If all abovementioned conditions are met, preload nvjitlink</span>
+            <span class="n">_preload_cuda_deps</span><span class="p">(</span><span class="s2">&quot;nvjitlink&quot;</span><span class="p">,</span> <span class="s2">&quot;libnvJitLink.so.*[0-9]&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+
     <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
         <span class="c1"># Can only happen for wheel with cuda libs as PYPI deps</span>
         <span class="c1"># As PyTorch is not purelib, but nvidia-*-cu12 is</span>
