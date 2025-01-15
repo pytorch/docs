@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git8c2aa0c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git0694195 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -598,7 +598,8 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_vmap_internals</span>
@@ -649,7 +650,7 @@
     <span class="n">output</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">graph</span><span class="o">.</span><span class="n">GradientEdge</span><span class="p">],</span>
     <span class="n">grad</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">is_grads_batched</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_ShapeorNestedShape</span><span class="p">,</span> <span class="n">_ShapeorNestedShape</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">_ShapeorNestedShape</span><span class="p">,</span> <span class="n">_ShapeorNestedShape</span><span class="p">]:</span>
     <span class="c1"># is_same_size ensures that both tensors are either nested or non nested</span>
     <span class="c1"># circular import</span>
     <span class="kn">from</span> <span class="nn">torch.nested._internal.nested_tensor</span> <span class="kn">import</span> <span class="n">NestedTensor</span>
@@ -678,8 +679,8 @@
     <span class="n">outputs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">graph</span><span class="o">.</span><span class="n">GradientEdge</span><span class="p">]],</span>
     <span class="n">grads</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">_OptionalTensor</span><span class="p">],</span>
     <span class="n">is_grads_batched</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_OptionalTensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-    <span class="n">new_grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_OptionalTensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">_OptionalTensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="n">new_grads</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">_OptionalTensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">out</span><span class="p">,</span> <span class="n">grad</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">grads</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">graph</span><span class="o">.</span><span class="n">GradientEdge</span><span class="p">],</span> <span class="n">out</span><span class="p">)</span>
         <span class="n">out_size</span> <span class="o">=</span> <span class="kc">None</span>
@@ -820,7 +821,7 @@
 
 <span class="k">def</span> <span class="nf">_tensor_or_tensors_to_tuple</span><span class="p">(</span>
     <span class="n">tensors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_TensorOrTensors</span><span class="p">],</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_OptionalTensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">_OptionalTensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">tensors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="n">length</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tensors</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
@@ -959,7 +960,7 @@
     <span class="n">allow_unused</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">is_grads_batched</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">materialize_grads</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute and return the sum of gradients of outputs with respect to the inputs.</span>
 
 <span class="sd">    ``grad_outputs`` should be a sequence of length matching ``output``</span>

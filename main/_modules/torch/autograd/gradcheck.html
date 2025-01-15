@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git8c2aa0c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git0694195 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -593,8 +593,9 @@
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -639,14 +640,14 @@
 
 
 <span class="k">def</span> <span class="nf">_allocate_jacobians_with_inputs</span><span class="p">(</span>
-    <span class="n">input_tensors</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">numel_output</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="n">input_tensors</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">numel_output</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
     <span class="c1"># Makes zero-filled tensors from inputs. If `numel_output` is not None, for</span>
     <span class="c1"># each tensor in `input_tensors`, returns a new zero-filled tensor with height</span>
     <span class="c1"># of `t.numel` and width of `numel_output`. Otherwise, for each tensor, returns</span>
     <span class="c1"># a 1-d tensor with size `(t.numel,)`. Each new tensor will be strided and have</span>
     <span class="c1"># the same dtype and device as those of the corresponding input.</span>
-    <span class="n">out</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">out</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">t</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">((</span><span class="n">t</span><span class="o">.</span><span class="n">numel</span><span class="p">(),</span> <span class="n">numel_output</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">input_tensors</span>
         <span class="k">if</span> <span class="n">_is_float_or_complex_tensor</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">requires_grad</span>
@@ -655,14 +656,14 @@
 
 
 <span class="k">def</span> <span class="nf">_allocate_jacobians_with_outputs</span><span class="p">(</span>
-    <span class="n">output_tensors</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">numel_input</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="n">output_tensors</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">numel_input</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
     <span class="c1"># Makes zero-filled tensors from outputs. If `dim` is not None, for each tensor</span>
     <span class="c1"># in `output_tensors`, returns a new zero-filled tensor with height of `dim` and</span>
     <span class="c1"># width of `t.numel`. Otherwise, for each tensor, returns a 1-d tensor with size</span>
     <span class="c1"># (t.numel,).</span>
     <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">dtype</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;layout&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">strided</span><span class="p">}</span>
-    <span class="n">out</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">out</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">t</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">((</span><span class="n">numel_input</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">numel</span><span class="p">()),</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">output_tensors</span>
         <span class="k">if</span> <span class="n">_is_float_or_complex_tensor</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
@@ -849,7 +850,7 @@
 
 <span class="k">def</span> <span class="nf">_get_numerical_jacobian</span><span class="p">(</span>
     <span class="n">fn</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">is_forward_ad</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the numerical Jacobian of `fn(inputs)` with respect to `target`.</span>
 
 <span class="sd">    If not specified, targets are the input. Returns M * N Jacobians where N is the</span>
@@ -872,7 +873,7 @@
 <span class="sd">    Note that `target` may not even be part of `input` to `fn`, so please be</span>
 <span class="sd">    **very careful** in this to not clone `target`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">jacobians</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">jacobians</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="n">outputs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="n">_as_tuple</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">_as_tuple</span><span class="p">(</span><span class="n">inputs</span><span class="p">)))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_forward_ad</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">is_complex</span><span class="p">()</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">):</span>
@@ -977,13 +978,13 @@
 
 <span class="k">def</span> <span class="nf">_compute_numerical_jvps_wrt_specific_input</span><span class="p">(</span>
     <span class="n">jvp_fn</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">input_is_complex</span><span class="p">,</span> <span class="n">is_forward_ad</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
     <span class="c1"># Computing the jacobian only works for real delta</span>
     <span class="c1"># For details on the algorithm used here, refer:</span>
     <span class="c1"># Section 3.5.3 https://arxiv.org/pdf/1701.00392.pdf</span>
     <span class="c1"># s = fn(z) where z = x for real valued input</span>
     <span class="c1"># and z = x + yj for complex valued input</span>
-    <span class="n">jvps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">jvps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">ds_dx_tup</span> <span class="o">=</span> <span class="n">jvp_fn</span><span class="p">(</span><span class="n">delta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">delta</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">input_is_complex</span><span class="p">:</span>  <span class="c1"># C -&gt; R</span>
@@ -1003,8 +1004,8 @@
 
 
 <span class="k">def</span> <span class="nf">_combine_jacobian_cols</span><span class="p">(</span>
-    <span class="n">jacobians_cols</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]],</span> <span class="n">outputs</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">numel</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="n">jacobians_cols</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]],</span> <span class="n">outputs</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">numel</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
     <span class="c1"># jacobian_cols maps column_idx -&gt; output_idx -&gt; single column of jacobian Tensor</span>
     <span class="c1"># we return a list that maps output_idx -&gt; full jacobian Tensor</span>
     <span class="n">jacobians</span> <span class="o">=</span> <span class="n">_allocate_jacobians_with_outputs</span><span class="p">(</span>
@@ -1058,13 +1059,13 @@
 
 <span class="k">def</span> <span class="nf">get_numerical_jacobian_wrt_specific_input</span><span class="p">(</span>
     <span class="n">fn</span><span class="p">,</span> <span class="n">input_idx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_forward_ad</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
     <span class="c1"># Computes the numerical jacobians wrt to a single input. Returns N jacobian</span>
     <span class="c1"># tensors, where N is the number of outputs. We use a dictionary for</span>
     <span class="c1"># jacobian_cols because indices aren&#39;t necessarily consecutive for sparse inputs</span>
     <span class="c1"># When we perturb only a single element of the input tensor at a time, the jvp</span>
     <span class="c1"># is equivalent to a single col of the Jacobian matrix of fn.</span>
-    <span class="n">jacobian_cols</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">jacobian_cols</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="nb">input</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">input_idx</span><span class="p">]</span> <span class="k">if</span> <span class="nb">input</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">input</span>
     <span class="k">assert</span> <span class="nb">input</span><span class="o">.</span><span class="n">requires_grad</span>
     <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">d_idx</span> <span class="ow">in</span> <span class="n">_iter_tensor</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
@@ -1084,7 +1085,7 @@
 
 <span class="k">def</span> <span class="nf">_get_analytical_jacobian_forward_ad</span><span class="p">(</span>
     <span class="n">fn</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">check_grad_dtypes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">all_u</span><span class="o">=</span><span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the analytical Jacobian using forward mode AD of `fn(inputs)` using forward mode AD with respect to `target`.</span>
 
 <span class="sd">    Return N * M Jacobians where N is the number of tensors in target that require grad and</span>
@@ -1250,7 +1251,7 @@
 
 <span class="k">def</span> <span class="nf">_get_numerical_jvp_wrt_specific_input</span><span class="p">(</span>
     <span class="n">fn</span><span class="p">,</span> <span class="n">input_idx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">is_forward_ad</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
     <span class="nb">input</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">input_idx</span><span class="p">]</span>
     <span class="n">input_to_perturb</span> <span class="o">=</span> <span class="n">_get_input_to_perturb</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
     <span class="n">wrapped_fn</span> <span class="o">=</span> <span class="n">_with_prepare_inputs</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">input_idx</span><span class="p">,</span> <span class="n">input_to_perturb</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -1267,7 +1268,7 @@
     <span class="n">fn</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">inp_indices</span><span class="p">,</span> <span class="n">func_out</span><span class="p">,</span> <span class="n">all_u</span><span class="p">,</span> <span class="n">all_v</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">is_forward_ad</span>
 <span class="p">):</span>
     <span class="c1"># Note that all_v can also be None, in that case, this function only computes Ju.</span>
-    <span class="n">reduced_jacobians</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">reduced_jacobians</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">inp_idx</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inp_indices</span><span class="p">,</span> <span class="n">all_u</span><span class="p">):</span>
         <span class="n">all_Ju</span> <span class="o">=</span> <span class="n">_get_numerical_jvp_wrt_specific_input</span><span class="p">(</span>
             <span class="n">fn</span><span class="p">,</span> <span class="n">inp_idx</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">is_forward_ad</span>
@@ -1283,7 +1284,7 @@
                 <span class="c1"># TODO: handle the other Ju</span>
                 <span class="k">pass</span>
         <span class="k">if</span> <span class="n">all_v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">jacobian_scalars</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">jacobian_scalars</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">Ju</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_v</span><span class="p">,</span> <span class="n">filtered_Ju</span><span class="p">):</span>
                 <span class="n">jacobian_scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_dot_with_type_promotion</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Ju</span><span class="p">))</span>
             <span class="n">reduced_jacobians</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">jacobian_scalars</span><span class="p">)</span>
@@ -1303,7 +1304,7 @@
 
 <span class="k">def</span> <span class="nf">_stack_and_check_tensors</span><span class="p">(</span>
     <span class="n">list_of_list_of_tensors</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">numel_outputs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
     <span class="c1"># For the ith tensor in the inner list checks whether it has the same size and</span>
     <span class="c1"># dtype as the ith differentiable input.</span>
     <span class="n">out_jacobians</span> <span class="o">=</span> <span class="n">_allocate_jacobians_with_inputs</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">numel_outputs</span><span class="p">)</span>
@@ -1348,7 +1349,7 @@
 
 <span class="k">def</span> <span class="nf">_check_analytical_jacobian_attributes</span><span class="p">(</span>
     <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">nondet_tol</span><span class="p">,</span> <span class="n">check_grad_dtypes</span><span class="p">,</span> <span class="n">fast_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
     <span class="c1"># This is used by both fast and slow mode:</span>
     <span class="c1">#  - For slow mode, vjps[i][j] is the jth row of the Jacobian wrt the ith</span>
     <span class="c1">#    input.</span>
@@ -1393,12 +1394,12 @@
 <span class="k">def</span> <span class="nf">_get_analytical_vJu_backward_mode</span><span class="p">(</span>
     <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">nondet_tol</span><span class="p">,</span> <span class="n">check_grad_dtypes</span><span class="p">,</span> <span class="n">all_v</span><span class="p">,</span> <span class="n">all_u</span>
 <span class="p">):</span>
-    <span class="n">reduced_jacobians</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">reduced_jacobians</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">output</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">all_v</span><span class="p">):</span>
         <span class="n">all_vJ</span> <span class="o">=</span> <span class="n">_check_analytical_jacobian_attributes</span><span class="p">(</span>
             <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">nondet_tol</span><span class="p">,</span> <span class="n">check_grad_dtypes</span><span class="p">,</span> <span class="n">fast_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">v</span>
         <span class="p">)</span>
-        <span class="n">jacobian_scalars</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">jacobian_scalars</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">vJ</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_vJ</span><span class="p">,</span> <span class="n">all_u</span><span class="p">):</span>
             <span class="c1"># Why do we need squeeze here? vJ is a 2-d tensor so that we can reuse</span>
             <span class="c1"># the error checking logic from slow mode</span>
@@ -1469,7 +1470,7 @@
 
 <span class="k">def</span> <span class="nf">_compute_analytical_jacobian_rows</span><span class="p">(</span>
     <span class="n">vjp_fn</span><span class="p">,</span> <span class="n">sample_output</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]:</span>
     <span class="c1"># Computes Jacobian row-by-row by projecting `vjp_fn` = v^T J on standard basis</span>
     <span class="c1"># vectors: vjp_fn(e) = e^T J is a corresponding row of the Jacobian.</span>
     <span class="c1"># NB: this function does not assume vjp_fn(v) to return tensors with the same</span>
@@ -1480,7 +1481,7 @@
     <span class="p">)</span>
     <span class="n">flat_grad_out</span> <span class="o">=</span> <span class="n">grad_out_base</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1"># jacobians_rows[i][j] is the Jacobian jth row for the ith input</span>
-    <span class="n">jacobians_rows</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">jacobians_rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">flat_grad_out</span><span class="o">.</span><span class="n">numel</span><span class="p">()):</span>
         <span class="n">flat_grad_out</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
         <span class="n">flat_grad_out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># projection for jth row of Jacobian</span>
@@ -1496,9 +1497,9 @@
 
 <span class="k">def</span> <span class="nf">_get_analytical_vjps_wrt_specific_output</span><span class="p">(</span>
     <span class="n">vjp_fn</span><span class="p">,</span> <span class="n">sample_output</span><span class="p">,</span> <span class="n">v</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]:</span>
     <span class="n">grad_inputs</span> <span class="o">=</span> <span class="n">vjp_fn</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sample_output</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
-    <span class="n">vjps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">vjps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">[</span><span class="n">vjp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vjp</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">]</span> <span class="k">for</span> <span class="n">vjp</span> <span class="ow">in</span> <span class="n">grad_inputs</span>
     <span class="p">]</span>
     <span class="k">return</span> <span class="n">vjps</span>
@@ -1765,7 +1766,7 @@
 
 <span class="k">def</span> <span class="nf">_test_backward_mul_by_grad_output</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">masked</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="c1"># Tests that backward is multiplied by grad_output</span>
-    <span class="n">diff_input_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+    <span class="n">diff_input_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">diff_input_list</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GradcheckError</span><span class="p">(</span><span class="s2">&quot;no Tensors requiring grad found in input&quot;</span><span class="p">)</span>
     <span class="n">grads_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
@@ -1885,7 +1886,7 @@
 
 
 <span class="k">def</span> <span class="nf">_test_undefined_backward_mode</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="n">diff_input_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+    <span class="n">diff_input_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_iter_tensors</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">diff_input_list</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GradcheckError</span><span class="p">(</span><span class="s2">&quot;no Tensors requiring grad found in input&quot;</span><span class="p">)</span>
 

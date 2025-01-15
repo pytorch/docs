@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git8c2aa0c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git0694195 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -589,8 +589,7 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.nn.attention.flex_attention</h1><div class="highlight"><pre>
-<span></span><span class="c1"># mypy: allow-untyped-decorators</span>
-<span class="c1"># mypy: allow-untyped-defs</span>
+<span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="c1"># flake8: noqa C101</span>
 <span class="sd">&quot;&quot;&quot;This module implements the user facing API for flex_attention in PyTorch.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">functools</span>
@@ -600,7 +599,7 @@
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
@@ -666,9 +665,9 @@
 <span class="c1"># Need to define it here so that Dynamo doesn&#39;t skip it</span>
 <span class="k">def</span> <span class="nf">_vmap_for_bhqkv</span><span class="p">(</span>
     <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">prefix</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
-    <span class="n">suffix</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
-    <span class="n">out_dims</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">prefix</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">suffix</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">out_dims</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">group_dim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Used to vmap both score_mods and mask_mods over 4-dimensional/5-dimension inputs.</span>
@@ -689,7 +688,7 @@
 <span class="sd">        callable: The vmapped function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># We vamp a function 4 times, broadcasting the [b, h, q_idx, kv_idx] dimensions</span>
-    <span class="n">dimensions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dimensions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">dimensions</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
         <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
@@ -764,7 +763,7 @@
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span> <span class="nf">_dense_to_ordered</span><span class="p">(</span><span class="n">dense_mask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_dense_to_ordered</span><span class="p">(</span><span class="n">dense_mask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
     <span class="n">dense_mask</span> <span class="o">=</span> <span class="n">dense_mask</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
     <span class="n">num_blocks_in_row</span> <span class="o">=</span> <span class="n">dense_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">col_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">dense_mask</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -853,7 +852,7 @@
 <span class="sd">    the backwards pass. These are autogenerated from 2.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">seq_lengths</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">seq_lengths</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
     <span class="n">kv_num_blocks</span><span class="p">:</span> <span class="n">Tensor</span>
     <span class="n">kv_indices</span><span class="p">:</span> <span class="n">Tensor</span>
     <span class="n">full_kv_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
@@ -862,12 +861,12 @@
     <span class="n">q_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
     <span class="n">full_q_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
     <span class="n">full_q_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
-    <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
     <span class="n">mask_mod</span><span class="p">:</span> <span class="n">_mask_mod_signature</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">seq_lengths</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">seq_lengths</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
         <span class="n">kv_num_blocks</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
         <span class="n">kv_indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
         <span class="n">full_kv_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
@@ -876,7 +875,7 @@
         <span class="n">q_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
         <span class="n">full_q_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
         <span class="n">full_q_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-        <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
         <span class="n">mask_mod</span><span class="p">:</span> <span class="n">_mask_mod_signature</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">kv_indices</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -911,9 +910,9 @@
         <span class="n">kv_indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
         <span class="n">full_kv_num_blocks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">full_kv_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
+        <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
         <span class="n">mask_mod</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_mask_mod_signature</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">seq_lengths</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">seq_lengths</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a BlockMask instance from key-value block information.</span>
@@ -923,7 +922,7 @@
 <span class="sd">            kv_indices (Tensor): Indices of key-value blocks in each Q_BLOCK_SIZE row tile.</span>
 <span class="sd">            full_kv_num_blocks (Optional[Tensor]): Number of full kv_blocks in each Q_BLOCK_SIZE row tile.</span>
 <span class="sd">            full_kv_indices (Optional[Tensor]): Indices of full key-value blocks in each Q_BLOCK_SIZE row tile.</span>
-<span class="sd">            BLOCK_SIZE (Union[int, Tuple[int, int]]): Size of KV_BLOCK_SIZE x Q_BLOCK_SIZE tiles.</span>
+<span class="sd">            BLOCK_SIZE (Union[int, tuple[int, int]]): Size of KV_BLOCK_SIZE x Q_BLOCK_SIZE tiles.</span>
 <span class="sd">            mask_mod (Optional[Callable]): Function to modify the mask.</span>
 
 <span class="sd">        Returns:</span>
@@ -1091,8 +1090,8 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_adjust</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_q_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_kv_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="n">new_num_rows</span> <span class="o">=</span> <span class="n">new_q_len</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">new_num_cols</span> <span class="o">=</span> <span class="n">new_kv_len</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">new_num_rows</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_q_len</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">new_num_cols</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_kv_len</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">new_kv_num_blocks</span><span class="p">,</span> <span class="n">new_kv_indices</span> <span class="o">=</span> <span class="n">_adjust_num_blocks_and_indices</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kv_num_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kv_indices</span><span class="p">,</span> <span class="n">new_num_rows</span><span class="p">,</span> <span class="n">new_num_cols</span>
         <span class="p">)</span>
@@ -1255,7 +1254,7 @@
     <span class="n">Q_BLOCK_SIZE</span><span class="o">=</span><span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
     <span class="n">KV_BLOCK_SIZE</span><span class="o">=</span><span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
     <span class="n">separate_full_blocks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]:</span>
     <span class="k">assert</span> <span class="n">mask</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">_broadcast_to_dim</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 
@@ -1339,9 +1338,9 @@
 
 
 <span class="k">def</span> <span class="nf">_create_sparse_block_from_block_mask</span><span class="p">(</span>
-    <span class="n">block_mask</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
+    <span class="n">block_mask</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span>
     <span class="n">mask_mod</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">],</span>
-    <span class="n">seq_lengths</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">seq_lengths</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">Q_BLOCK_SIZE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
     <span class="n">KV_BLOCK_SIZE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockMask</span><span class="p">:</span>
@@ -1349,7 +1348,7 @@
 
     <span class="n">partial_bm</span> <span class="o">=</span> <span class="n">_dense_to_ordered</span><span class="p">(</span><span class="n">partial_blocks</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">full_blocks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">full_bm</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_dense_to_ordered</span><span class="p">(</span>
+        <span class="n">full_bm</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_dense_to_ordered</span><span class="p">(</span>
             <span class="n">full_blocks</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1420,7 +1419,7 @@
     <span class="n">Q_LEN</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">KV_LEN</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span>
-    <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
+    <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
     <span class="n">_compile</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockMask</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This function creates a block mask tuple from a mask_mod function.</span>
@@ -1436,7 +1435,7 @@
 <span class="sd">        Q_LEN (int): Sequence length of query.</span>
 <span class="sd">        KV_LEN (int): Sequence length of key/value.</span>
 <span class="sd">        device (str): Device to run the mask creation on.</span>
-<span class="sd">        BLOCK_SIZE (int or Tuple[int, int]): Block size for the block mask. If a single int is provided it is used for both query and key/value.</span>
+<span class="sd">        BLOCK_SIZE (int or tuple[int, int]): Block size for the block mask. If a single int is provided it is used for both query and key/value.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        BlockMask:  A BlockMask object that contains the block mask information.</span>
@@ -1593,7 +1592,7 @@
     <span class="n">H</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">q_nt</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">kv_nt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
+    <span class="n">BLOCK_SIZE</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_DEFAULT_SPARSE_BLOCK_SIZE</span><span class="p">,</span>
     <span class="n">_compile</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockMask</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This function creates a nested tensor compatible block mask tuple from a mask_mod</span>
@@ -1615,7 +1614,7 @@
 <span class="sd">            constructed to operate on a &quot;stacked sequence&quot; of length ``sum(S)`` for sequence</span>
 <span class="sd">            length ``S`` from the NJT. If this is None, ``q_nt`` is used to define the structure</span>
 <span class="sd">            for key / value as well. Default: None</span>
-<span class="sd">        BLOCK_SIZE (int or Tuple[int, int]): Block size for the block mask. If a single int is</span>
+<span class="sd">        BLOCK_SIZE (int or tuple[int, int]): Block size for the block mask. If a single int is</span>
 <span class="sd">            provided it is used for both query and key/value.</span>
 
 <span class="sd">    Returns:</span>
@@ -1758,8 +1757,8 @@
     <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">enable_gqa</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">return_lse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">kernel_options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]]:</span>
+    <span class="n">kernel_options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This function implements scaled dot product attention with an arbitrary attention score modification function.</span>
 
 <span class="sd">    This function computes the scaled dot product attention between query, key, and value tensors with a user-defined</span>

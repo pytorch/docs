@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git8c2aa0c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git0694195 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -626,6 +626,7 @@
     <span class="n">Iterator</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
     <span class="n">Mapping</span><span class="p">,</span>
+    <span class="n">NamedTuple</span><span class="p">,</span>
     <span class="n">NoReturn</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
@@ -2537,12 +2538,19 @@
         <span class="k">return</span> <span class="n">r</span>
 
 
+<span class="k">class</span> <span class="nc">_SymbolInfo</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">k</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span>
+    <span class="n">vr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ValueRanges</span><span class="p">]</span>
+    <span class="n">val</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span>
+    <span class="n">is_size_like</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">oblivious_upper_bound_exclusive</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span>
+
+
 <span class="nd">@lru_cache</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">_maybe_evaluate_static_worker</span><span class="p">(</span>
     <span class="n">expr</span><span class="p">:</span> <span class="n">_SympyT</span><span class="p">,</span>
-    <span class="n">symbol_info</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span>
-        <span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">],</span> <span class="o">...</span>
-    <span class="p">],</span>
+    <span class="c1"># NB: this is a tuple to ensure it can be LRU cached</span>
+    <span class="n">symbol_info</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_SymbolInfo</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
     <span class="n">unbacked_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_SympyT</span><span class="p">]:</span>
@@ -2562,6 +2570,7 @@
             <span class="c1"># Skip var_ranges logic for SingletonInt which is only used</span>
             <span class="c1"># for jagged layout NestedTensors today</span>
             <span class="k">continue</span>
+        <span class="k">assert</span> <span class="n">vr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">size_oblivious</span> <span class="ow">and</span> <span class="n">is_size_like</span><span class="p">:</span>
             <span class="n">lower</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">vr</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
             <span class="c1"># Clamping size-oblivious to some quantity below sys.maxsize</span>
@@ -6210,7 +6219,7 @@
             <span class="n">var_ranges</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">var_to_range</span><span class="p">)</span>
 
         <span class="n">symbol_info</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-            <span class="p">(</span>
+            <span class="n">_SymbolInfo</span><span class="p">(</span>
                 <span class="n">s</span><span class="p">,</span>
                 <span class="n">var_ranges</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>

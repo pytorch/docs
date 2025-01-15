@@ -281,7 +281,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git8c2aa0c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git0694195 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -595,20 +595,8 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Any</span><span class="p">,</span>
-    <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">Iterator</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
-    <span class="n">Mapping</span><span class="p">,</span>
-    <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">overload</span><span class="p">,</span>
-    <span class="n">Set</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">TypeVar</span><span class="p">,</span>
-    <span class="n">Union</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">overload</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Self</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -631,7 +619,7 @@
     <span class="s2">&quot;Module&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
-<span class="n">_grad_t</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">]</span>
+<span class="n">_grad_t</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">]</span>
 <span class="c1"># See https://mypy.readthedocs.io/en/latest/generics.html#generic-methods-and-generic-self for the use</span>
 <span class="c1"># of `T` to annotate `self`. Many methods of `Module` return `self` and we want those return values to be</span>
 <span class="c1"># the type of the subclass, not the looser type of `Module`.</span>
@@ -663,9 +651,9 @@
 
 <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This tracks hooks common to all modules that are executed immediately before</span>
 <span class="sd">.registering the buffer/module/parameter&quot;&quot;&quot;</span>
-<span class="n">_global_buffer_registration_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="n">_global_module_registration_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="n">_global_parameter_registration_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_buffer_registration_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_module_registration_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_parameter_registration_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 
 
 <span class="k">class</span> <span class="nc">_WrappedHook</span><span class="p">:</span>
@@ -687,14 +675,14 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hook&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hook</span><span class="p">,</span> <span class="s2">&quot;with_module&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_module</span><span class="p">}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_module</span><span class="p">:</span>
             <span class="n">result</span><span class="p">[</span><span class="s2">&quot;module&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">result</span>
 
-    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hook</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;hook&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">with_module</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;with_module&quot;</span><span class="p">]</span>
 
@@ -709,13 +697,13 @@
 <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This tracks hooks common to all modules that are executed before/after</span>
 <span class="sd">calling forward and backward. This is global state used for debugging/profiling</span>
 <span class="sd">purposes&quot;&quot;&quot;</span>
-<span class="n">_global_backward_pre_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="n">_global_backward_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_backward_pre_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_backward_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 <span class="n">_global_is_full_backward_hook</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">_global_forward_pre_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="n">_global_forward_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="n">_global_forward_hooks_always_called</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="n">_global_forward_hooks_with_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_forward_pre_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_forward_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_forward_hooks_always_called</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">_global_forward_hooks_with_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 
 <span class="n">_EXTRA_STATE_KEY_SUFFIX</span> <span class="o">=</span> <span class="s2">&quot;_extra_state&quot;</span>
 
@@ -1036,29 +1024,29 @@
 <span class="sd">    the change.&quot;&quot;&quot;</span>
 
     <span class="n">training</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">_parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]]</span>
-    <span class="n">_buffers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
-    <span class="n">_non_persistent_buffers_set</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-    <span class="n">_backward_pre_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
-    <span class="n">_backward_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
+    <span class="n">_parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]]</span>
+    <span class="n">_buffers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
+    <span class="n">_non_persistent_buffers_set</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">_backward_pre_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
+    <span class="n">_backward_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
     <span class="n">_is_full_backward_hook</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
-    <span class="n">_forward_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
+    <span class="n">_forward_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
     <span class="c1"># Marks whether the corresponding _forward_hooks accept kwargs or not.</span>
     <span class="c1"># As JIT does not support Set[int], this dict is used as a set, where all</span>
     <span class="c1"># hooks represented in this dict accept kwargs.</span>
-    <span class="n">_forward_hooks_with_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
+    <span class="n">_forward_hooks_with_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
     <span class="c1"># forward hooks that should always be called even if an exception is raised</span>
-    <span class="n">_forward_hooks_always_called</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
-    <span class="n">_forward_pre_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
+    <span class="n">_forward_hooks_always_called</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
+    <span class="n">_forward_pre_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
     <span class="c1"># Marks whether the corresponding _forward_hooks accept kwargs or not.</span>
     <span class="c1"># As JIT does not support Set[int], this dict is used as a set, where all</span>
     <span class="c1"># hooks represented in this dict accept kwargs.</span>
-    <span class="n">_forward_pre_hooks_with_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
-    <span class="n">_state_dict_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
-    <span class="n">_load_state_dict_pre_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
-    <span class="n">_state_dict_pre_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
-    <span class="n">_load_state_dict_post_hooks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
-    <span class="n">_modules</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Module&quot;</span><span class="p">]]</span>
+    <span class="n">_forward_pre_hooks_with_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
+    <span class="n">_state_dict_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
+    <span class="n">_load_state_dict_pre_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
+    <span class="n">_state_dict_pre_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
+    <span class="n">_load_state_dict_post_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span>
+    <span class="n">_modules</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Module&quot;</span><span class="p">]]</span>
     <span class="n">call_super_init</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">_compiled_call_impl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -1301,7 +1289,7 @@
         <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
 
-        <span class="n">atoms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="n">atoms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
         <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="bp">self</span>
 
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
@@ -1358,7 +1346,7 @@
         <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot set the submodule without a target name!&quot;</span><span class="p">)</span>
 
-        <span class="n">atoms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="n">atoms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="bp">self</span>
 
@@ -2074,13 +2062,13 @@
 <span class="sd">        It returns two lists, one with the full backward hooks and one with the non-full</span>
 <span class="sd">        backward hooks.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">full_backward_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">full_backward_hooks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">_global_is_full_backward_hook</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">full_backward_hooks</span> <span class="o">+=</span> <span class="n">_global_backward_hooks</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_full_backward_hook</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">full_backward_hooks</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 
-        <span class="n">non_full_backward_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">non_full_backward_hooks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">_global_is_full_backward_hook</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="n">non_full_backward_hooks</span> <span class="o">+=</span> <span class="n">_global_backward_hooks</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_full_backward_hook</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
@@ -2089,7 +2077,7 @@
         <span class="k">return</span> <span class="n">full_backward_hooks</span><span class="p">,</span> <span class="n">non_full_backward_hooks</span>
 
     <span class="k">def</span> <span class="nf">_get_backward_pre_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">backward_pre_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">backward_pre_hooks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">backward_pre_hooks</span> <span class="o">+=</span> <span class="n">_global_backward_pre_hooks</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
         <span class="n">backward_pre_hooks</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 
@@ -2169,10 +2157,10 @@
 <div class="viewcode-block" id="Module.register_forward_pre_hook"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.register_forward_pre_hook">[docs]</a>    <span class="k">def</span> <span class="nf">register_forward_pre_hook</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hook</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
-            <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
+            <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
             <span class="n">Callable</span><span class="p">[</span>
-                <span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
-                <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]],</span>
+                <span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+                <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]],</span>
             <span class="p">],</span>
         <span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
@@ -2235,8 +2223,8 @@
 <div class="viewcode-block" id="Module.register_forward_hook"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.register_forward_hook">[docs]</a>    <span class="k">def</span> <span class="nf">register_forward_hook</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hook</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
-            <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
-            <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
+            <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
+            <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
         <span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">prepend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -2714,7 +2702,7 @@
 
     <span class="c1"># The user can pass an optional arbitrary mappable object to `state_dict`, in which case `state_dict` returns</span>
     <span class="c1"># back that same object. But if they pass nothing, an `OrderedDict` is created and returned.</span>
-    <span class="n">T_destination</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_destination&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span>
+    <span class="n">T_destination</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_destination&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span>
 
     <span class="nd">@overload</span>
     <span class="k">def</span> <span class="nf">state_dict</span><span class="p">(</span>
@@ -2723,7 +2711,7 @@
         <span class="o">...</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="nf">state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">keep_vars</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">keep_vars</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="o">...</span>
 
     <span class="c1"># TODO: Change `*args` to `*` and remove the corresponding warning in docs when BC allows.</span>
@@ -3103,9 +3091,9 @@
                 <span class="sa">f</span><span class="s2">&quot;Expected state_dict to be dict-like, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">state_dict</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">missing_keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">unexpected_keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">error_msgs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">missing_keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">unexpected_keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">error_msgs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># copy state_dict so _load_from_state_dict can modify it</span>
         <span class="n">metadata</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">state_dict</span><span class="p">,</span> <span class="s2">&quot;_metadata&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -3221,7 +3209,7 @@
 
 <div class="viewcode-block" id="Module.named_parameters"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.named_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">named_parameters</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">recurse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">remove_duplicate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">]]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return an iterator over module parameters, yielding both the name of the parameter as well as the parameter itself.</span>
 
 <span class="sd">        Args:</span>
@@ -3276,7 +3264,7 @@
 
 <div class="viewcode-block" id="Module.named_buffers"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.named_buffers">[docs]</a>    <span class="k">def</span> <span class="nf">named_buffers</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">recurse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">remove_duplicate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return an iterator over module buffers, yielding both the name of the buffer as well as the buffer itself.</span>
 
 <span class="sd">        Args:</span>
@@ -3314,7 +3302,7 @@
         <span class="k">for</span> <span class="n">_name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
             <span class="k">yield</span> <span class="n">module</span></div>
 
-<div class="viewcode-block" id="Module.named_children"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.named_children">[docs]</a>    <span class="k">def</span> <span class="nf">named_children</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Module&quot;</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Module.named_children"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.named_children">[docs]</a>    <span class="k">def</span> <span class="nf">named_children</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Module&quot;</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return an iterator over immediate children modules, yielding both the name of the module as well as the module itself.</span>
 
 <span class="sd">        Yields:</span>
@@ -3363,7 +3351,7 @@
 
 <div class="viewcode-block" id="Module.named_modules"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.named_modules">[docs]</a>    <span class="k">def</span> <span class="nf">named_modules</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Module&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">memo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="s2">&quot;Module&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">remove_duplicate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
