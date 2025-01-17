@@ -145,8 +145,8 @@
                   <span class=dropdown-title>Developer Resources</span>
                   <p>Find resources and get questions answered</p>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2023">
-                  <span class="dropdown-title">Contributor Awards - 2023</span>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2024">
+                  <span class="dropdown-title">Contributor Awards - 2024</span>
                   <p>Award winners announced at this year's PyTorch Conference</p>
                 </a>
               </div>
@@ -166,6 +166,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
                   <span class="dropdown-title">ExecuTorch</span>
                   <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch/stable/index.html">
+                  <span class="dropdown-title">ExecuTorch Docs</span>
                 </a>
               </div>
             </div>  
@@ -214,6 +217,10 @@
                   <span class="dropdown-title">Events</span>
                   <p>Find events, webinars, and podcasts</p>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
+                  <span class="dropdown-title">Newsletter</span>
+                  <p>Stay up-to-date with the latest updates</p>
+                </a>
             </div>
           </li>
 
@@ -229,7 +236,18 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
                   <span class="dropdown-title">Governing Board</span>
-                  <p></p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
+                  <span class="dropdown-title">Cloud Credit Program</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
+                  <span class="dropdown-title">Technical Advisory Council</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
+                  <span class="dropdown-title">Staff</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contact-us">
+                  <span class="dropdown-title">Contact Us</span>
                 </a>
               </div>
             </div>
@@ -281,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitd7f45fc ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc3fcb36 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1282,9 +1300,9 @@
 <span class="sd">            torch.nn.Module: The submodule referenced by ``target``</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            AttributeError: If the target string references an invalid</span>
-<span class="sd">                path or resolves to something that is not an</span>
-<span class="sd">                ``nn.Module``</span>
+<span class="sd">            AttributeError: If at any point along the path resulting from</span>
+<span class="sd">                the target string the (sub)path resolves to a non-existent</span>
+<span class="sd">                attribute name or an object that is not an instance of ``nn.Module``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
@@ -1305,9 +1323,17 @@
 
         <span class="k">return</span> <span class="n">mod</span></div>
 
-<div class="viewcode-block" id="Module.set_submodule"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.set_submodule">[docs]</a>    <span class="k">def</span> <span class="nf">set_submodule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;Module&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Module.set_submodule"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.set_submodule">[docs]</a>    <span class="k">def</span> <span class="nf">set_submodule</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s2">&quot;Module&quot;</span><span class="p">,</span> <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the submodule given by ``target`` if it exists, otherwise throw an error.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            If ``strict`` is set to ``False`` (default), the method will replace an existing submodule</span>
+<span class="sd">            or create a new submodule if the parent module exists. If ``strict`` is set to ``True``,</span>
+<span class="sd">            the method will only attempt to replace an existing submodule and throw an error if</span>
+<span class="sd">            the submodule does not exist.</span>
 
 <span class="sd">        For example, let&#39;s say you have an ``nn.Module`` ``A`` that</span>
 <span class="sd">        looks like this:</span>
@@ -1317,9 +1343,9 @@
 <span class="sd">            A(</span>
 <span class="sd">                (net_b): Module(</span>
 <span class="sd">                    (net_c): Module(</span>
-<span class="sd">                        (conv): Conv2d(16, 33, kernel_size=(3, 3), stride=(2, 2))</span>
+<span class="sd">                        (conv): Conv2d(3, 3, 3)</span>
 <span class="sd">                    )</span>
-<span class="sd">                    (linear): Linear(in_features=100, out_features=200, bias=True)</span>
+<span class="sd">                    (linear): Linear(3, 3)</span>
 <span class="sd">                )</span>
 <span class="sd">            )</span>
 
@@ -1327,42 +1353,56 @@
 <span class="sd">        submodule ``net_b``, which itself has two submodules ``net_c``</span>
 <span class="sd">        and ``linear``. ``net_c`` then has a submodule ``conv``.)</span>
 
-<span class="sd">        To overide the ``Conv2d`` with a new submodule ``Linear``, you</span>
-<span class="sd">        would call</span>
-<span class="sd">        ``set_submodule(&quot;net_b.net_c.conv&quot;, nn.Linear(33, 16))``.</span>
+<span class="sd">        To override the ``Conv2d`` with a new submodule ``Linear``, you</span>
+<span class="sd">        could call ``set_submodule(&quot;net_b.net_c.conv&quot;, nn.Linear(1, 1))``</span>
+<span class="sd">        where ``strict`` could be ``True`` or ``False``</span>
+
+<span class="sd">        To add a new submodule ``Conv2d`` to the existing ``net_b`` module,</span>
+<span class="sd">        you would call ``set_submodule(&quot;net_b.conv&quot;, nn.Conv2d(1, 1, 1))``.</span>
+
+<span class="sd">        In the above if you set ``strict=True`` and call</span>
+<span class="sd">        ``set_submodule(&quot;net_b.conv&quot;, nn.Conv2d(1, 1, 1), strict=True)``, an AttributeError</span>
+<span class="sd">        will be raised because ``net_b`` does not have a submodule named ``conv``.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            target: The fully-qualified string name of the submodule</span>
 <span class="sd">                to look for. (See above example for how to specify a</span>
 <span class="sd">                fully-qualified string.)</span>
 <span class="sd">            module: The module to set the submodule to.</span>
+<span class="sd">            strict: If ``False``, the method will replace an existing submodule</span>
+<span class="sd">                or create a new submodule if the parent module exists. If ``True``,</span>
+<span class="sd">                the method will only attempt to replace an existing submodule and throw an error</span>
+<span class="sd">                if the submodule doesn&#39;t already exist.</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            ValueError: If the target string is empty</span>
-<span class="sd">            AttributeError: If the target string references an invalid</span>
-<span class="sd">                path or resolves to something that is not an</span>
-<span class="sd">                ``nn.Module``</span>
+<span class="sd">            ValueError: If the ``target`` string is empty or if ``module`` is not an instance of ``nn.Module``.</span>
+<span class="sd">            AttributeError: If at any point along the path resulting from</span>
+<span class="sd">                the ``target`` string the (sub)path resolves to a non-existent</span>
+<span class="sd">                attribute name or an object that is not an instance of ``nn.Module``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot set the submodule without a target name!&quot;</span><span class="p">)</span>
 
         <span class="n">atoms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;`&quot;</span> <span class="o">+</span> <span class="s2">&quot;module&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;` is not an nn.Module, found </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">parent</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parent_key</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">atoms</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_submodule</span><span class="p">(</span><span class="n">parent_key</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-                    <span class="n">mod</span><span class="o">.</span><span class="n">_get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; has no attribute `&quot;</span> <span class="o">+</span> <span class="n">item</span> <span class="o">+</span> <span class="s2">&quot;`&quot;</span>
-                <span class="p">)</span>
-
-            <span class="n">mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-
-            <span class="c1"># Use isinstance instead of type here to also handle subclass of nn.Module</span>
+        <span class="k">if</span> <span class="n">strict</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">_get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; has no attribute `&quot;</span> <span class="o">+</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;`&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;`&quot;</span> <span class="o">+</span> <span class="n">item</span> <span class="o">+</span> <span class="s2">&quot;` is not an nn.Module&quot;</span><span class="p">)</span>
-
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span></div>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;`&quot;</span> <span class="o">+</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;` is not an nn.Module&quot;</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">atoms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">module</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Module.get_parameter"><a class="viewcode-back" href="../../../../generated/torch.nn.Module.html#torch.nn.modules.module.Module.get_parameter">[docs]</a>    <span class="k">def</span> <span class="nf">get_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Parameter&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the parameter given by ``target`` if it exists, otherwise throw an error.</span>
@@ -3810,7 +3850,7 @@ if (url)
                <a href="https://pytorch.org/resources">Developer Resources</a>
              </li>
              <li>
-               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2023</a>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2024</a>
              </li>
            </ul>
 
@@ -3825,6 +3865,9 @@ if (url)
              
              <li>
                <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/executorch/stable/index.html">ExecuTorch Documentation</a>
              </li>
            </ul>
 
@@ -3864,6 +3907,9 @@ if (url)
             <li>
               <a href="https://pytorch.org/events">Events</a>
             </li>
+            <li>
+               <a href="https://pytorch.org/newsletter">Newsletter</a>
+             </li>
           </ul>
           
           <li class="resources-mobile-menu-title">
@@ -3876,6 +3922,18 @@ if (url)
             </li>
             <li>
               <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/credits">Cloud Credit Program</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/tac">Technical Advisory Council</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/staff">Staff</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/contact-us">Contact Us</a>
             </li>
           </ul>
         </ul>

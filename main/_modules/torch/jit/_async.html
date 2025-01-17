@@ -145,8 +145,8 @@
                   <span class=dropdown-title>Developer Resources</span>
                   <p>Find resources and get questions answered</p>
                 </a>
-                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2023">
-                  <span class="dropdown-title">Contributor Awards - 2023</span>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2024">
+                  <span class="dropdown-title">Contributor Awards - 2024</span>
                   <p>Award winners announced at this year's PyTorch Conference</p>
                 </a>
               </div>
@@ -166,6 +166,9 @@
                 <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
                   <span class="dropdown-title">ExecuTorch</span>
                   <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch/stable/index.html">
+                  <span class="dropdown-title">ExecuTorch Docs</span>
                 </a>
               </div>
             </div>  
@@ -214,6 +217,10 @@
                   <span class="dropdown-title">Events</span>
                   <p>Find events, webinars, and podcasts</p>
                 </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
+                  <span class="dropdown-title">Newsletter</span>
+                  <p>Stay up-to-date with the latest updates</p>
+                </a>
             </div>
           </li>
 
@@ -229,7 +236,18 @@
                 </a>
                 <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
                   <span class="dropdown-title">Governing Board</span>
-                  <p></p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
+                  <span class="dropdown-title">Cloud Credit Program</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
+                  <span class="dropdown-title">Technical Advisory Council</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
+                  <span class="dropdown-title">Staff</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contact-us">
+                  <span class="dropdown-title">Contact Us</span>
                 </a>
               </div>
             </div>
@@ -281,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitd7f45fc ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc3fcb36 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -641,11 +659,17 @@
 
 <span class="sd">        import torch</span>
 <span class="sd">        from torch import Tensor</span>
-<span class="sd">        def foo(a : Tensor, b : int) -&gt; Tensor:</span>
+
+
+<span class="sd">        def foo(a: Tensor, b: int) -&gt; Tensor:</span>
 <span class="sd">            return a + b</span>
+
+
 <span class="sd">        def bar(a):</span>
-<span class="sd">            fut : torch.jit.Future[Tensor] = torch.jit.fork(foo, a, b=2)</span>
+<span class="sd">            fut: torch.jit.Future[Tensor] = torch.jit.fork(foo, a, b=2)</span>
 <span class="sd">            return torch.jit.wait(fut)</span>
+
+
 <span class="sd">        script_bar = torch.jit.script(bar)</span>
 <span class="sd">        input = torch.tensor(2)</span>
 <span class="sd">        # only the scripted version executes asynchronously</span>
@@ -660,16 +684,23 @@
 
 <span class="sd">        import torch</span>
 <span class="sd">        from torch import Tensor</span>
+
+
 <span class="sd">        class AddMod(torch.nn.Module):</span>
-<span class="sd">            def forward(self, a: Tensor, b : int):</span>
+<span class="sd">            def forward(self, a: Tensor, b: int):</span>
 <span class="sd">                return a + b</span>
+
+
 <span class="sd">        class Mod(torch.nn.Module):</span>
 <span class="sd">            def __init__(self) -&gt; None:</span>
 <span class="sd">                super(self).__init__()</span>
 <span class="sd">                self.mod = AddMod()</span>
+
 <span class="sd">            def forward(self, input):</span>
 <span class="sd">                fut = torch.jit.fork(self.mod, a, b=2)</span>
 <span class="sd">                return torch.jit.wait(fut)</span>
+
+
 <span class="sd">        input = torch.tensor(2)</span>
 <span class="sd">        mod = Mod()</span>
 <span class="sd">        assert mod(input) == torch.jit.script(mod).forward(input)</span>
@@ -935,7 +966,7 @@ if (url)
                <a href="https://pytorch.org/resources">Developer Resources</a>
              </li>
              <li>
-               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2023</a>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2024</a>
              </li>
            </ul>
 
@@ -950,6 +981,9 @@ if (url)
              
              <li>
                <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/executorch/stable/index.html">ExecuTorch Documentation</a>
              </li>
            </ul>
 
@@ -989,6 +1023,9 @@ if (url)
             <li>
               <a href="https://pytorch.org/events">Events</a>
             </li>
+            <li>
+               <a href="https://pytorch.org/newsletter">Newsletter</a>
+             </li>
           </ul>
           
           <li class="resources-mobile-menu-title">
@@ -1001,6 +1038,18 @@ if (url)
             </li>
             <li>
               <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/credits">Cloud Credit Program</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/tac">Technical Advisory Council</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/staff">Staff</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/contact-us">Contact Us</a>
             </li>
           </ul>
         </ul>
