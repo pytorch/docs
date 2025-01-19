@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc3fcb36 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitcede43e ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -619,6 +619,7 @@
 <span class="kn">import</span> <span class="nn">uuid</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">UnsupportedOperation</span>
@@ -637,10 +638,17 @@
     <span class="n">Union</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="c1"># introduced as collections.abc.Buffer in Python 3.12</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Buffer</span>
+
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
 <span class="kn">from</span> <span class="nn">torch._utils</span> <span class="kn">import</span> <span class="n">_get_available_device_type</span><span class="p">,</span> <span class="n">_get_device_module</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._shard._utils</span> <span class="kn">import</span> <span class="n">narrow_tensor_by_index</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.checkpoint._extension</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ExtensionRegistry</span><span class="p">,</span>
+    <span class="n">StreamTransformExtension</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.metadata</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Metadata</span><span class="p">,</span>
     <span class="n">MetadataIndex</span><span class="p">,</span>
@@ -679,6 +687,10 @@
     <span class="n">relative_path</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">length</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">transform_descriptors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 
 
 <span class="nd">@dataclass</span>
@@ -820,6 +832,57 @@
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finish</span><span class="p">()</span>
 
 
+<span class="k">class</span> <span class="nc">_StorageWriterTransforms</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is experimental, and will likely move elsewhere in the</span>
+<span class="sd">    future.  It lives here to minimize changes while we are still</span>
+<span class="sd">    learning and gathering feedback.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">extensions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">StreamTransformExtension</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If the extensions arg is None, this means the implementation</span>
+<span class="sd">        should provide whatever defaults it chooses.  An empty</span>
+<span class="sd">        sequence indicates no extensions should be used.  At this</span>
+<span class="sd">        time, the default extensions sequence is empty.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span> <span class="o">=</span> <span class="p">()</span> <span class="k">if</span> <span class="n">extensions</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">extensions</span>
+
+    <span class="k">def</span> <span class="nf">transform_save_stream</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">write_item</span><span class="p">:</span> <span class="n">WriteItem</span><span class="p">,</span> <span class="n">raw_stream</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">IOBase</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="c1"># In order to avoid leaking fds, transformers&#39; close must</span>
+        <span class="c1"># cascade to wrapped streams, but since this function can</span>
+        <span class="c1"># append to the raw stream, we can&#39;t close the actual stream.</span>
+        <span class="c1"># So, we use this to put a wrapper around the raw stream&#39;s</span>
+        <span class="c1"># close() to make it a noop, and it gets closed once all files</span>
+        <span class="c1"># are appended.</span>
+
+        <span class="k">class</span> <span class="nc">NoCloseWriter</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">):</span>
+            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">raw</span>
+
+            <span class="k">def</span> <span class="nf">writeable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Buffer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="c1"># but not close.</span>
+
+        <span class="n">transform_to</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">NoCloseWriter</span><span class="p">(</span><span class="n">raw_stream</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">:</span>
+            <span class="n">transform_to</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">transform_to</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">transform_to</span><span class="p">,</span> <span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">get_descriptor</span><span class="p">()</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">)])</span>
+
+
 <span class="k">def</span> <span class="nf">_item_size</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">WriteItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">tensor_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -856,6 +919,7 @@
 
 
 <span class="k">def</span> <span class="nf">_write_item</span><span class="p">(</span>
+    <span class="n">transforms</span><span class="p">:</span> <span class="n">_StorageWriterTransforms</span><span class="p">,</span>
     <span class="n">stream</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">,</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
     <span class="n">write_item</span><span class="p">:</span> <span class="n">WriteItem</span><span class="p">,</span>
@@ -863,19 +927,36 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WriteResult</span><span class="p">:</span>
     <span class="n">offset</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
 
+    <span class="p">(</span><span class="n">transform_to</span><span class="p">,</span> <span class="n">transform_descriptors</span><span class="p">)</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">transform_save_stream</span><span class="p">(</span>
+        <span class="n">write_item</span><span class="p">,</span> <span class="n">stream</span>
+    <span class="p">)</span>
+
     <span class="k">if</span> <span class="n">write_item</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">WriteItemType</span><span class="o">.</span><span class="n">BYTE_IO</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">)</span>
-        <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">getbuffer</span><span class="p">())</span>
+        <span class="n">transform_to</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">getbuffer</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">device</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">stream</span><span class="p">))</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transform_to</span><span class="p">)</span>
+    <span class="n">transform_to</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
     <span class="n">length</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">-</span> <span class="n">offset</span>
+
+    <span class="c1"># For consistency with earlier versions, leave this field out of the</span>
+    <span class="c1"># metadata if there are no extensions.</span>
+    <span class="n">info_transform_descriptors</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="kc">None</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transform_descriptors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">transform_descriptors</span>
+    <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">WriteResult</span><span class="p">(</span>
         <span class="n">index</span><span class="o">=</span><span class="n">write_item</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
         <span class="n">size_in_bytes</span><span class="o">=</span><span class="n">length</span><span class="p">,</span>
-        <span class="n">storage_data</span><span class="o">=</span><span class="n">_StorageInfo</span><span class="p">(</span><span class="n">storage_key</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">length</span><span class="p">),</span>
+        <span class="n">storage_data</span><span class="o">=</span><span class="n">_StorageInfo</span><span class="p">(</span>
+            <span class="n">storage_key</span><span class="p">,</span>
+            <span class="n">offset</span><span class="p">,</span>
+            <span class="n">length</span><span class="p">,</span>
+            <span class="n">transform_descriptors</span><span class="o">=</span><span class="n">info_transform_descriptors</span><span class="p">,</span>
+        <span class="p">),</span>
     <span class="p">)</span>
 
 
@@ -884,6 +965,7 @@
     <span class="n">file_queue</span><span class="p">:</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">,</span>
     <span class="n">result_queue</span><span class="p">:</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">,</span>
     <span class="n">planner</span><span class="p">:</span> <span class="n">SavePlanner</span><span class="p">,</span>
+    <span class="n">transforms</span><span class="p">:</span> <span class="n">_StorageWriterTransforms</span><span class="p">,</span>
     <span class="n">inflight_threshhold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">use_fsync</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">thread_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -928,13 +1010,13 @@
                 <span class="k">for</span> <span class="n">write_item</span> <span class="ow">in</span> <span class="n">bytes_w</span><span class="p">:</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">planner</span><span class="o">.</span><span class="n">resolve_data</span><span class="p">(</span><span class="n">write_item</span><span class="p">)</span>
                     <span class="n">write_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="n">_write_item</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">write_item</span><span class="p">,</span> <span class="n">storage_key</span><span class="p">)</span>
+                        <span class="n">_write_item</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">write_item</span><span class="p">,</span> <span class="n">storage_key</span><span class="p">)</span>
                     <span class="p">)</span>
 
                 <span class="k">for</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">write_item</span> <span class="ow">in</span> <span class="n">loader</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                     <span class="k">assert</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_cpu</span>
                     <span class="n">write_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="n">_write_item</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">write_item</span><span class="p">,</span> <span class="n">storage_key</span><span class="p">)</span>
+                        <span class="n">_write_item</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">write_item</span><span class="p">,</span> <span class="n">storage_key</span><span class="p">)</span>
                     <span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">use_fsync</span><span class="p">:</span>
@@ -942,6 +1024,7 @@
                         <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
                     <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="n">UnsupportedOperation</span><span class="p">):</span>
                         <span class="n">os</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+                <span class="n">stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="n">result_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">write_results</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
         <span class="k">pass</span>
@@ -1037,6 +1120,7 @@
 
 
 <span class="k">class</span> <span class="nc">_FileSystemWriter</span><span class="p">(</span><span class="n">StorageWriter</span><span class="p">):</span>
+
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Basic implementation of StorageWriter using file IO.</span>
 
@@ -1058,6 +1142,7 @@
         <span class="n">thread_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">per_thread_copy_ahead</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span><span class="p">,</span>
         <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">_extensions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">StreamTransformExtension</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1071,6 +1156,7 @@
 <span class="sd">            thread_count: Number of IO threads to use to write. Default to 1.</span>
 <span class="sd">            per_thread_copy_ahead: How many bytes to copy from the GPU ahead of saving then. Default 10Mb.</span>
 <span class="sd">            overwrite: Whether to allow overwriting existing checkpoints. Defaults to True.</span>
+<span class="sd">            _extensions: Extensions to apply to output streams (EXPERIMENTAL)</span>
 
 <span class="sd">        N. B. If sync_files is disabled, there&#39;s no guarantee that the checkpoint will be consistent in the case of a failure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1083,6 +1169,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">per_thread_copy_ahead</span> <span class="o">=</span> <span class="n">per_thread_copy_ahead</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save_id</span> <span class="o">=</span> <span class="n">_generate_uuid</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">overwrite</span> <span class="o">=</span> <span class="n">overwrite</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span> <span class="o">=</span> <span class="n">_StorageWriterTransforms</span><span class="p">(</span><span class="n">_extensions</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">checkpoint_id</span><span class="p">:</span>
@@ -1150,6 +1237,7 @@
                     <span class="n">file_queue</span><span class="p">,</span>
                     <span class="n">result_queue</span><span class="p">,</span>
                     <span class="n">planner</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">per_thread_copy_ahead</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">sync_files</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">thread_count</span><span class="p">,</span>
@@ -1163,6 +1251,7 @@
             <span class="n">file_queue</span><span class="o">=</span><span class="n">file_queue</span><span class="p">,</span>
             <span class="n">result_queue</span><span class="o">=</span><span class="n">result_queue</span><span class="p">,</span>
             <span class="n">planner</span><span class="o">=</span><span class="n">planner</span><span class="p">,</span>
+            <span class="n">transforms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">,</span>
             <span class="n">inflight_threshhold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">per_thread_copy_ahead</span><span class="p">,</span>
             <span class="n">use_fsync</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sync_files</span><span class="p">,</span>
             <span class="n">thread_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">thread_count</span><span class="p">,</span>
@@ -1222,16 +1311,47 @@
         <span class="k">return</span> <span class="n">FileSystem</span><span class="o">.</span><span class="n">validate_checkpoint_id</span><span class="p">(</span><span class="n">checkpoint_id</span><span class="p">)</span>
 
 
+<span class="k">class</span> <span class="nc">_StorageReaderTransforms</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is experimental, and will likely move elsewhere in the</span>
+<span class="sd">    future.  It lives here to minimize changes while we are still</span>
+<span class="sd">    learning and gathering feedback.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extension_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExtensionRegistry</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extension_registry</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">ExtensionRegistry</span><span class="p">()</span> <span class="k">if</span> <span class="n">extension_registry</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">extension_registry</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform_load_stream</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">read_item</span><span class="p">:</span> <span class="n">ReadItem</span><span class="p">,</span>
+        <span class="n">transform_descriptors</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">raw_stream</span><span class="p">:</span> <span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+        <span class="n">extensions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extension_registry</span><span class="o">.</span><span class="n">from_descriptor_list</span><span class="p">(</span><span class="n">transform_descriptors</span><span class="p">)</span>
+        <span class="n">transform_from</span> <span class="o">=</span> <span class="n">raw_stream</span>
+        <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">extensions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">StreamTransformExtension</span><span class="p">):</span>
+                <span class="n">transform_from</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">transform_from</span><span class="p">(</span><span class="n">transform_from</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">transform_from</span>
+
+
 <div class="viewcode-block" id="FileSystemReader"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.FileSystemReader">[docs]</a><span class="k">class</span> <span class="nc">FileSystemReader</span><span class="p">(</span><span class="n">StorageReader</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span>
+        <span class="n">_extension_registry</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExtensionRegistry</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># EXPERIMENTAL</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystem</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">init_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">storage_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">MetadataIndex</span><span class="p">,</span> <span class="n">_StorageInfo</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_id</span> <span class="o">=</span> <span class="n">_generate_uuid</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span> <span class="o">=</span> <span class="n">_StorageReaderTransforms</span><span class="p">(</span><span class="n">_extension_registry</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_slice_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">sinfo</span><span class="p">:</span> <span class="n">_StorageInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">io</span><span class="o">.</span><span class="n">IOBase</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_create_file_view</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_slice_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">sinfo</span><span class="p">:</span> <span class="n">_StorageInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">_create_file_view</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">sinfo</span><span class="o">.</span><span class="n">length</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">storage_data</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1254,15 +1374,31 @@
                 <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs</span><span class="p">:</span>
                     <span class="n">item_md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_data</span><span class="p">[</span><span class="n">req</span><span class="o">.</span><span class="n">storage_index</span><span class="p">]</span>
                     <span class="n">file_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_file</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">item_md</span><span class="p">)</span>
+                    <span class="n">transform_from</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">transform_load_stream</span><span class="p">(</span>
+                        <span class="n">req</span><span class="p">,</span>
+                        <span class="c1"># This field wasn&#39;t present in older</span>
+                        <span class="c1"># implementations so provide a fallback.</span>
+                        <span class="n">item_md</span><span class="o">.</span><span class="n">transform_descriptors</span> <span class="ow">or</span> <span class="p">(),</span>
+                        <span class="n">file_slice</span><span class="p">,</span>
+                    <span class="p">)</span>
+
                     <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">LoadItemType</span><span class="o">.</span><span class="n">BYTE_IO</span><span class="p">:</span>
-                        <span class="n">read_bytes</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">file_slice</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">item_md</span><span class="o">.</span><span class="n">length</span><span class="p">))</span>
+                        <span class="n">read_bytes</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">transform_from</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
                         <span class="n">read_bytes</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                         <span class="n">planner</span><span class="o">.</span><span class="n">load_bytes</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">read_bytes</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">transform_from</span><span class="o">.</span><span class="n">seekable</span><span class="p">():</span>
+                            <span class="n">seekable</span> <span class="o">=</span> <span class="n">transform_from</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># torch.load requires a seekable input, so read the transform</span>
+                            <span class="c1"># stream now and store the output if needed</span>
+                            <span class="n">seekable</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">transform_from</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                            <span class="n">seekable</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
                         <span class="n">tensor</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
                             <span class="n">Tensor</span><span class="p">,</span>
                             <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-                                <span class="n">cast</span><span class="p">(</span><span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">file_slice</span><span class="p">),</span>
+                                <span class="n">seekable</span><span class="p">,</span>
                                 <span class="n">map_location</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
                                 <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="p">),</span>
@@ -1339,6 +1475,7 @@
         <span class="n">per_thread_copy_ahead</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span><span class="p">,</span>
         <span class="n">cache_staged_state_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">_extensions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">StreamTransformExtension</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the writer pointing to `path`.</span>
@@ -1353,6 +1490,7 @@
 <span class="sd">                at the cost of increases memory usage. Additionally, if this parameter is set to True, it&#39;s the expectation</span>
 <span class="sd">                that the stager is maintained and re-used for multiple dcp.async_save calls. Default to False.</span>
 <span class="sd">            overwrite: Whether to allow overwriting existing checkpoints. Defaults to True.</span>
+<span class="sd">            _extensions: Extensions to apply to output streams (EXPERIMENTAL)</span>
 
 <span class="sd">        N. B. If sync_files is disabled, there&#39;s no guarantee that the checkpoint will be consistent in the case of a failure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1364,6 +1502,7 @@
             <span class="n">thread_count</span><span class="o">=</span><span class="n">thread_count</span><span class="p">,</span>
             <span class="n">per_thread_copy_ahead</span><span class="o">=</span><span class="n">per_thread_copy_ahead</span><span class="p">,</span>
             <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
+            <span class="n">_extensions</span><span class="o">=</span><span class="n">_extensions</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">BlockingAsyncStager</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
