@@ -176,7 +176,7 @@ list_unpack
 
 .. note::
 
-    Tags: :doc:`python.data-structure <python.data-structure>`, :doc:`python.control-flow <python.control-flow>`
+    Tags: :doc:`python.control-flow <python.control-flow>`, :doc:`python.data-structure <python.data-structure>`
 
     Support Level: SUPPORTED
 
@@ -185,7 +185,6 @@ Original source code:
 .. code-block:: python
 
     # mypy: allow-untyped-defs
-    from typing import List
     
     import torch
     
@@ -195,7 +194,7 @@ Original source code:
         erased after tracing.
         """
     
-        def forward(self, args: List[torch.Tensor]):
+        def forward(self, args: list[torch.Tensor]):
             """
             Lists are treated as static construct, therefore unpacking should be
             erased after tracing.

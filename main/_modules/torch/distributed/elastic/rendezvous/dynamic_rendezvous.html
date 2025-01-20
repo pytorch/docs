@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitcede43e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -626,7 +626,7 @@
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">timezone</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
 <span class="kn">from</span> <span class="nn">torch.distributed</span> <span class="kn">import</span> <span class="n">Store</span>
@@ -907,10 +907,10 @@
     <span class="n">complete</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span>
     <span class="n">closed</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">participants</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
-    <span class="n">wait_list</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">]</span>
-    <span class="n">redundancy_list</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">]</span>
-    <span class="n">last_heartbeats</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]</span>
+    <span class="n">participants</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">wait_list</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">]</span>
+    <span class="n">redundancy_list</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">]</span>
+    <span class="n">last_heartbeats</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">=</span> <span class="mi">0</span>
@@ -986,7 +986,7 @@
     <span class="n">_token</span><span class="p">:</span> <span class="n">Token</span>
     <span class="n">_dirty</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_last_sync_time</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">_dead_nodes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">]</span>
+    <span class="n">_dead_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">_NodeDesc</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

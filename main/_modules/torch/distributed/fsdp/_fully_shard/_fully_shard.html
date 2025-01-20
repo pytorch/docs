@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitcede43e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -612,18 +612,8 @@
 <span></span><span class="c1"># mypy: allow-untyped-decorators</span>
 <span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">functools</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Any</span><span class="p">,</span>
-    <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">cast</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">Iterable</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
-    <span class="n">NoReturn</span><span class="p">,</span>
-    <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">Type</span><span class="p">,</span>
-    <span class="n">Union</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
@@ -653,14 +643,14 @@
 <span class="p">]</span>
 
 
-<span class="n">cls_to_fsdp_cls</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Type</span><span class="p">,</span> <span class="n">Type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">cls_to_fsdp_cls</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
 
 <span class="c1"># The decorator adds a state object to `module` that can be accessed via</span>
 <span class="c1"># `fully_shard.state(module)`. The state object and module are 1:1.</span>
 <span class="nd">@contract</span><span class="p">(</span><span class="n">state_cls</span><span class="o">=</span><span class="n">FSDPState</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">fully_shard</span><span class="p">(</span>
-    <span class="n">module</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]],</span>
+    <span class="n">module</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">reshard_after_forward</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -942,7 +932,7 @@
                 <span class="k">if</span> <span class="n">fsdp_param_group</span> <span class="o">:=</span> <span class="n">state</span><span class="o">.</span><span class="n">_fsdp_param_group</span><span class="p">:</span>
                     <span class="n">fsdp_param_group</span><span class="o">.</span><span class="n">reshard_after_backward</span> <span class="o">=</span> <span class="n">reshard_after_backward</span></div>
 
-<div class="viewcode-block" id="FSDPModule.set_modules_to_forward_prefetch"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_modules_to_forward_prefetch">[docs]</a>    <span class="k">def</span> <span class="nf">set_modules_to_forward_prefetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;FSDPModule&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="FSDPModule.set_modules_to_forward_prefetch"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_modules_to_forward_prefetch">[docs]</a>    <span class="k">def</span> <span class="nf">set_modules_to_forward_prefetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modules</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;FSDPModule&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the FSDP modules for which this FSDP module should explicitly</span>
 <span class="sd">        prefetch all-gathers in forward. The prefetching runs after this</span>
@@ -962,7 +952,7 @@
             <span class="n">module</span><span class="o">.</span><span class="n">_get_fsdp_state</span><span class="p">()</span> <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">modules</span>
         <span class="p">]</span></div>
 
-<div class="viewcode-block" id="FSDPModule.set_modules_to_backward_prefetch"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_modules_to_backward_prefetch">[docs]</a>    <span class="k">def</span> <span class="nf">set_modules_to_backward_prefetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;FSDPModule&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="FSDPModule.set_modules_to_backward_prefetch"><a class="viewcode-back" href="../../../../../distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_modules_to_backward_prefetch">[docs]</a>    <span class="k">def</span> <span class="nf">set_modules_to_backward_prefetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modules</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;FSDPModule&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the FSDP modules for which this FSDP module should explicitly</span>
 <span class="sd">        prefetch all-gathers in backward. This overrides the default backward</span>
