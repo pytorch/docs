@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -607,7 +607,7 @@
   <h1>Source code for torch.nn.modules.conv</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -1395,8 +1395,8 @@
                     <span class="sa">f</span><span class="s2">&quot;or </span><span class="si">{</span><span class="n">num_non_spatial_dims</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">num_spatial_dims</span><span class="si">}</span><span class="s2"> elements (got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">output_size</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
                 <span class="p">)</span>
 
-            <span class="n">min_sizes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
-            <span class="n">max_sizes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
+            <span class="n">min_sizes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
+            <span class="n">max_sizes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_spatial_dims</span><span class="p">):</span>
                 <span class="n">dim_size</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">num_non_spatial_dims</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
@@ -1418,7 +1418,7 @@
                         <span class="sa">f</span><span class="s2">&quot;from </span><span class="si">{</span><span class="n">min_sizes</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">max_sizes</span><span class="si">}</span><span class="s2"> (for an input of </span><span class="si">{</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">2</span><span class="p">:]</span><span class="si">}</span><span class="s2">)&quot;</span>
                     <span class="p">)</span>
 
-            <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_spatial_dims</span><span class="p">):</span>
                 <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output_size</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_sizes</span><span class="p">[</span><span class="n">d</span><span class="p">])</span>
 

@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -652,8 +652,8 @@
 <span class="n">_initialized</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">_tls</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">local</span><span class="p">()</span>
 <span class="n">_initialization_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-<span class="n">_queued_calls</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span>
-    <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+<span class="n">_queued_calls</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+    <span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># don&#39;t invoke these until initialization occurs</span>
 <span class="n">_is_in_bad_fork</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="p">,</span> <span class="s2">&quot;_cuda_isInBadFork&quot;</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">False</span><span class="p">)</span>
 <span class="n">_device_t</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">_device</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
@@ -708,7 +708,7 @@
 <span class="n">has_half</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">has_magma</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_has_magma</span>
 
-<span class="n">default_generators</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Generator</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>  <span class="c1"># type: ignore[assignment]</span>
+<span class="n">default_generators</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">Generator</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>  <span class="c1"># type: ignore[assignment]</span>
 
 
 <span class="k">def</span> <span class="nf">_is_compiled</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1099,7 +1099,7 @@
     <span class="k">return</span> <span class="n">get_device_properties</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">name</span></div>
 
 
-<div class="viewcode-block" id="get_device_capability"><a class="viewcode-back" href="../../generated/torch.cuda.get_device_capability.html#torch.cuda.get_device_capability">[docs]</a><span class="k">def</span> <span class="nf">get_device_capability</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_device_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="get_device_capability"><a class="viewcode-back" href="../../generated/torch.cuda.get_device_capability.html#torch.cuda.get_device_capability">[docs]</a><span class="k">def</span> <span class="nf">get_device_capability</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_device_t</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get the cuda capability of a device.</span>
 
 <span class="sd">    Args:</span>
@@ -1249,7 +1249,7 @@
     <span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">_parse_visible_devices</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="k">def</span> <span class="nf">_parse_visible_devices</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Parse CUDA_VISIBLE_DEVICES environment variable.&quot;&quot;&quot;</span>
     <span class="n">var</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CUDA_VISIBLE_DEVICES&quot;</span><span class="p">)</span>
 
@@ -1290,12 +1290,12 @@
                 <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="n">idx</span><span class="p">])</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
 
-    <span class="k">def</span> <span class="nf">parse_list_with_prefix</span><span class="p">(</span><span class="n">lst</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="n">rcs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span> <span class="nf">parse_list_with_prefix</span><span class="p">(</span><span class="n">lst</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="n">rcs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">lst</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
             <span class="c1"># Repeated id results in empty set</span>
             <span class="k">if</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">rcs</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="p">[])</span>
+                <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="p">[])</span>
             <span class="c1"># Anything other but prefix is ignored</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">elem</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
                 <span class="k">break</span>
@@ -1308,12 +1308,12 @@
         <span class="k">return</span> <span class="n">parse_list_with_prefix</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="s2">&quot;MIG-&quot;</span><span class="p">)</span>
     <span class="c1"># CUDA_VISIBLE_DEVICES uses something like strtoul</span>
     <span class="c1"># which makes `1gpu2,2ampere` is equivalent to `1,2`</span>
-    <span class="n">rc</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rc</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">var</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">_strtoul</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
         <span class="c1"># Repeated ordinal results in empty set</span>
         <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rc</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
+            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
         <span class="c1"># Negative value aborts the sequence</span>
         <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">break</span>
@@ -1351,7 +1351,7 @@
     <span class="k">return</span> <span class="n">dev_count</span><span class="o">.</span><span class="n">value</span>
 
 
-<span class="k">def</span> <span class="nf">_raw_device_uuid_amdsmi</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="k">def</span> <span class="nf">_raw_device_uuid_amdsmi</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
     <span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">byref</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">CDLL</span><span class="p">,</span> <span class="n">create_string_buffer</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_PYNVML</span><span class="p">:</span>  <span class="c1"># If amdsmi is not available</span>
@@ -1367,7 +1367,7 @@
     <span class="k">except</span> <span class="n">amdsmi</span><span class="o">.</span><span class="n">AmdSmiException</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get amdsmi device count&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="n">uuids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">uuids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dev_count</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">handler</span> <span class="o">=</span> <span class="n">amdsmi</span><span class="o">.</span><span class="n">amdsmi_get_processor_handles</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
@@ -1387,7 +1387,7 @@
     <span class="k">return</span> <span class="n">uuids</span>
 
 
-<span class="k">def</span> <span class="nf">_raw_device_uuid_nvml</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="k">def</span> <span class="nf">_raw_device_uuid_nvml</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return list of device UUID as reported by NVML or None if NVM discovery/initialization failed.&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">byref</span><span class="p">,</span> <span class="n">c_int</span><span class="p">,</span> <span class="n">c_void_p</span><span class="p">,</span> <span class="n">CDLL</span><span class="p">,</span> <span class="n">create_string_buffer</span>
 
@@ -1401,7 +1401,7 @@
     <span class="k">if</span> <span class="n">rc</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get nvml device count&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="n">uuids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">uuids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dev_count</span><span class="o">.</span><span class="n">value</span><span class="p">):</span>
         <span class="n">dev_id</span> <span class="o">=</span> <span class="n">c_void_p</span><span class="p">()</span>
         <span class="n">rc</span> <span class="o">=</span> <span class="n">nvml_h</span><span class="o">.</span><span class="n">nvmlDeviceGetHandleByIndex_v2</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">dev_id</span><span class="p">))</span>
@@ -1419,10 +1419,10 @@
     <span class="k">return</span> <span class="n">uuids</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_uuid_to_ordinals</span><span class="p">(</span><span class="n">candidates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">uuids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_transform_uuid_to_ordinals</span><span class="p">(</span><span class="n">candidates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">uuids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Given the set of partial uuids and list of known uuids builds a set of ordinals excluding ambiguous partials IDs.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">uuid_to_ordinal</span><span class="p">(</span><span class="n">candidate</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">uuids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">uuid_to_ordinal</span><span class="p">(</span><span class="n">candidate</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">uuids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="n">best_match</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">uuid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">uuids</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">uuid</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
@@ -1433,7 +1433,7 @@
             <span class="n">best_match</span> <span class="o">=</span> <span class="n">idx</span>
         <span class="k">return</span> <span class="n">best_match</span>
 
-    <span class="n">rc</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rc</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">hip</span><span class="p">:</span>
             <span class="n">candidate</span> <span class="o">=</span> <span class="n">candidate</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
@@ -1445,7 +1445,7 @@
             <span class="k">break</span>
         <span class="c1"># Duplicates result in empty set</span>
         <span class="k">if</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">rc</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
+            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="p">[])</span>
         <span class="n">rc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rc</span>
 
@@ -1460,7 +1460,7 @@
             <span class="k">if</span> <span class="n">uuids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
             <span class="c1"># Create string version of visible devices to avoid mypy warnings</span>
-            <span class="n">visible_device_str</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">)</span>
+            <span class="n">visible_device_str</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">)</span>
             <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">_transform_uuid_to_ordinals</span><span class="p">(</span><span class="n">visible_device_str</span><span class="p">,</span> <span class="n">uuids</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">raw_cnt</span> <span class="o">=</span> <span class="n">_raw_device_count_amdsmi</span><span class="p">()</span>
@@ -1494,7 +1494,7 @@
             <span class="k">if</span> <span class="n">uuids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
             <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">_transform_uuid_to_ordinals</span><span class="p">(</span>
-                <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">),</span> <span class="n">uuids</span>
+                <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">),</span> <span class="n">uuids</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">raw_cnt</span> <span class="o">=</span> <span class="n">_raw_device_count_nvml</span><span class="p">()</span>
@@ -1520,9 +1520,9 @@
         <span class="k">if</span> <span class="n">uuids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get device UUIDs&quot;</span><span class="p">)</span>
         <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">_transform_uuid_to_ordinals</span><span class="p">(</span>
-            <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">),</span> <span class="n">uuids</span>
+            <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">),</span> <span class="n">uuids</span>
         <span class="p">)</span>
-    <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">)</span>
+    <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">visible_devices</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;device </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2"> is not visible (CUDA_VISIBLE_DEVICES=</span><span class="si">{</span><span class="n">visible_devices</span><span class="si">}</span><span class="s2">)&quot;</span>
@@ -1551,7 +1551,7 @@
     <span class="k">return</span> <span class="n">r</span></div>
 
 
-<div class="viewcode-block" id="get_arch_list"><a class="viewcode-back" href="../../generated/torch.cuda.get_arch_list.html#torch.cuda.get_arch_list">[docs]</a><span class="k">def</span> <span class="nf">get_arch_list</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="get_arch_list"><a class="viewcode-back" href="../../generated/torch.cuda.get_arch_list.html#torch.cuda.get_arch_list">[docs]</a><span class="k">def</span> <span class="nf">get_arch_list</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return list CUDA architectures this library was compiled for.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_available</span><span class="p">():</span>
         <span class="k">return</span> <span class="p">[]</span>
@@ -1752,10 +1752,10 @@
         <span class="k">if</span> <span class="n">uuids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get device UUIDs&quot;</span><span class="p">)</span>
         <span class="n">visible_devices_str</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
-            <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span>
+            <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">visible_devices</span>
         <span class="p">)</span>  <span class="c1"># Create str variable for mypy</span>
         <span class="n">visible_devices</span> <span class="o">=</span> <span class="n">_transform_uuid_to_ordinals</span><span class="p">(</span><span class="n">visible_devices_str</span><span class="p">,</span> <span class="n">uuids</span><span class="p">)</span>
-    <span class="n">idx_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">)))</span>
+    <span class="n">idx_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">visible_devices</span><span class="p">)))</span>
     <span class="k">if</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">idx_map</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;device </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2"> is not visible (HIP_VISIBLE_DEVICES=</span><span class="si">{</span><span class="n">visible_devices</span><span class="si">}</span><span class="s2">)&quot;</span>

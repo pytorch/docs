@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -608,7 +608,7 @@
               
   <h1>Source code for torch.optim.asgd</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
@@ -744,12 +744,12 @@
                 <span class="n">loss</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
-            <span class="n">params_with_grad</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">mus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">axs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">etas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">state_steps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">params_with_grad</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">grads</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">mus</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">axs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">etas</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">state_steps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="n">has_complex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_group</span><span class="p">(</span>
                 <span class="n">group</span><span class="p">,</span> <span class="n">params_with_grad</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">mus</span><span class="p">,</span> <span class="n">axs</span><span class="p">,</span> <span class="n">etas</span><span class="p">,</span> <span class="n">state_steps</span>
@@ -801,12 +801,12 @@
 
 
 <span class="k">def</span> <span class="nf">_single_tensor_asgd</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">axs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">mus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">etas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">state_steps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">grads</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">axs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">mus</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">etas</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">state_steps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">lambd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -877,12 +877,12 @@
 
 
 <span class="k">def</span> <span class="nf">_multi_tensor_asgd</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">axs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">mus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">etas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">state_steps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">grads</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">axs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">mus</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">etas</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">state_steps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">lambd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -924,12 +924,12 @@
         <span class="p">),</span>
         <span class="n">_</span><span class="p">,</span>
     <span class="p">)</span> <span class="ow">in</span> <span class="n">grouped_tensors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">grouped_params</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_params_</span><span class="p">)</span>
-        <span class="n">grouped_grads</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_grads_</span><span class="p">)</span>
-        <span class="n">grouped_axs</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_axs_</span><span class="p">)</span>
-        <span class="n">grouped_mus</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_mus_</span><span class="p">)</span>
-        <span class="n">grouped_etas</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_etas_</span><span class="p">)</span>
-        <span class="n">grouped_state_steps</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_state_steps_</span><span class="p">)</span>
+        <span class="n">grouped_params</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_params_</span><span class="p">)</span>
+        <span class="n">grouped_grads</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_grads_</span><span class="p">)</span>
+        <span class="n">grouped_axs</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_axs_</span><span class="p">)</span>
+        <span class="n">grouped_mus</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_mus_</span><span class="p">)</span>
+        <span class="n">grouped_etas</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_etas_</span><span class="p">)</span>
+        <span class="n">grouped_state_steps</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">grouped_state_steps_</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">has_complex</span><span class="p">:</span>
             <span class="n">_view_as_real</span><span class="p">(</span><span class="n">grouped_params</span><span class="p">,</span> <span class="n">grouped_grads</span><span class="p">,</span> <span class="n">grouped_axs</span><span class="p">)</span>
@@ -949,7 +949,7 @@
             <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add_</span><span class="p">(</span><span class="n">grouped_state_steps</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="c1"># intermediate = grad + param * lambd</span>
-        <span class="n">intermediate</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
+        <span class="n">intermediate</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
         <span class="k">if</span> <span class="n">weight_decay</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">maximize</span><span class="p">:</span>
                 <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_add_</span><span class="p">(</span><span class="n">grouped_grads</span><span class="p">,</span> <span class="n">grouped_params</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">)</span>
@@ -984,8 +984,8 @@
         <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_addcmul_</span><span class="p">(</span><span class="n">grouped_axs</span><span class="p">,</span> <span class="n">intermediate</span><span class="p">,</span> <span class="n">grouped_mus</span><span class="p">)</span>
         <span class="k">del</span> <span class="n">intermediate</span>
 
-        <span class="n">new_etas</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
-        <span class="n">new_mus</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
+        <span class="n">new_etas</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
+        <span class="n">new_mus</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]]</span>
         <span class="k">if</span> <span class="n">capturable</span><span class="p">:</span>
             <span class="c1"># update grouped_mus</span>
             <span class="n">new_mus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_sub</span><span class="p">(</span><span class="n">grouped_state_steps</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
@@ -1017,12 +1017,12 @@
 
 <span class="nd">@_disable_dynamo_if_unsupported</span><span class="p">(</span><span class="n">single_tensor_fn</span><span class="o">=</span><span class="n">_single_tensor_asgd</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">asgd</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">grads</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">axs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">mus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">etas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-    <span class="n">state_steps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">grads</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">axs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">mus</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">etas</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">state_steps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
     <span class="c1"># kwonly args with defaults are not supported by functions compiled with torchscript issue #70627</span>
     <span class="c1"># setting this as kwarg for now as functional API is compiled by torch/distributed/optim</span>
     <span class="n">foreach</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -610,19 +610,8 @@
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Any</span><span class="p">,</span>
-    <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
-    <span class="n">Mapping</span><span class="p">,</span>
-    <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">Set</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
-    <span class="n">Union</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_NodeBase</span>
@@ -664,7 +653,7 @@
 
 <span class="n">Argument</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span>
     <span class="n">Union</span><span class="p">[</span>
-        <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
         <span class="n">Sequence</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">],</span>
         <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">],</span>
         <span class="nb">slice</span><span class="p">,</span>  <span class="c1"># Slice[Argument, Argument, Argument], but slice is not a templated type in typing</span>
@@ -686,7 +675,7 @@
     <span class="p">]</span>
 <span class="p">)</span>
 
-<span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_set_grad_enabled</span><span class="p">,</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">_enter_autocast</span><span class="p">,</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">_exit_autocast</span><span class="p">,</span>
@@ -694,7 +683,7 @@
 
 <span class="c1"># TODO: Either refactor this into 2 functions 1 dce for functional graphs and 1 dce for all graphs,</span>
 <span class="c1"># or add logic to correctly mark all inplace ops as side effectful.</span>
-<span class="n">_side_effectful_functions</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">_side_effectful_functions</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_assert</span><span class="p">,</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_assert_async</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">_assert_async</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span>
@@ -834,18 +823,18 @@
 <span class="sd">      in the Graph printout.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-    <span class="n">_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">]</span>
+    <span class="n">_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">]</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s2">&quot;Graph&quot;</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">op</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">target</span><span class="p">:</span> <span class="s2">&quot;Target&quot;</span>
-    <span class="n">_input_nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="n">users</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">_input_nodes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">users</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
     <span class="nb">type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
     <span class="n">_sort_key</span><span class="p">:</span> <span class="n">Any</span>
     <span class="n">_repr_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="s2">&quot;Node&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span>
-    <span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -854,8 +843,8 @@
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">op</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">target</span><span class="p">:</span> <span class="s2">&quot;Target&quot;</span><span class="p">,</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">],</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">],</span>
         <span class="n">return_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -946,14 +935,14 @@
         <span class="c1"># transformations. This metadata is preserved across node copies</span>
         <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="p">{})</span>
 
-    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">state</span><span class="p">[</span><span class="s2">&quot;_erased&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_erased</span>
         <span class="n">state</span><span class="p">[</span><span class="s2">&quot;_prev&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span>
         <span class="n">state</span><span class="p">[</span><span class="s2">&quot;_next&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next</span>
         <span class="k">return</span> <span class="n">state</span>
 
-    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_erased</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_erased&quot;</span><span class="p">)</span>
         <span class="n">_prev</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_prev&quot;</span><span class="p">)</span>
         <span class="n">_next</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_next&quot;</span><span class="p">)</span>
@@ -1049,7 +1038,7 @@
         <span class="n">p</span><span class="o">.</span><span class="n">_next</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">args</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Argument</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">args</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Argument</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The tuple of arguments to this ``Node``. The interpretation of arguments</span>
 <span class="sd">        depends on the node&#39;s opcode. See the :class:`Node` docstring for more</span>
@@ -1061,7 +1050,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span>
 
     <span class="nd">@args</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Argument</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Argument</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the tuple of arguments to this Node. The interpretation of arguments</span>
 <span class="sd">        depends on the node&#39;s opcode. See the ``fx.Graph`` docstring for more</span>
@@ -1072,7 +1061,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__update_args_kwargs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Argument</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Argument</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The dict of keyword arguments to this ``Node``. The interpretation of arguments</span>
 <span class="sd">        depends on the node&#39;s opcode. See the :class:`Node` docstring for more</span>
@@ -1084,7 +1073,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span>
 
     <span class="nd">@kwargs</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Argument</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Argument</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the dict of kwargs to this Node. The interpretation of arguments</span>
 <span class="sd">        depends on the node&#39;s opcode. See the ``fx.Graph`` docstring for more</span>
@@ -1095,7 +1084,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__update_args_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">all_input_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">all_input_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return all Nodes that are inputs to this Node. This is equivalent to</span>
 <span class="sd">        iterating over ``args`` and ``kwargs`` and only collecting the values that</span>
@@ -1141,7 +1130,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_args</span> <span class="o">=</span> <span class="n">args_left</span> <span class="o">+</span> <span class="p">(</span><span class="n">arg</span><span class="p">,)</span> <span class="o">+</span> <span class="n">args_right</span>
 
-        <span class="n">_new_input_nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">_new_input_nodes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">map_arg</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">_new_input_nodes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">new_use</span> <span class="ow">in</span> <span class="n">_new_input_nodes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -1181,7 +1170,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;stack_trace&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trace</span>
 
     <span class="k">def</span> <span class="nf">__update_args_kwargs</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">new_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">new_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">new_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">new_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This API is internal. Do *not* call it directly.</span>
@@ -1241,8 +1230,8 @@
 <div class="viewcode-block" id="Node.format_node"><a class="viewcode-back" href="../../../fx.html#torch.fx.Node.format_node">[docs]</a>    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">format_node</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">placeholder_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">maybe_return_typename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">placeholder_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">maybe_return_typename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a descriptive string representation of ``self``.</span>
@@ -1311,7 +1300,7 @@
         <span class="n">delete_user_cb</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="s2">&quot;Node&quot;</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">user</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">propagate_meta</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Replace all uses of ``self`` in the Graph with the Node ``replace_with``.</span>
 
@@ -1382,7 +1371,7 @@
                 <span class="c1"># impure since it mutates inputs</span>
                 <span class="k">return</span> <span class="kc">True</span>
 
-            <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tag</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;_tags&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tag</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;_tags&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">tags</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tag</span><span class="o">.</span><span class="n">nondeterministic_seeded</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
                 <span class="c1"># impure since it mutates RNG state</span>
                 <span class="k">return</span> <span class="kc">True</span>
@@ -1406,8 +1395,8 @@
     <span class="k">def</span> <span class="nf">normalized_arguments</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">root</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-        <span class="n">arg_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">kwarg_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">arg_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kwarg_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">normalize_to_only_use_kwargs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArgsKwargsPair</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -630,7 +630,8 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">_GeneratorContextManager</span><span class="p">,</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
@@ -638,19 +639,9 @@
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">,</span>
     <span class="n">cast</span><span class="p">,</span>
-    <span class="n">Counter</span><span class="p">,</span>
-    <span class="n">DefaultDict</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">Iterator</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
-    <span class="n">Mapping</span><span class="p">,</span>
     <span class="n">NamedTuple</span><span class="p">,</span>
     <span class="n">NoReturn</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">Set</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">Type</span><span class="p">,</span>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">TypeVar</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
@@ -711,8 +702,8 @@
     <span class="kn">from</span> <span class="nn">torch.types</span> <span class="kn">import</span> <span class="n">BoolLikeType</span>
 
 
-<span class="n">InputList</span> <span class="o">=</span> <span class="n">List</span>
-<span class="n">DimList</span> <span class="o">=</span> <span class="n">List</span>
+<span class="n">InputList</span> <span class="o">=</span> <span class="nb">list</span>
+<span class="n">DimList</span> <span class="o">=</span> <span class="nb">list</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -843,8 +834,8 @@
 
 
 <span class="k">def</span> <span class="nf">_nested_int_aware_sort</span><span class="p">(</span>
-    <span class="n">tup</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="n">tup</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">(</span>
         <span class="c1"># Order nested ints by their coefficients.</span>
         <span class="c1"># 1 here to order nested ints after non-nested-ints.</span>
@@ -896,7 +887,7 @@
 <span class="c1"># These are modules that contain generic code for interacting with ShapeEnv</span>
 <span class="c1"># which are unlikely to identify a particular interesting guard statement</span>
 <span class="nd">@lru_cache</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">uninteresting_files</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">uninteresting_files</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="kn">import</span> <span class="nn">torch._compile</span>
     <span class="kn">import</span> <span class="nn">torch._dynamo.eval_frame</span>
     <span class="kn">import</span> <span class="nn">torch._inductor.sizevars</span>
@@ -939,8 +930,8 @@
 <span class="n">Int</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">create_contiguous</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]:</span>
-    <span class="n">strides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">create_contiguous</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Int</span><span class="p">]:</span>
+    <span class="n">strides</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
         <span class="n">strides</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dim</span> <span class="o">*</span> <span class="n">strides</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># type: ignore[operator]</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">strides</span><span class="p">))</span>
@@ -1068,15 +1059,15 @@
 
 <div class="viewcode-block" id="resolve_unbacked_bindings"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings.html#torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings">[docs]</a><span class="k">def</span> <span class="nf">resolve_unbacked_bindings</span><span class="p">(</span>
     <span class="n">shape_env</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ShapeEnv</span><span class="p">],</span>
-    <span class="n">bindings</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]]:</span>
+    <span class="n">bindings</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]]:</span>
     <span class="k">if</span> <span class="n">bindings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">assert</span> <span class="n">shape_env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">shape_env</span><span class="o">.</span><span class="n">unbacked_renamings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">bindings</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
 
 
-<span class="n">Result</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span>
+<span class="n">Result</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span>
 
 
 <div class="viewcode-block" id="rebind_unbacked"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.rebind_unbacked.html#torch.fx.experimental.symbolic_shapes.rebind_unbacked">[docs]</a><span class="k">def</span> <span class="nf">rebind_unbacked</span><span class="p">(</span>
@@ -1164,7 +1155,7 @@
                 <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
                 <span class="ow">and</span> <span class="p">(</span>
                     <span class="n">raw_u1_args0</span> <span class="o">:=</span> <span class="n">cast</span><span class="p">(</span>
-                        <span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">],</span> <span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="nb">tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">],</span> <span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
                 <span class="ow">and</span> <span class="n">raw_u1_args0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
@@ -1172,7 +1163,7 @@
                 <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_raw_u1</span> <span class="o">:=</span> <span class="n">eq</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">[</span><span class="n">new_raw_u1</span><span class="p">]</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">ValueRanges</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
                 <span class="ow">and</span> <span class="n">eq</span><span class="o">.</span><span class="n">rhs</span> <span class="o">==</span> <span class="mi">1</span>
-                <span class="ow">and</span> <span class="n">cast</span><span class="p">(</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">],</span> <span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">cast</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">],</span> <span class="n">raw_u1</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
             <span class="p">):</span>
                 <span class="c1"># This is what the pattern match above is testing</span>
                 <span class="n">repacked</span> <span class="o">=</span> <span class="n">_sympy_cast_symbool_to_symint_guardless</span><span class="p">(</span>
@@ -1252,8 +1243,8 @@
 
 
 <span class="k">def</span> <span class="nf">_sympy_from_args</span><span class="p">(</span>
-    <span class="bp">cls</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">]],</span>
-    <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">],</span>
+    <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Add</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">]],</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">],</span>
     <span class="n">sort</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">is_commutative</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">:</span>
@@ -1293,7 +1284,7 @@
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">)(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="n">canonicalize_bool_expr</span><span class="p">,</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">))</span>
 
     <span class="n">opposite</span> <span class="o">=</span> <span class="p">{</span><span class="n">sympy</span><span class="o">.</span><span class="n">Gt</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Lt</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Ge</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Le</span><span class="p">}</span>
-    <span class="n">t</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span>
+    <span class="n">t</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">opposite</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
         <span class="n">rhs</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">lhs</span> <span class="o">-</span> <span class="n">expr</span><span class="o">.</span><span class="n">rhs</span>  <span class="c1"># type: ignore[attr-defined]</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">opposite</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">)]</span>  <span class="c1"># type: ignore[index]</span>
@@ -1495,7 +1486,7 @@
 
 <span class="k">def</span> <span class="nf">find_symbol_binding_fx_nodes</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># NB: Prefer first occurrence of symbol</span>
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
@@ -1556,7 +1547,7 @@
     <span class="n">example_value</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
     <span class="n">old_example_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">peek</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    After having run fake tensor propagation and producing example_value</span>
 <span class="sd">    result, traverse example_value looking for freshly bound unbacked</span>
@@ -1584,7 +1575,7 @@
 
     <span class="k">def</span> <span class="nf">free_unbacked_symbols_with_path</span><span class="p">(</span>
         <span class="n">a</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">,</span> <span class="n">real</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]:</span>
         <span class="k">assert</span> <span class="n">shape_env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
@@ -2063,11 +2054,11 @@
 
 
 <span class="c1"># Given a GraphModule, return all the FakeTensors for all the placeholders</span>
-<span class="k">def</span> <span class="nf">fx_placeholder_vals</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">object</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">fx_placeholder_vals</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span> <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">fx_placeholder_targets</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">fx_placeholder_targets</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">target</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span> <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">]</span>
 
 
@@ -2082,7 +2073,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">bind_symbols</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">bind_symbols</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">gm</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">bind_symbols</span><span class="p">(</span><span class="n">fx_placeholder_vals</span><span class="p">(</span><span class="n">gm</span><span class="p">),</span> <span class="n">args</span><span class="p">)</span>  <span class="c1"># type: ignore[operator, union-attr]</span>
 
 
@@ -2224,15 +2215,15 @@
 <span class="sd">    form and so the problem reduces to symbolic expression equality.)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">source_pairs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Source</span><span class="p">]]</span>
-    <span class="n">derived_equalities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span>
-        <span class="n">Tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span>
+    <span class="n">source_pairs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Source</span><span class="p">]]</span>
+    <span class="n">derived_equalities</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span>
     <span class="p">]</span>
-    <span class="n">phantom_symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span>
-    <span class="n">relaxed_sources</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Source</span><span class="p">]</span>
+    <span class="n">phantom_symbols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span>
+    <span class="n">relaxed_sources</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Source</span><span class="p">]</span>
 
-    <span class="n">_parents</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Source</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">_defs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">_parents</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Source</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">_defs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2250,12 +2241,12 @@
 
         <span class="c1"># self._parents is a map from input sources to input sources where, conceptually,</span>
         <span class="c1"># these are directed edges in a union-find forest</span>
-        <span class="n">_parents</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Source</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">_parents</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Source</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_parents&quot;</span><span class="p">,</span> <span class="n">_parents</span><span class="p">)</span>
         <span class="c1"># self._defs is a map from input sources to &quot;canonical&quot; symbolic expressions,</span>
         <span class="c1"># i.e., unary expressions with symbols that corresponds to regular Dims (i.e.,</span>
         <span class="c1"># not derived Dims)</span>
-        <span class="n">_defs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">_defs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_defs&quot;</span><span class="p">,</span> <span class="n">_defs</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">source1</span><span class="p">,</span> <span class="n">source2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_pairs</span><span class="p">:</span>
@@ -2445,7 +2436,7 @@
     <span class="c1"># cause it to fail with unknown symbols, as the symbols cached here will skip creation, and never</span>
     <span class="c1"># get recorded in var_to_val, etc.</span>
     <span class="c1"># TODO(voz): consider a weakref to the shape_env here</span>
-    <span class="n">shape_env_to_source_to_symbol_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="n">shape_env_to_source_to_symbol_cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
@@ -2463,7 +2454,7 @@
 <span class="sd">    flexibility, with inner symbolic contexts mapped via attr -&gt; symbolic context.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">inner_contexts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SymbolicContext</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="n">inner_contexts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SymbolicContext</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment]</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
@@ -2482,7 +2473,7 @@
 <span class="n">IndicatorTypes</span> <span class="o">=</span> <span class="p">(</span><span class="n">IsNonOverlappingAndDenseIndicator</span><span class="p">,)</span>
 
 
-<span class="k">def</span> <span class="nf">_expandsums</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_expandsums</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
     <span class="n">adds</span><span class="p">,</span> <span class="n">other</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">is_Add</span><span class="p">:</span>
@@ -2519,8 +2510,8 @@
             <span class="k">elif</span> <span class="n">exp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">S</span><span class="o">.</span><span class="n">One</span> <span class="o">/</span> <span class="n">sympy</span><span class="o">.</span><span class="n">expand_multinomial</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">One</span> <span class="o">/</span> <span class="n">expr</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">expr</span><span class="o">.</span><span class="n">is_Mul</span><span class="p">:</span>
-        <span class="n">num</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">den</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">num</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">den</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">is_Pow</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="n">den</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">One</span> <span class="o">/</span> <span class="n">arg</span><span class="p">)</span>  <span class="c1"># type: ignore[operator, arg-type]</span>
@@ -2568,7 +2559,7 @@
 <span class="k">def</span> <span class="nf">_maybe_evaluate_static_worker</span><span class="p">(</span>
     <span class="n">expr</span><span class="p">:</span> <span class="n">_SympyT</span><span class="p">,</span>
     <span class="c1"># NB: this is a tuple to ensure it can be LRU cached</span>
-    <span class="n">symbol_info</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_SymbolInfo</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">symbol_info</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">_SymbolInfo</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
     <span class="n">unbacked_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_SympyT</span><span class="p">]:</span>
@@ -2800,9 +2791,9 @@
 <span class="k">class</span> <span class="nc">_ShapeGuardPrinter</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
+        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
         <span class="n">source_ref</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Source</span><span class="p">],</span> <span class="nb">str</span><span class="p">],</span>
-        <span class="n">var_to_sources</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
+        <span class="n">var_to_sources</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symbol_to_source</span> <span class="o">=</span> <span class="n">symbol_to_source</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source_ref</span> <span class="o">=</span> <span class="n">source_ref</span>
@@ -2853,7 +2844,7 @@
 
 
 <span class="k">class</span> <span class="nc">LoggingShapeGuardPrinter</span><span class="p">(</span><span class="n">ShapeGuardPythonPrinter</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_to_sources</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_to_sources</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Source</span><span class="p">]]):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">var_to_sources</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">var_to_sources</span><span class="p">)</span>
 
 
@@ -2868,7 +2859,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
+        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
         <span class="n">source_name_to_debug_name</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -2891,23 +2882,23 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
+        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Source</span><span class="p">]],</span>
         <span class="n">var_to_val</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">],</span>
-        <span class="n">marked_dynamic</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">],</span>
+        <span class="n">marked_dynamic</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">],</span>
         <span class="n">source_name_to_debug_name</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># We try to solve systems of inequalities with 1 free variable.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_univariate_inequalities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
-            <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_univariate_inequalities</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span>
+            <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">]</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
         <span class="c1"># Among them, we prioritize solving for a free variable that has equalities.</span>
         <span class="c1"># NOTE: _symbols_with_equalities is always a subset of _univariate_inequalities.keys()</span>
         <span class="c1"># and removing a symbol from the former =&gt; removing it from the latter.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_symbols_with_equalities</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_symbols_with_equalities</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="c1"># A solution of a free variable with equalities becomes a substitution.</span>
         <span class="c1"># We use these substitutions to simplify other constraints.</span>
         <span class="c1"># NOTE: removing a symbol from _symbols_with_equalities =&gt; adding it to _substitutions.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_substitutions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_substitutions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># In general, constraints may have // and % operations.</span>
         <span class="c1"># Of course, // can be expressed in terms of / and %.</span>
@@ -2915,20 +2906,20 @@
         <span class="c1"># We do so by using the values of variables as hints to evaluate %.</span>
         <span class="c1"># For soundness we record additional congruence guards and solve them separately.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_var_to_val</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="n">var_to_val</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_congruences</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_congruences</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
 
         <span class="c1"># We do not try to (directly) solve inequalities with &gt; 1 free variables.</span>
         <span class="c1"># NOTE: free variables in these inequalities cannot also be in _substitutions.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_multivariate_inequalities</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_multivariate_inequalities</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
         <span class="c1"># We park external equalities between free variables here.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_symbolic_equivalences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_symbolic_equivalences</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># Solutions come in two forms:</span>
         <span class="c1"># - (static) specializations</span>
         <span class="c1"># - (dynamic) inequalities / congruences</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_static_results</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dynamic_results</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_static_results</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dynamic_results</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
         <span class="c1"># printer for solutions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dcp</span> <span class="o">=</span> <span class="n">DynamicDimConstraintPrinter</span><span class="p">(</span>
@@ -2936,13 +2927,13 @@
         <span class="p">)</span>
 
         <span class="c1"># inconsistencies found on substituting with concrete values / static solutions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_inconsistencies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inconsistencies</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># symbols that are marked dynamic</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_marked_dynamic</span> <span class="o">=</span> <span class="n">marked_dynamic</span>
 
         <span class="c1"># track supported sympy functions and subtract from list of all sympy functions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_supported_sympy_functions</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Function</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_supported_sympy_functions</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Function</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">Application</span><span class="p">,</span>
             <span class="n">Mod</span><span class="p">,</span>
             <span class="n">PythonMod</span><span class="p">,</span>
@@ -3095,8 +3086,8 @@
             <span class="c1"># these will resolve to either specializations or dynamic equality constraints</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_symbolic_equivalences</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">expr</span><span class="p">))</span></div>
 
-    <span class="k">def</span> <span class="nf">_reduce_congruences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]:</span>
-        <span class="n">reduced_congruences</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">_reduce_congruences</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]:</span>
+        <span class="n">reduced_congruences</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">congruences</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_congruences</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">remainder_modulus_pairs</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">congruences_to_check</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -3257,7 +3248,7 @@
         <span class="n">cond</span> <span class="o">=</span> <span class="n">cond</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">divisor</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cond</span>
 
-<div class="viewcode-block" id="DimConstraints.forced_specializations"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints.forced_specializations">[docs]</a>    <span class="k">def</span> <span class="nf">forced_specializations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]:</span>
+<div class="viewcode-block" id="DimConstraints.forced_specializations"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints.forced_specializations">[docs]</a>    <span class="k">def</span> <span class="nf">forced_specializations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of the names of symbols to their specialized value&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">debug_name</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -3285,8 +3276,8 @@
 
     <span class="k">def</span> <span class="nf">_process_derived_dim_roots</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
-        <span class="n">name_to_dim</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">results</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+        <span class="n">name_to_dim</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Here we resolve 2 concerns with derived dims suggested fixes: 1) newly introduced roots,</span>
@@ -3352,7 +3343,7 @@
         <span class="c1"># {&quot;dx&quot;: {&quot;eq&quot;: 3*_dx+1, &quot;min&quot;: 4, &quot;max&quot;: 10}, &quot;dy&quot;: dx+1, &quot;dz&quot;: dx+2}</span>
         <span class="c1"># we want instead:</span>
         <span class="c1"># {&quot;_dx&quot;: {&quot;min&quot;: 1, &quot;max&quot;: 4}, &quot;dx&quot;: 3*_dx+1, &quot;dy&quot;: 3*_dx+2, &quot;dz&quot;: 3*_dx+3}</span>
-        <span class="n">introduced_roots</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># map new root -&gt; old root</span>
+        <span class="n">introduced_roots</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># map new root -&gt; old root</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="k">if</span> <span class="s2">&quot;eq&quot;</span> <span class="ow">in</span> <span class="n">c</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">):</span>  <span class="c1"># derived dim</span>
                 <span class="n">root</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;eq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">))</span>
@@ -3389,7 +3380,7 @@
         <span class="c1"># this consists of:</span>
         <span class="c1"># 1) {&quot;dx&quot;: {&quot;min&quot;: ..., &quot;max&quot;: ...}} -&gt; dx: refined root dim</span>
         <span class="c1"># 2) {&quot;dy&quot;: &quot;dx + 1&quot;} -&gt; dx: root for suggested fix</span>
-        <span class="n">modified_roots</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">modified_roots</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_to_dim</span><span class="p">:</span>  <span class="c1"># _dynamo.export() may handle source directly</span>
                 <span class="k">continue</span>
@@ -3406,7 +3397,7 @@
         <span class="c1"># evaluate the new value for each root</span>
         <span class="c1"># this is now either 1) unchanged, 2) refined with a new range,</span>
         <span class="c1"># or 3) specialized to a concrete value</span>
-        <span class="n">modified_root_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">modified_root_values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">mroot</span> <span class="ow">in</span> <span class="n">modified_roots</span><span class="p">:</span>
             <span class="n">swapped_root</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">if</span> <span class="n">mroot</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
@@ -3467,9 +3458,9 @@
 <div class="viewcode-block" id="DimConstraints.prettify_results"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.DimConstraints.html#torch.fx.experimental.symbolic_shapes.DimConstraints.prettify_results">[docs]</a>    <span class="k">def</span> <span class="nf">prettify_results</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">original_signature</span><span class="p">:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Signature</span><span class="p">,</span>
-        <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
+        <span class="n">dynamic_shapes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
         <span class="n">constraint_violation_error</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
-        <span class="n">forced_specializations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="n">forced_specializations</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Format a message for constraint violation erros&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">torch.export.dynamic_shapes</span> <span class="kn">import</span> <span class="n">_get_dim_name_mapping</span>
@@ -3483,7 +3474,7 @@
                 <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">inverse</span> <span class="k">else</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">s</span>
 
-        <span class="n">results</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dynamic_shapes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">dynamic_shapes</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -3657,7 +3648,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">should_record_events</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">tracked_fakes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tracked_fakes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -3693,7 +3684,7 @@
         <span class="c1"># Keep track of the list of tracked fakes.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracked_fakes</span> <span class="o">=</span> <span class="n">tracked_fakes</span>
         <span class="c1"># List of events for reconstructing ShapeEnv at arbitrary points in time.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ShapeEnvEvent</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ShapeEnvEvent</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">[</span><span class="n">ShapeEnvEvent</span><span class="p">(</span><span class="n">ShapeEnv</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_record_events</span>
             <span class="k">else</span> <span class="p">[]</span>
@@ -3706,7 +3697,7 @@
         <span class="c1"># NOTE: It&#39;s important that SymNodes in this cache have their ShapeEnv</span>
         <span class="c1"># stripped otherwise you end up with cycles which can only be cleaned</span>
         <span class="c1"># with the GC.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fake_tensor_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_tensor_cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_subclasses</span><span class="o">.</span><span class="n">fake_tensor</span><span class="o">.</span><span class="n">_DispatchCacheKey</span><span class="p">,</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">_subclasses</span><span class="o">.</span><span class="n">fake_tensor</span><span class="o">.</span><span class="n">_DispatchCacheEntry</span><span class="p">,</span>
         <span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -3741,7 +3732,7 @@
         <span class="c1"># symbolically equal.</span>
         <span class="n">duck_shape</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="c1"># For debugging</span>
-        <span class="n">co_fields</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">co_fields</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="c1"># When True, whenever safe, we will generate a deferred runtime assert</span>
         <span class="c1"># instead of a guard whenever we know that an expression must be True,</span>
         <span class="c1"># otherwise it would be an error, even for backed SymInts (where we</span>
@@ -3772,50 +3763,50 @@
             <span class="n">allow_complex_guards_as_runtime_asserts</span><span class="o">=</span><span class="n">allow_complex_guards_as_runtime_asserts</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">axioms</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axioms</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Maps symbolic ints to their original concrete values</span>
         <span class="c1"># Currently populated from tensors</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Like var_to_val, but only set when propagate_real_tensors is on.</span>
         <span class="c1"># Used as last resort to avoid GuardOnDataDependent error</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Like above, but used exclusively for OBLIVIOUS_SIZE.  These</span>
         <span class="c1"># potentially could be put together but I am not sure, writing out</span>
         <span class="c1"># the logic individually before abstracting.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">oblivious_var_to_val</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oblivious_var_to_val</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Maps symbolic ints to their min/max range.  These ranges</span>
         <span class="c1"># are conservative: the int MUST fall in the range, but the</span>
         <span class="c1"># range may contain ints which may not actually appear in</span>
         <span class="c1"># practice</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range_sloc</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRangesSLoc</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_range_sloc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRangesSLoc</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># When doing a size-oblivious test, exclude this integer and</span>
         <span class="c1"># everything higher than it from the acceptable range.  This solves</span>
         <span class="c1"># https://github.com/pytorch/pytorch/issues/120288 for constant range</span>
         <span class="c1"># case</span>
         <span class="c1"># TODO: generalize this to work with expressions (in that case, we</span>
         <span class="c1"># need to maintain a SET and we need extra symbolic reasoning on top)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">oblivious_upper_bound_exclusive</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">source_name_to_debug_name</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">CapturedTraceback</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oblivious_upper_bound_exclusive</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_name_to_debug_name</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Source</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_stack</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">CapturedTraceback</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Maps a source to the *original* symbol that was assigned to it</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">source_to_var</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_to_var</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Maps from sympy ints to expressions representing them</span>
         <span class="c1"># Populated from equality guards (i.e. a.shape[0] == b.shape[0])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># The sloc of the guard that triggered this replacement to be added</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">replacements_slocs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">SLoc</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_renamings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">replacements_slocs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">SLoc</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_renamings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># Set holds a % b expressions that evaluate to 0.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">divisible</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">divisible</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="c1"># Set that holds &quot;size-like&quot; symbols.  When we perform</span>
         <span class="c1"># &quot;size-oblivious&quot; tests, these can be assumed to be &gt;= 2.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size_like</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="c1"># Duck-shaping says that if two input tensors have the same size,</span>
         <span class="c1"># they get assigned the same symbolic variable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">val_to_var</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val_to_var</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">specialize_zero_one</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">val_to_var</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">Zero</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">One</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_symfloat_counter</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
@@ -3848,8 +3839,8 @@
         <span class="c1">#     to the next unbacked symbol to wait on, but if we choose the</span>
         <span class="c1">#     latest key, an assert will only show up at the moment when</span>
         <span class="c1">#     we can actually codegen it.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">deferred_runtime_asserts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
-            <span class="n">Optional</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">RuntimeAssert</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deferred_runtime_asserts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span>
+            <span class="n">Optional</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">RuntimeAssert</span><span class="p">]</span>
         <span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># This exists so we can efficiently invalidate the cache (it&#39;s used as</span>
         <span class="c1"># part of the cache key); otherwise we&#39;d have to iterate through</span>
@@ -3886,7 +3877,7 @@
         <span class="c1">#</span>
         <span class="c1"># NB: fresh unbacked symbols NEVER get substitutions applied to them,</span>
         <span class="c1"># they are binding sites!</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pending_fresh_unbacked_symbols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># Version counter used to invalidate cached values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_prev_cache_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_key</span><span class="p">()</span>
@@ -3901,8 +3892,8 @@
         <span class="c1">#   2. list of arguments</span>
         <span class="c1"># This drastically reduces the size of the FX graph, avoiding</span>
         <span class="c1"># duplicated nodes.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fx_node_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">source_to_symbol</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fx_node_cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_to_symbol</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># Suppose you want to replace an unbacked symbol with another</span>
         <span class="c1"># unbacked symbol.  This is error prone because you can cause</span>
@@ -3929,7 +3920,7 @@
         <span class="c1"># bindings.  At the moment, this is not tracked, but we potentially</span>
         <span class="c1"># could track this at the IR level using a higher order operator</span>
         <span class="c1"># with something like effect token tracking.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_alloc_order</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_alloc_order</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="kn">from</span> <span class="nn">torch.fx.experimental.validator</span> <span class="kn">import</span> <span class="n">translation_validation_enabled</span>
 
@@ -3952,7 +3943,7 @@
             <span class="c1"># Whenever you add a node to self.graph, you must add a mapping to this</span>
             <span class="c1"># variable. Otherwise, the built FX graph on the replayed ShapeEnv will</span>
             <span class="c1"># not be valid.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">name_to_node</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name_to_node</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">allow_scalar_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -4046,7 +4037,7 @@
 
         <span class="n">shape_env_check_state_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">non_state_variable_names</span><span class="p">,</span> <span class="n">map_value</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_snapshot_tracked_fakes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">_snapshot_tracked_fakes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracked_fakes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -4238,7 +4229,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">source_to_symbol</span><span class="p">[</span><span class="n">srcname</span><span class="p">]</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">srcname</span><span class="p">,</span> <span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_to_symbol</span><span class="p">[</span><span class="n">srcname</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_add_z3var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_add_z3var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translation_validation_enabled</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="o">.</span><span class="n">add_var</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
 
@@ -4258,8 +4249,8 @@
     <span class="k">def</span> <span class="nf">_create_fx_call_function</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]:</span>
         <span class="c1"># Cache this tuple in order to avoid duplicated nodes.</span>
         <span class="n">node_key</span> <span class="o">=</span> <span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
         <span class="c1"># Flags whether the returned node was cached or not.</span>
@@ -4288,7 +4279,7 @@
     <span class="k">def</span> <span class="nf">_create_fx_placeholder_and_z3var</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">symbol</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span>
-        <span class="nb">type</span><span class="p">:</span> <span class="n">Type</span><span class="p">,</span>
+        <span class="nb">type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_translation_validation_enabled</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -4349,7 +4340,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Context manager to ignore all guards generated inside&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">_suppress_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_get_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Defines the current &quot;state&quot; of the guards we&#39;ve accumulated in this ShapeEnv.</span>
 <span class="sd">        Determines when we need to invalidate our cache</span>
@@ -4385,7 +4376,7 @@
         <span class="n">ex_size</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">]],</span>
         <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span>
         <span class="n">symbolic_context</span><span class="p">:</span> <span class="n">SymbolicContext</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_produce_dyn_sizes_from_int_tuple</span><span class="p">(</span>
             <span class="nb">tuple</span><span class="p">(</span><span class="n">ex_size</span><span class="p">),</span> <span class="n">source</span><span class="p">,</span> <span class="n">symbolic_context</span>
         <span class="p">)</span>
@@ -4395,7 +4386,7 @@
         <span class="n">tensor_size</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">]],</span>
         <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span>
         <span class="n">symbolic_context</span><span class="p">:</span> <span class="n">SymbolicContext</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]:</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span>
             <span class="ow">not</span> <span class="n">is_symbolic</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">tensor_size</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Expect size to be a plain tuple of ints but got </span><span class="si">{</span><span class="n">tensor_size</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -4423,9 +4414,9 @@
         <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">symbolic_context</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SymbolicContext</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
-        <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
         <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span>
     <span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -4510,17 +4501,17 @@
         <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">symbolic_context</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SymbolicContext</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
-        <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>
         <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span>
     <span class="p">]:</span>
         <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ex_size</span><span class="p">)</span>
 
         <span class="c1"># Reimplement the legacy behavior</span>
         <span class="k">if</span> <span class="n">symbolic_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">constraint_sizes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DimConstraint</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
-            <span class="n">constraint_strides</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DimConstraint</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
+            <span class="n">constraint_sizes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DimConstraint</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
+            <span class="n">constraint_strides</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DimConstraint</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">dim</span>
             <span class="n">dynamic_dims</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">dynamic_strides</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
@@ -4570,7 +4561,7 @@
 
         <span class="kn">from</span> <span class="nn">torch._dynamo.source</span> <span class="kn">import</span> <span class="n">TensorProperty</span><span class="p">,</span> <span class="n">TensorPropertySource</span>
 
-        <span class="n">size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_produce_dyn_sizes_from_int_tuple</span><span class="p">(</span>
+        <span class="n">size</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_produce_dyn_sizes_from_int_tuple</span><span class="p">(</span>
             <span class="n">ex_size</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">symbolic_context</span>
         <span class="p">)</span>
         <span class="n">stride</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_symbolic_stride</span><span class="p">(</span>
@@ -4629,11 +4620,11 @@
         <span class="p">],</span>
         <span class="n">are_sizes_static</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">symbolic_context</span><span class="p">:</span> <span class="n">SymbolicContext</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]:</span>
         <span class="kn">from</span> <span class="nn">torch._dynamo.source</span> <span class="kn">import</span> <span class="n">TensorProperty</span><span class="p">,</span> <span class="n">TensorPropertySource</span>
 
-        <span class="n">stride</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-        <span class="n">candidates</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">stride</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">candidates</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># iterate over unbound strides in val ascending order with</span>
         <span class="c1"># index descending as a tie breaker since for cases like</span>
@@ -5197,7 +5188,7 @@
             <span class="k">return</span> <span class="n">c_render</span>
         <span class="k">return</span> <span class="n">c</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ShapeEnv.produce_guards"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards">[docs]</a>    <span class="k">def</span> <span class="nf">produce_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="ShapeEnv.produce_guards"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.produce_guards">[docs]</a>    <span class="k">def</span> <span class="nf">produce_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Like produce_guards_verbose, but only returns the non-verbose guard expressions</span>
 <span class="sd">        (no verbose guards produced.)</span>
@@ -5210,7 +5201,7 @@
         <span class="n">sources</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Source</span><span class="p">],</span>
         <span class="n">source_ref</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Source</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">guards</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">guards</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">input_contexts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DimList</span><span class="p">[</span><span class="n">SymbolicContext</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="c1"># Encodes user-specified input shape equations of the form s = s&#39; and s = fn(s&#39;).</span>
         <span class="c1"># (See docs on EqualityConstraint for details of the encoding.)</span>
@@ -5218,7 +5209,7 @@
         <span class="n">_simplified</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="c1"># Indicates if we should produce guards for known static values.</span>
         <span class="n">ignore_static</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># python, verbose</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># python, verbose</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates a list of guards strings which, when evaluated in a context that</span>
 <span class="sd">        defines tensors for all the sources, returns True or False depending</span>
@@ -5347,13 +5338,13 @@
         <span class="c1"># the symbol mapping is</span>
         <span class="n">input_guards</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Source</span><span class="p">]]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span>
+        <span class="n">symbol_to_source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Source</span><span class="p">]]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span>
             <span class="nb">list</span>
         <span class="p">)</span>
-        <span class="n">symbol_to_constraints</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span>
-            <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]</span>
+        <span class="n">symbol_to_constraints</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span>
+            <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
-        <span class="n">constraint_violations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">constraint_violations</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="n">py_printer</span> <span class="o">=</span> <span class="n">ShapeGuardPythonPrinter</span><span class="p">(</span>
             <span class="n">symbol_to_source</span><span class="p">,</span> <span class="n">source_ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span>
@@ -5563,7 +5554,7 @@
                 <span class="c1"># For subclasses, we need to track symints on BOTH the outer</span>
                 <span class="c1"># and inner tensors.</span>
                 <span class="c1"># TODO: type this better</span>
-                <span class="n">sources_tensors_constraints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">sources_tensors_constraints</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Source</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
                     <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">constraint_sizes</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">constraint_strides</span><span class="p">)</span>
                 <span class="p">]</span>
                 <span class="n">attrs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">__tensor_flatten__</span><span class="p">()</span>
@@ -5863,8 +5854,8 @@
                 <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">constraint_violations</span><span class="p">:</span>
-            <span class="n">warn_msgs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">error_msgs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">warn_msgs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">error_msgs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">debug_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">warn_only</span><span class="p">,</span> <span class="n">debug_name</span><span class="p">,</span> <span class="n">msg_cb</span> <span class="ow">in</span> <span class="n">constraint_violations</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">warn_only</span><span class="p">:</span>
@@ -5934,7 +5925,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">placeholders</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">FakeTensor</span><span class="p">]],</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">guards</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">guards</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">ignore_static</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -5993,7 +5984,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_guards_expression</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="ShapeEnv.get_pruned_guards"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_pruned_guards">[docs]</a>    <span class="k">def</span> <span class="nf">get_pruned_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symints</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]:</span>
+<div class="viewcode-block" id="ShapeEnv.get_pruned_guards"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_pruned_guards">[docs]</a>    <span class="k">def</span> <span class="nf">get_pruned_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symints</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a list of guards, but pruned so it only provides guards that</span>
 <span class="sd">        reference symints from the passed in input</span>
@@ -6008,7 +5999,7 @@
 
 <div class="viewcode-block" id="ShapeEnv.bind_symbols"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.bind_symbols">[docs]</a>    <span class="k">def</span> <span class="nf">bind_symbols</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">placeholders</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">FakeTensor</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a paired list of placeholders (fake tensors with</span>
 <span class="sd">        symbolic sizes) and concrete arguments (regular tensors</span>
@@ -6025,7 +6016,7 @@
 <span class="sd">        another copy.  This assumes the guards are already checked,</span>
 <span class="sd">        though if it&#39;s cheap we&#39;ll check for shenanigans</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">bindings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">bindings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">def</span> <span class="nf">bind_symint</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">):</span>
@@ -6058,7 +6049,7 @@
 
         <span class="k">return</span> <span class="n">bindings</span></div>
 
-<div class="viewcode-block" id="ShapeEnv.get_nontrivial_guards"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards">[docs]</a>    <span class="k">def</span> <span class="nf">get_nontrivial_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">]:</span>
+<div class="viewcode-block" id="ShapeEnv.get_nontrivial_guards"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_nontrivial_guards">[docs]</a>    <span class="k">def</span> <span class="nf">get_nontrivial_guards</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a list of guard expressions that aren&#39;t statically known (i.e. not trivial)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">guard</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
@@ -6095,9 +6086,9 @@
 <div class="viewcode-block" id="ShapeEnv.get_axioms"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_axioms">[docs]</a>    <span class="nd">@_lru_cache</span>
     <span class="k">def</span> <span class="nf">get_axioms</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">symbols</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">symbols</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">compute_hint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given the symbols in an expression, it returns all the runtime asserts that have those symbols</span>
 <span class="sd">        concatenated with all the guards.</span>
@@ -6125,9 +6116,9 @@
 <div class="viewcode-block" id="ShapeEnv.get_implications"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.get_implications">[docs]</a>    <span class="nd">@lru_cache</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_implications</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">SympyBoolean</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">boolalg</span><span class="o">.</span><span class="n">BooleanAtom</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">boolalg</span><span class="o">.</span><span class="n">BooleanAtom</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Given a expression, it returns a list of predicates that follow from it&quot;&quot;&quot;</span>
-        <span class="n">equiv</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">boolalg</span><span class="o">.</span><span class="n">BooleanAtom</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">equiv</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">logic</span><span class="o">.</span><span class="n">boolalg</span><span class="o">.</span><span class="n">BooleanAtom</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">def</span> <span class="nf">add_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">expr</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
@@ -6171,8 +6162,8 @@
         <span class="n">unbacked_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">compute_hint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">axioms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">var_to_range</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">axioms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">SympyBoolean</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">var_to_range</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">ValueRanges</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Tries to evaluate expr without introducing guards</span>
@@ -6196,7 +6187,7 @@
 
         <span class="n">expr</span> <span class="o">=</span> <span class="n">canonicalize_bool_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">resimplify_floor_div</span><span class="p">(</span><span class="n">axioms</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">resimplify_floor_div</span><span class="p">(</span><span class="n">axioms</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resimplify_floor_div_axioms</span><span class="p">:</span>
                 <span class="k">return</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_resimplify_floor_div_axioms</span> <span class="o">=</span> <span class="kc">False</span>
@@ -6721,7 +6712,7 @@
         <span class="c1"># Prefer to simplify out lexicographically higher symbols (i.e. simplify out s4 over s3).</span>
         <span class="c1">#   (NB: this unfortunately isn&#39;t strictly equivalent to simplifying out newer symbols)</span>
         <span class="c1"># Prefer to simplify out symbols with ephemeral sources.</span>
-        <span class="k">def</span> <span class="nf">_smart_symbol_sort</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">_smart_symbol_sort</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
             <span class="n">has_only_ephemeral_sources</span> <span class="o">=</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span>
                 <span class="n">s</span><span class="o">.</span><span class="n">is_ephemeral</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
             <span class="p">)</span>
@@ -6889,7 +6880,7 @@
 
     <span class="k">def</span> <span class="nf">_get_stack_summary</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">is_debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">framework_loc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">SLoc</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">SLoc</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="n">floc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span><span class="p">]]</span> <span class="o">=</span> <span class="n">framework_loc</span>
         <span class="k">if</span> <span class="n">floc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span>
@@ -7510,7 +7501,7 @@
 <span class="sd">    (i.e., as ==, !=, &gt;, &lt;).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">src_map</span> <span class="o">=</span> <span class="n">src_map</span>
 
@@ -7519,7 +7510,7 @@
 
 
 <span class="k">def</span> <span class="nf">_suggest_torch_checks</span><span class="p">(</span>
-    <span class="n">e</span><span class="p">:</span> <span class="n">GuardOnDataDependentSymNode</span><span class="p">,</span> <span class="n">src_map</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="n">e</span><span class="p">:</span> <span class="n">GuardOnDataDependentSymNode</span><span class="p">,</span> <span class="n">src_map</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># extract the unresolved condition on unbacked symints in the error</span>
     <span class="n">cond</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">cond</span>

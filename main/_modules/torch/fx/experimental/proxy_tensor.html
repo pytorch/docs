@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -624,21 +624,15 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">_GeneratorContextManager</span><span class="p">,</span> <span class="n">contextmanager</span><span class="p">,</span> <span class="n">ExitStack</span><span class="p">,</span> <span class="n">nullcontext</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">Generator</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
-    <span class="n">Mapping</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">overload</span><span class="p">,</span>
     <span class="n">Protocol</span><span class="p">,</span>
-    <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">Type</span><span class="p">,</span>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">TypeVar</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
@@ -775,7 +769,7 @@
 
 
 <span class="k">class</span> <span class="nc">_HasMeta</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PySymType</span><span class="p">]</span>
+    <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PySymType</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">is_sym_node</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">_HasMeta</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -984,9 +978,9 @@
         <span class="n">PySymType</span><span class="p">,</span>
         <span class="n">_AnyScriptObjectType</span><span class="p">,</span>
         <span class="n">BackwardState</span><span class="p">,</span>
-        <span class="n">List</span><span class="p">[</span><span class="s2">&quot;_ExtractValType&quot;</span><span class="p">],</span>
-        <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;_ExtractValType&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;_ExtractValType&quot;</span><span class="p">],</span>
+        <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;_ExtractValType&quot;</span><span class="p">],</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="s2">&quot;_ExtractValType&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;_ExtractValType&quot;</span><span class="p">],</span>
         <span class="n">Tensor</span><span class="p">,</span>
         <span class="nb">int</span><span class="p">,</span>
         <span class="nb">float</span><span class="p">,</span>
@@ -1374,10 +1368,10 @@
     <span class="n">proxy_mode</span><span class="p">:</span> <span class="n">ProxyTorchDispatchMode</span><span class="p">,</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">OpOverload</span><span class="p">,</span>
     <span class="n">pre_dispatch</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
-    <span class="n">unrecognized_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">unrecognized_types</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">flat_args_kwargs</span><span class="p">,</span> <span class="n">spec</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_flatten</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">can_handle_tensor</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1594,7 +1588,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sym_node_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">PySymType</span><span class="p">,</span> <span class="n">_PySymProxyType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sym_node_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">PySymType</span><span class="p">,</span> <span class="n">_PySymProxyType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">PySymType</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_PySymProxyType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sym_node_dict</span><span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
@@ -1622,9 +1616,9 @@
 <span class="k">class</span> <span class="nc">PythonKeyTracer</span><span class="p">(</span><span class="n">Tracer</span><span class="p">):</span>
     <span class="n">script_object_tracker</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="n">_AnyScriptObjectType</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">]</span>
     <span class="n">symnode_tracker</span><span class="p">:</span> <span class="n">_SymNodeDict</span>
-    <span class="n">sympy_expr_tracker</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
+    <span class="n">sympy_expr_tracker</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
     <span class="n">tensor_tracker</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">_ProxyTensor</span><span class="p">]</span>
-    <span class="n">torch_fn_counts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">torch_fn_counts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
     <span class="n">enable_thunkify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1650,14 +1644,14 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">m</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span>
         <span class="n">forward</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">forward</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="c1"># We don&#39;t want to turn getattr calls into proxies. So we just return the actual value.</span>
     <span class="k">def</span> <span class="nf">getattr</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">attr_val</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">parameter_proxy_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">attr_val</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">parameter_proxy_cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">attr_val</span>
 
@@ -1702,7 +1696,7 @@
 
 
 <span class="k">def</span> <span class="nf">_make_temp_remove_mode_context_manager</span><span class="p">(</span>
-    <span class="n">mode_ty</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">TorchFunctionMode</span><span class="p">],</span>
+    <span class="n">mode_ty</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">TorchFunctionMode</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">_GeneratorContextManager</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">TorchFunctionMode</span><span class="p">]]]:</span>
     <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">context_manager_fn</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">TorchFunctionMode</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
@@ -1744,7 +1738,7 @@
 <span class="k">def</span> <span class="nf">dispatch_trace</span><span class="p">(</span>
     <span class="n">root</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Module</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span>
     <span class="n">tracer</span><span class="p">:</span> <span class="n">Tracer</span><span class="p">,</span>
-    <span class="n">concrete_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">concrete_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GraphModule</span><span class="p">:</span>
     <span class="n">graph</span> <span class="o">=</span> <span class="n">tracer</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">concrete_args</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
 
@@ -1842,9 +1836,9 @@
     <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">func</span><span class="p">:</span> <span class="n">OpOverload</span><span class="p">,</span>
-        <span class="n">types</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TensorMeta</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
-        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">types</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TensorMeta</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="o">.</span><span class="n">torch_fn_metadata</span> <span class="o">=</span> <span class="n">func</span>
@@ -1866,14 +1860,14 @@
         <span class="c1"># The input to torch.amp.autocast_mode._exit_autocast graph node should be the</span>
         <span class="c1"># enter_autocast node. So we have to save the enter autocast node here, and assign it</span>
         <span class="c1"># to the exit_autocast call_function node.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">enter_autocast_nodes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enter_autocast_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">func</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span>
-        <span class="n">types</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TensorMeta</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
-        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">types</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TensorMeta</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span><span class="p">:</span>
@@ -1931,7 +1925,7 @@
         <span class="c1"># Every time we enter a mode, we maintain a stack telling us what the previous</span>
         <span class="c1"># ProxyTorchDispatchMode state was (if there was any).</span>
         <span class="c1"># This lets us properly reset the state on exit.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">enter_stack</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">ProxyTorchDispatchMode</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enter_stack</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">ProxyTorchDispatchMode</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">decomp_layers</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="kn">from</span> <span class="nn">torch._inductor</span> <span class="kn">import</span> <span class="n">config</span>
 
@@ -1941,9 +1935,9 @@
     <span class="k">def</span> <span class="nf">__torch_dispatch__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">func</span><span class="p">:</span> <span class="n">OpOverload</span><span class="p">,</span>
-        <span class="n">types</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TensorMeta</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
-        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">types</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TensorMeta</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">set_original_aten_op</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
             <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
@@ -1961,7 +1955,7 @@
 
     <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
+        <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
         <span class="n">exc_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
         <span class="n">traceback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">types</span><span class="o">.</span><span class="n">TracebackType</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]:</span>
@@ -1979,10 +1973,10 @@
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_compute_proxy</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">OpOverload</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">out</span><span class="p">:</span> <span class="n">PySymType</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">OpOverload</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">out</span><span class="p">:</span> <span class="n">PySymType</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Proxy</span><span class="p">:</span>
         <span class="c1"># Handle torch.sym_sum</span>
-        <span class="n">n_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+        <span class="n">n_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
             <span class="n">n_args</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="nb">tuple</span><span class="p">(</span>
@@ -2010,9 +2004,9 @@
     <span class="k">def</span> <span class="nf">__sym_dispatch__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">func</span><span class="p">:</span> <span class="n">OpOverload</span><span class="p">,</span>
-        <span class="n">types</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TensorMeta</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
+        <span class="n">types</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_TensorMeta</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="c1"># Peephole optimize multiply by one</span>
         <span class="c1"># NB: be careful not to trigger guards here!</span>
@@ -2045,9 +2039,9 @@
     <span class="n">script_object_tracker</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="n">_AnyScriptObjectType</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">]</span>
     <span class="n">symnode_tracker</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="n">PySymType</span><span class="p">,</span> <span class="n">_PySymProxyType</span><span class="p">]</span>
     <span class="n">tensor_tracker</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">_ProxyTensor</span><span class="p">]</span>
-    <span class="n">sympy_expr_tracker</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
+    <span class="n">sympy_expr_tracker</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
     <span class="n">torch_fn_metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">]</span>
-    <span class="n">torch_fn_counts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">torch_fn_counts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
     <span class="n">enable_thunkify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2083,7 +2077,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">ProxyTorchDispatchMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="p">,</span> <span class="n">tracing_mode</span><span class="o">=</span><span class="s2">&quot;real&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">placeholder</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="n">proxy</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">Proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_graph</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="p">)</span>
@@ -2092,7 +2086,7 @@
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="k">def</span> <span class="nf">get_attr</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="n">proxy</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">Proxy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_graph</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracer</span><span class="p">)</span>
@@ -2102,7 +2096,7 @@
     <span class="c1"># call_function, call_method, call_module get traced automatically by the outer mode.</span>
 
     <span class="k">def</span> <span class="nf">output</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>  <span class="c1"># type: ignore[override]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
 
@@ -2123,13 +2117,13 @@
 
 
 <span class="k">def</span> <span class="nf">wrapper_and_args_for_make_fx</span><span class="p">(</span>
-    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">R</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">List</span><span class="p">[</span><span class="nb">object</span><span class="p">]],</span> <span class="n">R</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">object</span><span class="p">]]:</span>
+    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">R</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">]],</span> <span class="n">R</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">]]:</span>
     <span class="c1"># make_fx doesn&#39;t support kwargs, so we need to do this flattening</span>
     <span class="c1"># and then unflatten the args before calling func</span>
     <span class="n">flat_args</span><span class="p">,</span> <span class="n">spec</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_flatten</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="n">flat_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">R</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="n">flat_args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">R</span><span class="p">:</span>
         <span class="n">fn_args</span><span class="p">,</span> <span class="n">fn_kwargs</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_unflatten</span><span class="p">(</span><span class="n">flat_args</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">fn_args</span><span class="p">,</span> <span class="o">**</span><span class="n">fn_kwargs</span><span class="p">)</span>
 
@@ -2249,7 +2243,7 @@
                 <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">proxy_modules</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span>
 
             <span class="nd">@property</span>
-            <span class="k">def</span> <span class="nf">_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">AttrProxy</span><span class="p">]:</span>
+            <span class="k">def</span> <span class="nf">_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">AttrProxy</span><span class="p">]:</span>
                 <span class="k">assert</span> <span class="s2">&quot;_modules&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span>
                 <span class="n">submodules</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;_modules&quot;</span><span class="p">]</span>
                 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">submodules</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
@@ -2281,7 +2275,7 @@
             <span class="k">raise</span> <span class="n">_ModuleNotInstalledAsSubmoduleError</span> <span class="kn">from</span> <span class="nn">e</span>
 
     <span class="k">def</span> <span class="nf">getattr</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">attr_val</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">parameter_proxy_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">attr_val</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">parameter_proxy_cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_val</span><span class="p">,</span> <span class="n">Module</span><span class="p">)</span>
@@ -2300,7 +2294,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_proxy_map</span><span class="p">[</span><span class="n">attr_val</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">trace</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Module</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span> <span class="n">concrete_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Module</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span> <span class="n">concrete_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">concrete_args</span><span class="p">)</span>
 
@@ -2309,7 +2303,7 @@
         <span class="c1"># to the tracer while tracing, the proxy object gets registered</span>
         <span class="c1"># first. So we need to replace the proxy modules with the real ones</span>
         <span class="c1"># This can happen during HOO tracing</span>
-        <span class="n">proxy_module_names_to_be_replaced</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_AttrProxy</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">proxy_module_names_to_be_replaced</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_AttrProxy</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy_modules</span><span class="p">:</span>
                 <span class="n">proxy_module_names_to_be_replaced</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">))</span>
@@ -2353,8 +2347,8 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">m</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span>
         <span class="n">forward</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;PythonKeyTracer overrides call_module to avoid the scope handling,</span>
 <span class="sd">        but we actually want it.</span>
@@ -2464,7 +2458,7 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Configurations that are used to initialize the context managers and their states.</span>
         <span class="c1"># Should not modify them during tracing.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">decomposition_table</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decomposition_table</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
             <span class="n">decomposition_table</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">decomposition_table</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span>
@@ -2492,7 +2486,7 @@
             <span class="n">nullcontext</span><span class="p">,</span> <span class="n">TorchFunctionMetadataMode</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">nullcontext</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_checkpoint_modes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_checkpoint_modes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fake_tensor_mode</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">proxy_mode</span><span class="p">,</span>
@@ -2520,7 +2514,7 @@
 
     <span class="nd">@contextmanager</span>
     <span class="k">def</span> <span class="nf">_init_modes_from_inputs</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
         <span class="n">prev_modes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_checkpoint_modes</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
@@ -2809,7 +2803,7 @@
     <span class="k">return</span> <span class="n">wrapped</span></div>
 
 
-<span class="k">def</span> <span class="nf">get_torch_dispatch_modes</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TorchDispatchMode</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_torch_dispatch_modes</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">TorchDispatchMode</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">_python_dispatch</span><span class="o">.</span><span class="n">_get_current_dispatch_mode_stack</span><span class="p">()</span>
 
 
@@ -2847,7 +2841,7 @@
     <span class="c1"># dispatch machinery which disables it for us</span>
     <span class="k">with</span> <span class="n">disable_proxy_modes_tracing</span><span class="p">():</span>
         <span class="c1"># TODO: properly compute types</span>
-        <span class="n">types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">types</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">return</span> <span class="n">mode</span><span class="o">.</span><span class="n">__sym_dispatch__</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type, return-value]</span></div>
 
 
@@ -2859,8 +2853,8 @@
 <span class="k">def</span> <span class="nf">maybe_handle_decomp</span><span class="p">(</span>
     <span class="n">proxy_mode</span><span class="p">:</span> <span class="n">ProxyTorchDispatchMode</span><span class="p">,</span>
     <span class="n">op</span><span class="p">:</span> <span class="n">OpOverload</span><span class="p">,</span>
-    <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">torch._inductor.compiler_bisector</span> <span class="kn">import</span> <span class="n">CompilerBisector</span>
 
@@ -2881,8 +2875,8 @@
 
 <span class="k">def</span> <span class="nf">get_isolated_graphmodule</span><span class="p">(</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span>
     <span class="n">tracing_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;real&quot;</span><span class="p">,</span>
     <span class="n">decomposition_table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="n">OpOverload</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GraphModule</span><span class="p">:</span>

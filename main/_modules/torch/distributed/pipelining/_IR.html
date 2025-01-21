@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -616,7 +616,7 @@
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Signature</span><span class="p">,</span> <span class="n">signature</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MethodType</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.fx</span> <span class="k">as</span> <span class="nn">fx</span>
@@ -725,7 +725,7 @@
     <span class="n">output_node</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="c1"># Collect metadata about tuple output values. TODO: move this to split_module or FX IR</span>
-    <span class="n">tuples</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">tuples</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span><span class="p">:</span>
             <span class="c1"># In the forward pass, only emit placeholder, module calls, and</span>
@@ -764,7 +764,7 @@
     <span class="c1"># We will only emit backward operations for nodes that can contribute</span>
     <span class="c1"># to the specified loss value.</span>
     <span class="n">live_nodes</span> <span class="o">=</span> <span class="p">{</span><span class="n">loss_node</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-    <span class="n">val_to_grad</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">loss_node</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">val_to_grad</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">loss_node</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">assign_or_accumulate_grad</span><span class="p">(</span><span class="n">forward_node</span><span class="p">,</span> <span class="n">grad_value</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">forward_node</span> <span class="ow">in</span> <span class="n">val_to_grad</span> <span class="ow">and</span> <span class="n">forward_node</span><span class="o">.</span><span class="n">op</span> <span class="o">!=</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">:</span>
@@ -958,7 +958,7 @@
     <span class="n">REPLICATE</span> <span class="o">=</span> <span class="mi">2</span>
 
 
-<span class="n">MultiUseParamSpec</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">MultiUseParameterConfig</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MultiUseParameterConfig</span><span class="p">]]</span>
+<span class="n">MultiUseParamSpec</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">MultiUseParameterConfig</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MultiUseParameterConfig</span><span class="p">]]</span>
 
 
 <span class="k">class</span> <span class="nc">DetachExecutor</span><span class="p">(</span><span class="n">fx</span><span class="o">.</span><span class="n">Interpreter</span><span class="p">):</span>
@@ -1041,7 +1041,7 @@
     <span class="k">def</span> <span class="nf">to_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">graph</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
 
-        <span class="n">ref_str_to_node</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ref_str_to_node</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">def</span> <span class="nf">ref_to_node</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">_NodeReference</span><span class="p">):</span>
@@ -1166,14 +1166,14 @@
 
         <span class="c1"># Map parameter value to a dictionary that maps the user pipeline module</span>
         <span class="c1"># to the local qualname within that module</span>
-        <span class="n">params_to_users</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">params_to_users</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">for</span> <span class="n">m_qualname</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_gm</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">p_qualname</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
                 <span class="n">params_to_users</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="p">{})</span>
                 <span class="n">params_to_users</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="n">m_qualname</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_qualname</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">replicated_params</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">replicated_params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">use_mapping</span>
             <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">use_mapping</span> <span class="ow">in</span> <span class="n">params_to_users</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">use_mapping</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
@@ -1254,7 +1254,7 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_number_and_count_forward_stages</span><span class="p">(</span><span class="n">gm</span><span class="p">:</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">):</span>
         <span class="n">num_stages</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">found_idxs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">found_idxs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_module&quot;</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;submod_&quot;</span><span class="p">):</span>
                 <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;stage_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;submod_&quot;</span><span class="p">)</span> <span class="p">:])</span>
@@ -1302,7 +1302,7 @@
         <span class="c1"># Deduplicate `get_attr` nodes that refer to the same parameter . Downstream code for moving</span>
         <span class="c1"># parameters relies on the invariant that parameter accesses happen once. This is not necessarily</span>
         <span class="c1"># the case (especially with custom tracers), so fix that up here.</span>
-        <span class="n">get_attr_nodes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">get_attr_nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">traced</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>  <span class="c1"># type: ignore[union-attr]</span>
             <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;get_attr&quot;</span><span class="p">:</span>
                 <span class="n">get_attr_nodes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
@@ -1477,7 +1477,7 @@
 
         <span class="c1"># [aliasing] store tensor id -&gt; list of FQNs, built from state dict</span>
         <span class="c1"># Also assign non-persistent buffers</span>
-        <span class="n">id_to_fqns</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="n">id_to_fqns</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(</span><span class="n">keep_vars</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">id_to_fqns</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">)]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fqn</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">named_buffers</span><span class="p">():</span>
@@ -1487,7 +1487,7 @@
         <span class="c1"># need to move the `get_attr` nodes from the root of the graph to those</span>
         <span class="c1"># hierarchies.</span>
         <span class="c1"># [aliasing] use id -&gt; fqn mapping to list out all valid FQNs</span>
-        <span class="n">inputs_to_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">inputs_to_state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attr_nodes</span><span class="p">:</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">tensor</span> <span class="o">=</span> <span class="n">_recursive_getattr_with_parent</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">attr</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
             <span class="n">fqns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">id_to_fqns</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">tensor</span><span class="p">)])</span>
@@ -1499,7 +1499,7 @@
         <span class="c1"># [aliasing] for each submodule split, assign attributes on FQNs that may be used.</span>
         <span class="c1"># We determine this based on whether or not the FQN attribute parent exists.</span>
         <span class="c1"># i.e. if the last submodule exists, assign the attribute.</span>
-        <span class="n">added_attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="n">added_attributes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(</span><span class="n">keep_vars</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submod</span> <span class="ow">in</span> <span class="n">split</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">submod</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">):</span>
@@ -1608,7 +1608,7 @@
     <span class="k">def</span> <span class="nf">_trace_with_export</span><span class="p">(</span>
         <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
         <span class="n">example_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">example_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">example_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExportedProgram</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Tracing model ...&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -1632,7 +1632,7 @@
     <span class="k">def</span> <span class="nf">from_tracing</span><span class="p">(</span>
         <span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
         <span class="n">example_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-        <span class="n">example_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">example_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">split_policy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">],</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="c1"># If a param will be used in multiple pipeline stages, we default the strategy to REPLICATE&#39;ing the param across</span>
@@ -1782,7 +1782,7 @@
         <span class="n">pipe_split</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">annotate_split_points</span><span class="p">(</span><span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SplitPoint</span><span class="p">]):</span>
+<span class="k">def</span> <span class="nf">annotate_split_points</span><span class="p">(</span><span class="n">mod</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SplitPoint</span><span class="p">]):</span>
     <span class="c1"># TODO: make this implementation out-of-place?</span>
     <span class="k">for</span> <span class="n">qualname</span><span class="p">,</span> <span class="n">split_type</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">qualname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
@@ -1809,8 +1809,8 @@
 <div class="viewcode-block" id="pipeline"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.pipeline">[docs]</a><span class="k">def</span> <span class="nf">pipeline</span><span class="p">(</span>
     <span class="n">module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">mb_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-    <span class="n">mb_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">split_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SplitPoint</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">mb_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">split_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SplitPoint</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">split_policy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">],</span> <span class="n">fx</span><span class="o">.</span><span class="n">GraphModule</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pipe</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>

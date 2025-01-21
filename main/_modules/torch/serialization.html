@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6cb186e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -622,19 +622,7 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">closing</span><span class="p">,</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Any</span><span class="p">,</span>
-    <span class="n">BinaryIO</span><span class="p">,</span>
-    <span class="n">Callable</span><span class="p">,</span>
-    <span class="n">cast</span><span class="p">,</span>
-    <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">IO</span><span class="p">,</span>
-    <span class="n">List</span><span class="p">,</span>
-    <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-    <span class="n">Type</span><span class="p">,</span>
-    <span class="n">Union</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">IO</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeAlias</span><span class="p">,</span> <span class="n">TypeIs</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -686,7 +674,7 @@
 
 <span class="n">FILE_LIKE</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">,</span> <span class="n">IO</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]]</span>
 <span class="n">MAP_LOCATION</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span>
-    <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Storage</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Storage</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Storage</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Storage</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
 <span class="p">]</span>
 <span class="n">STORAGE</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Storage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">TypedStorage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">]</span>
 
@@ -739,8 +727,8 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
 
-<span class="n">_package_registry</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span>
-    <span class="n">Tuple</span><span class="p">[</span>
+<span class="n">_package_registry</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+    <span class="nb">tuple</span><span class="p">[</span>
         <span class="nb">int</span><span class="p">,</span>
         <span class="n">Callable</span><span class="p">[[</span><span class="n">STORAGE</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
         <span class="n">Callable</span><span class="p">[[</span><span class="n">STORAGE</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">STORAGE</span><span class="p">]],</span>
@@ -877,14 +865,14 @@
     <span class="n">_weights_only_unpickler</span><span class="o">.</span><span class="n">_clear_safe_globals</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="get_safe_globals"><a class="viewcode-back" href="../../notes/serialization.html#torch.get_safe_globals">[docs]</a><span class="k">def</span> <span class="nf">get_safe_globals</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]:</span>
+<div class="viewcode-block" id="get_safe_globals"><a class="viewcode-back" href="../../notes/serialization.html#torch.get_safe_globals">[docs]</a><span class="k">def</span> <span class="nf">get_safe_globals</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the list of user-added globals that are safe for ``weights_only`` load.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_weights_only_unpickler</span><span class="o">.</span><span class="n">_get_safe_globals</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="add_safe_globals"><a class="viewcode-back" href="../../notes/serialization.html#torch.add_safe_globals">[docs]</a><span class="k">def</span> <span class="nf">add_safe_globals</span><span class="p">(</span><span class="n">safe_globals</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="add_safe_globals"><a class="viewcode-back" href="../../notes/serialization.html#torch.add_safe_globals">[docs]</a><span class="k">def</span> <span class="nf">add_safe_globals</span><span class="p">(</span><span class="n">safe_globals</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Marks the given globals as safe for ``weights_only`` load. For example, functions</span>
 <span class="sd">    added to this list can be called during unpickling, classes could be instantiated</span>
@@ -945,7 +933,7 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="get_unsafe_globals_in_checkpoint"><a class="viewcode-back" href="../../notes/serialization.html#torch.get_unsafe_globals_in_checkpoint">[docs]</a><span class="k">def</span> <span class="nf">get_unsafe_globals_in_checkpoint</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">FILE_LIKE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="get_unsafe_globals_in_checkpoint"><a class="viewcode-back" href="../../notes/serialization.html#torch.get_unsafe_globals_in_checkpoint">[docs]</a><span class="k">def</span> <span class="nf">get_unsafe_globals_in_checkpoint</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">FILE_LIKE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a list of strings of functions/classes in a ``torch.save`` object that are not safe for ``weights_only``.</span>
 
 <span class="sd">    For a given function or class ``f``, the corresponding string will be of the form</span>
@@ -1411,7 +1399,7 @@
 
 
 <span class="k">def</span> <span class="nf">_open_zipfile_writer</span><span class="p">(</span><span class="n">name_or_buffer</span><span class="p">):</span>
-    <span class="n">container</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">_opener</span><span class="p">]</span>
+    <span class="n">container</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">_opener</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">_is_path</span><span class="p">(</span><span class="n">name_or_buffer</span><span class="p">):</span>
         <span class="n">container</span> <span class="o">=</span> <span class="n">_open_zipfile_writer_file</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1572,15 +1560,15 @@
     <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 
     <span class="n">serialized_container_types</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">serialized_storages</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">serialized_storages</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># Since loading storages that view the same data with different dtypes is</span>
     <span class="c1"># not supported, we need to keep track of the dtype associated with each</span>
     <span class="c1"># storage data_ptr and throw an error if the dtype is ever different.</span>
     <span class="c1"># TODO: This feature could be added in the future</span>
-    <span class="n">storage_dtypes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">storage_dtypes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">persistent_id</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">persistent_id</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]:</span>
         <span class="c1"># FIXME: the docs say that persistent_id should only return a string</span>
         <span class="c1"># but torch store returns tuples. This works only in the binary protocol</span>
         <span class="c1"># see</span>
@@ -1639,7 +1627,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">storage_dtypes</span><span class="p">[</span><span class="n">storage</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">()]</span> <span class="o">=</span> <span class="n">storage_dtype</span>
 
-            <span class="n">view_metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
+            <span class="n">view_metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
 
             <span class="c1"># Offset is always 0, but we keep it for backwards compatibility</span>
             <span class="c1"># with the old serialization format (which supported storage views)</span>
@@ -1734,13 +1722,13 @@
     <span class="n">_disable_byteorder_record</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="n">serialized_storages</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">id_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">id_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># Since loading storages that view the same data with different dtypes is</span>
     <span class="c1"># not supported, we need to keep track of the dtype associated with each</span>
     <span class="c1"># storage data_ptr and throw an error if the dtype is ever different.</span>
     <span class="c1"># TODO: This feature could be added in the future</span>
-    <span class="n">storage_dtypes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">storage_dtypes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="nf">persistent_id</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
         <span class="c1"># FIXME: the docs say that persistent_id should only return a string</span>
@@ -2141,7 +2129,7 @@
 
 
 <span class="k">def</span> <span class="nf">_legacy_load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">map_location</span><span class="p">,</span> <span class="n">pickle_module</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">):</span>
-    <span class="n">deserialized_objects</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">deserialized_objects</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="n">restore_location</span> <span class="o">=</span> <span class="n">_get_restore_location</span><span class="p">(</span><span class="n">map_location</span><span class="p">)</span>
 
@@ -2206,7 +2194,7 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">SourceChangeWarning</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">legacy_load</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-        <span class="n">deserialized_objects</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">deserialized_objects</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">def</span> <span class="nf">persistent_load</span><span class="p">(</span><span class="n">saved_id</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">saved_id</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
@@ -2557,7 +2545,7 @@
 
         <span class="k">return</span> <span class="n">typed_storage</span>
 
-    <span class="n">load_module_mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">load_module_mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="c1"># See https://github.com/pytorch/pytorch/pull/51633</span>
         <span class="s2">&quot;torch.tensor&quot;</span><span class="p">:</span> <span class="s2">&quot;torch._tensor&quot;</span>
     <span class="p">}</span>
