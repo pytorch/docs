@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git266fd35 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -620,8 +620,9 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">cast</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">DefaultDict</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span>
-    <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">)</span>
+    <span class="n">cast</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch.utils.benchmark.utils</span> <span class="kn">import</span> <span class="n">common</span><span class="p">,</span> <span class="n">cpp_jit</span>
@@ -656,7 +657,7 @@
 <span class="sd">        4) Two higher order methods (`filter` and `transform`) for custom</span>
 <span class="sd">           manipulation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_data</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">_data</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
     <span class="n">inclusive</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">truncate_rows</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -671,9 +672,9 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="s2">&quot;FunctionCounts&quot;</span><span class="p">]:</span>
-        <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">(</span>
-            <span class="n">FunctionCounts</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">Tuple</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">data</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">inclusive</span><span class="p">,</span> <span class="n">truncate_rows</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">FunctionCounts</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="n">FunctionCount</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">data</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">inclusive</span><span class="p">,</span> <span class="n">truncate_rows</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">data</span>
         <span class="p">)</span>
 
@@ -724,7 +725,7 @@
 <span class="sd">        parts of the file path), coalesce entries by mapping multiple functions</span>
 <span class="sd">        to the same name (in which case the counts are added together), etc.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">counts</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">counts</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
             <span class="n">counts</span><span class="p">[</span><span class="n">map_fn</span><span class="p">(</span><span class="n">fn</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">c</span>
 
@@ -753,7 +754,7 @@
         <span class="n">merge_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FunctionCounts&quot;</span><span class="p">:</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">inclusive</span> <span class="o">==</span> <span class="n">second</span><span class="o">.</span><span class="n">inclusive</span><span class="p">,</span> <span class="s2">&quot;Cannot merge inclusive and exclusive counts.&quot;</span>
-        <span class="n">counts</span><span class="p">:</span> <span class="n">DefaultDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">counts</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">counts</span><span class="p">[</span><span class="n">fn</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c</span>
 
@@ -763,7 +764,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_dict</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inclusive</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="n">counts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">inclusive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FunctionCounts&quot;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="n">counts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">inclusive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FunctionCounts&quot;</span><span class="p">:</span>
         <span class="n">flat_counts</span> <span class="o">=</span> <span class="p">(</span><span class="n">FunctionCount</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">FunctionCounts</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">flat_counts</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="n">inclusive</span><span class="p">)</span></div>
 
@@ -905,7 +906,7 @@
     <span class="n">TORCH_JIT</span> <span class="o">=</span> <span class="mi">2</span>
 
 
-<span class="n">_GLOBALS_ALLOWED_TYPES</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Serialization</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">_GLOBALS_ALLOWED_TYPES</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Serialization</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">Serialization</span><span class="o">.</span><span class="n">PICKLE</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">complex</span><span class="p">),</span>
     <span class="n">Serialization</span><span class="o">.</span><span class="n">TORCH_JIT</span><span class="p">:</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">),</span>
     <span class="n">Serialization</span><span class="o">.</span><span class="n">TORCH</span><span class="p">:</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,),</span>
@@ -948,7 +949,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialization</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">unwrap_all</span><span class="p">(</span><span class="nb">globals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">unwrap_all</span><span class="p">(</span><span class="nb">globals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">CopyIfCallgrind</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">globals</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -1028,8 +1029,8 @@
 <span class="sd">        operations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">globals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_globals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">CopyIfCallgrind</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">globals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_globals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">CopyIfCallgrind</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">data_dir</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
@@ -1102,7 +1103,7 @@
             <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bindings_module</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">valgrind_symbols</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_supported_platform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bindings_module</span><span class="o">.</span><span class="n">_valgrind_supported_platform</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_commands_available</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commands_available</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_supported_platform</span><span class="p">:</span>
             <span class="c1"># Only bother checking on supported platforms.</span>
             <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;valgrind&quot;</span><span class="p">,</span> <span class="s2">&quot;callgrind_control&quot;</span><span class="p">,</span> <span class="s2">&quot;callgrind_annotate&quot;</span><span class="p">):</span>
@@ -1128,14 +1129,14 @@
     <span class="k">def</span> <span class="nf">collect_callgrind</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_spec</span><span class="p">:</span> <span class="n">common</span><span class="o">.</span><span class="n">TaskSpec</span><span class="p">,</span>
-        <span class="nb">globals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="nb">globals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">repeats</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">collect_baseline</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">is_python</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">retain_out_file</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">CallgrindStats</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">CallgrindStats</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Collect stats, and attach a reference run which can be used to filter interpreter overhead.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">()</span>
         <span class="k">assert</span> <span class="n">is_python</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">collect_baseline</span>
@@ -1169,13 +1170,13 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">task_spec</span><span class="p">:</span> <span class="n">common</span><span class="o">.</span><span class="n">TaskSpec</span><span class="p">,</span>
-        <span class="nb">globals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="nb">globals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
         <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">repeats</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">collect_baseline</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">is_python</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">retain_out_file</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">FunctionCounts</span><span class="p">,</span> <span class="n">FunctionCounts</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">FunctionCounts</span><span class="p">,</span> <span class="n">FunctionCounts</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Core invocation method for Callgrind collection.</span>
 
 <span class="sd">        Valgrind operates by effectively replacing the CPU with an emulated</span>
@@ -1204,7 +1205,7 @@
         <span class="n">stat_log</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_dir</span><span class="p">,</span> <span class="s2">&quot;callgrind_stat.txt&quot;</span><span class="p">)</span>
         <span class="n">stdout_stderr_log</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_dir</span><span class="p">,</span> <span class="s2">&quot;stdout_stderr.log&quot;</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">CompletedProcessType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">CompletedProcessType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
             <span class="c1"># https://thraxil.org/users/anders/posts/2008/03/13/Subprocess-Hanging-PIPE-is-your-enemy/</span>
             <span class="n">f_stdout_stderr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">stdout_stderr_log</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
@@ -1328,7 +1329,7 @@
                 <span class="k">assert</span> <span class="n">scan_state</span> <span class="o">==</span> <span class="n">ScanState</span><span class="o">.</span><span class="n">PARSING</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to parse </span><span class="si">{</span><span class="n">fpath</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="k">return</span> <span class="n">FunctionCounts</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">fn_counts</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="n">inclusive</span><span class="o">=</span><span class="n">inclusive</span><span class="p">)</span>
 
-            <span class="k">def</span> <span class="nf">read_results</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">FunctionCounts</span><span class="p">,</span> <span class="n">FunctionCounts</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+            <span class="k">def</span> <span class="nf">read_results</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">FunctionCounts</span><span class="p">,</span> <span class="n">FunctionCounts</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
                 <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">repeats</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">collect_baseline</span><span class="p">:</span>
                     <span class="c1"># Null baseline.</span>
                     <span class="k">return</span> <span class="p">(</span>

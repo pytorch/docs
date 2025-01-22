@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git266fd35 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -2269,8 +2269,9 @@
 
 <span class="sd">    When max is not None, this specifies an upper bound equivalent to</span>
 <span class="sd">    ``_check(i &lt;= max)``.  This bound is also subject to alternate semantics:</span>
-<span class="sd">    in ``guard_size_oblivious`` tests, we assume that the max bound is treated</span>
-<span class="sd">    equivalently to all other values.</span>
+<span class="sd">    in ``guard_size_oblivious`` tests, we assume that a constant max bound is</span>
+<span class="sd">    treated equivalently to all other values.  Symbolic max bounds are not yet</span>
+<span class="sd">    supported.</span>
 
 <span class="sd">    NB: Do NOT use this in contexts where a -1 size would be valid (indicating</span>
 <span class="sd">    to infer the size from context, or if you should wrap-around or truncate).</span>
@@ -2884,10 +2885,13 @@
     <span class="n">compiler_name</span> <span class="o">=</span> <span class="s2">&quot;inductor&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">dynamic</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">torch._inductor.compiler_bisector</span> <span class="kn">import</span> <span class="n">CompilerBisector</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> <span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dynamic</span> <span class="o">=</span> <span class="n">dynamic</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">apply_mode</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">apply_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply_options</span><span class="p">(</span><span class="n">CompilerBisector</span><span class="o">.</span><span class="n">get_config_change</span><span class="p">(</span><span class="s2">&quot;inductor&quot;</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;triton.cudagraphs&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;DISABLE_CUPTI_LAZY_REINIT&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
@@ -2905,26 +2909,12 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">apply_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
-        <span class="k">if</span> <span class="n">mode</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">elif</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;reduce-overhead&quot;</span><span class="p">,</span> <span class="s2">&quot;max-autotune&quot;</span><span class="p">,</span> <span class="s2">&quot;max-autotune-no-cudagraphs&quot;</span><span class="p">}:</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="ow">and</span> <span class="n">mode</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">torch._inductor</span> <span class="kn">import</span> <span class="n">list_mode_options</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">apply_options</span><span class="p">(</span><span class="n">list_mode_options</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dynamic</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Unrecognized mode=</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">, should be one of: default, reduce-overhead, max-autotune, max-autotune-no-cudagraphs&quot;</span>
-            <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">apply_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">_Optional</span><span class="p">[</span><span class="n">_Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Any</span><span class="p">]]):</span>
-        <span class="kn">from</span> <span class="nn">torch._inductor.compiler_bisector</span> <span class="kn">import</span> <span class="n">CompilerBisector</span>
-
-        <span class="k">if</span> <span class="n">bisect_changes</span> <span class="o">:=</span> <span class="n">CompilerBisector</span><span class="o">.</span><span class="n">get_config_change</span><span class="p">(</span><span class="s2">&quot;inductor&quot;</span><span class="p">):</span>
-            <span class="n">options</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">options</span>
-            <span class="n">options</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="p">{</span><span class="o">**</span><span class="n">bisect_changes</span><span class="p">}</span> <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{</span><span class="o">**</span><span class="n">options</span><span class="p">,</span> <span class="o">**</span><span class="n">bisect_changes</span><span class="p">}</span>  <span class="c1"># type: ignore[dict-item]</span>
-            <span class="p">)</span>
-
         <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="p">:</span>
             <span class="k">return</span>
 

@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitdea7ad3 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git266fd35 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -611,7 +611,7 @@
 <span class="kn">import</span> <span class="nn">enum</span>
 <span class="kn">import</span> <span class="nn">timeit</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch.utils.benchmark.utils</span> <span class="kn">import</span> <span class="n">common</span><span class="p">,</span> <span class="n">cpp_jit</span>
@@ -650,7 +650,7 @@
         <span class="n">setup</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">global_setup</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">timer</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">float</span><span class="p">],</span>
-        <span class="nb">globals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="nb">globals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">timer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
@@ -789,7 +789,7 @@
 <span class="sd">            threadpool size which tries to utilize all cores.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_timer_cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">TimerClass</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">Timer</span>
+    <span class="n">_timer_cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">TimerClass</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">Timer</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -797,7 +797,7 @@
         <span class="n">setup</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;pass&quot;</span><span class="p">,</span>
         <span class="n">global_setup</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">timer</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">timer</span><span class="p">,</span>
-        <span class="nb">globals</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="nb">globals</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">sub_label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -898,14 +898,14 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">time_hook</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">float</span><span class="p">],</span>
-        <span class="n">stop_hook</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">bool</span><span class="p">],</span>
+        <span class="n">stop_hook</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">bool</span><span class="p">],</span>
         <span class="n">min_run_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">max_run_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">NoReturn</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
         <span class="n">total_time</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">can_stop</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">with</span> <span class="n">common</span><span class="o">.</span><span class="n">set_torch_threads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_task_spec</span><span class="o">.</span><span class="n">num_threads</span><span class="p">):</span>
             <span class="k">while</span> <span class="p">(</span><span class="n">total_time</span> <span class="o">&lt;</span> <span class="n">min_run_time</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">can_stop</span><span class="p">):</span>
                 <span class="n">time_spent</span> <span class="o">=</span> <span class="n">time_hook</span><span class="p">()</span>
@@ -983,7 +983,7 @@
         <span class="k">def</span> <span class="nf">time_hook</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeit</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">stop_hook</span><span class="p">(</span><span class="n">times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">stop_hook</span><span class="p">(</span><span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
         <span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_threaded_measurement_loop</span><span class="p">(</span>
@@ -1043,7 +1043,7 @@
         <span class="k">def</span> <span class="nf">time_hook</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeit</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">stop_hook</span><span class="p">(</span><span class="n">times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">stop_hook</span><span class="p">(</span><span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">Measurement</span><span class="p">(</span>
                     <span class="n">number_per_run</span><span class="o">=</span><span class="n">number</span><span class="p">,</span>
@@ -1079,7 +1079,7 @@
         <span class="n">repeats</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">collect_baseline</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">retain_out_file</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">valgrind_timer_interface</span><span class="o">.</span><span class="n">CallgrindStats</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">valgrind_timer_interface</span><span class="o">.</span><span class="n">CallgrindStats</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
         <span class="o">...</span>
 
 <div class="viewcode-block" id="Timer.collect_callgrind"><a class="viewcode-back" href="../../../../../benchmark_utils.html#torch.utils.benchmark.Timer.collect_callgrind">[docs]</a>    <span class="k">def</span> <span class="nf">collect_callgrind</span><span class="p">(</span>
