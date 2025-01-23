@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git266fd35 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc9e12d6 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -608,7 +608,8 @@
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
@@ -761,9 +762,9 @@
 
 <div class="viewcode-block" id="split"><a class="viewcode-back" href="../../generated/torch.split.html#torch.split">[docs]</a><span class="k">def</span> <span class="nf">split</span><span class="p">(</span>
     <span class="n">tensor</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-    <span class="n">split_size_or_sections</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+    <span class="n">split_size_or_sections</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
     <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Splits the tensor into chunks. Each chunk is a view of the original tensor.</span>
 
 <span class="sd">    If :attr:`split_size_or_sections` is an integer type, then :attr:`tensor` will</span>
@@ -1028,13 +1029,13 @@
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="c1"># The JIT doesn&#39;t understand Union, so only add type annotation for mypy</span>
     <span class="k">def</span> <span class="nf">meshgrid</span><span class="p">(</span>
-        <span class="o">*</span><span class="n">tensors</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span> <span class="n">indexing</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+        <span class="o">*</span><span class="n">tensors</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]],</span> <span class="n">indexing</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">_meshgrid</span><span class="p">(</span><span class="o">*</span><span class="n">tensors</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="n">indexing</span><span class="p">)</span>
 
 <span class="k">else</span><span class="p">:</span>
 
-<div class="viewcode-block" id="meshgrid"><a class="viewcode-back" href="../../generated/torch.meshgrid.html#torch.meshgrid">[docs]</a>    <span class="k">def</span> <span class="nf">meshgrid</span><span class="p">(</span><span class="o">*</span><span class="n">tensors</span><span class="p">,</span> <span class="n">indexing</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<div class="viewcode-block" id="meshgrid"><a class="viewcode-back" href="../../generated/torch.meshgrid.html#torch.meshgrid">[docs]</a>    <span class="k">def</span> <span class="nf">meshgrid</span><span class="p">(</span><span class="o">*</span><span class="n">tensors</span><span class="p">,</span> <span class="n">indexing</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Creates grids of coordinates specified by the 1D inputs in `attr`:tensors.</span>
 
 <span class="sd">        This is helpful when you want to visualize data over some</span>
@@ -1414,7 +1415,7 @@
     <span class="c1"># done by the caller of the _impl function</span>
     <span class="n">_unique_impl_out</span> <span class="o">=</span> <span class="n">Any</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">_unique_impl_out</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]</span>
+    <span class="n">_unique_impl_out</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_unique_impl</span><span class="p">(</span>
@@ -1424,7 +1425,7 @@
     <span class="n">return_counts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">dim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_unique_impl_out</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;unique(input, sorted=True, return_inverse=False, return_counts=False, dim=None) -&gt; Tuple[Tensor, Tensor, Tensor]</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;unique(input, sorted=True, return_inverse=False, return_counts=False, dim=None) -&gt; tuple[Tensor, Tensor, Tensor]</span>
 
 <span class="sd">    Returns the unique elements of the input tensor.</span>
 
@@ -1663,7 +1664,7 @@
     <span class="n">return_counts</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="c1"># type: (Tensor, bool, bool, bool, Optional[int]) -&gt; Tuple[Tensor, Tensor]</span>
+    <span class="c1"># type: (Tensor, bool, bool, bool, Optional[int]) -&gt; tuple[Tensor, Tensor]</span>
 
     <span class="k">if</span> <span class="n">has_torch_function_unary</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_unique_impl</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">,</span> <span class="n">return_inverse</span><span class="p">,</span> <span class="n">return_counts</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
@@ -1695,7 +1696,7 @@
     <span class="n">return_counts</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="c1"># type: (Tensor, bool, bool, bool, Optional[int]) -&gt; Tuple[Tensor, Tensor]</span>
+    <span class="c1"># type: (Tensor, bool, bool, bool, Optional[int]) -&gt; tuple[Tensor, Tensor]</span>
 
     <span class="k">if</span> <span class="n">has_torch_function_unary</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_unique_impl</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">,</span> <span class="n">return_inverse</span><span class="p">,</span> <span class="n">return_counts</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
@@ -1747,7 +1748,7 @@
     <span class="n">return_counts</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="c1"># type: (Tensor, bool, bool, Optional[int]) -&gt; Tuple[Tensor, Tensor]</span>
+    <span class="c1"># type: (Tensor, bool, bool, Optional[int]) -&gt; tuple[Tensor, Tensor]</span>
 
     <span class="k">if</span> <span class="n">has_torch_function_unary</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_unique_consecutive_impl</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">return_inverse</span><span class="p">,</span> <span class="n">return_counts</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
@@ -1779,7 +1780,7 @@
     <span class="n">return_counts</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">dim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="c1"># type: (Tensor, bool, bool, Optional[int]) -&gt; Tuple[Tensor, Tensor]</span>
+    <span class="c1"># type: (Tensor, bool, bool, Optional[int]) -&gt; tuple[Tensor, Tensor]</span>
 
     <span class="k">if</span> <span class="n">has_torch_function_unary</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_unique_consecutive_impl</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">return_inverse</span><span class="p">,</span> <span class="n">return_counts</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
@@ -1843,7 +1844,7 @@
     <span class="k">def</span> <span class="nf">tensordot</span><span class="p">(</span>  <span class="c1"># noqa: F811</span>
         <span class="n">a</span><span class="p">,</span>
         <span class="n">b</span><span class="p">,</span>
-        <span class="n">dims</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+        <span class="n">dims</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
         <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">pass</span>
@@ -1852,7 +1853,7 @@
     <span class="k">def</span> <span class="nf">tensordot</span><span class="p">(</span>  <span class="c1"># noqa: F811</span>
         <span class="n">a</span><span class="p">,</span>
         <span class="n">b</span><span class="p">,</span>
-        <span class="n">dims</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+        <span class="n">dims</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
         <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">pass</span>
@@ -1929,13 +1930,13 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">)):</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="s2">&quot;tensordot expects dims to be int or &quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;Tuple[List[int], List[int]] or &quot;</span>
-            <span class="o">+</span> <span class="s2">&quot;List[List[int]] containing two lists, but got &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;tuple[list[int], list[int]] or &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;list[list[int]] containing two lists, but got &quot;</span>
             <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;dims=</span><span class="si">{</span><span class="n">dims</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 
-    <span class="n">dims_a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">dims_b</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dims_a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dims_b</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
         <span class="n">dims_a</span><span class="p">,</span> <span class="n">dims_b</span> <span class="o">=</span> <span class="n">dims</span>
@@ -1944,8 +1945,8 @@
         <span class="n">num_elements</span> <span class="o">=</span> <span class="n">dims</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">num_elements</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">dims</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
-            <span class="n">dims_a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-            <span class="n">dims_b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="n">dims_a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="n">dims_b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">dims_val</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dims</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
             <span class="k">if</span> <span class="n">dims_val</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -2503,7 +2504,7 @@
 <div class="viewcode-block" id="unravel_index"><a class="viewcode-back" href="../../generated/torch.unravel_index.html#torch.unravel_index">[docs]</a><span class="k">def</span> <span class="nf">unravel_index</span><span class="p">(</span>
     <span class="n">indices</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
     <span class="n">shape</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts a tensor of flat indices into a tuple of coordinate tensors that</span>
 <span class="sd">    index into an arbitrary tensor of the specified shape.</span>
 
@@ -2648,7 +2649,7 @@
 
 
 <span class="k">def</span> <span class="nf">_lu_impl</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">pivot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_infos</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="c1"># type: (Tensor, bool, bool, Any) -&gt; Tuple[Tensor, Tensor, Tensor]</span>
+    <span class="c1"># type: (Tensor, bool, bool, Any) -&gt; tuple[Tensor, Tensor, Tensor]</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the LU factorization of a matrix or batches of matrices</span>
 <span class="sd">    :attr:`A`. Returns a tuple containing the LU factorization and</span>
 <span class="sd">    pivots of :attr:`A`.  Pivoting is done if :attr:`pivot` is set to</span>
@@ -2750,7 +2751,7 @@
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="n">_ListOrSeq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">_ListOrSeq</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
+    <span class="n">_ListOrSeq</span> <span class="o">=</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_check_list_size</span><span class="p">(</span><span class="n">out_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">get_infos</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">_ListOrSeq</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2766,7 +2767,7 @@
 
 
 <span class="k">def</span> <span class="nf">_lu_with_infos</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">pivot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_infos</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="c1"># type: (Tensor, bool, bool, Optional[Tuple[Tensor, Tensor, Tensor]]) -&gt; Tuple[Tensor, Tensor, Tensor]</span>
+    <span class="c1"># type: (Tensor, bool, bool, Optional[tuple[Tensor, Tensor, Tensor]]) -&gt; tuple[Tensor, Tensor, Tensor]</span>
     <span class="k">if</span> <span class="n">has_torch_function_unary</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">handle_torch_function</span><span class="p">(</span>
             <span class="n">lu</span><span class="p">,</span> <span class="p">(</span><span class="n">A</span><span class="p">,),</span> <span class="n">A</span><span class="p">,</span> <span class="n">pivot</span><span class="o">=</span><span class="n">pivot</span><span class="p">,</span> <span class="n">get_infos</span><span class="o">=</span><span class="n">get_infos</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span>
@@ -2782,7 +2783,7 @@
 
 
 <span class="k">def</span> <span class="nf">_lu_no_infos</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">pivot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_infos</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="c1"># type: (Tensor, bool, bool, Optional[Tuple[Tensor, Tensor]]) -&gt; Tuple[Tensor, Tensor]</span>
+    <span class="c1"># type: (Tensor, bool, bool, Optional[tuple[Tensor, Tensor]]) -&gt; tuple[Tensor, Tensor]</span>
     <span class="c1"># need to check for torch_function here so that we exit if</span>
     <span class="k">if</span> <span class="n">has_torch_function_unary</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">handle_torch_function</span><span class="p">(</span>
