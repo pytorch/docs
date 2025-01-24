@@ -584,37 +584,34 @@
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Validated Hardware</p></th>
-<th class="head"><p>Supported OS</p></th>
+<tr class="row-odd"><th class="head"><p>Supported OS</p></th>
+<th class="head"><p>Validated Hardware</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Intel® Data Center GPU Max Series</p></td>
-<td><p>Linux</p></td>
+<tr class="row-even"><td><p>Linux</p></td>
+<td><p>Intel® Client GPUs / Intel® Data Center GPU Max Series</p></td>
 </tr>
-<tr class="row-odd"><td><p>Intel Client GPU</p></td>
-<td><p>Windows/Linux</p></td>
+<tr class="row-odd"><td><p>Windows</p></td>
+<td><p>Intel® Client GPUs</p></td>
+</tr>
+<tr class="row-even"><td><p>WSL2 (experimental feature)</p></td>
+<td><p>Intel® Client GPUs</p></td>
 </tr>
 </tbody>
 </table>
-<p>Intel GPUs support (Prototype) is ready in PyTorch* 2.5 for Intel® Data Center GPU Max Series and Intel® Client GPUs on both Linux and Windows, which brings Intel GPUs and the SYCL* software stack into the official PyTorch stack with consistent user experience to embrace more AI application scenarios.</p>
+<p>Intel GPUs support (Prototype) is ready in PyTorch* 2.6 for Intel® Client GPUs and Intel® Data Center GPU Max Series on both Linux and Windows, which brings Intel GPUs and the SYCL* software stack into the official PyTorch stack with consistent user experience to embrace more AI application scenarios.</p>
 </div>
 <div class="section" id="software-prerequisite">
 <h2>Software Prerequisite<a class="headerlink" href="#software-prerequisite" title="Permalink to this heading">¶</a></h2>
-<p>Visit <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpus.html">PyTorch Installation Prerequisites for Intel GPUs</a> for more detailed information regarding:</p>
-<ol class="arabic simple">
-<li><p>Intel GPU driver installation</p></li>
-<li><p>Intel support package installation</p></li>
-<li><p>Environment setup</p></li>
-</ol>
+<p>To use PyTorch on Intel GPUs, you need to install the Intel GPUs driver first. For installation guide, visit <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu/2-6.html#driver-installation">Intel GPUs Driver Installation</a>.</p>
+<p>Intel GPU Drivers are sufficient for binary installation, while building from source requires both Intel GPU Drivers and Intel® Deep Learning Essentials. Please refer to  <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu/2-6.html">PyTorch Installation Prerequisites for Intel GPUs</a> for more information.</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="binaries">
 <h3>Binaries<a class="headerlink" href="#binaries" title="Permalink to this heading">¶</a></h3>
-<div class="section" id="platform-linux">
-<h4>Platform Linux<a class="headerlink" href="#platform-linux" title="Permalink to this heading">¶</a></h4>
-<p>Now we have all the required packages installed and environment activated. Use the following commands to install <code class="docutils literal notranslate"><span class="pre">pytorch</span></code>, <code class="docutils literal notranslate"><span class="pre">torchvision</span></code>, <code class="docutils literal notranslate"><span class="pre">torchaudio</span></code> on Linux.</p>
+<p>Now that we have <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu/2-6.html#driver-installation">Intel GPU Driver</a> installed, use the following commands to install <code class="docutils literal notranslate"><span class="pre">pytorch</span></code>, <code class="docutils literal notranslate"><span class="pre">torchvision</span></code>, <code class="docutils literal notranslate"><span class="pre">torchaudio</span></code> on Linux.</p>
 <p>For preview wheels</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">xpu</span>
 </pre></div>
@@ -624,21 +621,9 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="platform-windows">
-<h4>Platform Windows<a class="headerlink" href="#platform-windows" title="Permalink to this heading">¶</a></h4>
-<p>Now we have all the required packages installed and environment activated. Use the following commands to install <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> on Windows, build from source for <code class="docutils literal notranslate"><span class="pre">torchvision</span></code> and <code class="docutils literal notranslate"><span class="pre">torchaudio</span></code>.</p>
-<p>For preview wheels</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">torch</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">xpu</span>
-</pre></div>
-</div>
-<p>For nightly wheels</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="o">--</span><span class="n">pre</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchaudio</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">whl</span><span class="o">/</span><span class="n">nightly</span><span class="o">/</span><span class="n">xpu</span>
-</pre></div>
-</div>
-</div>
-</div>
 <div class="section" id="from-source">
 <h3>From Source<a class="headerlink" href="#from-source" title="Permalink to this heading">¶</a></h3>
+<p>Now that we have <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/pytorch-prerequisites-for-intel-gpu/2-6.html">Intel GPU Driver and Intel® Deep Learning Essentials</a> installed. Follow guides to build <code class="docutils literal notranslate"><span class="pre">pytorch</span></code>, <code class="docutils literal notranslate"><span class="pre">torchvision</span></code>, <code class="docutils literal notranslate"><span class="pre">torchaudio</span></code> from source.</p>
 <p>Build from source for <code class="docutils literal notranslate"><span class="pre">torch</span></code> refer to <a class="reference external" href="https://github.com/pytorch/pytorch?tab=readme-ov-file#from-source">PyTorch Installation Build from source</a>.</p>
 <p>Build from source for <code class="docutils literal notranslate"><span class="pre">torchvision</span></code> refer to <a class="reference external" href="https://github.com/pytorch/vision/blob/main/CONTRIBUTING.md#development-installation">Torchvision Installation Build from source</a>.</p>
 <p>Build from source for <code class="docutils literal notranslate"><span class="pre">torchaudio</span></code> refert to <a class="reference external" href="https://github.com/pytorch/audio/blob/main/CONTRIBUTING.md#building-torchaudio-from-source">Torchaudio Installation Build from source</a>.</p>
@@ -651,12 +636,7 @@
 <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>  <span class="c1"># torch.xpu is the API for Intel GPU support</span>
 </pre></div>
 </div>
-<p>If the output is <code class="docutils literal notranslate"><span class="pre">False</span></code>, double check following steps below.</p>
-<ol class="arabic simple">
-<li><p>Intel GPU driver installation</p></li>
-<li><p>Intel support package installation</p></li>
-<li><p>Environment setup</p></li>
-</ol>
+<p>If the output is <code class="docutils literal notranslate"><span class="pre">False</span></code>, double check driver installation for Intel GPUs.</p>
 </div>
 <div class="section" id="minimum-code-change">
 <h2>Minimum Code Change<a class="headerlink" href="#minimum-code-change" title="Permalink to this heading">¶</a></h2>
@@ -737,22 +717,22 @@
 <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;xpu&quot;</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;xpu&quot;</span><span class="p">)</span>
 
- <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ITERS</span><span class="p">):</span>
-     <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-         <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-         <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
-     <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Inference time before torch.compile for iteration </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ITERS</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Inference time before torch.compile for iteration </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
 
- <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
- <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ITERS</span><span class="p">):</span>
-     <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-         <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-         <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
-     <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Inference time after torch.compile for iteration </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ITERS</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Inference time after torch.compile for iteration </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Execution finished&quot;</span><span class="p">)</span>
 </pre></div>
@@ -1001,11 +981,7 @@ if (url)
 <li><a class="reference internal" href="#hardware-prerequisite">Hardware Prerequisite</a></li>
 <li><a class="reference internal" href="#software-prerequisite">Software Prerequisite</a></li>
 <li><a class="reference internal" href="#installation">Installation</a><ul>
-<li><a class="reference internal" href="#binaries">Binaries</a><ul>
-<li><a class="reference internal" href="#platform-linux">Platform Linux</a></li>
-<li><a class="reference internal" href="#platform-windows">Platform Windows</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#binaries">Binaries</a></li>
 <li><a class="reference internal" href="#from-source">From Source</a></li>
 </ul>
 </li>
