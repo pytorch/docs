@@ -902,9 +902,10 @@
             <span class="c1"># libtorch_global_deps.so always depends in cudart, check if its installed via wheel</span>
             <span class="k">if</span> <span class="s2">&quot;nvidia/cuda_runtime/lib/libcudart.so&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_maps</span><span class="p">:</span>
                 <span class="k">return</span>
-            <span class="c1"># If all abovementioned conditions are met, preload nvjitlink and nvrtc</span>
-            <span class="n">_preload_cuda_deps</span><span class="p">(</span><span class="s2">&quot;nvjitlink&quot;</span><span class="p">,</span> <span class="s2">&quot;libnvJitLink.so.*[0-9]&quot;</span><span class="p">)</span>
+            <span class="c1"># If all above-mentioned conditions are met, preload nvrtc and nvjitlink</span>
+            <span class="c1"># Please note that order are important for CUDA-11.8 , as nvjitlink does not exist there</span>
             <span class="n">_preload_cuda_deps</span><span class="p">(</span><span class="s2">&quot;cuda_nvrtc&quot;</span><span class="p">,</span> <span class="s2">&quot;libnvrtc.so.*[0-9]&quot;</span><span class="p">)</span>
+            <span class="n">_preload_cuda_deps</span><span class="p">(</span><span class="s2">&quot;nvjitlink&quot;</span><span class="p">,</span> <span class="s2">&quot;libnvJitLink.so.*[0-9]&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">pass</span>
 
