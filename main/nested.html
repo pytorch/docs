@@ -300,7 +300,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitefebec5 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git3cf7874 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -614,151 +614,438 @@
 <p class="admonition-title">Warning</p>
 <p>The PyTorch API of nested tensors is in prototype stage and will change in the near future.</p>
 </div>
-<p>NestedTensor allows the user to pack a list of Tensors into a single, efficient datastructure.</p>
-<p>The only constraint on the input Tensors is that their dimension must match.</p>
-<p>This enables more efficient metadata representations and access to purpose built kernels.</p>
-<p>One application of NestedTensors is to express sequential data in various domains.
-While the conventional approach is to pad variable length sequences, NestedTensor
-enables users to bypass padding. The API for calling operations on a nested tensor is no different
-from that of a regular <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>, which should allow seamless integration with existing models,
-with the main difference being <a class="reference internal" href="#construction"><span class="std std-ref">construction of the inputs</span></a>.</p>
-<p>As this is a prototype feature, the <a class="reference internal" href="#supported-operations"><span class="std std-ref">operations supported</span></a> are still
-limited. However, we welcome issues, feature requests and contributions. More information on contributing can be found
+<p>Nested tensors allow for ragged-shaped data to be contained within and operated upon as a
+single tensor. Such data is stored underneath in an efficient packed representation, while exposing
+a standard PyTorch tensor interface for applying operations.</p>
+<p>A common application of nested tensors is for expressing batches of variable-length sequential data
+present in various domains, such as varying sentence lengths, image sizes, and audio / video clip
+lengths. Traditionally, such data has been handled by padding sequences to that of the max length
+within a batch, performing computation on the padded form, and subsequently masking to remove
+padding. This is inefficient and error-prone, and nested tensors exist to address these problems.</p>
+<p>The API for calling operations on a nested tensor is no different from that of a regular
+<code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>, allowing for seamless integration with existing models, with the main
+difference being <a class="reference internal" href="#construction"><span class="std std-ref">construction of the inputs</span></a>.</p>
+<p>As this is a prototype feature, the set of <a class="reference internal" href="#supported-operations"><span class="std std-ref">operations supported</span></a> is
+limited, but growing. We welcome issues, feature requests, and contributions.
+More information on contributing can be found
 <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/aten/src/ATen/native/nested/README.md">in this Readme</a>.</p>
 </div>
 <div class="section" id="construction">
 <span id="id1"></span><h2>Construction<a class="headerlink" href="#construction" title="Permalink to this heading">¶</a></h2>
-<p>Construction is straightforward and involves passing a list of Tensors to the <code class="docutils literal notranslate"><span class="pre">torch.nested.nested_tensor</span></code>
-constructor.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two forms of nested tensors present within PyTorch, distinguished by layout as
+specified during construction. Layout can be one of <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.jagged</span></code>.
+We recommend utilizing the <code class="docutils literal notranslate"><span class="pre">torch.jagged</span></code> layout whenever possible. While it currently only
+supports a single ragged dimension, it has better op coverage, receives active development, and
+integrates well with <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>. These docs adhere to this recommendation and refer to
+nested tensors with the <code class="docutils literal notranslate"><span class="pre">torch.jagged</span></code> layout as “NJTs” for brevity throughout.</p>
+</div>
+<p>Construction is straightforward and involves passing a list of tensors to the
+<code class="docutils literal notranslate"><span class="pre">torch.nested.nested_tensor</span></code> constructor. A nested tensor with the <code class="docutils literal notranslate"><span class="pre">torch.jagged</span></code> layout
+(AKA an “NJT”) supports a single ragged dimension. This constructor will copy the input tensors
+into a packed, contiguous block of memory according to the layout described in the <a class="reference internal" href="#data-layout">data_layout</a>
+section below.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
 <span class="go">tensor([0, 1, 2])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b</span>
 <span class="go">tensor([3, 4, 5, 6, 7])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span>
-<span class="go">nested_tensor([</span>
-<span class="go">  tensor([0, 1, 2]),</span>
-<span class="go">    tensor([3, 4, 5, 6, 7])</span>
-<span class="go">    ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">component</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">nt</span><span class="p">])</span>
+<span class="go">[tensor([0, 1, 2]), tensor([3, 4, 5, 6, 7])]</span>
 </pre></div>
 </div>
-<p>Data type, device and whether gradients are required can be chosen via the usual keyword arguments.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span>
-<span class="go">nested_tensor([</span>
-<span class="go">  tensor([0., 1., 2.], device=&#39;cuda:0&#39;, requires_grad=True),</span>
-<span class="go">  tensor([3., 4., 5., 6., 7.], device=&#39;cuda:0&#39;, requires_grad=True)</span>
-<span class="go">], device=&#39;cuda:0&#39;, requires_grad=True)</span>
+<p>Each tensor in the list must have the same number of dimensions, but the shapes can otherwise vary
+along a single dimension. If the dimensionalities of the input components don’t match, the
+constructor throws an error.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span> <span class="c1"># 2D tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span> <span class="c1"># 3D tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">RuntimeError: When constructing a nested tensor, all tensors in list must have the same dim</span>
 </pre></div>
 </div>
-<p>In the vein of <code class="docutils literal notranslate"><span class="pre">torch.as_tensor</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.nested.as_nested_tensor</span></code> can be used to preserve autograd
-history from the tensors passed to the constructor. For more information, refer to the section on
-<a class="reference internal" href="#constructor-functions"><span class="std std-ref">Nested tensor constructor and conversion functions</span></a>.</p>
-<p>In order to form a valid NestedTensor all the passed Tensors need to match in dimension, but none of the other attributes need to.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span> <span class="c1"># image 1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> <span class="c1"># image 2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span>
-<span class="go">4</span>
+<p>During construction, dtype, device, and whether gradients are required can be chosen via the
+usual keyword arguments.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">([</span><span class="n">component</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">nt</span><span class="p">])</span>
+<span class="go">[tensor([0., 1., 2.], device=&#39;cuda:0&#39;,</span>
+<span class="go">       grad_fn=&lt;UnbindBackwardAutogradNestedTensor0&gt;), tensor([3., 4., 5., 6., 7.], device=&#39;cuda:0&#39;,</span>
+<span class="go">       grad_fn=&lt;UnbindBackwardAutogradNestedTensor0&gt;)]</span>
 </pre></div>
 </div>
-<p>If one of the dimensions doesn’t match, the constructor throws an error.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span> <span class="c1"># text 1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> <span class="c1"># image 2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="gt">Traceback (most recent call last):</span>
-  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-<span class="gr">RuntimeError</span>: <span class="n">All Tensors given to nested_tensor must have the same dimension. Found dimension 3 for Tensor at index 1 and dimension 2 for Tensor at index 0.</span>
+<p><code class="docutils literal notranslate"><span class="pre">torch.nested.as_nested_tensor</span></code> can be used to preserve autograd history from the tensors passed
+to the constructor. When this constructor is utilized, gradients will flow through the nested tensor
+back into the original components. Note that this constructor still copies the input components into
+a packed, contiguous block of memory.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">as_nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">grad</span>
+<span class="go">tensor([[1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        ...,</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">grad</span>
+<span class="go">tensor([[1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        ...,</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.],</span>
+<span class="go">        [1., 1., 1.,  ..., 1., 1., 1.]])</span>
 </pre></div>
 </div>
-<p>Note that the passed Tensors are being copied into a contiguous piece of memory. The resulting
-NestedTensor allocates new memory to store them and does not keep a reference.</p>
-<p>At this moment we only support one level of nesting, i.e. a simple, flat list of Tensors. In the future
-we can add support for multiple levels of nesting, such as a list that consists entirely of lists of Tensors.
-Note that for this extension it is important to maintain an even level of nesting across entries so that the resulting NestedTensor
-has a well defined dimension. If you have a need for this feature, please feel encouraged to open a feature request so that
-we can track it and plan accordingly.</p>
+<p>The above functions all create contiguous NJTs, where a chunk of memory is allocated to store
+a packed form of the underlying components (see the <a class="reference internal" href="#data-layout">data_layout</a> section below for more
+details).</p>
+<p>It is also possible to create a non-contiguous NJT view over a pre-existing dense tensor
+with padding, avoiding the memory allocation and copying. <code class="docutils literal notranslate"><span class="pre">torch.nested.narrow()</span></code> is the tool
+for accomplishing this.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">padded</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_lens</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">narrow</span><span class="p">(</span><span class="n">padded</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">seq_lens</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([3, j1, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
 </div>
-<div class="section" id="size">
-<h2>size<a class="headerlink" href="#size" title="Permalink to this heading">¶</a></h2>
-<p>Even though a NestedTensor does not support <code class="docutils literal notranslate"><span class="pre">.size()</span></code> (or <code class="docutils literal notranslate"><span class="pre">.shape</span></code>), it supports <code class="docutils literal notranslate"><span class="pre">.size(i)</span></code> if dimension i is regular.</p>
+<p>Note that the nested tensor acts as a view over the original padded dense tensor, referencing the
+same memory without copying / allocation. Operation support for non-contiguous NJTs is somewhat more
+limited, so if you run into support gaps, it’s always possible to convert to a contiguous NJT
+using <code class="docutils literal notranslate"><span class="pre">contiguous()</span></code>.</p>
+</div>
+<div class="section" id="data-layout-and-shape">
+<span id="data-layout"></span><h2>Data Layout and Shape<a class="headerlink" href="#data-layout-and-shape" title="Permalink to this heading">¶</a></h2>
+<p>For efficiency, nested tensors generally pack their tensor components into a contiguous chunk of
+memory and maintain additional metadata to specify batch item boundaries. For the <code class="docutils literal notranslate"><span class="pre">torch.jagged</span></code>
+layout, the contiguous chunk of memory is stored in the <code class="docutils literal notranslate"><span class="pre">values</span></code> component, with the <code class="docutils literal notranslate"><span class="pre">offsets</span></code>
+component delineating batch item boundaries for the ragged dimension.</p>
+<img alt="_images/njt_visual.png" src="_images/njt_visual.png" />
+<p>It’s possible to directly access the underlying NJT components when necessary.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span> <span class="c1"># text 1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span> <span class="c1"># text 2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="gt">Traceback (most recent call last):</span>
-  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-<span class="gr">RuntimeError</span>: <span class="n">Given dimension 1 is irregular and does not have a size.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">128</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">values</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># note the &quot;packing&quot; of the ragged dimension; no padding needed</span>
+<span class="go">torch.Size([82, 128])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">offsets</span><span class="p">()</span>
+<span class="go">tensor([ 0, 50, 82])</span>
 </pre></div>
 </div>
-<p>If all dimensions are regular, the NestedTensor is intended to be semantically indistinguishable from a regular <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span> <span class="c1"># text 1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">20</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">128</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">nt</span><span class="o">.</span><span class="n">unbind</span><span class="p">())</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
-<span class="go">torch.Size([2, 20, 128])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
-<span class="go">torch.Size([2, 20, 128])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">nt</span><span class="o">.</span><span class="n">unbind</span><span class="p">()),</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">]))</span>
-<span class="go">True</span>
+<p>It can also be useful to construct an NJT from the jagged <code class="docutils literal notranslate"><span class="pre">values</span></code> and <code class="docutils literal notranslate"><span class="pre">offsets</span></code>
+constituents directly; the <code class="docutils literal notranslate"><span class="pre">torch.nested.nested_tensor_from_jagged()</span></code> constructor serves
+this purpose.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">82</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">offsets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">82</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor_from_jagged</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">offsets</span><span class="o">=</span><span class="n">offsets</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In the future we might make it easier to detect this condition and convert seamlessly.</p>
-<p>Please open a feature request if you have a need for this (or any other related feature for that matter).</p>
+<p>An NJT has a well-defined shape with dimensionality 1 greater than that of its components. The
+underlying structure of the ragged dimension is represented by a symbolic value (<code class="docutils literal notranslate"><span class="pre">j1</span></code> in the
+example below).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 128])</span>
+</pre></div>
 </div>
-<div class="section" id="unbind">
-<h2>unbind<a class="headerlink" href="#unbind" title="Permalink to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">unbind</span></code> allows you to retrieve a view of the constituents.</p>
+<p>NJTs must have the same ragged structure to be compatible with each other. For example, to run a
+binary operation involving two NJTs, the ragged structures must match (i.e. they must have the
+same ragged shape symbol in their shapes). In the details, each symbol corresponds with an exact
+<code class="docutils literal notranslate"><span class="pre">offsets</span></code> tensor, so both NJTs must have the same <code class="docutils literal notranslate"><span class="pre">offsets</span></code> tensor to be compatible with
+each other.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt1</span><span class="o">.</span><span class="n">offsets</span><span class="p">()</span> <span class="ow">is</span> <span class="n">nt2</span><span class="o">.</span><span class="n">offsets</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt3</span> <span class="o">=</span> <span class="n">nt1</span> <span class="o">+</span> <span class="n">nt2</span>
+<span class="go">RuntimeError: cannot call binary pointwise function add.Tensor with inputs of shapes (2, j2, 128) and (2, j3, 128)</span>
+</pre></div>
+</div>
+<p>In the above example, even though the conceptual shapes of the two NJTs are the same, they don’t
+share a reference to the same <code class="docutils literal notranslate"><span class="pre">offsets</span></code> tensor, so their shapes differ, and they are not
+compatible. We recognize that this behavior is unintuitive and are working hard to relax this
+restriction for the beta release of nested tensors. For a workaround, see the
+<a class="reference internal" href="#ragged-structure-incompatibility"><span class="std std-ref">Troubleshooting</span></a> section of this document.</p>
+<p>In addition to the <code class="docutils literal notranslate"><span class="pre">offsets</span></code> metadata, NJTs can also compute and cache the minimum and maximum
+sequence lengths for its components, which can be useful for invoking particular kernels (e.g. SDPA).
+There are currently no public APIs for accessing these, but this will change for the beta release.</p>
+</div>
+<div class="section" id="supported-operations">
+<span id="id2"></span><h2>Supported Operations<a class="headerlink" href="#supported-operations" title="Permalink to this heading">¶</a></h2>
+<p>This section contains a list of common operations over nested tensors that you may find useful.
+It is not comprehensive, as there are on the order of a couple thousand ops within PyTorch. While
+a sizeable subset of these are supported for nested tensors today, full support is a large task.
+The ideal state for nested tensors is full support of all PyTorch operations that are available
+for non-nested tensors. To help us accomplish this, please consider:</p>
+<ul class="simple">
+<li><p>Requesting particular ops needed for your use case
+<a class="reference external" href="https://github.com/pytorch/pytorch/issues/118107">here</a> to help us prioritize.</p></li>
+<li><p>Contributing! It’s not too hard to add nested tensor support for a given PyTorch op; see
+the <a class="reference external" href="contributions">Contributions</a> section below for details.</p></li>
+</ul>
+<div class="section" id="viewing-nested-tensor-constituents">
+<h3>Viewing nested tensor constituents<a class="headerlink" href="#viewing-nested-tensor-constituents" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">unbind()</span></code> allows you to retrieve a view of the nested tensor’s constituents.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span>
-<span class="go">nested_tensor([</span>
-<span class="go">  tensor([[ 1.2286, -1.2343, -1.4842],</span>
-<span class="go">          [-0.7827,  0.6745,  0.0658]]),</span>
-<span class="go">  tensor([[-1.1247, -0.4078, -1.0633,  0.8083],</span>
-<span class="go">          [-0.2871, -0.2980,  0.5559,  1.9885],</span>
-<span class="go">          [ 0.4074,  2.4855,  0.0733,  0.8285]])</span>
-<span class="go">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">unbind</span><span class="p">()</span>
-<span class="go">(tensor([[ 1.2286, -1.2343, -1.4842],</span>
-<span class="go">        [-0.7827,  0.6745,  0.0658]]), tensor([[-1.1247, -0.4078, -1.0633,  0.8083],</span>
-<span class="go">        [-0.2871, -0.2980,  0.5559,  1.9885],</span>
-<span class="go">        [ 0.4074,  2.4855,  0.0733,  0.8285]]))</span>
+<span class="go">(tensor([[-0.9916, -0.3363, -0.2799],</span>
+<span class="go">        [-2.3520, -0.5896, -0.4374]]), tensor([[-2.0969, -1.0104,  1.4841],</span>
+<span class="go">        [ 2.0952,  0.2973,  0.2516],</span>
+<span class="go">        [ 0.9035,  1.3623,  0.2026]]))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">unbind</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">unbind</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">tensor([[ 3.6858, -3.7030, -4.4525],</span>
 <span class="go">        [-2.3481,  2.0236,  0.1975]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span>
-<span class="go">nested_tensor([</span>
-<span class="go">  tensor([[ 3.6858, -3.7030, -4.4525],</span>
-<span class="go">          [-2.3481,  2.0236,  0.1975]]),</span>
-<span class="go">  tensor([[-1.1247, -0.4078, -1.0633,  0.8083],</span>
-<span class="go">          [-0.2871, -0.2980,  0.5559,  1.9885],</span>
-<span class="go">          [ 0.4074,  2.4855,  0.0733,  0.8285]])</span>
-<span class="go">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">unbind</span><span class="p">()</span>
+<span class="go">(tensor([[-2.9747, -1.0089, -0.8396],</span>
+<span class="go">        [-7.0561, -1.7688, -1.3122]]), tensor([[-2.0969, -1.0104,  1.4841],</span>
+<span class="go">        [ 2.0952,  0.2973,  0.2516],</span>
+<span class="go">        [ 0.9035,  1.3623,  0.2026]]))</span>
 </pre></div>
 </div>
-<p>Note that <code class="docutils literal notranslate"><span class="pre">nt.unbind()[0]</span></code> is not a copy, but rather a slice of the underlying memory, which represents the first entry or constituent of the NestedTensor.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">nt.unbind()[0]</span></code> is not a copy, but rather a slice of the underlying memory, which
+represents the first entry or constituent of the nested tensor.</p>
 </div>
-<div class="section" id="nested-tensor-constructor-and-conversion-functions">
-<span id="constructor-functions"></span><h2>Nested tensor constructor and conversion functions<a class="headerlink" href="#nested-tensor-constructor-and-conversion-functions" title="Permalink to this heading">¶</a></h2>
-<p>The following functions are related to nested tensors:</p>
+<div class="section" id="conversions-to-from-padded">
+<h3>Conversions to / from padded<a class="headerlink" href="#conversions-to-from-padded" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">torch.nested.to_padded_tensor()</span></code> converts an NJT to a padded dense tensor with the specified
+padding value. The ragged dimension will be padded out to the size of the maximum sequence length.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">padded</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">to_padded_tensor</span><span class="p">(</span><span class="n">nt</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">padded</span>
+<span class="go">tensor([[[ 1.6107,  0.5723,  0.3913],</span>
+<span class="go">         [ 0.0700, -0.4954,  1.8663],</span>
+<span class="go">         [ 4.2000,  4.2000,  4.2000],</span>
+<span class="go">         [ 4.2000,  4.2000,  4.2000],</span>
+<span class="go">         [ 4.2000,  4.2000,  4.2000],</span>
+<span class="go">         [ 4.2000,  4.2000,  4.2000]],</span>
+<span class="go">        [[-0.0479, -0.7610, -0.3484],</span>
+<span class="go">         [ 1.1345,  1.0556,  0.3634],</span>
+<span class="go">         [-1.7122, -0.5921,  0.0540],</span>
+<span class="go">         [-0.5506,  0.7608,  2.0606],</span>
+<span class="go">         [ 1.5658, -1.1934,  0.3041],</span>
+<span class="go">         [ 0.1483, -1.1284,  0.6957]]])</span>
+</pre></div>
+</div>
+<p>This can be useful as an escape hatch to work around NJT support gaps, but ideally such
+conversions should be avoided when possible for optimal memory usage and performance, as the
+more efficient nested tensor layout does not materialize padding.</p>
+<p>The reverse conversion can be accomplished using <code class="docutils literal notranslate"><span class="pre">torch.nested.narrow()</span></code>, which applies
+ragged structure to a given dense tensor to produce an NJT. Note that by default, this operation
+does not copy the underlying data, and thus the output NJT is generally non-contiguous. It may be
+useful to explicitly call <code class="docutils literal notranslate"><span class="pre">contiguous()</span></code> here if a contiguous NJT is desired.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">padded</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_lens</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">narrow</span><span class="p">(</span><span class="n">padded</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">seq_lens</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([3, j1, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([3, j2, 4])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shape-manipulations">
+<h3>Shape manipulations<a class="headerlink" href="#shape-manipulations" title="Permalink to this heading">¶</a></h3>
+<p>Nested tensors support a wide array of operations for shape manipulation, including views.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 6])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 6, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">unflatten</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 2, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">nt</span><span class="p">,</span> <span class="n">nt</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 12])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">nt</span><span class="p">,</span> <span class="n">nt</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 2, 6])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, 6, j1])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="attention-mechanisms">
+<h3>Attention mechanisms<a class="headerlink" href="#attention-mechanisms" title="Permalink to this heading">¶</a></h3>
+<p>As variable-length sequences are common inputs to attention mechanisms, nested tensors support
+important attention operators
+<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html">Scaled Dot Product Attention (SDPA)</a> and
+<a class="reference external" href="https://pytorch.org/docs/stable/nn.attention.flex_attention.html#module-torch.nn.attention.flex_attention">FlexAttention</a>.
+See
+<a class="reference external" href="https://pytorch.org/tutorials/intermediate/transformer_building_blocks.html#multiheadattention">here</a>
+for usage examples of NJT with SDPA and
+<a class="reference external" href="https://pytorch.org/tutorials/intermediate/transformer_building_blocks.html#flexattention-njt">here</a>
+for usage examples of NJT with FlexAttention.</p>
+</div>
+</div>
+<div class="section" id="usage-with-torch-compile">
+<span id="id3"></span><h2>Usage with torch.compile<a class="headerlink" href="#usage-with-torch-compile" title="Permalink to this heading">¶</a></h2>
+<p>NJTs are designed to be used with <code class="docutils literal notranslate"><span class="pre">torch.compile()</span></code> for optimal performance, and we always
+recommend utilizing <code class="docutils literal notranslate"><span class="pre">torch.compile()</span></code> with NJTs when possible. NJTs work out-of-the-box and
+graph-break-free both when passed as inputs to a compiled function or module OR when
+instantiated in-line within the function.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re not able to utilize <code class="docutils literal notranslate"><span class="pre">torch.compile()</span></code> for your use case, performance and memory
+usage may still benefit from the use of NJTs, but it’s not as clear-cut whether this will be
+the case. It is important that the tensors being operated on are large enough so the
+performance gains are not outweighed by the overhead of python tensor subclasses.</p>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compiled_f</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">compiled_f</span><span class="p">(</span><span class="n">nt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">offsets</span><span class="p">):</span> <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor_from_jagged</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">offsets</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compiled_g</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output2</span> <span class="o">=</span> <span class="n">compiled_g</span><span class="p">(</span><span class="n">nt</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">nt</span><span class="o">.</span><span class="n">offsets</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output2</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 3])</span>
+</pre></div>
+</div>
+<p>Note that NJTs support
+<a class="reference external" href="https://pytorch.org/docs/stable/torch.compiler_dynamic_shapes.html">Dynamic Shapes</a>
+to avoid unnecessary recompiles with changing ragged structure.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compiled_f</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output1</span> <span class="o">=</span> <span class="n">compiled_f</span><span class="p">(</span><span class="n">nt1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output2</span> <span class="o">=</span> <span class="n">compiled_f</span><span class="p">(</span><span class="n">nt2</span><span class="p">)</span>  <span class="c1"># NB: No recompile needed even though ragged structure differs</span>
+</pre></div>
+</div>
+<p>If you run into problems or arcane errors when utilizing NJT + <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, please file a
+PyTorch issue. Full subclass support within <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> is a long-term effort and there may
+be some rough edges at this time.</p>
+</div>
+<div class="section" id="troubleshooting">
+<span id="id4"></span><h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">¶</a></h2>
+<p>This section contains common errors that you may run into when utilizing nested tensors, alongside
+the reason for these errors and suggestions for how to address them.</p>
+<div class="section" id="unimplemented-ops">
+<span id="unimplemented-op"></span><h3>Unimplemented ops<a class="headerlink" href="#unimplemented-ops" title="Permalink to this heading">¶</a></h3>
+<p>This error is becoming rarer as nested tensor op support grows, but it’s still possible to hit it
+today given that there are a couple thousand ops within PyTorch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">NotImplementedError</span><span class="p">:</span> <span class="n">aten</span><span class="o">.</span><span class="n">view_as_real</span><span class="o">.</span><span class="n">default</span>
+</pre></div>
+</div>
+<p>The error is straightforward; we haven’t gotten around to adding op support for this particular op
+yet. If you’d like, you can <a class="reference external" href="contributions">contribute</a> an implementation yourself OR simply
+<a class="reference external" href="https://github.com/pytorch/pytorch/issues/118107">request</a> that we add support for this op
+in a future PyTorch release.</p>
+</div>
+<div class="section" id="ragged-structure-incompatibility">
+<span id="id5"></span><h3>Ragged structure incompatibility<a class="headerlink" href="#ragged-structure-incompatibility" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">RuntimeError</span><span class="p">:</span> <span class="n">cannot</span> <span class="n">call</span> <span class="n">binary</span> <span class="n">pointwise</span> <span class="n">function</span> <span class="n">add</span><span class="o">.</span><span class="n">Tensor</span> <span class="k">with</span> <span class="n">inputs</span> <span class="n">of</span> <span class="n">shapes</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">j3</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This error occurs when calling an op that operates over multiple NJTs with incompatible ragged
+structures. Currently, it is required that input NJTs have the exact same <code class="docutils literal notranslate"><span class="pre">offsets</span></code> constituent
+in order to have the same symbolic ragged structure symbol (e.g. <code class="docutils literal notranslate"><span class="pre">j1</span></code>).</p>
+<p>As a workaround for this situation, it is possible to construct NJTs from the <code class="docutils literal notranslate"><span class="pre">values</span></code> and
+<code class="docutils literal notranslate"><span class="pre">offsets</span></code> components directly. With both NJTs referencing the same <code class="docutils literal notranslate"><span class="pre">offsets</span></code> components, they
+are considered to have the same ragged structure and are thus compatible.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor_from_jagged</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">82</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">offsets</span><span class="o">=</span><span class="n">nt1</span><span class="o">.</span><span class="n">offsets</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt3</span> <span class="o">=</span> <span class="n">nt1</span> <span class="o">+</span> <span class="n">nt2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt3</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, j1, 128])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-dependent-operation-within-torch-compile">
+<h3>Data dependent operation within torch.compile<a class="headerlink" href="#data-dependent-operation-within-torch-compile" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">exc</span><span class="o">.</span><span class="n">Unsupported</span><span class="p">:</span> <span class="n">data</span> <span class="n">dependent</span> <span class="n">operator</span><span class="p">:</span> <span class="n">aten</span><span class="o">.</span><span class="n">_local_scalar_dense</span><span class="o">.</span><span class="n">default</span><span class="p">;</span> <span class="n">to</span> <span class="n">enable</span><span class="p">,</span> <span class="nb">set</span> <span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">capture_scalar_outputs</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>This error occurs when calling an op that does data-dependent operation within torch.compile; this
+commonly occurs for ops that need to examine the values of the NJT’s <code class="docutils literal notranslate"><span class="pre">offsets</span></code> to determine the
+output shape. For example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">nested_tensor</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">nt</span><span class="p">):</span> <span class="k">return</span> <span class="n">nt</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compiled_f</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fullgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">compiled_f</span><span class="p">(</span><span class="n">nt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, calling <code class="docutils literal notranslate"><span class="pre">chunk()</span></code> on the batch dimension of the NJT requires examination of the
+NJT’s <code class="docutils literal notranslate"><span class="pre">offsets</span></code> data to delineate batch item boundaries within the packed ragged dimension. As a
+workaround, there are a couple torch.compile flags that can be set:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">capture_dynamic_output_shape_ops</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">_dynamo</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">capture_scalar_outputs</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>If, after setting these, you still see data-dependent operator errors, please file an issue with
+PyTorch. This area of <code class="docutils literal notranslate"><span class="pre">torch.compile()</span></code> is still in heavy development and certain aspects of
+NJT support may be incomplete.</p>
+</div>
+</div>
+<div class="section" id="contributions">
+<span id="id6"></span><h2>Contributions<a class="headerlink" href="#contributions" title="Permalink to this heading">¶</a></h2>
+<p>If you’d like to contribute to nested tensor development, one of the most impactful ways to do
+so is to add nested tensor support for a currently-unsupported PyTorch op. This process generally
+consists of a couple simple steps:</p>
+<ol class="arabic simple">
+<li><p>Determine the name of the op to add; this should be something like <code class="docutils literal notranslate"><span class="pre">aten.view_as_real.default</span></code>.
+The signature for this op can be found in <code class="docutils literal notranslate"><span class="pre">aten/src/ATen/native/native_functions.yaml</span></code>.</p></li>
+<li><p>Register an op implementation in <code class="docutils literal notranslate"><span class="pre">torch/nested/_internal/ops.py</span></code>, following the pattern
+established there for other ops. Use the signature from <code class="docutils literal notranslate"><span class="pre">native_functions.yaml</span></code> for schema
+validation.</p></li>
+</ol>
+<p>The most common way to implement an op is to unwrap the NJT into its constituents, redispatch the
+op on the underlying <code class="docutils literal notranslate"><span class="pre">values</span></code> buffer, and propagate the relevant NJT metadata (including
+<code class="docutils literal notranslate"><span class="pre">offsets</span></code>) to a new output NJT. If the output of the op is expected to have a different shape
+from the input, new <code class="docutils literal notranslate"><span class="pre">offsets</span></code>, etc. metadata must be computed.</p>
+<p>When an op is applied over the batch or ragged dimension, these tricks can help quickly get a
+working implementation:</p>
+<ul class="simple">
+<li><p>For <em>non-batchwise</em> operation, an <code class="docutils literal notranslate"><span class="pre">unbind()</span></code>-based fallback should work.</p></li>
+<li><p>For operation on the ragged dimension, consider converting to padded dense with a properly-selected
+padding value that won’t negatively bias the output, running the op, and converting back to NJT.
+Within <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>, these conversions can be fused to avoid materializing the padded
+intermediate.</p></li>
+</ul>
+</div>
+<div class="section" id="detailed-docs-for-construction-and-conversion-functions">
+<span id="construction-and-conversion"></span><h2>Detailed Docs for Construction and Conversion Functions<a class="headerlink" href="#detailed-docs-for-construction-and-conversion-functions" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nested.nested_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">nested_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_list</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/nested.html#nested_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/efebec5ef5ee1efd59a67f9e23289ae26340906d/torch/nested/__init__.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.nested_tensor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">nested_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_list</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/nested.html#nested_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3cf7874ebea2300c9eddbbe79a004ef3d6801b93/torch/nested/__init__.py#L210"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.nested_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a nested tensor with no autograd history (also known as a “leaf tensor”, see
 <a class="reference internal" href="notes/autograd.html#autograd-mechanics"><span class="std std-ref">Autograd mechanics</span></a>) from <code class="xref py py-attr docutils literal notranslate"><span class="pre">tensor_list</span></code> a list of tensors.</p>
 <dl class="field-list simple">
@@ -797,8 +1084,84 @@ the pinned memory. Works only for CPU tensors. Default: <code class="docutils li
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="torch.nested.nested_tensor_from_jagged">
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">nested_tensor_from_jagged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offsets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jagged_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_seqlen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_seqlen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/nested.html#nested_tensor_from_jagged"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3cf7874ebea2300c9eddbbe79a004ef3d6801b93/torch/nested/__init__.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.nested_tensor_from_jagged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a jagged layout nested tensor from the given jagged components. The jagged layout
+consists of a required values buffer with the jagged dimension packed into a single dimension.
+The offsets / lengths metadata determines how this dimension is split into batch elements
+and are expected to be allocated on the same device as the values buffer.</p>
+<dl class="simple">
+<dt>Expected metadata formats:</dt><dd><ul class="simple">
+<li><p>offsets: Indices within the packed dimension splitting it into heterogeneously-sized
+batch elements. Example: [0, 2, 3, 6] indicates that a packed jagged dim of size 6
+should be conceptually split into batch elements of length [2, 1, 3]. Note that both the
+beginning and ending offsets are required for kernel convenience (i.e. shape batch_size + 1).</p></li>
+<li><p>lengths: Lengths of the individual batch elements; shape == batch_size. Example: [2, 1, 3]
+indicates that a packed jagged dim of size 6 should be conceptually split into batch
+elements of length [2, 1, 3].</p></li>
+</ul>
+</dd>
+</dl>
+<p>Note that it can be useful to provide both offsets and lengths. This describes a nested tensor
+with “holes”, where the offsets indicate the start position of each batch item and the length
+specifies the total number of elements (see example below).</p>
+<p>The returned jagged layout nested tensor will be a view of the input values tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) – The underlying buffer in the shape of
+(sum_B(*), D_1, …, D_N). The jagged dimension is packed into a single dimension,
+with the offsets / lengths metadata used to distinguish batch elements.</p></li>
+<li><p><strong>offsets</strong> (optional <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) – Offsets into the jagged dimension of shape B + 1.</p></li>
+<li><p><strong>lengths</strong> (optional <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) – Lengths of the batch elements of shape B.</p></li>
+<li><p><strong>jagged_dim</strong> (<em>optional python:int</em>) – Indicates which dimension in values is the packed jagged
+dimension. If None, this is set to dim=1 (i.e. the dimension immediately following
+the batch dimension). Default: None</p></li>
+<li><p><strong>min_seqlen</strong> (<em>optional python:int</em>) – If set, uses the specified value as the cached minimum sequence
+length for the returned nested tensor. This can be a useful alternative to computing
+this value on-demand, possibly avoiding a GPU -&gt; CPU sync. Default: None</p></li>
+<li><p><strong>max_seqlen</strong> (<em>optional python:int</em>) – If set, uses the specified value as the cached maximum sequence
+length for the returned nested tensor. This can be a useful alternative to computing
+this value on-demand, possibly avoiding a GPU -&gt; CPU sync. Default: None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">offsets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">nested_tensor_from_jagged</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">offsets</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 3D shape with the middle dimension jagged</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([5, j2, 5])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Length of each item in the batch:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">offsets</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+<span class="go">tensor([3, 2, 1, 4, 2])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">offsets</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lengths</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># NT with holes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">nested_tensor_from_jagged</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">unbind</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Batch item 1 consists of indices [0, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Batch item 2 consists of indices [2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:])</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Batch item 3 consists of indices [3, 5)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="torch.nested.as_nested_tensor">
-<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">as_nested_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/nested.html#as_nested_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/efebec5ef5ee1efd59a67f9e23289ae26340906d/torch/nested/__init__.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.as_nested_tensor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">as_nested_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/nested.html#as_nested_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3cf7874ebea2300c9eddbbe79a004ef3d6801b93/torch/nested/__init__.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.as_nested_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a nested tensor preserving autograd history from a tensor or a list / tuple of
 tensors.</p>
 <p>If a nested tensor is passed, it will be returned directly unless the device / dtype / layout
@@ -901,113 +1264,85 @@ else, will infer by taking the max size of each nested sub-tensor along each dim
 </div>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.nested.masked_select">
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">masked_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/nested.html#masked_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3cf7874ebea2300c9eddbbe79a004ef3d6801b93/torch/nested/__init__.py#L468"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.masked_select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a nested tensor given a strided tensor input and a strided mask, the resulting jagged layout nested tensor
+will have values retain values where the mask is equal to True. The dimensionality of the mask is preserved and is
+represented with the offsets, this is unlike <a class="reference internal" href="#torch.nested.masked_select" title="torch.nested.masked_select"><code class="xref py py-func docutils literal notranslate"><span class="pre">masked_select()</span></code></a> where the output is collapsed to a 1D tensor.</p>
+<p>Args:
+tensor (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>): a strided tensor from which the jagged layout nested tensor is constructed from.
+mask (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>): a strided mask tensor which is applied to the tensor input</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">masked_select</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([3, j4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Length of each item in the batch:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">offsets</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+<span class="go">tensor([1, 2, 1])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="kc">False</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">masked_select</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([6, j5])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Length of each item in the batch:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span><span class="o">.</span><span class="n">offsets</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+<span class="go">tensor([0, 0, 0, 0, 0, 0])</span>
+</pre></div>
 </div>
-<div class="section" id="supported-operations">
-<span id="id2"></span><h2>Supported operations<a class="headerlink" href="#supported-operations" title="Permalink to this heading">¶</a></h2>
-<p>In this section, we summarize the operations that are currently supported on
-NestedTensor and any constraints they have.</p>
-<table class="colwidths-given docutils colwidths-auto align-default">
-<colgroup>
-<col style="width: 35%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>PyTorch operation</p></th>
-<th class="head"><p>Constraints</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.matmul.html#torch.matmul" title="torch.matmul"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.matmul()</span></code></a></p></td>
-<td><p>Supports matrix multiplication between two (&gt;= 3d) nested tensors where
-the last two dimensions are matrix dimensions and the leading (batch) dimensions have the same size
-(i.e. no broadcasting support for batch dimensions yet).</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.bmm.html#torch.bmm" title="torch.bmm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.bmm()</span></code></a></p></td>
-<td><p>Supports batch matrix multiplication of two 3-d nested tensors.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Linear.html#torch.nn.Linear" title="torch.nn.Linear"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.Linear()</span></code></a></p></td>
-<td><p>Supports 3-d nested input and a dense 2-d weight matrix.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.functional.softmax.html#torch.nn.functional.softmax" title="torch.nn.functional.softmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.functional.softmax()</span></code></a></p></td>
-<td><p>Supports softmax along all dims except dim=0.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Dropout.html#torch.nn.Dropout" title="torch.nn.Dropout"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.Dropout()</span></code></a></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.masked_fill.html#torch.Tensor.masked_fill" title="torch.Tensor.masked_fill"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.masked_fill()</span></code></a></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.relu()</span></code></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.gelu()</span></code></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.silu()</span></code></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.abs.html#torch.abs" title="torch.abs"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.abs()</span></code></a></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.sgn.html#torch.sgn" title="torch.sgn"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sgn()</span></code></a></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.logical_not.html#torch.logical_not" title="torch.logical_not"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.logical_not()</span></code></a></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.neg.html#torch.neg" title="torch.neg"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.neg()</span></code></a></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.sub.html#torch.sub" title="torch.sub"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sub()</span></code></a></p></td>
-<td><p>Supports elementwise subtraction of two nested tensors.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.add.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a></p></td>
-<td><p>Supports elementwise addition of two nested tensors. Supports addition of a scalar to a nested tensor.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.mul.html#torch.mul" title="torch.mul"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.mul()</span></code></a></p></td>
-<td><p>Supports elementwise multiplication of two nested tensors. Supports multiplication of a nested tensor by a scalar.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.select.html#torch.select" title="torch.select"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.select()</span></code></a></p></td>
-<td><p>Supports selecting along all dimensions.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.clone.html#torch.clone" title="torch.clone"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.clone()</span></code></a></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.detach()</span></code></p></td>
-<td><p>Behavior is the same as on regular tensors.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.unbind.html#torch.unbind" title="torch.unbind"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.unbind()</span></code></a></p></td>
-<td><p>Supports unbinding along <code class="docutils literal notranslate"><span class="pre">dim=0</span></code> only.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.reshape.html#torch.reshape" title="torch.reshape"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.reshape()</span></code></a></p></td>
-<td><p>Supports reshaping with size of <code class="docutils literal notranslate"><span class="pre">dim=0</span></code> preserved (i.e. number of tensors nested cannot be changed).
-Unlike regular tensors, a size of <code class="docutils literal notranslate"><span class="pre">-1</span></code> here means that the existing size is inherited.
-In particular, the only valid size for a irregular dimension is <code class="docutils literal notranslate"><span class="pre">-1</span></code>.
-Size inference is not implemented yet and hence for new dimensions the size cannot be <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.reshape_as.html#torch.Tensor.reshape_as" title="torch.Tensor.reshape_as"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.reshape_as()</span></code></a></p></td>
-<td><p>Similar constraint as for <code class="docutils literal notranslate"><span class="pre">reshape</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.transpose.html#torch.transpose" title="torch.transpose"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.transpose()</span></code></a></p></td>
-<td><p>Supports transposing of all dims except <code class="docutils literal notranslate"><span class="pre">dim=0</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.Tensor.view.html#torch.Tensor.view" title="torch.Tensor.view"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.view()</span></code></a></p></td>
-<td><p>Rules for the new shape are similar to that of <code class="docutils literal notranslate"><span class="pre">reshape</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.empty_like.html#torch.empty_like" title="torch.empty_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.empty_like()</span></code></a></p></td>
-<td><p>Behavior is analogous to that of regular tensors; returns a new empty nested tensor (i.e. with uninitialized values) matching the nested structure of the input.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.randn_like.html#torch.randn_like" title="torch.randn_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.randn_like()</span></code></a></p></td>
-<td><p>Behavior is analogous to that of regular tensors; returns a new nested tensor with values randomly initialized according to a standard normal distribution matching the nested structure of the input.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.zeros_like.html#torch.zeros_like" title="torch.zeros_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.zeros_like()</span></code></a></p></td>
-<td><p>Behavior is analogous to that of regular tensors; returns a new nested tensor with all zero values matching the nested structure of the input.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.LayerNorm.html#torch.nn.LayerNorm" title="torch.nn.LayerNorm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.LayerNorm()</span></code></a></p></td>
-<td><p>The <code class="docutils literal notranslate"><span class="pre">normalized_shape</span></code> argument is restricted to not extend into the irregular dimensions of the NestedTensor.</p></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.nested.narrow">
+<span class="sig-prename descclassname"><span class="pre">torch.nested.</span></span><span class="sig-name descname"><span class="pre">narrow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.strided</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/nested.html#narrow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3cf7874ebea2300c9eddbbe79a004ef3d6801b93/torch/nested/__init__.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nested.narrow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a nested tensor (which might be a view) from <code class="xref py py-attr docutils literal notranslate"><span class="pre">tensor</span></code>, a strided tensor. This follows
+similar semantics to torch.Tensor.narrow, where in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>-th dimension the new nested tensor
+shows only the elements in the interval <cite>[start, start+length)</cite>. As nested representations
+allow for a different <cite>start</cite> and <cite>length</cite> at each ‘row’ of that dimension, <code class="xref py py-attr docutils literal notranslate"><span class="pre">start</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">length</span></code>
+can also be tensors of shape <cite>tensor.shape[0]</cite>.</p>
+<p>There’s some differences depending on the layout you use for the nested tensor. If using strided layout,
+torch.narrow will do a copy of the narrowed data into a contiguous NT with strided layout, while
+jagged layout narrow() will create a non-contiguous view of your original strided tensor. This particular
+representation is really useful for representing kv-caches in Transformer models, as specialized
+SDPA kernels can deal with format easily, resulting in performance improvements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> (<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) – a strided tensor, which will be used as the underlying data
+for the nested tensor if using the jagged layout or will be copied for the strided layout.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – the dimension where narrow will be applied. Only <cite>dim=1</cite> is supported for the
+jagged layout, while strided supports all dim</p></li>
+<li><p><strong>start</strong> (Union[int, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>]) – starting element for the narrow operation</p></li>
+<li><p><strong>length</strong> (Union[int, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>]) – number of elements taken during the narrow op</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned nested tensor.
+Only strided and jagged layouts are supported. Default: if None, the strided layout.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">starts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lengths</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">narrow_base</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt_narrowed</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nested</span><span class="o">.</span><span class="n">narrow</span><span class="p">(</span><span class="n">narrow_base</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">starts</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">jagged</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt_narrowed</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 
@@ -1068,15 +1403,31 @@ if (url)
 <li><a class="reference internal" href="#">torch.nested</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#construction">Construction</a></li>
-<li><a class="reference internal" href="#size">size</a></li>
-<li><a class="reference internal" href="#unbind">unbind</a></li>
-<li><a class="reference internal" href="#nested-tensor-constructor-and-conversion-functions">Nested tensor constructor and conversion functions</a><ul>
-<li><a class="reference internal" href="#torch.nested.nested_tensor"><code class="docutils literal notranslate"><span class="pre">nested_tensor()</span></code></a></li>
-<li><a class="reference internal" href="#torch.nested.as_nested_tensor"><code class="docutils literal notranslate"><span class="pre">as_nested_tensor()</span></code></a></li>
-<li><a class="reference internal" href="#torch.nested.to_padded_tensor"><code class="docutils literal notranslate"><span class="pre">to_padded_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#data-layout-and-shape">Data Layout and Shape</a></li>
+<li><a class="reference internal" href="#supported-operations">Supported Operations</a><ul>
+<li><a class="reference internal" href="#viewing-nested-tensor-constituents">Viewing nested tensor constituents</a></li>
+<li><a class="reference internal" href="#conversions-to-from-padded">Conversions to / from padded</a></li>
+<li><a class="reference internal" href="#shape-manipulations">Shape manipulations</a></li>
+<li><a class="reference internal" href="#attention-mechanisms">Attention mechanisms</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#supported-operations">Supported operations</a></li>
+<li><a class="reference internal" href="#usage-with-torch-compile">Usage with torch.compile</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#unimplemented-ops">Unimplemented ops</a></li>
+<li><a class="reference internal" href="#ragged-structure-incompatibility">Ragged structure incompatibility</a></li>
+<li><a class="reference internal" href="#data-dependent-operation-within-torch-compile">Data dependent operation within torch.compile</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributions">Contributions</a></li>
+<li><a class="reference internal" href="#detailed-docs-for-construction-and-conversion-functions">Detailed Docs for Construction and Conversion Functions</a><ul>
+<li><a class="reference internal" href="#torch.nested.nested_tensor"><code class="docutils literal notranslate"><span class="pre">nested_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#torch.nested.nested_tensor_from_jagged"><code class="docutils literal notranslate"><span class="pre">nested_tensor_from_jagged()</span></code></a></li>
+<li><a class="reference internal" href="#torch.nested.as_nested_tensor"><code class="docutils literal notranslate"><span class="pre">as_nested_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#torch.nested.to_padded_tensor"><code class="docutils literal notranslate"><span class="pre">to_padded_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#torch.nested.masked_select"><code class="docutils literal notranslate"><span class="pre">masked_select()</span></code></a></li>
+<li><a class="reference internal" href="#torch.nested.narrow"><code class="docutils literal notranslate"><span class="pre">narrow()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

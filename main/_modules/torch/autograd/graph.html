@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitefebec5 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git3cf7874 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1271,31 +1271,41 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
 
+        <span class="k">def</span> <span class="nf">maybe_clone</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tid</span> <span class="o">=</span> <span class="n">_get_tid</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">sid</span> <span class="o">=</span> <span class="n">_get_sid</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span>
+            <span class="k">if</span> <span class="n">sid</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">sid_to_tid</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">tid</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">sid_to_tid</span><span class="p">[</span><span class="n">sid</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">tid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">tid_to_weakhandle</span><span class="p">:</span>
+                        <span class="c1"># We know that if tid is in sid_to_tid, then it must also be in</span>
+                        <span class="c1"># tid_to_weakhandle. However, it is possible for the tensor to be</span>
+                        <span class="c1"># saved at one point, but cleared by backward before it is modified</span>
+                        <span class="c1"># in-place. Consider the following example:</span>
+                        <span class="c1">#</span>
+                        <span class="c1"># &gt;&gt;&gt; a = torch.randn(2, 3, requires_grad=True).clone()</span>
+                        <span class="c1"># &gt;&gt;&gt; out = (a**2).sum()</span>
+                        <span class="c1"># &gt;&gt;&gt; out.backward()</span>
+                        <span class="c1"># &gt;&gt;&gt; a.sin_()</span>
+                        <span class="k">continue</span>
+                    <span class="n">handle</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">tid_to_weakhandle</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">handle</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">cloned</span><span class="p">:</span>
+                        <span class="c1"># The same exact tensor has been cloned already</span>
+                        <span class="k">continue</span>
+                    <span class="n">ctx</span><span class="o">.</span><span class="n">cloned</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">original</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+                    <span class="k">del</span> <span class="n">ctx</span><span class="o">.</span><span class="n">original</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span>
+
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">_schema</span><span class="o">.</span><span class="n">arguments</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">alias_info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">alias_info</span><span class="o">.</span><span class="n">is_write</span><span class="p">:</span>
-                <span class="n">t</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">is_out</span> <span class="k">else</span> <span class="n">args</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-                <span class="n">tid</span> <span class="o">=</span> <span class="n">_get_tid</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-                <span class="n">sid</span> <span class="o">=</span> <span class="n">_get_sid</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-                <span class="n">ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span>
-                <span class="k">if</span> <span class="n">sid</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">sid_to_tid</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">tid</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">sid_to_tid</span><span class="p">[</span><span class="n">sid</span><span class="p">]:</span>
-                        <span class="k">if</span> <span class="n">tid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">tid_to_weakhandle</span><span class="p">:</span>
-                            <span class="c1"># We know that if tid is in sid_to_tid, then it must also be in</span>
-                            <span class="c1"># tid_to_weakhandle. However, it is possible for the tensor to be</span>
-                            <span class="c1"># saved at one point, but cleared by backward before it is modified</span>
-                            <span class="c1"># in-place. Consider the following example:</span>
-                            <span class="c1">#</span>
-                            <span class="c1"># &gt;&gt;&gt; a = torch.randn(2, 3, requires_grad=True).clone()</span>
-                            <span class="c1"># &gt;&gt;&gt; out = (a**2).sum()</span>
-                            <span class="c1"># &gt;&gt;&gt; out.backward()</span>
-                            <span class="c1"># &gt;&gt;&gt; a.sin_()</span>
-                            <span class="k">continue</span>
-                        <span class="n">handle</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">tid_to_weakhandle</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span>
-                        <span class="k">if</span> <span class="n">handle</span> <span class="ow">in</span> <span class="n">ctx</span><span class="o">.</span><span class="n">cloned</span><span class="p">:</span>
-                            <span class="c1"># The same exact tensor has been cloned already</span>
-                            <span class="k">continue</span>
-                        <span class="n">ctx</span><span class="o">.</span><span class="n">cloned</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">original</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
-                        <span class="k">del</span> <span class="n">ctx</span><span class="o">.</span><span class="n">original</span><span class="p">[</span><span class="n">handle</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">is_out</span><span class="p">:</span>
+                    <span class="n">maybe_clone</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="c1"># Foreach case. (Possible optimization: if most of the</span>
+                    <span class="c1"># tensors need to be cloned, use a for each clone?)</span>
+                    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="n">idx</span><span class="p">]:</span>
+                        <span class="n">maybe_clone</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">maybe_clone</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
