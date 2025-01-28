@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc6ad083 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git5a4d959 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -607,6 +607,7 @@
               
   <h1>Source code for torch._library.custom_ops</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
+<span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
@@ -616,6 +617,7 @@
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_C</span><span class="p">,</span> <span class="n">_ops</span><span class="p">,</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">torch.types</span> <span class="kn">import</span> <span class="n">_dtype</span>
 <span class="kn">from</span> <span class="nn">torch.utils._exposed_in</span> <span class="kn">import</span> <span class="n">exposed_in</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">autograd</span><span class="p">,</span> <span class="n">utils</span>
@@ -803,6 +805,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_backward_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_torch_dispatch_fns</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_vmap_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_autocast_cuda_dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_autocast_cpu_dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span> <span class="o">=</span> <span class="n">get_library_allowing_overwrite</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_namespace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_register_to_dispatcher</span><span class="p">()</span>
@@ -1369,7 +1373,97 @@
         <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">register</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">register</span><span class="p">(</span><span class="n">func</span><span class="p">)</span></div>
+            <span class="k">return</span> <span class="n">register</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">register_autocast</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">cast_inputs</span><span class="p">:</span> <span class="n">_dtype</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Register an autocast dispatch rule for this custom op.</span>
+
+<span class="sd">        Valid `device_type` include: &quot;cpu&quot; and &quot;cuda&quot;.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            op (str | OpOverload): The operator to register an autocast dispatch rule to.</span>
+<span class="sd">            device_type(str):  Device type to use. &#39;cuda&#39; or &#39;cpu&#39;.</span>
+<span class="sd">                The type is the same as the `type` attribute of a :class:`torch.device`.</span>
+<span class="sd">                Thus, you may obtain the device type of a tensor using `Tensor.device.type`.</span>
+<span class="sd">            cast_inputs (:class:`torch.dtype`): When custom op runs in an autocast-enabled region,</span>
+<span class="sd">                casts incoming floating-point Tensors to the target dtype (non-floating-point Tensors</span>
+<span class="sd">                are not affected), then executes custom op with autocast disabled.</span>
+<span class="sd">            lib (Optional[Library]): If provided, the lifetime of this registration</span>
+
+<span class="sd">        Examples::</span>
+<span class="sd">            &gt;&gt;&gt; # xdoctest: +REQUIRES(env:TORCH_DOCTEST_CUDA)</span>
+<span class="sd">            &gt;&gt;&gt; import torch</span>
+<span class="sd">            &gt;&gt;&gt; from torch import Tensor</span>
+<span class="sd">            &gt;&gt;&gt; from torch.library import custom_op</span>
+<span class="sd">            &gt;&gt;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; # Create a custom op that works on cuda</span>
+<span class="sd">            &gt;&gt;&gt; @torch.library.custom_op(&quot;mylib::my_sin&quot;, mutates_args=())</span>
+<span class="sd">            &gt;&gt;&gt; def my_sin(x: Tensor) -&gt; Tensor:</span>
+<span class="sd">            &gt;&gt;&gt;     return torch.sin(x)</span>
+<span class="sd">            &gt;&gt;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; # Register autocast dispatch rule for the cuda device</span>
+<span class="sd">            &gt;&gt;&gt; torch.library.register_autocast(&quot;mylib::my_sin&quot;, &quot;cuda&quot;, torch.float16)</span>
+<span class="sd">            &gt;&gt;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; x = torch.randn(3, dtype=torch.float32, device=&quot;cuda&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; with torch.autocast(&quot;cuda&quot;, dtype=torch.float16):</span>
+<span class="sd">            &gt;&gt;&gt;     y = torch.ops.mylib.my_sin(x)</span>
+<span class="sd">            &gt;&gt;&gt; assert y.dtype == torch.float16</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">device_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Expected `device_type` of type `str`, got: `</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">device_type</span><span class="p">)</span><span class="si">}</span><span class="s2">`&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">device_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="s2">&quot;cuda&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown device type: </span><span class="si">{</span><span class="n">device_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">need_register_cuda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_autocast_cuda_dtype</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="n">need_register_cpu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_autocast_cpu_dtype</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">device_type</span> <span class="o">==</span> <span class="s2">&quot;cuda&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_autocast_cuda_dtype</span> <span class="o">=</span> <span class="n">cast_inputs</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_autocast_cpu_dtype</span> <span class="o">=</span> <span class="n">cast_inputs</span>
+
+        <span class="k">def</span> <span class="nf">kernel</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Custom ops do not support kwargs yet.&quot;</span>
+            <span class="n">autocast_keyset</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DispatchKeySet</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DispatchKey</span><span class="o">.</span><span class="n">AutocastCPU</span>
+            <span class="p">)</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DispatchKeySet</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">DispatchKey</span><span class="o">.</span><span class="n">AutocastCUDA</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_ExcludeDispatchKeyGuard</span><span class="p">(</span><span class="n">autocast_keyset</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opoverload</span><span class="p">(</span><span class="o">*</span><span class="n">_cast</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">device_type</span><span class="p">,</span> <span class="n">cast_inputs</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">need_register_cuda</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_autocast_cuda_dtype</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span><span class="o">.</span><span class="n">impl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="s2">&quot;AutocastCUDA&quot;</span><span class="p">,</span> <span class="n">with_keyset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">need_register_cpu</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_autocast_cpu_dtype</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lib</span><span class="o">.</span><span class="n">impl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="s2">&quot;AutocastCPU&quot;</span><span class="p">,</span> <span class="n">with_keyset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">kernel</span></div>
+
+
+<span class="c1"># TODO: Merge this function with torch.amp.autocast_mode._cast, and refactor it</span>
+<span class="c1"># into a utility function once custom ops support arbitrary input types.</span>
+<span class="k">def</span> <span class="nf">_cast</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">_dtype</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">is_eligible</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">is_floating_point</span><span class="p">()</span>
+            <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">device_type</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_eligible</span> <span class="k">else</span> <span class="n">value</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+        <span class="n">iterable</span> <span class="o">=</span> <span class="p">(</span><span class="n">_cast</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">device_type</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)(</span><span class="n">iterable</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">iterable</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">value</span>
 
 
 <span class="k">def</span> <span class="nf">increment_version</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

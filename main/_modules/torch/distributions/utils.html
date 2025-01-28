@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc6ad083 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git5a4d959 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -608,7 +608,6 @@
   <h1>Source code for torch.distributions.utils</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">update_wrapper</span>
-<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeVar</span>
 
@@ -616,6 +615,7 @@
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
 <span class="kn">from</span> <span class="nn">torch.overrides</span> <span class="kn">import</span> <span class="n">is_tensor_like</span>
+<span class="kn">from</span> <span class="nn">torch.types</span> <span class="kn">import</span> <span class="n">_Number</span>
 
 
 <span class="n">euler_constant</span> <span class="o">=</span> <span class="mf">0.57721566490153286060</span>  <span class="c1"># Euler Mascheroni Constant</span>
@@ -636,20 +636,20 @@
 <span class="sd">    Given a list of values (possibly containing numbers), returns a list where each</span>
 <span class="sd">    value is broadcasted based on the following rules:</span>
 <span class="sd">      - `torch.*Tensor` instances are broadcasted as per :ref:`_broadcasting-semantics`.</span>
-<span class="sd">      - numbers.Number instances (scalars) are upcast to tensors having</span>
+<span class="sd">      - Number instances (scalars) are upcast to tensors having</span>
 <span class="sd">        the same size and type as the first tensor passed to `values`.  If all the</span>
 <span class="sd">        values are scalars, then they are upcasted to scalar Tensors.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        values (list of `numbers.Number`, `torch.*Tensor` or objects implementing __torch_function__)</span>
+<span class="sd">        values (list of `Number`, `torch.*Tensor` or objects implementing __torch_function__)</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ValueError: if any of the values is not a `numbers.Number` instance,</span>
+<span class="sd">        ValueError: if any of the values is not a `Number` instance,</span>
 <span class="sd">            a `torch.*Tensor` instance, or an instance implementing __torch_function__</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_tensor_like</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Number</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_tensor_like</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">_Number</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Input arguments must all be instances of numbers.Number, &quot;</span>
+            <span class="s2">&quot;Input arguments must all be instances of Number, &quot;</span>
             <span class="s2">&quot;torch.Tensor or objects implementing __torch_function__.&quot;</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_tensor_like</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">):</span>
