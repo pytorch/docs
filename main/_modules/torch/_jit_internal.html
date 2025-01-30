@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git2f24f2e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6b41f31 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -628,7 +628,7 @@
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: F401  # (Dict, List, Tuple) imported by torch.jit.annotations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: UP035, F401  # (Dict, List, Tuple) imported by torch.jit.annotations</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Callable</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
@@ -1733,7 +1733,8 @@
 
 
 <span class="k">def</span> <span class="nf">is_tuple</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="n">Tuple</span><span class="p">:</span>
+    <span class="c1"># Check for typing.Tuple missing args (but `tuple` is fine)</span>
+    <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;Tuple&quot;</span><span class="p">)</span>
 
     <span class="c1"># For some reason Python 3.7 violates the Type[A, B].__origin__ == Type rule</span>
@@ -1741,35 +1742,31 @@
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="n">ann_origin</span> <span class="o">=</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">IS_PY39_PLUS</span> <span class="ow">and</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="s2">&quot;builtins&quot;</span> <span class="ow">and</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="s2">&quot;typing&quot;</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ann_origin</span> <span class="ow">is</span> <span class="n">Tuple</span> <span class="ow">or</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;builtins&quot;</span><span class="p">,</span> <span class="s2">&quot;typing&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">tuple</span>
 
 
 <span class="k">def</span> <span class="nf">is_list</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="n">List</span><span class="p">:</span>
+    <span class="c1"># Check for typing.List missing args (but `list` is fine)</span>
+    <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;List&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ann</span><span class="p">,</span> <span class="s2">&quot;__module__&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="n">ann_origin</span> <span class="o">=</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">IS_PY39_PLUS</span> <span class="ow">and</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="s2">&quot;builtins&quot;</span> <span class="ow">and</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="s2">&quot;typing&quot;</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ann_origin</span> <span class="ow">is</span> <span class="n">List</span> <span class="ow">or</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;builtins&quot;</span><span class="p">,</span> <span class="s2">&quot;typing&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">list</span>
 
 
 <span class="k">def</span> <span class="nf">is_dict</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="c1"># Check for typing.Dict missing args (but `dict` is fine)</span>
+    <span class="k">if</span> <span class="n">ann</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;Dict&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ann</span><span class="p">,</span> <span class="s2">&quot;__module__&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="n">ann_origin</span> <span class="o">=</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">IS_PY39_PLUS</span> <span class="ow">and</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="s2">&quot;builtins&quot;</span> <span class="ow">and</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="s2">&quot;typing&quot;</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ann_origin</span> <span class="ow">is</span> <span class="n">Dict</span> <span class="ow">or</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ann</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;builtins&quot;</span><span class="p">,</span> <span class="s2">&quot;typing&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ann_origin</span> <span class="ow">is</span> <span class="nb">dict</span>
 
 
 <span class="k">def</span> <span class="nf">is_union</span><span class="p">(</span><span class="n">ann</span><span class="p">):</span>
@@ -1979,11 +1976,11 @@
 
 
 <span class="k">def</span> <span class="nf">check_args_exist</span><span class="p">(</span><span class="n">target_type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">List</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;List&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">Tuple</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;Tuple&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">Dict</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;Dict&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">Optional</span><span class="p">:</span>
         <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;Optional&quot;</span><span class="p">)</span>
@@ -2007,7 +2004,7 @@
     <span class="n">check_args_exist</span><span class="p">(</span><span class="n">target_type</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">elif</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="nb">list</span> <span class="ow">or</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="n">List</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="nb">list</span> <span class="ow">or</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">check_empty_containers</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
@@ -2021,7 +2018,7 @@
             <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">arg_type</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">elif</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="n">Dict</span> <span class="ow">or</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span> <span class="ow">or</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">check_empty_containers</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
@@ -2038,7 +2035,7 @@
             <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">val_type</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">elif</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="n">Tuple</span> <span class="ow">or</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span> <span class="ow">or</span> <span class="n">origin_type</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
         <span class="n">check_empty_containers</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
