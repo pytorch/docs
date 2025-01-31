@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git6b41f31 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitc72b536 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -677,11 +677,14 @@
     <span class="p">]</span>
 <span class="p">)</span>
 
-<span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1"># Dynamo is unable to trace global set[Callable].__contains__.</span>
+<span class="c1"># See https://github.com/pytorch/pytorch/issues/145761. Since we only have</span>
+<span class="c1"># a handful of ops so switch to list of callables.</span>
+<span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_set_grad_enabled</span><span class="p">,</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">_enter_autocast</span><span class="p">,</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">_exit_autocast</span><span class="p">,</span>
-<span class="p">}</span>
+<span class="p">]</span>
 
 <span class="c1"># TODO: Either refactor this into 2 functions 1 dce for functional graphs and 1 dce for all graphs,</span>
 <span class="c1"># or add logic to correctly mark all inplace ops as side effectful.</span>
@@ -698,7 +701,8 @@
     <span class="n">_ops</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">_record_function_exit</span><span class="p">,</span>
     <span class="n">_ops</span><span class="o">.</span><span class="n">inductor</span><span class="o">.</span><span class="n">accumulate_grad_</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
     <span class="n">operator</span><span class="o">.</span><span class="n">setitem</span><span class="p">,</span>
-<span class="p">}</span> <span class="o">|</span> <span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span>
+<span class="p">}</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span><span class="p">)</span>
+
 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_ops</span><span class="o">.</span><span class="n">inductor</span><span class="p">,</span> <span class="s2">&quot;resize_storage_bytes_&quot;</span><span class="p">):</span>
     <span class="n">_side_effectful_functions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">_ops</span><span class="o">.</span><span class="n">inductor</span><span class="o">.</span><span class="n">resize_storage_bytes_</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
 
