@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git35f113e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitd89c7ea ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1853,8 +1853,10 @@
 <span class="sd">        - Input: Shape :math:`(C)`, :math:`(N, C)` or :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`</span>
 <span class="sd">          in the case of `K`-dimensional loss.</span>
 <span class="sd">        - Target: If containing class indices, shape :math:`()`, :math:`(N)` or :math:`(N, d_1, d_2, ..., d_K)` with</span>
-<span class="sd">          :math:`K \geq 1` in the case of K-dimensional loss where each value should be between :math:`[0, C)`.</span>
-<span class="sd">          If containing class probabilities, same shape as the input and each value should be between :math:`[0, 1]`.</span>
+<span class="sd">          :math:`K \geq 1` in the case of K-dimensional loss where each value should be between :math:`[0, C)`. The</span>
+<span class="sd">          target data type is required to be long when using class indices. If containing class probabilities, the</span>
+<span class="sd">          target must be the same shape input, and each value should be between :math:`[0, 1]`. This means the target</span>
+<span class="sd">          data type is required to be float when using class probabilities.</span>
 <span class="sd">        - Output: If reduction is &#39;none&#39;, shape :math:`()`, :math:`(N)` or :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1`</span>
 <span class="sd">          in the case of K-dimensional loss, depending on the shape of the input. Otherwise, scalar.</span>
 
