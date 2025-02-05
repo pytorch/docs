@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git2f40f78 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git84ba9c6 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -650,9 +650,13 @@
 <span class="n">LOG_ENV_VAR</span> <span class="o">=</span> <span class="s2">&quot;TORCH_LOGS&quot;</span>
 <span class="n">LOG_OUT_ENV_VAR</span> <span class="o">=</span> <span class="s2">&quot;TORCH_LOGS_OUT&quot;</span>
 <span class="n">LOG_FORMAT_ENV_VAR</span> <span class="o">=</span> <span class="s2">&quot;TORCH_LOGS_FORMAT&quot;</span>
+<span class="n">LOG_TRACE_ID_FILTER</span> <span class="o">=</span> <span class="s2">&quot;TORCH_LOGS_TRACE_ID_FILTER&quot;</span>
 <span class="n">TRACE_ENV_VAR</span> <span class="o">=</span> <span class="s2">&quot;TORCH_TRACE&quot;</span>
+<span class="n">DTRACE_ENV_VAR</span> <span class="o">=</span> <span class="s2">&quot;TORCH_DTRACE&quot;</span>
 
 <span class="n">LOG_TRACE_HANDLER</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;LazyTraceHandler&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">GET_DTRACE_STRUCTURED</span> <span class="o">=</span> <span class="kc">False</span>
 
 
 <span class="nd">@dataclass</span>
@@ -1391,9 +1395,12 @@
 
 <span class="c1"># apply custom formats to artifacts when necessary</span>
 <span class="k">class</span> <span class="nc">TorchLogsFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">trace_id_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_trace</span> <span class="o">=</span> <span class="n">trace</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_trace_id_filter</span> <span class="o">=</span> <span class="n">trace_id_filter</span>
 
     <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
         <span class="n">artifact_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="s2">&quot;artifact_name&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1451,6 +1458,12 @@
 
         <span class="n">filepath</span> <span class="o">=</span> <span class="n">make_module_path_relative</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">pathname</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_trace_id_filter</span>
+            <span class="ow">and</span> <span class="n">record</span><span class="o">.</span><span class="n">traceid</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trace_id_filter</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
         <span class="n">prefix</span> <span class="o">=</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">rankprefix</span><span class="si">}{</span><span class="n">shortlevel</span><span class="si">}{</span><span class="n">record</span><span class="o">.</span><span class="n">asctime</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">msecs</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="si">:</span><span class="s2">06d</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">process</span><span class="si">}</span><span class="s2"> &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">:&quot;</span>
@@ -1473,8 +1486,13 @@
 
 <span class="k">def</span> <span class="nf">_default_formatter</span><span class="p">():</span>
     <span class="n">fmt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LOG_FORMAT_ENV_VAR</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">trace_id_filter</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LOG_TRACE_ID_FILTER</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="p">}</span>
     <span class="k">if</span> <span class="n">fmt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">TorchLogsFormatter</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">TorchLogsFormatter</span><span class="p">(</span><span class="n">trace_id_filter</span><span class="o">=</span><span class="n">trace_id_filter</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;short&quot;</span><span class="p">,</span> <span class="s2">&quot;basic&quot;</span><span class="p">):</span>
             <span class="n">fmt</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">BASIC_FORMAT</span>
@@ -1542,6 +1560,8 @@
 
 
 <span class="k">def</span> <span class="nf">_init_logs</span><span class="p">(</span><span class="n">log_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">GET_DTRACE_STRUCTURED</span>
+
     <span class="n">_reset_logs</span><span class="p">()</span>
     <span class="n">_update_log_state_from_env</span><span class="p">()</span>
 
@@ -1588,6 +1608,11 @@
     <span class="c1"># Setup handler for the special trace_log, with different default</span>
     <span class="c1"># configuration</span>
     <span class="n">trace_dir_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">TRACE_ENV_VAR</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dtrace_dir_name</span> <span class="o">:=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTRACE_ENV_VAR</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">GET_DTRACE_STRUCTURED</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">trace_dir_name</span> <span class="o">=</span> <span class="n">dtrace_dir_name</span>
+
     <span class="c1"># This handler may remove itself if trace_dir_name is None and we are not</span>
     <span class="c1"># actually in an FB environment.  This allows us to defer actually</span>
     <span class="c1"># initializing it until we actually need to log anything.  This is</span>
@@ -1855,9 +1880,6 @@
             <span class="c1"># Convert to seconds from nanoseconds, add it to the frame compile total</span>
             <span class="n">structured_logging_overhead_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1e9</span>
             <span class="n">add_structured_logging_overhead</span><span class="p">(</span><span class="n">structured_logging_overhead_s</span><span class="p">)</span>
-
-
-<span class="n">GET_DTRACE_STRUCTURED</span> <span class="o">=</span> <span class="kc">False</span>
 
 
 <span class="k">def</span> <span class="nf">dtrace_structured</span><span class="p">(</span>
