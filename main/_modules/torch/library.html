@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git84ba9c6 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gite0cf519 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -2057,6 +2057,8 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">test_utils</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_OPCHECK_DEFAULT_UTILS</span><span class="p">,</span>
     <span class="n">raise_exception</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Given an operator and some sample arguments, tests if the operator is</span>
 <span class="sd">    registered correctly.</span>
@@ -2115,6 +2117,14 @@
 <span class="sd">        raise_exception: If we should raise an exception on the first</span>
 <span class="sd">            error. If False, we will return a dict with information</span>
 <span class="sd">            on if each test passed or not.</span>
+<span class="sd">        rtol (Optional[float]): Relative tolerance for floating point comparisons.</span>
+<span class="sd">            If specified ``atol`` must also be specified.</span>
+<span class="sd">            If omitted, default values based on the ``dtype`` are selected</span>
+<span class="sd">            (see the table in :func:`torch.testing.assert_close`).</span>
+<span class="sd">        atol (Optional[float]): Absolute tolerance for floating point comparisons.</span>
+<span class="sd">            If specified ``rtol`` must also be specified.</span>
+<span class="sd">            If omitted, default values based on the ``dtype`` are selected</span>
+<span class="sd">            (see the table in :func:`torch.testing.assert_close`).</span>
 
 <span class="sd">    .. warning::</span>
 
@@ -2160,7 +2170,13 @@
     <span class="kn">import</span> <span class="nn">torch.testing._internal.optests</span> <span class="k">as</span> <span class="nn">optests</span>
 
     <span class="k">return</span> <span class="n">optests</span><span class="o">.</span><span class="n">opcheck</span><span class="p">(</span>
-        <span class="n">op</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">test_utils</span><span class="o">=</span><span class="n">test_utils</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="n">raise_exception</span>
+        <span class="n">op</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">,</span>
+        <span class="n">kwargs</span><span class="p">,</span>
+        <span class="n">test_utils</span><span class="o">=</span><span class="n">test_utils</span><span class="p">,</span>
+        <span class="n">raise_exception</span><span class="o">=</span><span class="n">raise_exception</span><span class="p">,</span>
+        <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+        <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
     <span class="p">)</span></div>
 </pre></div>
 

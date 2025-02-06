@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git84ba9c6 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gite0cf519 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -877,6 +877,12 @@
 <span class="c1"># Recursively look up target from a graph module.</span>
 <span class="k">def</span> <span class="nf">_get_attr</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">_get_attr_via_attr_list</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_del_attr</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">attr_names</span> <span class="o">=</span> <span class="n">attr_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">_get_attr_via_attr_list</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr_names</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">delattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">attr_names</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
 
 <span class="k">def</span> <span class="nf">_get_attr_via_attr_list</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">attr_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>

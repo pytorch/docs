@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git84ba9c6 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gite0cf519 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -652,13 +652,17 @@
     <span class="n">_collect_and_set_constant_attrs</span><span class="p">,</span>
     <span class="n">_collect_param_buffer_metadata</span><span class="p">,</span>
     <span class="n">_detect_fake_mode_from_gm</span><span class="p">,</span>
+    <span class="n">_fakify_params_buffers</span><span class="p">,</span>
     <span class="n">_get_decomp_for_cia</span><span class="p">,</span>
     <span class="n">_is_preservable_cia_op</span><span class="p">,</span>
     <span class="n">_name_hoo_subgraph_placeholders</span><span class="p">,</span>
+    <span class="n">_override_graph_signature_for_temp_registered_constants</span><span class="p">,</span>
     <span class="n">_overwrite_signature_for_non_persistent_buffers</span><span class="p">,</span>
     <span class="n">_populate_param_buffer_metadata_to_new_gm</span><span class="p">,</span>
+    <span class="n">_register_constants_as_buffers</span><span class="p">,</span>
     <span class="n">_rename_without_collisions</span><span class="p">,</span>
     <span class="n">_special_op_to_preserve_cia</span><span class="p">,</span>
+    <span class="n">placeholder_naming_pass</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch._export.verifier</span> <span class="kn">import</span> <span class="n">Verifier</span>
 <span class="kn">from</span> <span class="nn">torch._guards</span> <span class="kn">import</span> <span class="n">detect_fake_mode</span>
@@ -959,7 +963,7 @@
     <span class="n">joint_loss_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">decompose_custom_triton_ops</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">torch._export.utils</span> <span class="kn">import</span> <span class="n">_fakify_params_buffers</span>
+    <span class="kn">from</span> <span class="nn">torch._export.passes.lift_constants_pass</span> <span class="kn">import</span> <span class="n">_materialize_and_lift_constants</span>
     <span class="kn">from</span> <span class="nn">torch._functorch.aot_autograd</span> <span class="kn">import</span> <span class="n">aot_export_module</span>
     <span class="kn">from</span> <span class="nn">torch.export._trace</span> <span class="kn">import</span> <span class="p">(</span>
         <span class="n">_disable_custom_triton_op_functional_decomposition</span><span class="p">,</span>
@@ -1032,6 +1036,16 @@
         <span class="c1"># and overwrite the new graph signature using the previous program.</span>
         <span class="n">_collect_and_set_constant_attrs</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">constants</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
 
+        <span class="c1"># When we have a module with constant attributes, AotDispatcher doesn&#39;t actually</span>
+        <span class="c1"># wrap them as functional tensors, because dynamo would have already made it buffer.</span>
+        <span class="c1"># In non-strict case, however, AotDispatcher can intercept constants, causing it to not</span>
+        <span class="c1"># functionalize the operators that are operating on constant tensors. Since dynamo already</span>
+        <span class="c1"># wraps constants as buffers, we temporarily register the constants as buffers and undo this</span>
+        <span class="c1"># operation after AOTDispatcher is done.</span>
+        <span class="n">temp_registered_constants</span> <span class="o">=</span> <span class="n">_register_constants_as_buffers</span><span class="p">(</span>
+            <span class="n">mod</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">state_dict</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="o">.</span><span class="n">non_persistent_buffers</span>
+        <span class="p">)</span>
+
         <span class="c1"># get params &amp; buffers after excluding constants</span>
         <span class="n">fake_params_buffers</span> <span class="o">=</span> <span class="n">_fakify_params_buffers</span><span class="p">(</span><span class="n">fake_mode</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
 
@@ -1092,6 +1106,7 @@
                     <span class="n">new_fake_constant_attrs</span><span class="p">,</span>
                     <span class="n">decomp_table</span><span class="o">=</span><span class="n">python_decomp_table</span><span class="p">,</span>
                     <span class="n">_check_autograd_state</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">_prettify_placeholder_names</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                     <span class="n">decompose_custom_triton_ops</span><span class="o">=</span><span class="n">decompose_custom_triton_ops</span><span class="p">,</span>
                 <span class="p">)</span>
 
@@ -1105,17 +1120,39 @@
                     <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
                 <span class="p">}</span>
 
-        <span class="n">gm</span> <span class="o">=</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">gm</span>
-        <span class="n">new_graph_signature</span> <span class="o">=</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">sig</span>
+                <span class="n">gm</span> <span class="o">=</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">gm</span>
+                <span class="n">new_graph_signature</span> <span class="o">=</span> <span class="n">aten_export_artifact</span><span class="o">.</span><span class="n">sig</span>
 
-        <span class="n">_populate_param_buffer_metadata_to_new_gm</span><span class="p">(</span>
-            <span class="n">params_buffers_to_node_meta</span><span class="p">,</span> <span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span>
-        <span class="p">)</span>
+                <span class="c1"># In the previous step, we assume constants as buffers for AOTDispatcher to</span>
+                <span class="c1"># functianalize properly, so undo that here</span>
+                <span class="n">new_graph_signature</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">_override_graph_signature_for_temp_registered_constants</span><span class="p">(</span>
+                        <span class="n">new_graph_signature</span><span class="p">,</span> <span class="n">temp_registered_constants</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
 
-        <span class="c1"># overwrite signature for non-persistent buffers</span>
-        <span class="n">new_graph_signature</span> <span class="o">=</span> <span class="n">_overwrite_signature_for_non_persistent_buffers</span><span class="p">(</span>
-            <span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">,</span> <span class="n">new_graph_signature</span>
-        <span class="p">)</span>
+                <span class="n">_populate_param_buffer_metadata_to_new_gm</span><span class="p">(</span>
+                    <span class="n">params_buffers_to_node_meta</span><span class="p">,</span> <span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span>
+                <span class="p">)</span>
+
+                <span class="c1"># overwrite signature for non-persistent buffers</span>
+                <span class="n">new_graph_signature</span> <span class="o">=</span> <span class="n">_overwrite_signature_for_non_persistent_buffers</span><span class="p">(</span>
+                    <span class="n">ep</span><span class="o">.</span><span class="n">graph_signature</span><span class="p">,</span> <span class="n">new_graph_signature</span>
+                <span class="p">)</span>
+
+                <span class="n">constants</span> <span class="o">=</span> <span class="n">_materialize_and_lift_constants</span><span class="p">(</span>
+                    <span class="n">gm</span><span class="p">,</span> <span class="n">new_graph_signature</span><span class="p">,</span> <span class="n">new_fake_constant_attrs</span>
+                <span class="p">)</span>
+
+                <span class="n">placeholder_naming_pass</span><span class="p">(</span>
+                    <span class="n">gm</span><span class="p">,</span>
+                    <span class="n">new_graph_signature</span><span class="p">,</span>
+                    <span class="n">patched_mod</span><span class="p">,</span>
+                    <span class="n">new_fake_args</span><span class="p">,</span>
+                    <span class="n">new_fake_kwargs</span><span class="p">,</span>
+                    <span class="n">fake_params_buffers</span><span class="p">,</span>
+                    <span class="n">constants</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="n">_verify_nn_module_stack</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span>
         <span class="n">_verify_stack_trace</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span>

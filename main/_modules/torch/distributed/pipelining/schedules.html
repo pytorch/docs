@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git84ba9c6 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gite0cf519 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -619,7 +619,7 @@
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
@@ -628,6 +628,7 @@
 <span class="kn">from</span> <span class="nn">torch.nn.modules.loss</span> <span class="kn">import</span> <span class="n">_Loss</span>
 <span class="kn">from</span> <span class="nn">torch.profiler</span> <span class="kn">import</span> <span class="n">record_function</span>
 
+<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">generate_stage_to_rank_mapping</span>
 <span class="kn">from</span> <span class="nn">.microbatch</span> <span class="kn">import</span> <span class="n">merge_chunks</span><span class="p">,</span> <span class="n">split_args_kwargs_into_chunks</span><span class="p">,</span> <span class="n">TensorChunkSpec</span>
 <span class="kn">from</span> <span class="nn">.stage</span> <span class="kn">import</span> <span class="n">_PipelineStageBase</span>
 
@@ -1634,7 +1635,7 @@
     <span class="n">pp_group_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">assert</span> <span class="p">(</span>
         <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span> <span class="o">==</span> <span class="n">pp_group_size</span>
     <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Schedule has incorrect number of ranks - expected </span><span class="si">{</span><span class="n">pp_group_size</span><span class="si">}</span><span class="s2">, actual </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -1652,6 +1653,7 @@
         <span class="p">}</span>
         <span class="k">for</span> <span class="n">stage_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_stages</span><span class="p">)</span>
     <span class="p">}</span>
+    <span class="n">stage_index_to_rank_mapping</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1679,6 +1681,13 @@
                     <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">I</span><span class="p">]</span>
                 <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Running Backward Weight for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Backward Input&quot;</span>
                 <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">W</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mb_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">s_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stage_index_to_rank_mapping</span><span class="p">:</span>
+                <span class="n">stage_index_to_rank_mapping</span><span class="p">[</span><span class="n">s_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">existing_rank</span> <span class="o">=</span> <span class="n">stage_index_to_rank_mapping</span><span class="p">[</span><span class="n">s_id</span><span class="p">]</span>
+                <span class="k">assert</span> <span class="p">(</span>
+                    <span class="n">rank</span> <span class="o">==</span> <span class="n">existing_rank</span>
+                <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2"> is assigned to both rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> and rank </span><span class="si">{</span><span class="n">existing_rank</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">for</span> <span class="n">s_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">:</span>
         <span class="n">f_mb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">])</span>
@@ -1694,6 +1703,7 @@
             <span class="n">b_mb</span> <span class="o">+</span> <span class="p">(</span><span class="n">i_mb</span> <span class="o">+</span> <span class="n">w_mb</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">==</span> <span class="n">num_microbatches</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Invalid backward microbatches for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">: expected </span><span class="si">{</span><span class="n">num_microbatches</span><span class="si">}</span><span class="s2"> total backwards, </span><span class="se">\</span>
 <span class="s2">            but got B=</span><span class="si">{</span><span class="n">b_mb</span><span class="si">}</span><span class="s2">, I=</span><span class="si">{</span><span class="n">i_mb</span><span class="si">}</span><span class="s2">, W=</span><span class="si">{</span><span class="n">w_mb</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">stage_index_to_rank_mapping</span>
 
 
 <div class="viewcode-block" id="PipelineScheduleMulti"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleMulti">[docs]</a><span class="k">class</span> <span class="nc">PipelineScheduleMulti</span><span class="p">(</span><span class="n">_PipelineSchedule</span><span class="p">):</span>
@@ -1714,7 +1724,6 @@
         <span class="n">args_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">TensorChunkSpec</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">kwargs_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TensorChunkSpec</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">output_merge_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">stage_index_to_group_rank</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">use_full_backward</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">scale_grads</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
@@ -1733,10 +1742,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">group_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">group_rank</span>
         <span class="c1"># Set the pipeline stage states</span>
-        <span class="k">if</span> <span class="n">stage_index_to_group_rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">:</span>
-                <span class="n">stage</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="o">=</span> <span class="n">stage_index_to_group_rank</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="o">=</span> <span class="n">generate_stage_to_rank_mapping</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">:</span>
+            <span class="n">stage</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span>
 
         <span class="c1"># Set the same has_backward flag for stage object</span>
         <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">:</span>
@@ -1774,6 +1784,21 @@
                 <span class="n">stage</span><span class="o">.</span><span class="n">_prepare_backward_infra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stages_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
+    <span class="k">def</span> <span class="nf">_validate_and_set_stage_mapping</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allocates the stage index to rank mapping which is needed for communication</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="o">=</span> <span class="n">_validate_schedule</span><span class="p">(</span>
+            <span class="n">actions</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">:</span>
+            <span class="n">stage</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span>
+
     <span class="k">def</span> <span class="nf">_dump_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Dump a CSV representation of the schedule into a file with the provided filename.&quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
@@ -1785,19 +1810,17 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a CSV representation of the schedule from a file with the provided filename.</span>
 <span class="sd">        This API will most likely get renamed/refactored so is marked as internal for now.</span>
 
-<span class="sd">        format must be &quot;compute_only&quot; for PipelineScheduleMulti</span>
+<span class="sd">        format must be &quot;compute_only&quot; for PipelineScheduleMulti.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;compute_only&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
             <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reader</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">_Action</span><span class="o">.</span><span class="n">from_str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
-        <span class="n">_validate_schedule</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_n_microbatches</span><span class="p">,</span>
-        <span class="p">)</span>
+
+        <span class="c1"># Validates the order of the pipeline actions and infers the stage_to_rank_mapping.</span>
+        <span class="c1"># This will overwrite the default stage_to_rank_mapping created in the constructor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_and_set_stage_mapping</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PipelineScheduleMulti.step"><a class="viewcode-back" href="../../../../distributed.pipelining.html#torch.distributed.pipelining.schedules.PipelineScheduleMulti.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">losses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2039,9 +2062,9 @@
 <span class="sd">        Given an in-memory representation for a simple compute-only schedule, lower it to a complex schedule including</span>
 <span class="sd">        communication actions.  Stores the schedule in self, and must be called before running step_mo()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">),</span> <span class="s2">&quot;stage_index_to_group_rank is required for PipelineScheduleRuntime&quot;</span>
+        <span class="c1"># validate the provided actions are valid and overrides the default stage_index_to_group_rank</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_validate_and_set_stage_mapping</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">_Action</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;compute_comms&quot;</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
@@ -2876,7 +2899,6 @@
         <span class="n">args_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">TensorChunkSpec</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">kwargs_chunk_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TensorChunkSpec</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">output_merge_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">stage_index_to_group_rank</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">scale_grads</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">group_size</span>
@@ -2887,9 +2909,14 @@
             <span class="n">args_chunk_spec</span><span class="o">=</span><span class="n">args_chunk_spec</span><span class="p">,</span>
             <span class="n">kwargs_chunk_spec</span><span class="o">=</span><span class="n">kwargs_chunk_spec</span><span class="p">,</span>
             <span class="n">output_merge_spec</span><span class="o">=</span><span class="n">output_merge_spec</span><span class="p">,</span>
-            <span class="n">stage_index_to_group_rank</span><span class="o">=</span><span class="n">stage_index_to_group_rank</span><span class="p">,</span>
             <span class="n">scale_grads</span><span class="o">=</span><span class="n">scale_grads</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="o">=</span> <span class="n">generate_stage_to_rank_mapping</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pp_group_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_stages</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;v&quot;</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">:</span>
+            <span class="n">stage</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_index_to_group_rank</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stages</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_local_stages</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
