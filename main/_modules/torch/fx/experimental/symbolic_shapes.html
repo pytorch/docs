@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git9ea1823 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git0ab6729 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -620,6 +620,7 @@
 <span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">import</span> <span class="nn">atexit</span>
 <span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">dis</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
@@ -634,7 +635,7 @@
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">_GeneratorContextManager</span><span class="p">,</span> <span class="n">contextmanager</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Any</span><span class="p">,</span>
@@ -3684,6 +3685,13 @@
         <span class="k">yield</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">shape_env</span><span class="o">.</span><span class="n">_suppress_guards_exit</span><span class="p">()</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">_FrameLocalResult</span><span class="p">:</span>
+    <span class="n">loc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">locals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">symbols</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ShapeEnv"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv">[docs]</a><span class="k">class</span> <span class="nc">ShapeEnv</span><span class="p">:</span>
@@ -7020,6 +7028,79 @@
         <span class="n">sloc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stack_summary</span><span class="p">(</span><span class="n">framework_loc</span><span class="o">=</span><span class="n">framework_loc</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sloc</span>
 
+    <span class="k">def</span> <span class="nf">_find_frame_locals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_FrameLocalResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given the current user code frame, finds the relevant lines of code,</span>
+<span class="sd">        values of symbolic locals, and free symbols involved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frame_locals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">frame_symbols</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">frame</span> <span class="o">:=</span> <span class="n">_find_user_code_frame</span><span class="p">()</span>
+        <span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span> <span class="o">==</span> <span class="s2">&quot;&lt;string&gt;&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_FrameLocalResult</span><span class="p">()</span>
+
+        <span class="c1"># find bytecode instructions relevant to the frame</span>
+        <span class="n">instructions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dis</span><span class="o">.</span><span class="n">Bytecode</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="p">))</span>
+        <span class="n">co_lines</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsourcelines</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="p">)</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">cur</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">instr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">instructions</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">instr</span><span class="o">.</span><span class="n">starts_line</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">cur</span> <span class="o">=</span> <span class="n">instr</span><span class="o">.</span><span class="n">starts_line</span>
+            <span class="k">if</span> <span class="n">cur</span> <span class="o">!=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_lineno</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">end</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no instructions found</span>
+            <span class="k">return</span> <span class="n">_FrameLocalResult</span><span class="p">()</span>
+
+        <span class="c1"># track involved locals and free symbols</span>
+        <span class="k">def</span> <span class="nf">go</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">():</span>
+                    <span class="n">go</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">stride</span><span class="p">():</span>
+                    <span class="n">go</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">go</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">())</span>
+                <span class="k">return</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Tensor(shape: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;stride: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">stride</span><span class="p">()</span><span class="si">}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;storage_offset: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">SymBool</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">frame_symbols</span><span class="p">:</span>  <span class="c1"># type: ignore[operator]</span>
+                        <span class="k">continue</span>
+                    <span class="n">frame_symbols</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># type: ignore[index]</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>  <span class="c1"># type: ignore[assignment]</span>
+                        <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_to_sources</span>
+                        <span class="k">else</span> <span class="kc">None</span>  <span class="c1"># unbacked</span>
+                    <span class="p">)</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># go through instructions, seeing linenos &amp; involved locals</span>
+        <span class="n">last_lineno</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_lineno</span>
+        <span class="k">for</span> <span class="n">instr</span> <span class="ow">in</span> <span class="n">instructions</span><span class="p">[</span><span class="n">start</span> <span class="p">:</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lineno</span> <span class="o">:=</span> <span class="n">instr</span><span class="o">.</span><span class="n">starts_line</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">last_lineno</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">last_lineno</span><span class="p">,</span> <span class="n">lineno</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instr</span><span class="o">.</span><span class="n">argval</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">instr</span><span class="o">.</span><span class="n">argval</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">:</span>
+                <span class="n">frame_locals</span><span class="p">[</span><span class="n">instr</span><span class="o">.</span><span class="n">argval</span><span class="p">]</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_map</span><span class="p">(</span>
+                    <span class="n">go</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">[</span><span class="n">instr</span><span class="o">.</span><span class="n">argval</span><span class="p">]</span>  <span class="c1"># type: ignore[index]</span>
+                <span class="p">)</span>
+
+        <span class="c1"># store LOC</span>
+        <span class="n">locs</span> <span class="o">=</span> <span class="n">co_lines</span><span class="p">[</span><span class="n">frame</span><span class="o">.</span><span class="n">f_lineno</span> <span class="o">-</span> <span class="n">offset</span> <span class="p">:</span> <span class="n">last_lineno</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">offset</span><span class="p">]</span>
+        <span class="n">indent</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">locs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">locs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">())</span>
+        <span class="n">frame_loc</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">loc</span><span class="p">[</span><span class="n">indent</span><span class="p">:]</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locs</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="k">return</span> <span class="n">_FrameLocalResult</span><span class="p">(</span>
+            <span class="n">loc</span><span class="o">=</span><span class="n">frame_loc</span><span class="p">,</span> <span class="nb">locals</span><span class="o">=</span><span class="n">frame_locals</span><span class="p">,</span> <span class="n">symbols</span><span class="o">=</span><span class="n">frame_symbols</span>
+        <span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_log_guard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">SympyBoolean</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">dtrace_structured</span><span class="p">(</span>
             <span class="s2">&quot;guard_added&quot;</span><span class="p">,</span>
@@ -7033,6 +7114,7 @@
                     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_to_var</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">free_symbols</span>
                 <span class="p">},</span>
+                <span class="s2">&quot;frame_locals&quot;</span><span class="p">:</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_find_frame_locals</span><span class="p">()),</span>
             <span class="p">},</span>
         <span class="p">)</span>
         <span class="n">trace_structured</span><span class="p">(</span>
@@ -7269,6 +7351,22 @@
                                 <span class="p">),</span>
                             <span class="p">},</span>
                         <span class="p">)</span>
+                        <span class="n">dtrace_structured</span><span class="p">(</span>
+                            <span class="s2">&quot;propagate_real_tensors_provenance&quot;</span><span class="p">,</span>
+                            <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;expr&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">orig_expr</span><span class="p">),</span>
+                                <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">unsound_result</span><span class="p">),</span>
+                                <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span>
+                                    <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+                                <span class="p">),</span>
+                                <span class="s2">&quot;symbol_to_sources&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                    <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">):</span> <span class="n">k</span>
+                                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_to_var</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                                    <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">free_symbols</span>
+                                <span class="p">},</span>
+                                <span class="s2">&quot;frame_locals&quot;</span><span class="p">:</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_find_frame_locals</span><span class="p">()),</span>
+                            <span class="p">},</span>
+                        <span class="p">)</span>
                         <span class="n">transmute_into_runtime_assert</span> <span class="o">=</span> <span class="kc">True</span>
                         <span class="n">concrete_val</span> <span class="o">=</span> <span class="n">unsound_result</span>
                         <span class="n">ok</span> <span class="o">=</span> <span class="kc">True</span>
@@ -7309,6 +7407,8 @@
                 <span class="k">return</span> <span class="n">concrete_val</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress_guards_tls</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="n">forcing_spec</span><span class="p">)</span>
+
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Rel</span><span class="p">):</span>
                     <span class="c1"># TODO: If we successfully eliminate a symbol via equality, it</span>
                     <span class="c1"># is not actually necessary to save a guard for the equality,</span>
@@ -7331,6 +7431,8 @@
                     <span class="c1"># the _maybe_guard_rel() call above will set replacements if possible,</span>
                     <span class="c1"># and so the result here will be statically known</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">defer_runtime_assert</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;evaluate_expr: </span><span class="si">{</span><span class="n">orig_expr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;eval [guard suppressed]&quot;</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="n">forcing_spec</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">fresh</span><span class="p">:</span>
@@ -7339,8 +7441,6 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress_guards_tls</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">guard</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># we might have deferred this to runtime assert</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="n">forcing_spec</span><span class="p">)</span>
-
                     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">free_symbols</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">symbol_guard_counter</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
                         <span class="c1"># Forcing_spec to avoid infinite recursion</span>
@@ -7357,8 +7457,6 @@
                                 <span class="n">s</span><span class="p">,</span>
                             <span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_expr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;eval [guard suppressed]&quot;</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="n">forcing_spec</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">concrete_val</span>
 
@@ -7424,6 +7522,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_add_fx_node_metadata</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress_guards_tls</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;runtime_assert&quot;</span><span class="p">,</span> <span class="n">orig_expr</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="c1"># If you&#39;re here because of this assert, read Note [Backwards runtime asserts]</span>
             <span class="c1"># in torch/_inductor/graph.py</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime_asserts_frozen</span><span class="p">:</span>
@@ -7450,7 +7549,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">axioms</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_implications</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">))))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">num_deferred_runtime_asserts</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_version_counter</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span><span class="s2">&quot;runtime_assert&quot;</span><span class="p">,</span> <span class="n">orig_expr</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_log_guard</span><span class="p">(</span>
                 <span class="s2">&quot;runtime_assert [guard suppressed]&quot;</span><span class="p">,</span> <span class="n">orig_expr</span><span class="p">,</span> <span class="n">forcing_spec</span><span class="o">=</span><span class="kc">False</span>
