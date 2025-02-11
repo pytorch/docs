@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git2a55311 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git937b41e ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -657,7 +657,6 @@
 <span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_C</span>
@@ -774,21 +773,9 @@
     <span class="n">custom_opsets</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">export_modules_as_functions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">autograd_inlining</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># ignored options</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ONNXProgram</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Exports a model into ONNX format.</span>
-
-<span class="sd">    .. versionchanged:: 2.6</span>
-<span class="sd">        *training* is now deprecated. Instead, set the training mode of the model before exporting.</span>
-<span class="sd">    .. versionchanged:: 2.6</span>
-<span class="sd">        *operator_export_type* is now deprecated. Only ONNX is supported.</span>
-<span class="sd">    .. versionchanged:: 2.6</span>
-<span class="sd">        *do_constant_folding* is now deprecated. It is always enabled.</span>
-<span class="sd">    .. versionchanged:: 2.6</span>
-<span class="sd">        *export_modules_as_functions* is now deprecated.</span>
-<span class="sd">    .. versionchanged:: 2.6</span>
-<span class="sd">        *autograd_inlining* is now deprecated.</span>
-<span class="sd">    .. versionchanged:: 2.7</span>
-<span class="sd">        *optimize* is now True by default.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        model: The model to be exported.</span>
@@ -964,9 +951,6 @@
 <span class="sd">        autograd_inlining: Deprecated.</span>
 <span class="sd">            Flag used to control whether to inline autograd functions.</span>
 <span class="sd">            Refer to https://github.com/pytorch/pytorch/pull/74765 for more details.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        :class:`torch.onnx.ONNXProgram` if dynamo is True, otherwise None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">dynamo</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">ExportedProgram</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">torch.onnx._internal.exporter</span> <span class="kn">import</span> <span class="n">_compat</span>
@@ -1027,10 +1011,7 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="dynamo_export"><a class="viewcode-back" href="../../onnx_dynamo.html#torch.onnx.dynamo_export">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span>
-    <span class="s2">&quot;torch.onnx.dynamo_export is deprecated since 2.6.0. Please use torch.onnx.export(..., dynamo=True) instead.&quot;</span>
-<span class="p">)</span>
-<span class="k">def</span> <span class="nf">dynamo_export</span><span class="p">(</span>
+<div class="viewcode-block" id="dynamo_export"><a class="viewcode-back" href="../../onnx_dynamo.html#torch.onnx.dynamo_export">[docs]</a><span class="k">def</span> <span class="nf">dynamo_export</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">Callable</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">ExportedProgram</span><span class="p">,</span>  <span class="c1"># type: ignore[name-defined]</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="o">*</span><span class="n">model_args</span><span class="p">,</span>
@@ -1038,9 +1019,6 @@
     <span class="o">**</span><span class="n">model_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ONNXProgram</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Export a torch.nn.Module to an ONNX graph.</span>
-
-<span class="sd">    .. deprecated:: 2.6</span>
-<span class="sd">        Please use ``torch.onnx.export(..., dynamo=True)`` instead.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        model: The PyTorch model to be exported to ONNX.</span>
@@ -1083,6 +1061,7 @@
 <span class="sd">        onnx_program.save(&quot;my_dynamic_model.onnx&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># NOTE: The new exporter is experimental and is not enabled by default.</span>
     <span class="kn">import</span> <span class="nn">warnings</span>
 
     <span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">_flags</span>
@@ -1106,7 +1085,7 @@
                 <span class="s2">&quot;You are using an experimental ONNX export logic, which currently only supports dynamic shapes. &quot;</span>
                 <span class="s2">&quot;For a more comprehensive set of export options, including advanced features, please consider using &quot;</span>
                 <span class="s2">&quot;`torch.onnx.export(..., dynamo=True)`. &quot;</span><span class="p">,</span>
-                <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">export_options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">export_options</span><span class="o">.</span><span class="n">dynamic_shapes</span><span class="p">:</span>
