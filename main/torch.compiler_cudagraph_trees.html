@@ -300,7 +300,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git937b41e ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git281249b ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -618,7 +618,7 @@
 <p><a class="reference external" href="https://developer.nvidia.com/blog/cuda-10-features-revealed/">CUDA Graphs</a>, which made its debut in CUDA 10, let a series of CUDA kernels to be defined and encapsulated as a single unit, i.e., a graph of operations, rather than a sequence of individually-launched operations. It provides a mechanism to launch multiple GPU operations through a single CPU operation, and hence reduces the launching overheads.</p>
 <p>CUDA Graphs can give large speedups, especially for models with high CPU overhead or small compute. There are a number of limitations from requiring the same kernels to be run with the same arguments and dependencies, and memory addresses.</p>
 <ul class="simple">
-<li><p>Control Flow is not possible</p></li>
+<li><p>Arbitrary Control Flow is not possible (However, control flow expressed via torch.cond() and torch.while_loop() can be captured in a CUDA Graph. See <a class="reference internal" href="notes/cuda.html#graph-data-dependent-control-flow"><span class="std std-ref">Data Dependent Control Flow</span></a>.)</p></li>
 <li><p>Kernels which trigger host to device syncs (such as .item()) errors</p></li>
 <li><p>All input arguments to kernels are fixed to what they were recorded</p></li>
 <li><p>CUDA Memory addresses are fixed, however the values of the memory at those addresses can change</p></li>
