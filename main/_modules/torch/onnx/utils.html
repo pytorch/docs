@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git281249b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git67cbbb2 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -624,13 +624,14 @@
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch._C._onnx</span> <span class="k">as</span> <span class="nn">_C_onnx</span>
 <span class="kn">import</span> <span class="nn">torch.jit._trace</span>
 <span class="kn">import</span> <span class="nn">torch.serialization</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">_C</span>
-<span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">_constants</span><span class="p">,</span> <span class="n">_deprecation</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">symbolic_helper</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">_constants</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">symbolic_helper</span>  <span class="c1"># noqa: F401</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._globals</span> <span class="kn">import</span> <span class="n">GLOBALS</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">diagnostics</span><span class="p">,</span> <span class="n">jit_utils</span><span class="p">,</span> <span class="n">onnx_proto_utils</span><span class="p">,</span> <span class="n">registration</span>
 
@@ -665,10 +666,14 @@
 <span class="n">_params_dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: ignore[var-annotated]</span>
 
 
-<div class="viewcode-block" id="select_model_mode_for_export"><a class="viewcode-back" href="../../../onnx_torchscript.html#torch.onnx.select_model_mode_for_export">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<div class="viewcode-block" id="select_model_mode_for_export"><a class="viewcode-back" href="../../../onnx_torchscript.html#torch.onnx.select_model_mode_for_export">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Please set training mode before exporting the model&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="k">def</span> <span class="nf">select_model_mode_for_export</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">TrainingMode</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;A context manager to temporarily set the training mode of ``model``</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager to temporarily set the training mode of ``model``</span>
 <span class="sd">    to ``mode``, resetting it when we exit the with-block.</span>
+
+<span class="sd">    .. deprecated:: 2.7</span>
+<span class="sd">        Please set training mode before exporting the model.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        model: Same type and meaning as ``model`` arg to :func:`export`.</span>
@@ -713,8 +718,17 @@
             <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">originally_training</span><span class="p">)</span></div>
 
 
+<span class="nd">@deprecated</span><span class="p">(</span>
+    <span class="s2">&quot;Please remove usage of this function. Copy its logic if it is required in user code&quot;</span><span class="p">,</span>
+    <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="k">def</span> <span class="nf">disable_apex_o2_state_dict_hook</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager to temporarily disable the Apex O2 hook that returns.</span>
+
+<span class="sd">    .. deprecated:: 2.7</span>
+<span class="sd">        Please remove usage of this function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Apex O2 hook state_dict to return fp16 weights as fp32.</span>
     <span class="c1"># Exporter cannot identify them as same tensors.</span>
     <span class="c1"># Since this hook is only used by optimizer, it is safe to</span>
@@ -744,8 +758,14 @@
             <span class="k">pass</span>
 
 
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;The feature will be removed. Please remove usage of this function&quot;</span><span class="p">)</span>
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="k">def</span> <span class="nf">setup_onnx_logging</span><span class="p">(</span><span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager to temporarily set the ONNX logging verbosity.</span>
+
+<span class="sd">    .. deprecated:: 2.7</span>
+<span class="sd">        Please remove usage of this function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">is_originally_enabled</span> <span class="o">=</span> <span class="n">_C</span><span class="o">.</span><span class="n">_jit_is_onnx_log_enabled</span>
     <span class="k">if</span> <span class="n">is_originally_enabled</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">:</span>  <span class="c1"># type: ignore[truthy-function]</span>
         <span class="n">_C</span><span class="o">.</span><span class="n">_jit_set_onnx_log_enabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -756,8 +776,19 @@
             <span class="n">_C</span><span class="o">.</span><span class="n">_jit_set_onnx_log_enabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
 
+<span class="nd">@deprecated</span><span class="p">(</span>
+    <span class="s2">&quot;The feature will be removed. Please remove usage of this function &quot;</span>
+    <span class="s2">&quot;and implement equivalent logic if needed&quot;</span><span class="p">,</span>
+    <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="k">def</span> <span class="nf">exporter_context</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">TrainingMode</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager to temporarily set the training mode of ``model``</span>
+<span class="sd">    to ``mode``, disable the Apex O2 hook, and set the ONNX logging verbosity.</span>
+
+<span class="sd">    .. deprecated:: 2.7</span>
+<span class="sd">        Please set training mode before exporting the model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">select_model_mode_for_export</span><span class="p">(</span>
         <span class="n">model</span><span class="p">,</span> <span class="n">mode</span>
     <span class="p">)</span> <span class="k">as</span> <span class="n">mode_ctx</span><span class="p">,</span> <span class="n">disable_apex_o2_state_dict_hook</span><span class="p">(</span>
@@ -1092,14 +1123,14 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="s2">&quot;Setting `operator_export_type` to something other than default is deprecated. &quot;</span>
             <span class="s2">&quot;The option will be removed in a future release.&quot;</span><span class="p">,</span>
-            <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">training</span> <span class="o">==</span> <span class="n">_C_onnx</span><span class="o">.</span><span class="n">TrainingMode</span><span class="o">.</span><span class="n">TRAINING</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="s2">&quot;Setting `training` to something other than default is deprecated. &quot;</span>
             <span class="s2">&quot;The option will be removed in a future release. Please set the training mode &quot;</span>
             <span class="s2">&quot;before exporting the model.&quot;</span><span class="p">,</span>
-            <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="n">args</span>
@@ -1763,7 +1794,9 @@
     <span class="k">return</span> <span class="n">graph</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">,</span> <span class="n">torch_out</span>
 
 
-<span class="nd">@_deprecation</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span><span class="s2">&quot;2.5&quot;</span><span class="p">,</span> <span class="s2">&quot;the future&quot;</span><span class="p">,</span> <span class="s2">&quot;avoid using this function&quot;</span><span class="p">)</span>
+<span class="nd">@deprecated</span><span class="p">(</span>
+    <span class="s2">&quot;Unconvertible ops are not definitive. Please remove usage of this function&quot;</span>
+<span class="p">)</span>
 <span class="k">def</span> <span class="nf">unconvertible_ops</span><span class="p">(</span>
     <span class="n">model</span><span class="p">,</span>
     <span class="n">args</span><span class="p">,</span>
@@ -1771,6 +1804,9 @@
     <span class="n">opset_version</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">_C</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an approximated list of all ops that are yet supported by :mod:`torch.onnx`.</span>
+
+<span class="sd">    .. deprecated:: 2.5</span>
+<span class="sd">        Unconvertible ops are not definitive. Please remove usage of this function.</span>
 
 <span class="sd">    The list is approximated because some ops may be removed during the conversion</span>
 <span class="sd">    process and don&#39;t need to be converted. Some other ops may have partial support</span>
