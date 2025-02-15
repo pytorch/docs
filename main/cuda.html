@@ -300,7 +300,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git057bcd3 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gita9ae334 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -901,7 +901,7 @@ GPUs for computation.</p>
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.use_mem_pool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/cuda/memory.html#use_mem_pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/057bcd3a454464340025c8d1b698829e2db110e3/torch/cuda/memory.py#L1070"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.use_mem_pool" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">use_mem_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/cuda/memory.html#use_mem_pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a9ae3340ca99615e09f9e6aa4a141f75fed400a8/torch/cuda/memory.py#L1070"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.use_mem_pool" title="Permalink to this definition">¶</a></dt>
 <dd><p>A context manager that routes allocations to a given pool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -969,6 +969,30 @@ operations.</p>
 See the <a class="reference internal" href="cuda._sanitizer.html"><span class="doc">documentation</span></a> for information on how to use it.</p>
 <div class="toctree-wrapper compound">
 </div>
+</div>
+<div class="section" id="gpudirect-storage-prototype">
+<h2>GPUDirect Storage (prototype)<a class="headerlink" href="#gpudirect-storage-prototype" title="Permalink to this heading">¶</a></h2>
+<p>The APIs in <code class="docutils literal notranslate"><span class="pre">torch.cuda.gds</span></code> provide thin wrappers around certain cuFile APIs that allow
+direct memory access transfers between GPU memory and storage, avoiding a bounce buffer in the CPU. See the
+<a class="reference external" href="https://docs.nvidia.com/gpudirect-storage/api-reference-guide/index.html#cufile-io-api">cufile api documentation</a>
+for more details.</p>
+<p>These APIs can be used in versions greater than or equal to CUDA 12.6. In order to use these APIs, one must
+ensure that their system is appropriately configured to use GPUDirect Storage per the
+<a class="reference external" href="https://docs.nvidia.com/gpudirect-storage/troubleshooting-guide/contents.html">GPUDirect Storage documentation</a>.</p>
+<p>See the docs for <a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile" title="torch.cuda.gds.GdsFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">GdsFile</span></code></a> for an example of how to use these.</p>
+<table class="autosummary longtable docutils colwidths-auto align-default">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.cuda.gds.gds_register_buffer"/><a class="reference internal" href="generated/torch.cuda.gds.gds_register_buffer.html#torch.cuda.gds.gds_register_buffer" title="torch.cuda.gds.gds_register_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gds_register_buffer</span></code></a></p></td>
+<td><p>Registers a storage on a CUDA device as a cufile buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.cuda.gds.gds_deregister_buffer"/><a class="reference internal" href="generated/torch.cuda.gds.gds_deregister_buffer.html#torch.cuda.gds.gds_deregister_buffer" title="torch.cuda.gds.gds_deregister_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gds_deregister_buffer</span></code></a></p></td>
+<td><p>Deregisters a previously registered storage on a CUDA device as a cufile buffer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.cuda.gds.GdsFile"/><a class="reference internal" href="generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile" title="torch.cuda.gds.GdsFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GdsFile</span></code></a></p></td>
+<td><p>Wrapper around cuFile.</p></td>
+</tr>
+</tbody>
+</table>
 <span class="target" id="module-torch.cuda.comm"></span><span class="target" id="module-torch.cuda.error"></span><span class="target" id="module-torch.cuda.gds"></span><span class="target" id="module-torch.cuda.graphs"></span><span class="target" id="module-torch.cuda.jiterator"></span><span class="target" id="module-torch.cuda.memory"></span><span class="target" id="module-torch.cuda.nccl"></span><span class="target" id="module-torch.cuda.nvtx"></span><span class="target" id="module-torch.cuda.profiler"></span><span class="target" id="module-torch.cuda.random"></span><span class="target" id="module-torch.cuda.sparse"></span><span class="target" id="module-torch.cuda.streams"></span></div>
 </div>
 
@@ -1039,6 +1063,7 @@ if (url)
 <li><a class="reference internal" href="#jiterator-beta">Jiterator (beta)</a></li>
 <li><a class="reference internal" href="#tunableop">TunableOp</a></li>
 <li><a class="reference internal" href="#stream-sanitizer-prototype">Stream Sanitizer (prototype)</a></li>
+<li><a class="reference internal" href="#gpudirect-storage-prototype">GPUDirect Storage (prototype)</a></li>
 </ul>
 </li>
 </ul>
