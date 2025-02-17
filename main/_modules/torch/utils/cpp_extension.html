@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git1677a31 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git198ffbd ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -685,7 +685,7 @@
 <span class="p">}</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;get_default_build_root&quot;</span><span class="p">,</span> <span class="s2">&quot;check_compiler_ok_for_platform&quot;</span><span class="p">,</span> <span class="s2">&quot;get_compiler_abi_compatibility_and_version&quot;</span><span class="p">,</span> <span class="s2">&quot;BuildExtension&quot;</span><span class="p">,</span>
-           <span class="s2">&quot;CppExtension&quot;</span><span class="p">,</span> <span class="s2">&quot;CUDAExtension&quot;</span><span class="p">,</span> <span class="s2">&quot;include_paths&quot;</span><span class="p">,</span> <span class="s2">&quot;library_paths&quot;</span><span class="p">,</span> <span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="s2">&quot;load_inline&quot;</span><span class="p">,</span> <span class="s2">&quot;is_ninja_available&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;CppExtension&quot;</span><span class="p">,</span> <span class="s2">&quot;CUDAExtension&quot;</span><span class="p">,</span> <span class="s2">&quot;SyclExtension&quot;</span><span class="p">,</span> <span class="s2">&quot;include_paths&quot;</span><span class="p">,</span> <span class="s2">&quot;library_paths&quot;</span><span class="p">,</span> <span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="s2">&quot;load_inline&quot;</span><span class="p">,</span> <span class="s2">&quot;is_ninja_available&quot;</span><span class="p">,</span>
            <span class="s2">&quot;verify_ninja_availability&quot;</span><span class="p">,</span> <span class="s2">&quot;remove_extension_h_precompiler_headers&quot;</span><span class="p">,</span> <span class="s2">&quot;get_cxx_compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;check_compiler_is_gcc&quot;</span><span class="p">]</span>
 <span class="c1"># Taken directly from python stdlib &lt; 3.9</span>
 <span class="c1"># See https://github.com/pytorch/pytorch/issues/48617</span>
@@ -890,6 +890,30 @@
     <span class="s1">&#39;-DCUDA_HAS_FP16=1&#39;</span><span class="p">,</span>
     <span class="s1">&#39;-D__HIP_NO_HALF_OPERATORS__=1&#39;</span><span class="p">,</span>
     <span class="s1">&#39;-D__HIP_NO_HALF_CONVERSIONS__=1&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">_COMMON_SYCL_FLAGS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;-fsycl&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;-fsycl-targets=spir64_gen,spir64&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">_get_sycl_arch_list</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;TORCH_XPU_ARCH_LIST&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;TORCH_XPU_ARCH_LIST&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">arch_list</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">xpu</span><span class="o">.</span><span class="n">get_arch_list</span><span class="p">()</span>
+    <span class="c1"># Dropping dg2-* archs since they lack hardware support for fp64 and require</span>
+    <span class="c1"># special consideration from the user. If needed these platforms can</span>
+    <span class="c1"># be requested thru TORCH_XPU_ARCH_LIST environment variable.</span>
+    <span class="n">arch_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">arch_list</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;dg2-&#39;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arch_list</span><span class="p">)</span>
+
+<span class="n">_SYCL_DLINK_FLAGS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">*</span><span class="n">_COMMON_SYCL_FLAGS</span><span class="p">,</span>
+    <span class="s1">&#39;-fsycl-link&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;--offload-compress&#39;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s1">&#39;-Xs &quot;-device </span><span class="si">{</span><span class="n">_get_sycl_arch_list</span><span class="p">()</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">JIT_EXTENSION_VERSIONER</span> <span class="o">=</span> <span class="n">ExtensionVersioner</span><span class="p">()</span>
@@ -1100,19 +1124,34 @@
             <span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">_append_sycl_std_if_no_std_present</span><span class="p">(</span><span class="n">cflags</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">flag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;-sycl-std=&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">cflags</span><span class="p">):</span>
+        <span class="n">cflags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-sycl-std=2020&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_wrap_sycl_host_flags</span><span class="p">(</span><span class="n">cflags</span><span class="p">):</span>
+    <span class="n">host_cxx</span> <span class="o">=</span> <span class="n">get_cxx_compiler</span><span class="p">()</span>
+    <span class="n">host_cflags</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s1">&#39;-fsycl-host-compiler=</span><span class="si">{</span><span class="n">host_cxx</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-fsycl-host-compiler-options=</span><span class="si">{</span><span class="n">cflags</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">host_cflags</span>
+
+
 <div class="viewcode-block" id="BuildExtension"><a class="viewcode-back" href="../../../cpp_extension.html#torch.utils.cpp_extension.BuildExtension">[docs]</a><span class="k">class</span> <span class="nc">BuildExtension</span><span class="p">(</span><span class="n">build_ext</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A custom :mod:`setuptools` build extension .</span>
 
 <span class="sd">    This :class:`setuptools.build_ext` subclass takes care of passing the</span>
 <span class="sd">    minimum required compiler flags (e.g. ``-std=c++17``) as well as mixed</span>
-<span class="sd">    C++/CUDA compilation (and support for CUDA files in general).</span>
+<span class="sd">    C++/CUDA/SYCL compilation (and support for CUDA/SYCL files in general).</span>
 
 <span class="sd">    When using :class:`BuildExtension`, it is allowed to supply a dictionary</span>
 <span class="sd">    for ``extra_compile_args`` (rather than the usual list) that maps from</span>
-<span class="sd">    languages (``cxx`` or ``nvcc``) to a list of additional compiler flags to</span>
-<span class="sd">    supply to the compiler. This makes it possible to supply different flags to</span>
-<span class="sd">    the C++ and CUDA compiler during mixed compilation.</span>
+<span class="sd">    languages/compilers (the only expected values are ``cxx``, ``nvcc`` or</span>
+<span class="sd">    ``sycl``) to a list of additional compiler flags to supply to the compiler.</span>
+<span class="sd">    This makes it possible to supply different flags to the C++, CUDA and SYCL</span>
+<span class="sd">    compiler during mixed compilation.</span>
 
 <span class="sd">    ``use_ninja`` (bool): If ``use_ninja`` is ``True`` (default), then we</span>
 <span class="sd">    attempt to build using the Ninja backend. Ninja greatly speeds up</span>
@@ -1158,29 +1197,41 @@
         <span class="n">compiler_name</span><span class="p">,</span> <span class="n">compiler_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_abi</span><span class="p">()</span>
 
         <span class="n">cuda_ext</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">sycl_ext</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">extension_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">)</span>
         <span class="n">extension</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">extension_iter</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="n">cuda_ext</span> <span class="ow">and</span> <span class="n">extension</span><span class="p">:</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="n">cuda_ext</span> <span class="ow">and</span> <span class="n">sycl_ext</span><span class="p">)</span> <span class="ow">and</span> <span class="n">extension</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">extension</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
                 <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.cu&#39;</span><span class="p">:</span>
                     <span class="n">cuda_ext</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.sycl&#39;</span><span class="p">:</span>
+                    <span class="n">sycl_ext</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="c1"># This check accounts on a case when cuda and sycl sources</span>
+                <span class="c1"># are mixed in the same extension. We can stop checking</span>
+                <span class="c1"># sources if both are found or there is no more sources.</span>
+                <span class="k">if</span> <span class="n">cuda_ext</span> <span class="ow">and</span> <span class="n">sycl_ext</span><span class="p">:</span>
                     <span class="k">break</span>
+
             <span class="n">extension</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">extension_iter</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">sycl_ext</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_ninja</span><span class="p">,</span> <span class="s2">&quot;ninja is required to build sycl extensions.&quot;</span>
 
         <span class="k">if</span> <span class="n">cuda_ext</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
             <span class="n">_check_cuda_version</span><span class="p">(</span><span class="n">compiler_name</span><span class="p">,</span> <span class="n">compiler_version</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">:</span>
-            <span class="c1"># Ensure at least an empty list of flags for &#39;cxx&#39; and &#39;nvcc&#39; when</span>
+            <span class="c1"># Ensure at least an empty list of flags for &#39;cxx&#39;, &#39;nvcc&#39; and &#39;sycl&#39; when</span>
             <span class="c1"># extra_compile_args is a dict. Otherwise, default torch flags do</span>
-            <span class="c1"># not get passed. Necessary when only one of &#39;cxx&#39; and &#39;nvcc&#39; is</span>
-            <span class="c1"># passed to extra_compile_args in CUDAExtension, i.e.</span>
+            <span class="c1"># not get passed. Necessary when only one of &#39;cxx&#39;, &#39;nvcc&#39; or &#39;sycl&#39; is</span>
+            <span class="c1"># passed to extra_compile_args in CUDAExtension or SyclExtension, i.e.</span>
             <span class="c1">#   CUDAExtension(..., extra_compile_args={&#39;cxx&#39;: [...]})</span>
             <span class="c1"># or</span>
             <span class="c1">#   CUDAExtension(..., extra_compile_args={&#39;nvcc&#39;: [...]})</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cxx&#39;</span><span class="p">,</span> <span class="s1">&#39;nvcc&#39;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cxx&#39;</span><span class="p">,</span> <span class="s1">&#39;nvcc&#39;</span><span class="p">,</span> <span class="s1">&#39;sycl&#39;</span><span class="p">]:</span>
                     <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">:</span>
                         <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1207,8 +1258,11 @@
             <span class="k">if</span> <span class="s1">&#39;nvcc_dlink&#39;</span> <span class="ow">in</span> <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">:</span>
                 <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_ninja</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;With dlink=True, ninja is required to build cuda extension </span><span class="si">{</span><span class="n">extension</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
 
-        <span class="c1"># Register .cu, .cuh, .hip, and .mm as valid source extensions.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">src_extensions</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;.cu&#39;</span><span class="p">,</span> <span class="s1">&#39;.cuh&#39;</span><span class="p">,</span> <span class="s1">&#39;.hip&#39;</span><span class="p">]</span>
+        <span class="c1"># Register .cu, .cuh, .hip, .mm and .sycl as valid source extensions.</span>
+        <span class="c1"># NOTE: At the moment .sycl is not a standard extension for SYCL supported</span>
+        <span class="c1"># by compiler. Here we introduce a torch level convention that SYCL sources</span>
+        <span class="c1"># should have .sycl file extension.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">src_extensions</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;.cu&#39;</span><span class="p">,</span> <span class="s1">&#39;.cuh&#39;</span><span class="p">,</span> <span class="s1">&#39;.hip&#39;</span><span class="p">,</span> <span class="s1">&#39;.sycl&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_built</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">src_extensions</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;.mm&#39;</span><span class="p">]</span>
         <span class="c1"># Save the original _compile method for later.</span>
@@ -1308,9 +1362,10 @@
             <span class="n">common_cflags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">_get_cc_args</span><span class="p">(</span><span class="n">pp_opts</span><span class="p">,</span> <span class="n">debug</span><span class="p">,</span> <span class="n">extra_preargs</span><span class="p">)</span>
             <span class="n">extra_cc_cflags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">compiler_so</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
             <span class="n">with_cuda</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_cuda_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
+            <span class="n">with_sycl</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_sycl_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
 
             <span class="c1"># extra_postargs can be either:</span>
-            <span class="c1"># - a dict mapping cxx/nvcc to extra flags</span>
+            <span class="c1"># - a dict mapping cxx/nvcc/sycl to extra flags</span>
             <span class="c1"># - a list of extra flags.</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">extra_postargs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                 <span class="n">post_cflags</span> <span class="o">=</span> <span class="n">extra_postargs</span><span class="p">[</span><span class="s1">&#39;cxx&#39;</span><span class="p">]</span>
@@ -1341,6 +1396,31 @@
                 <span class="n">cuda_dlink_post_cflags</span> <span class="o">=</span> <span class="n">unix_cuda_flags</span><span class="p">(</span><span class="n">extra_postargs</span><span class="p">[</span><span class="s1">&#39;nvcc_dlink&#39;</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">cuda_dlink_post_cflags</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">sycl_post_cflags</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">sycl_cflags</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">sycl_dlink_post_cflags</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">with_sycl</span><span class="p">:</span>
+                <span class="n">sycl_cflags</span> <span class="o">=</span> <span class="n">extra_cc_cflags</span> <span class="o">+</span> <span class="n">common_cflags</span> <span class="o">+</span> <span class="n">_COMMON_SYCL_FLAGS</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">extra_postargs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">sycl_post_cflags</span> <span class="o">=</span> <span class="n">extra_postargs</span><span class="p">[</span><span class="s1">&#39;sycl&#39;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">sycl_post_cflags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">extra_postargs</span><span class="p">)</span>
+                <span class="n">append_std17_if_no_std_present</span><span class="p">(</span><span class="n">sycl_cflags</span><span class="p">)</span>
+                <span class="n">_append_sycl_std_if_no_std_present</span><span class="p">(</span><span class="n">sycl_cflags</span><span class="p">)</span>
+                <span class="n">host_cflags</span> <span class="o">=</span> <span class="n">extra_cc_cflags</span> <span class="o">+</span> <span class="n">common_cflags</span> <span class="o">+</span> <span class="n">post_cflags</span>
+                <span class="n">append_std17_if_no_std_present</span><span class="p">(</span><span class="n">host_cflags</span><span class="p">)</span>
+                <span class="c1"># escaping quoted arguments to pass them thru SYCL compiler</span>
+                <span class="n">host_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\\\</span><span class="s1">&quot;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">host_cflags</span><span class="p">]</span>
+                <span class="n">host_cflags</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">host_cflags</span><span class="p">)</span>
+                <span class="c1"># Note the order: shlex.quote sycl_flags first, _wrap_sycl_host_flags</span>
+                <span class="c1"># second. Reason is that sycl host flags are quoted, space containing</span>
+                <span class="c1"># strings passed to SYCL compiler.</span>
+                <span class="n">sycl_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">sycl_cflags</span><span class="p">]</span>
+                <span class="n">sycl_cflags</span> <span class="o">+=</span> <span class="n">_wrap_sycl_host_flags</span><span class="p">(</span><span class="n">host_cflags</span><span class="p">)</span>
+                <span class="n">sycl_dlink_post_cflags</span> <span class="o">=</span> <span class="n">_SYCL_DLINK_FLAGS</span>
+                <span class="n">sycl_post_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">sycl_post_cflags</span><span class="p">]</span>
+
             <span class="n">_write_ninja_file_and_compile_objects</span><span class="p">(</span>
                 <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
                 <span class="n">objects</span><span class="o">=</span><span class="n">objects</span><span class="p">,</span>
@@ -1349,9 +1429,13 @@
                 <span class="n">cuda_cflags</span><span class="o">=</span><span class="n">cuda_cflags</span><span class="p">,</span>
                 <span class="n">cuda_post_cflags</span><span class="o">=</span><span class="n">cuda_post_cflags</span><span class="p">,</span>
                 <span class="n">cuda_dlink_post_cflags</span><span class="o">=</span><span class="n">cuda_dlink_post_cflags</span><span class="p">,</span>
+                <span class="n">sycl_cflags</span><span class="o">=</span><span class="n">sycl_cflags</span><span class="p">,</span>
+                <span class="n">sycl_post_cflags</span><span class="o">=</span><span class="n">sycl_post_cflags</span><span class="p">,</span>
+                <span class="n">sycl_dlink_post_cflags</span><span class="o">=</span><span class="n">sycl_dlink_post_cflags</span><span class="p">,</span>
                 <span class="n">build_directory</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">)</span>
+                <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">,</span>
+                <span class="n">with_sycl</span><span class="o">=</span><span class="n">with_sycl</span><span class="p">)</span>
 
             <span class="c1"># Return *all* object filenames, not just the ones we just built.</span>
             <span class="k">return</span> <span class="n">objects</span>
@@ -1508,9 +1592,13 @@
                 <span class="n">cuda_cflags</span><span class="o">=</span><span class="n">cuda_cflags</span><span class="p">,</span>
                 <span class="n">cuda_post_cflags</span><span class="o">=</span><span class="n">cuda_post_cflags</span><span class="p">,</span>
                 <span class="n">cuda_dlink_post_cflags</span><span class="o">=</span><span class="n">cuda_dlink_post_cflags</span><span class="p">,</span>
+                <span class="n">sycl_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">sycl_post_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">sycl_dlink_post_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">build_directory</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">)</span>
+                <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">,</span>
+                <span class="n">with_sycl</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
             <span class="c1"># Return *all* object filenames, not just the ones we just built.</span>
             <span class="k">return</span> <span class="n">objects</span>
@@ -1845,6 +1933,78 @@
     <span class="k">return</span> <span class="n">setuptools</span><span class="o">.</span><span class="n">Extension</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="SyclExtension"><a class="viewcode-back" href="../../../cpp_extension.html#torch.utils.cpp_extension.SyclExtension">[docs]</a><span class="k">def</span> <span class="nf">SyclExtension</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a :class:`setuptools.Extension` for SYCL/C++.</span>
+
+<span class="sd">    Convenience method that creates a :class:`setuptools.Extension` with the</span>
+<span class="sd">    bare minimum (but often sufficient) arguments to build a SYCL/C++</span>
+<span class="sd">    extension.</span>
+
+<span class="sd">    All arguments are forwarded to the :class:`setuptools.Extension`</span>
+<span class="sd">    constructor.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The PyTorch python API (as provided in libtorch_python) cannot be built</span>
+<span class="sd">        with the flag ``py_limited_api=True``.  When this flag is passed, it is</span>
+<span class="sd">        the user&#39;s responsibility in their library to not use APIs from</span>
+<span class="sd">        libtorch_python (in particular pytorch/python bindings) and to only use</span>
+<span class="sd">        APIs from libtorch (aten objects, operators and the dispatcher). For</span>
+<span class="sd">        example, to give access to custom ops from python, the library should</span>
+<span class="sd">        register the ops through the dispatcher.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +REQUIRES(env:TORCH_DOCTEST_CPP_EXT)</span>
+<span class="sd">        &gt;&gt;&gt; from torch.utils.cpp_extension import BuildExtension, SyclExtension</span>
+<span class="sd">        &gt;&gt;&gt; setup(</span>
+<span class="sd">        ...     name=&#39;xpu_extension&#39;,</span>
+<span class="sd">        ...     ext_modules=[</span>
+<span class="sd">        ...     SyclExtension(</span>
+<span class="sd">        ...                 name=&#39;xpu_extension&#39;,</span>
+<span class="sd">        ...                 sources=[&#39;extension.cpp&#39;, &#39;extension_kernel.cpp&#39;],</span>
+<span class="sd">        ...                 extra_compile_args={&#39;cxx&#39;: [&#39;-g&#39;, &#39;-std=c++20&#39;, &#39;-fPIC&#39;]})</span>
+<span class="sd">        ...     ],</span>
+<span class="sd">        ...     cmdclass={</span>
+<span class="sd">        ...         &#39;build_ext&#39;: BuildExtension</span>
+<span class="sd">        ...     })</span>
+
+<span class="sd">    By default the extension will be compiled to run on all archs of the cards visible during the</span>
+<span class="sd">    building process of the extension. If down the road a new card is installed the</span>
+<span class="sd">    extension may need to be recompiled. You can override the default behavior using</span>
+<span class="sd">    `TORCH_XPU_ARCH_LIST` to explicitly specify which device architectures you want the extension</span>
+<span class="sd">    to support:</span>
+
+<span class="sd">    ``TORCH_XPU_ARCH_LIST=&quot;pvc,xe-lpg&quot; python build_my_extension.py``</span>
+
+<span class="sd">    Note that while it&#39;s possible to include all supported archs, the more archs get included the</span>
+<span class="sd">    slower the building process will be, as it will build a separate kernel image for each arch.</span>
+
+<span class="sd">    Note: Ninja is required to build SyclExtension.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">library_dirs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;library_dirs&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">library_dirs</span> <span class="o">+=</span> <span class="n">library_paths</span><span class="p">()</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;library_dirs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">library_dirs</span>
+
+    <span class="n">libraries</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;libraries&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;c10&quot;</span><span class="p">)</span>
+    <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;c10_xpu&quot;</span><span class="p">)</span>
+    <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;torch&quot;</span><span class="p">)</span>
+    <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;torch_cpu&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;py_limited_api&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># torch_python uses more than the python limited api</span>
+        <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;torch_python&quot;</span><span class="p">)</span>
+    <span class="n">libraries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;torch_xpu&quot;</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;libraries&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">libraries</span>
+
+    <span class="n">include_dirs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;include_dirs&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">include_dirs</span> <span class="o">+=</span> <span class="n">include_paths</span><span class="p">()</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;include_dirs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">include_dirs</span>
+
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;language&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;c++&quot;</span>
+
+    <span class="k">return</span> <span class="n">setuptools</span><span class="o">.</span><span class="n">Extension</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="include_paths"><a class="viewcode-back" href="../../../cpp_extension.html#torch.utils.cpp_extension.include_paths">[docs]</a><span class="k">def</span> <span class="nf">include_paths</span><span class="p">(</span><span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the include paths required to build a C++ or CUDA or SYCL extension.</span>
@@ -1933,11 +2093,13 @@
          <span class="n">sources</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
          <span class="n">extra_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">extra_cuda_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+         <span class="n">extra_sycl_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">extra_ldflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">extra_include_paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">build_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
          <span class="n">with_cuda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+         <span class="n">with_sycl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
          <span class="n">is_python_module</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
          <span class="n">is_standalone</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
          <span class="n">keep_intermediates</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -1976,6 +2138,14 @@
 <span class="sd">    work fine. If not, setting the ``CUDA_HOME`` environment variable is the</span>
 <span class="sd">    safest option.</span>
 
+<span class="sd">    SYCL support with mixed compilation is provided. Simply pass SYCL source</span>
+<span class="sd">    files (``.sycl``) along with other sources. Such files will be detected</span>
+<span class="sd">    and compiled with SYCL compiler (such as Intel DPC++ Compiler) rather</span>
+<span class="sd">    than the C++ compiler. You can pass additional flags to SYCL compiler</span>
+<span class="sd">    via ``extra_sycl_cflags``, just like with ``extra_cflags`` for C++.</span>
+<span class="sd">    SYCL compiler is expected to be found via system PATH environment</span>
+<span class="sd">    variable.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        name: The name of the extension to build. This MUST be the same as the</span>
 <span class="sd">            name of the pybind11 module!</span>
@@ -1983,6 +2153,8 @@
 <span class="sd">        extra_cflags: optional list of compiler flags to forward to the build.</span>
 <span class="sd">        extra_cuda_cflags: optional list of compiler flags to forward to nvcc</span>
 <span class="sd">            when building CUDA sources.</span>
+<span class="sd">        extra_sycl_cflags: optional list of compiler flags to forward to SYCL</span>
+<span class="sd">            compiler when building SYCL sources.</span>
 <span class="sd">        extra_ldflags: optional list of linker flags to forward to the build.</span>
 <span class="sd">        extra_include_paths: optional list of include directories to forward</span>
 <span class="sd">            to the build.</span>
@@ -1993,6 +2165,11 @@
 <span class="sd">            automatically determined based on the existence of ``.cu`` or</span>
 <span class="sd">            ``.cuh`` in ``sources``. Set it to `True`` to force CUDA headers</span>
 <span class="sd">            and libraries to be included.</span>
+<span class="sd">        with_sycl: Determines whether SYCL headers and libraries are added to</span>
+<span class="sd">            the build. If set to ``None`` (default), this value is</span>
+<span class="sd">            automatically determined based on the existence of ``.sycl`` in</span>
+<span class="sd">            ``sources``. Set it to `True`` to force SYCL headers and</span>
+<span class="sd">            libraries to be included.</span>
 <span class="sd">        is_python_module: If ``True`` (default), imports the produced shared</span>
 <span class="sd">            library as a Python module. If ``False``, behavior depends on</span>
 <span class="sd">            ``is_standalone``.</span>
@@ -2026,11 +2203,13 @@
         <span class="p">[</span><span class="n">sources</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">sources</span><span class="p">,</span>
         <span class="n">extra_cflags</span><span class="p">,</span>
         <span class="n">extra_cuda_cflags</span><span class="p">,</span>
+        <span class="n">extra_sycl_cflags</span><span class="p">,</span>
         <span class="n">extra_ldflags</span><span class="p">,</span>
         <span class="n">extra_include_paths</span><span class="p">,</span>
         <span class="n">build_directory</span> <span class="ow">or</span> <span class="n">_get_build_directory</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">verbose</span><span class="p">),</span>
         <span class="n">verbose</span><span class="p">,</span>
         <span class="n">with_cuda</span><span class="p">,</span>
+        <span class="n">with_sycl</span><span class="p">,</span>
         <span class="n">is_python_module</span><span class="p">,</span>
         <span class="n">is_standalone</span><span class="p">,</span>
         <span class="n">keep_intermediates</span><span class="o">=</span><span class="n">keep_intermediates</span><span class="p">)</span></div>
@@ -2218,14 +2397,17 @@
 <div class="viewcode-block" id="load_inline"><a class="viewcode-back" href="../../../cpp_extension.html#torch.utils.cpp_extension.load_inline">[docs]</a><span class="k">def</span> <span class="nf">load_inline</span><span class="p">(</span><span class="n">name</span><span class="p">,</span>
                 <span class="n">cpp_sources</span><span class="p">,</span>
                 <span class="n">cuda_sources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">sycl_sources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">functions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">extra_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">extra_cuda_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">extra_sycl_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">extra_ldflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">extra_include_paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">build_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">with_cuda</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">with_sycl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">is_python_module</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">with_pytorch_error_handling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">keep_intermediates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -2263,11 +2445,21 @@
 <span class="sd">    declare or define this C++ function in one of the ``cpp_sources`` (and</span>
 <span class="sd">    include its name in ``functions``).</span>
 
+<span class="sd">    The sources in ``sycl_sources`` are concatenated into a separate ``.sycl``</span>
+<span class="sd">    file and  prepended with ``torch/types.h``, ``sycl/sycl.hpp`` includes.</span>
+<span class="sd">    The ``.cpp`` and ``.sycl`` files are compiled separately, but ultimately</span>
+<span class="sd">    linked into a single library. Note that no bindings are generated for</span>
+<span class="sd">    functions in ``sycl_sources`` per se. To bind to a SYCL kernel, you must</span>
+<span class="sd">    create a C++ function that calls it, and either declare or define this</span>
+<span class="sd">    C++ function in one of the ``cpp_sources`` (and include its name</span>
+<span class="sd">    in ``functions``).</span>
+
 <span class="sd">    See :func:`load` for a description of arguments omitted below.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        cpp_sources: A string, or list of strings, containing C++ source code.</span>
 <span class="sd">        cuda_sources: A string, or list of strings, containing CUDA source code.</span>
+<span class="sd">        sycl_sources: A string, or list of strings, containing SYCL source code.</span>
 <span class="sd">        functions: A list of function names for which to generate function</span>
 <span class="sd">            bindings. If a dictionary is given, it should map function names to</span>
 <span class="sd">            docstrings (which are otherwise just the function names).</span>
@@ -2275,6 +2467,11 @@
 <span class="sd">            the build. If set to ``None`` (default), this value is</span>
 <span class="sd">            automatically determined based on whether ``cuda_sources`` is</span>
 <span class="sd">            provided. Set it to ``True`` to force CUDA headers</span>
+<span class="sd">            and libraries to be included.</span>
+<span class="sd">        with_sycl: Determines whether SYCL headers and libraries are added to</span>
+<span class="sd">            the build. If set to ``None`` (default), this value is</span>
+<span class="sd">            automatically determined based on whether ``sycl_sources`` is</span>
+<span class="sd">            provided. Set it to ``True`` to force SYCL headers</span>
 <span class="sd">            and libraries to be included.</span>
 <span class="sd">        with_pytorch_error_handling: Determines whether pytorch error and</span>
 <span class="sd">            warning macros are handled by pytorch instead of pybind. To do</span>
@@ -2315,6 +2512,9 @@
     <span class="n">cuda_sources</span> <span class="o">=</span> <span class="n">cuda_sources</span> <span class="ow">or</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cuda_sources</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">cuda_sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">cuda_sources</span><span class="p">]</span>
+    <span class="n">sycl_sources</span> <span class="o">=</span> <span class="n">sycl_sources</span> <span class="ow">or</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sycl_sources</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">sycl_sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">sycl_sources</span><span class="p">]</span>
 
     <span class="n">cpp_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#include &lt;torch/extension.h&gt;&#39;</span><span class="p">)</span>
 
@@ -2360,16 +2560,27 @@
 
         <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cuda_source_path</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">sycl_sources</span><span class="p">:</span>
+        <span class="n">sycl_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#include &lt;torch/types.h&gt;&#39;</span><span class="p">)</span>
+        <span class="n">sycl_sources</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;#include &lt;sycl/sycl.hpp&gt;&#39;</span><span class="p">)</span>
+
+        <span class="n">sycl_source_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="s1">&#39;sycl.sycl&#39;</span><span class="p">)</span>
+        <span class="n">_maybe_write</span><span class="p">(</span><span class="n">sycl_source_path</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sycl_sources</span><span class="p">))</span>
+
+        <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sycl_source_path</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">_jit_compile</span><span class="p">(</span>
         <span class="n">name</span><span class="p">,</span>
         <span class="n">sources</span><span class="p">,</span>
         <span class="n">extra_cflags</span><span class="p">,</span>
         <span class="n">extra_cuda_cflags</span><span class="p">,</span>
+        <span class="n">extra_sycl_cflags</span><span class="p">,</span>
         <span class="n">extra_ldflags</span><span class="p">,</span>
         <span class="n">extra_include_paths</span><span class="p">,</span>
         <span class="n">build_directory</span><span class="p">,</span>
         <span class="n">verbose</span><span class="p">,</span>
         <span class="n">with_cuda</span><span class="p">,</span>
+        <span class="n">with_sycl</span><span class="p">,</span>
         <span class="n">is_python_module</span><span class="p">,</span>
         <span class="n">is_standalone</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">keep_intermediates</span><span class="o">=</span><span class="n">keep_intermediates</span><span class="p">)</span></div>
@@ -2379,11 +2590,13 @@
                  <span class="n">sources</span><span class="p">,</span>
                  <span class="n">extra_cflags</span><span class="p">,</span>
                  <span class="n">extra_cuda_cflags</span><span class="p">,</span>
+                 <span class="n">extra_sycl_cflags</span><span class="p">,</span>
                  <span class="n">extra_ldflags</span><span class="p">,</span>
                  <span class="n">extra_include_paths</span><span class="p">,</span>
                  <span class="n">build_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
                  <span class="n">with_cuda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
+                 <span class="n">with_sycl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
                  <span class="n">is_python_module</span><span class="p">,</span>
                  <span class="n">is_standalone</span><span class="p">,</span>
                  <span class="n">keep_intermediates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2393,6 +2606,8 @@
     <span class="k">if</span> <span class="n">with_cuda</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">with_cuda</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_cuda_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
     <span class="n">with_cudnn</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="s1">&#39;cudnn&#39;</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">extra_ldflags</span> <span class="ow">or</span> <span class="p">[])</span>
+    <span class="k">if</span> <span class="n">with_sycl</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">with_sycl</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_sycl_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
     <span class="n">old_version</span> <span class="o">=</span> <span class="n">JIT_EXTENSION_VERSIONER</span><span class="o">.</span><span class="n">get_version</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">version</span> <span class="o">=</span> <span class="n">JIT_EXTENSION_VERSIONER</span><span class="o">.</span><span class="n">bump_version_if_changed</span><span class="p">(</span>
         <span class="n">name</span><span class="p">,</span>
@@ -2400,6 +2615,7 @@
         <span class="n">build_arguments</span><span class="o">=</span><span class="p">[</span><span class="n">extra_cflags</span><span class="p">,</span> <span class="n">extra_cuda_cflags</span><span class="p">,</span> <span class="n">extra_ldflags</span><span class="p">,</span> <span class="n">extra_include_paths</span><span class="p">],</span>
         <span class="n">build_directory</span><span class="o">=</span><span class="n">build_directory</span><span class="p">,</span>
         <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">,</span>
+        <span class="n">with_sycl</span><span class="o">=</span><span class="n">with_sycl</span><span class="p">,</span>
         <span class="n">is_python_module</span><span class="o">=</span><span class="n">is_python_module</span><span class="p">,</span>
         <span class="n">is_standalone</span><span class="o">=</span><span class="n">is_standalone</span><span class="p">,</span>
     <span class="p">)</span>
@@ -2440,11 +2656,13 @@
                         <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
                         <span class="n">extra_cflags</span><span class="o">=</span><span class="n">extra_cflags</span> <span class="ow">or</span> <span class="p">[],</span>
                         <span class="n">extra_cuda_cflags</span><span class="o">=</span><span class="n">extra_cuda_cflags</span> <span class="ow">or</span> <span class="p">[],</span>
+                        <span class="n">extra_sycl_cflags</span><span class="o">=</span><span class="n">extra_sycl_cflags</span> <span class="ow">or</span> <span class="p">[],</span>
                         <span class="n">extra_ldflags</span><span class="o">=</span><span class="n">extra_ldflags</span> <span class="ow">or</span> <span class="p">[],</span>
                         <span class="n">extra_include_paths</span><span class="o">=</span><span class="n">extra_include_paths</span> <span class="ow">or</span> <span class="p">[],</span>
                         <span class="n">build_directory</span><span class="o">=</span><span class="n">build_directory</span><span class="p">,</span>
                         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
                         <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">,</span>
+                        <span class="n">with_sycl</span><span class="o">=</span><span class="n">with_sycl</span><span class="p">,</span>
                         <span class="n">is_standalone</span><span class="o">=</span><span class="n">is_standalone</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">verbose</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No modifications detected for re-loaded extension &#39;</span>
@@ -2471,9 +2689,13 @@
         <span class="n">cuda_cflags</span><span class="p">,</span>
         <span class="n">cuda_post_cflags</span><span class="p">,</span>
         <span class="n">cuda_dlink_post_cflags</span><span class="p">,</span>
+        <span class="n">sycl_cflags</span><span class="p">,</span>
+        <span class="n">sycl_post_cflags</span><span class="p">,</span>
+        <span class="n">sycl_dlink_post_cflags</span><span class="p">,</span>
         <span class="n">build_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-        <span class="n">with_cuda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">with_cuda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
+        <span class="n">with_sycl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">verify_ninja_availability</span><span class="p">()</span>
 
     <span class="n">compiler</span> <span class="o">=</span> <span class="n">get_cxx_compiler</span><span class="p">()</span>
@@ -2481,6 +2703,8 @@
     <span class="n">get_compiler_abi_compatibility_and_version</span><span class="p">(</span><span class="n">compiler</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">with_cuda</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">with_cuda</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_cuda_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">with_sycl</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">with_sycl</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_sycl_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
     <span class="n">build_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_directory</span><span class="p">,</span> <span class="s1">&#39;build.ninja&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Emitting ninja build file </span><span class="si">{</span><span class="n">build_file_path</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
@@ -2499,11 +2723,15 @@
         <span class="n">cuda_cflags</span><span class="o">=</span><span class="n">cuda_cflags</span><span class="p">,</span>
         <span class="n">cuda_post_cflags</span><span class="o">=</span><span class="n">cuda_post_cflags</span><span class="p">,</span>
         <span class="n">cuda_dlink_post_cflags</span><span class="o">=</span><span class="n">cuda_dlink_post_cflags</span><span class="p">,</span>
+        <span class="n">sycl_cflags</span><span class="o">=</span><span class="n">sycl_cflags</span><span class="p">,</span>
+        <span class="n">sycl_post_cflags</span><span class="o">=</span><span class="n">sycl_post_cflags</span><span class="p">,</span>
+        <span class="n">sycl_dlink_post_cflags</span><span class="o">=</span><span class="n">sycl_dlink_post_cflags</span><span class="p">,</span>
         <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
         <span class="n">objects</span><span class="o">=</span><span class="n">objects</span><span class="p">,</span>
         <span class="n">ldflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">library_target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">)</span>
+        <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">,</span>
+        <span class="n">with_sycl</span><span class="o">=</span><span class="n">with_sycl</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compiling objects...&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
     <span class="n">_run_ninja_build</span><span class="p">(</span>
@@ -2519,11 +2747,13 @@
         <span class="n">sources</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">extra_cflags</span><span class="p">,</span>
         <span class="n">extra_cuda_cflags</span><span class="p">,</span>
+        <span class="n">extra_sycl_cflags</span><span class="p">,</span>
         <span class="n">extra_ldflags</span><span class="p">,</span>
         <span class="n">extra_include_paths</span><span class="p">,</span>
         <span class="n">build_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">with_cuda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
+        <span class="n">with_sycl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
         <span class="n">is_standalone</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">verify_ninja_availability</span><span class="p">()</span>
 
@@ -2532,6 +2762,8 @@
     <span class="n">get_compiler_abi_compatibility_and_version</span><span class="p">(</span><span class="n">compiler</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">with_cuda</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">with_cuda</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_cuda_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">with_sycl</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">with_sycl</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_sycl_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
     <span class="n">extra_ldflags</span> <span class="o">=</span> <span class="n">_prepare_ldflags</span><span class="p">(</span>
         <span class="n">extra_ldflags</span> <span class="ow">or</span> <span class="p">[],</span>
         <span class="n">with_cuda</span><span class="p">,</span>
@@ -2556,9 +2788,11 @@
         <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
         <span class="n">extra_cflags</span><span class="o">=</span><span class="n">extra_cflags</span> <span class="ow">or</span> <span class="p">[],</span>
         <span class="n">extra_cuda_cflags</span><span class="o">=</span><span class="n">extra_cuda_cflags</span> <span class="ow">or</span> <span class="p">[],</span>
+        <span class="n">extra_sycl_cflags</span><span class="o">=</span><span class="n">extra_sycl_cflags</span> <span class="ow">or</span> <span class="p">[],</span>
         <span class="n">extra_ldflags</span><span class="o">=</span><span class="n">extra_ldflags</span> <span class="ow">or</span> <span class="p">[],</span>
         <span class="n">extra_include_paths</span><span class="o">=</span><span class="n">extra_include_paths</span> <span class="ow">or</span> <span class="p">[],</span>
         <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">,</span>
+        <span class="n">with_sycl</span><span class="o">=</span><span class="n">with_sycl</span><span class="p">,</span>
         <span class="n">is_standalone</span><span class="o">=</span><span class="n">is_standalone</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
@@ -2897,12 +3131,15 @@
                                        <span class="n">sources</span><span class="p">,</span>
                                        <span class="n">extra_cflags</span><span class="p">,</span>
                                        <span class="n">extra_cuda_cflags</span><span class="p">,</span>
+                                       <span class="n">extra_sycl_cflags</span><span class="p">,</span>
                                        <span class="n">extra_ldflags</span><span class="p">,</span>
                                        <span class="n">extra_include_paths</span><span class="p">,</span>
                                        <span class="n">with_cuda</span><span class="p">,</span>
+                                       <span class="n">with_sycl</span><span class="p">,</span>
                                        <span class="n">is_standalone</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">extra_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">extra_cflags</span><span class="p">]</span>
     <span class="n">extra_cuda_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">extra_cuda_cflags</span><span class="p">]</span>
+    <span class="n">extra_sycl_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">extra_sycl_cflags</span><span class="p">]</span>
     <span class="n">extra_ldflags</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">extra_ldflags</span><span class="p">]</span>
     <span class="n">extra_include_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">extra_include_paths</span><span class="p">]</span>
 
@@ -2970,6 +3207,20 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">cuda_flags</span> <span class="o">=</span> <span class="kc">None</span>
 
+    <span class="k">if</span> <span class="n">with_sycl</span><span class="p">:</span>
+        <span class="n">sycl_cflags</span> <span class="o">=</span> <span class="n">cflags</span> <span class="o">+</span> <span class="n">_COMMON_SYCL_FLAGS</span>
+        <span class="n">sycl_cflags</span> <span class="o">+=</span> <span class="n">extra_sycl_cflags</span>
+        <span class="n">_append_sycl_std_if_no_std_present</span><span class="p">(</span><span class="n">sycl_cflags</span><span class="p">)</span>
+        <span class="n">host_cflags</span> <span class="o">=</span> <span class="n">cflags</span>
+        <span class="c1"># escaping quoted arguments to pass them thru SYCL compiler</span>
+        <span class="n">host_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\\\</span><span class="s1">&quot;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">host_cflags</span><span class="p">]</span>
+        <span class="n">host_cflags</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">host_cflags</span><span class="p">)</span>
+        <span class="n">sycl_cflags</span> <span class="o">+=</span> <span class="n">_wrap_sycl_host_flags</span><span class="p">(</span><span class="n">host_cflags</span><span class="p">)</span>
+        <span class="n">sycl_dlink_post_cflags</span> <span class="o">=</span> <span class="n">_SYCL_DLINK_FLAGS</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sycl_cflags</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">sycl_dlink_post_cflags</span> <span class="o">=</span> <span class="kc">None</span>
+
     <span class="k">def</span> <span class="nf">object_file_path</span><span class="p">(</span><span class="n">source_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="c1"># &#39;/path/to/file.cpp&#39; -&gt; &#39;file&#39;</span>
         <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">source_file</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
@@ -2977,6 +3228,8 @@
             <span class="c1"># Use a different object filename in case a C++ and CUDA file have</span>
             <span class="c1"># the same filename but different extension (.cpp vs. .cu).</span>
             <span class="n">target</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s1">.cuda.o&#39;</span>
+        <span class="k">elif</span> <span class="n">_is_sycl_file</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">with_sycl</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s1">.sycl.o&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">target</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s1">.o&#39;</span>
         <span class="k">return</span> <span class="n">target</span>
@@ -3000,11 +3253,15 @@
         <span class="n">cuda_cflags</span><span class="o">=</span><span class="n">cuda_flags</span><span class="p">,</span>
         <span class="n">cuda_post_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">cuda_dlink_post_cflags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sycl_cflags</span><span class="o">=</span><span class="n">sycl_cflags</span><span class="p">,</span>
+        <span class="n">sycl_post_cflags</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">sycl_dlink_post_cflags</span><span class="o">=</span><span class="n">sycl_dlink_post_cflags</span><span class="p">,</span>
         <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
         <span class="n">objects</span><span class="o">=</span><span class="n">objects</span><span class="p">,</span>
         <span class="n">ldflags</span><span class="o">=</span><span class="n">ldflags</span><span class="p">,</span>
         <span class="n">library_target</span><span class="o">=</span><span class="n">library_target</span><span class="p">,</span>
-        <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">)</span>
+        <span class="n">with_cuda</span><span class="o">=</span><span class="n">with_cuda</span><span class="p">,</span>
+        <span class="n">with_sycl</span><span class="o">=</span><span class="n">with_sycl</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_write_ninja_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>
@@ -3013,18 +3270,27 @@
                       <span class="n">cuda_cflags</span><span class="p">,</span>
                       <span class="n">cuda_post_cflags</span><span class="p">,</span>
                       <span class="n">cuda_dlink_post_cflags</span><span class="p">,</span>
+                      <span class="n">sycl_cflags</span><span class="p">,</span>
+                      <span class="n">sycl_post_cflags</span><span class="p">,</span>
+                      <span class="n">sycl_dlink_post_cflags</span><span class="p">,</span>
                       <span class="n">sources</span><span class="p">,</span>
                       <span class="n">objects</span><span class="p">,</span>
                       <span class="n">ldflags</span><span class="p">,</span>
                       <span class="n">library_target</span><span class="p">,</span>
-                      <span class="n">with_cuda</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                      <span class="n">with_cuda</span><span class="p">,</span>
+                      <span class="n">with_sycl</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Write a ninja file that does the desired compiling and linking.</span>
 
 <span class="sd">    `path`: Where to write this file</span>
 <span class="sd">    `cflags`: list of flags to pass to $cxx. Can be None.</span>
 <span class="sd">    `post_cflags`: list of flags to append to the $cxx invocation. Can be None.</span>
 <span class="sd">    `cuda_cflags`: list of flags to pass to $nvcc. Can be None.</span>
-<span class="sd">    `cuda_postflags`: list of flags to append to the $nvcc invocation. Can be None.</span>
+<span class="sd">    `cuda_post_cflags`: list of flags to append to the $nvcc invocation. Can be None.</span>
+<span class="sd">    `cuda_dlink_post_cflags`: list of flags to append to the $nvcc device code link invocation. Can be None.</span>
+<span class="sd">    `sycl_cflags`: list of flags to pass to SYCL compiler. Can be None.</span>
+<span class="sd">    `sycl_post_cflags`: list of flags to append to the SYCL compiler invocation. Can be None.</span>
+<span class="sd">    `sycl_dlink_post_cflags`: list of flags to append to the SYCL compiler device code link invocation. Can be None.</span>
+<span class="sd">e.</span>
 <span class="sd">    `sources`: list of paths to source files</span>
 <span class="sd">    `objects`: list of desired paths to objects, one per source.</span>
 <span class="sd">    `ldflags`: list of flags to pass to linker. Can be None.</span>
@@ -3043,6 +3309,9 @@
     <span class="n">cuda_cflags</span> <span class="o">=</span> <span class="n">sanitize_flags</span><span class="p">(</span><span class="n">cuda_cflags</span><span class="p">)</span>
     <span class="n">cuda_post_cflags</span> <span class="o">=</span> <span class="n">sanitize_flags</span><span class="p">(</span><span class="n">cuda_post_cflags</span><span class="p">)</span>
     <span class="n">cuda_dlink_post_cflags</span> <span class="o">=</span> <span class="n">sanitize_flags</span><span class="p">(</span><span class="n">cuda_dlink_post_cflags</span><span class="p">)</span>
+    <span class="n">sycl_cflags</span> <span class="o">=</span> <span class="n">sanitize_flags</span><span class="p">(</span><span class="n">sycl_cflags</span><span class="p">)</span>
+    <span class="n">sycl_post_cflags</span> <span class="o">=</span> <span class="n">sanitize_flags</span><span class="p">(</span><span class="n">sycl_post_cflags</span><span class="p">)</span>
+    <span class="n">sycl_dlink_post_cflags</span> <span class="o">=</span> <span class="n">sanitize_flags</span><span class="p">(</span><span class="n">sycl_dlink_post_cflags</span><span class="p">)</span>
     <span class="n">ldflags</span> <span class="o">=</span> <span class="n">sanitize_flags</span><span class="p">(</span><span class="n">ldflags</span><span class="p">)</span>
 
     <span class="c1"># Sanity checks...</span>
@@ -3063,6 +3332,9 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">nvcc</span> <span class="o">=</span> <span class="n">_join_cuda_home</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;nvcc&#39;</span><span class="p">)</span>
         <span class="n">config</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;nvcc = </span><span class="si">{</span><span class="n">nvcc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">with_sycl</span> <span class="ow">or</span> <span class="n">sycl_dlink_post_cflags</span><span class="p">:</span>
+        <span class="n">sycl</span> <span class="o">=</span> <span class="s1">&#39;icx&#39;</span> <span class="k">if</span> <span class="n">IS_WINDOWS</span> <span class="k">else</span> <span class="s1">&#39;icpx&#39;</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sycl = </span><span class="si">{</span><span class="n">sycl</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
         <span class="n">post_cflags</span> <span class="o">=</span> <span class="n">COMMON_HIP_FLAGS</span> <span class="o">+</span> <span class="n">post_cflags</span>
@@ -3072,6 +3344,10 @@
         <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cuda_cflags = </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cuda_cflags</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cuda_post_cflags = </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cuda_post_cflags</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cuda_dlink_post_cflags = </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cuda_dlink_post_cflags</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">with_sycl</span><span class="p">:</span>
+        <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sycl_cflags = </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sycl_cflags</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sycl_post_cflags = </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sycl_post_cflags</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sycl_dlink_post_cflags = </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sycl_dlink_post_cflags</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ldflags = </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ldflags</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="c1"># Turn into absolute paths so we can emit them into the ninja build</span>
@@ -3105,11 +3381,25 @@
         <span class="n">cuda_compile_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="sa">f</span><span class="s1">&#39;  command = $nvcc </span><span class="si">{</span><span class="n">nvcc_gendeps</span><span class="si">}</span><span class="s1"> $cuda_cflags -c $in -o $out $cuda_post_cflags&#39;</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">with_sycl</span><span class="p">:</span>
+        <span class="n">sycl_compile_rule</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rule sycl_compile&#39;</span><span class="p">]</span>
+        <span class="c1"># SYCL compiler does not recognize .sycl extension automatically,</span>
+        <span class="c1"># so we pass &#39;-x c++&#39; explicitly notifying compiler of file format</span>
+        <span class="n">sycl_compile_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s1">&#39;  command = $sycl $sycl_cflags -c -x c++ $in -o $out $sycl_post_cflags&#39;</span><span class="p">)</span>
+
+
     <span class="c1"># Emit one build rule per source to enable incremental build.</span>
     <span class="n">build</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">source_file</span><span class="p">,</span> <span class="n">object_file</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span> <span class="n">objects</span><span class="p">):</span>
         <span class="n">is_cuda_source</span> <span class="o">=</span> <span class="n">_is_cuda_file</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">with_cuda</span>
-        <span class="n">rule</span> <span class="o">=</span> <span class="s1">&#39;cuda_compile&#39;</span> <span class="k">if</span> <span class="n">is_cuda_source</span> <span class="k">else</span> <span class="s1">&#39;compile&#39;</span>
+        <span class="n">is_sycl_source</span> <span class="o">=</span> <span class="n">_is_sycl_file</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">with_sycl</span>
+        <span class="k">if</span> <span class="n">is_cuda_source</span><span class="p">:</span>
+            <span class="n">rule</span> <span class="o">=</span> <span class="s1">&#39;cuda_compile&#39;</span>
+        <span class="k">elif</span> <span class="n">is_sycl_source</span><span class="p">:</span>
+            <span class="n">rule</span> <span class="o">=</span> <span class="s1">&#39;sycl_compile&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rule</span> <span class="o">=</span> <span class="s1">&#39;compile&#39;</span>
         <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
             <span class="n">source_file</span> <span class="o">=</span> <span class="n">source_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;$:&#39;</span><span class="p">)</span>
             <span class="n">object_file</span> <span class="o">=</span> <span class="n">object_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;$:&#39;</span><span class="p">)</span>
@@ -3118,13 +3408,22 @@
         <span class="n">build</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;build </span><span class="si">{</span><span class="n">object_file</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">rule</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">source_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">cuda_dlink_post_cflags</span><span class="p">:</span>
-        <span class="n">devlink_out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;dlink.o&#39;</span><span class="p">)</span>
-        <span class="n">devlink_rule</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rule cuda_devlink&#39;</span><span class="p">]</span>
-        <span class="n">devlink_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;  command = $nvcc $in -o $out $cuda_dlink_post_cflags&#39;</span><span class="p">)</span>
-        <span class="n">devlink</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;build </span><span class="si">{</span><span class="n">devlink_out</span><span class="si">}</span><span class="s1">: cuda_devlink </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
-        <span class="n">objects</span> <span class="o">+=</span> <span class="p">[</span><span class="n">devlink_out</span><span class="p">]</span>
+        <span class="n">cuda_devlink_out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;dlink.o&#39;</span><span class="p">)</span>
+        <span class="n">cuda_devlink_rule</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rule cuda_devlink&#39;</span><span class="p">]</span>
+        <span class="n">cuda_devlink_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;  command = $nvcc $in -o $out $cuda_dlink_post_cflags&#39;</span><span class="p">)</span>
+        <span class="n">cuda_devlink</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;build </span><span class="si">{</span><span class="n">cuda_devlink_out</span><span class="si">}</span><span class="s1">: cuda_devlink </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+        <span class="n">objects</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cuda_devlink_out</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">devlink_rule</span><span class="p">,</span> <span class="n">devlink</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">cuda_devlink_rule</span><span class="p">,</span> <span class="n">cuda_devlink</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">sycl_dlink_post_cflags</span><span class="p">:</span>
+        <span class="n">sycl_devlink_out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;sycl_dlink.o&#39;</span><span class="p">)</span>
+        <span class="n">sycl_devlink_rule</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rule sycl_devlink&#39;</span><span class="p">]</span>
+        <span class="n">sycl_devlink_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;  command = $sycl $in -o $out $sycl_dlink_post_cflags&#39;</span><span class="p">)</span>
+        <span class="n">sycl_devlink</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;build </span><span class="si">{</span><span class="n">sycl_devlink_out</span><span class="si">}</span><span class="s1">: sycl_devlink </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+        <span class="n">objects</span> <span class="o">+=</span> <span class="p">[</span><span class="n">sycl_devlink_out</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sycl_devlink_rule</span><span class="p">,</span> <span class="n">sycl_devlink</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 
     <span class="k">if</span> <span class="n">library_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">link_rule</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rule link&#39;</span><span class="p">]</span>
@@ -3149,7 +3448,9 @@
     <span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">config</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">compile_rule</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">with_cuda</span><span class="p">:</span>
         <span class="n">blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cuda_compile_rule</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
-    <span class="n">blocks</span> <span class="o">+=</span> <span class="p">[</span><span class="n">devlink_rule</span><span class="p">,</span> <span class="n">link_rule</span><span class="p">,</span> <span class="n">build</span><span class="p">,</span> <span class="n">devlink</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">default</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">with_sycl</span><span class="p">:</span>
+        <span class="n">blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sycl_compile_rule</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+    <span class="n">blocks</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cuda_devlink_rule</span><span class="p">,</span> <span class="n">sycl_devlink_rule</span><span class="p">,</span> <span class="n">link_rule</span><span class="p">,</span> <span class="n">build</span><span class="p">,</span> <span class="n">cuda_devlink</span><span class="p">,</span> <span class="n">sycl_devlink</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">default</span><span class="p">]</span>
     <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">)</span>
     <span class="c1"># Ninja requires a new lines at the end of the .ninja file</span>
     <span class="n">content</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -3172,6 +3473,10 @@
     <span class="n">valid_ext</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.cu&#39;</span><span class="p">,</span> <span class="s1">&#39;.cuh&#39;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
         <span class="n">valid_ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;.hip&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">valid_ext</span>
+
+<span class="k">def</span> <span class="nf">_is_sycl_file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">valid_ext</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.sycl&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">valid_ext</span>
 </pre></div>
 
