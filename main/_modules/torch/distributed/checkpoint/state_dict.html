@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git59b7e52 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git959d79f ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -743,7 +743,8 @@
     <span class="n">keep_submodule_prefixes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">broadcast_from_rank0</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">flatten_optimizer_state_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div>
+    <span class="n">flatten_optimizer_state_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">dsd_fqn_modifiers</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;_fqn_modifiers&quot;</span></div>
 
 
 <span class="nd">@dataclass</span>
@@ -765,6 +766,7 @@
 <span class="k">def</span> <span class="nf">_get_fqns</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">dsd_fqn_modifiers</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;_fqn_modifiers&quot;</span><span class="p">,</span>
     <span class="n">skip_ddp_prefix</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">skip_compiler_prefix</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FQNS_T</span><span class="p">:</span>
@@ -814,6 +816,14 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">skip_compiler_prefix</span><span class="p">:</span>
                 <span class="n">fqn_obj_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_obj_name</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># In some modeuls, _fqn_modifiers would not shown in the state_dict keys,</span>
+            <span class="c1"># skip them in the fqn to ensure load stat dict successfully for them.</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">dsd_fqn_modifiers</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">removed_fqn</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">dsd_fqn_modifiers</span><span class="p">)()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="n">curr_obj_name</span>
+                <span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">removed_fqn</span><span class="p">):</span>
+                        <span class="n">curr_obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">curr_obj</span><span class="p">,</span> <span class="n">removed_fqn</span><span class="p">)</span>
             <span class="n">fqn_obj_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_obj_name</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">curr_obj_name</span> <span class="o">==</span> <span class="n">nn</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_EXTRA_STATE_KEY_SUFFIX</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obj_names</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
@@ -828,7 +838,7 @@
     <span class="k">pass</span>
 
 
-<span class="k">def</span> <span class="nf">_iterate_valid_model_state</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_iterate_valid_model_state</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dsd_fqn_modifiers</span><span class="o">=</span><span class="s2">&quot;_fqn_modifiers&quot;</span><span class="p">):</span>
     <span class="n">visited_modules</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">curr_fqn</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
@@ -838,7 +848,16 @@
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">submodule</span> <span class="ow">in</span> <span class="n">visited_modules</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="n">new_fqn</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">curr_fqn</span><span class="si">}{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="c1"># if user have state_dict_hooks in their model, they can add the state_dict key changes</span>
+            <span class="c1"># at dsd_fqn_modifiers in input to align with the function of state_dict_hook</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">hasattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">dsd_fqn_modifiers</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">dsd_fqn_modifiers</span><span class="p">)()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+            <span class="p">):</span>
+                <span class="c1"># skip _fqn_modifiers here thus remove the last `.` added</span>
+                <span class="n">new_fqn</span> <span class="o">=</span> <span class="n">curr_fqn</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_fqn</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">curr_fqn</span><span class="si">}{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">yield from</span> <span class="n">recurse</span><span class="p">(</span><span class="n">submodule</span><span class="p">,</span> <span class="n">new_fqn</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span>
@@ -1137,10 +1156,14 @@
         <span class="k">return</span> <span class="n">_IncompatibleKeys</span><span class="p">({},</span> <span class="p">{})</span>
 
     <span class="n">local_state_dict</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">_iterate_valid_model_state</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-        <span class="n">fqns</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">_iterate_valid_model_state</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">dsd_fqn_modifiers</span><span class="p">):</span>
+        <span class="n">fqns</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">dsd_fqn_modifiers</span><span class="p">)</span>
         <span class="n">fqns_with_prefix</span> <span class="o">=</span> <span class="n">_get_fqns</span><span class="p">(</span>
-            <span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">skip_ddp_prefix</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_compiler_prefix</span><span class="o">=</span><span class="kc">False</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">key</span><span class="p">,</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">dsd_fqn_modifiers</span><span class="p">,</span>
+            <span class="n">skip_ddp_prefix</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">skip_compiler_prefix</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">fqn</span><span class="p">,</span> <span class="n">fqn_with_prefix</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fqns</span><span class="p">,</span> <span class="n">fqns_with_prefix</span><span class="p">):</span>

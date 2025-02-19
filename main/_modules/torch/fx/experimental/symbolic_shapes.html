@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git59b7e52 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git959d79f ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -6511,7 +6511,7 @@
         <span class="n">unhinted_expr</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">size_oblivious_result</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">expr_sym_node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SymNode</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">expr_sym_node_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GuardOnDataDependentSymNode</span><span class="p">:</span>
         <span class="c1"># TODO: in a Dynamo context, having user code, and having the</span>
         <span class="c1"># name of the local, will be much better</span>
@@ -6557,7 +6557,7 @@
             <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;expr&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">expr</span><span class="p">),</span>
                 <span class="s2">&quot;unhinted_expr&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">unhinted_expr</span><span class="p">),</span>
-                <span class="s2">&quot;expr_id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">(</span><span class="n">expr_sym_node</span><span class="p">),</span>
+                <span class="s2">&quot;expr_id&quot;</span><span class="p">:</span> <span class="n">expr_sym_node_id</span><span class="p">,</span>
                 <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span>
                     <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
                 <span class="p">),</span>
@@ -7180,9 +7180,9 @@
         <span class="n">hint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">fx_node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">expr_sym_node_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">forcing_spec</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">expr_sym_node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SymNode</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evaluate_expr</span><span class="p">(</span>
@@ -7190,8 +7190,8 @@
                 <span class="n">hint</span><span class="p">,</span>
                 <span class="n">fx_node</span><span class="p">,</span>
                 <span class="n">size_oblivious</span><span class="p">,</span>
+                <span class="n">expr_sym_node_id</span><span class="p">,</span>
                 <span class="n">forcing_spec</span><span class="o">=</span><span class="n">forcing_spec</span><span class="p">,</span>
-                <span class="n">expr_sym_node</span><span class="o">=</span><span class="n">expr_sym_node</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
@@ -7209,9 +7209,9 @@
         <span class="n">hint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">fx_node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">size_oblivious</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">expr_sym_node_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">forcing_spec</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">expr_sym_node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SymNode</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Basic</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given an expression, evaluates it, adding guards if necessary</span>
@@ -7291,7 +7291,10 @@
             <span class="k">if</span> <span class="n">orig_expr</span><span class="o">.</span><span class="n">is_number</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;eval </span><span class="si">%s</span><span class="s2"> [trivial]&quot;</span><span class="p">,</span> <span class="n">orig_expr</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">hint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">assert</span> <span class="n">orig_expr</span> <span class="o">==</span> <span class="n">hint</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">orig_expr</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">hint</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hint</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+                        <span class="k">assert</span> <span class="n">orig_expr</span> <span class="o">==</span> <span class="n">hint</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">orig_expr</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">hint</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">assert</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">orig_expr</span><span class="p">,</span> <span class="n">hint</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">orig_expr</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">hint</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="k">return</span> <span class="n">orig_expr</span>
 
             <span class="n">expr</span> <span class="o">=</span> <span class="n">orig_expr</span>
@@ -7362,7 +7365,7 @@
                         <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span>
                             <span class="n">unsound_result</span> <span class="o">:=</span> <span class="n">orig_expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_var_to_val</span>
-                            <span class="p">)</span>
+                            <span class="p">)</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">)</span>
                         <span class="p">)</span><span class="o">.</span><span class="n">free_symbols</span>
                     <span class="p">):</span>
                         <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
@@ -7378,7 +7381,6 @@
                                 <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span>
                                     <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
                                 <span class="p">),</span>
-                                <span class="s2">&quot;expr_node_id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">(</span><span class="n">expr_sym_node</span><span class="p">),</span>
                             <span class="p">},</span>
                         <span class="p">)</span>
                         <span class="n">dtrace_structured</span><span class="p">(</span>
@@ -7386,7 +7388,7 @@
                             <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
                                 <span class="s2">&quot;expr&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">orig_expr</span><span class="p">),</span>
                                 <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="nb">repr</span><span class="p">(</span><span class="n">unsound_result</span><span class="p">),</span>
-                                <span class="s2">&quot;expr_node_id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">(</span><span class="n">expr_sym_node</span><span class="p">),</span>
+                                <span class="s2">&quot;expr_node_id&quot;</span><span class="p">:</span> <span class="n">expr_sym_node_id</span><span class="p">,</span>
                                 <span class="s2">&quot;user_stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">get_user_stack</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
                                 <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">get_framework_stack</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
                                 <span class="s2">&quot;symbol_to_sources&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -7406,7 +7408,7 @@
                             <span class="n">expr</span><span class="o">.</span><span class="n">xreplace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">),</span>
                             <span class="n">expr</span><span class="p">,</span>
                             <span class="n">size_oblivious_result</span><span class="o">=</span><span class="n">size_oblivious_result</span><span class="p">,</span>
-                            <span class="n">expr_sym_node</span><span class="o">=</span><span class="n">expr_sym_node</span><span class="p">,</span>
+                            <span class="n">expr_sym_node_id</span><span class="o">=</span><span class="n">expr_sym_node_id</span><span class="p">,</span>
                         <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">expr</span> <span class="o">=</span> <span class="n">new_expr</span>
