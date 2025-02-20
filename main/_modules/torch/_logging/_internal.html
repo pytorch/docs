@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git959d79f ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git16e202a ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -854,6 +854,7 @@
     <span class="n">compiled_autograd_verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">cudagraph_static_inputs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">benchmarking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">autotuning</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">graph_region_expansion</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1034,6 +1035,9 @@
 <span class="sd">        cudagraph_static_inputs (:class:`bool`):</span>
 <span class="sd">            Whether to emit debug info for cudagraph static input detection. Default: ``False``</span>
 
+<span class="sd">        autotuning (:class:`bool`):</span>
+<span class="sd">            Autotuning choice logs, such as kernel source, perf, and tuning parameters. Default: ``False``</span>
+
 <span class="sd">        graph_region_expansion (:class:`bool`):</span>
 <span class="sd">            Whether to emit the detailed steps of the duplicate graph region tracker expansion algorithm. Default: ``False``</span>
 
@@ -1136,6 +1140,7 @@
         <span class="n">compiled_autograd_verbose</span><span class="o">=</span><span class="n">compiled_autograd_verbose</span><span class="p">,</span>
         <span class="n">cudagraph_static_inputs</span><span class="o">=</span><span class="n">cudagraph_static_inputs</span><span class="p">,</span>
         <span class="n">benchmarking</span><span class="o">=</span><span class="n">benchmarking</span><span class="p">,</span>
+        <span class="n">autotuning</span><span class="o">=</span><span class="n">autotuning</span><span class="p">,</span>
         <span class="n">graph_region_expansion</span><span class="o">=</span><span class="n">graph_region_expansion</span><span class="p">,</span>
     <span class="p">)</span></div>
 
