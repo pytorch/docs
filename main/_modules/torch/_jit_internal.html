@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git16e202a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitfdb1305 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1961,11 +1961,11 @@
 
 
 <span class="k">def</span> <span class="nf">raise_error_container_parameter_missing</span><span class="p">(</span><span class="n">target_type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">target_type</span> <span class="o">==</span> <span class="s2">&quot;Dict&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">target_type</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;ict&quot;</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="s2">&quot;Attempted to use Dict without &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Attempted to use </span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2"> without &quot;</span>
             <span class="s2">&quot;contained types. Please add contained type, e.g. &quot;</span>
-            <span class="s2">&quot;Dict[int, int]&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2">[int, int]&quot;</span>
         <span class="p">)</span>
     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;Attempted to use </span><span class="si">{</span><span class="n">target_type</span><span class="si">}</span><span class="s2"> without a &quot;</span>
@@ -1974,15 +1974,20 @@
     <span class="p">)</span>
 
 
+<span class="n">_RAW_TYPE_NAME_MAPPING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nb">dict</span><span class="p">:</span> <span class="s2">&quot;dict&quot;</span><span class="p">,</span>
+    <span class="nb">list</span><span class="p">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span>
+    <span class="nb">tuple</span><span class="p">:</span> <span class="s2">&quot;tuple&quot;</span><span class="p">,</span>
+    <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">:</span> <span class="s2">&quot;Dict&quot;</span><span class="p">,</span>  <span class="c1"># noqa: UP006</span>
+    <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">:</span> <span class="s2">&quot;List&quot;</span><span class="p">,</span>  <span class="c1"># noqa: UP006</span>
+    <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">:</span> <span class="s2">&quot;Optional&quot;</span><span class="p">,</span>
+    <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">:</span> <span class="s2">&quot;Tuple&quot;</span><span class="p">,</span>  <span class="c1"># noqa: UP006</span>
+<span class="p">}</span>
+
+
 <span class="k">def</span> <span class="nf">check_args_exist</span><span class="p">(</span><span class="n">target_type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
-        <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;List&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
-        <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;Tuple&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>  <span class="c1"># noqa: UP006</span>
-        <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;Dict&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">target_type</span> <span class="ow">is</span> <span class="n">Optional</span><span class="p">:</span>
-        <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="s2">&quot;Optional&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">:=</span> <span class="n">_RAW_TYPE_NAME_MAPPING</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">target_type</span><span class="p">):</span>
+        <span class="n">raise_error_container_parameter_missing</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">check_empty_containers</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

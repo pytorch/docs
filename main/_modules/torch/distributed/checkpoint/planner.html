@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git16e202a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitfdb1305 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -614,7 +614,7 @@
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">auto</span><span class="p">,</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.metadata</span> <span class="kn">import</span> <span class="p">(</span>
@@ -815,21 +815,21 @@
 
     <span class="c1"># Save plan for the current rank as computed by `create_local_plan` API</span>
     <span class="c1"># Cached on the local rank.</span>
-    <span class="n">_cached_save_plan</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SavePlan</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_cached_save_plan</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SavePlan</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># Final save plan for the current rank.</span>
     <span class="c1"># This is created by merging the plan created by `create_local_plan` API</span>
     <span class="c1"># and the result of `create_global_plan` for the given rank.</span>
     <span class="c1"># This is the final plan computed by the `finish_plan` API that gets</span>
     <span class="c1"># sent to the `write_data`.</span>
     <span class="c1"># Cached on the local rank.</span>
-    <span class="n">_cached_final_save_plan</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SavePlan</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_cached_final_save_plan</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SavePlan</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># Collection of all the local plans from all the ranks.</span>
     <span class="c1"># This is the input to the `create_global_plan` API.</span>
     <span class="c1"># Cached on the coordinator rank.</span>
-    <span class="n">_cached_all_plans</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_cached_all_plans</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># Global checkpoint plan as computed by `create_global_plan` API.</span>
     <span class="c1"># Cached on the coordinator rank.</span>
-    <span class="n">_cached_global_plan</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_cached_global_plan</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">SavePlan</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="SavePlanner.set_up_planner"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.SavePlanner.set_up_planner">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">set_up_planner</span><span class="p">(</span>
