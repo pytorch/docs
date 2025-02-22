@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitfdb1305 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git1c33489 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -746,14 +746,13 @@
 <span class="sd">            group (Optional[dist.ProcessGroup]): The process group to use for communication.</span>
 <span class="sd">                If `None`, the default process group will be used.</span>
 <span class="sd">                Default: `None`.</span>
-<span class="sd">            dw_builder (Optional[Callable[[], Callable[..., None]]): If provided, dw_runner is a builder function</span>
+<span class="sd">            dw_builder (Optional[Callable[[], Callable[..., None]]): If provided, dw_builder is a builder function</span>
 <span class="sd">                that will build a new dw_runner function that will run parts of module backward that were intentionally</span>
 <span class="sd">                skipped during the module&#39;s actual backward pass. The builder must be invoked by stage after stage runs</span>
-<span class="sd">                model backwards, and stage should save the latest dw_runner to run during weight pass.</span>
+<span class="sd">                model backwards, and stage should save the latest dw_runner to run during weight pas (W).</span>
 <span class="sd">                If not provided, a dw_runner will be generated automatically by traversing the autograd graph.</span>
 <span class="sd">                When used with schedules that only have F and B steps, the fresh dw_runner function will be called as</span>
-<span class="sd">                part of B.</span>
-<span class="sd">                When used with F,B,W schedules, the dw_runner function implements &#39;W&#39;.</span>
+<span class="sd">                part of I (input backwards). When used with F,I,W schedules, the dw_runner function implements &#39;W&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">stage_index</span> <span class="o">&gt;=</span> <span class="n">num_stages</span><span class="p">:</span>
@@ -935,7 +934,7 @@
                 <span class="n">peer_rank</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span>
                 <span class="k">else</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_global_rank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">peer_rank</span><span class="p">)</span>
-            <span class="p">)</span>  <span class="c1"># TODO</span>
+            <span class="p">)</span>
             <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">irecv</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">buffer</span><span class="p">,</span> <span class="n">peer_global_rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">)</span>
             <span class="p">)</span>
@@ -1067,7 +1066,7 @@
                     <span class="n">peer_rank</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span>
                     <span class="k">else</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_global_rank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">peer_rank</span><span class="p">)</span>
-                <span class="p">)</span>  <span class="c1"># TODO</span>
+                <span class="p">)</span>
                 <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">isend</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">peer_global_rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">ops</span>
@@ -1104,7 +1103,7 @@
                     <span class="n">peer_rank</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span>
                     <span class="k">else</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_global_rank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">peer_rank</span><span class="p">)</span>
-                <span class="p">)</span>  <span class="c1"># TODO</span>
+                <span class="p">)</span>
                 <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">isend</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">peer_global_rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">grad_recv_stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
@@ -1865,7 +1864,8 @@
 <span class="sd">        input_args (Union[torch.Tensor, Tuple[torch.tensor]], optional): The input arguments for the submodule.</span>
 <span class="sd">        output_args (Union[torch.Tensor, Tuple[torch.tensor]], optional): The output arguments for the submodule.</span>
 <span class="sd">        group (dist.ProcessGroup, optional): The process group for distributed training. If None, default group.</span>
-<span class="sd">        dw_builder: TODO clean up comments</span>
+<span class="sd">        dw_builder (Optional[Callable[[], Callable[..., None]]): If provided, dw_builder will build a new dw_runner function</span>
+<span class="sd">            that will the W action (input weights) for F, I, W (Fwd, Input, Weight) zero bubble schedules.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1919,16 +1919,6 @@
 
         <span class="c1"># these are the buffers used in backwards send/recv, they are allocated later</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outputs_grad</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">def</span> <span class="nf">stage_global_rank</span><span class="p">(</span><span class="n">peer_rank</span><span class="p">):</span>
-            <span class="k">return</span> <span class="p">(</span>
-                <span class="n">peer_rank</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span>
-                <span class="k">else</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_global_rank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">peer_rank</span><span class="p">)</span>
-            <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">prev_rank</span> <span class="o">=</span> <span class="n">stage_global_rank</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">next_rank</span> <span class="o">=</span> <span class="n">stage_global_rank</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">group_rank</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_size</span><span class="p">)</span>
 
         <span class="n">dbg_str</span> <span class="o">=</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Finished pipeline stage init, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_index</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="si">=}</span><span class="s2">, &quot;</span>  <span class="c1"># noqa: G004</span>
@@ -2126,31 +2116,7 @@
                     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">dst_list</span> <span class="ow">in</span> <span class="n">act_send_info</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
                 <span class="p">]</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="n">grad_recv_info</span>
-
-    <span class="k">def</span> <span class="nf">_init_p2p_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set up p2p communitors between previous and next stages</span>
-<span class="sd">        by sending a dummy tensor.</span>
-
-<span class="sd">        If this is used, must be called for all pipeline stages.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ops</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">recv_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-        <span class="n">send_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-        <span class="c1"># forward</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
-            <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">irecv</span><span class="p">,</span> <span class="n">recv_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
-            <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">isend</span><span class="p">,</span> <span class="n">send_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">))</span>
-
-        <span class="c1"># backward</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_first</span><span class="p">:</span>
-            <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">isend</span><span class="p">,</span> <span class="n">send_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_last</span><span class="p">:</span>
-            <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">P2POp</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">irecv</span><span class="p">,</span> <span class="n">recv_tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">))</span>
-
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="n">grad_recv_info</span></div>
 </pre></div>
 
              </article>
