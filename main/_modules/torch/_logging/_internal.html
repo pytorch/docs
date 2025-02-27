@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git3ecfe6b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git723f3a9 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1290,11 +1290,12 @@
 
 
 <span class="k">def</span> <span class="nf">_invalid_settings_err_msg</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="n">valid_settings</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">valid_settings</span> <span class="o">=</span> <span class="p">(</span>
         <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span>
         <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">log_registry</span><span class="o">.</span><span class="n">log_alias_to_log_qnames</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">log_registry</span><span class="o">.</span><span class="n">artifact_names</span><span class="p">)</span>
     <span class="p">)</span>
+    <span class="n">valid_settings</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">valid_settings</span><span class="p">))</span>
     <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">Invalid log settings: </span><span class="si">{</span><span class="n">settings</span><span class="si">}</span><span class="s2">, must be a comma separated list of fully</span>
 <span class="s2">qualified module names, registered log names or registered artifact names.</span>

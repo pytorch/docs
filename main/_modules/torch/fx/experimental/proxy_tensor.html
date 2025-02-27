@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git3ecfe6b ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git723f3a9 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -656,7 +656,11 @@
 <span class="kn">from</span> <span class="nn">torch._subclasses.meta_utils</span> <span class="kn">import</span> <span class="n">is_sparse_any</span>
 <span class="kn">from</span> <span class="nn">torch.fx</span> <span class="kn">import</span> <span class="n">GraphModule</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">,</span> <span class="n">Tracer</span>
 <span class="kn">from</span> <span class="nn">torch.fx.graph_module</span> <span class="kn">import</span> <span class="n">_assign_attr</span>
-<span class="kn">from</span> <span class="nn">torch.fx.node</span> <span class="kn">import</span> <span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span>
+<span class="kn">from</span> <span class="nn">torch.fx.node</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_side_effectful_need_to_be_preserved_pre_dispatch</span><span class="p">,</span>
+    <span class="n">Argument</span><span class="p">,</span>
+    <span class="n">Target</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.fx.passes.shape_prop</span> <span class="kn">import</span> <span class="n">_extract_tensor_metadata</span>
 <span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">torch.overrides</span> <span class="kn">import</span> <span class="n">TorchFunctionMode</span>
@@ -1691,6 +1695,40 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">e</span>
 
+    <span class="k">def</span> <span class="nf">create_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">Target</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Argument</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Argument</span><span class="p">],</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">type_expr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_expr</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+
+        <span class="k">def</span> <span class="nf">map_fn</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_ExtractValType</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;val&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span>
+            <span class="c1"># other subclasses like FunctionalTensor error on `extract_val`</span>
+            <span class="c1"># &quot;Attempting to use FunctionalTensor on its own.&quot; just store FakeTensors for now</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">FakeTensor</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">extract_val</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">])</span>
+
+        <span class="c1"># TODO: opt-in mechanism ?</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">target</span><span class="p">,</span>
+            <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_higher_order_ops</span><span class="o">.</span><span class="n">triton_kernel_wrap</span><span class="o">.</span><span class="n">TritonKernelWrapperFunctional</span><span class="p">,</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_higher_order_ops</span><span class="o">.</span><span class="n">triton_kernel_wrap</span><span class="o">.</span><span class="n">TritonKernelWrapperMutation</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">):</span>
+            <span class="n">arg_inp</span><span class="p">,</span> <span class="n">kwarg_inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">map_aggregate</span><span class="p">((</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">),</span> <span class="n">map_fn</span><span class="p">)</span>  <span class="c1"># type: ignore[misc, arg-type]</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;arg_kwarg_vals&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">arg_inp</span><span class="p">,</span> <span class="n">kwarg_inp</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">node</span>
+
 
 <span class="k">def</span> <span class="nf">_make_temp_remove_mode_context_manager</span><span class="p">(</span>
     <span class="n">mode_ty</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">TorchFunctionMode</span><span class="p">],</span>
@@ -1790,7 +1828,7 @@
             <span class="n">track_tensor_tree</span><span class="p">(</span><span class="n">flat_tensors</span><span class="p">,</span> <span class="n">flat_proxies</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tracer</span><span class="o">=</span><span class="n">tracer</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">get_tensor_proxy_slot</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Proxy</span><span class="p">]:</span>
-            <span class="k">return</span> <span class="n">get_proxy_slot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">tracer</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">get_proxy_slot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">tracer</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
         <span class="n">out</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">tensors</span><span class="p">)</span>  <span class="c1"># type:ignore[call-arg]</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">pytree</span><span class="o">.</span><span class="n">tree_map_only</span><span class="p">(</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">get_tensor_proxy_slot</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
