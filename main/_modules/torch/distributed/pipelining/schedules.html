@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git40ad5e0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git83fb974 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1312,7 +1312,9 @@
                 <span class="n">recv_work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
             <span class="c1"># Compute</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">forward_one_chunk</span><span class="p">(</span><span class="n">fwd_mb_index</span><span class="p">,</span> <span class="n">arg_mbs</span><span class="p">[</span><span class="n">fwd_mb_index</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="n">fwd_mb_index</span><span class="p">])</span>  <span class="c1"># type: ignore[index]</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">forward_one_chunk</span><span class="p">(</span>
+                <span class="n">fwd_mb_index</span><span class="p">,</span> <span class="n">arg_mbs</span><span class="p">[</span><span class="n">fwd_mb_index</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="n">fwd_mb_index</span><span class="p">]</span>
+            <span class="p">)</span>  <span class="c1"># type: ignore[index]</span>
 
             <span class="c1"># Clear previous chunk&#39;s forward sends (hopefully they have well</span>
             <span class="c1"># finished, otherwise, we are heavily communication bound, in which</span>
@@ -1368,7 +1370,9 @@
                 <span class="n">fuse_work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
             <span class="c1"># Now do the fwd</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">forward_one_chunk</span><span class="p">(</span><span class="n">fwd_mb_index</span><span class="p">,</span> <span class="n">arg_mbs</span><span class="p">[</span><span class="n">fwd_mb_index</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="n">fwd_mb_index</span><span class="p">])</span>  <span class="c1"># type: ignore[index]</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="o">.</span><span class="n">forward_one_chunk</span><span class="p">(</span>
+                <span class="n">fwd_mb_index</span><span class="p">,</span> <span class="n">arg_mbs</span><span class="p">[</span><span class="n">fwd_mb_index</span><span class="p">],</span> <span class="n">kwarg_mbs</span><span class="p">[</span><span class="n">fwd_mb_index</span><span class="p">]</span>
+            <span class="p">)</span>  <span class="c1"># type: ignore[index]</span>
 
             <span class="c1"># Compute loss</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_compute_loss</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">target_mbs</span><span class="p">,</span> <span class="n">fwd_mb_index</span><span class="p">)</span>
@@ -1598,9 +1602,9 @@
         <span class="n">progress</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># go in order of ranks even if dict keys aren&#39;t ordered</span>
         <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">):</span>
-            <span class="k">assert</span> <span class="p">(</span>
-                <span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span>
-            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rank</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span><span class="si">=}</span><span class="s2">&quot;</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rank</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span><span class="si">=}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
             <span class="n">action</span> <span class="o">=</span> <span class="n">compute_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">_ready_to_schedule</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">prev_actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]):</span>
@@ -1632,9 +1636,9 @@
     <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">num_microbatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-    <span class="k">assert</span> <span class="p">(</span>
-        <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span> <span class="o">==</span> <span class="n">pp_group_size</span>
-    <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Schedule has incorrect number of ranks - expected </span><span class="si">{</span><span class="n">pp_group_size</span><span class="si">}</span><span class="s2">, actual </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span> <span class="o">==</span> <span class="n">pp_group_size</span><span class="p">,</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Schedule has incorrect number of ranks - expected </span><span class="si">{</span><span class="n">pp_group_size</span><span class="si">}</span><span class="s2">, actual </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
     <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pp_group_size</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Schedule is missing actions for rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">&quot;</span>
 
@@ -1654,36 +1658,36 @@
         <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">[</span><span class="n">rank</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
-                <span class="n">action</span><span class="p">,</span> <span class="n">_Action</span>
-            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Got an invalid action: </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2">, expected instance of _Action&quot;</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">_Action</span><span class="p">),</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Got an invalid action: </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2">, expected instance of _Action&quot;</span>
+            <span class="p">)</span>
             <span class="n">s_id</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span>
             <span class="n">ctype</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span>
             <span class="n">mb_id</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span>
             <span class="k">if</span> <span class="n">ctype</span> <span class="o">==</span> <span class="n">F</span><span class="p">:</span>
                 <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mb_id</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">ctype</span> <span class="o">==</span> <span class="n">B</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="p">(</span>
-                    <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">]</span>
-                <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Running Full Backward for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Forward&quot;</span>
+                <span class="k">assert</span> <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">],</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Running Full Backward for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Forward&quot;</span>
+                <span class="p">)</span>
                 <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">B</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mb_id</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">ctype</span> <span class="o">==</span> <span class="n">I</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="p">(</span>
-                    <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">]</span>
-                <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Running Backward Input for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Forward&quot;</span>
+                <span class="k">assert</span> <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">],</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Running Backward Input for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Forward&quot;</span>
+                <span class="p">)</span>
                 <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">I</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mb_id</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">ctype</span> <span class="o">==</span> <span class="n">W</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="p">(</span>
-                    <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">I</span><span class="p">]</span>
-                <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Running Backward Weight for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Backward Input&quot;</span>
+                <span class="k">assert</span> <span class="n">mb_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">I</span><span class="p">],</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Running Backward Weight for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, microbatch </span><span class="si">{</span><span class="n">mb_id</span><span class="si">}</span><span class="s2"> without first running Backward Input&quot;</span>
+                <span class="p">)</span>
                 <span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">W</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mb_id</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">s_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stage_index_to_rank_mapping</span><span class="p">:</span>
                 <span class="n">stage_index_to_rank_mapping</span><span class="p">[</span><span class="n">s_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">existing_rank</span> <span class="o">=</span> <span class="n">stage_index_to_rank_mapping</span><span class="p">[</span><span class="n">s_id</span><span class="p">]</span>
-                <span class="k">assert</span> <span class="p">(</span>
-                    <span class="n">rank</span> <span class="o">==</span> <span class="n">existing_rank</span>
-                <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2"> is assigned to both rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> and rank </span><span class="si">{</span><span class="n">existing_rank</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">assert</span> <span class="n">rank</span> <span class="o">==</span> <span class="n">existing_rank</span><span class="p">,</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2"> is assigned to both rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> and rank </span><span class="si">{</span><span class="n">existing_rank</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
 
     <span class="k">for</span> <span class="n">s_id</span> <span class="ow">in</span> <span class="n">stage_actions</span><span class="p">:</span>
         <span class="n">f_mb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">F</span><span class="p">])</span>
@@ -1691,14 +1695,14 @@
         <span class="n">i_mb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">I</span><span class="p">])</span>
         <span class="n">w_mb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stage_actions</span><span class="p">[</span><span class="n">s_id</span><span class="p">][</span><span class="n">W</span><span class="p">])</span>
 
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="n">f_mb</span> <span class="o">==</span> <span class="n">num_microbatches</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="n">f_mb</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">F</span><span class="si">}</span><span class="s2"> microbatches for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">num_microbatches</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">assert</span> <span class="n">f_mb</span> <span class="o">==</span> <span class="n">num_microbatches</span><span class="p">,</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="n">f_mb</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">F</span><span class="si">}</span><span class="s2"> microbatches for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">num_microbatches</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
 
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="n">b_mb</span> <span class="o">+</span> <span class="p">(</span><span class="n">i_mb</span> <span class="o">+</span> <span class="n">w_mb</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">==</span> <span class="n">num_microbatches</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Invalid backward microbatches for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">: expected </span><span class="si">{</span><span class="n">num_microbatches</span><span class="si">}</span><span class="s2"> total backwards, </span><span class="se">\</span>
+        <span class="k">assert</span> <span class="n">b_mb</span> <span class="o">+</span> <span class="p">(</span><span class="n">i_mb</span> <span class="o">+</span> <span class="n">w_mb</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">==</span> <span class="n">num_microbatches</span><span class="p">,</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid backward microbatches for stage </span><span class="si">{</span><span class="n">s_id</span><span class="si">}</span><span class="s2">: expected </span><span class="si">{</span><span class="n">num_microbatches</span><span class="si">}</span><span class="s2"> total backwards, </span><span class="se">\</span>
 <span class="s2">            but got B=</span><span class="si">{</span><span class="n">b_mb</span><span class="si">}</span><span class="s2">, I=</span><span class="si">{</span><span class="n">i_mb</span><span class="si">}</span><span class="s2">, W=</span><span class="si">{</span><span class="n">w_mb</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">stage_index_to_rank_mapping</span>
 
 
@@ -1895,9 +1899,9 @@
                     <span class="n">computation_type</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">computation_type</span>
                     <span class="n">mb_index</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">microbatch_index</span>
                     <span class="n">stage_index</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">stage_index</span>
-                    <span class="k">assert</span> <span class="p">(</span>
-                        <span class="n">mb_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                    <span class="p">),</span> <span class="s2">&quot;All currently supported action types require valid microbatch_index&quot;</span>
+                    <span class="k">assert</span> <span class="n">mb_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+                        <span class="s2">&quot;All currently supported action types require valid microbatch_index&quot;</span>
+                    <span class="p">)</span>
                     <span class="k">if</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">:</span>
                         <span class="c1"># perform forward computation</span>
                         <span class="n">stage</span> <span class="o">=</span> <span class="n">stage_index_to_stage</span><span class="p">[</span><span class="n">stage_index</span><span class="p">]</span>
@@ -1968,9 +1972,9 @@
                         <span class="n">computation_type</span> <span class="o">=</span> <span class="n">prev_rank_action</span><span class="o">.</span><span class="n">computation_type</span>
                         <span class="n">mb_index</span> <span class="o">=</span> <span class="n">prev_rank_action</span><span class="o">.</span><span class="n">microbatch_index</span>
                         <span class="n">stage_index</span> <span class="o">=</span> <span class="n">prev_rank_action</span><span class="o">.</span><span class="n">stage_index</span>
-                        <span class="k">assert</span> <span class="p">(</span>
-                            <span class="n">mb_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                        <span class="p">),</span> <span class="s2">&quot;All currently supported action types require valid microbatch_index&quot;</span>
+                        <span class="k">assert</span> <span class="n">mb_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+                            <span class="s2">&quot;All currently supported action types require valid microbatch_index&quot;</span>
+                        <span class="p">)</span>
                         <span class="c1"># Only handle sends for the forward from a previous rank</span>
                         <span class="k">if</span> <span class="n">computation_type</span> <span class="o">==</span> <span class="n">_ComputationType</span><span class="o">.</span><span class="n">FORWARD</span><span class="p">:</span>
                             <span class="c1"># If not the last stage, then receive fwd activations</span>
@@ -1999,9 +2003,9 @@
                         <span class="n">computation_type</span> <span class="o">=</span> <span class="n">next_rank_action</span><span class="o">.</span><span class="n">computation_type</span>
                         <span class="n">mb_index</span> <span class="o">=</span> <span class="n">next_rank_action</span><span class="o">.</span><span class="n">microbatch_index</span>
                         <span class="n">stage_index</span> <span class="o">=</span> <span class="n">next_rank_action</span><span class="o">.</span><span class="n">stage_index</span>
-                        <span class="k">assert</span> <span class="p">(</span>
-                            <span class="n">mb_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                        <span class="p">),</span> <span class="s2">&quot;All currently supported action types require valid microbatch_index&quot;</span>
+                        <span class="k">assert</span> <span class="n">mb_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+                            <span class="s2">&quot;All currently supported action types require valid microbatch_index&quot;</span>
+                        <span class="p">)</span>
                         <span class="c1"># Only handle receives for the backwards from a next rank</span>
                         <span class="k">if</span> <span class="n">computation_type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">FORWARD</span><span class="p">,</span> <span class="n">BACKWARD_WEIGHT</span><span class="p">):</span>
                             <span class="c1"># Next rank doing forward or weight update has no influence for the current rank backward recv</span>
@@ -2109,9 +2113,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Dump a CSV representation of the compute + comms schedule into a file with the provided filename.&quot;&quot;&quot;</span>
         <span class="c1"># TODO should there be an option to dump the compute_only schedule from PipelineScheduleRuntime? It&#39;s possible</span>
         <span class="c1"># that it does not exist if it was created from a compute_comms schedule.</span>
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">),</span> <span class="s2">&quot;Must initialize compute_comms schedule before dump_csv&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;Must initialize compute_comms schedule before dump_csv&quot;</span>
+        <span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
             <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span><span class="p">:</span>
@@ -2147,9 +2151,9 @@
             <span class="n">stage</span><span class="o">.</span><span class="n">stage_index</span><span class="p">:</span> <span class="n">stage</span> <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span>
         <span class="p">}</span>
 
-        <span class="k">assert</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">),</span> <span class="s2">&quot;Must call _load_actions() before calling _step_microbatches()&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;Must call _load_actions() before calling _step_microbatches()&quot;</span>
+        <span class="p">)</span>
 
         <span class="c1"># recv ops indexed by (stage_idx, mb_idx) need to be waited on before use</span>
         <span class="n">bwd_recv_ops</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Work</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -2168,9 +2172,9 @@
                 <span class="n">unshard_ops</span><span class="p">[</span><span class="n">stage_idx</span><span class="p">]</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
                 <span class="k">del</span> <span class="n">unshard_ops</span><span class="p">[</span><span class="n">stage_idx</span><span class="p">]</span>
                 <span class="n">unsharded_stages</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stage_idx</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="p">(</span>
-                <span class="n">stage_idx</span> <span class="ow">in</span> <span class="n">unsharded_stages</span>
-            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Attempted to compute on sharded </span><span class="si">{</span><span class="n">stage_idx</span><span class="si">=}</span><span class="s2">&quot;</span>
+            <span class="k">assert</span> <span class="n">stage_idx</span> <span class="ow">in</span> <span class="n">unsharded_stages</span><span class="p">,</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Attempted to compute on sharded </span><span class="si">{</span><span class="n">stage_idx</span><span class="si">=}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
 
         <span class="c1"># count either full_backward or backward_weight together, to determine when to sync DP grads</span>
         <span class="n">backward_counter</span><span class="p">:</span> <span class="n">Counter</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
@@ -2212,7 +2216,9 @@
                     <span class="k">assert</span> <span class="p">(</span>
                         <span class="n">stage_idx</span><span class="p">,</span>
                         <span class="n">mb_index</span><span class="p">,</span>
-                    <span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fwd_recv_ops</span><span class="p">,</span> <span class="s2">&quot;Recv twice for {stage_idx=} {mb_index=} without executing forward&quot;</span>
+                    <span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fwd_recv_ops</span><span class="p">,</span> <span class="p">(</span>
+                        <span class="s2">&quot;Recv twice for {stage_idx=} {mb_index=} without executing forward&quot;</span>
+                    <span class="p">)</span>
                     <span class="n">fwd_recv_ops</span><span class="p">[(</span><span class="n">stage_idx</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)]</span> <span class="o">=</span> <span class="n">_batch_p2p</span><span class="p">(</span>
                         <span class="n">stage</span><span class="o">.</span><span class="n">get_fwd_recv_ops</span><span class="p">(</span><span class="n">mb_index</span><span class="p">)</span>
                     <span class="p">)</span>
@@ -2220,7 +2226,9 @@
                     <span class="k">assert</span> <span class="p">(</span>
                         <span class="n">stage_idx</span><span class="p">,</span>
                         <span class="n">mb_index</span><span class="p">,</span>
-                    <span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bwd_recv_ops</span><span class="p">,</span> <span class="s2">&quot;Recv twice for {stage_idx=} {mb_index=} without executing backward&quot;</span>
+                    <span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bwd_recv_ops</span><span class="p">,</span> <span class="p">(</span>
+                        <span class="s2">&quot;Recv twice for {stage_idx=} {mb_index=} without executing backward&quot;</span>
+                    <span class="p">)</span>
                     <span class="n">bwd_recv_ops</span><span class="p">[(</span><span class="n">stage_idx</span><span class="p">,</span> <span class="n">mb_index</span><span class="p">)]</span> <span class="o">=</span> <span class="n">_batch_p2p</span><span class="p">(</span>
                         <span class="n">stage</span><span class="o">.</span><span class="n">get_bwd_recv_ops</span><span class="p">(</span><span class="n">mb_index</span><span class="p">)</span>
                     <span class="p">)</span>
@@ -2233,12 +2241,12 @@
                         <span class="n">unshard_ops</span><span class="p">[</span><span class="n">stage_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">unshard</span><span class="p">(</span><span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
                 <span class="k">elif</span> <span class="n">comp_type</span> <span class="o">==</span> <span class="n">RESHARD</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">stage_uses_fsdp</span><span class="p">:</span>
-                        <span class="k">assert</span> <span class="p">(</span>
-                            <span class="n">stage_idx</span> <span class="ow">in</span> <span class="n">unsharded_stages</span>
-                        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Resharding </span><span class="si">{</span><span class="n">stage_idx</span><span class="si">=}</span><span class="s2"> without unsharding&quot;</span>
-                        <span class="k">assert</span> <span class="p">(</span>
-                            <span class="n">stage_idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unshard_ops</span>
-                        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Resharding </span><span class="si">{</span><span class="n">stage_idx</span><span class="si">=}</span><span class="s2"> before finishing unshard&quot;</span>
+                        <span class="k">assert</span> <span class="n">stage_idx</span> <span class="ow">in</span> <span class="n">unsharded_stages</span><span class="p">,</span> <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Resharding </span><span class="si">{</span><span class="n">stage_idx</span><span class="si">=}</span><span class="s2"> without unsharding&quot;</span>
+                        <span class="p">)</span>
+                        <span class="k">assert</span> <span class="n">stage_idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unshard_ops</span><span class="p">,</span> <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Resharding </span><span class="si">{</span><span class="n">stage_idx</span><span class="si">=}</span><span class="s2"> before finishing unshard&quot;</span>
+                        <span class="p">)</span>
                         <span class="n">stage</span><span class="o">.</span><span class="n">submod</span><span class="o">.</span><span class="n">reshard</span><span class="p">()</span>  <span class="c1"># type: ignore[operator]</span>
                 <span class="k">elif</span> <span class="n">comp_type</span> <span class="o">==</span> <span class="n">FORWARD</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">stage_uses_fsdp</span><span class="p">:</span>
@@ -2345,7 +2353,12 @@
                 <span class="p">)</span>
                 <span class="c1"># TODO(whc) what is the best practice for printing a multiline log?</span>
                 <span class="c1"># logger will split it into multiple log lines, but this makes it hard to read (too wide)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">_format_pipeline_order</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span><span class="p">,</span> <span class="n">error_step_number</span><span class="o">=</span><span class="n">time_step</span><span class="p">))</span>  <span class="c1"># type: ignore[arg-type]</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="n">_format_pipeline_order</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline_order_with_comms</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+                        <span class="n">error_step_number</span><span class="o">=</span><span class="n">time_step</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
                 <span class="k">raise</span> <span class="n">e</span>
 
         <span class="c1"># Mostly these operations should have finished long ago, but there isn&#39;t an obvious time when to wait for them</span>

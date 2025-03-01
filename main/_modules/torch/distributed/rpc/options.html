@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git40ad5e0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git83fb974 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -631,7 +631,7 @@
 
 
 <span class="k">def</span> <span class="nf">_to_device_map</span><span class="p">(</span>
-    <span class="n">device_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">DeviceType</span><span class="p">,</span> <span class="n">DeviceType</span><span class="p">]</span>
+    <span class="n">device_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">DeviceType</span><span class="p">,</span> <span class="n">DeviceType</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]:</span>
     <span class="n">full_device_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">reverse_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -735,7 +735,7 @@
 <span class="sd">            &gt;&gt;&gt; options = TensorPipeRpcBackendOptions(</span>
 <span class="sd">            &gt;&gt;&gt;     num_worker_threads=8,</span>
 <span class="sd">            &gt;&gt;&gt;     device_maps={&quot;worker1&quot;: {0: 1}}</span>
-<span class="sd">            &gt;&gt;&gt;     # maps worker0&#39;s cuda:0 to worker1&#39;s cuda:1</span>
+<span class="sd">            &gt;&gt;&gt; # maps worker0&#39;s cuda:0 to worker1&#39;s cuda:1</span>
 <span class="sd">            &gt;&gt;&gt; )</span>
 <span class="sd">            &gt;&gt;&gt; options.set_device_map(&quot;worker1&quot;, {1: 2})</span>
 <span class="sd">            &gt;&gt;&gt; # maps worker0&#39;s cuda:1 to worker1&#39;s cuda:2</span>

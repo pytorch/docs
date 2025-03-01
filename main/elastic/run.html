@@ -300,7 +300,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git40ad5e0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git83fb974 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -860,9 +860,9 @@ training program uses GPUs for training and you would like to use
 here is how to configure it.</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">local_rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;LOCAL_RANK&quot;</span><span class="p">])</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">parallel</span><span class="o">.</span><span class="n">DistributedDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
-                                                  <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">local_rank</span><span class="p">],</span>
-                                                  <span class="n">output_device</span><span class="o">=</span><span class="n">local_rank</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">parallel</span><span class="o">.</span><span class="n">DistributedDataParallel</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">local_rank</span><span class="p">],</span> <span class="n">output_device</span><span class="o">=</span><span class="n">local_rank</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Please ensure that <code class="docutils literal notranslate"><span class="pre">device_ids</span></code> argument is set to be the only GPU device id
@@ -884,16 +884,17 @@ ranks or some correlation between <code class="docutils literal notranslate"><sp
 <li><p>It is recommended for your script to have the following structure:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-  <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
-  <span class="n">initialize</span><span class="p">()</span>
-  <span class="n">train</span><span class="p">()</span>
+    <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+    <span class="n">initialize</span><span class="p">()</span>
+    <span class="n">train</span><span class="p">()</span>
+
 
 <span class="k">def</span> <span class="nf">train</span><span class="p">():</span>
-  <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
-    <span class="n">train_step</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+        <span class="n">train_step</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">should_checkpoint</span><span class="p">:</span>
-      <span class="n">save_checkpoint</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">should_checkpoint</span><span class="p">:</span>
+            <span class="n">save_checkpoint</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="9">
@@ -907,10 +908,12 @@ For details on torchelastic error handling see: <a class="reference external" hr
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.distributed.elastic.multiprocessing.errors</span> <span class="kn">import</span> <span class="n">record</span>
 
+
 <span class="nd">@record</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="c1"># do train</span>
     <span class="k">pass</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
