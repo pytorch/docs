@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git1a68837 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git29c2de9 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -609,10 +609,10 @@
 <span class="kn">import</span> <span class="nn">operator</span>
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_NodeBase</span>
+<span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="n">_fx_map_aggregate</span><span class="p">,</span> <span class="n">_fx_map_arg</span><span class="p">,</span> <span class="n">_NodeBase</span>
 <span class="kn">from</span> <span class="nn">torch.fx.operator_schemas</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ArgsKwargsPair</span><span class="p">,</span>
     <span class="n">normalize_function</span><span class="p">,</span>
@@ -621,7 +621,6 @@
 
 <span class="kn">from</span> <span class="nn">.._ops</span> <span class="kn">import</span> <span class="n">ops</span> <span class="k">as</span> <span class="n">_ops</span>
 <span class="kn">from</span> <span class="nn">._compatibility</span> <span class="kn">import</span> <span class="n">compatibility</span>
-<span class="kn">from</span> <span class="nn">.immutable_collections</span> <span class="kn">import</span> <span class="n">immutable_dict</span><span class="p">,</span> <span class="n">immutable_list</span>
 
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -834,14 +833,38 @@
     <span class="n">_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
     <span class="n">_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">]</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s2">&quot;Graph&quot;</span>
+    <span class="c1"># unique name of value being created</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="c1"># the kind of operation = placeholder|call_method|call_module|call_function|get_attr</span>
     <span class="n">op</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="c1"># for method/module/function, the name of the method/module/function/attr</span>
+    <span class="c1"># being invoked, e.g add, layer1, or torch.add</span>
     <span class="n">target</span><span class="p">:</span> <span class="s2">&quot;Target&quot;</span>
+    <span class="c1"># All `Node`-valued inputs. Key is the Node, value is don&#39;t-care.</span>
+    <span class="c1"># The public API for this is `all_input_nodes`, this private attribute</span>
+    <span class="c1"># should not be accessed directly.</span>
     <span class="n">_input_nodes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="c1"># All of the nodes that use the value produced by this Node</span>
+    <span class="c1"># Note one user may correspond to several uses, e.g. the node fo ``x + x``</span>
+    <span class="c1"># would appear once here, but represents two uses.</span>
+    <span class="c1"># Is a dict to act as an &quot;ordered set&quot;. Keys are significant, value dont-care</span>
     <span class="n">users</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="c1"># Type expression representing the output value of this node.</span>
+    <span class="c1"># This should contain the same class of Type objects that would appear</span>
+    <span class="c1"># as type annotations for function inputs/outputs.</span>
+    <span class="c1">#</span>
+    <span class="c1"># For placeholder nodes, this value will be used to type-annotate the</span>
+    <span class="c1"># generated function parameters.</span>
+    <span class="c1"># For the return node, this value will be used to type-annotate the</span>
+    <span class="c1"># generated function return type. (Note this is a special case. ``return``</span>
+    <span class="c1"># does not produce a value, it&#39;s more of a notation. Thus, this value</span>
+    <span class="c1"># describes the type of args[0] in the ``return`` node.</span>
     <span class="nb">type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
     <span class="n">_sort_key</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="c1"># If set, use this fn to print this node</span>
     <span class="n">_repr_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="s2">&quot;Node&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="c1"># Dictionary to store metadata passes need to do their</span>
+    <span class="c1"># transformations. This metadata is preserved across node copies</span>
     <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 
     <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -881,7 +904,6 @@
 <span class="sd">                annotation of values in the generated code or for other types</span>
 <span class="sd">                of analyses.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">_legal_ops</span>
         <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;call_function&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -889,75 +911,38 @@
                     <span class="s2">&quot;but a Callable is expected&quot;</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">_legal_ops</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Node [graph = </span><span class="si">{</span><span class="n">graph</span><span class="si">}</span><span class="s2">, name = &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;] target </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> has type </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">typename</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
                     <span class="s2">&quot;but a str is expected&quot;</span>
                 <span class="p">)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
-        <span class="c1"># bypass Node.__setattr__ for perf and so that it doesn&#39;t need to handle half-built objects</span>
-        <span class="n">assign</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span>
-
-        <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;graph&quot;</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span>
-        <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>  <span class="c1"># unique name of value being created</span>
-        <span class="n">assign</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;op&quot;</span><span class="p">,</span> <span class="n">op</span>
-        <span class="p">)</span>  <span class="c1"># the kind of operation = placeholder|call_method|call_module|call_function|get_attr</span>
-
-        <span class="n">assign</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="n">target</span>
-        <span class="p">)</span>  <span class="c1"># for method/module/function, the name of the method/module/function/attr</span>
-        <span class="c1"># being invoked, e.g add, layer1, or torch.add</span>
-
-        <span class="c1"># All `Node`-valued inputs. Key is the Node, value is don&#39;t-care.</span>
-        <span class="c1"># The public API for this is `all_input_nodes`, this private attribute</span>
-        <span class="c1"># should not be accessed directly.</span>
-        <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_input_nodes&quot;</span><span class="p">,</span> <span class="p">{})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__update_args_kwargs</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="c1"># All of the nodes that use the value produced by this Node</span>
-        <span class="c1"># Note one user may correspond to several uses, e.g. the node fo ``x + x``</span>
-        <span class="c1"># would appear once here, but represents two uses.</span>
-        <span class="c1">#</span>
-        <span class="c1"># Is a dict to act as an &quot;ordered set&quot;. Keys are significant, value dont-care</span>
-        <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">,</span> <span class="p">{})</span>
-
-        <span class="c1"># Type expression representing the output value of this node.</span>
-        <span class="c1"># This should contain the same class of Type objects that would appear</span>
-        <span class="c1"># as type annotations for function inputs/outputs.</span>
-        <span class="c1">#</span>
-        <span class="c1"># For placeholder nodes, this value will be used to type-annotate the</span>
-        <span class="c1"># generated function parameters.</span>
-        <span class="c1"># For the return node, this value will be used to type-annotate the</span>
-        <span class="c1"># generated function return type. (Note this is a special case. ``return``</span>
-        <span class="c1"># does not produce a value, it&#39;s more of a notation. Thus, this value</span>
-        <span class="c1"># describes the type of args[0] in the ``return`` node.</span>
-        <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">return_type</span><span class="p">)</span>
-        <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_sort_key&quot;</span><span class="p">,</span> <span class="p">())</span>
-
-        <span class="c1"># If set, use this fn to print this node</span>
-        <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_repr_fn&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
-        <span class="c1"># Dictionary to store metadata passes need to do their</span>
-        <span class="c1"># transformations. This metadata is preserved across node copies</span>
-        <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">return_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_args_kwargs</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;_erased&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_erased</span>
-        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;_prev&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span>
-        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;_next&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next</span>
-        <span class="k">return</span> <span class="n">state</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span>
+            <span class="s2">&quot;graph&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span>
+            <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+            <span class="s2">&quot;_sort_key&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_key</span><span class="p">,</span>
+            <span class="s2">&quot;_args&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span>
+            <span class="s2">&quot;_kwargs&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">,</span>
+            <span class="s2">&quot;_erased&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_erased</span><span class="p">,</span>
+            <span class="s2">&quot;_prev&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span><span class="p">,</span>
+            <span class="s2">&quot;_next&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next</span><span class="p">,</span>
+            <span class="s2">&quot;_input_nodes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_nodes</span><span class="p">,</span>
+            <span class="s2">&quot;users&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">,</span>
+            <span class="s2">&quot;_repr_fn&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repr_fn</span><span class="p">,</span>
+            <span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span>
+        <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_erased</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_erased&quot;</span><span class="p">)</span>
-        <span class="n">_prev</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_prev&quot;</span><span class="p">)</span>
-        <span class="n">_next</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_next&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_erased</span> <span class="o">=</span> <span class="n">_erased</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="n">_prev</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_next</span> <span class="o">=</span> <span class="n">_next</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Node&quot;</span><span class="p">:</span>
@@ -994,41 +979,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            x (Node): The node to put before this node. Must be a member of the same graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">==</span> <span class="n">x</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="s2">&quot;Attempting to move a Node into a different Graph&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">x</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                <span class="s2">&quot;Trying to prepend a node to itself. This behavior has no effect on the graph.&quot;</span>
-            <span class="p">)</span>
-            <span class="k">return</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">_remove_from_list</span><span class="p">()</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">_next</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">_next</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="p">,</span> <span class="n">x</span>
-
-        <span class="c1"># compute x._sort_key</span>
-        <span class="n">psk</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">_prev</span><span class="o">.</span><span class="n">_sort_key</span>
-        <span class="n">nsk</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">_next</span><span class="o">.</span><span class="n">_sort_key</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">psk</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nsk</span><span class="p">):</span>
-            <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span>
-            <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">psk</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">nsk</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">psk</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nsk</span><span class="p">):</span>
-            <span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">nsk</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">psk</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">prefix</span><span class="p">,</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>  <span class="c1"># same length, increase length by 1</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">psk</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">_sort_key</span>
-
-    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_key</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">_sort_key</span>
-
-    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span> <span class="o">&gt;</span> <span class="n">other</span> <span class="ow">or</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span>
-
-    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span> <span class="o">&lt;</span> <span class="n">other</span> <span class="ow">or</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prepend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Node.append"><a class="viewcode-back" href="../../../fx.html#torch.fx.Node.append">[docs]</a>    <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1039,11 +990,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            x (Node): The node to put after this node. Must be a member of the same graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_next</span><span class="o">.</span><span class="n">prepend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">_remove_from_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">p</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">_next</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_next</span><span class="o">.</span><span class="n">_prepend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">args</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Argument</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
@@ -1064,9 +1011,9 @@
 <span class="sd">        depends on the node&#39;s opcode. See the ``fx.Graph`` docstring for more</span>
 <span class="sd">        information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># DO NOT CALL `__update_args_kwargs` directly. The correct way to</span>
+        <span class="c1"># DO NOT CALL `_update_args_kwargs` directly. The correct way to</span>
         <span class="c1"># set `args` is via direct assignment, i.e. `node.args = new_args`</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__update_args_kwargs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_args_kwargs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Argument</span><span class="p">]:</span>
@@ -1087,9 +1034,9 @@
 <span class="sd">        depends on the node&#39;s opcode. See the ``fx.Graph`` docstring for more</span>
 <span class="sd">        information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># DO NOT CALL `__update_args_kwargs` directly. The correct way to</span>
+        <span class="c1"># DO NOT CALL `_update_args_kwargs` directly. The correct way to</span>
         <span class="c1"># set `args` is via direct assignment, i.e. `node.kwargs = new_kwargs`</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__update_args_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_args_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">all_input_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
@@ -1139,7 +1086,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_args</span> <span class="o">=</span> <span class="n">args_left</span> <span class="o">+</span> <span class="p">(</span><span class="n">arg</span><span class="p">,)</span> <span class="o">+</span> <span class="n">args_right</span>
 
         <span class="n">_new_input_nodes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">map_arg</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">_new_input_nodes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">)</span>
+        <span class="n">_fx_map_arg</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">_new_input_nodes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">new_use</span> <span class="ow">in</span> <span class="n">_new_input_nodes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">new_use</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_nodes</span><span class="p">:</span>
@@ -1176,35 +1123,6 @@
     <span class="nd">@stack_trace</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">stack_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;stack_trace&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trace</span>
-
-    <span class="k">def</span> <span class="nf">__update_args_kwargs</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">new_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="s2">&quot;Argument&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">new_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Argument&quot;</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This API is internal. Do *not* call it directly.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">def</span> <span class="nf">update_users_and_input_nodes</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_input_nodes</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-                <span class="n">n</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">n</span>
-
-        <span class="c1"># Clear prior users and input_nodes</span>
-        <span class="k">for</span> <span class="n">old_use</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_nodes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">old_use</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_input_nodes&quot;</span><span class="p">,</span> <span class="p">{})</span>  <span class="c1"># bypass Node.__setattr__</span>
-
-        <span class="c1"># We do three things in a single pass of the args</span>
-        <span class="c1"># - Normalize list-&gt;immutable_list, dict-&gt;immutable_dict, etc</span>
-        <span class="c1"># - Populate self._input_nodes</span>
-        <span class="c1"># - Populate arg.users[self] for each arg</span>
-        <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_args&quot;</span><span class="p">,</span> <span class="n">map_aggregate</span><span class="p">(</span><span class="n">new_args</span><span class="p">,</span> <span class="n">update_users_and_input_nodes</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_kwargs&quot;</span><span class="p">,</span> <span class="n">map_aggregate</span><span class="p">(</span><span class="n">new_kwargs</span><span class="p">,</span> <span class="n">update_users_and_input_nodes</span><span class="p">)</span>
-        <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repr_fn</span><span class="p">:</span>
@@ -1352,11 +1270,11 @@
                 <span class="k">for</span> <span class="n">replace_hook</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">_replace_hooks</span><span class="p">:</span>
                     <span class="n">replace_hook</span><span class="p">(</span><span class="n">old</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="n">replace_with</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">use_node</span><span class="p">)</span>
 
-            <span class="n">new_args</span> <span class="o">=</span> <span class="n">map_arg</span><span class="p">(</span><span class="n">use_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
-            <span class="n">new_kwargs</span> <span class="o">=</span> <span class="n">map_arg</span><span class="p">(</span><span class="n">use_node</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
+            <span class="n">new_args</span> <span class="o">=</span> <span class="n">_fx_map_arg</span><span class="p">(</span><span class="n">use_node</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
+            <span class="n">new_kwargs</span> <span class="o">=</span> <span class="n">_fx_map_arg</span><span class="p">(</span><span class="n">use_node</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_args</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_kwargs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-            <span class="n">use_node</span><span class="o">.</span><span class="n">__update_args_kwargs</span><span class="p">(</span><span class="n">new_args</span><span class="p">,</span> <span class="n">new_kwargs</span><span class="p">)</span>
+            <span class="n">use_node</span><span class="o">.</span><span class="n">_update_args_kwargs</span><span class="p">(</span><span class="n">new_args</span><span class="p">,</span> <span class="n">new_kwargs</span><span class="p">)</span>
 
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">skipped</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">to_process</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">skipped</span><span class="p">]</span></div>
@@ -1464,11 +1382,11 @@
             <span class="k">for</span> <span class="n">replace_hook</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">_replace_hooks</span><span class="p">:</span>
                 <span class="n">replace_hook</span><span class="p">(</span><span class="n">old</span><span class="o">=</span><span class="n">old_input</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="n">new_input</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="n">new_args</span> <span class="o">=</span> <span class="n">map_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
-        <span class="n">new_kwargs</span> <span class="o">=</span> <span class="n">map_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
+        <span class="n">new_args</span> <span class="o">=</span> <span class="n">_fx_map_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
+        <span class="n">new_kwargs</span> <span class="o">=</span> <span class="n">_fx_map_arg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">maybe_replace_node</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_args</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_kwargs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__update_args_kwargs</span><span class="p">(</span><span class="n">new_args</span><span class="p">,</span> <span class="n">new_kwargs</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_args_kwargs</span><span class="p">(</span><span class="n">new_args</span><span class="p">,</span> <span class="n">new_kwargs</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candidate</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">candidate</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
@@ -1507,7 +1425,7 @@
 <span class="sd">    have the same type and structure.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span> <span class="s2">&quot;torch.fx.map_arg(a, fn): fn must be a callable&quot;</span>
-    <span class="k">return</span> <span class="n">map_aggregate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Node</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_fx_map_arg</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
 
 
 <span class="nd">@compatibility</span><span class="p">(</span><span class="n">is_backward_compatible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1518,26 +1436,7 @@
 <span class="sd">    arg may be a list, tuple, slice, or dict with string keys: the return value will</span>
 <span class="sd">    have the same type and structure.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">result</span><span class="p">:</span> <span class="n">Argument</span>
-
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-        <span class="n">it</span> <span class="o">=</span> <span class="p">(</span><span class="n">map_aggregate</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">a</span><span class="p">)</span>
-        <span class="c1"># Support NamedTuple (if it has `_fields`) by repacking into original type.</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)(</span><span class="o">*</span><span class="n">it</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&quot;_fields&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">immutable_list</span><span class="p">([</span><span class="n">map_aggregate</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">a</span><span class="p">])</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">immutable_dict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="n">map_aggregate</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">fn</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span>
-            <span class="n">map_aggregate</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span>
-            <span class="n">map_aggregate</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span>
-            <span class="n">map_aggregate</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">step</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span>
-        <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">ArgumentT</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_fx_map_aggregate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
 </pre></div>
 
              </article>
