@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git0bd2caa ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git84961a0 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -609,13 +609,23 @@
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">Future</span><span class="p">,</span> <span class="n">ThreadPoolExecutor</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">Future</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
 <span class="kn">from</span> <span class="nn">torch.distributed._state_dict_utils</span> <span class="kn">import</span> <span class="n">_copy_state_dict</span><span class="p">,</span> <span class="n">_create_cpu_state_dict</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.checkpoint._async_executor</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: TC001</span>
+    <span class="n">_AsyncCheckpointExecutor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.checkpoint._async_process_executor</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_ProcessBasedAsyncCheckpointExecutor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.checkpoint._async_thread_executor</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_ThreadBasedAsyncCheckpointExecutor</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint._storage_utils</span> <span class="kn">import</span> <span class="n">_storage_setup</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.default_planner</span> <span class="kn">import</span> <span class="n">DefaultSavePlanner</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.checkpoint.logger</span> <span class="kn">import</span> <span class="n">_dcp_method_logger</span>
@@ -629,7 +639,14 @@
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_api_bc_check</span><span class="p">,</span> <span class="n">_DistWrapper</span><span class="p">,</span> <span class="n">_profile</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;save_state_dict&quot;</span><span class="p">,</span> <span class="s2">&quot;save&quot;</span><span class="p">,</span> <span class="s2">&quot;async_save&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;save_state_dict&quot;</span><span class="p">,</span> <span class="s2">&quot;save&quot;</span><span class="p">,</span> <span class="s2">&quot;async_save&quot;</span><span class="p">,</span> <span class="s2">&quot;AsyncCheckpointerType&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="AsyncCheckpointerType"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.AsyncCheckpointerType">[docs]</a><span class="k">class</span> <span class="nc">AsyncCheckpointerType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum for async checkpointer type.&quot;&quot;&quot;</span>
+
+    <span class="n">THREAD</span> <span class="o">=</span> <span class="s2">&quot;thread&quot;</span>
+    <span class="n">PROCESS</span> <span class="o">=</span> <span class="s2">&quot;process&quot;</span></div>
 
 
 <div class="viewcode-block" id="save_state_dict"><a class="viewcode-back" href="../../../../distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_saver.save_state_dict">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span>
@@ -779,6 +796,7 @@
     <span class="n">storage_writer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">StorageWriter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">planner</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SavePlanner</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">process_group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">async_checkpointer_type</span><span class="p">:</span> <span class="n">AsyncCheckpointerType</span> <span class="o">=</span> <span class="n">AsyncCheckpointerType</span><span class="o">.</span><span class="n">THREAD</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Future</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Asynchronous version of ``save``. This code first de-stages the state_dict on to the</span>
 <span class="sd">    staging storage (defaults to CPU memory), and then calls the `save` in a separate thread.</span>
@@ -848,16 +866,19 @@
         <span class="n">staged_state_dict</span> <span class="o">=</span> <span class="n">_create_cpu_state_dict</span><span class="p">(</span><span class="n">state_dict</span><span class="p">)</span>
         <span class="n">_copy_state_dict</span><span class="p">(</span><span class="n">state_dict</span><span class="p">,</span> <span class="n">staged_state_dict</span><span class="p">,</span> <span class="n">type_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="n">executor</span> <span class="o">=</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">f</span><span class="p">:</span> <span class="n">Future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span>
-        <span class="n">save</span><span class="p">,</span>
+    <span class="n">executor</span><span class="p">:</span> <span class="n">_AsyncCheckpointExecutor</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">_ProcessBasedAsyncCheckpointExecutor</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">async_checkpointer_type</span> <span class="o">==</span> <span class="n">AsyncCheckpointerType</span><span class="o">.</span><span class="n">PROCESS</span>
+        <span class="k">else</span> <span class="n">_ThreadBasedAsyncCheckpointExecutor</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="n">f</span><span class="p">:</span> <span class="n">Future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">execute_save</span><span class="p">(</span>
         <span class="n">staged_state_dict</span><span class="p">,</span>
         <span class="n">checkpoint_id</span><span class="o">=</span><span class="n">checkpoint_id</span><span class="p">,</span>
         <span class="n">storage_writer</span><span class="o">=</span><span class="n">storage_writer</span><span class="p">,</span>
         <span class="n">planner</span><span class="o">=</span><span class="n">planner</span><span class="p">,</span>
         <span class="n">process_group</span><span class="o">=</span><span class="n">process_group</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">executor</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="p">(</span>
         <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage_writer</span><span class="p">,</span> <span class="n">AsyncStager</span><span class="p">)</span>
