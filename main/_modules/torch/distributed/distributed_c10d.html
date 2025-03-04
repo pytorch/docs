@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git29c2de9 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git0bd2caa ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -937,18 +937,12 @@
 <span class="sd">        .. note:: This support of 3rd party backend is experimental and subject to change.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Allow UCC plugin if Pytorch is not built with native support.</span>
-        <span class="c1"># TODO: remove this exception once UCC plugin is fully deprecated.</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">Backend</span><span class="o">.</span><span class="n">UCC</span> <span class="ow">or</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="n">Backend</span><span class="o">.</span><span class="n">UCC</span> <span class="ow">and</span> <span class="n">is_ucc_available</span><span class="p">()):</span>
-            <span class="k">assert</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Backend</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()),</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> c10d backend already exist&quot;</span>
-            <span class="p">)</span>
-        <span class="k">assert</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Backend</span><span class="o">.</span><span class="n">_plugins</span><span class="p">,</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> c10d backend creator function already exist&quot;</span>
-        <span class="p">)</span>
+        <span class="c1"># This takes care of CUSTOM Out-of-tree backend types, update in backend_list indicates availability</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Backend</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">Backend</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Backend</span><span class="o">.</span><span class="n">backend_list</span><span class="p">:</span>
+            <span class="n">Backend</span><span class="o">.</span><span class="n">backend_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
 
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">Backend</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-        <span class="n">Backend</span><span class="o">.</span><span class="n">backend_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">devices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">device</span> <span class="o">!=</span> <span class="s2">&quot;cpu&quot;</span> <span class="ow">and</span> <span class="n">device</span> <span class="o">!=</span> <span class="s2">&quot;cuda&quot;</span><span class="p">:</span>
