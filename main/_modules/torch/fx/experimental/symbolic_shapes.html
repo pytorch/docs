@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git84961a0 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gita907b6a ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1547,6 +1547,162 @@
         <span class="k">return</span> <span class="n">o</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">divisor</span></div></div>
 
 
+<span class="k">def</span> <span class="nf">_free_unbacked_symbols_with_path</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">,</span>
+    <span class="n">real</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shape_env</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ShapeEnv</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pending</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">simplify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]:</span>
+    <span class="n">go</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
+        <span class="n">_free_unbacked_symbols_with_path</span><span class="p">,</span>
+        <span class="n">shape_env</span><span class="o">=</span><span class="n">shape_env</span><span class="p">,</span>
+        <span class="n">pending</span><span class="o">=</span><span class="n">pending</span><span class="p">,</span>
+        <span class="n">simplify</span><span class="o">=</span><span class="n">simplify</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">expr</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">SymFloat</span><span class="p">,</span> <span class="n">SymBool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Expr</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">simplify</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">expr</span>
+        <span class="c1"># (When called from compute_unbacked_bindings)</span>
+        <span class="c1"># NB: Intentionally access _expr, not expr, do not want</span>
+        <span class="c1"># simplification!</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_expr</span>
+
+    <span class="k">if</span> <span class="n">pending</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pending</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+        <span class="c1"># NB: real is apparently not always a tuple/list here</span>
+        <span class="c1"># python test/inductor/test_torchinductor.py CpuTests.test_index_propagation_nested_indirect_indexing_cpu</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">go</span><span class="p">(</span>
+                    <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                    <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">pytree</span><span class="o">.</span><span class="n">SequenceKey</span><span class="p">(</span><span class="n">i</span><span class="p">),),</span>
+                    <span class="n">real</span><span class="o">=</span><span class="n">real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore[index]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_traceable_wrapper_subclass</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="c1"># TODO: Determine if this is correct</span>
+        <span class="n">attrs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">__tensor_flatten__</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+            <span class="n">sub</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">go</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">InnerTensorKey</span><span class="p">(</span><span class="n">attr</span><span class="p">),)))</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">FakeTensor</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">FakeTensor</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">go</span><span class="p">(</span>
+                <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
+                <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">),),</span>
+                <span class="n">real</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">layout</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">sparse_csr</span><span class="p">,</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">sparse_csc</span><span class="p">,</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">sparse_bsr</span><span class="p">,</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">sparse_bsc</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">go</span><span class="p">(</span>
+                    <span class="n">a</span><span class="o">.</span><span class="n">stride</span><span class="p">(),</span>
+                    <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;stride&quot;</span><span class="p">),),</span>
+                    <span class="n">real</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">stride</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">go</span><span class="p">(</span>
+                <span class="n">a</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">(),</span>
+                <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;storage_offset&quot;</span><span class="p">),),</span>
+                <span class="n">real</span><span class="o">=</span><span class="p">(</span>
+                    <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                    <span class="k">else</span> <span class="kc">None</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">elif</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymFloat</span><span class="p">))</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span> <span class="o">:=</span> <span class="n">expr</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pending</span>
+    <span class="p">):</span>
+        <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="k">if</span> <span class="n">shape_env</span> <span class="ow">and</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+            <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">real</span><span class="p">)</span>
+        <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="c1"># When an unbacked SymInt is perfectly divisible by an integer</span>
+    <span class="c1"># constant, we replace it with the integer constant to improve</span>
+    <span class="c1"># reasoning capabilities.  However, in synthetic examples, it is</span>
+    <span class="c1"># then possible that the factor never is explicitly allocated.</span>
+    <span class="c1"># Fortunately, we can compute it by division.</span>
+    <span class="k">elif</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span> <span class="o">:=</span> <span class="n">expr</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span> <span class="o">:=</span> <span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span> <span class="o">:=</span> <span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+        <span class="c1"># support exactly one unbacked for now</span>
+        <span class="ow">and</span> <span class="p">((</span><span class="n">rhs</span> <span class="ow">in</span> <span class="n">pending</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">lhs</span> <span class="ow">in</span> <span class="n">pending</span><span class="p">))</span>
+        <span class="c1"># support constant coefficient or backed symbolic coefficient</span>
+        <span class="ow">and</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">coeff</span> <span class="o">:=</span> <span class="n">lhs</span> <span class="k">if</span> <span class="n">lhs</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pending</span> <span class="k">else</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">shape_env</span>
+            <span class="ow">and</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_val</span>
+        <span class="p">)</span>
+    <span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">_symint_wrap</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SymInt</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">shape_env</span><span class="o">.</span><span class="n">create_symintnode</span><span class="p">(</span>  <span class="c1"># type: ignore[union-attr]</span>
+                <span class="n">s</span><span class="p">,</span>
+                <span class="n">hint</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">[</span><span class="n">s</span><span class="p">]),</span>  <span class="c1"># type: ignore[union-attr]</span>
+                <span class="n">source</span><span class="o">=</span><span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_sources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># type: ignore[union-attr]</span>
+            <span class="p">)</span>
+
+        <span class="n">unbacked</span> <span class="o">=</span> <span class="n">lhs</span> <span class="k">if</span> <span class="n">lhs</span> <span class="ow">in</span> <span class="n">pending</span> <span class="k">else</span> <span class="n">rhs</span>
+        <span class="n">divisor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">shape_env</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">_symint_wrap</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># TODO: DivideByKey needs to test divisibility at runtime!</span>
+        <span class="n">r</span><span class="p">[</span><span class="n">unbacked</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">DivideByKey</span><span class="p">(</span><span class="n">divisor</span><span class="p">),)</span>
+        <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">real</span> <span class="o">//</span> <span class="nb">int</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">CleanDiv</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">coeff</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">shape_env</span><span class="p">:</span>
+                <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">unbacked</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">unbacked</span><span class="p">)</span>
+    <span class="c1"># The annoyance here arises from the fact that SymBool is</span>
+    <span class="c1"># allocated by allocating a SymInt and then testing if it&#39;s equal</span>
+    <span class="c1"># to one.  So you have a complicated binding site logic for this.</span>
+    <span class="k">elif</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymBool</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span> <span class="o">:=</span> <span class="n">expr</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">)</span>
+        <span class="c1"># This must match create_unbacked_symbool EXACTLY</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">rhs</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">lhs</span> <span class="ow">in</span> <span class="n">pending</span>
+    <span class="p">):</span>
+        <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">lhs</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">ConvertIntKey</span><span class="p">(),)</span>
+        <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">real</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">bool</span>
+            <span class="k">if</span> <span class="n">shape_env</span><span class="p">:</span>
+                <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">real</span><span class="p">))</span>
+        <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">r</span>
+
+
 <div class="viewcode-block" id="compute_unbacked_bindings"><a class="viewcode-back" href="../../../../generated/torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings.html#torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings">[docs]</a><span class="k">def</span> <span class="nf">compute_unbacked_bindings</span><span class="p">(</span>
     <span class="n">shape_env</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ShapeEnv</span><span class="p">],</span>
     <span class="n">example_value</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
@@ -1578,134 +1734,9 @@
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;compute_unbacked_bindings </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
         <span class="n">fs</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">free_unbacked_symbols_with_path</span><span class="p">(</span>
-        <span class="n">a</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">,</span> <span class="n">real</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="n">pytree</span><span class="o">.</span><span class="n">KeyPath</span><span class="p">]:</span>
-        <span class="k">assert</span> <span class="n">shape_env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-            <span class="c1"># NB: real is apparently not always a tuple/list here</span>
-            <span class="c1"># python test/inductor/test_torchinductor.py CpuTests.test_index_propagation_nested_indirect_indexing_cpu</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
-                <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                    <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span>
-                        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                        <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">pytree</span><span class="o">.</span><span class="n">SequenceKey</span><span class="p">(</span><span class="n">i</span><span class="p">),),</span>
-                        <span class="n">real</span><span class="o">=</span><span class="n">real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore[index]</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">is_traceable_wrapper_subclass</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-            <span class="c1"># TODO: Determine if this is correct</span>
-            <span class="n">attrs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">__tensor_flatten__</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
-                <span class="n">sub</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
-                <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                    <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">InnerTensorKey</span><span class="p">(</span><span class="n">attr</span><span class="p">),))</span>
-                <span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-            <span class="kn">from</span> <span class="nn">torch._subclasses.fake_tensor</span> <span class="kn">import</span> <span class="n">FakeTensor</span>
-
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">FakeTensor</span><span class="p">)</span>
-            <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span>
-                    <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
-                    <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">),),</span>
-                    <span class="n">real</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span>
-                    <span class="n">a</span><span class="o">.</span><span class="n">stride</span><span class="p">(),</span>
-                    <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;stride&quot;</span><span class="p">),),</span>
-                    <span class="n">real</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">stride</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span>
-                    <span class="n">a</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">(),</span>
-                    <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">CallMethodKey</span><span class="p">(</span><span class="s2">&quot;storage_offset&quot;</span><span class="p">),),</span>
-                    <span class="n">real</span><span class="o">=</span><span class="p">(</span>
-                        <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">()</span>
-                        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">real_tensor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                        <span class="k">else</span> <span class="kc">None</span>
-                    <span class="p">),</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-
-        <span class="c1"># NB: Intentionally access _expr, not expr, do not want</span>
-        <span class="c1"># simplification!</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymFloat</span><span class="p">))</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span> <span class="o">:=</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pending</span>
-        <span class="p">):</span>
-            <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
-            <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
-                <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">real</span><span class="p">)</span>
-            <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-        <span class="c1"># When an unbacked SymInt is perfectly divisible by an integer</span>
-        <span class="c1"># constant, we replace it with the integer constant to improve</span>
-        <span class="c1"># reasoning capabilities.  However, in synthetic examples, it is</span>
-        <span class="c1"># then possible that the factor never is explicitly allocated.</span>
-        <span class="c1"># Fortunately, we can compute it by division.</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymInt</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span> <span class="o">:=</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Mul</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lhs</span> <span class="o">:=</span> <span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">))</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span> <span class="o">:=</span> <span class="n">s</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
-            <span class="c1"># support exactly one unbacked for now</span>
-            <span class="ow">and</span> <span class="p">((</span><span class="n">rhs</span> <span class="ow">in</span> <span class="n">pending</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">lhs</span> <span class="ow">in</span> <span class="n">pending</span><span class="p">))</span>
-            <span class="c1"># support constant coefficient or backed symbolic coefficient</span>
-            <span class="ow">and</span> <span class="p">(</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">coeff</span> <span class="o">:=</span> <span class="n">lhs</span> <span class="k">if</span> <span class="n">lhs</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pending</span> <span class="k">else</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
-                <span class="ow">or</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_val</span>
-            <span class="p">)</span>
-        <span class="p">):</span>
-
-            <span class="k">def</span> <span class="nf">_symint_wrap</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SymInt</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">create_symintnode</span><span class="p">(</span>
-                    <span class="n">s</span><span class="p">,</span>
-                    <span class="n">hint</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_val</span><span class="p">[</span><span class="n">s</span><span class="p">]),</span>
-                    <span class="n">source</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">shape_env</span><span class="o">.</span><span class="n">var_to_sources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span>
-                <span class="p">)</span>
-
-            <span class="n">unbacked</span> <span class="o">=</span> <span class="n">lhs</span> <span class="k">if</span> <span class="n">lhs</span> <span class="ow">in</span> <span class="n">pending</span> <span class="k">else</span> <span class="n">rhs</span>
-            <span class="n">divisor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SymInt</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="nb">int</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span> <span class="k">else</span> <span class="n">_symint_wrap</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="c1"># TODO: DivideByKey needs to test divisibility at runtime!</span>
-            <span class="n">r</span><span class="p">[</span><span class="n">unbacked</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">DivideByKey</span><span class="p">(</span><span class="n">divisor</span><span class="p">),)</span>
-            <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-                <span class="n">val</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">real</span> <span class="o">//</span> <span class="nb">int</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Integer</span><span class="p">)</span>
-                    <span class="k">else</span> <span class="n">CleanDiv</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">coeff</span><span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">unbacked</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-            <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">unbacked</span><span class="p">)</span>
-        <span class="c1"># The annoyance here arises from the fact that SymBool is</span>
-        <span class="c1"># allocated by allocating a SymInt and then testing if it&#39;s equal</span>
-        <span class="c1"># to one.  So you have a complicated binding site logic for this.</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">SymBool</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span> <span class="o">:=</span> <span class="n">a</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_expr</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Eq</span><span class="p">)</span>
-            <span class="c1"># This must match create_unbacked_symbool EXACTLY</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">rhs</span> <span class="o">==</span> <span class="mi">1</span>
-            <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">lhs</span> <span class="ow">in</span> <span class="n">pending</span>
-        <span class="p">):</span>
-            <span class="n">r</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">lhs</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="p">(</span><span class="n">ConvertIntKey</span><span class="p">(),)</span>
-            <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">real</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">bool</span>
-                <span class="n">shape_env</span><span class="o">.</span><span class="n">set_unbacked_var_to_val</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">real</span><span class="p">))</span>
-            <span class="n">pending</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">r</span>
-
-    <span class="n">symbol_to_path</span> <span class="o">=</span> <span class="n">free_unbacked_symbols_with_path</span><span class="p">(</span><span class="n">example_value</span><span class="p">,</span> <span class="p">())</span>
+    <span class="n">symbol_to_path</span> <span class="o">=</span> <span class="n">_free_unbacked_symbols_with_path</span><span class="p">(</span>
+        <span class="n">example_value</span><span class="p">,</span> <span class="p">(),</span> <span class="n">shape_env</span><span class="o">=</span><span class="n">shape_env</span><span class="p">,</span> <span class="n">pending</span><span class="o">=</span><span class="n">pending</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">peek</span> <span class="ow">and</span> <span class="n">pending</span><span class="p">:</span>
         <span class="n">extra</span> <span class="o">=</span> <span class="p">(</span>
             <span class="nb">repr</span><span class="p">((</span><span class="n">example_value</span><span class="o">.</span><span class="n">stride</span><span class="p">(),</span> <span class="n">example_value</span><span class="o">.</span><span class="n">storage_offset</span><span class="p">()))</span>
