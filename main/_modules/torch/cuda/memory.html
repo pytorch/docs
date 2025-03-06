@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gita907b6a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git690fc2c ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -645,6 +645,10 @@
     <span class="s2">&quot;reset_peak_memory_stats&quot;</span><span class="p">,</span>
     <span class="s2">&quot;reset_max_memory_allocated&quot;</span><span class="p">,</span>
     <span class="s2">&quot;reset_max_memory_cached&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;host_memory_stats&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;host_memory_stats_as_nested_dict&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;reset_accumulated_host_memory_stats&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;reset_peak_host_memory_stats&quot;</span><span class="p">,</span>
     <span class="s2">&quot;memory_allocated&quot;</span><span class="p">,</span>
     <span class="s2">&quot;max_memory_allocated&quot;</span><span class="p">,</span>
     <span class="s2">&quot;memory_reserved&quot;</span><span class="p">,</span>
@@ -974,6 +978,100 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">device</span> <span class="o">=</span> <span class="n">_get_device_index</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_resetPeakMemoryStats</span><span class="p">(</span><span class="n">device</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="host_memory_stats"><a class="viewcode-back" href="../../../generated/torch.cuda.host_memory_stats.html#torch.cuda.memory.host_memory_stats">[docs]</a><span class="k">def</span> <span class="nf">host_memory_stats</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return a dictionary of CUDA memory allocator statistics for a given device.</span>
+
+<span class="sd">     The return value of this function is a dictionary of statistics, each of</span>
+<span class="sd">     which is a non-negative integer.</span>
+
+<span class="sd">     Core statistics:</span>
+
+<span class="sd">     - ``&quot;allocated.{current,peak,allocated,freed}&quot;``:</span>
+<span class="sd">       number of allocation requests received by the memory allocator.</span>
+<span class="sd">     - ``&quot;allocated_bytes.{current,peak,allocated,freed}&quot;``:</span>
+<span class="sd">       amount of allocated memory.</span>
+<span class="sd">     - ``&quot;segment.{current,peak,allocated,freed}&quot;``:</span>
+<span class="sd">       number of reserved segments from ``cudaMalloc()``.</span>
+<span class="sd">     - ``&quot;reserved_bytes.{current,peak,allocated,freed}&quot;``:</span>
+<span class="sd">       amount of reserved memory.</span>
+
+<span class="sd">     For these core statistics, values are broken down as follows.</span>
+
+<span class="sd">     Metric type:</span>
+
+<span class="sd">     - ``current``: current value of this metric.</span>
+<span class="sd">     - ``peak``: maximum value of this metric.</span>
+<span class="sd">     - ``allocated``: historical total increase in this metric.</span>
+<span class="sd">     - ``freed``: historical total decrease in this metric.</span>
+
+<span class="sd">     In addition to the core statistics, we also provide some simple event</span>
+<span class="sd">     counters:</span>
+
+<span class="sd">     - ``&quot;num_host_alloc&quot;``: number of CUDA allocation calls. This includes both</span>
+<span class="sd">       cudaHostAlloc and cudaHostRegister.</span>
+<span class="sd">     - ``&quot;num_host_free&quot;``: number of CUDA free calls. This includes both cudaHostFree</span>
+<span class="sd">       and cudaHostUnregister.</span>
+
+<span class="sd">     Finally, we also provide some simple timing counters:</span>
+
+<span class="sd">     - ``&quot;host_alloc_time.{total,max,min,count,avg}&quot;``:</span>
+<span class="sd">       timing of allocation requests going through CUDA calls.</span>
+<span class="sd">     - ``&quot;host_free_time.{total,max,min,count,avg}&quot;``:</span>
+<span class="sd">       timing of free requests going through CUDA calls.</span>
+
+<span class="sd">    For these timing statistics, values are broken down as follows.</span>
+
+<span class="sd">     Metric type:</span>
+
+<span class="sd">     - ``total``: total time spent.</span>
+<span class="sd">     - ``max``: maximum value per call.</span>
+<span class="sd">     - ``min``: minimum value per call.</span>
+<span class="sd">     - ``count``: number of times it was called.</span>
+<span class="sd">     - ``avg``: average time per call.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_recurse_add_to_result</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">prefix</span> <span class="o">+=</span> <span class="s2">&quot;.&quot;</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">_recurse_add_to_result</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">prefix</span><span class="p">,</span> <span class="n">obj</span><span class="p">))</span>
+
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">host_memory_stats_as_nested_dict</span><span class="p">()</span>
+    <span class="n">_recurse_add_to_result</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">stats</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">host_memory_stats_as_nested_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the result of :func:`~torch.cuda.host_memory_stats` as a nested dictionary.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_initialized</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_hostMemoryStats</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">reset_accumulated_host_memory_stats</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reset the &quot;accumulated&quot; (historical) stats tracked by the host memory allocator.</span>
+
+<span class="sd">    See :func:`~torch.cuda.host_memory_stats` for details. Accumulated stats correspond to</span>
+<span class="sd">    the `&quot;allocated&quot;` and `&quot;freed&quot;` keys in each individual stat dict.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_resetAccumulatedHostMemoryStats</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="reset_peak_host_memory_stats"><a class="viewcode-back" href="../../../generated/torch.cuda.reset_peak_host_memory_stats.html#torch.cuda.memory.reset_peak_host_memory_stats">[docs]</a><span class="k">def</span> <span class="nf">reset_peak_host_memory_stats</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reset the &quot;peak&quot; stats tracked by the host memory allocator.</span>
+
+<span class="sd">    See :func:`~torch.cuda.host_memory_stats` for details. Peak stats correspond to the</span>
+<span class="sd">    `&quot;peak&quot;` key in each individual stat dict.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_cuda_resetPeakHostMemoryStats</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="reset_max_memory_allocated"><a class="viewcode-back" href="../../../generated/torch.cuda.reset_max_memory_allocated.html#torch.cuda.memory.reset_max_memory_allocated">[docs]</a><span class="k">def</span> <span class="nf">reset_max_memory_allocated</span><span class="p">(</span><span class="n">device</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Device</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

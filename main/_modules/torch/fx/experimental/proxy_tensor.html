@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gita907b6a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git690fc2c ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -620,7 +620,7 @@
 <span class="kn">import</span> <span class="nn">typing_extensions</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">OrderedDict</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">_GeneratorContextManager</span><span class="p">,</span> <span class="n">contextmanager</span><span class="p">,</span> <span class="n">ExitStack</span><span class="p">,</span> <span class="n">nullcontext</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
@@ -2211,6 +2211,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">submodule_paths</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope_root</span><span class="o">.</span><span class="n">named_modules</span><span class="p">(</span><span class="n">remove_duplicate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodule_paths</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Shared module found between </span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2">, AttrProxy is enabled.&quot;</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">submodule_paths</span><span class="p">[</span><span class="n">m</span><span class="p">],</span>
+                    <span class="n">name</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">enable_attr_proxy</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">submodule_paths</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
@@ -2230,7 +2235,11 @@
         <span class="n">tracer</span> <span class="o">=</span> <span class="bp">self</span>
 
         <span class="k">class</span> <span class="nc">AttrProxy</span><span class="p">(</span><span class="n">_AttrProxy</span><span class="p">):</span>
-            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Module</span><span class="p">,</span> <span class="n">_AttrProxy</span><span class="p">],</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">_AttrProxy</span><span class="p">):</span>
+                    <span class="n">base</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">get_base</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span>
+
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">Module</span><span class="p">)</span>
                 <span class="c1"># Class is modified to be a subclass of torch.nn.Module</span>
                 <span class="c1"># Warning: We blow away our own attributes here to mimic the base class</span>
                 <span class="c1"># - so don&#39;t expect `self.x` to do anything useful.</span>
@@ -2242,9 +2251,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="vm">__dict__</span>
                 <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span>
                 <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__qualname__</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__qualname__</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">reset_proxy_mapping</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 
-            <span class="k">def</span> <span class="nf">reset_proxy_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># This overwrites any existing paths if `base` is an AttrProxy</span>
                 <span class="n">tracer</span><span class="o">.</span><span class="n">proxy_paths</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
                 <span class="n">tracer</span><span class="o">.</span><span class="n">proxy_modules</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span>
 
@@ -2254,28 +2262,28 @@
                 <span class="c1"># That __getattr__ is patched to be module_getattr_wrapper in _symbolic_trace.py.</span>
                 <span class="c1"># which then calls into _ModuleStackTracer.getattr</span>
                 <span class="n">attr_val</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_val</span><span class="p">,</span> <span class="n">AttrProxy</span><span class="p">):</span>
-                    <span class="n">attr_val</span> <span class="o">=</span> <span class="n">tracer</span><span class="o">.</span><span class="n">proxy_modules</span><span class="p">[</span><span class="n">attr_val</span><span class="p">]</span>
-                <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_val</span><span class="p">,</span> <span class="n">Module</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_val</span><span class="p">,</span> <span class="n">Module</span><span class="p">):</span>
                     <span class="k">return</span> <span class="n">attr_val</span>
-                <span class="k">if</span> <span class="n">attr_val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tracer</span><span class="o">.</span><span class="n">attr_proxy_map</span><span class="p">:</span>
-                    <span class="n">tracer</span><span class="o">.</span><span class="n">attr_proxy_map</span><span class="p">[</span><span class="n">attr_val</span><span class="p">]</span> <span class="o">=</span> <span class="n">AttrProxy</span><span class="p">(</span>
-                        <span class="n">attr_val</span><span class="p">,</span> <span class="n">tracer</span><span class="o">.</span><span class="n">proxy_paths</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">name</span>
-                    <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># NOTE [caching AttrProxy]. Caching ensures a 1-1 mapping between AttrProxy and the actual attr_val.</span>
-                    <span class="c1"># 1. We reset the proxy_mapping to solve the diamond shape reference problem: we want to record the</span>
-                    <span class="c1"># path as A.B.D instead of A.C.D (the purpose of _ModuleStackTracer).</span>
-                    <span class="c1"># 2. Instead of creating a new AttrProxy, we just reset the proxy_mapping of existing one. This is to avoid</span>
-                    <span class="c1"># dynamo creating multiple guards for the same attr_val but different AttrProxy when exporting</span>
-                    <span class="c1"># a model that calls torch.compile (e.g when a model uses torch.cond.)</span>
-                    <span class="n">tracer</span><span class="o">.</span><span class="n">attr_proxy_map</span><span class="p">[</span><span class="n">attr_val</span><span class="p">]</span><span class="o">.</span><span class="n">reset_proxy_mapping</span><span class="p">(</span>
-                        <span class="n">attr_val</span><span class="p">,</span> <span class="n">tracer</span><span class="o">.</span><span class="n">proxy_paths</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">name</span>
-                    <span class="p">)</span>
-                <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">attr_proxy_map</span><span class="p">[</span><span class="n">attr_val</span><span class="p">]</span>
+
+                <span class="k">return</span> <span class="n">AttrProxy</span><span class="p">(</span><span class="n">attr_val</span><span class="p">,</span> <span class="n">tracer</span><span class="o">.</span><span class="n">proxy_paths</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
 
             <span class="k">def</span> <span class="nf">get_base</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Module</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">tracer</span><span class="o">.</span><span class="n">proxy_modules</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+
+            <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">AttrProxy</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">):</span>
+                        <span class="c1"># Copied from nn/modules/container.py</span>
+                        <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+                            <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">items</span><span class="p">())[</span><span class="n">idx</span><span class="p">])</span>
+                        <span class="p">)</span>
+                        <span class="k">return</span> <span class="n">AttrProxy</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tracer</span><span class="o">.</span><span class="n">proxy_paths</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">):</span>
+                        <span class="c1"># Copied from nn/modules/container.py</span>
+                        <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">idx</span><span class="p">])</span>
+                        <span class="k">return</span> <span class="n">AttrProxy</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tracer</span><span class="o">.</span><span class="n">proxy_paths</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
 
             <span class="nd">@property</span>
             <span class="k">def</span> <span class="nf">_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">AttrProxy</span><span class="p">]:</span>
