@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git690fc2c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gita0bc6d8 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -815,6 +815,20 @@
     <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">load</span><span class="o">.</span><span class="n">mmap_flags</span></div>
 
 
+<span class="k">def</span> <span class="nf">_get_storage_alignment</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets alignment for storages in torch.save files/</span>
+
+<span class="sd">    Defaults to 64.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        storage_alginment: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">torch.utils.serialization</span> <span class="kn">import</span> <span class="n">config</span>
+
+    <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="o">.</span><span class="n">storage_alignment</span>
+
+
 <div class="viewcode-block" id="set_default_mmap_options"><a class="viewcode-back" href="../../notes/serialization.html#torch.set_default_mmap_options">[docs]</a><span class="k">class</span> <span class="nc">set_default_mmap_options</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Context manager or function to set default mmap options for :func:`torch.load` with ``mmap=True`` to flags.</span>
@@ -973,16 +987,18 @@
 
 <div class="viewcode-block" id="skip_data"><a class="viewcode-back" href="../../notes/serialization.html#torch.skip_data">[docs]</a><span class="k">class</span> <span class="nc">skip_data</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Context-manager that skips writing storage bytes for ``torch.save`` calls.</span>
+<span class="sd">    Context-manager that skips writing/reading storage bytes for ``torch.save`` / ``torch.load`` calls.</span>
 
-<span class="sd">    Storages will still be saved, but the space that their bytes would usually be written to</span>
+<span class="sd">    For the save path, storages will still be saved, but the space that their bytes would usually be written to</span>
 <span class="sd">    will be empty space. The storage bytes can then be populated in a separate pass.</span>
+
+<span class="sd">    For the load path, tensors will be loaded per the checkpoint but their storages will not be populated with data.</span>
 
 <span class="sd">    .. warning::</span>
 <span class="sd">        The ``skip_data`` context manager is an early prototype and is subject to change.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        materialize_fake_tensors: Whether to materialize FakeTensors.</span>
+<span class="sd">        materialize_fake_tensors: Whether to materialize FakeTensors during save. This is a no-op for the load path.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(&quot;NamedTemporaryFile on Windows&quot;)</span>
@@ -1371,10 +1387,16 @@
             <span class="c1"># for writing out the file.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_stream</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">FileIO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PyTorchFileWriter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_stream</span><span class="p">,</span> <span class="n">get_crc32_options</span><span class="p">())</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PyTorchFileWriter</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">file_stream</span><span class="p">,</span> <span class="n">get_crc32_options</span><span class="p">(),</span> <span class="n">_get_storage_alignment</span><span class="p">()</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PyTorchFileWriter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">get_crc32_options</span><span class="p">()))</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PyTorchFileWriter</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">get_crc32_options</span><span class="p">(),</span> <span class="n">_get_storage_alignment</span><span class="p">()</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_like</span><span class="o">.</span><span class="n">write_end_of_file</span><span class="p">()</span>
@@ -1390,7 +1412,11 @@
                 <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PyTorchFileWriter</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">get_crc32_options</span><span class="p">()))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">PyTorchFileWriter</span><span class="p">(</span>
+                <span class="n">buffer</span><span class="p">,</span> <span class="n">get_crc32_options</span><span class="p">(),</span> <span class="n">_get_storage_alignment</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_like</span><span class="o">.</span><span class="n">write_end_of_file</span><span class="p">()</span>
@@ -1792,7 +1818,13 @@
     <span class="c1"># .format_version is used to track</span>
     <span class="c1">#     1. version 1 represents the order of storages being changed from</span>
     <span class="c1">#        lexicographical based on keys to numerically ordered based on keys</span>
+    <span class="c1">#     2. version 2 represents including storage_alignment as a record</span>
+    <span class="c1">#        within the zipfile</span>
     <span class="n">zip_file</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="s2">&quot;.format_version&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">))</span>
+    <span class="n">storage_alignment</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_get_storage_alignment</span><span class="p">())</span>
+    <span class="n">zip_file</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span>
+        <span class="s2">&quot;.storage_alignment&quot;</span><span class="p">,</span> <span class="n">storage_alignment</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">storage_alignment</span><span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="c1"># Write byte order marker</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_disable_byteorder_record</span><span class="p">:</span>
@@ -1991,14 +2023,6 @@
                     <span class="p">)</span>
             <span class="n">updated_message</span> <span class="o">+=</span> <span class="n">message</span>
         <span class="k">return</span> <span class="n">updated_message</span> <span class="o">+</span> <span class="n">DOCS_MESSAGE</span>
-
-    <span class="k">global</span> <span class="n">_serialization_tls</span>
-    <span class="n">skip_data</span> <span class="o">=</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span>
-    <span class="k">if</span> <span class="n">skip_data</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="s2">&quot;`torch.load` called within a torch.serialization.skip_data context manager &quot;</span>
-            <span class="s2">&quot;is not supported yet. Please call torch.load outside the skip_data context manager.&quot;</span>
-        <span class="p">)</span>
 
     <span class="n">weights_only_not_set</span> <span class="o">=</span> <span class="n">weights_only</span> <span class="ow">is</span> <span class="kc">None</span>
 
@@ -2309,6 +2333,9 @@
             <span class="k">if</span> <span class="n">root_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deserialized_objects</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_guards</span><span class="o">.</span><span class="n">active_fake_mode</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">obj</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Storage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;meta&quot;</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span><span class="p">:</span>
+                    <span class="n">obj</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Storage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">))</span>
+                    <span class="n">obj</span> <span class="o">=</span> <span class="n">restore_location</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">obj</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Storage</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">))</span>
                     <span class="n">obj</span><span class="o">.</span><span class="n">_torch_load_uninitialized</span> <span class="o">=</span> <span class="kc">True</span>
@@ -2381,7 +2408,7 @@
 
     <span class="n">deserialized_storage_keys</span> <span class="o">=</span> <span class="n">pickle_module</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">**</span><span class="n">pickle_load_args</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_guards</span><span class="o">.</span><span class="n">active_fake_mode</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_guards</span><span class="o">.</span><span class="n">active_fake_mode</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span><span class="p">:</span>
         <span class="n">offset</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="k">if</span> <span class="n">f_should_read_directly</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">deserialized_storage_keys</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">deserialized_objects</span>
@@ -2490,6 +2517,10 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid load endianness type&quot;</span><span class="p">)</span>
 
+    <span class="n">storage_alignment</span> <span class="o">=</span> <span class="mi">64</span>
+    <span class="k">if</span> <span class="n">zip_file</span><span class="o">.</span><span class="n">has_record</span><span class="p">(</span><span class="s2">&quot;.storage_alignment&quot;</span><span class="p">):</span>
+        <span class="n">storage_alignment</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">zip_file</span><span class="o">.</span><span class="n">get_record</span><span class="p">(</span><span class="s2">&quot;.storage_alignment&quot;</span><span class="p">))</span>
+
     <span class="k">if</span> <span class="p">(</span>
         <span class="ow">not</span> <span class="n">zip_file</span><span class="o">.</span><span class="n">has_record</span><span class="p">(</span><span class="n">byteordername</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">get_default_load_endianness</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span>
@@ -2543,7 +2574,7 @@
             <span class="n">storage_offset</span> <span class="o">=</span> <span class="n">current_offset</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">storage_offset</span> <span class="o">=</span> <span class="n">zip_file</span><span class="o">.</span><span class="n">get_record_offset_no_read</span><span class="p">(</span>
-                <span class="n">current_offset</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">numel</span>
+                <span class="n">current_offset</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">numel</span><span class="p">,</span> <span class="n">storage_alignment</span>
             <span class="p">)</span>
             <span class="n">local_header_offset</span> <span class="o">=</span> <span class="n">current_offset</span>
 
@@ -2568,6 +2599,10 @@
         <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_guards</span><span class="o">.</span><span class="n">detect_fake_mode</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">nbytes</span> <span class="o">=</span> <span class="n">numel</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_element_size</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
             <span class="n">storage</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;meta&quot;</span><span class="p">)</span>
+            <span class="n">storage</span><span class="o">.</span><span class="n">_checkpoint_offset</span> <span class="o">=</span> <span class="n">zip_file</span><span class="o">.</span><span class="n">get_record_offset</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_serialization_tls</span><span class="o">.</span><span class="n">skip_data</span><span class="p">:</span>
+            <span class="n">nbytes</span> <span class="o">=</span> <span class="n">numel</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_element_size</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="n">storage</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">UntypedStorage</span><span class="p">(</span><span class="n">nbytes</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">overall_storage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">can_calculate_storage_offsets</span> <span class="ow">and</span> <span class="n">calculate_storage_offsets</span><span class="p">:</span>
                 <span class="n">storage_offset</span> <span class="o">=</span> <span class="n">_get_offset</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">numel</span><span class="p">)</span>
@@ -2604,8 +2639,15 @@
 
         <span class="c1"># TODO: Once we decide to break serialization FC, we can</span>
         <span class="c1"># stop wrapping with TypedStorage</span>
+
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_guards</span><span class="o">.</span><span class="n">detect_fake_mode</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">wrap_storage</span> <span class="o">=</span> <span class="n">restore_location</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">storage</span><span class="o">.</span><span class="n">_fake_device</span> <span class="o">=</span> <span class="n">location</span>
+            <span class="n">wrap_storage</span> <span class="o">=</span> <span class="n">storage</span>
+
         <span class="n">typed_storage</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">TypedStorage</span><span class="p">(</span>
-            <span class="n">wrap_storage</span><span class="o">=</span><span class="n">restore_location</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">location</span><span class="p">),</span>
+            <span class="n">wrap_storage</span><span class="o">=</span><span class="n">wrap_storage</span><span class="p">,</span>
             <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
             <span class="n">_internal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>

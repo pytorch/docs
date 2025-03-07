@@ -302,7 +302,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git690fc2c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gita0bc6d8 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1154,6 +1154,190 @@ of the alloc/free functions that match the signatures specified above.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="mixing-different-cuda-system-allocators-in-the-same-program">
+<h2>Mixing different CUDA system allocators in the same program<a class="headerlink" href="#mixing-different-cuda-system-allocators-in-the-same-program" title="Permalink to this heading">¶</a></h2>
+<p>Depending on your use case, <a class="reference internal" href="../generated/torch.cuda.change_current_allocator.html#torch.cuda.change_current_allocator" title="torch.cuda.change_current_allocator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">change_current_allocator()</span></code></a> may not be what you
+want to use, since it swaps the CUDA allocator for the entire program (similar to
+<code class="docutils literal notranslate"><span class="pre">PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync</span></code>). For instance, if the swapped allocator doesn’t
+have caching mechanism, you will lose all the benefits of PyTorch’s CUDACachingAllocator. Instead,
+you can selectively mark a region of PyTorch code to use a custom allocator using
+<a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool" title="torch.cuda.MemPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.MemPool</span></code></a>. This will let you use multiple CUDA system allocators in the same
+PyTorch program, along with most of the benefits of the CUDACachingAllocator (e.g. caching).
+Using <a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool" title="torch.cuda.MemPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.MemPool</span></code></a>, you can utilize custom allocators that enable several features,
+such as:</p>
+<ul class="simple">
+<li><p>Allocating output buffers for an all-reduce using <code class="docutils literal notranslate"><span class="pre">ncclMemAlloc</span></code> allocator can enable NVLink
+Switch Reductions (NVLS). This can reduce contention between overlapping compute and communication
+kernels on GPU resources (SMs, and Copy Engines), especially on tensor-parallel workloads.</p></li>
+<li><p>For Grace CPU based systems, allocating host outputs buffers for an all-gather using <code class="docutils literal notranslate"><span class="pre">cuMemCreate</span></code>
+and specifying <code class="docutils literal notranslate"><span class="pre">CU_MEM_LOCATION_TYPE_HOST_NUMA</span></code> can enable Extended GPU Memory (EGM) based memory transfers
+from source GPUs to the destination CPU. This accelerates the all-gather since the transfer
+happens over NVLinks, which otherwise would have happened over bandwidth-limited, Network Interface
+Card (NIC) links. Such an accelerated all-gather can in turn speed up model checkpointing.</p></li>
+<li><p>If you are crafting a model and don’t want to think about the optimal memory placements of a memory
+intensive module at first (e.g. an embedding table), or perhaps you have a module which is not
+performance sensitive and doesn’t fit in the GPU, then you could just allocate that module with
+<code class="docutils literal notranslate"><span class="pre">cudaMallocManaged</span></code> with preferred CPU location and get your model working first.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While <code class="docutils literal notranslate"><span class="pre">cudaMallocManaged</span></code> offers convenient automatic memory management using CUDA Unified Virtual Memory (UVM),
+it is not recommended for DL workloads. For DL workloads that fit in GPU memory, explicit placement consistently
+outperforms UVM, since there are no page faults and access patterns remain predictable. When GPU memory gets
+saturated, UVM has to perform costly double transfers, evicting pages to CPU before bringing in new ones.</p>
+</div>
+<p>The code below shows <code class="docutils literal notranslate"><span class="pre">ncclMemAlloc</span></code> wrapped in a <a class="reference internal" href="../generated/torch.cuda.CUDAPluggableAllocator.html#torch.cuda.CUDAPluggableAllocator" title="torch.cuda.memory.CUDAPluggableAllocator"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.memory.CUDAPluggableAllocator</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
+<span class="kn">from</span> <span class="nn">torch.cuda.memory</span> <span class="kn">import</span> <span class="n">CUDAPluggableAllocator</span>
+<span class="kn">from</span> <span class="nn">torch.distributed.distributed_c10d</span> <span class="kn">import</span> <span class="n">_get_default_group</span>
+<span class="kn">from</span> <span class="nn">torch.utils</span> <span class="kn">import</span> <span class="n">cpp_extension</span>
+
+
+<span class="c1"># create allocator</span>
+<span class="n">nccl_allocator_source</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">#include &lt;nccl.h&gt;</span>
+<span class="s2">#include &lt;iostream&gt;</span>
+<span class="s2">extern &quot;C&quot; {</span>
+
+<span class="s2">void* nccl_alloc_plug(size_t size, int device, void* stream) {</span>
+<span class="s2">  std::cout &lt;&lt; &quot;Using ncclMemAlloc&quot; &lt;&lt; std::endl;</span>
+<span class="s2">  void* ptr;</span>
+<span class="s2">  ncclResult_t err = ncclMemAlloc(&amp;ptr, size);</span>
+<span class="s2">  return ptr;</span>
+
+<span class="s2">}</span>
+
+<span class="s2">void nccl_free_plug(void* ptr, size_t size, int device, void* stream) {</span>
+<span class="s2">  std::cout &lt;&lt; &quot;Using ncclMemFree&quot; &lt;&lt; std::endl;</span>
+<span class="s2">  ncclResult_t err = ncclMemFree(ptr);</span>
+<span class="s2">}</span>
+
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">nccl_allocator_libname</span> <span class="o">=</span> <span class="s2">&quot;nccl_allocator&quot;</span>
+<span class="n">nccl_allocator</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">cpp_extension</span><span class="o">.</span><span class="n">load_inline</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">nccl_allocator_libname</span><span class="p">,</span>
+    <span class="n">cpp_sources</span><span class="o">=</span><span class="n">nccl_allocator_source</span><span class="p">,</span>
+    <span class="n">with_cuda</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">extra_ldflags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;-lnccl&quot;</span><span class="p">],</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">is_python_module</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">build_directory</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">allocator</span> <span class="o">=</span> <span class="n">CUDAPluggableAllocator</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;./</span><span class="si">{</span><span class="n">nccl_allocator_libname</span><span class="si">}</span><span class="s2">.so&quot;</span><span class="p">,</span> <span class="s2">&quot;nccl_alloc_plug&quot;</span><span class="p">,</span> <span class="s2">&quot;nccl_free_plug&quot;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">allocator</span><span class="p">()</span>
+
+<span class="c1"># setup distributed</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;RANK&quot;</span><span class="p">))</span>
+<span class="n">local_rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;LOCAL_RANK&quot;</span><span class="p">))</span>
+<span class="n">world_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;WORLD_SIZE&quot;</span><span class="p">))</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="n">local_rank</span><span class="p">)</span>
+<span class="n">dist</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;nccl&quot;</span><span class="p">)</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cuda:</span><span class="si">{</span><span class="n">local_rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">default_pg</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">default_pg</span><span class="o">.</span><span class="n">_get_backend</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Note: for convenience, ProcessGroupNCCL backend provides</span>
+<span class="c1"># the ncclMemAlloc allocator as backend.mem_allocator</span>
+<span class="n">allocator</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">mem_allocator</span>
+</pre></div>
+</div>
+<p>You can now define a new memory pool by passing this allocator to <a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool" title="torch.cuda.MemPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.MemPool</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pool</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">MemPool</span><span class="p">(</span><span class="n">allocator</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The pool can then be used with the <a class="reference internal" href="../cuda.html#torch.cuda.use_mem_pool" title="torch.cuda.use_mem_pool"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.use_mem_pool</span></code></a> context manager to
+allocate tensors into that pool:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">use_mem_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">):</span>
+    <span class="c1"># tensor gets allocated with ncclMemAlloc passed in the pool</span>
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tensor ptr on rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># register user buffers using ncclCommRegister (called under the hood)</span>
+<span class="n">backend</span><span class="o">.</span><span class="n">register_mem_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+
+<span class="c1"># Collective uses Zero Copy NVLS</span>
+<span class="n">dist</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">tensor</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Note the usage of <code class="docutils literal notranslate"><span class="pre">register_mem_pool</span></code> in the above example. This is an extra step for
+NVLS reductions, where the user buffers need to be registered with NCCL. A user can
+de-register the buffers with a similar <code class="docutils literal notranslate"><span class="pre">deregister_mem_pool</span></code> call.</p>
+<p>To reclaim memory, users will first need to ensure nothing is using the pool. When none
+of the tensors are holding a reference to the pool, <a class="reference internal" href="../generated/torch.cuda.empty_cache.html#torch.cuda.empty_cache" title="torch.cuda.empty_cache"><code class="xref py py-meth docutils literal notranslate"><span class="pre">empty_cache()</span></code></a> will
+be called internally on deletion of the pool, hence returning all the memory to the system.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">tensor</span><span class="p">,</span> <span class="k">del</span> <span class="n">pool</span>
+</pre></div>
+</div>
+<p>The following <a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool.use_count" title="torch.cuda.MemPool.use_count"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.cuda.MemPool.use_count()</span></code></a> and <a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool.snapshot" title="torch.cuda.MemPool.snapshot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.cuda.MemPool.snapshot()</span></code></a>
+APIs can be used for debugging purposes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pool</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">MemPool</span><span class="p">(</span><span class="n">allocator</span><span class="p">)</span>
+
+<span class="c1"># pool&#39;s use count should be 1 at this point as MemPool object</span>
+<span class="c1"># holds a reference</span>
+<span class="k">assert</span> <span class="n">pool</span><span class="o">.</span><span class="n">use_count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+
+<span class="n">nelem_1mb</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">//</span> <span class="mi">4</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">use_mem_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">):</span>
+    <span class="n">out_0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">nelem_1mb</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+
+    <span class="c1"># pool&#39;s use count should be 2 at this point as use_mem_pool</span>
+    <span class="c1"># holds a reference</span>
+    <span class="k">assert</span> <span class="n">pool</span><span class="o">.</span><span class="n">use_count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>
+
+<span class="c1"># pool&#39;s use count should be back to 1 at this point as use_mem_pool</span>
+<span class="c1"># released its reference</span>
+<span class="k">assert</span> <span class="n">pool</span><span class="o">.</span><span class="n">use_count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">use_mem_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">):</span>
+    <span class="c1"># pool should have 1 segment since we made a small allocation (1 MB)</span>
+    <span class="c1"># above and so the CUDACachingAllocator packed it into a 2 MB buffer</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">snapshot</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span>
+
+    <span class="n">out_1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">nelem_1mb</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+
+    <span class="c1"># pool should still have 1 segment since we made another small allocation</span>
+    <span class="c1"># (1 MB) that got packed into the existing 2 MB buffer</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">snapshot</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span>
+
+    <span class="n">out_2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">nelem_1mb</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+
+    <span class="c1"># pool now should have 2 segments since the CUDACachingAllocator had</span>
+    <span class="c1"># to make a new 2 MB buffer to accomodate out_2</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">snapshot</span><span class="p">())</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool" title="torch.cuda.MemPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.MemPool</span></code></a> holds a reference to the pool. When you use the
+<a class="reference internal" href="../cuda.html#torch.cuda.use_mem_pool" title="torch.cuda.use_mem_pool"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.use_mem_pool</span></code></a> context manager, it will also acquire another reference
+to the pool. On exit of the context manager, it will release its reference. After that,
+ideally it should only be tensors holding references to the pool. Once the tensors release
+their references, the use count of the pool will be 1, reflecting that only the
+<a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool" title="torch.cuda.MemPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.MemPool</span></code></a> object is holding a reference. Only at that point, can the memory
+held by the pool be returned to the system when the pool’s destructor is called using
+<code class="docutils literal notranslate"><span class="pre">del</span></code>.</p></li>
+<li><p><a class="reference internal" href="../generated/torch.cuda.MemPool.html#torch.cuda.MemPool" title="torch.cuda.MemPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.MemPool</span></code></a> doesn’t currently support <code class="docutils literal notranslate"><span class="pre">expandable_segments</span></code> mode of
+CUDACachingAllocator.</p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/bufferreg.html#memory-allocator">NCCL has specific requirements</a> for a buffer to be compatible with NVLS reductions.
+These requirements can be broken in a dynamic workload, for instance, the buffer being
+sent to NCCL by the CUDACachingAllocator might be split and hence, not correctly aligned.
+In those cases, NCCL can use a fallback algorithm instead of NVLS.</p></li>
+<li><p>Allocators like <code class="docutils literal notranslate"><span class="pre">ncclMemAlloc</span></code> can use more memory than requested, due to alignment
+requirements (<code class="docutils literal notranslate"><span class="pre">CU_MULTICAST_GRANULARITY_RECOMMENDED</span></code>, <code class="docutils literal notranslate"><span class="pre">CU_MULTICAST_GRANULARITY_MINIMUM</span></code>),
+and can cause your workload to run out of memory.</p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="cublas-workspaces">
 <h2>cuBLAS workspaces<a class="headerlink" href="#cublas-workspaces" title="Permalink to this heading">¶</a></h2>
 <p>For each combination of cuBLAS handle and CUDA stream, a cuBLAS workspace will be allocated
@@ -1837,6 +2021,7 @@ if (url)
 </ul>
 </li>
 <li><a class="reference internal" href="#using-custom-memory-allocators-for-cuda">Using custom memory allocators for CUDA</a></li>
+<li><a class="reference internal" href="#mixing-different-cuda-system-allocators-in-the-same-program">Mixing different CUDA system allocators in the same program</a></li>
 <li><a class="reference internal" href="#cublas-workspaces">cuBLAS workspaces</a></li>
 <li><a class="reference internal" href="#cufft-plan-cache">cuFFT plan cache</a></li>
 <li><a class="reference internal" href="#just-in-time-compilation">Just-in-Time Compilation</a></li>
