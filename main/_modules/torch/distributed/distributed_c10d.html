@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gitaac230a ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gita6e71db ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -3100,7 +3100,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">works</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Work</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Work</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="n">Work</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">work</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">works</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">work</span><span class="p">)</span>
 
@@ -3113,7 +3113,7 @@
 <span class="k">def</span> <span class="nf">_coalescing_manager</span><span class="p">(</span>
     <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">async_ops</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">async_ops</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Context manager used to coalesce collectives or P2P operations when possible.</span>
@@ -3152,7 +3152,6 @@
         <span class="n">group</span><span class="o">.</span><span class="n">_start_coalescing</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
     <span class="n">cm</span> <span class="o">=</span> <span class="n">_CoalescingManager</span><span class="p">()</span>
     <span class="k">yield</span> <span class="n">cm</span>
-    <span class="n">work</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">op_list</span> <span class="o">=</span> <span class="n">_world</span><span class="o">.</span><span class="n">pg_coalesce_state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">op_list</span><span class="p">:</span>
         <span class="c1"># Collectives supporting &quot;Fast Path&quot; coalescing are captured.</span>
@@ -3166,7 +3165,6 @@
             <span class="n">tensors</span> <span class="o">=</span> <span class="p">[</span><span class="n">op</span><span class="o">.</span><span class="n">tensor</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">op_list</span><span class="p">]</span>
             <span class="n">all_reduce_opts</span> <span class="o">=</span> <span class="n">AllreduceCoalescedOptions</span><span class="p">()</span>
             <span class="n">all_reduce_opts</span><span class="o">.</span><span class="n">reduceOp</span> <span class="o">=</span> <span class="n">not_none</span><span class="p">(</span><span class="n">op_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">redop</span><span class="p">)</span>
-            <span class="n">all_reduce_opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_ops</span>
             <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">allreduce_coalesced</span><span class="p">(</span><span class="n">tensors</span><span class="p">,</span> <span class="n">all_reduce_opts</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">op0</span> <span class="o">==</span> <span class="n">all_gather_into_tensor</span><span class="p">:</span>
             <span class="n">inputs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3174,8 +3172,6 @@
             <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">op_list</span><span class="p">:</span>
                 <span class="n">inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">tensor</span><span class="p">)</span>
                 <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">not_none</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dst_tensor</span><span class="p">))</span>
-            <span class="n">all_gather_opts</span> <span class="o">=</span> <span class="n">AllgatherOptions</span><span class="p">()</span>
-            <span class="n">all_gather_opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_ops</span>
             <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">allgather_into_tensor_coalesced</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">op0</span> <span class="o">==</span> <span class="n">reduce_scatter_tensor</span><span class="p">:</span>
             <span class="n">inputs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3185,7 +3181,6 @@
                 <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">not_none</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dst_tensor</span><span class="p">))</span>
             <span class="n">reduce_opts</span> <span class="o">=</span> <span class="n">ReduceScatterOptions</span><span class="p">()</span>
             <span class="n">reduce_opts</span><span class="o">.</span><span class="n">reduceOp</span> <span class="o">=</span> <span class="n">not_none</span><span class="p">(</span><span class="n">op_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">redop</span><span class="p">)</span>
-            <span class="n">reduce_opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_ops</span>
             <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">reduce_scatter_tensor_coalesced</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">reduce_opts</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
@@ -3198,12 +3193,9 @@
         <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">_end_coalescing</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">async_ops</span><span class="p">:</span>
-        <span class="n">cm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">work</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
-        <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
+        <span class="n">cm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">work</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
 
 
 <div class="viewcode-block" id="batch_isend_irecv"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.batch_isend_irecv">[docs]</a><span class="k">def</span> <span class="nf">batch_isend_irecv</span><span class="p">(</span><span class="n">p2p_op_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">P2POp</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Work</span><span class="p">]:</span>
@@ -3328,11 +3320,8 @@
     <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">broadcast</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">opts</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="all_reduce"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.all_reduce">[docs]</a><span class="nd">@_exception_logger</span>
@@ -3412,7 +3401,6 @@
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">AllreduceOptions</span><span class="p">()</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">reduceOp</span> <span class="o">=</span> <span class="n">op</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
     <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">group</span> <span class="o">=</span> <span class="n">_get_default_group</span><span class="p">()</span>
 
@@ -3429,11 +3417,8 @@
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <span class="nd">@_exception_logger</span>
@@ -3492,17 +3477,13 @@
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">AllreduceCoalescedOptions</span><span class="p">()</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">reduceOp</span> <span class="o">=</span> <span class="n">op</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
     <span class="n">group</span> <span class="o">=</span> <span class="n">group</span> <span class="ow">or</span> <span class="n">_get_default_group</span><span class="p">()</span>
     <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">allreduce_coalesced</span><span class="p">(</span><span class="n">tensors</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span><span class="o">.</span><span class="n">get_future</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="reduce"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.reduce">[docs]</a><span class="nd">@_exception_logger</span>
@@ -3547,15 +3528,11 @@
     <span class="n">opts</span> <span class="o">=</span> <span class="n">ReduceOptions</span><span class="p">()</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">reduceOp</span> <span class="o">=</span> <span class="n">op</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">rootRank</span> <span class="o">=</span> <span class="n">group_dst</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
     <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="n">tensor</span><span class="p">],</span> <span class="n">opts</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <span class="k">def</span> <span class="nf">_object_to_tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">group</span><span class="p">):</span>
@@ -4354,17 +4331,12 @@
     <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">tensor</span><span class="o">.</span><span class="n">is_complex</span><span class="p">()</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
 
     <span class="n">group</span> <span class="o">=</span> <span class="n">group</span> <span class="ow">or</span> <span class="n">_get_default_group</span><span class="p">()</span>
-    <span class="n">opts</span> <span class="o">=</span> <span class="n">AllgatherOptions</span><span class="p">()</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
-    <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">allgather</span><span class="p">([</span><span class="n">tensor_list</span><span class="p">],</span> <span class="p">[</span><span class="n">tensor</span><span class="p">],</span> <span class="n">opts</span><span class="p">)</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">allgather</span><span class="p">([</span><span class="n">tensor_list</span><span class="p">],</span> <span class="p">[</span><span class="n">tensor</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="all_gather_into_tensor"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.all_gather_into_tensor">[docs]</a><span class="nd">@_exception_logger</span>
@@ -4471,11 +4443,8 @@
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <span class="nd">@_exception_logger</span>
@@ -4585,17 +4554,12 @@
     <span class="p">]</span>
 
     <span class="n">group</span> <span class="o">=</span> <span class="n">group</span> <span class="ow">or</span> <span class="n">_get_default_group</span><span class="p">()</span>
-    <span class="n">opts</span> <span class="o">=</span> <span class="n">AllgatherOptions</span><span class="p">()</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
-    <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">allgather_coalesced</span><span class="p">(</span><span class="n">output_tensor_lists</span><span class="p">,</span> <span class="n">input_tensor_list</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">allgather_coalesced</span><span class="p">(</span><span class="n">output_tensor_lists</span><span class="p">,</span> <span class="n">input_tensor_list</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span><span class="o">.</span><span class="n">get_future</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <span class="k">def</span> <span class="nf">_validate_output_list_for_rank</span><span class="p">(</span><span class="n">my_rank</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">gather_list</span><span class="p">):</span>
@@ -4682,16 +4646,12 @@
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">GatherOptions</span><span class="p">()</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">rootRank</span> <span class="o">=</span> <span class="n">group_dst</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
     <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">output_tensors</span><span class="p">,</span> <span class="n">input_tensors</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="scatter"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.scatter">[docs]</a><span class="nd">@_exception_logger</span>
@@ -4793,11 +4753,8 @@
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="reduce_scatter"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.reduce_scatter">[docs]</a><span class="nd">@_exception_logger</span>
@@ -4829,18 +4786,14 @@
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">ReduceScatterOptions</span><span class="p">()</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">reduceOp</span> <span class="o">=</span> <span class="n">op</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
 
     <span class="n">group</span> <span class="o">=</span> <span class="n">group</span> <span class="ow">or</span> <span class="n">_get_default_group</span><span class="p">()</span>
     <span class="n">work</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">reduce_scatter</span><span class="p">([</span><span class="n">output</span><span class="p">],</span> <span class="p">[</span><span class="n">input_list</span><span class="p">],</span> <span class="n">opts</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="reduce_scatter_tensor"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.reduce_scatter_tensor">[docs]</a><span class="nd">@_exception_logger</span>
@@ -4940,11 +4893,8 @@
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <span class="nd">@deprecated</span><span class="p">(</span>
@@ -5097,7 +5047,6 @@
         <span class="k">return</span>
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">AllToAllOptions</span><span class="p">()</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
     <span class="n">_check_single_tensor</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">)</span>
     <span class="n">_check_single_tensor</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="s2">&quot;input&quot;</span><span class="p">)</span>
     <span class="n">_ensure_all_tensors_same_dtype</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
@@ -5117,11 +5066,8 @@
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="all_to_all"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.all_to_all">[docs]</a><span class="nd">@_exception_logger</span>
@@ -5222,7 +5168,6 @@
         <span class="k">return</span>
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">AllToAllOptions</span><span class="p">()</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
     <span class="n">_check_tensor_list</span><span class="p">(</span><span class="n">output_tensor_list</span><span class="p">,</span> <span class="s2">&quot;output_tensor_list&quot;</span><span class="p">)</span>
     <span class="n">_check_tensor_list</span><span class="p">(</span><span class="n">input_tensor_list</span><span class="p">,</span> <span class="s2">&quot;input_tensor_list&quot;</span><span class="p">)</span>
     <span class="n">_ensure_all_tensors_same_dtype</span><span class="p">(</span><span class="n">output_tensor_list</span><span class="p">,</span> <span class="n">input_tensor_list</span><span class="p">)</span>
@@ -5239,11 +5184,8 @@
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="barrier"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.barrier">[docs]</a><span class="nd">@_exception_logger</span>
@@ -5274,7 +5216,6 @@
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">BarrierOptions</span><span class="p">()</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">_get_object_coll_device</span><span class="p">(</span><span class="n">group</span><span class="p">))</span>
-    <span class="n">opts</span><span class="o">.</span><span class="n">asyncOp</span> <span class="o">=</span> <span class="n">async_op</span>
     <span class="k">if</span> <span class="n">device_ids</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">device_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">opts</span><span class="o">.</span><span class="n">device_ids</span> <span class="o">=</span> <span class="n">device_ids</span>
@@ -5288,11 +5229,8 @@
 
     <span class="k">if</span> <span class="n">async_op</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">work</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">work</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">):</span>  <span class="c1"># Backward compatible with backends that don&#39;t sync at CPP level</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
-    <span class="c1"># Otherwise, the backend has sync&#39;ed at CPP level</span>
 
 
 <div class="viewcode-block" id="monitored_barrier"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.monitored_barrier">[docs]</a><span class="k">def</span> <span class="nf">monitored_barrier</span><span class="p">(</span>
