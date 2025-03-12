@@ -1,0 +1,1496 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torch.export Programming Model &mdash; PyTorch 2.7 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://pytorch.org/docs/stable/export.programming_model.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx-dropdown.css" type="text/css" />
+  <link rel="stylesheet" href="_static/panels-bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/jit.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="torch.export IR Specification" href="export.ir_spec.html" />
+    <link rel="prev" title="torch.export" href="export.html" />
+
+
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T8XT4PS');</script>
+    <!-- End Google Tag Manager -->
+  
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+
+      <div class="main-menu">
+        <ul>
+
+          <li class="main-menu-item">
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Learn
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/get-started">
+                  <span class=dropdown-title>Get Started</span>
+                  <p>Run PyTorch locally or get started quickly with one of the supported cloud platforms</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials">
+                  <span class="dropdown-title">Tutorials</span>
+                  <p>Whats new in PyTorch tutorials</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/basics/intro.html">
+                  <span class="dropdown-title">Learn the Basics</span>
+                  <p>Familiarize yourself with PyTorch concepts and modules</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/recipes/recipes_index.html">
+                  <span class="dropdown-title">PyTorch Recipes</span>
+                  <p>Bite-size, ready-to-deploy PyTorch code examples</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tutorials/beginner/introyt.html">
+                  <span class="dropdown-title">Intro to PyTorch - YouTube Series</span>
+                  <p>Master PyTorch basics with our engaging YouTube tutorial series</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Ecosystem
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem">
+                  <span class="dropdown-title">Tools</span>
+                  <p>Learn about the tools and frameworks in the PyTorch Ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/#community-module">
+                  <span class=dropdown-title>Community</span>
+                  <p>Join the PyTorch developer community to contribute, learn, and get your questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://discuss.pytorch.org/" target="_blank">
+                  <span class=dropdown-title>Forums</span>
+                  <p>A place to discuss PyTorch code, issues, install, research</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/resources">
+                  <span class=dropdown-title>Developer Resources</span>
+                  <p>Find resources and get questions answered</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/ecosystem/contributor-awards-2024">
+                  <span class="dropdown-title">Contributor Awards - 2024</span>
+                  <p>Award winners announced at this year's PyTorch Conference</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+          <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Edge
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/edge">
+                  <span class="dropdown-title">About PyTorch Edge</span>
+                  <p>Build innovative and privacy-aware AI experiences for edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch-overview">
+                  <span class="dropdown-title">ExecuTorch</span>
+                  <p>End-to-end solution for enabling on-device inference capabilities across mobile and edge devices</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/executorch/stable/index.html">
+                  <span class="dropdown-title">ExecuTorch Docs</span>
+                </a>
+              </div>
+            </div>  
+          </li>
+
+          <li class="main-menu-item">
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Docs
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/docs/stable/index.html">
+                  <span class="dropdown-title">PyTorch</span>
+                  <p>Explore the documentation for comprehensive guidance on how to use PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/pytorch-domains">
+                  <span class="dropdown-title">PyTorch Domains</span>
+                  <p>Read the PyTorch Domains documentation to learn more about domain-specific libraries</p>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                Blogs & News 
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/blog/">
+                  <span class="dropdown-title">PyTorch Blog</span>
+                  <p>Catch up on the latest technical news and happenings</p>
+                </a>
+                 <a class="nav-dropdown-item" href="https://pytorch.org/community-blog">
+                  <span class="dropdown-title">Community Blog</span>
+                  <p>Stories from the PyTorch ecosystem</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/videos">
+                  <span class="dropdown-title">Videos</span>
+                  <p>Learn about the latest PyTorch tutorials, new, and more </p>
+                <a class="nav-dropdown-item" href="https://pytorch.org/community-stories">
+                  <span class="dropdown-title">Community Stories</span>
+                  <p>Learn how our community solves real, everyday machine learning problems with PyTorch</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/events">
+                  <span class="dropdown-title">Events</span>
+                  <p>Find events, webinars, and podcasts</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/newsletter">
+                  <span class="dropdown-title">Newsletter</span>
+                  <p>Stay up-to-date with the latest updates</p>
+                </a>
+            </div>
+          </li>
+
+          <li>
+            <div id="resourcesDropdownButton" data-toggle="resources-dropdown" class="resources-dropdown">
+              <a class="with-down-arrow">
+                About
+              </a>
+              <div class="resources-dropdown-menu">
+                <a class="nav-dropdown-item" href="https://pytorch.org/foundation">
+                  <span class="dropdown-title">PyTorch Foundation</span>
+                  <p>Learn more about the PyTorch Foundation</p>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/governing-board">
+                  <span class="dropdown-title">Governing Board</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/credits">
+                  <span class="dropdown-title">Cloud Credit Program</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/tac">
+                  <span class="dropdown-title">Technical Advisory Council</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/staff">
+                  <span class="dropdown-title">Staff</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://pytorch.org/contact-us">
+                  <span class="dropdown-title">Contact Us</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-menu-item">
+            <div class="no-dropdown">
+              <a href="https://pytorch.org/join" data-cta="join">
+                Become a Member
+              </a>
+            </div>
+          </li>
+          <li>
+           <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="github-icon">
+             </a>
+           </div>
+          </li>
+          <!--- TODO: This block adds the search icon to the nav bar. We will enable it later. 
+          <li>
+            <div class="main-menu-item">
+             <a href="https://github.com/pytorch/pytorch" class="search-icon">
+             </a>
+            </div>
+          </li>
+          --->
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+  </div>
+</div>
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+    <div class="version">
+      <a href='https://pytorch.org/docs/versions.html'>2.7 &#x25BC</a>
+    </div>
+    <div id="searchBox">
+    <div class="searchbox" id="googleSearchBox">
+      <script async src="https://cse.google.com/cse.js?cx=e65585f8c3ea1440e"></script>
+      <div class="gcse-search"></div>
+    </div>
+    <div id="sphinxSearchBox" style="display: none;">
+      <div role="search">
+        <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+          <input type="text" name="q" placeholder="Search Docs" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+      </div>
+    </div>
+  </div>
+  <form id="searchForm">
+    <label style="margin-bottom: 1rem">
+      <input type="radio" name="searchType" value="google" checked>
+      Google Search
+    </label>
+    <label style="margin-bottom: 1rem">
+      <input type="radio" name="searchType" value="sphinx">
+      Classic Search
+    </label>
+  </form>
+
+  <script>
+     document.addEventListener('DOMContentLoaded', function() {
+      const searchForm = document.getElementById('searchForm');
+      const googleSearchBox = document.getElementById('googleSearchBox');
+      const sphinxSearchBox = document.getElementById('sphinxSearchBox');
+      // Function to toggle search box visibility
+      function toggleSearchBox(searchType) {
+        googleSearchBox.style.display = searchType === 'google' ? 'block' : 'none';
+        sphinxSearchBox.style.display = searchType === 'sphinx' ? 'block' : 'none';
+      }
+      // Determine the default search type
+      let defaultSearchType;
+      const currentUrl = window.location.href;
+      if (currentUrl.startsWith('https://pytorch.org/docs/stable')) {
+        // For the stable documentation, default to Google
+        defaultSearchType = localStorage.getItem('searchType') || 'google';
+      } else {
+        // For any other version, including docs-preview, default to Sphinx
+        defaultSearchType = 'sphinx';
+      }
+      // Set the default search type
+      document.querySelector(`input[name="searchType"][value="${defaultSearchType}"]`).checked = true;
+      toggleSearchBox(defaultSearchType);
+      // Event listener for changes in search type
+      searchForm.addEventListener('change', function(event) {
+        const selectedSearchType = event.target.value;
+        localStorage.setItem('searchType', selectedSearchType);
+        toggleSearchBox(selectedSearchType);
+      });
+      // Set placeholder text for Google search box
+      window.onload = function() {
+        var placeholderText = "Search Docs";
+        var googleSearchboxText = document.querySelector("#gsc-i-id1");
+        if (googleSearchboxText) {
+          googleSearchboxText.placeholder = placeholderText;
+          googleSearchboxText.style.fontFamily = 'FreightSans';
+          googleSearchboxText.style.fontSize = "1.2rem";
+          googleSearchboxText.style.color = '#262626';
+        }
+      };
+    });
+  </script>
+
+          </div>
+
+          
+
+
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="community/build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/contribution_guide.html">PyTorch Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/design.html">PyTorch Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notes/amp_examples.html">Automatic Mixed Precision examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/autograd.html">Autograd mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/broadcasting.html">Broadcasting semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/cuda.html">CUDA semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/ddp.html">Distributed Data Parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/extending.html">Extending PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/extending.func.html">Extending torch.func with autograd.Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/fsdp.html">FSDP Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/get_start_xpu.html">Getting Started on Intel GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/gradcheck.html">Gradcheck mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/hip.html">HIP (ROCm) semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/mps.html">MPS backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/multiprocessing.html">Multiprocessing best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/numerical_accuracy.html">Numerical accuracy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/randomness.html">Reproducibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/serialization.html">Serialization semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes/windows.html">Windows FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Bindings</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_index.html">C++</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/javadoc/">Javadoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">torch::deploy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="torch.html">torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.html">torch.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.functional.html">torch.nn.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensors.html">torch.Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_attributes.html">Tensor Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_view.html">Tensor Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amp.html">torch.amp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autograd.html">torch.autograd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">torch.library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accelerator.html">torch.accelerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpu.html">torch.cpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cuda.html">torch.cuda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html">Understanding CUDA Memory Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#generating-a-snapshot">Generating a Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#using-the-visualizer">Using the visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_cuda_memory.html#snapshot-api-reference">Snapshot API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mps.html">torch.mps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xpu.html">torch.xpu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mtia.html">torch.mtia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mtia.memory.html">torch.mtia.memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meta.html">Meta device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">torch.backends</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="export.html">torch.export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.compiler.html">torch.compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fft.html">torch.fft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="func.html">torch.func</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.html">torch.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.experimental.html">torch.fx.experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linalg.html">torch.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitor.html">torch.monitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal.html">torch.signal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="special.html">torch.special</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch.overrides.html">torch.overrides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">torch.package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiler.html">torch.profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nn.attention.html">torch.nn.attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="masked.html">torch.masked</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nested.html">torch.nested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="size.html">torch.Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">torch.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">torch.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark_utils.html">torch.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bottleneck.html">torch.utils.bottleneck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoint.html">torch.utils.checkpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_extension.html">torch.utils.cpp_extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">torch.utils.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deterministic.html">torch.utils.deterministic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jit_utils.html">torch.utils.jit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dlpack.html">torch.utils.dlpack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile_optimizer.html">torch.utils.mobile_optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_zoo.html">torch.utils.model_zoo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensorboard.html">torch.utils.tensorboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_tracker.html">torch.utils.module_tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="type_info.html">Type Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="named_tensor.html">Named Tensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="name_inference.html">Named Tensors operator coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_mod.html">torch.__config__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future_mod.html">torch.__future__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">torch._logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torch_environment_variables.html">Torch Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Libraries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/audio/stable">torchaudio</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/data">TorchData</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/torchrec">TorchRec</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/serve">TorchServe</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/text/stable">torchtext</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/vision/stable">torchvision</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/xla/">PyTorch on XLA Devices</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pytorch.org/ao">torchao</a></li>
+</ul>
+
+            
+          
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="export.html">torch.export</a> &gt;</li>
+        
+      <li>torch.export Programming Model</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="_sources/export.programming_model.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+
+          <!-- Google Tag Manager (noscript) -->
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8XT4PS"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+          <!-- End Google Tag Manager (noscript) -->
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torch-export-programming-model">
+<span id="export-programming-model"></span><h1>torch.export Programming Model<a class="headerlink" href="#torch-export-programming-model" title="Permalink to this heading">¶</a></h1>
+<p>This document aims to explain the behaviors and capabilities of
+<a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a>. It is intended to help build your intuition
+for how <a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> handles code.</p>
+<div class="section" id="basics-of-tracing">
+<h2>Basics of Tracing<a class="headerlink" href="#basics-of-tracing" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> captures a graph representing your model by
+tracing its execution on “example” inputs and recording the PyTorch operations
+and conditions observed along the traced path. This graph can then be run
+on different inputs as long as they satisfy the same conditions.</p>
+<p>The basic output of <a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> is a single graph of PyTorch
+operations, with associated metadata. The exact format of this output is
+covered in the <a class="reference internal" href="export.ir_spec.html#export-ir-spec"><span class="std std-ref">torch.export IR Specification</span></a>.</p>
+<div class="section" id="strict-vs-non-strict-tracing">
+<h3>Strict vs. Non-Strict Tracing<a class="headerlink" href="#strict-vs-non-strict-tracing" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> provides two modes of tracing.</p>
+<p>In <em>non-strict mode</em>, we trace through the program using the normal Python
+interpreter. Your code executes exactly as it would in eager mode; the only
+difference is that all Tensors are replaced by
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_fake_tensor.html">fake Tensors</a>,
+<strong>which have shapes and other forms of metadata but no data</strong>, wrapped in
+<a class="reference external" href="https://pytorch.org/docs/main/fx.html">Proxy objects</a> that record all
+operations on them into a graph. We also capture
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#the-guard-model">conditions on Tensor shapes</a>
+<strong>that guard the correctness of the generated code</strong>.</p>
+<p>In <em>strict mode</em>, we first trace through the program using
+<a class="reference internal" href="torch.compiler_dynamo_deepdive.html#torch-compiler-dynamo-deepdive"><span class="std std-ref">TorchDynamo</span></a>, a Python bytecode
+analysis engine. TorchDynamo does not actually execute your Python code.
+Instead, it symbolically analyzes it and builds a graph based on the results.
+On the one hand, this analysis allows <a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> to provide
+additional guarantees on Python-level safety (beyond capturing conditions on
+Tensor shapes, as in non-strict mode). On the other hand, not all Python
+features are supported by this analysis.</p>
+<p>Although currently the default mode of tracing is strict, <strong>we strongly
+recommend using non-strict</strong>, which will soon become the default.
+For most models, conditions on Tensor shapes are enough for soundness, and
+the additional guarantees on Python-level safety have no impact; at the same
+time, the possibility of hitting unsupported Python features in TorchDynamo
+presents an unnecessary risk.</p>
+<p>In the rest of this document we assume we are tracing in
+<a class="reference external" href="https://pytorch.org/docs/main/export.html#non-strict-export">non-strict mode</a>;
+in particular, we assume that <strong>all Python features are supported</strong>.</p>
+</div>
+</div>
+<div class="section" id="values-static-vs-dynamic">
+<h2>Values: Static vs. Dynamic<a class="headerlink" href="#values-static-vs-dynamic" title="Permalink to this heading">¶</a></h2>
+<p>A key concept in understanding the behavior of <a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> is
+the difference between <em>static</em> and <em>dynamic</em> values.</p>
+<div class="section" id="static-values">
+<h3>Static Values<a class="headerlink" href="#static-values" title="Permalink to this heading">¶</a></h3>
+<p>A <em>static</em> value is a value that is <strong>fixed at export time and cannot change
+between executions of the exported program</strong>. When the value is encountered
+during tracing, we treat it as a constant and hard-code it into the graph.</p>
+<p>When an operation is performed (e.g. <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code>) and all inputs are static,
+the output of the operation is directly hard-coded into the graph and the
+operation does not show up (i.e. it gets “constant-folded”).</p>
+<p>When a value has been hard-coded into the graph, we say that the graph has
+been <em>specialized</em> to that value. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="k">class</span> <span class="nc">MyMod</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">7</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">z</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">MyMod</span><span class="p">(),</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">graph_module</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">def forward(self, arg0_1, arg1_1):</span>
+<span class="sd">    add = torch.ops.aten.add.Tensor(arg0_1, 10);  arg0_1 = None</span>
+<span class="sd">    return (add,)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Here, we provide <code class="docutils literal notranslate"><span class="pre">3</span></code> as the traced value for <code class="docutils literal notranslate"><span class="pre">y</span></code>; it is treated as a static
+value and added to <code class="docutils literal notranslate"><span class="pre">7</span></code>, burning in the static value <code class="docutils literal notranslate"><span class="pre">10</span></code> in the graph.</p>
+</div>
+<div class="section" id="dynamic-values">
+<h3>Dynamic Values<a class="headerlink" href="#dynamic-values" title="Permalink to this heading">¶</a></h3>
+<p>A <em>dynamic</em> value is one that <strong>can change from run to run</strong>. It behaves just
+like a “normal” function argument: you can pass different inputs and expect
+your function to do the right thing.</p>
+</div>
+<div class="section" id="which-values-are-static-vs-dynamic">
+<h3>Which values are static vs. dynamic?<a class="headerlink" href="#which-values-are-static-vs-dynamic" title="Permalink to this heading">¶</a></h3>
+<p>Whether a value is static or dynamic depends on its type:</p>
+<ul class="simple">
+<li><p>For Tensor:</p>
+<ul>
+<li><p>Tensor <em>data</em> is treated as dynamic.</p></li>
+<li><p>Tensor <em>shapes</em> can be treated by the system as static or dynamic.</p>
+<ul>
+<li><p>By default, shapes of all input Tensors are considered static.
+The user can override this behavior for any input Tensor by specifying
+a <a class="reference external" href="https://pytorch.org/docs/main/export.html#expressing-dynamism">dynamic shape</a>
+for it.</p></li>
+<li><p>Tensors that are part of module state, i.e., parameters and buffers,
+always have static shapes.</p></li>
+</ul>
+</li>
+<li><p>Other forms of Tensor <em>metadata</em> (e.g. <code class="docutils literal notranslate"><span class="pre">device</span></code>, <code class="docutils literal notranslate"><span class="pre">dtype</span></code>) are static.</p></li>
+</ul>
+</li>
+<li><p>Python <em>primitives</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>) are static.</p>
+<ul>
+<li><p>There are dynamic variants for some primitive types (<code class="docutils literal notranslate"><span class="pre">SymInt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SymFloat</span></code>, <code class="docutils literal notranslate"><span class="pre">SymBool</span></code>). Typically users do not have to deal with them.</p></li>
+</ul>
+</li>
+<li><p>For Python <em>standard containers</em> (<code class="docutils literal notranslate"><span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code>):</p>
+<ul>
+<li><p>The structure (i.e., length for <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">tuple</span></code> values, and key
+sequence for <code class="docutils literal notranslate"><span class="pre">dict</span></code> and <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code> values) is static.</p></li>
+<li><p>The contained elements have these rules applied to them recursively
+(basically the
+<a class="reference external" href="https://jax.readthedocs.io/en/latest/pytrees.html">PyTree</a> scheme)
+with leaves that are either Tensor or primitive types.</p></li>
+</ul>
+</li>
+<li><p>Other <em>classes</em> (including data classes) can be registered with PyTree
+(see below), and follow the same rules as the standard containers.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="input-types">
+<h2>Input types<a class="headerlink" href="#input-types" title="Permalink to this heading">¶</a></h2>
+<p>Inputs will be treated as either static or dynamic, based on their type
+(as explained above).</p>
+<ul class="simple">
+<li><p>A static input will get hard-coded into the graph, and passing a different
+value at run time will result in an error. Recall that these are mostly
+values of primitive types.</p></li>
+<li><p>A dynamic input behaves like a “normal” function input. Recall that these
+are mostly values of Tensor types.</p></li>
+</ul>
+<p>By default, the types of inputs you can use for your program are:</p>
+<ul class="simple">
+<li><p>Tensor</p></li>
+<li><p>Python primitives (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p>Python standard containers (<code class="docutils literal notranslate"><span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code>)</p></li>
+</ul>
+<div class="section" id="custom-input-types">
+<h3>Custom Input Types<a class="headerlink" href="#custom-input-types" title="Permalink to this heading">¶</a></h3>
+<p>In addition, you can also define your own (custom) class and use it as an
+input type, but you will need to register such a class as a PyTree.</p>
+<p>Here’s an example of using an utility to register a dataclass that is used as
+an input type.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Input</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+    <span class="n">p</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">register_dataclass</span><span class="p">(</span><span class="n">Input</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Input</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">f</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">M</span><span class="p">(),</span> <span class="p">(</span><span class="n">Input</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional-input-types">
+<h3>Optional input types<a class="headerlink" href="#optional-input-types" title="Permalink to this heading">¶</a></h3>
+<p>For optional inputs to the program that are not passed in,
+<a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> will specialize to their default values. As a
+result, the exported program will require users to explicitly pass in all
+arguments, and will lose the defaulting behavior. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">y</span> <span class="o">*</span> <span class="n">x</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
+
+<span class="c1"># Optional input is passed in</span>
+<span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">M</span><span class="p">(),</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ExportedProgram:</span>
+<span class="sd">    class GraphModule(torch.nn.Module):</span>
+<span class="sd">        def forward(self, x: &quot;f32[3, 3]&quot;, y: &quot;f32[3, 3]&quot;):</span>
+<span class="sd">            # File: /data/users/angelayi/pytorch/moo.py:15 in forward, code: return y * x</span>
+<span class="sd">            mul: &quot;f32[3, 3]&quot; = torch.ops.aten.mul.Tensor(y, x);  y = x = None</span>
+<span class="sd">            return (mul,)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Optional input is not passed in</span>
+<span class="n">ep</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">M</span><span class="p">(),</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ExportedProgram:</span>
+<span class="sd">    class GraphModule(torch.nn.Module):</span>
+<span class="sd">        def forward(self, x: &quot;f32[3, 3]&quot;, y):</span>
+<span class="sd">            # File: /data/users/angelayi/pytorch/moo.py:16 in forward, code: return x + x</span>
+<span class="sd">            add: &quot;f32[3, 3]&quot; = torch.ops.aten.add.Tensor(x, x);  x = None</span>
+<span class="sd">            return (add,)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="control-flow-static-vs-dynamic">
+<h2>Control Flow: Static vs. Dynamic<a class="headerlink" href="#control-flow-static-vs-dynamic" title="Permalink to this heading">¶</a></h2>
+<p>Control flow is supported by <a class="reference internal" href="export.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a>. The behavior of
+control flow depends on whether the value you are branching on is static or
+dynamic.</p>
+<div class="section" id="static-control-flow">
+<h3>Static Control Flow<a class="headerlink" href="#static-control-flow" title="Permalink to this heading">¶</a></h3>
+<p><strong>Python control flow over static values is supported transparently</strong>. (Recall
+that static values include static shapes, so control flow over static shapes
+is also covered by this case.)</p>
+<p>As mentioned above, we “burn in” static values, so the exported graph will
+never see any control flow over static values.</p>
+<p>In the case of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, we will continue tracing the branch taken
+at export time. In the case of a <code class="docutils literal notranslate"><span class="pre">for</span></code> or <code class="docutils literal notranslate"><span class="pre">while</span></code> statement, we will continue
+tracing by unrolling the loop.</p>
+</div>
+<div class="section" id="dynamic-control-flow-shape-dependent-vs-data-dependent">
+<h3>Dynamic Control Flow: Shape-Dependent vs. Data-Dependent<a class="headerlink" href="#dynamic-control-flow-shape-dependent-vs-data-dependent" title="Permalink to this heading">¶</a></h3>
+<p>When the value involved in a control flow is dynamic, it could depend on
+dynamic shapes or dynamic data. Given that the compiler traces with
+information on shapes rather than data, the implications on the programming
+model are different in these cases.</p>
+<div class="section" id="dynamic-shape-dependent-control-flow">
+<h4>Dynamic Shape-Dependent Control Flow<a class="headerlink" href="#dynamic-shape-dependent-control-flow" title="Permalink to this heading">¶</a></h4>
+<p>When the value involved in a control flow is a
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html">dynamic shape</a>,
+in most cases <strong>we will also know the concrete value of the dynamic shape
+during tracing</strong>: see the following section for more details on how the
+compiler tracks this information.</p>
+<p>In these cases we say that the control flow is shape-dependent. <strong>We use the
+concrete value of the dynamic shape to evaluate the condition</strong> to either
+<code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> and continue tracing (as discussed above), additionally
+emitting a guard corresponding to the condition just evaluated.</p>
+<p>Otherwise the control flow is considered data-dependent. We cannot evaluate
+the condition to either <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, so cannot continue tracing and have to
+raise an error at export time. See next section.</p>
+</div>
+<div class="section" id="dynamic-data-dependent-control-flow">
+<h4>Dynamic Data-Dependent Control Flow<a class="headerlink" href="#dynamic-data-dependent-control-flow" title="Permalink to this heading">¶</a></h4>
+<p><strong>Data-dependent control flow over dynamic values is supported, but you must
+use one of PyTorch’s explicit operators</strong> to continue tracing. Using Python
+control flow statements over dynamic values is not permitted, because the
+compiler cannot evaluate the conditions necessary to continue tracing and
+thus an error must be raised at export time.</p>
+<p>We provide <strong>operators to express general conditionals and loops over dynamic
+values</strong>, e.g., <cite>torch.cond</cite>, <cite>torch.map</cite>. Note that you only need to use these
+if you truly want <em>data-dependent control flow</em>.</p>
+<p>Here’s an example of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement on a data-dependent condition,
+<code class="docutils literal notranslate"><span class="pre">x.sum()</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is an input Tensor, rewritten using <cite>torch.cond</cite>.
+Instead of having to decide which branch to trace, now both branches are
+traced.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">M_new</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
+            <span class="n">pred</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">true_fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">(),</span>
+            <span class="n">false_fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">(),</span>
+            <span class="n">operands</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,),</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>A special case of data-dependent control flow is where it involves a
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#unbacked-symints">data-dependent dynamic shape</a>:
+typically, the shape of some intermediate Tensor that depends on input data
+rather than on input shapes (thus not shape-dependent). Instead of using a
+control flow operator, in this case you can provide an assertion that decides
+whether the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. Given such an assertion, we can
+continue tracing, emitting a guard as above.</p>
+<p>We provide <strong>operators to express assertions on dynamic shapes</strong>, e.g.,
+<cite>torch._check</cite>. Note that you only need to use this when there is control
+flow on data-dependent dynamic shapes.</p>
+<p>Here’s an example of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement on a condition involving a
+data-dependent dynamic shape, <code class="docutils literal notranslate"><span class="pre">nz.shape[0]</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, where <code class="docutils literal notranslate"><span class="pre">nz</span></code> is the result of
+calling <a class="reference internal" href="generated/torch.nonzero.html#torch.nonzero" title="torch.nonzero"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nonzero()</span></code></a>, an operator whose output shape depends on input
+data. Instead of rewriting it, you can add an assertion using <cite>torch._check</cite>
+to effectively decide which branch to trace.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">M_old</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">nz</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">nz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">M_new</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">nz</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">nz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">nz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sin</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">cos</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="basics-of-symbolic-shapes">
+<h2>Basics of Symbolic Shapes<a class="headerlink" href="#basics-of-symbolic-shapes" title="Permalink to this heading">¶</a></h2>
+<p>During tracing, dynamic Tensor shapes and conditions over them are encoded as
+“symbolic expressions.” (In contrast, static Tensor shapes and conditions
+over them are simply <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">bool</span></code> values.)</p>
+<p>A <em>symbol</em> is like a variable; it describes a dynamic Tensor shape.</p>
+<p>As tracing proceeds, shapes of intermediate Tensors may be described by more
+general expressions, typically involving integer arithmetic operators. This
+is because <strong>for most PyTorch operators, shapes of output Tensors can be
+described as functions of shapes of input Tensors</strong>. For example, the shape of
+the output of <a class="reference internal" href="generated/torch.cat.html#torch.cat" title="torch.cat"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.cat()</span></code></a> is the sum of the shapes of its inputs.</p>
+<p>Moreover, as we encounter control flow in the program, we create boolean
+expressions, typically involving relational operators, describing conditions
+along the traced path. These <strong>expressions are evaluated to decide which path
+to trace through the program</strong>, and recorded in a
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_dynamic_shapes.html#overall-architecture">shape environment</a>
+to guard the correctness of the traced path and to evaluate subsequently
+created expressions.</p>
+<p>We briefly introduce these subsystems next.</p>
+<div class="section" id="fake-implementations-of-pytorch-operators">
+<h3>Fake Implementations of PyTorch Operators<a class="headerlink" href="#fake-implementations-of-pytorch-operators" title="Permalink to this heading">¶</a></h3>
+<p>Recall that during tracing, we are executing the program with
+<a class="reference external" href="https://pytorch.org/docs/main/torch.compiler_fake_tensor.html">fake Tensors</a>,
+which have no data. In general we cannot call the actual implementations of
+PyTorch operators with fake Tensors. Thus each operator needs to have an
+additional fake (a.k.a. “meta”) implementation, which inputs and outputs fake
+Tensors, that matches the behavior of the actual implementation in terms of
+shapes and other forms of metadata carried by fake Tensors.</p>
+<p>For example, note how the fake implementation of <a class="reference internal" href="generated/torch.index_select.html#torch.index_select" title="torch.index_select"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.index_select()</span></code></a>
+computes the shape of the output using the shape of the input (while ignoring
+input data and returning empty output data).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">meta_index_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="n">result_size</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">result_size</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="n">result_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="shape-propagation-backed-vs-unbacked-dynamic-shapes">
+<h4>Shape Propagation: Backed vs. Unbacked Dynamic Shapes<a class="headerlink" href="#shape-propagation-backed-vs-unbacked-dynamic-shapes" title="Permalink to this heading">¶</a></h4>
+<p>Shapes are propagated using fake implementations of PyTorch operators.</p>
+<p>A key concept to understand the propagation of dynamic shapes in particular
+is the difference between <em>backed</em> and <em>unbacked</em> dynamic shapes: we know the
+concrete values of the former but not the latter.</p>
+<p>Propagation of shapes, including tracking backed and unbacked dynamic shapes,
+proceeds as follows:</p>
+<ul class="simple">
+<li><p>The shapes of Tensors representing inputs can be static or dynamic. When
+dynamic, they are described by symbols; moreover, <strong>such symbols are backed
+since we also know their concrete values given the “real” example inputs
+provided by the user at export time</strong>.</p></li>
+<li><p>The output shape of an operator is computed by its fake implementation, and
+is either static or dynamic. When dynamic, in general it is described by a
+symbolic expression. Moreover:</p>
+<ul>
+<li><p>If the output shape depends only on input shapes, it is either static or
+backed dynamic whenever the input shapes are all static or backed dynamic.</p></li>
+<li><p>On the other hand, <strong>if the output shape depends on input data</strong>, it is
+necessarily dynamic, and moreover, <strong>because we cannot know its concrete
+value it is unbacked</strong>.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="control-flow-guards-and-assertions">
+<h3>Control Flow: Guards and Assertions<a class="headerlink" href="#control-flow-guards-and-assertions" title="Permalink to this heading">¶</a></h3>
+<p>When a condition on shapes is encountered, it either involves only static
+shapes, in which case it is a <code class="docutils literal notranslate"><span class="pre">bool</span></code>, or it involves dynamic shapes, in which
+case it is a symbolic boolean expression. For the latter:</p>
+<ul class="simple">
+<li><p>When the condition involves only backed dynamic shapes, we can use the
+concrete values of those dynamic shapes to evaluate the condition to <code class="docutils literal notranslate"><span class="pre">True</span></code>
+or <code class="docutils literal notranslate"><span class="pre">False</span></code>. We can then add a guard to the shape environment that states
+that the corresponding symbolic boolean expression is <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+and continue tracing.</p></li>
+<li><p>Otherwise the condition involves unbacked dynamic shapes. In general we
+cannot evaluate such a condition without additional information; thus we
+cannot continue tracing, and we must raise an error at export time. The
+user is expected to use an explicit PyTorch operator for tracing to
+continue. This information is added as a guard in the shape environment,
+and can also possibly help evaluate other subsequently encountered
+conditions to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+<p>Once the model is exported, <strong>any guards on backed dynamic shapes can be
+understood as conditions on input dynamic shapes</strong>. These are verified against
+a dynamic shape specification that must have been provided to export,
+describing conditions on dynamic shapes that not only example inputs but also
+all future inputs are expected to satisfy for the generated code to be
+correct. More precisely, the dynamic shape specification must logically imply
+the generated guards, otherwise an error is raised at export time (along with
+suggested fixes to the dynamic shape specification). On the other hand, when
+there are no generated guards on backed dynamic shapes (in particular, when
+all shapes are static) no dynamic shape specification needs to be provided to
+export. In general, the dynamic shape specification is converted to runtime
+assertions on the inputs of the generated code.</p>
+<p>Finally, <strong>any guards on unbacked dynamic shapes are converted to “inline”
+runtime assertions</strong>. These are added in the generated code at the locations
+where those unbacked dynamic shapes were created: typically, right after
+data-dependent operator calls.</p>
+</div>
+</div>
+<div class="section" id="allowed-pytorch-operators">
+<h2>Allowed PyTorch operators<a class="headerlink" href="#allowed-pytorch-operators" title="Permalink to this heading">¶</a></h2>
+<p>All PyTorch operators are permitted.</p>
+<div class="section" id="custom-operators">
+<h3>Custom operators<a class="headerlink" href="#custom-operators" title="Permalink to this heading">¶</a></h3>
+<p>In addition, you can define and use
+<a class="reference external" href="https://pytorch.org/tutorials/advanced/python_custom_ops#python-custom-ops-tutorial">custom operators</a>.
+Defining a custom operator includes defining a fake implementation for it,
+just like any other PyTorch operator (see previous section).</p>
+<p>Here’s an example of a custom <code class="docutils literal notranslate"><span class="pre">sin</span></code> operator that wraps NumPy, and its
+registered (trivial) fake implementation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">custom_op</span><span class="p">(</span><span class="s2">&quot;mylib::sin&quot;</span><span class="p">,</span> <span class="n">mutates_args</span><span class="o">=</span><span class="p">())</span>
+<span class="k">def</span> <span class="nf">sin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">x_np</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">y_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_np</span><span class="p">)</span>
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::sin&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Sometimes your custom operator’s fake implementation will involve
+data-dependent shapes</strong>. Here’s how a fake implementation for a custom
+<code class="docutils literal notranslate"><span class="pre">nonzero</span></code> might look like.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">register_fake</span><span class="p">(</span><span class="s2">&quot;mylib::custom_nonzero&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">nnz</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_ctx</span><span class="p">()</span><span class="o">.</span><span class="n">new_dynamic_size</span><span class="p">()</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">nnz</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()]</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">new_empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="module-state-reads-vs-updates">
+<h2>Module State: Reads vs. Updates<a class="headerlink" href="#module-state-reads-vs-updates" title="Permalink to this heading">¶</a></h2>
+<p>Module states include parameters, buffers, and regular attributes.</p>
+<ul class="simple">
+<li><p>A regular attribute can be of any type.</p></li>
+<li><p>On the other hand, parameters and buffers are always Tensors.</p></li>
+</ul>
+<p>Module states can be dynamic or static, based on their types as outlined
+above. For example, <code class="docutils literal notranslate"><span class="pre">self.training</span></code> is a <code class="docutils literal notranslate"><span class="pre">bool</span></code>, which means it is static; on
+the other hand, any parameter or buffer is dynamic.</p>
+<p>The <em>shapes</em> of any Tensors contained in module states cannot be dynamic, i.e.,
+those shapes are fixed at export time, and cannot change between executions
+of the exported program.</p>
+<div class="section" id="access-rules">
+<h3>Access rules<a class="headerlink" href="#access-rules" title="Permalink to this heading">¶</a></h3>
+<p><strong>All module states must be initialized</strong>. Accessing a module state that is
+not already initialized causes an error to be raised at export time.</p>
+<p><strong>Reading module states is always permitted</strong>.</p>
+<p>Updating module states is possible, but must follow the rules below:</p>
+<ul class="simple">
+<li><p><strong>A static regular attribute</strong> (e.g., of primitive type) <strong>can be updated</strong>.
+Reads and updates can be freely interleaved, and as expected, any reads
+will always see the values of the latest updates. Because these attributes
+are static, we will also burn the values in, so the generated code will not
+have any instructions to actually “get” or “set” such attributes.</p></li>
+<li><p><strong>A dynamic regular attribute</strong> (e.g., of Tensor type) <strong>cannot be updated</strong>.
+To do so, it must be registered as a buffer during module initialization.</p></li>
+<li><p><strong>A buffer can be updated</strong>, where the updating can be in-place (e.g.,
+<code class="docutils literal notranslate"><span class="pre">self.buffer[:]</span> <span class="pre">=</span> <span class="pre">...</span></code>) or not (e.g., <code class="docutils literal notranslate"><span class="pre">self.buffer</span> <span class="pre">=</span> <span class="pre">...</span></code>).</p></li>
+<li><p><strong>A parameter cannot be updated</strong>. Typically parameters are updated only
+during training, not during inference. We recommend exporting with
+<a class="reference internal" href="generated/torch.no_grad.html#torch.no_grad" title="torch.no_grad"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.no_grad()</span></code></a> to avoid parameter updates at export time.</p></li>
+</ul>
+</div>
+<div class="section" id="effects-of-functionalization">
+<h3>Effects of functionalization<a class="headerlink" href="#effects-of-functionalization" title="Permalink to this heading">¶</a></h3>
+<p>Any dynamic module state that is read and/or updated is “lifted”
+(respectively) as an input and/or output of the generated code.</p>
+<p>The exported program stores, along with the generated code, the initial
+values of parameters and buffers and the constant values of other Tensor
+attributes.</p>
+</div>
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="export.ir_spec.html" class="btn btn-neutral float-right" title="torch.export IR Specification" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="export.html" class="btn btn-neutral" title="torch.export" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+  
+
+    <hr>
+
+  
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright PyTorch Contributors.
+
+    </p>
+  </div>
+    
+      <div>
+        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+     
+
+</footer>
+
+          </div>
+<script>
+
+var match = window.location.href.match(/\/_[a-zA-Z0-9_]*.html|_dynamo/gi);
+var url = window.location.href.lastIndexOf(match[match.length-1]);
+
+if (url)
+  {
+    var div = '<div class="admonition note"><p class="admonition-title">Note</p><p><i class="fa fa-exclamation-circle" aria-hidden="true">&nbsp</i> This page describes an internal API which is not intended to be used outside of the PyTorch codebase and can be modified or removed without notice.</p></div>'
+    document.getElementById("pytorch-article").insertAdjacentHTML('afterBegin', div)
+  }
+</script>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torch.export Programming Model</a><ul>
+<li><a class="reference internal" href="#basics-of-tracing">Basics of Tracing</a><ul>
+<li><a class="reference internal" href="#strict-vs-non-strict-tracing">Strict vs. Non-Strict Tracing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#values-static-vs-dynamic">Values: Static vs. Dynamic</a><ul>
+<li><a class="reference internal" href="#static-values">Static Values</a></li>
+<li><a class="reference internal" href="#dynamic-values">Dynamic Values</a></li>
+<li><a class="reference internal" href="#which-values-are-static-vs-dynamic">Which values are static vs. dynamic?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#input-types">Input types</a><ul>
+<li><a class="reference internal" href="#custom-input-types">Custom Input Types</a></li>
+<li><a class="reference internal" href="#optional-input-types">Optional input types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#control-flow-static-vs-dynamic">Control Flow: Static vs. Dynamic</a><ul>
+<li><a class="reference internal" href="#static-control-flow">Static Control Flow</a></li>
+<li><a class="reference internal" href="#dynamic-control-flow-shape-dependent-vs-data-dependent">Dynamic Control Flow: Shape-Dependent vs. Data-Dependent</a><ul>
+<li><a class="reference internal" href="#dynamic-shape-dependent-control-flow">Dynamic Shape-Dependent Control Flow</a></li>
+<li><a class="reference internal" href="#dynamic-data-dependent-control-flow">Dynamic Data-Dependent Control Flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#basics-of-symbolic-shapes">Basics of Symbolic Shapes</a><ul>
+<li><a class="reference internal" href="#fake-implementations-of-pytorch-operators">Fake Implementations of PyTorch Operators</a><ul>
+<li><a class="reference internal" href="#shape-propagation-backed-vs-unbacked-dynamic-shapes">Shape Propagation: Backed vs. Unbacked Dynamic Shapes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#control-flow-guards-and-assertions">Control Flow: Guards and Assertions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#allowed-pytorch-operators">Allowed PyTorch operators</a><ul>
+<li><a class="reference internal" href="#custom-operators">Custom operators</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-state-reads-vs-updates">Module State: Reads vs. Updates</a><ul>
+<li><a class="reference internal" href="#access-rules">Access rules</a></li>
+<li><a class="reference internal" href="#effects-of-functionalization">Effects of functionalization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/sphinx_highlight.js"></script>
+         <script src="_static/clipboard.min.js"></script>
+         <script src="_static/copybutton.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['Developer Notes', 'Language Bindings', 'Libraries', 'Community'];
+</script>
+
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/795629140/?label=txkmCPmdtosBENSssfsC&amp;guid=ON&amp;script=0"/>
+
+
+  <!-- Begin Footer -->
+
+  <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h2>Docs</h2>
+          <p>Access comprehensive developer documentation for PyTorch</p>
+          <a class="with-right-arrow" href="https://pytorch.org/docs/stable/index.html">View Docs</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Tutorials</h2>
+          <p>Get in-depth tutorials for beginners and advanced developers</p>
+          <a class="with-right-arrow" href="https://pytorch.org/tutorials">View Tutorials</a>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <h2>Resources</h2>
+          <p>Find development resources and get your questions answered</p>
+          <a class="with-right-arrow" href="https://pytorch.org/resources">View Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="https://pytorch.org/" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/">PyTorch</a></li>
+            <li><a href="https://pytorch.org/get-started">Get Started</a></li>
+            <li><a href="https://pytorch.org/features">Features</a></li>
+            <li><a href="https://pytorch.org/ecosystem">Ecosystem</a></li>
+            <li><a href="https://pytorch.org/blog/">Blog</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/blob/master/CONTRIBUTING.md">Contributing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://pytorch.org/resources">Resources</a></li>
+            <li><a href="https://pytorch.org/tutorials">Tutorials</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">Docs</a></li>
+            <li><a href="https://discuss.pytorch.org" target="_blank">Discuss</a></li>
+            <li><a href="https://github.com/pytorch/pytorch/issues" target="_blank">Github Issues</a></li>
+            <li><a href="https://pytorch.org/assets/brand-guidelines/PyTorch-Brand-Guidelines.pdf" target="_blank">Brand Guidelines</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">Stay up to date</li>
+            <li><a href="https://www.facebook.com/pytorch" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/pytorch" target="_blank">Twitter</a></li>
+            <li><a href="https://www.youtube.com/pytorch" target="_blank">YouTube</a></li>
+            <li><a href="https://www.linkedin.com/company/pytorch" target="_blank">LinkedIn</a></li>
+          </ul>  
+          </div>
+
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title">PyTorch Podcasts</li>
+            <li><a href="https://open.spotify.com/show/6UzHKeiy368jKfQMKKvJY5" target="_blank">Spotify</a></li>
+            <li><a href="https://podcasts.apple.com/us/podcast/pytorch-developer-podcast/id1566080008" target="_blank">Apple</a></li>
+            <li><a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9PQjVGa0lsOA%3D%3D" target="_blank">Google</a></li>
+            <li><a href="https://music.amazon.com/podcasts/7a4e6f0e-26c2-49e9-a478-41bd244197d0/PyTorch-Developer-Podcast?" target="_blank">Amazon</a></li>
+          </ul>
+         </div>
+        </div>
+        
+        <div class="privacy-policy">
+          <ul>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/terms/" target="_blank">Terms</a></li>
+            <li class="privacy-policy-links">|</li>
+            <li class="privacy-policy-links"><a href="https://www.linuxfoundation.org/privacy-policy/" target="_blank">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+        <p>© Copyright The Linux Foundation. The PyTorch Foundation is a project of The Linux Foundation.
+          For web site terms of use, trademark policy and other policies applicable to The PyTorch Foundation please see
+          <a href="https://www.linuxfoundation.org/policies/">www.linuxfoundation.org/policies/</a>. The PyTorch Foundation supports the PyTorch open source
+          project, which has been established as PyTorch Project a Series of LF Projects, LLC. For policies applicable to the PyTorch Project a Series of LF Projects, LLC,
+          please see <a href="https://www.lfprojects.org/policies/">www.lfprojects.org/policies/</a>.</p>
+      </div>
+     </div>
+
+  </footer>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. As the current maintainers of this site, Facebook’s Cookies Policy applies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/">Cookies Policy</a>.</p>
+    <img class="close-button" src="_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="https://pytorch.org/" aria-label="PyTorch"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+           <li class="resources-mobile-menu-title">
+             <a>Learn</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/get-started">Get Started</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials">Tutorials</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/basics/intro.html">Learn the Basics</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/recipes/recipes_index.html">PyTorch Recipes</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/tutorials/beginner/introyt.html">Introduction to PyTorch - YouTube Series</a>
+             </li>
+           </ul>
+           <li class="resources-mobile-menu-title">
+             <a>Ecosystem</a>
+           </li>
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/ecosystem">Tools</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/#community-module">Community</a>
+             </li>
+             <li>
+               <a href="https://discuss.pytorch.org/">Forums</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/resources">Developer Resources</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/ecosystem/contributor-awards-2023">Contributor Awards - 2024</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Edge</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+             <li>
+               <a href="https://pytorch.org/edge">About PyTorch Edge</a>
+             </li>
+             
+             <li>
+               <a href="https://pytorch.org/executorch-overview">ExecuTorch</a>
+             </li>
+             <li>
+               <a href="https://pytorch.org/executorch/stable/index.html">ExecuTorch Documentation</a>
+             </li>
+           </ul>
+
+           <li class="resources-mobile-menu-title">
+             <a>Docs</a>
+           </li>
+
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/docs/stable/index.html">PyTorch</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/pytorch-domains">PyTorch Domains</a>
+            </li>
+          </ul>
+
+          <li class="resources-mobile-menu-title">
+            <a>Blog & News</a>
+          </li>
+            
+           <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/blog/">PyTorch Blog</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/community-blog">Community Blog</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/videos">Videos</a>
+            </li>
+
+            <li>
+              <a href="https://pytorch.org/community-stories">Community Stories</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/events">Events</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/newsletter">Newsletter</a>
+             </li>
+          </ul>
+          
+          <li class="resources-mobile-menu-title">
+            <a>About</a>
+          </li>
+
+          <ul class="resources-mobile-menu-items">
+            <li>
+              <a href="https://pytorch.org/foundation">PyTorch Foundation</a>
+            </li>
+            <li>
+              <a href="https://pytorch.org/governing-board">Governing Board</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/credits">Cloud Credit Program</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/tac">Technical Advisory Council</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/staff">Staff</a>
+            </li>
+            <li>
+               <a href="https://pytorch.org/contact-us">Contact Us</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

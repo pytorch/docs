@@ -1,0 +1,6 @@
+﻿torch.cuda.host\_memory\_stats
+==============================
+
+.. currentmodule:: torch.cuda
+
+.. autofunction:: host_memory_stats
