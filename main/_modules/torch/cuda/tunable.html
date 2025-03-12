@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+gita6e71db ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.7.0a0+git46f096b ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -1136,6 +1136,7 @@
             <span class="k">if</span> <span class="n">transA</span>
             <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fillB</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypeB</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
         <span class="p">)</span>
+
         <span class="k">assert</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;rw&quot;</span>
         <span class="k">if</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
             <span class="n">rowwise</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1148,7 +1149,23 @@
             <span class="n">scaleA</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
             <span class="n">scaleB</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
 
-        <span class="n">torch</span><span class="o">.</span><span class="n">_scaled_mm</span><span class="p">(</span><span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">,</span> <span class="n">scale_a</span><span class="o">=</span><span class="n">scaleA</span><span class="p">,</span> <span class="n">scale_b</span><span class="o">=</span><span class="n">scaleB</span><span class="p">,</span> <span class="n">out_dtype</span><span class="o">=</span><span class="n">dtypeC</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;bias&quot;</span>
+        <span class="k">if</span> <span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">:</span>  <span class="c1"># no bias vector</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">_scaled_mm</span><span class="p">(</span>
+                <span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">,</span> <span class="n">scale_a</span><span class="o">=</span><span class="n">scaleA</span><span class="p">,</span> <span class="n">scale_b</span><span class="o">=</span><span class="n">scaleB</span><span class="p">,</span> <span class="n">out_dtype</span><span class="o">=</span><span class="n">dtypeC</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># bias vector present</span>
+            <span class="n">fillbias</span> <span class="o">=</span> <span class="mf">0.10</span>
+            <span class="n">bias_dtype</span> <span class="o">=</span> <span class="n">dtype_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">untuned_gemm_temp</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+            <span class="n">bias</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n</span><span class="p">,),</span> <span class="n">fillbias</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">bias_dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">transA</span>
+                <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">m</span><span class="p">,),</span> <span class="n">fillbias</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">bias_dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">deviceid</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">_scaled_mm</span><span class="p">(</span>
+                <span class="n">matA</span><span class="p">,</span> <span class="n">matB</span><span class="p">,</span> <span class="n">scale_a</span><span class="o">=</span><span class="n">scaleA</span><span class="p">,</span> <span class="n">scale_b</span><span class="o">=</span><span class="n">scaleB</span><span class="p">,</span> <span class="n">out_dtype</span><span class="o">=</span><span class="n">dtypeC</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span>
+            <span class="p">)</span>
+
     <span class="k">elif</span> <span class="n">op_sig</span> <span class="o">==</span> <span class="s2">&quot;GemmAndBiasTunableOp&quot;</span><span class="p">:</span>
         <span class="c1"># y = x*A^T + b</span>
         <span class="k">assert</span> <span class="n">transA</span> <span class="o">!=</span> <span class="n">transB</span>
