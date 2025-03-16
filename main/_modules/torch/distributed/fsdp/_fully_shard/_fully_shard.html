@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git09f7f62 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git3e2c408 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -784,8 +784,9 @@
 <span class="sd">        offload_policy (OffloadPolicy): This controls the offloading policy,</span>
 <span class="sd">            which offers parameter/gradient/optimizer state offloading. See</span>
 <span class="sd">            :class:`OffloadPolicy` and its subclasses for details.</span>
-<span class="sd">        ignored_params: Optional(Set[nn.Parameter]): The set of parameters that we</span>
-<span class="sd">            don&#39;t want to shard with FSDP.</span>
+<span class="sd">        ignored_params: Optional(Set[nn.Parameter]): The set of parameters to be</span>
+<span class="sd">            ignored by FSDP. They will not be sharded, nor moved to the device</span>
+<span class="sd">            during init, nor have their gradients reduced in backward.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        FSDPModule: The module with FSDP applied (in-place).</span>
