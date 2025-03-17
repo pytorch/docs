@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git3e2c408 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitbfee141 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -619,6 +619,7 @@
 <span class="kn">import</span> <span class="nn">torch.distributed.tensor._dispatch</span> <span class="k">as</span> <span class="nn">op_dispatch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed.tensor._random</span> <span class="k">as</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch._export.wrappers</span> <span class="kn">import</span> <span class="n">mark_subclass_constructor_exportable_experimental</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.device_mesh</span> <span class="kn">import</span> <span class="n">_mesh_resources</span><span class="p">,</span> <span class="n">DeviceMesh</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.tensor._collective_utils</span> <span class="kn">import</span> <span class="n">check_tensor_meta</span><span class="p">,</span> <span class="n">mesh_broadcast</span>
 <span class="kn">from</span> <span class="nn">torch.distributed.tensor._dtensor_spec</span> <span class="kn">import</span> <span class="n">DTensorSpec</span><span class="p">,</span> <span class="n">TensorMeta</span>
@@ -889,6 +890,11 @@
         <span class="n">r</span><span class="o">.</span><span class="n">_spec</span> <span class="o">=</span> <span class="n">spec</span>
         <span class="n">r</span><span class="o">.</span><span class="n">_local_tensor</span> <span class="o">=</span> <span class="n">local_tensor</span>
         <span class="k">return</span> <span class="n">r</span>
+
+    <span class="nd">@torch</span><span class="o">.</span><span class="n">_disable_dynamo</span>
+    <span class="nd">@mark_subclass_constructor_exportable_experimental</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="c1"># pyre-fixme[14]: `__repr__` overrides method defined in `DTensor` inconsistently.</span>
     <span class="c1"># pyre-fixme[3]: Return type must be annotated.</span>
