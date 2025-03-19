@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitb52a8be ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git268de64 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -412,6 +412,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/mps.html">MPS backend</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
@@ -605,12 +606,24 @@
               
   <h1>Source code for torch.onnx.verification</h1><div class="highlight"><pre>
 <span></span><span class="c1"># mypy: allow-untyped-defs</span>
-<span class="sd">&quot;&quot;&quot;Functions to verify exported ONNX model is functionally equivalent to original PyTorch model.</span>
-
-<span class="sd">ONNX Runtime is required, and is used as the ONNX backend for export verification.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;The ONNX verification module provides a set of tools to verify the correctness of ONNX models.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;OnnxBackend&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;VerificationOptions&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;verify&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;check_export_model_diff&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;VerificationInfo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;verify_onnx_program&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GraphInfo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GraphInfoPrettyPrinter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OnnxTestCaseRepro&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;find_mismatch&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;verify_aten_graph&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">copy</span>
@@ -637,8 +650,19 @@
 <span class="kn">from</span> <span class="nn">torch.onnx</span> <span class="kn">import</span> <span class="n">_constants</span><span class="p">,</span> <span class="n">_experimental</span><span class="p">,</span> <span class="n">utils</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._globals</span> <span class="kn">import</span> <span class="n">GLOBALS</span>
 <span class="kn">from</span> <span class="nn">torch.onnx._internal</span> <span class="kn">import</span> <span class="n">onnx_proto_utils</span>
+<span class="kn">from</span> <span class="nn">torch.onnx._internal.exporter._verification</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">VerificationInfo</span><span class="p">,</span>
+    <span class="n">verify_onnx_program</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">torch.types</span> <span class="kn">import</span> <span class="n">Number</span>
 
+
+<span class="c1"># TODO: Update deprecation messages to recommend the new classes</span>
+
+<span class="n">VerificationInfo</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx.verification&quot;</span>
+<span class="n">verify_onnx_program</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="s2">&quot;torch.onnx.verification&quot;</span>
+
+<span class="c1"># Everything below are deprecated ##############################################</span>
 
 <span class="n">_ORT_PROVIDERS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;CPUExecutionProvider&quot;</span><span class="p">,)</span>
 
@@ -649,7 +673,7 @@
 <span class="n">_OutputsType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">_NumericType</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">OnnxBackend</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+<div class="viewcode-block" id="OnnxBackend"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.OnnxBackend">[docs]</a><span class="k">class</span> <span class="nc">OnnxBackend</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class for ONNX backend used for export verification.</span>
 
 <span class="sd">    .. deprecated:: 2.7</span>
@@ -659,10 +683,10 @@
 
     <span class="n">REFERENCE</span> <span class="o">=</span> <span class="s2">&quot;ONNXReferenceEvaluator&quot;</span>
     <span class="n">ONNX_RUNTIME_CPU</span> <span class="o">=</span> <span class="s2">&quot;CPUExecutionProvider&quot;</span>
-    <span class="n">ONNX_RUNTIME_CUDA</span> <span class="o">=</span> <span class="s2">&quot;CUDAExecutionProvider&quot;</span>
+    <span class="n">ONNX_RUNTIME_CUDA</span> <span class="o">=</span> <span class="s2">&quot;CUDAExecutionProvider&quot;</span></div>
 
 
-<div class="viewcode-block" id="VerificationOptions"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.VerificationOptions.html#torch.onnx.verification.VerificationOptions">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<div class="viewcode-block" id="VerificationOptions"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.VerificationOptions">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span> <span class="nc">VerificationOptions</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Options for ONNX export verification.</span>
 
@@ -1344,7 +1368,7 @@
     <span class="k">return</span> <span class="n">proto</span><span class="p">,</span> <span class="n">export_map</span>
 
 
-<span class="k">def</span> <span class="nf">check_export_model_diff</span><span class="p">(</span>
+<div class="viewcode-block" id="check_export_model_diff"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.check_export_model_diff">[docs]</a><span class="k">def</span> <span class="nf">check_export_model_diff</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptModule</span><span class="p">,</span>
     <span class="n">test_input_groups</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]],</span>
     <span class="n">export_options</span><span class="p">:</span> <span class="n">_experimental</span><span class="o">.</span><span class="n">ExportOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1384,10 +1408,10 @@
 
     <span class="k">return</span> <span class="n">_check_graph_diff</span><span class="p">(</span>
         <span class="n">model</span><span class="p">,</span> <span class="n">test_input_groups</span><span class="p">,</span> <span class="n">export_options</span><span class="p">,</span> <span class="n">_onnx_graph_from_model</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
-<span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+<div class="viewcode-block" id="verify"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.verify">[docs]</a><span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
     <span class="s2">&quot;torch.onnx.verification.* is deprecated. Consider using torch.onnx.export(..., dynamo=True) &quot;</span>
     <span class="s2">&quot;and use ONNXProgram to test the ONNX model&quot;</span><span class="p">,</span>
     <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1417,24 +1441,22 @@
 <span class="sd">        ``ONNXProgram`` to test the ONNX model.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        model (torch.nn.Module or torch.jit.ScriptModule): See :func:`torch.onnx.export`.</span>
-<span class="sd">        input_args (tuple): See :func:`torch.onnx.export`.</span>
-<span class="sd">        input_kwargs (dict): See :func:`torch.onnx.export`.</span>
-<span class="sd">        do_constant_folding (bool, optional): See :func:`torch.onnx.export`.</span>
-<span class="sd">        dynamic_axes (dict, optional): See :func:`torch.onnx.export`.</span>
-<span class="sd">        input_names (list, optional): See :func:`torch.onnx.export`.</span>
-<span class="sd">        output_names (list, optional): See :func:`torch.onnx.export`.</span>
-<span class="sd">        training (torch.onnx.TrainingMode): See :func:`torch.onnx.export`.</span>
-<span class="sd">        opset_version (int, optional): See :func:`torch.onnx.export`.</span>
-<span class="sd">        keep_initializers_as_inputs (bool, optional): See :func:`torch.onnx.export`.</span>
-<span class="sd">        verbose (bool, optional): See :func:`torch.onnx.export`.</span>
-<span class="sd">        fixed_batch_size (bool, optional): Legacy argument, used only by rnn test cases.</span>
-<span class="sd">        use_external_data (bool, optional): Explicitly specify whether to export the</span>
-<span class="sd">            model with external data.</span>
-<span class="sd">        additional_test_inputs (list, optional): List of tuples. Each tuple is a group of</span>
-<span class="sd">            input arguments to test. Currently only *args are supported.</span>
-<span class="sd">        options (_VerificationOptions, optional): A _VerificationOptions object that</span>
-<span class="sd">            controls the verification behavior.</span>
+<span class="sd">        model: See :func:`torch.onnx.export`.</span>
+<span class="sd">        input_args: See :func:`torch.onnx.export`.</span>
+<span class="sd">        input_kwargs: See :func:`torch.onnx.export`.</span>
+<span class="sd">        do_constant_folding: See :func:`torch.onnx.export`.</span>
+<span class="sd">        dynamic_axes: See :func:`torch.onnx.export`.</span>
+<span class="sd">        input_names: See :func:`torch.onnx.export`.</span>
+<span class="sd">        output_names: See :func:`torch.onnx.export`.</span>
+<span class="sd">        training: See :func:`torch.onnx.export`.</span>
+<span class="sd">        opset_version: See :func:`torch.onnx.export`.</span>
+<span class="sd">        keep_initializers_as_inputs: See :func:`torch.onnx.export`.</span>
+<span class="sd">        verbose: See :func:`torch.onnx.export`.</span>
+<span class="sd">        fixed_batch_size: Legacy argument, used only by rnn test cases.</span>
+<span class="sd">        use_external_data: Explicitly specify whether to export the model with external data.</span>
+<span class="sd">        additional_test_inputs: List of tuples. Each tuple is a group of</span>
+<span class="sd">            input arguments to test. Currently only ``*args`` are supported.</span>
+<span class="sd">        options: A VerificationOptions object that controls the verification behavior.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        AssertionError: if outputs from ONNX model and PyTorch model are not</span>
@@ -1480,10 +1502,10 @@
             <span class="n">input_kwargs</span><span class="o">=</span><span class="n">input_kwargs</span><span class="p">,</span>
             <span class="n">additional_test_inputs</span><span class="o">=</span><span class="n">additional_test_inputs</span><span class="p">,</span>
             <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 
 
-<span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+<div class="viewcode-block" id="verify_aten_graph"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.verify_aten_graph">[docs]</a><span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
     <span class="s2">&quot;torch.onnx.verification.* is deprecated. Consider using torch.onnx.export(..., dynamo=True) &quot;</span>
     <span class="s2">&quot;and use ONNXProgram to test the ONNX model&quot;</span>
 <span class="p">)</span>
@@ -1567,10 +1589,10 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unexpected error during verification.&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;jit graph: &quot;</span><span class="p">,</span> <span class="n">original_jit_graph</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;onnx graph: &quot;</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">raise</span> <span class="n">e</span></div>
 
 
-<span class="k">class</span> <span class="nc">GraphInfoPrettyPrinter</span><span class="p">:</span>
+<div class="viewcode-block" id="GraphInfoPrettyPrinter"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.GraphInfoPrettyPrinter">[docs]</a><span class="k">class</span> <span class="nc">GraphInfoPrettyPrinter</span><span class="p">:</span>
     <span class="n">graph_info</span><span class="p">:</span> <span class="n">GraphInfo</span> <span class="o">|</span> <span class="kc">None</span>
     <span class="n">upper_printer</span><span class="p">:</span> <span class="n">GraphInfoPrettyPrinter</span> <span class="o">|</span> <span class="kc">None</span>
     <span class="n">lower_printer</span><span class="p">:</span> <span class="n">GraphInfoPrettyPrinter</span> <span class="o">|</span> <span class="kc">None</span>
@@ -1713,10 +1735,10 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Mismatch node kinds: &quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">mismatch_node_kinds</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; No mismatch found. &quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; No mismatch found. &quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">))</span></div>
 
 
-<span class="k">class</span> <span class="nc">OnnxTestCaseRepro</span><span class="p">:</span>
+<div class="viewcode-block" id="OnnxTestCaseRepro"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.OnnxTestCaseRepro">[docs]</a><span class="k">class</span> <span class="nc">OnnxTestCaseRepro</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repro_dir</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">repro_dir</span> <span class="o">=</span> <span class="n">repro_dir</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="n">onnx_proto_utils</span><span class="o">.</span><span class="n">load_test_case</span><span class="p">(</span>
@@ -1780,10 +1802,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown onnx session type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">onnx_session</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">expected_outs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">output_names</span><span class="p">]</span>
-        <span class="n">_compare_onnx_pytorch_outputs_in_np</span><span class="p">(</span><span class="n">run_outputs</span><span class="p">,</span> <span class="n">expected_outs</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="n">_compare_onnx_pytorch_outputs_in_np</span><span class="p">(</span><span class="n">run_outputs</span><span class="p">,</span> <span class="n">expected_outs</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="GraphInfo"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo">[docs]</a><span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+<div class="viewcode-block" id="GraphInfo"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.GraphInfo">[docs]</a><span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
     <span class="s2">&quot;torch.onnx.verification.* is deprecated. Consider using torch.onnx.export(..., dynamo=True) &quot;</span>
     <span class="s2">&quot;and use ONNXProgram to test the ONNX model&quot;</span>
 <span class="p">)</span>
@@ -1813,15 +1835,15 @@
         <span class="p">{</span><span class="s2">&quot;prim::Constant&quot;</span><span class="p">,</span> <span class="s2">&quot;prim::ListConstruct&quot;</span><span class="p">,</span> <span class="s2">&quot;aten::ScalarImplicit&quot;</span><span class="p">}</span>
     <span class="p">)</span>
 
-<div class="viewcode-block" id="GraphInfo.clear"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear states and results of previous verification.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mismatch_error</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pt_outs</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_onnx_graph</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">upper_graph_info</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span> <span class="o">=</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="GraphInfo.pretty_print_tree"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.pretty_print_tree">[docs]</a>    <span class="k">def</span> <span class="nf">pretty_print_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pretty_print_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty print `GraphInfo` tree.</span>
 
 <span class="sd">        Each node represents a subgraph, showing the number of nodes in the subgraph and</span>
@@ -1853,9 +1875,9 @@
 <span class="sd">            {&#39;aten::relu&#39;: 2}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">GraphInfoPrettyPrinter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span></div>
+        <span class="n">GraphInfoPrettyPrinter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">pretty_print</span><span class="p">()</span>
 
-<div class="viewcode-block" id="GraphInfo.pretty_print_mismatch"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.pretty_print_mismatch">[docs]</a>    <span class="k">def</span> <span class="nf">pretty_print_mismatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pretty_print_mismatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty print details of the mismatch between torch and ONNX.</span>
 
 <span class="sd">        Args:</span>
@@ -1875,27 +1897,27 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Mismatch error &quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mismatch_error</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; No mismatch &quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">))</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; No mismatch &quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">))</span>
 
-<div class="viewcode-block" id="GraphInfo.has_mismatch"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.has_mismatch">[docs]</a>    <span class="k">def</span> <span class="nf">has_mismatch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">has_mismatch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if the subgraph has output mismatch between torch and ONNX.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mismatch_error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mismatch_error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="GraphInfo.essential_node_count"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.essential_node_count">[docs]</a>    <span class="k">def</span> <span class="nf">essential_node_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">essential_node_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of nodes in the subgraph excluding those in `_EXCLUDED_NODE_KINDS`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span>
             <span class="mi">1</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">kind</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EXCLUDED_NODE_KINDS</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="GraphInfo.essential_node_kinds"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.essential_node_kinds">[docs]</a>    <span class="k">def</span> <span class="nf">essential_node_kinds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">essential_node_kinds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the set of node kinds in the subgraph excluding those in `_EXCLUDED_NODE_KINDS`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">n</span><span class="o">.</span><span class="n">kind</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">kind</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EXCLUDED_NODE_KINDS</span>
-        <span class="p">}</span></div>
+        <span class="p">}</span>
 
-<div class="viewcode-block" id="GraphInfo.all_mismatch_leaf_graph_info"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.all_mismatch_leaf_graph_info">[docs]</a>    <span class="k">def</span> <span class="nf">all_mismatch_leaf_graph_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">GraphInfo</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">all_mismatch_leaf_graph_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">GraphInfo</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of all leaf `GraphInfo` objects that have mismatch.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_mismatch</span><span class="p">():</span>
             <span class="k">return</span> <span class="p">[]</span>
@@ -1915,9 +1937,9 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">results</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span><span class="o">.</span><span class="n">all_mismatch_leaf_graph_info</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">results</span></div>
+        <span class="k">return</span> <span class="n">results</span>
 
-<div class="viewcode-block" id="GraphInfo.find_partition"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.find_partition">[docs]</a>    <span class="k">def</span> <span class="nf">find_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GraphInfo</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">find_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GraphInfo</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the `GraphInfo` object with the given id.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
@@ -1927,9 +1949,9 @@
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_graph_info</span><span class="o">.</span><span class="n">find_partition</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">id</span><span class="p">[</span><span class="n">current_length</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span><span class="o">.</span><span class="n">find_partition</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="GraphInfo.export_repro"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.export_repro">[docs]</a>    <span class="k">def</span> <span class="nf">export_repro</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">export_repro</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">repro_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Export the subgraph to ONNX along with the input/output data for repro.</span>
@@ -1967,7 +1989,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">OnnxTestCaseRepro</span><span class="o">.</span><span class="n">create_test_case_repro</span><span class="p">(</span>
             <span class="n">proto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_outs</span><span class="p">,</span> <span class="n">repro_dir</span><span class="p">,</span> <span class="n">name</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_graph_partition_pivot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the pivot index to partition the graph.</span>
@@ -2188,7 +2210,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">args</span><span class="p">,</span> <span class="n">params</span>
 
-<div class="viewcode-block" id="GraphInfo.verify_export"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.verify_export">[docs]</a>    <span class="k">def</span> <span class="nf">verify_export</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">verify_export</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">VerificationOptions</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="ne">AssertionError</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">_OutputsType</span><span class="p">,</span> <span class="n">_OutputsType</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2215,9 +2237,9 @@
             <span class="n">params_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span><span class="p">,</span>
             <span class="n">export_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">export_options</span><span class="p">,</span>
             <span class="n">verification_options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="GraphInfo.find_mismatch"><a class="viewcode-back" href="../../../generated/torch.onnx.verification.GraphInfo.html#torch.onnx.verification.GraphInfo.find_mismatch">[docs]</a>    <span class="k">def</span> <span class="nf">find_mismatch</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">find_mismatch</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">options</span><span class="p">:</span> <span class="n">VerificationOptions</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -2293,7 +2315,7 @@
             <span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span><span class="o">.</span><span class="n">find_mismatch</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lower_graph_info</span><span class="o">.</span><span class="n">find_mismatch</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_all_nodes</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
@@ -2319,7 +2341,7 @@
     <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">node</span><span class="p">()</span> <span class="ow">in</span> <span class="n">nodes</span>
 
 
-<div class="viewcode-block" id="find_mismatch"><a class="viewcode-back" href="../../../onnx_torchscript.html#torch.onnx.verification.find_mismatch">[docs]</a><span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+<div class="viewcode-block" id="find_mismatch"><a class="viewcode-back" href="../../../onnx_verification.html#torch.onnx.verification.find_mismatch">[docs]</a><span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
     <span class="s2">&quot;torch.onnx.verification.* is deprecated. Consider using torch.onnx.export(..., dynamo=True) &quot;</span>
     <span class="s2">&quot;and use ONNXProgram to test the ONNX model&quot;</span>
 <span class="p">)</span>

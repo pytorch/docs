@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitb52a8be ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git268de64 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -412,6 +412,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/gradcheck.html">Gradcheck mechanics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/hip.html">HIP (ROCm) semantics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/large_scale_deployments.html">Features for large-scale deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/libtorch_stable_abi.html">LibTorch Stable ABI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/mps.html">MPS backend</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notes/multiprocessing.html">Multiprocessing best practices</a></li>
@@ -779,9 +780,6 @@
     <span class="k">if</span> <span class="n">ROCM_HOME</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;ROCM_HOME environment variable is not set. &#39;</span>
                       <span class="s1">&#39;Please set it to your ROCm install root.&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;Building PyTorch extensions using &#39;</span>
-                      <span class="s1">&#39;ROCm and Windows is not supported.&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROCM_HOME</span><span class="p">,</span> <span class="o">*</span><span class="n">paths</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_join_sycl_home</span><span class="p">(</span><span class="o">*</span><span class="n">paths</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -876,11 +874,13 @@
 <span class="p">]</span>
 
 <span class="n">COMMON_HIP_FLAGS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;-fPIC&#39;</span><span class="p">,</span>
     <span class="s1">&#39;-D__HIP_PLATFORM_AMD__=1&#39;</span><span class="p">,</span>
     <span class="s1">&#39;-DUSE_ROCM=1&#39;</span><span class="p">,</span>
     <span class="s1">&#39;-DHIPBLAS_V2&#39;</span><span class="p">,</span>
 <span class="p">]</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+    <span class="n">COMMON_HIP_FLAGS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-fPIC&#39;</span><span class="p">)</span>
 
 <span class="n">COMMON_HIPCC_FLAGS</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;-DCUDA_HAS_FP16=1&#39;</span><span class="p">,</span>
@@ -1117,6 +1117,18 @@
                 <span class="sa">f</span><span class="s1">&#39;Please make sure to use an adequate version of </span><span class="si">{</span><span class="n">compiler_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">version_bound_str</span><span class="si">}</span><span class="s1">).&#39;</span>
             <span class="p">)</span>
 
+<span class="c1"># Specify Visual Studio C runtime library for hipcc</span>
+<span class="k">def</span> <span class="nf">_set_hipcc_runtime_lib</span><span class="p">(</span><span class="n">is_standalone</span><span class="p">,</span> <span class="n">debug</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">is_standalone</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+            <span class="n">COMMON_HIP_FLAGS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-fms-runtime-lib=static_dbg&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">COMMON_HIP_FLAGS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-fms-runtime-lib=static&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+            <span class="n">COMMON_HIP_FLAGS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-fms-runtime-lib=dll_dbg&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">COMMON_HIP_FLAGS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-fms-runtime-lib=dll&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_append_sycl_std_if_no_std_present</span><span class="p">(</span><span class="n">cflags</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">flag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;-sycl-std=&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">cflags</span><span class="p">):</span>
@@ -1230,6 +1242,9 @@
                         <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_compile_flag</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="s1">&#39;-DTORCH_API_INCLUDE_EXTENSION_H&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_hipify_compile_flags</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">extension</span><span class="o">.</span><span class="n">py_limited_api</span><span class="p">:</span>
                 <span class="c1"># compile any extension that has passed in py_limited_api to the</span>
@@ -1438,6 +1453,9 @@
             <span class="k">return</span> <span class="p">(</span><span class="n">COMMON_NVCC_FLAGS</span> <span class="o">+</span>
                     <span class="n">cflags</span> <span class="o">+</span> <span class="n">_get_cuda_arch_flags</span><span class="p">(</span><span class="n">cflags</span><span class="p">))</span>
 
+        <span class="k">def</span> <span class="nf">win_hip_flags</span><span class="p">(</span><span class="n">cflags</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">COMMON_HIPCC_FLAGS</span> <span class="o">+</span> <span class="n">COMMON_HIP_FLAGS</span> <span class="o">+</span> <span class="n">cflags</span> <span class="o">+</span> <span class="n">_get_rocm_arch_flags</span><span class="p">(</span><span class="n">cflags</span><span class="p">))</span>
+
         <span class="k">def</span> <span class="nf">win_wrap_single_compile</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span>
                                     <span class="n">output_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                     <span class="n">macros</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1474,7 +1492,10 @@
                     <span class="n">src</span> <span class="o">=</span> <span class="n">src_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">obj</span> <span class="o">=</span> <span class="n">obj_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="k">if</span> <span class="n">_is_cuda_file</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
-                        <span class="n">nvcc</span> <span class="o">=</span> <span class="n">_join_cuda_home</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;nvcc&#39;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                            <span class="n">nvcc</span> <span class="o">=</span> <span class="n">_get_hipcc_path</span><span class="p">()</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">nvcc</span> <span class="o">=</span> <span class="n">_join_cuda_home</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;nvcc&#39;</span><span class="p">)</span>
                         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cflags</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                             <span class="n">cflags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cflags</span><span class="p">[</span><span class="s1">&#39;nvcc&#39;</span><span class="p">]</span>
                         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cflags</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -1482,11 +1503,14 @@
                         <span class="k">else</span><span class="p">:</span>
                             <span class="n">cflags</span> <span class="o">=</span> <span class="p">[]</span>
 
-                        <span class="n">cflags</span> <span class="o">=</span> <span class="n">win_cuda_flags</span><span class="p">(</span><span class="n">cflags</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;-std=c++17&#39;</span><span class="p">,</span> <span class="s1">&#39;--use-local-env&#39;</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                            <span class="n">cflags</span> <span class="o">=</span> <span class="n">win_hip_flags</span><span class="p">(</span><span class="n">cflags</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">cflags</span> <span class="o">=</span> <span class="n">win_cuda_flags</span><span class="p">(</span><span class="n">cflags</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;-std=c++17&#39;</span><span class="p">,</span> <span class="s1">&#39;--use-local-env&#39;</span><span class="p">]</span>
+                            <span class="k">for</span> <span class="n">ignore_warning</span> <span class="ow">in</span> <span class="n">MSVC_IGNORE_CUDAFE_WARNINGS</span><span class="p">:</span>
+                                <span class="n">cflags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-Xcudafe&#39;</span><span class="p">,</span> <span class="s1">&#39;--diag_suppress=&#39;</span> <span class="o">+</span> <span class="n">ignore_warning</span><span class="p">]</span> <span class="o">+</span> <span class="n">cflags</span>
                         <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">COMMON_MSVC_FLAGS</span><span class="p">:</span>
                             <span class="n">cflags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-Xcompiler&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="p">]</span> <span class="o">+</span> <span class="n">cflags</span>
-                        <span class="k">for</span> <span class="n">ignore_warning</span> <span class="ow">in</span> <span class="n">MSVC_IGNORE_CUDAFE_WARNINGS</span><span class="p">:</span>
-                            <span class="n">cflags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-Xcudafe&#39;</span><span class="p">,</span> <span class="s1">&#39;--diag_suppress=&#39;</span> <span class="o">+</span> <span class="n">ignore_warning</span><span class="p">]</span> <span class="o">+</span> <span class="n">cflags</span>
                         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">nvcc</span><span class="p">,</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">obj</span><span class="p">]</span> <span class="o">+</span> <span class="n">include_list</span> <span class="o">+</span> <span class="n">cflags</span>
                     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cflags</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                         <span class="n">cflags</span> <span class="o">=</span> <span class="n">COMMON_MSVC_FLAGS</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cflags</span><span class="p">[</span><span class="s1">&#39;cxx&#39;</span><span class="p">]</span>
@@ -1514,8 +1538,8 @@
                                    <span class="n">debug</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                                    <span class="n">extra_preargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                    <span class="n">extra_postargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                   <span class="n">depends</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-
+                                   <span class="n">depends</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">is_standalone</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
             <span class="n">output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
@@ -1532,14 +1556,21 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">_setup_compile</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">macros</span><span class="p">,</span>
                                              <span class="n">include_dirs</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span>
                                              <span class="n">depends</span><span class="p">,</span> <span class="n">extra_postargs</span><span class="p">)</span>
+            <span class="c1"># Replace space with \ when using hipcc (hipcc passes includes to clang without &quot;&quot;s so clang sees space in include paths as new argument)</span>
+            <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                <span class="n">pp_opts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-I</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">))</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;-I&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pp_opts</span><span class="p">]</span>
             <span class="n">common_cflags</span> <span class="o">=</span> <span class="n">extra_preargs</span> <span class="ow">or</span> <span class="p">[]</span>
             <span class="n">cflags</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
                 <span class="n">cflags</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">compile_options_debug</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">cflags</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">compile_options</span><span class="p">)</span>
-            <span class="n">common_cflags</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">COMMON_MSVC_FLAGS</span><span class="p">)</span>
-            <span class="n">cflags</span> <span class="o">=</span> <span class="n">cflags</span> <span class="o">+</span> <span class="n">common_cflags</span> <span class="o">+</span> <span class="n">pp_opts</span>
+            <span class="n">cflags</span> <span class="o">=</span> <span class="n">cflags</span> <span class="o">+</span> <span class="n">common_cflags</span> <span class="o">+</span> <span class="n">pp_opts</span> <span class="o">+</span> <span class="n">COMMON_MSVC_FLAGS</span>
+            <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                <span class="n">_set_hipcc_runtime_lib</span><span class="p">(</span><span class="n">is_standalone</span><span class="p">,</span> <span class="n">debug</span><span class="p">)</span>
+                <span class="n">common_cflags</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">COMMON_HIP_FLAGS</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">common_cflags</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">COMMON_MSVC_FLAGS</span><span class="p">)</span>
             <span class="n">with_cuda</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_is_cuda_file</span><span class="p">,</span> <span class="n">sources</span><span class="p">))</span>
 
             <span class="c1"># extra_postargs can be either:</span>
@@ -1549,25 +1580,31 @@
                 <span class="n">post_cflags</span> <span class="o">=</span> <span class="n">extra_postargs</span><span class="p">[</span><span class="s1">&#39;cxx&#39;</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">post_cflags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">extra_postargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                <span class="n">post_cflags</span> <span class="o">=</span> <span class="n">COMMON_HIP_FLAGS</span> <span class="o">+</span> <span class="n">post_cflags</span>
             <span class="n">append_std17_if_no_std_present</span><span class="p">(</span><span class="n">post_cflags</span><span class="p">)</span>
 
             <span class="n">cuda_post_cflags</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">cuda_cflags</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="n">with_cuda</span><span class="p">:</span>
-                <span class="n">cuda_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-std=c++17&#39;</span><span class="p">,</span> <span class="s1">&#39;--use-local-env&#39;</span><span class="p">]</span>
+                <span class="n">cuda_cflags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-std=c++17&#39;</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">common_cflag</span> <span class="ow">in</span> <span class="n">common_cflags</span><span class="p">:</span>
                     <span class="n">cuda_cflags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-Xcompiler&#39;</span><span class="p">)</span>
                     <span class="n">cuda_cflags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">common_cflag</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">ignore_warning</span> <span class="ow">in</span> <span class="n">MSVC_IGNORE_CUDAFE_WARNINGS</span><span class="p">:</span>
-                    <span class="n">cuda_cflags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-Xcudafe&#39;</span><span class="p">)</span>
-                    <span class="n">cuda_cflags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--diag_suppress=&#39;</span> <span class="o">+</span> <span class="n">ignore_warning</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                    <span class="n">cuda_cflags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--use-local-env&#39;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">ignore_warning</span> <span class="ow">in</span> <span class="n">MSVC_IGNORE_CUDAFE_WARNINGS</span><span class="p">:</span>
+                        <span class="n">cuda_cflags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-Xcudafe&#39;</span><span class="p">)</span>
+                        <span class="n">cuda_cflags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--diag_suppress=&#39;</span> <span class="o">+</span> <span class="n">ignore_warning</span><span class="p">)</span>
                 <span class="n">cuda_cflags</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">pp_opts</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">extra_postargs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                     <span class="n">cuda_post_cflags</span> <span class="o">=</span> <span class="n">extra_postargs</span><span class="p">[</span><span class="s1">&#39;nvcc&#39;</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">cuda_post_cflags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">extra_postargs</span><span class="p">)</span>
-                <span class="n">cuda_post_cflags</span> <span class="o">=</span> <span class="n">win_cuda_flags</span><span class="p">(</span><span class="n">cuda_post_cflags</span><span class="p">)</span>
-
+                <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+                    <span class="n">cuda_post_cflags</span> <span class="o">=</span> <span class="n">win_hip_flags</span><span class="p">(</span><span class="n">cuda_post_cflags</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cuda_post_cflags</span> <span class="o">=</span> <span class="n">win_cuda_flags</span><span class="p">(</span><span class="n">cuda_post_cflags</span><span class="p">)</span>
             <span class="n">cflags</span> <span class="o">=</span> <span class="n">_nt_quote_args</span><span class="p">(</span><span class="n">cflags</span><span class="p">)</span>
             <span class="n">post_cflags</span> <span class="o">=</span> <span class="n">_nt_quote_args</span><span class="p">(</span><span class="n">post_cflags</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">with_cuda</span><span class="p">:</span>
@@ -1596,7 +1633,6 @@
 
             <span class="c1"># Return *all* object filenames, not just the ones we just built.</span>
             <span class="k">return</span> <span class="n">objects</span>
-
         <span class="c1"># Monkey-patch the _compile or compile method.</span>
         <span class="c1"># https://github.com/python/cpython/blob/dc0284ee8f7a270b6005467f26d8e5773d76e959/Lib/distutils/ccompiler.py#L511</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">compiler_type</span> <span class="o">==</span> <span class="s1">&#39;msvc&#39;</span><span class="p">:</span>
@@ -1650,6 +1686,29 @@
                 <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+
+    <span class="c1"># Simple hipify, replace the first occurrence of CUDA with HIP</span>
+    <span class="c1"># in flags starting with &quot;-&quot; and containing &quot;CUDA&quot;, but exclude -I flags</span>
+    <span class="k">def</span> <span class="nf">_hipify_compile_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extension</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;nvcc&#39;</span> <span class="ow">in</span> <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">:</span>
+            <span class="n">modified_flags</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">[</span><span class="s1">&#39;nvcc&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">flag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;CUDA&quot;</span> <span class="ow">in</span> <span class="n">flag</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">flag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-I&quot;</span><span class="p">):</span>
+                    <span class="c1"># check/split flag into flag and value</span>
+                    <span class="n">parts</span> <span class="o">=</span> <span class="n">flag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">flag_part</span><span class="p">,</span> <span class="n">value_part</span> <span class="o">=</span> <span class="n">parts</span>
+                        <span class="c1"># replace fist instance of &quot;CUDA&quot; with &quot;HIP&quot; only in the flag and not flag value</span>
+                        <span class="n">modified_flag_part</span> <span class="o">=</span> <span class="n">flag_part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;CUDA&quot;</span><span class="p">,</span> <span class="s2">&quot;HIP&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="n">modified_flag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">modified_flag_part</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">value_part</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># replace fist instance of &quot;CUDA&quot; with &quot;HIP&quot; in flag</span>
+                        <span class="n">modified_flag</span> <span class="o">=</span> <span class="n">flag</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;CUDA&quot;</span><span class="p">,</span> <span class="s2">&quot;HIP&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">modified_flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">modified_flag</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Modified flag: </span><span class="si">{</span><span class="n">flag</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">modified_flag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">modified_flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+            <span class="n">extension</span><span class="o">.</span><span class="n">extra_compile_args</span><span class="p">[</span><span class="s1">&#39;nvcc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modified_flags</span>
 
     <span class="k">def</span> <span class="nf">_define_torch_extension_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extension</span><span class="p">):</span>
         <span class="c1"># pybind11 doesn&#39;t support dots in the names</span>
@@ -2682,6 +2741,11 @@
 
     <span class="k">return</span> <span class="n">_import_module_from_library</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">build_directory</span><span class="p">,</span> <span class="n">is_python_module</span><span class="p">)</span>
 
+<span class="k">def</span> <span class="nf">_get_hipcc_path</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_join_rocm_home</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;hipcc.bat&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_join_rocm_home</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;hipcc&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_write_ninja_file_and_compile_objects</span><span class="p">(</span>
         <span class="n">sources</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -3085,6 +3149,7 @@
         <span class="n">stdout_fileno</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
             <span class="n">command</span><span class="p">,</span>
+            <span class="n">shell</span><span class="o">=</span><span class="n">IS_WINDOWS</span> <span class="ow">and</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">,</span>
             <span class="n">stdout</span><span class="o">=</span><span class="n">stdout_fileno</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
             <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span>
             <span class="n">cwd</span><span class="o">=</span><span class="n">build_directory</span><span class="p">,</span>
@@ -3179,7 +3244,8 @@
     <span class="n">common_cflags</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">_get_glibcxx_abi_build_flags</span><span class="p">()]</span>
 
     <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
-        <span class="n">cflags</span> <span class="o">=</span> <span class="n">common_cflags</span> <span class="o">+</span> <span class="n">COMMON_MSVC_FLAGS</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;/std:c++17&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">extra_cflags</span>
+        <span class="n">cflags</span> <span class="o">=</span> <span class="n">common_cflags</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;/std:c++17&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">extra_cflags</span>
+        <span class="n">cflags</span> <span class="o">+=</span> <span class="n">COMMON_HIP_FLAGS</span> <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span> <span class="k">else</span> <span class="n">COMMON_MSVC_FLAGS</span>
         <span class="n">cflags</span> <span class="o">=</span> <span class="n">_nt_quote_args</span><span class="p">(</span><span class="n">cflags</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">cflags</span> <span class="o">=</span> <span class="n">common_cflags</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;-fPIC&#39;</span><span class="p">,</span> <span class="s1">&#39;-std=c++17&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">extra_cflags</span>
@@ -3330,7 +3396,7 @@
             <span class="n">nvcc</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PYTORCH_NVCC&quot;</span><span class="p">)</span>    <span class="c1"># user can set nvcc compiler with ccache using the environment variable here</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
-                <span class="n">nvcc</span> <span class="o">=</span> <span class="n">_join_rocm_home</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;hipcc&#39;</span><span class="p">)</span>
+                <span class="n">nvcc</span> <span class="o">=</span> <span class="n">_get_hipcc_path</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">nvcc</span> <span class="o">=</span> <span class="n">_join_cuda_home</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;nvcc&#39;</span><span class="p">)</span>
         <span class="n">config</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;nvcc = </span><span class="si">{</span><span class="n">nvcc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -3359,9 +3425,11 @@
     <span class="c1"># See https://ninja-build.org/build.ninja.html for reference.</span>
     <span class="n">compile_rule</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rule compile&#39;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">IS_WINDOWS</span><span class="p">:</span>
+        <span class="n">compiler_name</span> <span class="o">=</span> <span class="s2">&quot;$cxx&quot;</span> <span class="k">if</span> <span class="n">IS_HIP_EXTENSION</span> <span class="k">else</span> <span class="s2">&quot;cl&quot;</span>
         <span class="n">compile_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s1">&#39;  command = cl /showIncludes $cflags -c $in /Fo$out $post_cflags&#39;</span><span class="p">)</span>
-        <span class="n">compile_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;  deps = msvc&#39;</span><span class="p">)</span>
+            <span class="sa">f</span><span class="s1">&#39;  command = </span><span class="si">{</span><span class="n">compiler_name</span><span class="si">}</span><span class="s1"> /showIncludes $cflags -c $in /Fo$out $post_cflags&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">IS_HIP_EXTENSION</span><span class="p">:</span>
+            <span class="n">compile_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;  deps = msvc&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">compile_rule</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="s1">&#39;  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags&#39;</span><span class="p">)</span>
