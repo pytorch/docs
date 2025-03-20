@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git268de64 ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git29c4f2c ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -3203,6 +3203,57 @@
         <span class="n">cm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">work</span><span class="p">)</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">work</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>  <span class="c1"># type: ignore[possibly-undefined]</span>
+
+
+<span class="k">class</span> <span class="nc">_TimeEstimator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">estimated_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">_time_estimator</span><span class="p">(</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessGroup</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Context manager used to estimate time of collectives.</span>
+<span class="sd">    Within the context manager, nothing is actually run and the backend just simulates</span>
+<span class="sd">    the collective time only.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        group (`ProcessGroup`, optional): The process group to work on. If None,</span>
+<span class="sd">            the default process group will be used.</span>
+<span class="sd">        device (`torch.device`, optional): Default is None, set to a device if</span>
+<span class="sd">            there isn&#39;t a `**_coalesced` implementation by the backend.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # xdoctest: +SKIP(&quot;no rank&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; # Synchronous ops</span>
+<span class="sd">        &gt;&gt;&gt; with _time_estimator() as cm:</span>
+<span class="sd">        &gt;&gt;&gt;     for i in range(num_colls):</span>
+<span class="sd">        &gt;&gt;&gt;         dist.all_reduce(tensors[i])</span>
+<span class="sd">        &gt;&gt;&gt; # estimate time is stored in cm.estimated_time</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">       :func:`_time_estimator` currently only support NCCL backend but it can</span>
+<span class="sd">       easily be extended to other backends.</span>
+
+<span class="sd">       Also a NCCL communicator needs to be created because only with a real communicator can we do accurate estimation.</span>
+<span class="sd">       The communicator internally has knowledge about the links it runs on</span>
+<span class="sd">       (e.g. intra-node or inter-node, whether the links are NVLink or PCI-e or IB).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: We need to also support torch inductor for the time estimator.</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">group</span> <span class="ow">or</span> <span class="n">_get_default_group</span><span class="p">()</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">device</span> <span class="ow">or</span> <span class="n">_get_pg_default_device</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">backend</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">_get_backend</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">backend</span><span class="o">.</span><span class="n">supports_time_estimate</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;collective time estimator is not supported in the curent version of backend </span><span class="si">{</span><span class="n">backend</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="n">backend</span><span class="o">.</span><span class="n">_start_time_estimate</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">_TimeEstimator</span><span class="p">()</span>
+    <span class="k">yield</span> <span class="n">cm</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">estimated_time</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">_end_time_estimate</span><span class="p">()</span>  <span class="c1"># type: ignore[attr-defined]</span>
 
 
 <div class="viewcode-block" id="batch_isend_irecv"><a class="viewcode-back" href="../../../distributed.html#torch.distributed.batch_isend_irecv">[docs]</a><span class="k">def</span> <span class="nf">batch_isend_irecv</span><span class="p">(</span><span class="n">p2p_op_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">P2POp</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Work</span><span class="p">]:</span>
