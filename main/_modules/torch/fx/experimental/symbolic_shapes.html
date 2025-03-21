@@ -299,7 +299,7 @@
           <div class="pytorch-left-menu-search">
             
     <div class="version">
-      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+git29c4f2c ) &#x25BC</a>
+      <a href='https://pytorch.org/docs/versions.html'>main (2.8.0a0+gitf47aa08 ) &#x25BC</a>
     </div>
     <div id="searchBox">
     <div class="searchbox" id="googleSearchBox">
@@ -3700,7 +3700,8 @@
     <span class="n">specialize_zero_one</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">duck_shape</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">prefer_deferred_runtime_asserts_over_guards</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">allow_complex_guards_as_runtime_asserts</span><span class="p">:</span> <span class="nb">bool</span></div>
+    <span class="n">allow_complex_guards_as_runtime_asserts</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">trace_asserts</span><span class="p">:</span> <span class="nb">bool</span></div>
 
 
 <span class="nd">@dataclass</span>
@@ -3843,6 +3844,7 @@
         <span class="n">allow_complex_guards_as_runtime_asserts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="c1"># XXX Add any new settings that could affect FakeTensor evaluation</span>
         <span class="c1"># to: torch._subclasses.fake_tensor._ShapeEnvSettings</span>
+        <span class="n">trace_asserts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">duck_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">duck_shape</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">use_duck_shape</span>
@@ -3857,6 +3859,7 @@
             <span class="n">duck_shape</span><span class="o">=</span><span class="n">duck_shape</span><span class="p">,</span>
             <span class="n">prefer_deferred_runtime_asserts_over_guards</span><span class="o">=</span><span class="n">prefer_deferred_runtime_asserts_over_guards</span><span class="p">,</span>
             <span class="n">allow_complex_guards_as_runtime_asserts</span><span class="o">=</span><span class="n">allow_complex_guards_as_runtime_asserts</span><span class="p">,</span>
+            <span class="n">trace_asserts</span><span class="o">=</span><span class="n">trace_asserts</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">guards</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ShapeGuard</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -4010,6 +4013,8 @@
         <span class="c1"># could track this at the IR level using a higher order operator</span>
         <span class="c1"># with something like effect token tracking.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unbacked_alloc_order</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">sympy</span><span class="o">.</span><span class="n">Symbol</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">trace_asserts</span> <span class="o">=</span> <span class="n">trace_asserts</span>
 
         <span class="kn">from</span> <span class="nn">torch.fx.experimental.validator</span> <span class="kn">import</span> <span class="n">translation_validation_enabled</span>
 
@@ -7072,22 +7077,27 @@
                 <span class="n">stack_info</span><span class="o">=</span><span class="kc">True</span> <span class="k">if</span> <span class="n">log</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_get_user_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">types</span><span class="o">.</span><span class="n">FrameType</span><span class="p">:</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">uninteresting_files</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">frame</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_back</span>
+        <span class="k">assert</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">frame</span>
+
     <span class="k">def</span> <span class="nf">_get_stack_summary</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">is_debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">framework_loc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">SLoc</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="n">floc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span><span class="p">]]</span> <span class="o">=</span> <span class="n">framework_loc</span>
         <span class="k">if</span> <span class="n">floc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_user_frame</span><span class="p">()</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">while</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">uninteresting_files</span><span class="p">():</span>
-                        <span class="n">floc</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span><span class="p">(</span>
-                            <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">,</span>
-                            <span class="n">frame</span><span class="o">.</span><span class="n">f_lineno</span><span class="p">,</span>
-                            <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">,</span>
-                        <span class="p">)</span>
-                        <span class="k">break</span>
-                    <span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_back</span>
+                <span class="n">floc</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">FrameSummary</span><span class="p">(</span>
+                    <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">,</span>
+                    <span class="n">frame</span><span class="o">.</span><span class="n">f_lineno</span><span class="p">,</span>
+                    <span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="k">del</span> <span class="n">frame</span>
 
@@ -7198,9 +7208,10 @@
             <span class="s2">&quot;guard_added&quot;</span><span class="p">,</span>
             <span class="n">metadata_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;expr&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="p">),</span>
-                <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">from_traceback</span><span class="p">(</span>
-                    <span class="n">CapturedTraceback</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-                <span class="p">),</span>
+                <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="n">prefix</span><span class="p">,</span>
+                <span class="s2">&quot;expr_node_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expr_sym_node_id</span><span class="p">,</span>
+                <span class="s2">&quot;user_stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">get_user_stack</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+                <span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="n">structured</span><span class="o">.</span><span class="n">get_framework_stack</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
                 <span class="s2">&quot;symbol_to_sources&quot;</span><span class="p">:</span> <span class="p">{</span>
                     <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">):</span> <span class="n">k</span>
                     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_to_var</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -7494,6 +7505,52 @@
                         <span class="n">transmute_into_runtime_assert</span> <span class="o">=</span> <span class="kc">True</span>
                         <span class="n">concrete_val</span> <span class="o">=</span> <span class="n">unsound_result</span>
                         <span class="n">ok</span> <span class="o">=</span> <span class="kc">True</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_asserts</span><span class="p">:</span>
+                        <span class="c1"># Check if this boolean is used in an assertion, bytecode pattern for</span>
+                        <span class="c1"># assertions is pretty stable for Python 3.7--3.13, ported with minimal</span>
+                        <span class="c1"># changes from torch/fx/proxy.py</span>
+                        <span class="c1"># Bytecode pattern for `assert` statements:</span>
+                        <span class="c1">#     TO_BOOL / COMPARE_OP  # Only for Python &gt;= 3.13</span>
+                        <span class="c1">#     POP_JUMP_IF_TRUE</span>
+                        <span class="c1">#     LOAD_ASSERTION_ERROR</span>
+                        <span class="c1">#     RAISE_VARARGS</span>
+                        <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_user_frame</span><span class="p">()</span>
+                        <span class="k">assert</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+                        <span class="n">insts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dis</span><span class="o">.</span><span class="n">get_instructions</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">f_code</span><span class="p">))</span>
+                        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+                            <span class="c1"># For Python &gt;= 3.11, instructions can be 2-4 bytes long.</span>
+                            <span class="kn">from</span> <span class="nn">bisect</span> <span class="kn">import</span> <span class="n">bisect_left</span>
+
+                            <span class="n">cur</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span>
+                                <span class="n">insts</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_lasti</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">offset</span>
+                            <span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># For Pyhton &lt;= 3.10, instructions are always 2 bytes.</span>
+                            <span class="n">cur</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_lasti</span> <span class="o">//</span> <span class="mi">2</span>
+
+                        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">insts</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span><span class="o">.</span><span class="n">opname</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;TO_BOOL&quot;</span><span class="p">,</span> <span class="s2">&quot;COMPARE_OP&quot;</span><span class="p">):</span>
+                                <span class="c1"># Peek 1 instruction further.</span>
+                                <span class="n">cur</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">inst</span> <span class="o">=</span> <span class="n">insts</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span>
+
+                        <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;POP_JUMP_IF_TRUE&quot;</span> <span class="ow">and</span> <span class="n">inst</span><span class="o">.</span><span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">first</span> <span class="o">=</span> <span class="n">insts</span><span class="p">[</span><span class="n">cur</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+                            <span class="n">starts_with_assert</span> <span class="o">=</span> <span class="p">(</span>
+                                <span class="n">first</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;LOAD_GLOBAL&quot;</span>
+                                <span class="ow">and</span> <span class="n">first</span><span class="o">.</span><span class="n">argval</span> <span class="o">==</span> <span class="s2">&quot;AssertionError&quot;</span>
+                                <span class="ow">or</span> <span class="n">first</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;LOAD_ASSERTION_ERROR&quot;</span>
+                            <span class="p">)</span>
+                            <span class="k">if</span> <span class="p">(</span>
+                                <span class="n">starts_with_assert</span>
+                                <span class="ow">and</span> <span class="n">insts</span><span class="p">[</span><span class="n">cur</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">opname</span> <span class="o">==</span> <span class="s2">&quot;RAISE_VARARGS&quot;</span>
+                            <span class="p">):</span>
+                                <span class="n">concrete_val</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">true</span>
+                                <span class="n">transmute_into_runtime_assert</span> <span class="o">=</span> <span class="kc">True</span>
+                                <span class="n">ok</span> <span class="o">=</span> <span class="kc">True</span>
 
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_data_dependent_error</span><span class="p">(</span>
